@@ -242,8 +242,7 @@ public class DroolsOWLAxiom2AConverter extends TargetRuleEngineConverterBase imp
 
 		createNonRuleOWLAxiom(new CDA(classID));
 
-		getOWLClassExpressionResolver().record(getOWLNamedObjectResolver().iri2PrefixedName(axiom.getEntity().getIRI()),
-				axiom.getEntity());
+		getOWLClassExpressionResolver().recordOWLClassExpression(classID, axiom.getEntity().asOWLClass());
 	}
 
 	@Override

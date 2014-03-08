@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
@@ -20,6 +21,12 @@ public class DroolsOWLNamedObject2DRLConverter implements TargetRuleEngineOWLNam
 	public DroolsOWLNamedObject2DRLConverter(OWLNamedObjectResolver resolver)
 	{
 		this.resolver = resolver;
+	}
+
+	@Override
+	public String convert(OWLEntity entity) throws TargetRuleEngineException
+	{
+		return resolver.iri2PrefixedName(entity.getIRI());
 	}
 
 	@Override

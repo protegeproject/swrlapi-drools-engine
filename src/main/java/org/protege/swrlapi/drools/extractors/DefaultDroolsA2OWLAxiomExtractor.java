@@ -139,7 +139,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLClassAssertionAxiom extract(CAA caa) throws TargetRuleEngineException
 	{
-		OWLClassExpression cls = getOWLClassExpressionResolver().resolve(caa.getC());
+		OWLClassExpression cls = getOWLClassExpressionResolver().resolveOWLClassExpression(caa.getC());
 		OWLIndividual individual = caa.getI().extract(getOWLIndividualExtractor());
 
 		return getOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
@@ -194,8 +194,8 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLSubClassOfAxiom extract(SCA sca) throws TargetRuleEngineException
 	{
-		OWLClassExpression superClass = getOWLClassExpressionResolver().resolve(sca.getSup());
-		OWLClassExpression subClass = getOWLClassExpressionResolver().resolve(sca.getSub());
+		OWLClassExpression superClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getSup());
+		OWLClassExpression subClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getSub());
 
 		return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
 	}
@@ -203,8 +203,8 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLDisjointClassesAxiom extract(DCA dca) throws TargetRuleEngineException
 	{
-		OWLClassExpression class1 = getOWLClassExpressionResolver().resolve(dca.getC1());
-		OWLClassExpression class2 = getOWLClassExpressionResolver().resolve(dca.getC2());
+		OWLClassExpression class1 = getOWLClassExpressionResolver().resolveOWLClassExpression(dca.getC1());
+		OWLClassExpression class2 = getOWLClassExpressionResolver().resolveOWLClassExpression(dca.getC2());
 		Set<OWLClassExpression> classes = new HashSet<OWLClassExpression>();
 		classes.add(class1);
 		classes.add(class2);
@@ -215,8 +215,8 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLEquivalentClassesAxiom extract(ECA eca) throws TargetRuleEngineException
 	{
-		OWLClassExpression class1 = getOWLClassExpressionResolver().resolve(eca.getC1());
-		OWLClassExpression class2 = getOWLClassExpressionResolver().resolve(eca.getC2());
+		OWLClassExpression class1 = getOWLClassExpressionResolver().resolveOWLClassExpression(eca.getC1());
+		OWLClassExpression class2 = getOWLClassExpressionResolver().resolveOWLClassExpression(eca.getC2());
 		Set<OWLClassExpression> classes = new HashSet<OWLClassExpression>();
 		classes.add(class1);
 		classes.add(class2);
@@ -228,7 +228,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	public OWLObjectPropertyDomainAxiom extract(DOPA dopa) throws TargetRuleEngineException
 	{
 		OWLObjectProperty property = dopa.getP().extract(getOWLNamedObjectExtractor());
-		OWLClassExpression domain = getOWLClassExpressionResolver().resolve(dopa.getD());
+		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(dopa.getD());
 
 		return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
 	}
@@ -237,7 +237,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	public OWLDataPropertyDomainAxiom extract(DDPA ddpa) throws TargetRuleEngineException
 	{
 		OWLDataProperty property = ddpa.getP().extract(getOWLNamedObjectExtractor());
-		OWLClassExpression domain = getOWLClassExpressionResolver().resolve(ddpa.getD());
+		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(ddpa.getD());
 
 		return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
 	}
@@ -246,7 +246,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	public OWLObjectPropertyRangeAxiom extract(ROPA ropa) throws TargetRuleEngineException
 	{
 		OWLObjectProperty property = ropa.getP().extract(getOWLNamedObjectExtractor());
-		OWLClassExpression range = getOWLClassExpressionResolver().resolve(ropa.getR());
+		OWLClassExpression range = getOWLClassExpressionResolver().resolveOWLClassExpression(ropa.getR());
 
 		return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
 	}

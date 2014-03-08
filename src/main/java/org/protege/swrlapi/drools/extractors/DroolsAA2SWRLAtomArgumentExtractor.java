@@ -11,6 +11,7 @@ import org.protege.swrlapi.drools.owl.entities.DP;
 import org.protege.swrlapi.drools.owl.entities.I;
 import org.protege.swrlapi.drools.owl.entities.OP;
 import org.protege.swrlapi.drools.sqwrl.SQWRLC;
+import org.protege.swrlapi.drools.swrl.AA;
 import org.protege.swrlapi.drools.swrl.UBA;
 import org.protege.swrlapi.drools.swrl.VA;
 import org.protege.swrlapi.exceptions.TargetRuleEngineException;
@@ -20,7 +21,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * This class creates Drools SWRL atom arguments represented by the class {@AA} to their SWRLAPI representation.
+ * This class creates Drools SWRL atom arguments represented, by the class {@link AA}, to their SWRLAPI representation.
  */
 public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtractorBase implements
 		TargetRuleEngineSWRLAtomArgumentExtractor
@@ -30,6 +31,7 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 	public DroolsAA2SWRLAtomArgumentExtractor(SWRLRuleEngineBridge bridge, DroolsL2OWLLiteralExtractor literalExtractor)
 	{
 		super(bridge);
+
 		this.literalExtractor = literalExtractor;
 	}
 
