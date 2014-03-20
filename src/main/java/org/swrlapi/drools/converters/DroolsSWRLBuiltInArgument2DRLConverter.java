@@ -1,6 +1,8 @@
 package org.swrlapi.drools.converters;
 
+import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
+import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SQWRLCollectionBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLAnnotationPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
@@ -17,12 +19,15 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 /**
  * This class converts SWRL atom arguments to DRL clauses for use in rules.
  */
-public class DroolsSWRLBuiltInArgument2DRLConverter implements TargetRuleEngineSWRLBuiltInArgumentConverter<String>
+public class DroolsSWRLBuiltInArgument2DRLConverter extends TargetRuleEngineConverterBase implements
+		TargetRuleEngineSWRLBuiltInArgumentConverter<String>
 {
 	private final DroolsOWLLiteral2DRLConverter literalConvertor;
 
-	public DroolsSWRLBuiltInArgument2DRLConverter(DroolsOWLLiteral2DRLConverter literalConvertor)
+	public DroolsSWRLBuiltInArgument2DRLConverter(SWRLRuleEngineBridge bridge,
+			DroolsOWLLiteral2DRLConverter literalConvertor)
 	{
+		super(bridge);
 		this.literalConvertor = literalConvertor;
 	}
 
@@ -62,37 +67,49 @@ public class DroolsSWRLBuiltInArgument2DRLConverter implements TargetRuleEngineS
 	@Override
 	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
 	{
-		return "new C(" + addQuotes(classArgument.getPrefixedName()) + ")";
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(classArgument.getIRI());
+
+		return "new C(" + addQuotes(prefixedName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
 	{
-		return "new I(" + addQuotes(individualArgument.getPrefixedName()) + ")";
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(individualArgument.getIRI());
+
+		return "new I(" + addQuotes(prefixedName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		return "new OP(" + addQuotes(propertyArgument.getPrefixedName()) + ")";
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
+
+		return "new OP(" + addQuotes(prefixedName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		return "new DP(" + addQuotes(propertyArgument.getPrefixedName()) + ")";
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
+
+		return "new DP(" + addQuotes(prefixedName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		return "new AP(" + addQuotes(propertyArgument.getPrefixedName()) + ")";
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
+
+		return "new AP(" + addQuotes(prefixedName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
 	{
-		return "new D(" + addQuotes(datatypeArgument.getPrefixedName()) + ")";
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(datatypeArgument.getIRI());
+
+		return "new D(" + addQuotes(prefixedName) + ")";
 	}
 
 	@Override

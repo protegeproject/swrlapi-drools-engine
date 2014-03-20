@@ -100,31 +100,41 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public C convert(SWRLClassAtomArgument argument) throws TargetRuleEngineException
 	{
-		return new C(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new C(prefixedName);
 	}
 
 	@Override
 	public I convert(SWRLIndividualAtomArgument argument) throws TargetRuleEngineException
 	{
-		return new I(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new I(prefixedName);
 	}
 
 	@Override
 	public DP convert(SWRLDataPropertyAtomArgument argument) throws TargetRuleEngineException
 	{
-		return new DP(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new DP(prefixedName);
 	}
 
 	@Override
 	public OP convert(SWRLObjectPropertyAtomArgument argument) throws TargetRuleEngineException
 	{
-		return new OP(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new OP(prefixedName);
 	}
 
 	@Override
 	public AP convert(SWRLAnnotationPropertyAtomArgument argument) throws TargetRuleEngineException
 	{
-		return new AP(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new AP(prefixedName);
 	}
 
 	@Override
@@ -136,43 +146,57 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public D convert(SWRLDatatypeAtomArgument argument) throws TargetRuleEngineException
 	{
-		return new D(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new D(prefixedName);
 	}
 
 	@Override
 	public C convert(SWRLClassBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new C(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new C(prefixedName);
 	}
 
 	@Override
 	public I convert(SWRLIndividualBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new I(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new I(prefixedName);
 	}
 
 	@Override
 	public OP convert(SWRLObjectPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new OP(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new OP(prefixedName);
 	}
 
 	@Override
 	public DP convert(SWRLDataPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new DP(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new DP(prefixedName);
 	}
 
 	@Override
 	public AP convert(SWRLAnnotationPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new AP(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new AP(prefixedName);
 	}
 
 	@Override
 	public D convert(SWRLDatatypeBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new D(argument.getPrefixedName());
+		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
+
+		return new D(prefixedName);
 	}
 
 	@Override
@@ -192,7 +216,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 
 	@Override
 	public BA convert(SQWRLCollectionBuiltInArgument argument) throws TargetRuleEngineException
-	{
+	{ // TODO ? Yes it does!?
 		throw new TargetRuleEngineNotImplementedFeatureException("Drools does not support SQWRL collections yet");
 	}
 

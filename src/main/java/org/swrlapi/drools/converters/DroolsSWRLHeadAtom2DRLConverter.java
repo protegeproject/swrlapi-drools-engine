@@ -42,8 +42,8 @@ public class DroolsSWRLHeadAtom2DRLConverter extends TargetRuleEngineConverterBa
 		super(bridge);
 
 		this.literalConverter = new DroolsOWLLiteral2DRLConverter(bridge.getOWLNamedObjectResolver());
-		this.headAtomArgumentConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(this.literalConverter);
-		this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(this.literalConverter);
+		this.headAtomArgumentConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge, this.literalConverter);
+		this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge, this.literalConverter);
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
 		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge, new DroolsOWLLiteral2LConverter(
 				bridge.getOWLNamedObjectResolver()));
