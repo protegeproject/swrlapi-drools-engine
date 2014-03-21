@@ -102,7 +102,7 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 
 	public SWRLBuiltInArgument extract(SQWRLC sqwrlc) throws TargetRuleEngineException
 	{
-		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionArgument(sqwrlc.getQueryName(),
+		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionBuiltInArgument(sqwrlc.getQueryName(),
 				sqwrlc.getCollectionName(), sqwrlc.getCollectionID());
 	}
 
