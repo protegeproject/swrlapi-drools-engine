@@ -13,8 +13,8 @@ import org.swrlapi.core.arguments.SWRLDataPropertyAtomArgument;
 import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeAtomArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLIndividualAtomArgument;
-import org.swrlapi.core.arguments.SWRLIndividualBuiltInArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualAtomArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLLiteralAtomArgument;
 import org.swrlapi.core.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLObjectPropertyAtomArgument;
@@ -57,8 +57,8 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 			return convert((SWRLVariableAtomArgument)argument);
 		} else if (argument instanceof SWRLClassAtomArgument) {
 			return convert((SWRLClassAtomArgument)argument);
-		} else if (argument instanceof SWRLIndividualAtomArgument) {
-			return convert((SWRLIndividualAtomArgument)argument);
+		} else if (argument instanceof SWRLNamedIndividualAtomArgument) {
+			return convert((SWRLNamedIndividualAtomArgument)argument);
 		} else if (argument instanceof SWRLLiteralAtomArgument) {
 			return convert((SWRLLiteralAtomArgument)argument);
 		} else if (argument instanceof SWRLObjectPropertyAtomArgument) {
@@ -75,8 +75,8 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 			return convert((SWRLVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
 			return convert((SWRLClassBuiltInArgument)argument);
-		} else if (argument instanceof SWRLIndividualBuiltInArgument) {
-			return convert((SWRLIndividualBuiltInArgument)argument);
+		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
+			return convert((SWRLNamedIndividualBuiltInArgument)argument);
 		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
 			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
@@ -106,7 +106,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	}
 
 	@Override
-	public I convert(SWRLIndividualAtomArgument argument) throws TargetRuleEngineException
+	public I convert(SWRLNamedIndividualAtomArgument argument) throws TargetRuleEngineException
 	{
 		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
 
@@ -160,7 +160,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	}
 
 	@Override
-	public I convert(SWRLIndividualBuiltInArgument argument) throws TargetRuleEngineException
+	public I convert(SWRLNamedIndividualBuiltInArgument argument) throws TargetRuleEngineException
 	{
 		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(argument.getIRI());
 

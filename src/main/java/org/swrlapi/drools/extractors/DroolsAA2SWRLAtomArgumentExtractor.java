@@ -53,7 +53,7 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 		String individualPrefixedName = i.getid();
 		IRI individualIRI = getIRI(individualPrefixedName);
 
-		return getSWRLBuiltInArgumentFactory().getIndividualBuiltInArgument(individualIRI);
+		return getSWRLBuiltInArgumentFactory().getNamedIndividualBuiltInArgument(individualIRI);
 	}
 
 	public SWRLBuiltInArgument extract(DP dp) throws TargetRuleEngineException

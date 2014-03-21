@@ -9,7 +9,7 @@ import org.swrlapi.core.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLClassBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLIndividualBuiltInArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLVariableBuiltInArgument;
@@ -39,8 +39,8 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends TargetRuleEngineConv
 			return convert((SWRLVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
 			return convert((SWRLClassBuiltInArgument)argument);
-		} else if (argument instanceof SWRLIndividualBuiltInArgument) {
-			return convert((SWRLIndividualBuiltInArgument)argument);
+		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
+			return convert((SWRLNamedIndividualBuiltInArgument)argument);
 		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
 			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
@@ -73,7 +73,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends TargetRuleEngineConv
 	}
 
 	@Override
-	public String convert(SWRLIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
+	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
 	{
 		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(individualArgument.getIRI());
 
