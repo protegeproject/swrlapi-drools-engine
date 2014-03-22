@@ -13,10 +13,10 @@ import org.swrlapi.core.arguments.SWRLDataPropertyAtomArgument;
 import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeAtomArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLNamedIndividualAtomArgument;
-import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLLiteralAtomArgument;
 import org.swrlapi.core.arguments.SWRLLiteralBuiltInArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualAtomArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLObjectPropertyAtomArgument;
 import org.swrlapi.core.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLVariableAtomArgument;
@@ -50,7 +50,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	}
 
 	public AA convert(SWRLAtomArgument argument) throws TargetRuleEngineException
-	{
+	{ // TODO Visitor to replace instanceof
 		if (argument instanceof SWRLAtomArgument) {
 			return convert(argument);
 		} else if (argument instanceof SWRLVariableAtomArgument) {
