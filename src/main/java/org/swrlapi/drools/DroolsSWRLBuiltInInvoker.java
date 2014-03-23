@@ -43,7 +43,7 @@ public class DroolsSWRLBuiltInInvoker
 	public DroolsSWRLBuiltInInvoker(SWRLRuleEngineBridge bridge)
 	{
 		this.bridge = bridge;
-		this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge.getOWLNamedObjectResolver());
+		this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge.getOWLIRIResolver());
 		this.builtInArgumentConvertor = new DroolsSWRLBuiltInArgument2BAConverter(bridge, this.literal2LConverter);
 		this.literalExtractor = new DroolsL2OWLLiteralExtractor(bridge);
 		this.atomArgumentExtractor = new DroolsAA2SWRLAtomArgumentExtractor(bridge, this.literalExtractor);

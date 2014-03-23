@@ -2,7 +2,7 @@ package org.swrlapi.drools.converters;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.converters.TargetRuleEngineOWLIndividualConverter;
-import org.swrlapi.core.OWLNamedObjectResolver;
+import org.swrlapi.core.OWLIRIResolver;
 import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -11,9 +11,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public class DroolsOWLIndividual2IConverter implements TargetRuleEngineOWLIndividualConverter<I>
 {
-	private final OWLNamedObjectResolver resolver;
+	private final OWLIRIResolver resolver;
 
-	public DroolsOWLIndividual2IConverter(OWLNamedObjectResolver resolver)
+	public DroolsOWLIndividual2IConverter(OWLIRIResolver resolver)
 	{
 		this.resolver = resolver;
 	}

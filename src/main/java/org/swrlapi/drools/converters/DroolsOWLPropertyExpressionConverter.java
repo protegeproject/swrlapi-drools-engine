@@ -52,7 +52,7 @@ public class DroolsOWLPropertyExpressionConverter extends TargetRuleEngineConver
 	public String convert(OWLObjectPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression instanceof OWLNamedObject)
-			return getOWLNamedObjectResolver().iri2PrefixedName(((OWLNamedObject)propertyExpression).getIRI());
+			return getOWLIRIResolver().iri2PrefixedName(((OWLNamedObject)propertyExpression).getIRI());
 		else
 			return getPropertyExpressionID(propertyExpression);
 	}
@@ -62,7 +62,7 @@ public class DroolsOWLPropertyExpressionConverter extends TargetRuleEngineConver
 	public String convert(OWLDataPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression instanceof OWLNamedObject)
-			return getOWLNamedObjectResolver().iri2PrefixedName(((OWLNamedObject)propertyExpression).getIRI());
+			return getOWLIRIResolver().iri2PrefixedName(((OWLNamedObject)propertyExpression).getIRI());
 		else
 			return getPropertyExpressionID(propertyExpression);
 	}

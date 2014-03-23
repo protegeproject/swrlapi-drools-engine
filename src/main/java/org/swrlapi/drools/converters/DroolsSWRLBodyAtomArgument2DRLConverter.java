@@ -2,27 +2,22 @@ package org.swrlapi.drools.converters;
 
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLArgument;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SQWRLCollectionBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLAnnotationPropertyAtomArgument;
 import org.swrlapi.core.arguments.SWRLAnnotationPropertyBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLAtomArgument;
-import org.swrlapi.core.arguments.SWRLClassAtomArgument;
 import org.swrlapi.core.arguments.SWRLClassBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLDataPropertyAtomArgument;
 import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLDatatypeAtomArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLNamedIndividualAtomArgument;
-import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLLiteralAtomArgument;
 import org.swrlapi.core.arguments.SWRLLiteralBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLObjectPropertyAtomArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLObjectPropertyBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLVariableAtomArgument;
 import org.swrlapi.core.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.drools.DroolsNames;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -43,26 +38,16 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 		this.literalConvertor = literalConvertor;
 	}
 
-	public String convert(SWRLAtomArgument argument) throws TargetRuleEngineException
+	public String convert(SWRLArgument argument) throws TargetRuleEngineException
 	{
-		if (argument instanceof SWRLAtomArgument) {
+		if (argument instanceof SWRLArgument) {
 			return convert(argument);
-		} else if (argument instanceof SWRLVariableAtomArgument) {
-			return convert((SWRLVariableAtomArgument)argument);
-		} else if (argument instanceof SWRLClassAtomArgument) {
-			return convert((SWRLClassAtomArgument)argument);
-		} else if (argument instanceof SWRLNamedIndividualAtomArgument) {
-			return convert((SWRLNamedIndividualAtomArgument)argument);
-		} else if (argument instanceof SWRLLiteralAtomArgument) {
-			return convert((SWRLLiteralAtomArgument)argument);
-		} else if (argument instanceof SWRLObjectPropertyAtomArgument) {
-			return convert((SWRLObjectPropertyAtomArgument)argument);
-		} else if (argument instanceof SWRLDataPropertyAtomArgument) {
-			return convert((SWRLDataPropertyAtomArgument)argument);
-		} else if (argument instanceof SWRLAnnotationPropertyAtomArgument) {
-			return convert((SWRLAnnotationPropertyAtomArgument)argument);
-		} else if (argument instanceof SWRLDatatypeAtomArgument) {
-			return convert((SWRLDatatypeAtomArgument)argument);
+		} else if (argument instanceof SWRLVariable) {
+			return convert((SWRLVariable)argument);
+		} else if (argument instanceof SWRLIndividualArgument) {
+			return convert((SWRLIndividualArgument)argument);
+		} else if (argument instanceof SWRLLiteralArgument) {
+			return convert((SWRLLiteralArgument)argument);
 		} else if (argument instanceof SQWRLCollectionBuiltInArgument) {
 			return convert((SQWRLCollectionBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
@@ -86,61 +71,23 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	}
 
 	@Override
-	public String convert(SWRLVariableAtomArgument variableArgument) throws TargetRuleEngineException
+	public String convert(SWRLVariable variableArgument) throws TargetRuleEngineException
 	{
-		return "$" + variableArgument.getVariableName();
+		IRI iri = variableArgument.getIRI();
+		String variableName = getOWLIRIResolver().iri2PrefixedName(iri);
+		return "$" + variableName;
 	}
 
 	@Override
-	public String convert(SWRLClassAtomArgument classArgument) throws TargetRuleEngineException
+	public String convert(SWRLIndividualArgument individualArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(classArgument.getIRI());
+		String prefixedName = individualArgument.getIndividual().toStringID();
 
 		return addQuotes(prefixedName);
 	}
 
 	@Override
-	public String convert(SWRLNamedIndividualAtomArgument individualArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(individualArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLObjectPropertyAtomArgument propertyArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLDataPropertyAtomArgument propertyArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLAnnotationPropertyAtomArgument propertyArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLDatatypeAtomArgument datatypeArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(datatypeArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLLiteralAtomArgument argument) throws TargetRuleEngineException
+	public String convert(SWRLLiteralArgument argument) throws TargetRuleEngineException
 	{
 		return getOWLLiteralConvertor().convert(argument.getLiteral());
 	}
@@ -154,7 +101,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	@Override
 	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(classArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(classArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -162,7 +109,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	@Override
 	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(individualArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(individualArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -170,7 +117,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -178,7 +125,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -186,7 +133,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -194,7 +141,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLNamedObjectResolver().iri2PrefixedName(datatypeArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -223,22 +170,12 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	public String convert(SWRLArgument argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
-		if (argument instanceof SWRLVariableAtomArgument) {
-			return convert((SWRLVariableAtomArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLClassAtomArgument) {
-			return convert((SWRLClassAtomArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLNamedIndividualAtomArgument) {
-			return convert((SWRLNamedIndividualAtomArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLLiteralAtomArgument) {
-			return convert((SWRLLiteralAtomArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLObjectPropertyAtomArgument) {
-			return convert((SWRLObjectPropertyAtomArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLDataPropertyAtomArgument) {
-			return convert((SWRLDataPropertyAtomArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLAnnotationPropertyAtomArgument) {
-			return convert((SWRLAnnotationPropertyAtomArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLDatatypeAtomArgument) {
-			return convert((SWRLDatatypeAtomArgument)argument, fieldName, variableNames);
+		if (argument instanceof SWRLVariable) {
+			return convert(argument, fieldName, variableNames);
+		} else if (argument instanceof SWRLIndividualArgument) {
+			return convert(argument, fieldName, variableNames);
+		} else if (argument instanceof SWRLLiteralArgument) {
+			return convert(argument, fieldName, variableNames);
 		} else if (argument instanceof SQWRLCollectionBuiltInArgument) {
 			return convert((SQWRLCollectionBuiltInArgument)argument, fieldName, variableNames);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
@@ -276,10 +213,11 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	}
 
 	@Override
-	public String convert(SWRLVariableAtomArgument argument, String fieldName, Set<String> variableNames)
+	public String convert(SWRLVariable argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
-		String variableName = argument.getVariableName();
+		IRI iri = argument.getIRI();
+		String variableName = getOWLIRIResolver().iri2PrefixedName(iri); // TODO
 
 		if (variableNames.contains(variableName)) {
 			return fieldName + "==$" + variableName;
@@ -290,49 +228,14 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	}
 
 	@Override
-	public String convert(SWRLClassAtomArgument argument, String fieldName, Set<String> variableNames)
-			throws TargetRuleEngineException
-	{
-		return fieldName + "==" + convert(argument);
-	}
-
-	@Override
-	public String convert(SWRLNamedIndividualAtomArgument argument, String fieldName, Set<String> variableNames)
+	public String convert(SWRLIndividualArgument argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
 		return fieldName + "." + DroolsNames.IDFieldName + "==" + convert(argument);
 	}
 
 	@Override
-	public String convert(SWRLObjectPropertyAtomArgument argument, String fieldName, Set<String> variableNames)
-			throws TargetRuleEngineException
-	{
-		return fieldName + "." + DroolsNames.IDFieldName + "==" + convert(argument);
-	}
-
-	@Override
-	public String convert(SWRLDataPropertyAtomArgument argument, String fieldName, Set<String> variableNames)
-			throws TargetRuleEngineException
-	{
-		return fieldName + "." + DroolsNames.IDFieldName + "==" + convert(argument);
-	}
-
-	@Override
-	public String convert(SWRLAnnotationPropertyAtomArgument argument, String fieldName, Set<String> variableNames)
-			throws TargetRuleEngineException
-	{
-		return fieldName + "." + DroolsNames.IDFieldName + "==" + convert(argument);
-	}
-
-	@Override
-	public String convert(SWRLLiteralAtomArgument argument, String fieldName, Set<String> variableNames)
-			throws TargetRuleEngineException
-	{
-		return fieldName + "==" + convert(argument);
-	}
-
-	@Override
-	public String convert(SWRLDatatypeAtomArgument argument, String fieldName, Set<String> variableNames)
+	public String convert(SWRLLiteralArgument argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
 		return fieldName + "==" + convert(argument);

@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.swrlapi.converters.TargetRuleEngineOWLDataRangeConverter;
-import org.swrlapi.core.OWLNamedObjectResolver;
+import org.swrlapi.core.OWLIRIResolver;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
@@ -17,9 +17,9 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
  */
 public class DroolsOWLDataRange2DRLConverter implements TargetRuleEngineOWLDataRangeConverter<String>
 {
-	private final OWLNamedObjectResolver resolver;
+	private final OWLIRIResolver resolver;
 
-	public DroolsOWLDataRange2DRLConverter(OWLNamedObjectResolver resolver)
+	public DroolsOWLDataRange2DRLConverter(OWLIRIResolver resolver)
 	{
 		this.resolver = resolver;
 	}

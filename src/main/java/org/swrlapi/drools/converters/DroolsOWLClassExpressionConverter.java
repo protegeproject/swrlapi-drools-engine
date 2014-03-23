@@ -67,9 +67,9 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 	{
 		super(bridge);
 
-		this.individualConverter = new DroolsOWLIndividual2DRLConverter(bridge.getOWLNamedObjectResolver());
+		this.individualConverter = new DroolsOWLIndividual2DRLConverter(bridge.getOWLIRIResolver());
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
-		this.dataRangeConverter = new DroolsOWLDataRange2DRLConverter(bridge.getOWLNamedObjectResolver());
+		this.dataRangeConverter = new DroolsOWLDataRange2DRLConverter(bridge.getOWLIRIResolver());
 		this.literal2LConverter = literal2LConverter;
 
 		this.classExpressions = new HashSet<CE>();
@@ -137,7 +137,7 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 	@Override
 	public String convert(OWLClass cls) throws TargetRuleEngineException
 	{
-		String classExpressionID = getOWLNamedObjectResolver().iri2PrefixedName(cls.getIRI());
+		String classExpressionID = getOWLIRIResolver().iri2PrefixedName(cls.getIRI());
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, cls);

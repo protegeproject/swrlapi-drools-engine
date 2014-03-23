@@ -99,41 +99,41 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLDeclarationAxiom extract(CDA da) throws TargetRuleEngineException
 	{
-		OWLClass cls = getOWLDataFactory().getOWLClass(getIRI(da.getE().getid()));
+		OWLClass cls = getSWRLAPIOWLDataFactory().getOWLClass(getIRI(da.getE().getid()));
 
-		return getOWLDataFactory().getOWLClassDeclarationAxiom(cls);
+		return getSWRLAPIOWLDataFactory().getOWLClassDeclarationAxiom(cls);
 	}
 
 	@Override
 	public OWLDeclarationAxiom extract(IDA da) throws TargetRuleEngineException
 	{
-		OWLNamedIndividual individual = getOWLDataFactory().getOWLNamedIndividual(getIRI(da.getE().getid()));
+		OWLNamedIndividual individual = getSWRLAPIOWLDataFactory().getOWLNamedIndividual(getIRI(da.getE().getid()));
 
-		return getOWLDataFactory().getOWLIndividualDeclarationAxiom(individual);
+		return getSWRLAPIOWLDataFactory().getOWLIndividualDeclarationAxiom(individual);
 	}
 
 	@Override
 	public OWLDeclarationAxiom extract(OPDA da) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = getOWLDataFactory().getOWLObjectProperty(getIRI(da.getE().getid()));
+		OWLObjectProperty property = getSWRLAPIOWLDataFactory().getOWLObjectProperty(getIRI(da.getE().getid()));
 
-		return getOWLDataFactory().getOWLObjectPropertyDeclarationAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyDeclarationAxiom(property);
 	}
 
 	@Override
 	public OWLDeclarationAxiom extract(DPDA da) throws TargetRuleEngineException
 	{
-		OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(getIRI(da.getE().getid()));
+		OWLDataProperty property = getSWRLAPIOWLDataFactory().getOWLDataProperty(getIRI(da.getE().getid()));
 
-		return getOWLDataFactory().getOWLDataPropertyDeclarationAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLDataPropertyDeclarationAxiom(property);
 	}
 
 	@Override
 	public OWLDeclarationAxiom extract(APDA da) throws TargetRuleEngineException
 	{
-		OWLAnnotationProperty property = getOWLDataFactory().getOWLAnnotationProperty(getIRI(da.getE().getid()));
+		OWLAnnotationProperty property = getSWRLAPIOWLDataFactory().getOWLAnnotationProperty(getIRI(da.getE().getid()));
 
-		return getOWLDataFactory().getOWLAnnotationPropertyDeclarationAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLAnnotationPropertyDeclarationAxiom(property);
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLClassExpression cls = getOWLClassExpressionResolver().resolveOWLClassExpression(caa.getC());
 		OWLIndividual individual = caa.getI().extract(getOWLIndividualExtractor());
 
-		return getOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
+		return getSWRLAPIOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLObjectPropertyExpression property = opaa.getT2().extract(getOWLNamedObjectExtractor());
 		OWLIndividual object = opaa.getT3().extract(getOWLIndividualExtractor());
 
-		return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(property, subject, object);
+		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyAssertionAxiom(property, subject, object);
 	}
 
 	@Override
@@ -162,7 +162,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLDataProperty property = dpaa.getT2().extract(getOWLNamedObjectExtractor());
 		OWLLiteral literal = getOWLLiteralExtractor().extract(dpaa.getT3());
 
-		return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(property, subject, literal);
+		return getSWRLAPIOWLDataFactory().getOWLDataPropertyAssertionAxiom(property, subject, literal);
 	}
 
 	@Override
@@ -175,7 +175,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		individuals.add(individual1);
 		individuals.add(individual2);
 
-		return getOWLDataFactory().getOWLSameIndividualAxiom(individuals);
+		return getSWRLAPIOWLDataFactory().getOWLSameIndividualAxiom(individuals);
 	}
 
 	@Override
@@ -188,7 +188,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		individuals.add(individual1);
 		individuals.add(individual2);
 
-		return getOWLDataFactory().getOWLDifferentIndividualsAxiom(individuals);
+		return getSWRLAPIOWLDataFactory().getOWLDifferentIndividualsAxiom(individuals);
 	}
 
 	@Override
@@ -197,7 +197,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLClassExpression superClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getSup());
 		OWLClassExpression subClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getSub());
 
-		return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
+		return getSWRLAPIOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
 	}
 
 	@Override
@@ -209,7 +209,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		classes.add(class1);
 		classes.add(class2);
 
-		return getOWLDataFactory().getOWLDisjointClassesAxiom(classes);
+		return getSWRLAPIOWLDataFactory().getOWLDisjointClassesAxiom(classes);
 	}
 
 	@Override
@@ -221,7 +221,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		classes.add(class1);
 		classes.add(class2);
 
-		return getOWLDataFactory().getOWLEquivalentClassesAxiom(classes);
+		return getSWRLAPIOWLDataFactory().getOWLEquivalentClassesAxiom(classes);
 	}
 
 	@Override
@@ -230,7 +230,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLObjectProperty property = dopa.getP().extract(getOWLNamedObjectExtractor());
 		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(dopa.getD());
 
-		return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
+		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
 	}
 
 	@Override
@@ -239,7 +239,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLDataProperty property = ddpa.getP().extract(getOWLNamedObjectExtractor());
 		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(ddpa.getD());
 
-		return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
+		return getSWRLAPIOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
 	}
 
 	@Override
@@ -248,7 +248,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLObjectProperty property = ropa.getP().extract(getOWLNamedObjectExtractor());
 		OWLClassExpression range = getOWLClassExpressionResolver().resolveOWLClassExpression(ropa.getR());
 
-		return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
+		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
 	}
 
 	@Override
@@ -257,7 +257,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLDataProperty property = rdpa.getP().extract(getOWLNamedObjectExtractor());
 		OWLDatatype range = rdpa.getR().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range);
+		return getSWRLAPIOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range);
 	}
 
 	@Override
@@ -266,7 +266,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLObjectProperty superProperty = sopa.getSup().extract(getOWLNamedObjectExtractor());
 		OWLObjectProperty subProperty = sopa.getSub().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty);
+		return getSWRLAPIOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty);
 	}
 
 	@Override
@@ -275,7 +275,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLObjectProperty property2 = iopa.getP1().extract(getOWLNamedObjectExtractor());
 		OWLObjectProperty property1 = iopa.getP2().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(property1, property2);
+		return getSWRLAPIOWLDataFactory().getOWLInverseObjectPropertiesAxiom(property1, property2);
 	}
 
 	@Override
@@ -284,7 +284,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLDataPropertyExpression superProperty = sdpa.getSup().extract(getOWLNamedObjectExtractor());
 		OWLDataPropertyExpression subProperty = sdpa.getSub().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty, superProperty);
+		return getSWRLAPIOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty, superProperty);
 	}
 
 	@Override
@@ -296,7 +296,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		properties.add(property1);
 		properties.add(property2);
 
-		return getOWLDataFactory().getOWLEquivalentObjectPropertiesAxiom(properties);
+		return getSWRLAPIOWLDataFactory().getOWLEquivalentObjectPropertiesAxiom(properties);
 	}
 
 	@Override
@@ -308,7 +308,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		properties.add(property1);
 		properties.add(property2);
 
-		return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(properties);
+		return getSWRLAPIOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(properties);
 	}
 
 	@Override
@@ -320,7 +320,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		properties.add(property1);
 		properties.add(property2);
 
-		return getOWLDataFactory().getOWLDisjointObjectPropertiesAxiom(properties);
+		return getSWRLAPIOWLDataFactory().getOWLDisjointObjectPropertiesAxiom(properties);
 	}
 
 	@Override
@@ -332,7 +332,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		properties.add(property1);
 		properties.add(property2);
 
-		return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(properties);
+		return getSWRLAPIOWLDataFactory().getOWLDisjointDataPropertiesAxiom(properties);
 	}
 
 	@Override
@@ -340,7 +340,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	{
 		OWLObjectProperty property = fopa.getP().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(property);
 	}
 
 	@Override
@@ -348,7 +348,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	{
 		OWLDataProperty property = fdpa.getP().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
 	}
 
 	@Override
@@ -356,7 +356,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	{
 		OWLObjectProperty property = ipa.getP().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
 	}
 
 	@Override
@@ -364,7 +364,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	{
 		OWLObjectProperty property = irpa.getP().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
 	}
 
 	@Override
@@ -372,7 +372,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	{
 		OWLObjectProperty property = apa.getP().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
 	}
 
 	@Override
@@ -380,7 +380,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	{
 		OWLObjectProperty property = spa.getP().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(property);
 	}
 
 	@Override
@@ -388,7 +388,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	{
 		OWLObjectProperty property = tpa.getP().extract(getOWLNamedObjectExtractor());
 
-		return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
+		return getSWRLAPIOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
 	}
 
 	private DroolsL2OWLLiteralExtractor getOWLLiteralExtractor()

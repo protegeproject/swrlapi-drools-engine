@@ -2,9 +2,9 @@ package org.swrlapi.drools.extractors;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLVariableAtomArgument;
 import org.swrlapi.drools.owl.L;
 import org.swrlapi.drools.owl.entities.AP;
 import org.swrlapi.drools.owl.entities.C;
@@ -35,9 +35,10 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 		this.literalExtractor = literalExtractor;
 	}
 
-	public SWRLVariableAtomArgument extract(VA va) throws TargetRuleEngineException
+	public SWRLVariable extract(VA va) throws TargetRuleEngineException
 	{
-		return getSWRLAtomArgumentFactory().getVariableAtomArgument(va.getVariableName());
+		IRI iri = getOWLIRIResolver().prefixedName2IRI(va.getVariableName());
+		return getSWRLAPIOWLDataFactory().getSWRLVariable(iri);
 	}
 
 	public SWRLBuiltInArgument extract(C c) throws TargetRuleEngineException

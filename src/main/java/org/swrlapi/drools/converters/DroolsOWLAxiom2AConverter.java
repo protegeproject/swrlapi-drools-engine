@@ -110,10 +110,10 @@ public class DroolsOWLAxiom2AConverter extends TargetRuleEngineConverterBase imp
 	{
 		super(bridge);
 
-		this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge.getOWLNamedObjectResolver());
-		this.namedObjectConverter = new DroolsOWLNamedObject2DRLConverter(bridge.getOWLNamedObjectResolver());
-		this.individualConverter = new DroolsOWLIndividual2DRLConverter(bridge.getOWLNamedObjectResolver());
-		this.dataRangeConverter = new DroolsOWLDataRange2DRLConverter(bridge.getOWLNamedObjectResolver());
+		this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge.getOWLIRIResolver());
+		this.namedObjectConverter = new DroolsOWLNamedObject2DRLConverter(bridge.getOWLIRIResolver());
+		this.individualConverter = new DroolsOWLIndividual2DRLConverter(bridge.getOWLIRIResolver());
+		this.dataRangeConverter = new DroolsOWLDataRange2DRLConverter(bridge.getOWLIRIResolver());
 
 		this.droolsEngine = droolsEngine;
 

@@ -41,12 +41,12 @@ public class DroolsSWRLHeadAtom2DRLConverter extends TargetRuleEngineConverterBa
 	{
 		super(bridge);
 
-		this.literalConverter = new DroolsOWLLiteral2DRLConverter(bridge.getOWLNamedObjectResolver());
+		this.literalConverter = new DroolsOWLLiteral2DRLConverter(bridge.getOWLIRIResolver());
 		this.headAtomArgumentConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge, this.literalConverter);
 		this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge, this.literalConverter);
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
 		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge, new DroolsOWLLiteral2LConverter(
-				bridge.getOWLNamedObjectResolver()));
+				bridge.getOWLIRIResolver()));
 
 		this.inferredAxiomVariableIndex = 0;
 		this.builtInIndex = 0;

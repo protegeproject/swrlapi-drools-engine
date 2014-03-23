@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.converters.TargetRuleEngineOWLNamedObjectConverter;
-import org.swrlapi.core.OWLNamedObjectResolver;
+import org.swrlapi.core.OWLIRIResolver;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -16,9 +16,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public class DroolsOWLNamedObject2DRLConverter implements TargetRuleEngineOWLNamedObjectConverter<String>
 {
-	private final OWLNamedObjectResolver resolver;
+	private final OWLIRIResolver resolver;
 
-	public DroolsOWLNamedObject2DRLConverter(OWLNamedObjectResolver resolver)
+	public DroolsOWLNamedObject2DRLConverter(OWLIRIResolver resolver)
 	{
 		this.resolver = resolver;
 	}
