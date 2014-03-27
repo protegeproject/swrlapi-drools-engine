@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLHeadAtomArgumentConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
-import org.swrlapi.core.arguments.SQWRLCollectionBuiltInArgument;
+import org.swrlapi.core.arguments.SQWRLCollectionVariableBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLAnnotationPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLClassBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
@@ -43,8 +43,8 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends TargetRuleEngineCon
 			return convert(argument);
 		} else if (argument instanceof SWRLLiteralArgument) {
 			return convert(argument);
-		} else if (argument instanceof SQWRLCollectionBuiltInArgument) {
-			return convert((SQWRLCollectionBuiltInArgument)argument);
+		} else if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
+			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
 			return convert((SWRLVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
@@ -148,7 +148,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends TargetRuleEngineCon
 	}
 
 	@Override
-	public String convert(SQWRLCollectionBuiltInArgument argument) throws TargetRuleEngineException
+	public String convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
 		throw new TargetRuleEngineNotImplementedFeatureException("SQWRL collections not yet supported in Drools");
 	}

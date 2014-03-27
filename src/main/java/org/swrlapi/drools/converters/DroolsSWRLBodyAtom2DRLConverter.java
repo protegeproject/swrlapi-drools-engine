@@ -189,7 +189,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends TargetRuleEngineConverterBa
 		int argumentNumber = 1;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
 			if (argument.isVariable()) {
-				String variableName = argument.getVariableName();
+				String variableName = argument.asVariable().getVariableName();
 				if (variableArgumentEncountered)
 					representation += ", ";
 				representation += variableName2DRL(variableName, DroolsNames.BuiltInArgumentPatternFieldNamePrefix
@@ -230,7 +230,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends TargetRuleEngineConverterBa
 			if (!isFirst)
 				representation += ", ";
 			if (argument.isVariable())
-				representation += "\"" + argument.getVariableName() + "\"";
+				representation += "\"" + argument.asVariable().getVariableName() + "\"";
 			else
 				representation += "\"\"";
 			isFirst = false;

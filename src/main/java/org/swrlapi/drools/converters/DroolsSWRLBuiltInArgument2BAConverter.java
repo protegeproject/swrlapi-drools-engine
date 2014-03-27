@@ -3,14 +3,14 @@ package org.swrlapi.drools.converters;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
-import org.swrlapi.core.arguments.SQWRLCollectionBuiltInArgument;
+import org.swrlapi.core.arguments.SQWRLCollectionVariableBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLAnnotationPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLClassBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLLiteralBuiltInArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.drools.owl.L;
@@ -41,8 +41,8 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 
 	public BA convert(SWRLBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		if (argument instanceof SQWRLCollectionBuiltInArgument) {
-			return convert((SQWRLCollectionBuiltInArgument)argument);
+		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
+			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
 			return convert((SWRLVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
@@ -127,9 +127,10 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	}
 
 	@Override
-	public BA convert(SQWRLCollectionBuiltInArgument argument) throws TargetRuleEngineException
+	public BA convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new SQWRLC(argument.getQueryName(), argument.getCollectionName(), argument.getGroupID());
+		return new SQWRLC(argument.getVariableName(), argument.getQueryName(), argument.getCollectionName(),
+				argument.getGroupID());
 	}
 
 	private DroolsOWLLiteral2LConverter getOWLLiteralConvertor()

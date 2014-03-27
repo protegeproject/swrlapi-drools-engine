@@ -11,13 +11,19 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public class SQWRLC implements BA
 {
-	private final String queryName, collectionName, collectionID;
+	private final String variableName, queryName, collectionName, collectionID;
 
-	public SQWRLC(String queryName, String collectionName, String collectionID)
+	public SQWRLC(String variableName, String queryName, String collectionName, String collectionID)
 	{
+		this.variableName = variableName;
 		this.queryName = queryName;
 		this.collectionName = collectionName;
 		this.collectionID = collectionID;
+	}
+
+	public String getVariableName()
+	{
+		return this.variableName;
 	}
 
 	public String getQueryName()

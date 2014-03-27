@@ -410,14 +410,14 @@ public class DroolsSWRLBuiltInInvoker
 					+ " in rule " + ruleName);
 
 		try {
-			int argumentNumber = 0;
+			// int argumentNumber = 0;
 			for (BA ba : bas) {
 				SWRLBuiltInArgument argument = ba.extract(getSWRLAtomArgumentExtractor());
-				if (argumentVariableNames.hasVariableNames()
-						&& argumentVariableNames.getVariableNames().get(argumentNumber).length() != 0)
-					argument.setVariableName(argumentVariableNames.getVariableNames().get(argumentNumber));
+				// if (argumentVariableNames.hasVariableNames()
+				// && argumentVariableNames.getVariableNames().get(argumentNumber).length() != 0)
+				// argument.setVariableName(argumentVariableNames.getVariableNames().get(argumentNumber));
 				arguments.add(argument);
-				argumentNumber++;
+				// argumentNumber++;
 			}
 		} catch (TargetRuleEngineException e) {
 			throw new RuntimeException("error extracting arguments from Drools when invoking built-in " + builtInName
@@ -451,8 +451,8 @@ public class DroolsSWRLBuiltInInvoker
 			for (List<SWRLBuiltInArgument> argumentPattern : argumentPatterns) {
 				BAP bap = new BAP();
 				for (SWRLBuiltInArgument argument : argumentPattern) {
-					if (argument.hasBuiltInResult())
-						argument = argument.getBuiltInResult();
+					if (argument.isVariable() && argument.asVariable().hasBuiltInResult())
+						argument = argument.asVariable().getBuiltInResult();
 
 					BA ba = getSWRLBuiltInArgumentConverter().convert(argument);
 					bap.addArgument(ba);

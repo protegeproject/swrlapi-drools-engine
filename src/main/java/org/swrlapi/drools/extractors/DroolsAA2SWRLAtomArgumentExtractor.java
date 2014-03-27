@@ -98,13 +98,18 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 
 	public SWRLBuiltInArgument extract(UBA uba) throws TargetRuleEngineException
 	{
-		return getSWRLBuiltInArgumentFactory().getUnboundVariableBuiltInArgument(uba.getVariableName());
+		String variableName = uba.getVariableName();
+		IRI variableIRI = getIRI(variableName);
+		return getSWRLBuiltInArgumentFactory().getUnboundVariableBuiltInArgument(variableIRI, variableName);
 	}
 
 	public SWRLBuiltInArgument extract(SQWRLC sqwrlc) throws TargetRuleEngineException
 	{
-		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionBuiltInArgument(sqwrlc.getQueryName(),
-				sqwrlc.getCollectionName(), sqwrlc.getCollectionID());
+		String variableName = sqwrlc.getVariableName();
+		IRI variableIRI = getIRI(variableName);
+
+		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionVariableBuiltInArgument(variableIRI, variableName,
+				sqwrlc.getQueryName(), sqwrlc.getCollectionName(), sqwrlc.getCollectionID());
 	}
 
 	private DroolsL2OWLLiteralExtractor getOWLLiteralExtractor()
