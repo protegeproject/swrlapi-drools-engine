@@ -181,7 +181,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends TargetRuleEngineConverterBa
 	@Override
 	public String convert(SWRLAPIBuiltInAtom builtInAtom) throws TargetRuleEngineException
 	{
-		String builtInName = builtInAtom.getBuiltInPrefixedName();
+		String builtInName = builtInAtom.getBuiltInShortName();
 		String ruleName = builtInAtom.getRuleName();
 		String representation = "invoker.invoke(\"" + ruleName + "\", \"" + builtInName + "\", " + this.builtInIndex
 				+ ", true, ";
