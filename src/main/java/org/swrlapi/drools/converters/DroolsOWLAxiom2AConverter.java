@@ -648,7 +648,7 @@ public class DroolsOWLAxiom2AConverter extends TargetRuleEngineConverterBase imp
 
 	private void swrlRule2DRL(SWRLAPIRule rule) throws TargetRuleEngineException
 	{
-		String ruleName = rule.getName();
+		String ruleName = rule.getRuleName();
 		String drlRule = getRulePreamble(ruleName);
 		Set<String> variableNames = new HashSet<String>();
 
