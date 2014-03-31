@@ -145,12 +145,13 @@ public class DroolsOWLAxiom2AConverter extends TargetRuleEngineConverterBase imp
 		return this.classExpressionConverter.getOWLClassExpressions();
 	}
 
+	// TODO Get rid of these instanceof with visitor
 	public void convert(OWLAxiom axiom) throws TargetRuleEngineException
 	{
 		if (axiom instanceof SWRLAPIRule) {
 			convert((SWRLAPIRule)axiom);
 		} else if (axiom instanceof OWLDeclarationAxiom) {
-			convert(axiom); // TODO
+			convert((OWLDeclarationAxiom)axiom);
 		} else if (axiom instanceof OWLClassAssertionAxiom) {
 			convert((OWLClassAssertionAxiom)axiom);
 		} else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {

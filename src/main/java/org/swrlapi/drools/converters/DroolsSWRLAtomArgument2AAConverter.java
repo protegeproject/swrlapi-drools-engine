@@ -52,10 +52,10 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	{ // TODO Visitor to replace instanceof
 		if (argument instanceof SWRLArgument) {
 			return convert(argument);
-		} else if (argument instanceof SWRLVariable) {
-			return convert((SWRLVariable)argument);
 		} else if (argument instanceof SWRLIArgument) {
 			return convert(argument);
+		} else if (argument instanceof SWRLVariable) {
+			return convert((SWRLVariable)argument);
 		} else if (argument instanceof SWRLDArgument) {
 			return convert(argument);
 		} else if (argument instanceof SWRLLiteralArgument) {

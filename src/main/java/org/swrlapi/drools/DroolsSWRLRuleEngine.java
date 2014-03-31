@@ -316,6 +316,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 			throws TargetRuleEngineException
 	{
 		try {
+			System.out.println("ruleName " + ruleName + " ruleText " + ruleText);
 			defineDRLResource(ruleText, knowledgeBuilder);
 		} catch (Exception e) {
 			e.printStackTrace();

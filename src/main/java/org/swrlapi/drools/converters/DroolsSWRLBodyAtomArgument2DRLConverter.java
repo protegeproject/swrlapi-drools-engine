@@ -171,11 +171,11 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 			throws TargetRuleEngineException
 	{
 		if (argument instanceof SWRLVariable) {
-			return convert(argument, fieldName, variableNames);
+			return convert((SWRLVariable)argument, fieldName, variableNames);
 		} else if (argument instanceof SWRLIndividualArgument) {
-			return convert(argument, fieldName, variableNames);
+			return convert((SWRLIndividualArgument)argument, fieldName, variableNames);
 		} else if (argument instanceof SWRLLiteralArgument) {
-			return convert(argument, fieldName, variableNames);
+			return convert((SWRLLiteralArgument)argument, fieldName, variableNames);
 		} else if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument, fieldName, variableNames);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
