@@ -3,8 +3,6 @@ package org.swrlapi.drools.converters;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -50,26 +48,16 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 
 	public AA convert(SWRLArgument argument) throws TargetRuleEngineException
 	{ // TODO Visitor to replace instanceof
-		if (argument instanceof SWRLArgument) {
-			return convert(argument);
-		} else if (argument instanceof SWRLIArgument) {
-			return convert(argument);
-		} else if (argument instanceof SWRLVariable) {
-			return convert((SWRLVariable)argument);
-		} else if (argument instanceof SWRLDArgument) {
-			return convert(argument);
-		} else if (argument instanceof SWRLLiteralArgument) {
-			return convert(argument);
-		} else if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
+		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
 			return convert((SWRLVariableBuiltInArgument)argument);
+		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
+			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
 			return convert((SWRLClassBuiltInArgument)argument);
 		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
 			return convert((SWRLNamedIndividualBuiltInArgument)argument);
-		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
-			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
 			return convert((SWRLObjectPropertyBuiltInArgument)argument);
 		} else if (argument instanceof SWRLDataPropertyBuiltInArgument) {
@@ -78,8 +66,14 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 			return convert((SWRLAnnotationPropertyBuiltInArgument)argument);
 		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
 			return convert((SWRLDatatypeBuiltInArgument)argument);
+		} else if (argument instanceof SWRLVariable) {
+			return convert((SWRLVariable)argument);
+		} else if (argument instanceof SWRLIndividualArgument) {
+			return convert((SWRLIndividualArgument)argument);
+		} else if (argument instanceof SWRLLiteralArgument) {
+			return convert((SWRLLiteralArgument)argument);
 		} else
-			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
+			throw new RuntimeException("unknown SWRL argument type " + argument.getClass().getCanonicalName());
 	}
 
 	@Override
@@ -94,7 +88,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	public I convert(SWRLIndividualArgument argument) throws TargetRuleEngineException
 	{
 		OWLIndividual individual = argument.getIndividual();
-		String prefixedName = individual.toStringID(); // TODO
+		String prefixedName = individual.toStringID();
 
 		return new I(prefixedName);
 	}

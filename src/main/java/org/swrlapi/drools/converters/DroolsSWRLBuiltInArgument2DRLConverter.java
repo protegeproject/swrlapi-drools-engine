@@ -9,8 +9,8 @@ import org.swrlapi.core.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLClassBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLDatatypeBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLLiteralBuiltInArgument;
+import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.core.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -32,7 +32,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends TargetRuleEngineConv
 	}
 
 	public String convert(SWRLBuiltInArgument argument) throws TargetRuleEngineException
-	{
+	{ // TODO Visitor to replace instanceof
 		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
@@ -52,7 +52,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends TargetRuleEngineConv
 		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
 			return convert((SWRLDatatypeBuiltInArgument)argument);
 		} else
-			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
+			throw new RuntimeException("unknown SWRL argument type " + argument.getClass().getCanonicalName());
 	}
 
 	@Override

@@ -169,14 +169,8 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 
 	public String convert(SWRLArgument argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
-	{
-		if (argument instanceof SWRLVariable) {
-			return convert((SWRLVariable)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLIndividualArgument) {
-			return convert((SWRLIndividualArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SWRLLiteralArgument) {
-			return convert((SWRLLiteralArgument)argument, fieldName, variableNames);
-		} else if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
+	{ // TODO Visitor to replace instanceof
+		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument, fieldName, variableNames);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
 			return convert((SWRLVariableBuiltInArgument)argument, fieldName, variableNames);
@@ -194,8 +188,14 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 			return convert((SWRLAnnotationPropertyBuiltInArgument)argument, fieldName, variableNames);
 		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
 			return convert((SWRLDatatypeBuiltInArgument)argument, fieldName, variableNames);
+		} else if (argument instanceof SWRLVariable) {
+			return convert((SWRLVariable)argument, fieldName, variableNames);
+		} else if (argument instanceof SWRLIndividualArgument) {
+			return convert((SWRLIndividualArgument)argument, fieldName, variableNames);
+		} else if (argument instanceof SWRLLiteralArgument) {
+			return convert((SWRLLiteralArgument)argument, fieldName, variableNames);
 		} else
-			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
+			throw new RuntimeException("unknown SWRL argument type " + argument.getClass().getCanonicalName());
 	}
 
 	@Override

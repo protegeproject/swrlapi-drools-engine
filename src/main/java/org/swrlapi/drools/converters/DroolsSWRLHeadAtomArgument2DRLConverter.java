@@ -36,23 +36,17 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends TargetRuleEngineCon
 	}
 
 	public String convert(SWRLArgument argument) throws TargetRuleEngineException
-	{
-		if (argument instanceof SWRLVariable) {
-			return convert(argument);
-		} else if (argument instanceof SWRLIndividualArgument) {
-			return convert(argument);
-		} else if (argument instanceof SWRLLiteralArgument) {
-			return convert(argument);
-		} else if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
+	{ // TODO Use visitor pattern to replace instanceof
+		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
 			return convert((SWRLVariableBuiltInArgument)argument);
+		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
+			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
 			return convert((SWRLClassBuiltInArgument)argument);
 		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
 			return convert((SWRLNamedIndividualBuiltInArgument)argument);
-		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
-			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
 			return convert((SWRLObjectPropertyBuiltInArgument)argument);
 		} else if (argument instanceof SWRLDataPropertyBuiltInArgument) {
@@ -61,6 +55,12 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends TargetRuleEngineCon
 			return convert((SWRLAnnotationPropertyBuiltInArgument)argument);
 		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
 			return convert((SWRLDatatypeBuiltInArgument)argument);
+		} else if (argument instanceof SWRLVariable) {
+			return convert((SWRLVariable)argument);
+		} else if (argument instanceof SWRLLiteralArgument) {
+			return convert((SWRLLiteralArgument)argument);
+		} else if (argument instanceof SWRLIndividualArgument) {
+			return convert((SWRLIndividualArgument)argument);
 		} else
 			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
 	}

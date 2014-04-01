@@ -100,7 +100,7 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 	{
 		String variableName = uba.getVariableName();
 		IRI variableIRI = getIRI(variableName);
-		return getSWRLBuiltInArgumentFactory().getUnboundVariableBuiltInArgument(variableIRI, variableName);
+		return getSWRLBuiltInArgumentFactory().getUnboundVariableBuiltInArgument(variableIRI);
 	}
 
 	public SWRLBuiltInArgument extract(SQWRLC sqwrlc) throws TargetRuleEngineException
@@ -108,7 +108,7 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 		String variableName = sqwrlc.getVariableName();
 		IRI variableIRI = getIRI(variableName);
 
-		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionVariableBuiltInArgument(variableIRI, variableName,
+		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionVariableBuiltInArgument(variableIRI,
 				sqwrlc.getQueryName(), sqwrlc.getCollectionName(), sqwrlc.getCollectionID());
 	}
 
