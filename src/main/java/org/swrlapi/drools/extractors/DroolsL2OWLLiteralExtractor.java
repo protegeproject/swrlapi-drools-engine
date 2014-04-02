@@ -18,7 +18,7 @@ import org.swrlapi.xsd.XSDDuration;
 import org.swrlapi.xsd.XSDTime;
 
 /**
- * This class converts Drools OWL literals represented by the class {@link L} to their Portability API representation.
+ * This class converts Drools OWL literals represented by the class {@link L} to their OWLAPI representation.
  */
 public class DroolsL2OWLLiteralExtractor extends TargetRuleEngineExtractorBase implements
 		TargetRuleEngineOWLLiteralExtractor<L>

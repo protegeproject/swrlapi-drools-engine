@@ -17,8 +17,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.extractors.TargetRuleEngineExtractor;
 
 /**
- * This interface converts the Drools representation of OWL entities represented by the class {@link OE} to their
- * Portability API representation.
+ * This interface describes methods for converting the Drools representation of OWL entities represented by the class
+ * {@link OE} to their OWLAPI representation.
  */
 public interface DroolsOE2OWLEntityExtractor extends TargetRuleEngineExtractor
 {

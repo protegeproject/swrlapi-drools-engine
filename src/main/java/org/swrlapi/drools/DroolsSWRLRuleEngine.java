@@ -298,7 +298,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	}
 
 	/**
-	 * Converts a Drools representation of an OWL axiom to a Portability API equivalent and pass it back to the bridge.
+	 * Converts a Drools representation of an OWL axiom to an OWLAPI equivalent and pass it back to the bridge.
 	 */
 	private void writeInferredOWLAxiomsToBridge() throws TargetRuleEngineException
 	{
@@ -316,9 +316,8 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 			throws TargetRuleEngineException
 	{
 		try {
-			System.out.println("ruleName " + ruleName + " ruleText " + ruleText);
 			defineDRLResource(ruleText, knowledgeBuilder);
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			e.printStackTrace();
 			throw new TargetRuleEngineException(
 					"internal error generating Drools rule \n" + ruleText + "\n" + e.getMessage(), e);

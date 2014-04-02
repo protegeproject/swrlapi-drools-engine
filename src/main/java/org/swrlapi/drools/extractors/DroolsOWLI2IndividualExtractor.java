@@ -6,7 +6,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.extractors.TargetRuleEngineExtractor;
 
 /**
- * Converts an OWL individual represented by the class {@link I} from a Portability API OWL individual.
+ * Converts an OWL individual represented by the class {@link I} from an OWLAPI OWL individual.
  */
 public interface DroolsOWLI2IndividualExtractor extends TargetRuleEngineExtractor
 {

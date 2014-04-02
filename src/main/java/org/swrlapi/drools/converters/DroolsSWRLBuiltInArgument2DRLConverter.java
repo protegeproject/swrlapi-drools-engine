@@ -37,12 +37,12 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends TargetRuleEngineConv
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
 			return convert((SWRLVariableBuiltInArgument)argument);
+		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
+			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
 			return convert((SWRLClassBuiltInArgument)argument);
 		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
 			return convert((SWRLNamedIndividualBuiltInArgument)argument);
-		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
-			return convert((SWRLLiteralBuiltInArgument)argument);
 		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
 			return convert((SWRLObjectPropertyBuiltInArgument)argument);
 		} else if (argument instanceof SWRLDataPropertyBuiltInArgument) {

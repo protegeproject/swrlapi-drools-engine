@@ -78,13 +78,13 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
 
 /**
- * This class converts a Drools OWL axiom represented by the class {@link A} to Portability API OWL axioms.
+ * This class converts a Drools OWL axioms represented by the class {@link A} to OWLAPI axioms.
  */
 public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorBase implements
 		DroolsA2OWLAxiomExtractor
 {
 	private final DroolsL2OWLLiteralExtractor literalExtractor;
-	private final DroolsOE2OWLEntityExtractor namedObjectExtractor;
+	private final DroolsOE2OWLEntityExtractor owlEntityExtractor;
 	private final DroolsOWLI2IndividualExtractor individualExtractor;
 
 	public DefaultDroolsA2OWLAxiomExtractor(SWRLRuleEngineBridge bridge)
@@ -92,14 +92,14 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		super(bridge);
 
 		this.literalExtractor = new DroolsL2OWLLiteralExtractor(bridge);
-		this.namedObjectExtractor = new DefaultDroolsOE2OWLEntityExtractor(bridge);
+		this.owlEntityExtractor = new DefaultDroolsOE2OWLEntityExtractor(bridge);
 		this.individualExtractor = new DefaultDroolsI2OWLIndividualExtractor(bridge);
 	}
 
 	@Override
 	public OWLDeclarationAxiom extract(CDA da) throws TargetRuleEngineException
 	{
-		OWLClass cls = getSWRLAPIOWLDataFactory().getOWLClass(getIRI(da.getE().getid()));
+		OWLClass cls = getOWLDataFactory().getOWLClass(getIRI(da.getE().getid()));
 
 		return getSWRLAPIOWLDataFactory().getOWLClassDeclarationAxiom(cls);
 	}
@@ -107,7 +107,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLDeclarationAxiom extract(IDA da) throws TargetRuleEngineException
 	{
-		OWLNamedIndividual individual = getSWRLAPIOWLDataFactory().getOWLNamedIndividual(getIRI(da.getE().getid()));
+		OWLNamedIndividual individual = getOWLDataFactory().getOWLNamedIndividual(getIRI(da.getE().getid()));
 
 		return getSWRLAPIOWLDataFactory().getOWLIndividualDeclarationAxiom(individual);
 	}
@@ -115,7 +115,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLDeclarationAxiom extract(OPDA da) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = getSWRLAPIOWLDataFactory().getOWLObjectProperty(getIRI(da.getE().getid()));
+		OWLObjectProperty property = getOWLDataFactory().getOWLObjectProperty(getIRI(da.getE().getid()));
 
 		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyDeclarationAxiom(property);
 	}
@@ -123,7 +123,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLDeclarationAxiom extract(DPDA da) throws TargetRuleEngineException
 	{
-		OWLDataProperty property = getSWRLAPIOWLDataFactory().getOWLDataProperty(getIRI(da.getE().getid()));
+		OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(getIRI(da.getE().getid()));
 
 		return getSWRLAPIOWLDataFactory().getOWLDataPropertyDeclarationAxiom(property);
 	}
@@ -131,7 +131,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 	@Override
 	public OWLDeclarationAxiom extract(APDA da) throws TargetRuleEngineException
 	{
-		OWLAnnotationProperty property = getSWRLAPIOWLDataFactory().getOWLAnnotationProperty(getIRI(da.getE().getid()));
+		OWLAnnotationProperty property = getOWLDataFactory().getOWLAnnotationProperty(getIRI(da.getE().getid()));
 
 		return getSWRLAPIOWLDataFactory().getOWLAnnotationPropertyDeclarationAxiom(property);
 	}
@@ -142,27 +142,27 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLClassExpression cls = getOWLClassExpressionResolver().resolveOWLClassExpression(caa.getC());
 		OWLIndividual individual = caa.getI().extract(getOWLIndividualExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
+		return getOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
 	}
 
 	@Override
 	public OWLObjectPropertyAssertionAxiom extract(OPAA opaa) throws TargetRuleEngineException
 	{
 		OWLIndividual subject = opaa.getT1().extract(getOWLIndividualExtractor());
-		OWLObjectPropertyExpression property = opaa.getT2().extract(getOWLNamedObjectExtractor());
+		OWLObjectPropertyExpression property = opaa.getT2().extract(getOWLEntityExtractor());
 		OWLIndividual object = opaa.getT3().extract(getOWLIndividualExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyAssertionAxiom(property, subject, object);
+		return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(property, subject, object);
 	}
 
 	@Override
 	public OWLDataPropertyAssertionAxiom extract(DPAA dpaa) throws TargetRuleEngineException
 	{
 		OWLIndividual subject = dpaa.getT1().extract(getOWLIndividualExtractor());
-		OWLDataProperty property = dpaa.getT2().extract(getOWLNamedObjectExtractor());
+		OWLDataProperty property = dpaa.getT2().extract(getOWLEntityExtractor());
 		OWLLiteral literal = getOWLLiteralExtractor().extract(dpaa.getT3());
 
-		return getSWRLAPIOWLDataFactory().getOWLDataPropertyAssertionAxiom(property, subject, literal);
+		return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(property, subject, literal);
 	}
 
 	@Override
@@ -175,7 +175,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		individuals.add(individual1);
 		individuals.add(individual2);
 
-		return getSWRLAPIOWLDataFactory().getOWLSameIndividualAxiom(individuals);
+		return getOWLDataFactory().getOWLSameIndividualAxiom(individuals);
 	}
 
 	@Override
@@ -188,7 +188,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		individuals.add(individual1);
 		individuals.add(individual2);
 
-		return getSWRLAPIOWLDataFactory().getOWLDifferentIndividualsAxiom(individuals);
+		return getOWLDataFactory().getOWLDifferentIndividualsAxiom(individuals);
 	}
 
 	@Override
@@ -197,7 +197,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		OWLClassExpression superClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getSup());
 		OWLClassExpression subClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getSub());
 
-		return getSWRLAPIOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
+		return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
 	}
 
 	@Override
@@ -209,7 +209,7 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		classes.add(class1);
 		classes.add(class2);
 
-		return getSWRLAPIOWLDataFactory().getOWLDisjointClassesAxiom(classes);
+		return getOWLDataFactory().getOWLDisjointClassesAxiom(classes);
 	}
 
 	@Override
@@ -221,174 +221,174 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		classes.add(class1);
 		classes.add(class2);
 
-		return getSWRLAPIOWLDataFactory().getOWLEquivalentClassesAxiom(classes);
+		return getOWLDataFactory().getOWLEquivalentClassesAxiom(classes);
 	}
 
 	@Override
 	public OWLObjectPropertyDomainAxiom extract(DOPA dopa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = dopa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = dopa.getP().extract(getOWLEntityExtractor());
 		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(dopa.getD());
 
-		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
+		return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
 	}
 
 	@Override
 	public OWLDataPropertyDomainAxiom extract(DDPA ddpa) throws TargetRuleEngineException
 	{
-		OWLDataProperty property = ddpa.getP().extract(getOWLNamedObjectExtractor());
+		OWLDataProperty property = ddpa.getP().extract(getOWLEntityExtractor());
 		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(ddpa.getD());
 
-		return getSWRLAPIOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
+		return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
 	}
 
 	@Override
 	public OWLObjectPropertyRangeAxiom extract(ROPA ropa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = ropa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = ropa.getP().extract(getOWLEntityExtractor());
 		OWLClassExpression range = getOWLClassExpressionResolver().resolveOWLClassExpression(ropa.getR());
 
-		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
+		return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
 	}
 
 	@Override
 	public OWLDataPropertyRangeAxiom extract(RDPA rdpa) throws TargetRuleEngineException
 	{
-		OWLDataProperty property = rdpa.getP().extract(getOWLNamedObjectExtractor());
-		OWLDatatype range = rdpa.getR().extract(getOWLNamedObjectExtractor());
+		OWLDataProperty property = rdpa.getP().extract(getOWLEntityExtractor());
+		OWLDatatype range = rdpa.getR().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range);
+		return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range);
 	}
 
 	@Override
 	public OWLSubObjectPropertyOfAxiom extract(SOPA sopa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty superProperty = sopa.getSup().extract(getOWLNamedObjectExtractor());
-		OWLObjectProperty subProperty = sopa.getSub().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty superProperty = sopa.getSup().extract(getOWLEntityExtractor());
+		OWLObjectProperty subProperty = sopa.getSub().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty);
+		return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty);
 	}
 
 	@Override
 	public OWLInverseObjectPropertiesAxiom extract(IOPA iopa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property2 = iopa.getP1().extract(getOWLNamedObjectExtractor());
-		OWLObjectProperty property1 = iopa.getP2().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property2 = iopa.getP1().extract(getOWLEntityExtractor());
+		OWLObjectProperty property1 = iopa.getP2().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLInverseObjectPropertiesAxiom(property1, property2);
+		return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(property1, property2);
 	}
 
 	@Override
 	public OWLSubDataPropertyOfAxiom extract(SDPA sdpa) throws TargetRuleEngineException
 	{
-		OWLDataPropertyExpression superProperty = sdpa.getSup().extract(getOWLNamedObjectExtractor());
-		OWLDataPropertyExpression subProperty = sdpa.getSub().extract(getOWLNamedObjectExtractor());
+		OWLDataPropertyExpression superProperty = sdpa.getSup().extract(getOWLEntityExtractor());
+		OWLDataPropertyExpression subProperty = sdpa.getSub().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty, superProperty);
+		return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty, superProperty);
 	}
 
 	@Override
 	public OWLEquivalentObjectPropertiesAxiom extract(EOPA eopa) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property1 = eopa.getP1().extract(getOWLNamedObjectExtractor());
-		OWLObjectPropertyExpression property2 = eopa.getP2().extract(getOWLNamedObjectExtractor());
+		OWLObjectPropertyExpression property1 = eopa.getP1().extract(getOWLEntityExtractor());
+		OWLObjectPropertyExpression property2 = eopa.getP2().extract(getOWLEntityExtractor());
 		Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
 		properties.add(property1);
 		properties.add(property2);
 
-		return getSWRLAPIOWLDataFactory().getOWLEquivalentObjectPropertiesAxiom(properties);
+		return getOWLDataFactory().getOWLEquivalentObjectPropertiesAxiom(properties);
 	}
 
 	@Override
 	public OWLEquivalentDataPropertiesAxiom extract(EDPA edpa) throws TargetRuleEngineException
 	{
-		OWLDataPropertyExpression property1 = edpa.getP1().extract(getOWLNamedObjectExtractor());
-		OWLDataPropertyExpression property2 = edpa.getP2().extract(getOWLNamedObjectExtractor());
+		OWLDataPropertyExpression property1 = edpa.getP1().extract(getOWLEntityExtractor());
+		OWLDataPropertyExpression property2 = edpa.getP2().extract(getOWLEntityExtractor());
 		Set<OWLDataPropertyExpression> properties = new HashSet<OWLDataPropertyExpression>();
 		properties.add(property1);
 		properties.add(property2);
 
-		return getSWRLAPIOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(properties);
+		return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(properties);
 	}
 
 	@Override
 	public OWLDisjointObjectPropertiesAxiom extract(DJOPA djopa) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property1 = djopa.getP1().extract(getOWLNamedObjectExtractor());
-		OWLObjectPropertyExpression property2 = djopa.getP2().extract(getOWLNamedObjectExtractor());
+		OWLObjectPropertyExpression property1 = djopa.getP1().extract(getOWLEntityExtractor());
+		OWLObjectPropertyExpression property2 = djopa.getP2().extract(getOWLEntityExtractor());
 		Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
 		properties.add(property1);
 		properties.add(property2);
 
-		return getSWRLAPIOWLDataFactory().getOWLDisjointObjectPropertiesAxiom(properties);
+		return getOWLDataFactory().getOWLDisjointObjectPropertiesAxiom(properties);
 	}
 
 	@Override
 	public OWLDisjointDataPropertiesAxiom extract(DJDPA djdpa) throws TargetRuleEngineException
 	{
-		OWLDataPropertyExpression property1 = djdpa.getP1().extract(getOWLNamedObjectExtractor());
-		OWLDataPropertyExpression property2 = djdpa.getP2().extract(getOWLNamedObjectExtractor());
+		OWLDataPropertyExpression property1 = djdpa.getP1().extract(getOWLEntityExtractor());
+		OWLDataPropertyExpression property2 = djdpa.getP2().extract(getOWLEntityExtractor());
 		Set<OWLDataPropertyExpression> properties = new HashSet<OWLDataPropertyExpression>();
 		properties.add(property1);
 		properties.add(property2);
 
-		return getSWRLAPIOWLDataFactory().getOWLDisjointDataPropertiesAxiom(properties);
+		return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(properties);
 	}
 
 	@Override
 	public OWLFunctionalObjectPropertyAxiom extract(FOPA fopa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = fopa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = fopa.getP().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(property);
+		return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(property);
 	}
 
 	@Override
 	public OWLFunctionalDataPropertyAxiom extract(FDPA fdpa) throws TargetRuleEngineException
 	{
-		OWLDataProperty property = fdpa.getP().extract(getOWLNamedObjectExtractor());
+		OWLDataProperty property = fdpa.getP().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
+		return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
 	}
 
 	@Override
 	public OWLInverseFunctionalObjectPropertyAxiom extract(IPA ipa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = ipa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = ipa.getP().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
+		return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
 	}
 
 	@Override
 	public OWLIrreflexiveObjectPropertyAxiom extract(IRPA irpa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = irpa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = irpa.getP().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
+		return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
 	}
 
 	@Override
 	public OWLAsymmetricObjectPropertyAxiom extract(APA apa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = apa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = apa.getP().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
+		return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
 	}
 
 	@Override
 	public OWLSymmetricObjectPropertyAxiom extract(SPA spa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = spa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = spa.getP().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(property);
+		return getOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(property);
 	}
 
 	@Override
 	public OWLTransitiveObjectPropertyAxiom extract(TPA tpa) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = tpa.getP().extract(getOWLNamedObjectExtractor());
+		OWLObjectProperty property = tpa.getP().extract(getOWLEntityExtractor());
 
-		return getSWRLAPIOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
+		return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
 	}
 
 	private DroolsL2OWLLiteralExtractor getOWLLiteralExtractor()
@@ -396,9 +396,9 @@ public class DefaultDroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractorB
 		return this.literalExtractor;
 	}
 
-	private DroolsOE2OWLEntityExtractor getOWLNamedObjectExtractor()
+	private DroolsOE2OWLEntityExtractor getOWLEntityExtractor()
 	{
-		return this.namedObjectExtractor;
+		return this.owlEntityExtractor;
 	}
 
 	private DroolsOWLI2IndividualExtractor getOWLIndividualExtractor()

@@ -19,8 +19,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
 
 /**
- * This class converts the Drools representation of OWL entities represented by the class {@link OE} to their
- * Portability API representation.
+ * This class converts the Drools representation of OWL entities represented by the class {@link OE} to their OWLAPI
+ * representation.
  */
 public class DefaultDroolsOE2OWLEntityExtractor extends TargetRuleEngineExtractorBase implements
 		DroolsOE2OWLEntityExtractor
@@ -34,41 +34,41 @@ public class DefaultDroolsOE2OWLEntityExtractor extends TargetRuleEngineExtracto
 	public OWLClass extract(C cls) throws TargetRuleEngineException
 	{
 		IRI classIRI = getIRI(cls.getid());
-		return getSWRLAPIOWLDataFactory().getOWLClass(classIRI);
+		return getOWLDataFactory().getOWLClass(classIRI);
 	}
 
 	@Override
 	public OWLNamedIndividual extract(I individual) throws TargetRuleEngineException
 	{
 		IRI individualIRI = getIRI(individual.getid());
-		return getSWRLAPIOWLDataFactory().getOWLNamedIndividual(individualIRI);
+		return getOWLDataFactory().getOWLNamedIndividual(individualIRI);
 	}
 
 	@Override
 	public OWLDataProperty extract(DP property) throws TargetRuleEngineException
 	{
 		IRI propertyIRI = getIRI(property.getid());
-		return getSWRLAPIOWLDataFactory().getOWLDataProperty(propertyIRI);
+		return getOWLDataFactory().getOWLDataProperty(propertyIRI);
 	}
 
 	@Override
 	public OWLAnnotationProperty extract(AP property) throws TargetRuleEngineException
 	{
 		IRI propertyIRI = getIRI(property.getid());
-		return getSWRLAPIOWLDataFactory().getOWLAnnotationProperty(propertyIRI);
+		return getOWLDataFactory().getOWLAnnotationProperty(propertyIRI);
 	}
 
 	@Override
 	public OWLObjectProperty extract(OP property) throws TargetRuleEngineException
 	{
 		IRI propertyIRI = getIRI(property.getid());
-		return getSWRLAPIOWLDataFactory().getOWLObjectProperty(propertyIRI);
+		return getOWLDataFactory().getOWLObjectProperty(propertyIRI);
 	}
 
 	@Override
 	public OWLDatatype extract(D datatype) throws TargetRuleEngineException
 	{
 		IRI datatypeIRI = getIRI(datatype.getid());
-		return getSWRLAPIOWLDataFactory().getOWLDatatype(datatypeIRI);
+		return getOWLDataFactory().getOWLDatatype(datatypeIRI);
 	}
 }

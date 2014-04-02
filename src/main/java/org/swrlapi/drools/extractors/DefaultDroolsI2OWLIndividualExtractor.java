@@ -7,7 +7,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
 
 /**
- * Converts an OWL individual represented by the class {@link I} from a Portability API OWL individual.
+ * Converts an OWL individual represented by the class {@link I} to an OWLAPI OWL individual.
  */
 public class DefaultDroolsI2OWLIndividualExtractor extends TargetRuleEngineExtractorBase implements
 		DroolsOWLI2IndividualExtractor
@@ -21,8 +21,8 @@ public class DefaultDroolsI2OWLIndividualExtractor extends TargetRuleEngineExtra
 	public OWLIndividual extract(I individual) throws TargetRuleEngineException
 	{
 		if (getOWLIRIResolver().isOWLNamedIndividual(individual.getid()))
-			return getSWRLAPIOWLDataFactory().getOWLNamedIndividual(getIRI(individual.getid()));
+			return getOWLDataFactory().getOWLNamedIndividual(getIRI(individual.getid()));
 		else
-			return getSWRLAPIOWLDataFactory().getOWLAnonymousIndividual(individual.getid());
+			return getOWLDataFactory().getOWLAnonymousIndividual(individual.getid());
 	}
 }

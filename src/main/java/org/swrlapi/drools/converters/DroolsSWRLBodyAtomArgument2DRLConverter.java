@@ -39,7 +39,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineCon
 	}
 
 	public String convert(SWRLArgument argument) throws TargetRuleEngineException
-	{
+	{ // TODO Use visitor to get rid of instanceof
 		if (argument instanceof SWRLArgument) {
 			return convert(argument);
 		} else if (argument instanceof SWRLVariable) {
