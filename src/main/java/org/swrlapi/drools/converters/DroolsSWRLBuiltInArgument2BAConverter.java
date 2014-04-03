@@ -117,7 +117,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	public UBA convert(SWRLVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
 		if (argument.isUnbound())
-			return new UBA(argument.getVariableName());
+			return new UBA(swrlVariable2VariableName(argument));
 		else
 			throw new TargetRuleEngineException("expecting unbound argument, got bound argument " + argument);
 	}
@@ -125,7 +125,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	@Override
 	public BA convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new SQWRLC(argument.getVariableName(), argument.getQueryName(), argument.getCollectionName(),
+		return new SQWRLC(swrlVariable2VariableName(argument), argument.getQueryName(), argument.getCollectionName(),
 				argument.getGroupID());
 	}
 }

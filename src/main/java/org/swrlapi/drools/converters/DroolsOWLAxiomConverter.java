@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.DroolsSWRLRuleEngine;
@@ -85,32 +84,29 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.ext.SWRLAPIRule;
 
 /**
- * This class converts OWL axioms to their Drools representation, which is the class {@link A}. Not all OWL axioms are
- * currently supported. These axioms are ignored. Supported axioms are targeted to the requirements of an OWL 2 RL
- * reasoner. Some axioms (e.g., annotation axioms) may never be reasoned with so are unlikely to require conversion to
- * Drools.
+ * This class converts OWL axioms to their Drools representation. Not all OWL axioms are currently supported. These
+ * axioms are ignored. Supported axioms are targeted to the requirements of an OWL 2 RL reasoner. Some axioms (e.g.,
+ * annotation axioms) may never be reasoned with so are unlikely to require conversion to Drools.
+ * <p>
+ * Note that SWRL rules are also a type of OWL axiom so are also converted here.
+ * <p>
+ * 
  */
-public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements TargetRuleEngineOWLAxiomConverter
+public class DroolsOWLAxiomConverter extends DroolsConverterBase implements TargetRuleEngineOWLAxiomConverter
 {
-	private final DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
-	private final DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
+	private final DroolsSWRLRuleConverter swrlRuleConverter;
 	private final DroolsOWLClassExpressionConverter classExpressionConverter;
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-	private final DroolsSWRLRuleEngine droolsEngine;
 
 	private final Set<A> nonRuleAssertedOWLAxioms;
 
-	public DroolsOWLAxiom2AConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine)
+	public DroolsOWLAxiomConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine)
 	{
 		super(bridge);
 
-		this.bodyAtomConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge);
-		this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge);
-
+		this.swrlRuleConverter = new DroolsSWRLRuleConverter(bridge, droolsEngine);
 		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge);
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
-
-		this.droolsEngine = droolsEngine;
 
 		this.nonRuleAssertedOWLAxioms = new HashSet<A>();
 	}
@@ -118,8 +114,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	public void reset()
 	{
 		this.nonRuleAssertedOWLAxioms.clear();
-		getSWRLBodyAtomConverter().reset();
-		getSWRLHeadAtomConverter().reset();
+
 		getDroolsOWLClassExpressionConverter().reset();
 		getDroolsOWLPropertyExpressionConverter().reset();
 	}
@@ -222,7 +217,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	@Override
 	public void convert(SWRLAPIRule rule) throws TargetRuleEngineException
 	{
-		swrlRule2DRL(rule);
+		getDroolsSWRLRuleConverter().convert(rule);
 	}
 
 	@Override
@@ -317,8 +312,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	{
 		OWLDataPropertyExpression subProperty = axiom.getSubProperty();
 		OWLDataPropertyExpression superProperty = axiom.getSuperProperty();
-		SDPA a = new SDPA(getDroolsOWLPropertyExpressionConverter().convert(subProperty), getDroolsOWLPropertyExpressionConverter()
-				.convert(superProperty));
+		SDPA a = new SDPA(getDroolsOWLPropertyExpressionConverter().convert(subProperty),
+				getDroolsOWLPropertyExpressionConverter().convert(superProperty));
 
 		createNonRuleOWLAxiom(a);
 	}
@@ -328,8 +323,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	{
 		OWLObjectPropertyExpression subProperty = axiom.getSubProperty();
 		OWLObjectPropertyExpression superProperty = axiom.getSuperProperty();
-		SOPA a = new SOPA(getDroolsOWLPropertyExpressionConverter().convert(subProperty), getDroolsOWLPropertyExpressionConverter()
-				.convert(superProperty));
+		SOPA a = new SOPA(getDroolsOWLPropertyExpressionConverter().convert(subProperty),
+				getDroolsOWLPropertyExpressionConverter().convert(superProperty));
 
 		createNonRuleOWLAxiom(a);
 	}
@@ -339,8 +334,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	{
 		OWLObjectPropertyExpression property1 = axiom.getFirstProperty();
 		OWLObjectPropertyExpression property2 = axiom.getSecondProperty();
-		IOPA a = new IOPA(getDroolsOWLPropertyExpressionConverter().convert(property1), getDroolsOWLPropertyExpressionConverter()
-				.convert(property2));
+		IOPA a = new IOPA(getDroolsOWLPropertyExpressionConverter().convert(property1),
+				getDroolsOWLPropertyExpressionConverter().convert(property2));
 
 		createNonRuleOWLAxiom(a);
 	}
@@ -350,8 +345,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	{
 		OWLClassExpression subClass = axiom.getSubClass();
 		OWLClassExpression superClass = axiom.getSuperClass();
-		SCA a = new SCA(getDroolsOWLClassExpressionConverter().convert(subClass), getDroolsOWLClassExpressionConverter().convert(
-				superClass));
+		SCA a = new SCA(getDroolsOWLClassExpressionConverter().convert(subClass), getDroolsOWLClassExpressionConverter()
+				.convert(superClass));
 
 		createNonRuleOWLAxiom(a);
 	}
@@ -469,8 +464,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		OWLClassExpression domain = axiom.getDomain();
-		DOPA a = new DOPA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLClassExpressionConverter().convert(
-				domain));
+		DOPA a = new DOPA(getDroolsOWLPropertyExpressionConverter().convert(property),
+				getDroolsOWLClassExpressionConverter().convert(domain));
 
 		createNonRuleOWLAxiom(a);
 	}
@@ -480,8 +475,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLClassExpression domain = axiom.getDomain();
-		DDPA a = new DDPA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLClassExpressionConverter().convert(
-				domain));
+		DDPA a = new DDPA(getDroolsOWLPropertyExpressionConverter().convert(property),
+				getDroolsOWLClassExpressionConverter().convert(domain));
 
 		createNonRuleOWLAxiom(a);
 	}
@@ -491,8 +486,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		OWLClassExpression domain = axiom.getRange();
-		ROPA a = new ROPA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLClassExpressionConverter().convert(
-				domain));
+		ROPA a = new ROPA(getDroolsOWLPropertyExpressionConverter().convert(property),
+				getDroolsOWLClassExpressionConverter().convert(domain));
 
 		createNonRuleOWLAxiom(a);
 	}
@@ -637,69 +632,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 		// We ignore because we do not currently reason with this axiom.
 	}
 
-	private void swrlRule2DRL(SWRLAPIRule rule) throws TargetRuleEngineException
-	{
-		String ruleName = rule.getRuleName();
-		String drlRule = getRulePreamble(ruleName);
-		Set<String> variableNames = new HashSet<String>();
-
-		getSWRLBodyAtomConverter().reset();
-		getSWRLHeadAtomConverter().reset();
-
-		for (SWRLAtom atom : rule.getBodyAtoms())
-			drlRule += "\n   " + getSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
-
-		drlRule = addRuleThenClause(drlRule);
-
-		// TODO HACK!!! Need to reference these variables before use or will get null pointer error when invoking built-ins
-		// for (String variableName : variableNames)
-		// drlRule += "$" + variableName + ";";
-
-		for (SWRLAtom atom : rule.getHeadAtoms())
-			drlRule += "\n   " + getSWRLHeadAtomConverter().convert(atom) + " ";
-
-		drlRule = addRuleEndClause(drlRule);
-
-		// System.err.println("----------------------------------------------------------------------------------------------------");
-		// System.err.println("SWRL: " + rule.getRuleText());
-		// System.err.println("DRL:\n" + drlRule);
-		getDroolsEngine().defineDRLRule(ruleName, drlRule);
-	}
-
-	private String getRulePreamble(String ruleName)
-	{
-		return "rule \"" + ruleName + "\" \nwhen ";
-	}
-
-	private String addRuleEndClause(String ruleText)
-	{
-		return ruleText + "\nend";
-	}
-
-	private String addRuleThenClause(String ruleText)
-	{
-		return ruleText + "\nthen ";
-	}
-
-	private DroolsSWRLBodyAtom2DRLConverter getSWRLBodyAtomConverter()
-	{
-		return this.bodyAtomConverter;
-	}
-
-	private DroolsSWRLHeadAtom2DRLConverter getSWRLHeadAtomConverter()
-	{
-		return this.headAtomConverter;
-	}
-
 	private void createNonRuleOWLAxiom(A a)
 	{
 		if (!this.nonRuleAssertedOWLAxioms.contains(a))
 			this.nonRuleAssertedOWLAxioms.add(a);
-	}
-
-	private DroolsSWRLRuleEngine getDroolsEngine()
-	{
-		return this.droolsEngine;
 	}
 
 	private DroolsOWLClassExpressionConverter getDroolsOWLClassExpressionConverter()
@@ -710,5 +646,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsConverterBase implements Ta
 	private DroolsOWLPropertyExpressionConverter getDroolsOWLPropertyExpressionConverter()
 	{
 		return this.propertyExpressionConverter;
+	}
+
+	private DroolsSWRLRuleConverter getDroolsSWRLRuleConverter()
+	{
+		return this.swrlRuleConverter;
 	}
 }

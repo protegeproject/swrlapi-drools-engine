@@ -53,7 +53,6 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLClassExpressionConverter<String>
 {
-	private final DroolsOWLIndividual2DRLConverter individualConverter;
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
 	private final Map<OWLClassExpression, String> classExpression2IDMap;
 	private final Set<String> convertedClassExpressionIDs;
@@ -64,7 +63,6 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	{
 		super(bridge);
 
-		this.individualConverter = new DroolsOWLIndividual2DRLConverter(bridge);
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
 
 		this.classExpressions = new HashSet<CE>();
@@ -149,11 +147,11 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			for (OWLIndividual individual1 : classExpression.getIndividuals()) {
 				Set<OWLIndividual> individuals = new HashSet<OWLIndividual>(classExpression.getIndividuals());
-				String individual1ID = getOWLIndividualConverter().convert(individual1);
+				String individual1ID = getDroolsOWLIndividual2DRLConverter().convert(individual1);
 
 				individuals.remove(individual1);
 				for (OWLIndividual individual2 : individuals) {
-					String individual2ID = getOWLIndividualConverter().convert(individual2);
+					String individual2ID = getDroolsOWLIndividual2DRLConverter().convert(individual2);
 					OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
 
 					addOWLClassExpression(oooce);
@@ -392,7 +390,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
-			String valueIndividualID = getOWLIndividualConverter().convert(classExpression.getValue());
+			String valueIndividualID = getDroolsOWLIndividual2DRLConverter().convert(classExpression.getValue());
 			OHVCE ohvce = new OHVCE(classExpressionID, propertyID, valueIndividualID);
 
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
@@ -462,10 +460,5 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
 	{
 		return this.propertyExpressionConverter;
-	}
-
-	private DroolsOWLIndividual2DRLConverter getOWLIndividualConverter()
-	{
-		return this.individualConverter;
 	}
 }

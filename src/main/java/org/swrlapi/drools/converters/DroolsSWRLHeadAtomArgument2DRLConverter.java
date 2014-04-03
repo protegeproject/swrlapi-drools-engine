@@ -85,7 +85,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLVariableBuiltInArgument variableArgument) throws TargetRuleEngineException
 	{
-		return "$" + variableArgument.getVariableName();
+		return swrlVariable2DRL(variableArgument);
 	}
 
 	@Override

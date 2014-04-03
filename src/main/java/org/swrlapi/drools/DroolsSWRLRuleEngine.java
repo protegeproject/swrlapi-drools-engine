@@ -20,7 +20,7 @@ import org.drools.runtime.rule.AgendaFilter;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.TargetRuleEngine;
-import org.swrlapi.drools.converters.DroolsOWLAxiom2AConverter;
+import org.swrlapi.drools.converters.DroolsOWLAxiomConverter;
 import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
@@ -47,7 +47,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 {
 	private final SWRLRuleEngineBridge bridge;
 
-	private final DroolsOWLAxiom2AConverter axiomConverter;
+	private final DroolsOWLAxiomConverter axiomConverter;
 	private final DroolsSQWRLQuery2DRLConverter queryConverter;
 	private final DroolsOWLAxiomExtractor axiomExtractor;
 	private final DroolsOWLAxiomInferrer owlAxiomInferrer;
@@ -82,7 +82,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		this.owlAxiomInferrer = new DroolsOWLAxiomInferrer(this.owl2RLEngine);
 		this.sqwrlCollectionInferrer = new DroolsSQWRLCollectionInferrer();
 
-		this.axiomConverter = new DroolsOWLAxiom2AConverter(bridge, this);
+		this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this);
 		this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this);
 
 		this.definedOWLAxioms = new HashSet<OWLAxiom>();
@@ -448,7 +448,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		return this.bridge;
 	}
 
-	private DroolsOWLAxiom2AConverter getOWLAxiomConverter()
+	private DroolsOWLAxiomConverter getOWLAxiomConverter()
 	{
 		return this.axiomConverter;
 	}

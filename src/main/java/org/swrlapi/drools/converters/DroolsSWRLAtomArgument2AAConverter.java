@@ -6,7 +6,6 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLAtomArgumentConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -35,15 +34,12 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 /**
  * This class converts SWRL atom arguments to their Drools representation.
  */
-public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverterBase implements
+public class DroolsSWRLAtomArgument2AAConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLAtomArgumentConverter<AA>
 {
-	private final DroolsOWLLiteral2LConverter literal2LConvertor;
-
-	public DroolsSWRLAtomArgument2AAConverter(SWRLRuleEngineBridge bridge, DroolsOWLLiteral2LConverter literal2LConvertor)
+	public DroolsSWRLAtomArgument2AAConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
-		this.literal2LConvertor = literal2LConvertor;
 	}
 
 	public AA convert(SWRLArgument argument) throws TargetRuleEngineException
@@ -96,7 +92,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public L convert(SWRLLiteralArgument argument) throws TargetRuleEngineException
 	{
-		return getOWLLiteralConvertor().convert(argument.getLiteral());
+		return getDroolsOWLLiteral2LConverter().convert(argument.getLiteral());
 	}
 
 	@Override
@@ -150,14 +146,14 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public L convert(SWRLLiteralBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return getOWLLiteralConvertor().convert(argument.getLiteral());
+		return getDroolsOWLLiteral2LConverter().convert(argument.getLiteral());
 	}
 
 	@Override
 	public UBA convert(SWRLVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
 		if (argument.isUnbound())
-			return new UBA(argument.getVariableName());
+			return new UBA(swrlVariable2VariableName(argument));
 		else
 			throw new TargetRuleEngineException("expecting unbound argument, got bound argument " + argument);
 	}
@@ -166,10 +162,5 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	public BA convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{ // TODO ? Yes it does!?
 		throw new TargetRuleEngineNotImplementedFeatureException("Drools does not support SQWRL collections yet");
-	}
-
-	private DroolsOWLLiteral2LConverter getOWLLiteralConvertor()
-	{
-		return this.literal2LConvertor;
 	}
 }

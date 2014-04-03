@@ -41,8 +41,8 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 	@Override
 	public void convert(SQWRLQuery query) throws TargetRuleEngineException, BuiltInException
 	{
-		getSWRLBodyAtomConverter().reset();
-		getSWRLHeadAtomConverter().reset();
+		getDroolsSWRLBodyAtomConverter().reset();
+		getDroolsSWRLHeadAtomConverter().reset();
 
 		sqwrlQuery2DRL(query);
 	}
@@ -66,12 +66,12 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 		String drlRule = getQueryPreamble(ruleName);
 
 		for (SWRLAtom atom : query.getBodyAtoms())
-			drlRule += "\n   " + getSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
+			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
 
 		drlRule = addQueryThenClause(drlRule);
 
 		for (SWRLAtom atom : query.getHeadAtoms())
-			drlRule += "\n   " + getSWRLHeadAtomConverter().convert(atom) + " ";
+			drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";
 
 		drlRule = addQueryEndClause(drlRule);
 
@@ -88,7 +88,7 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 		String drlPhase2Rule = getQueryPreamble(phase2RuleName);
 
 		for (SWRLAtom atom : query.getSQWRLPhase1BodyAtoms())
-			drlPhase1Rule += "\n  " + getSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
+			drlPhase1Rule += "\n  " + getDroolsSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
 
 		drlPhase1Rule = addQueryThenClause(drlPhase1Rule);
 
@@ -127,11 +127,11 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 			}
 		}
 		for (SWRLAtom atom : query.getSQWRLPhase2BodyAtoms())
-			drlPhase2Rule += "\n  " + getSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
+			drlPhase2Rule += "\n  " + getDroolsSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
 
 		drlPhase2Rule = addQueryThenClause(drlPhase2Rule);
 		for (SWRLAtom atom : query.getHeadAtoms())
-			drlPhase2Rule += "\n  " + getSWRLHeadAtomConverter().convert(atom);
+			drlPhase2Rule += "\n  " + getDroolsSWRLHeadAtomConverter().convert(atom);
 
 		drlPhase2Rule = addQueryEndClause(drlPhase2Rule);
 		getDroolsEngine().defineDRLSQWRLPhase2Rule(queryName, phase2RuleName, drlPhase2Rule);
@@ -152,12 +152,12 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 		return queryText + "\nthen ";
 	}
 
-	private DroolsSWRLBodyAtom2DRLConverter getSWRLBodyAtomConverter()
+	private DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtomConverter()
 	{
 		return this.bodyAtom2DRLConverter;
 	}
 
-	private DroolsSWRLHeadAtom2DRLConverter getSWRLHeadAtomConverter()
+	private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtomConverter()
 	{
 		return this.headAtom2DRLConverter;
 	}
