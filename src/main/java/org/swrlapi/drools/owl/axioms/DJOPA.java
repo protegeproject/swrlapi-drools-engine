@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.entities.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -31,7 +31,7 @@ public class DJOPA extends BinaryObjectPropertiesAxiom
 	}
 
 	@Override
-	public OWLDisjointObjectPropertiesAxiom extract(DroolsA2OWLAxiomExtractor converter) throws TargetRuleEngineException
+	public OWLDisjointObjectPropertiesAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetRuleEngineException
 	{
 		return converter.extract(this);
 	}

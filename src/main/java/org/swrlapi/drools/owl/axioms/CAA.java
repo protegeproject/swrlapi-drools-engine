@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.DroolsBinaryObject;
 import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -32,7 +32,7 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 	}
 
 	@Override
-	public OWLClassAssertionAxiom extract(DroolsA2OWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLClassAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

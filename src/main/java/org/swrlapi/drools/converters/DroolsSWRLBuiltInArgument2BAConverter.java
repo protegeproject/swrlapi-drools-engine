@@ -1,6 +1,5 @@
 package org.swrlapi.drools.converters;
 
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -28,15 +27,12 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 /**
  * This class converts SWRL atom arguments to their Drools representation.
  */
-public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConverterBase implements
+public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLBuiltInArgumentConverter<BA>
 {
-	private final DroolsOWLLiteral2LConverter literalConvertor;
-
-	public DroolsSWRLBuiltInArgument2BAConverter(SWRLRuleEngineBridge bridge, DroolsOWLLiteral2LConverter literalConvertor)
+	public DroolsSWRLBuiltInArgument2BAConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
-		this.literalConvertor = literalConvertor;
 	}
 
 	public BA convert(SWRLBuiltInArgument argument) throws TargetRuleEngineException
@@ -66,7 +62,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	@Override
 	public C convert(SWRLClassBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new C(prefixedName);
 	}
@@ -74,7 +70,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	@Override
 	public I convert(SWRLNamedIndividualBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new I(prefixedName);
 	}
@@ -82,7 +78,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	@Override
 	public OP convert(SWRLObjectPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new OP(prefixedName);
 	}
@@ -90,7 +86,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	@Override
 	public DP convert(SWRLDataPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new DP(prefixedName);
 	}
@@ -98,7 +94,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	@Override
 	public AP convert(SWRLAnnotationPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new AP(prefixedName);
 	}
@@ -106,7 +102,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	@Override
 	public D convert(SWRLDatatypeBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new D(prefixedName);
 	}
@@ -114,7 +110,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	@Override
 	public L convert(SWRLLiteralBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return getOWLLiteralConvertor().convert(argument.getLiteral());
+		return getDroolsOWLLiteral2LConverter().convert(argument.getLiteral());
 	}
 
 	@Override
@@ -131,10 +127,5 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends TargetRuleEngineConve
 	{
 		return new SQWRLC(argument.getVariableName(), argument.getQueryName(), argument.getCollectionName(),
 				argument.getGroupID());
-	}
-
-	private DroolsOWLLiteral2LConverter getOWLLiteralConvertor()
-	{
-		return this.literalConvertor;
 	}
 }

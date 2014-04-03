@@ -38,12 +38,12 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineSWRLAtomArgumentConverter<AA>
 {
-	private final DroolsOWLLiteral2LConverter literalConvertor;
+	private final DroolsOWLLiteral2LConverter literal2LConvertor;
 
-	public DroolsSWRLAtomArgument2AAConverter(SWRLRuleEngineBridge bridge, DroolsOWLLiteral2LConverter literalConvertor)
+	public DroolsSWRLAtomArgument2AAConverter(SWRLRuleEngineBridge bridge, DroolsOWLLiteral2LConverter literal2LConvertor)
 	{
 		super(bridge);
-		this.literalConvertor = literalConvertor;
+		this.literal2LConvertor = literal2LConvertor;
 	}
 
 	public AA convert(SWRLArgument argument) throws TargetRuleEngineException
@@ -80,7 +80,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	public VA convert(SWRLVariable argument) throws TargetRuleEngineException
 	{
 		IRI iri = argument.getIRI();
-		String variableName = getOWLIRIResolver().iri2PrefixedName(iri);
+		String variableName = getOWLIRIResolver().iri2ShortName(iri);
 		return new VA(variableName); // TODO
 	}
 
@@ -102,7 +102,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public C convert(SWRLClassBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new C(prefixedName);
 	}
@@ -110,7 +110,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public I convert(SWRLNamedIndividualBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new I(prefixedName);
 	}
@@ -118,7 +118,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public OP convert(SWRLObjectPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new OP(prefixedName);
 	}
@@ -126,7 +126,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public DP convert(SWRLDataPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new DP(prefixedName);
 	}
@@ -134,7 +134,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public AP convert(SWRLAnnotationPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new AP(prefixedName);
 	}
@@ -142,7 +142,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 	@Override
 	public D convert(SWRLDatatypeBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(argument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
 
 		return new D(prefixedName);
 	}
@@ -170,6 +170,6 @@ public class DroolsSWRLAtomArgument2AAConverter extends TargetRuleEngineConverte
 
 	private DroolsOWLLiteral2LConverter getOWLLiteralConvertor()
 	{
-		return this.literalConvertor;
+		return this.literal2LConvertor;
 	}
 }

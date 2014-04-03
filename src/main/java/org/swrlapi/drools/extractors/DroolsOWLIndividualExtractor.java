@@ -8,7 +8,7 @@ import org.swrlapi.extractors.TargetRuleEngineExtractor;
 /**
  * Converts an OWL individual represented by the class {@link I} from an OWLAPI OWL individual.
  */
-public interface DroolsOWLI2IndividualExtractor extends TargetRuleEngineExtractor
+public interface DroolsOWLIndividualExtractor extends TargetRuleEngineExtractor
 {
 	OWLIndividual extract(I i) throws TargetRuleEngineException;
 }

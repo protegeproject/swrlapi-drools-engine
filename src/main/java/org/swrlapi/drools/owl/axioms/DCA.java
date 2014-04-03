@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -15,7 +15,7 @@ public class DCA extends BinaryClassesAxiom
 	}
 
 	@Override
-	public OWLDisjointClassesAxiom extract(DroolsA2OWLAxiomExtractor converter) throws TargetRuleEngineException
+	public OWLDisjointClassesAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetRuleEngineException
 	{
 		return converter.extract(this);
 	}

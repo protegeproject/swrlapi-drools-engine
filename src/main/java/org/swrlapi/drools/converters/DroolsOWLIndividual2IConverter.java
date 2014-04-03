@@ -11,18 +11,18 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public class DroolsOWLIndividual2IConverter implements TargetRuleEngineOWLIndividualConverter<I>
 {
-	private final OWLIRIResolver resolver;
+	private final OWLIRIResolver iriResolver;
 
-	public DroolsOWLIndividual2IConverter(OWLIRIResolver resolver)
+	public DroolsOWLIndividual2IConverter(OWLIRIResolver iriResolver)
 	{
-		this.resolver = resolver;
+		this.iriResolver = iriResolver;
 	}
 
 	@Override
 	public I convert(OWLIndividual individual) throws TargetRuleEngineException
 	{
 		if (individual.isNamed()) {
-			return new I(resolver.iri2PrefixedName(individual.asOWLNamedIndividual().getIRI()));
+			return new I(iriResolver.iri2ShortName(individual.asOWLNamedIndividual().getIRI()));
 		} else
 			return new I(individual.asOWLAnonymousIndividual().getID().getID());
 	}

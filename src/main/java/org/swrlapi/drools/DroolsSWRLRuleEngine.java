@@ -22,8 +22,8 @@ import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.TargetRuleEngine;
 import org.swrlapi.drools.converters.DroolsOWLAxiom2AConverter;
 import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
-import org.swrlapi.drools.extractors.DefaultDroolsA2OWLAxiomExtractor;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.DroolsOWLAxiomInferrer;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.expressions.CE;
@@ -49,7 +49,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 
 	private final DroolsOWLAxiom2AConverter axiomConverter;
 	private final DroolsSQWRLQuery2DRLConverter queryConverter;
-	private final DroolsA2OWLAxiomExtractor axiomExtractor;
+	private final DroolsOWLAxiomExtractor axiomExtractor;
 	private final DroolsOWLAxiomInferrer owlAxiomInferrer;
 	private final DroolsSQWRLCollectionInferrer sqwrlCollectionInferrer;
 	private final DroolsSWRLBuiltInInvoker builtInInvoker;
@@ -76,7 +76,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	{
 		this.bridge = bridge;
 
-		this.axiomExtractor = new DefaultDroolsA2OWLAxiomExtractor(bridge);
+		this.axiomExtractor = new DefaultDroolsOWLAxiomExtractor(bridge);
 		this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
 		this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
 		this.owlAxiomInferrer = new DroolsOWLAxiomInferrer(this.owl2RLEngine);
@@ -453,7 +453,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		return this.axiomConverter;
 	}
 
-	private DroolsA2OWLAxiomExtractor getOWLAxiomExtractor()
+	private DroolsOWLAxiomExtractor getOWLAxiomExtractor()
 	{
 		return this.axiomExtractor;
 	}

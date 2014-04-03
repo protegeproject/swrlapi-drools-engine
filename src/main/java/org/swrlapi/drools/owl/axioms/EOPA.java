@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.entities.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -31,7 +31,7 @@ public class EOPA extends BinaryObjectPropertiesAxiom
 	}
 
 	@Override
-	public OWLEquivalentObjectPropertiesAxiom extract(DroolsA2OWLAxiomExtractor extractor)
+	public OWLEquivalentObjectPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor)
 			throws TargetRuleEngineException
 	{
 		return extractor.extract(this);

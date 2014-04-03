@@ -23,7 +23,7 @@ import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
  * representation.
  */
 public class DefaultDroolsOE2OWLEntityExtractor extends TargetRuleEngineExtractorBase implements
-		DroolsOE2OWLEntityExtractor
+		DroolsOWLEntityExtractor
 {
 	public DefaultDroolsOE2OWLEntityExtractor(SWRLRuleEngineBridge bridge)
 	{
@@ -33,42 +33,42 @@ public class DefaultDroolsOE2OWLEntityExtractor extends TargetRuleEngineExtracto
 	@Override
 	public OWLClass extract(C cls) throws TargetRuleEngineException
 	{
-		IRI classIRI = getIRI(cls.getid());
+		IRI classIRI = shortName2IRI(cls.getName());
 		return getOWLDataFactory().getOWLClass(classIRI);
 	}
 
 	@Override
 	public OWLNamedIndividual extract(I individual) throws TargetRuleEngineException
 	{
-		IRI individualIRI = getIRI(individual.getid());
+		IRI individualIRI = shortName2IRI(individual.getName());
 		return getOWLDataFactory().getOWLNamedIndividual(individualIRI);
 	}
 
 	@Override
 	public OWLDataProperty extract(DP property) throws TargetRuleEngineException
 	{
-		IRI propertyIRI = getIRI(property.getid());
+		IRI propertyIRI = shortName2IRI(property.getName());
 		return getOWLDataFactory().getOWLDataProperty(propertyIRI);
 	}
 
 	@Override
 	public OWLAnnotationProperty extract(AP property) throws TargetRuleEngineException
 	{
-		IRI propertyIRI = getIRI(property.getid());
+		IRI propertyIRI = shortName2IRI(property.getName());
 		return getOWLDataFactory().getOWLAnnotationProperty(propertyIRI);
 	}
 
 	@Override
 	public OWLObjectProperty extract(OP property) throws TargetRuleEngineException
 	{
-		IRI propertyIRI = getIRI(property.getid());
+		IRI propertyIRI = shortName2IRI(property.getName());
 		return getOWLDataFactory().getOWLObjectProperty(propertyIRI);
 	}
 
 	@Override
 	public OWLDatatype extract(D datatype) throws TargetRuleEngineException
 	{
-		IRI datatypeIRI = getIRI(datatype.getid());
+		IRI datatypeIRI = shortName2IRI(datatype.getName());
 		return getOWLDataFactory().getOWLDatatype(datatypeIRI);
 	}
 }

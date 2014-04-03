@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.DroolsBinaryObject;
 import org.swrlapi.drools.owl.entities.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -32,7 +32,7 @@ public class ROPA extends DroolsBinaryObject<OP, String> implements A
 	}
 
 	@Override
-	public OWLObjectPropertyRangeAxiom extract(DroolsA2OWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLObjectPropertyRangeAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

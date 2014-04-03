@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.DroolsTernaryObject;
 import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.drools.owl.entities.OP;
@@ -71,7 +71,7 @@ public class OPAA extends DroolsTernaryObject<I, OP, I> implements A
 	}
 
 	@Override
-	public OWLObjectPropertyAssertionAxiom extract(DroolsA2OWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

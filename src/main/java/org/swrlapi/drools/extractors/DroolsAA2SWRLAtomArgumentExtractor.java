@@ -17,81 +17,76 @@ import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.UBA;
 import org.swrlapi.drools.swrl.VA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.extractors.TargetRuleEngineSWRLAtomArgumentExtractor;
 
 /**
  * This class creates Drools SWRL atom arguments represented, by the class {@link AA}, to their SWRLAPI representation.
  */
-public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtractorBase implements
+public class DroolsAA2SWRLAtomArgumentExtractor extends DroolsExtractorBase implements
 		TargetRuleEngineSWRLAtomArgumentExtractor
 {
-	private final DroolsL2OWLLiteralExtractor literalExtractor;
-
-	public DroolsAA2SWRLAtomArgumentExtractor(SWRLRuleEngineBridge bridge, DroolsL2OWLLiteralExtractor literalExtractor)
+	public DroolsAA2SWRLAtomArgumentExtractor(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
-
-		this.literalExtractor = literalExtractor;
 	}
 
 	public SWRLVariable extract(VA va) throws TargetRuleEngineException
 	{
-		IRI iri = getOWLIRIResolver().prefixedName2IRI(va.getVariableName());
+		IRI iri = shortName2IRI(va.getVariableName());
 		return getOWLDataFactory().getSWRLVariable(iri);
 	}
 
 	public SWRLBuiltInArgument extract(C c) throws TargetRuleEngineException
 	{
-		String classPrefixedName = c.getid();
-		IRI classIRI = getIRI(classPrefixedName);
+		String classPrefixedName = c.getName();
+		IRI classIRI = shortName2IRI(classPrefixedName);
 
 		return getSWRLBuiltInArgumentFactory().getClassBuiltInArgument(classIRI);
 	}
 
 	public SWRLBuiltInArgument extract(I i) throws TargetRuleEngineException
 	{
-		String individualPrefixedName = i.getid();
-		IRI individualIRI = getIRI(individualPrefixedName);
+		String individualPrefixedName = i.getName();
+		IRI individualIRI = shortName2IRI(individualPrefixedName);
 
 		return getSWRLBuiltInArgumentFactory().getNamedIndividualBuiltInArgument(individualIRI);
 	}
 
 	public SWRLBuiltInArgument extract(DP dp) throws TargetRuleEngineException
 	{
-		String propertyPrefixedName = dp.getid();
-		IRI propertyIRI = getIRI(propertyPrefixedName);
+		String propertyPrefixedName = dp.getName();
+		IRI propertyIRI = shortName2IRI(propertyPrefixedName);
 
 		return getSWRLBuiltInArgumentFactory().getDataPropertyBuiltInArgument(propertyIRI);
 	}
 
 	public SWRLBuiltInArgument extract(AP ap) throws TargetRuleEngineException
 	{
-		String propertyPrefixedName = ap.getid();
-		IRI propertyIRI = getIRI(propertyPrefixedName);
+		String propertyPrefixedName = ap.getName();
+		IRI propertyIRI = shortName2IRI(propertyPrefixedName);
 
 		return getSWRLBuiltInArgumentFactory().getDataPropertyBuiltInArgument(propertyIRI);
 	}
 
 	public SWRLBuiltInArgument extract(OP op) throws TargetRuleEngineException
 	{
-		String propertyPrefixedName = op.getid();
-		IRI propertyIRI = getIRI(propertyPrefixedName);
+		String propertyPrefixedName = op.getName();
+		IRI propertyIRI = shortName2IRI(propertyPrefixedName);
 
 		return getSWRLBuiltInArgumentFactory().getObjectPropertyBuiltInArgument(propertyIRI);
 	}
 
 	public SWRLBuiltInArgument extract(D d) throws TargetRuleEngineException
 	{
-		String datatypePrefixedName = d.getid();
-		IRI datatypeIRI = getIRI(datatypePrefixedName);
+		String datatypePrefixedName = d.getName();
+		IRI datatypeIRI = shortName2IRI(datatypePrefixedName);
 
 		return getSWRLBuiltInArgumentFactory().getDatatypeBuiltInArgument(datatypeIRI);
 	}
 
 	public SWRLBuiltInArgument extract(L l) throws TargetRuleEngineException
 	{
-		OWLLiteral literal = getOWLLiteralExtractor().extract(l);
+		OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(l);
 
 		return getSWRLBuiltInArgumentFactory().getLiteralBuiltInArgument(literal);
 	}
@@ -99,21 +94,16 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends TargetRuleEngineExtracto
 	public SWRLBuiltInArgument extract(UBA uba) throws TargetRuleEngineException
 	{
 		String variableName = uba.getVariableName();
-		IRI variableIRI = getIRI(variableName);
+		IRI variableIRI = shortName2IRI(variableName);
 		return getSWRLBuiltInArgumentFactory().getUnboundVariableBuiltInArgument(variableIRI);
 	}
 
 	public SWRLBuiltInArgument extract(SQWRLC sqwrlc) throws TargetRuleEngineException
 	{
 		String variableName = sqwrlc.getVariableName();
-		IRI variableIRI = getIRI(variableName);
+		IRI variableIRI = shortName2IRI(variableName);
 
 		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionVariableBuiltInArgument(variableIRI,
 				sqwrlc.getQueryName(), sqwrlc.getCollectionName(), sqwrlc.getCollectionID());
-	}
-
-	private DroolsL2OWLLiteralExtractor getOWLLiteralExtractor()
-	{
-		return this.literalExtractor;
 	}
 }

@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.expressions.CE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -31,7 +31,7 @@ public class ECA extends BinaryClassesAxiom
 	}
 
 	@Override
-	public OWLEquivalentClassesAxiom extract(DroolsA2OWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLEquivalentClassesAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

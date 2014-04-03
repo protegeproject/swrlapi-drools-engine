@@ -7,10 +7,8 @@ import java.util.Map;
 
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.converters.DroolsOWLLiteral2LConverter;
 import org.swrlapi.drools.converters.DroolsSWRLBuiltInArgument2BAConverter;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
-import org.swrlapi.drools.extractors.DroolsL2OWLLiteralExtractor;
 import org.swrlapi.drools.sqwrl.VPATH;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.drools.swrl.BAP;
@@ -33,8 +31,6 @@ public class DroolsSWRLBuiltInInvoker
 	private final SWRLRuleEngineBridge bridge;
 	private final DroolsSWRLBuiltInArgument2BAConverter builtInArgumentConvertor;
 	private final DroolsAA2SWRLAtomArgumentExtractor atomArgumentExtractor;
-	private final DroolsOWLLiteral2LConverter literal2LConverter;
-	private final DroolsL2OWLLiteralExtractor literalExtractor;
 
 	public static final int MaxBuiltInArguments = 11;
 
@@ -43,10 +39,8 @@ public class DroolsSWRLBuiltInInvoker
 	public DroolsSWRLBuiltInInvoker(SWRLRuleEngineBridge bridge)
 	{
 		this.bridge = bridge;
-		this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge.getOWLIRIResolver());
-		this.builtInArgumentConvertor = new DroolsSWRLBuiltInArgument2BAConverter(bridge, this.literal2LConverter);
-		this.literalExtractor = new DroolsL2OWLLiteralExtractor(bridge);
-		this.atomArgumentExtractor = new DroolsAA2SWRLAtomArgumentExtractor(bridge, this.literalExtractor);
+		this.builtInArgumentConvertor = new DroolsSWRLBuiltInArgument2BAConverter(bridge);
+		this.atomArgumentExtractor = new DroolsAA2SWRLAtomArgumentExtractor(bridge);
 
 		this.invocationPatternMap = new HashMap<String, List<List<SWRLBuiltInArgument>>>();
 	}

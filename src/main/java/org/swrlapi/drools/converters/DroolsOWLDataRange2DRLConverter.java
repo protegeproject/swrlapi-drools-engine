@@ -7,25 +7,25 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineOWLDataRangeConverter;
-import org.swrlapi.core.OWLIRIResolver;
+import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
  * Converts an OWL data range to its DRL representation for use in a Drools rule.
  */
-public class DroolsOWLDataRange2DRLConverter implements TargetRuleEngineOWLDataRangeConverter<String>
+public class DroolsOWLDataRange2DRLConverter extends TargetRuleEngineConverterBase implements
+		TargetRuleEngineOWLDataRangeConverter<String>
 {
-	private final OWLIRIResolver resolver;
-
-	public DroolsOWLDataRange2DRLConverter(OWLIRIResolver resolver)
+	public DroolsOWLDataRange2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
-		this.resolver = resolver;
+		super(bridge);
 	}
 
 	public String convert(OWLDataRange range) throws TargetRuleEngineException
-	{
+	{ // TODO Use visitor to get rid of instanceof
 		if (range instanceof OWLDatatype) {
 			return convert((OWLDatatype)range);
 		} else if (range instanceof OWLDataOneOf) {
@@ -45,7 +45,7 @@ public class DroolsOWLDataRange2DRLConverter implements TargetRuleEngineOWLDataR
 	@Override
 	public String convert(OWLDatatype range) throws TargetRuleEngineException
 	{
-		return resolver.iri2PrefixedName(range.getIRI());
+		return getOWLIRIResolver().iri2ShortName(range.getIRI());
 	}
 
 	@Override

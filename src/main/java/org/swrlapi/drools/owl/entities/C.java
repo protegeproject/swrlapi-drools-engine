@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl.entities;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
-import org.swrlapi.drools.extractors.DroolsOE2OWLEntityExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.expressions.CE;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -21,7 +21,7 @@ public class C extends OE implements CE
 	@Override
 	public String getceid()
 	{
-		return super.getid();
+		return super.getName();
 	}
 
 	/**
@@ -33,14 +33,14 @@ public class C extends OE implements CE
 
 		if (ba instanceof C) {
 			C c = (C)ba;
-			setID(c.getid());
+			setId(c.getName());
 		} else
 			throw new RuntimeException("expecting OWL class from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
 	@Override
-	public OWLClass extract(DroolsOE2OWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLClass extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

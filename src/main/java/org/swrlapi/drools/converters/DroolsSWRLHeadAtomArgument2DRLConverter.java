@@ -5,7 +5,6 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLHeadAtomArgumentConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -23,16 +22,12 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 /**
  * This class converts SWRL head atom and built-in arguments to DRL clauses for use in rules.
  */
-public class DroolsSWRLHeadAtomArgument2DRLConverter extends TargetRuleEngineConverterBase implements
+public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
 {
-	private final DroolsOWLLiteral2DRLConverter literalConvertor;
-
-	public DroolsSWRLHeadAtomArgument2DRLConverter(SWRLRuleEngineBridge bridge,
-			DroolsOWLLiteral2DRLConverter literalConvertor)
+	public DroolsSWRLHeadAtomArgument2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
-		this.literalConvertor = literalConvertor;
 	}
 
 	public String convert(SWRLArgument argument) throws TargetRuleEngineException
@@ -69,22 +64,22 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends TargetRuleEngineCon
 	public String convert(SWRLVariable variableArgument) throws TargetRuleEngineException
 	{
 		IRI iri = variableArgument.getIRI();
-		String variableName = getOWLIRIResolver().iri2PrefixedName(iri);
+		String variableName = getOWLIRIResolver().iri2ShortName(iri);
 		return "$" + variableName; // TODO
 	}
 
 	@Override
 	public String convert(SWRLIndividualArgument individualArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = individualArgument.getIndividual().toStringID();
+		String shortName = individualArgument.getIndividual().toStringID();
 
-		return addQuotes(prefixedName);
+		return addQuotes(shortName);
 	}
 
 	@Override
 	public String convert(SWRLLiteralArgument argument) throws TargetRuleEngineException
 	{
-		return getOWLLiteralConvertor().convert(argument.getLiteral());
+		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
 	}
 
 	@Override
@@ -96,66 +91,61 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends TargetRuleEngineCon
 	@Override
 	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(classArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(classArgument.getIRI());
 
-		return addQuotes(prefixedName);
+		return addQuotes(shortName);
 	}
 
 	@Override
 	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(individualArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(individualArgument.getIRI());
 
-		return addQuotes(prefixedName);
+		return addQuotes(shortName);
 	}
 
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
 
-		return addQuotes(prefixedName);
+		return addQuotes(shortName);
 	}
 
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
 
-		return addQuotes(prefixedName);
+		return addQuotes(shortName);
 	}
 
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
 
-		return addQuotes(prefixedName);
+		return addQuotes(shortName);
 	}
 
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(datatypeArgument.getIRI());
 
-		return prefixedName;
+		return shortName;
 	}
 
 	@Override
 	public String convert(SWRLLiteralBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return getOWLLiteralConvertor().convert(argument.getLiteral());
+		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
 	}
 
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
 		throw new TargetRuleEngineNotImplementedFeatureException("SQWRL collections not yet supported in Drools");
-	}
-
-	protected DroolsOWLLiteral2DRLConverter getOWLLiteralConvertor()
-	{
-		return this.literalConvertor;
 	}
 
 	private String addQuotes(String s)

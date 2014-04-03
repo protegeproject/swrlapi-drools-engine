@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl.entities;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
-import org.swrlapi.drools.extractors.DroolsOE2OWLEntityExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -26,14 +26,14 @@ public class DP extends P
 
 		if (ba instanceof DP) {
 			DP p = (DP)ba;
-			setID(p.getid());
+			setId(p.getName());
 		} else
 			throw new RuntimeException("expecting OWL data property from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
 	@Override
-	public OWLDataProperty extract(DroolsOE2OWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLDataProperty extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

@@ -70,7 +70,7 @@ import org.swrlapi.extractors.TargetRuleEngineExtractor;
  * {@link TargetRuleEngineOWLAxiomConverter}. Some axioms (e.g., annotation axioms) may never be reasoned with so are
  * unlikely to require extraction.
  */
-public interface DroolsA2OWLAxiomExtractor extends TargetRuleEngineExtractor
+public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 {
 	OWLDeclarationAxiom extract(CDA da) throws TargetRuleEngineException;
 

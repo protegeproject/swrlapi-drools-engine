@@ -1,26 +1,30 @@
 package org.swrlapi.drools.converters;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineOWLLiteralConverter;
-import org.swrlapi.core.OWLIRIResolver;
+import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.L;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class to convert OWL literal to instances of the {@link L} class, which represents literals in Drools.
  */
-public class DroolsOWLLiteral2LConverter implements TargetRuleEngineOWLLiteralConverter<L>
+public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase implements
+		TargetRuleEngineOWLLiteralConverter<L>
 {
-	private final OWLIRIResolver resolver;
-
-	public DroolsOWLLiteral2LConverter(OWLIRIResolver resolver)
+	public DroolsOWLLiteral2LConverter(SWRLRuleEngineBridge bridge)
 	{
-		this.resolver = resolver;
+		super(bridge);
 	}
 
 	@Override
 	public L convert(OWLLiteral literal) throws TargetRuleEngineException
 	{
-		return new L(literal.getLiteral(), resolver.iri2PrefixedName(literal.getDatatype().getIRI()));
+		String literalValue = literal.getLiteral();
+		IRI datatypeIRI = literal.getDatatype().getIRI();
+		String datatypeShortName = getOWLIRIResolver().iri2ShortName(datatypeIRI);
+		return new L(literalValue, datatypeShortName);
 	}
 }

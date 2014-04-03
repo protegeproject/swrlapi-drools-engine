@@ -9,7 +9,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineOWLPropertyExpressionConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.entities.P;
@@ -19,7 +18,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * This class converts OWL property expressions to their Drools DRL representation for use in rules or to the {@link P}
  * class for knowledge base storage.
  */
-public class DroolsOWLPropertyExpressionConverter extends TargetRuleEngineConverterBase implements
+public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
 	private final Map<OWLPropertyExpression<?, ?>, String> propertyExpression2IDMap;
@@ -52,7 +51,7 @@ public class DroolsOWLPropertyExpressionConverter extends TargetRuleEngineConver
 	public String convert(OWLObjectPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression instanceof OWLNamedObject)
-			return getOWLIRIResolver().iri2PrefixedName(((OWLNamedObject)propertyExpression).getIRI());
+			return getOWLIRIResolver().iri2ShortName(((OWLNamedObject)propertyExpression).getIRI());
 		else
 			return getPropertyExpressionID(propertyExpression);
 	}
@@ -62,7 +61,7 @@ public class DroolsOWLPropertyExpressionConverter extends TargetRuleEngineConver
 	public String convert(OWLDataPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression instanceof OWLNamedObject)
-			return getOWLIRIResolver().iri2PrefixedName(((OWLNamedObject)propertyExpression).getIRI());
+			return getOWLIRIResolver().iri2ShortName(((OWLNamedObject)propertyExpression).getIRI());
 		else
 			return getPropertyExpressionID(propertyExpression);
 	}

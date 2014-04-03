@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.DroolsBinaryObject;
 import org.swrlapi.drools.owl.entities.D;
 import org.swrlapi.drools.owl.entities.DP;
@@ -43,7 +43,7 @@ public class RDPA extends DroolsBinaryObject<DP, D> implements A
 	}
 
 	@Override
-	public OWLDataPropertyRangeAxiom extract(DroolsA2OWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLDataPropertyRangeAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

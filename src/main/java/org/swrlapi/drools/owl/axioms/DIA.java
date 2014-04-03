@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.swrlapi.drools.extractors.DroolsA2OWLAxiomExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -37,7 +37,7 @@ public class DIA extends BinaryIndividualsAxiom
 	}
 
 	@Override
-	public OWLDifferentIndividualsAxiom extract(DroolsA2OWLAxiomExtractor converter) throws TargetRuleEngineException
+	public OWLDifferentIndividualsAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetRuleEngineException
 	{
 		return converter.extract(this);
 	}

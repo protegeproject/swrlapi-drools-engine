@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
@@ -32,32 +31,30 @@ import org.swrlapi.ext.SWRLAPIBuiltInAtom;
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
  * declared in SWRL.
  */
-public class DroolsSWRLBodyAtom2DRLConverter extends TargetRuleEngineConverterBase implements
+public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
 {
 	private final DroolsSWRLBodyAtomArgument2DRLConverter bodyAtomArgumentConverter;
 	private final DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
-	private final DroolsOWLLiteral2DRLConverter literalConverter;
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
 	private final DroolsOWLClassExpressionConverter classExpressionConverter;
-	private int builtInIndex;
+
+	private int builtInIndexInBody; // Each built-in atom in the body gets a unique index, starting at 0
 
 	public DroolsSWRLBodyAtom2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 
-		this.literalConverter = new DroolsOWLLiteral2DRLConverter(bridge.getOWLIRIResolver());
-		this.bodyAtomArgumentConverter = new DroolsSWRLBodyAtomArgument2DRLConverter(bridge, this.literalConverter);
-		this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge, this.literalConverter);
+		this.bodyAtomArgumentConverter = new DroolsSWRLBodyAtomArgument2DRLConverter(bridge);
+		this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
-		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge, new DroolsOWLLiteral2LConverter(
-				bridge.getOWLIRIResolver()));
-		this.builtInIndex = 0;
+		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge);
+		this.builtInIndexInBody = 0;
 	}
 
 	public void reset()
 	{
-		this.builtInIndex = 0;
+		this.builtInIndexInBody = 0;
 		this.propertyExpressionConverter.reset();
 	}
 
@@ -202,7 +199,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends TargetRuleEngineConverterBa
 						+ " built-in arguments are currently supported by Drools");
 		}
 
-		representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInName + "\", " + this.builtInIndex
+		representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInName + "\", " + this.builtInIndexInBody
 				+ ", false, ";
 
 		if (builtInAtom.getPathVariableNames().size() > VPATH.MaxArguments)
@@ -251,7 +248,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends TargetRuleEngineConverterBa
 
 		representation += ")";
 
-		this.builtInIndex++;
+		this.builtInIndexInBody++;
 
 		return representation;
 	}

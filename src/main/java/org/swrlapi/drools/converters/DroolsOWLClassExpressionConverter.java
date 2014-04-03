@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineOWLClassExpressionConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.expressions.CE;
@@ -51,26 +50,22 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * This class converts OWL class expressions to their Drools DRL representation for use in rules or to the {@link CE}
  * class for knowledge base storage.
  */
-public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverterBase implements
+public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLClassExpressionConverter<String>
 {
 	private final DroolsOWLIndividual2DRLConverter individualConverter;
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-	private final DroolsOWLDataRange2DRLConverter dataRangeConverter;
-	private final DroolsOWLLiteral2LConverter literal2LConverter;
 	private final Map<OWLClassExpression, String> classExpression2IDMap;
 	private final Set<String> convertedClassExpressionIDs;
 	private int classExpressionIndex;
 	private final Set<CE> classExpressions;
 
-	public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge, DroolsOWLLiteral2LConverter literal2LConverter)
+	public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 
-		this.individualConverter = new DroolsOWLIndividual2DRLConverter(bridge.getOWLIRIResolver());
+		this.individualConverter = new DroolsOWLIndividual2DRLConverter(bridge);
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
-		this.dataRangeConverter = new DroolsOWLDataRange2DRLConverter(bridge.getOWLIRIResolver());
-		this.literal2LConverter = literal2LConverter;
 
 		this.classExpressions = new HashSet<CE>();
 		this.classExpressionIndex = 0;
@@ -95,7 +90,7 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 	}
 
 	public String convert(OWLClassExpression ce) throws TargetRuleEngineException
-	{
+	{ // TODO Use visitor to get rid of instanceof
 		if (ce instanceof OWLClass) {
 			return convert((OWLClass)ce);
 		} else if (ce instanceof OWLObjectOneOf) {
@@ -137,7 +132,7 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 	@Override
 	public String convert(OWLClass cls) throws TargetRuleEngineException
 	{
-		String classExpressionID = getOWLIRIResolver().iri2PrefixedName(cls.getIRI());
+		String classExpressionID = getOWLIRIResolver().iri2ShortName(cls.getIRI());
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, cls);
@@ -176,7 +171,6 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			for (OWLClassExpression ce : classExpression.getOperands()) {
-				// String class1ID = cls.convert(this);
 				String class1ID = convert(ce);
 				OIOCE oioce = new OIOCE(classExpressionID, class1ID);
 				addOWLClassExpression(oioce);
@@ -245,7 +239,7 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 		String classExpressionID = getClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
-			String someValuesFromDataRangeID = getOWLDataRangeConverter().convert(classExpression.getFiller());
+			String someValuesFromDataRangeID = getDroolsOWLDataRange2DRLConverter().convert(classExpression.getFiller());
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
 			DSVFCE dsvfce = new DSVFCE(classExpressionID, propertyID, someValuesFromDataRangeID);
 
@@ -380,7 +374,7 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
 			OWLLiteral valueLiteral = classExpression.getValue();
-			DHVCE dhvce = new DHVCE(classExpressionID, propertyID, getOWLLiteral2LConverter().convert(valueLiteral));
+			DHVCE dhvce = new DHVCE(classExpressionID, propertyID, getDroolsOWLLiteral2LConverter().convert(valueLiteral));
 
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
 
@@ -436,7 +430,7 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
-			String allValuesFromDataRangeID = getOWLDataRangeConverter().convert(classExpression.getFiller());
+			String allValuesFromDataRangeID = getDroolsOWLDataRange2DRLConverter().convert(classExpression.getFiller());
 			DAVFCE davfce = new DAVFCE(classExpressionID, propertyID, allValuesFromDataRangeID);
 
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
@@ -465,11 +459,6 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 		this.classExpressions.add(classExpression);
 	}
 
-	private DroolsOWLDataRange2DRLConverter getOWLDataRangeConverter()
-	{
-		return this.dataRangeConverter;
-	}
-
 	private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
 	{
 		return this.propertyExpressionConverter;
@@ -478,10 +467,5 @@ public class DroolsOWLClassExpressionConverter extends TargetRuleEngineConverter
 	private DroolsOWLIndividual2DRLConverter getOWLIndividualConverter()
 	{
 		return this.individualConverter;
-	}
-
-	private DroolsOWLLiteral2LConverter getOWLLiteral2LConverter()
-	{
-		return this.literal2LConverter;
 	}
 }

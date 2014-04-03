@@ -18,8 +18,9 @@ import org.swrlapi.sqwrl.TargetRuleEngineSQWRLQueryConverter;
 public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineSQWRLQueryConverter
 {
-	private final DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
-	private final DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
+	private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
+	private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
+
 	private final DroolsSWRLRuleEngine droolsEngine;
 
 	public DroolsSQWRLQuery2DRLConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine)
@@ -27,14 +28,14 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 		super(bridge);
 
 		this.droolsEngine = droolsEngine;
-		this.bodyAtomConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge);
-		this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge);
+		this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge);
+		this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge);
 	}
 
 	public void reset()
 	{
-		this.bodyAtomConverter.reset();
-		this.headAtomConverter.reset();
+		this.bodyAtom2DRLConverter.reset();
+		this.headAtom2DRLConverter.reset();
 	}
 
 	@Override
@@ -153,12 +154,12 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 
 	private DroolsSWRLBodyAtom2DRLConverter getSWRLBodyAtomConverter()
 	{
-		return this.bodyAtomConverter;
+		return this.bodyAtom2DRLConverter;
 	}
 
 	private DroolsSWRLHeadAtom2DRLConverter getSWRLHeadAtomConverter()
 	{
-		return this.headAtomConverter;
+		return this.headAtom2DRLConverter;
 	}
 
 	private DroolsSWRLRuleEngine getDroolsEngine()

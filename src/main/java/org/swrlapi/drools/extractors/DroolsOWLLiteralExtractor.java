@@ -20,17 +20,17 @@ import org.swrlapi.xsd.XSDTime;
 /**
  * This class converts Drools OWL literals represented by the class {@link L} to their OWLAPI representation.
  */
-public class DroolsL2OWLLiteralExtractor extends TargetRuleEngineExtractorBase implements
+public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase implements
 		TargetRuleEngineOWLLiteralExtractor<L>
 {
-	public DroolsL2OWLLiteralExtractor(SWRLRuleEngineBridge bridge)
+	public DroolsOWLLiteralExtractor(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 	}
 
 	@Override
 	public OWLLiteral extract(L l) throws TargetRuleEngineException
-	{
+	{ // TODO See if we can use visitor to get rid of instanceof
 		try {
 			if (l.isString())
 				return getOWLLiteralFactory().getOWLLiteral(l.getValue());
@@ -59,15 +59,15 @@ public class DroolsL2OWLLiteralExtractor extends TargetRuleEngineExtractorBase i
 			else if (l.isDuration())
 				return getOWLLiteralFactory().getOWLLiteral(new XSDDuration(l.getValue()));
 			else {
-				IRI IRI = getIRI(l.datatypeName); // TODO Test this
+				IRI IRI = shortName2IRI(l.datatypeName); // TODO Test this
 				OWLDatatype datatype = getOWLDatatypeFactory().getOWLDatatype(IRI);
 				return getOWLLiteralFactory().getOWLLiteral(l.value, datatype);
 			}
 		} catch (NumberFormatException e) {
 			throw new TargetRuleEngineException("number format exception extracting OWL literal " + l + " with type "
-					+ l.getTypeName() + " from Drools", e);
+					+ l.getTypeName() + " from Drools: ", e);
 		} catch (URISyntaxException e) {
-			throw new TargetRuleEngineException("IRI exception extracting OWL IRI literal " + l + " from Drools", e);
+			throw new TargetRuleEngineException("IRI exception extracting OWL URI literal " + l + " from Drools: ", e);
 		} catch (SQWRLLiteralException e) {
 			throw new TargetRuleEngineException("exception extracting OWL literal " + l + " with type " + l.getTypeName()
 					+ " from Drools: " + e.getMessage(), e);
