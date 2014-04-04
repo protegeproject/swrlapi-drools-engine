@@ -1,5 +1,7 @@
 package org.swrlapi.drools.converters;
 
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
@@ -68,9 +70,18 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLIndividualArgument individualArgument) throws TargetRuleEngineException
 	{
-		String shortName = individualArgument.getIndividual().toStringID();
+		OWLIndividual individual = individualArgument.getIndividual();
 
-		return addQuotes(shortName);
+		if (individual.isNamed()) {
+			IRI iri = individual.asOWLNamedIndividual().getIRI();
+			String shortName = getOWLIRIResolver().iri2ShortName(iri);
+			return addQuotes(shortName);
+		} else if (individual.isAnonymous()) {
+			String id = individual.asOWLAnonymousIndividual().toStringID();
+			return addQuotes(id);
+		} else
+			throw new RuntimeException("unknown OWL individual type " + individual.getClass().getCanonicalName()
+					+ " passed as a " + SWRLIndividualArgument.class.getName());
 	}
 
 	@Override
