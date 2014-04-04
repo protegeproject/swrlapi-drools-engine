@@ -62,49 +62,49 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	@Override
 	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2ShortName(classArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(classArgument.getIRI());
 
-		return "new C(" + addQuotes(prefixedName) + ")";
+		return "new C(" + addQuotes(shortName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2ShortName(individualArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(individualArgument.getIRI());
 
-		return "new I(" + addQuotes(prefixedName) + ")";
+		return "new I(" + addQuotes(shortName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
 
-		return "new OP(" + addQuotes(prefixedName) + ")";
+		return "new OP(" + addQuotes(shortName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
 
-		return "new DP(" + addQuotes(prefixedName) + ")";
+		return "new DP(" + addQuotes(shortName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
 
-		return "new AP(" + addQuotes(prefixedName) + ")";
+		return "new AP(" + addQuotes(shortName) + ")";
 	}
 
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2ShortName(datatypeArgument.getIRI());
+		String shortName = getOWLIRIResolver().iri2ShortName(datatypeArgument.getIRI());
 
-		return "new D(" + addQuotes(prefixedName) + ")";
+		return "new D(" + addQuotes(shortName) + ")";
 	}
 
 	@Override

@@ -211,8 +211,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLVariable argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
-		IRI iri = argument.getIRI();
-		String variableName = getOWLIRIResolver().iri2ShortName(iri); // TODO
+		String variableName = swrlVariable2DRL(argument);
 
 		if (variableNames.contains(variableName)) {
 			return fieldName + "==$" + variableName;

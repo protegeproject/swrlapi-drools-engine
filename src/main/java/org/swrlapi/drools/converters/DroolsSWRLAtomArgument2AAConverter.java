@@ -1,6 +1,5 @@
 package org.swrlapi.drools.converters;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -75,9 +74,8 @@ public class DroolsSWRLAtomArgument2AAConverter extends DroolsConverterBase impl
 	@Override
 	public VA convert(SWRLVariable argument) throws TargetRuleEngineException
 	{
-		IRI iri = argument.getIRI();
-		String variableName = getOWLIRIResolver().iri2ShortName(iri);
-		return new VA(variableName); // TODO
+		String variableName = swrlVariable2VariableName(argument);
+		return new VA(variableName);
 	}
 
 	@Override
