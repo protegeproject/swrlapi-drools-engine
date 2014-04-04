@@ -2,7 +2,6 @@ package org.swrlapi.drools.converters;
 
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -69,8 +68,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLVariable variableArgument) throws TargetRuleEngineException
 	{
-		IRI variableIRI = variableArgument.getIRI();
-		return variableIRI2DRL(variableIRI);
+		return swrlVariable2DRL(variableArgument);
 	}
 
 	@Override
@@ -211,7 +209,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLVariable argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
-		String variableName = swrlVariable2DRL(argument);
+		String variableName = swrlVariable2VariableName(argument);
 
 		if (variableNames.contains(variableName)) {
 			return fieldName + "==$" + variableName;

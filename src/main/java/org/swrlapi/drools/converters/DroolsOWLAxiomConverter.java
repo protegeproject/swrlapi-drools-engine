@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
@@ -54,6 +55,7 @@ import org.swrlapi.drools.DroolsSWRLRuleEngine;
 import org.swrlapi.drools.owl.L;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.APA;
+import org.swrlapi.drools.owl.axioms.APDA;
 import org.swrlapi.drools.owl.axioms.CAA;
 import org.swrlapi.drools.owl.axioms.CDA;
 import org.swrlapi.drools.owl.axioms.DCA;
@@ -61,15 +63,18 @@ import org.swrlapi.drools.owl.axioms.DDPA;
 import org.swrlapi.drools.owl.axioms.DIA;
 import org.swrlapi.drools.owl.axioms.DOPA;
 import org.swrlapi.drools.owl.axioms.DPAA;
+import org.swrlapi.drools.owl.axioms.DPDA;
 import org.swrlapi.drools.owl.axioms.ECA;
 import org.swrlapi.drools.owl.axioms.EDPA;
 import org.swrlapi.drools.owl.axioms.EOPA;
 import org.swrlapi.drools.owl.axioms.FDPA;
 import org.swrlapi.drools.owl.axioms.FOPA;
+import org.swrlapi.drools.owl.axioms.IDA;
 import org.swrlapi.drools.owl.axioms.IOPA;
 import org.swrlapi.drools.owl.axioms.IPA;
 import org.swrlapi.drools.owl.axioms.IRPA;
 import org.swrlapi.drools.owl.axioms.OPAA;
+import org.swrlapi.drools.owl.axioms.OPDA;
 import org.swrlapi.drools.owl.axioms.RDPA;
 import org.swrlapi.drools.owl.axioms.ROPA;
 import org.swrlapi.drools.owl.axioms.SCA;
@@ -223,11 +228,23 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	@Override
 	public void convert(OWLDeclarationAxiom axiom) throws TargetRuleEngineException
 	{
-		String classID = getDroolsOWLNamedObject2DRLConverter().convert(axiom.getEntity());
+		OWLEntity entity = axiom.getEntity();
+		String entityID = getDroolsOWLNamedObject2DRLConverter().convert(axiom.getEntity());
 
-		createNonRuleOWLAxiom(new CDA(classID));
-
-		getOWLClassExpressionResolver().recordOWLClassExpression(classID, axiom.getEntity().asOWLClass());
+		if (entity.isOWLClass()) {
+			createNonRuleOWLAxiom(new CDA(entityID));
+			getOWLClassExpressionResolver().recordOWLClassExpression(entityID, axiom.getEntity().asOWLClass());
+		} else if (entity.isOWLNamedIndividual()) {
+			createNonRuleOWLAxiom(new IDA(entityID));
+		} else if (entity.isOWLObjectProperty()) {
+			createNonRuleOWLAxiom(new OPDA(entityID));
+		} else if (entity.isOWLDataProperty()) {
+			createNonRuleOWLAxiom(new DPDA(entityID));
+		} else if (entity.isOWLAnnotationProperty()) {
+			createNonRuleOWLAxiom(new APDA(entityID));
+		} else
+			throw new RuntimeException("unknown entity type " + entity.getClass().getCanonicalName()
+					+ " in OWL declaration axiom");
 	}
 
 	@Override

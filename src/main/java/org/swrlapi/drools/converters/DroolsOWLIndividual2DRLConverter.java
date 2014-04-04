@@ -21,8 +21,8 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
 	public String convert(OWLIndividual individual) throws TargetRuleEngineException
 	{
 		if (individual.isNamed()) {
-			return getOWLIRIResolver().iri2ShortName(individual.asOWLNamedIndividual().getIRI());
+			return "\"" + getOWLIRIResolver().iri2ShortName(individual.asOWLNamedIndividual().getIRI()) + "\"";
 		} else
-			return individual.asOWLAnonymousIndividual().getID().getID();
+			return "\"" + individual.asOWLAnonymousIndividual().getID().getID() + "\"";
 	}
 }
