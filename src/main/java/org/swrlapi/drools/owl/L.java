@@ -47,67 +47,67 @@ public class L implements OO, BA, Serializable
 
 	public boolean isInteger()
 	{
-		return this.datatypeName.equals(XSDVocabulary.INTEGER.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.INTEGER.getShortForm());
 	}
 
 	public boolean isLong()
 	{
-		return this.datatypeName.equals(XSDVocabulary.LONG.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.LONG.getShortForm());
 	}
 
 	public boolean isFloat()
 	{
-		return this.datatypeName.equals(XSDVocabulary.FLOAT.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.FLOAT.getShortForm());
 	}
 
 	public boolean isDouble()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DOUBLE.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.DOUBLE.getShortForm());
 	}
 
 	public boolean isShort()
 	{
-		return this.datatypeName.equals(XSDVocabulary.SHORT.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.SHORT.getShortForm());
 	}
 
 	public boolean isBoolean()
 	{
-		return this.datatypeName.equals(XSDVocabulary.BOOLEAN.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.BOOLEAN.getShortForm());
 	}
 
 	public boolean isByte()
 	{
-		return this.datatypeName.equals(XSDVocabulary.BYTE.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.BYTE.getShortForm());
 	}
 
 	public boolean isAnyURI()
 	{
-		return this.datatypeName.equals(XSDVocabulary.ANY_URI.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.ANY_URI.getShortForm());
 	}
 
 	public boolean isTime()
 	{
-		return this.datatypeName.equals(XSDVocabulary.TIME.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.TIME.getShortForm());
 	}
 
 	public boolean isDate()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DATE.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.DATE.getShortForm());
 	}
 
 	public boolean isDateTime()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DATE_TIME.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.DATE_TIME.getShortForm());
 	}
 
 	public boolean isDuration()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DURATION.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.DURATION.getShortForm());
 	}
 
 	public boolean isString()
 	{
-		return this.datatypeName.equals(XSDVocabulary.STRING.getShortName());
+		return this.datatypeName.equals(XSDVocabulary.STRING.getShortForm());
 	}
 
 	@Override
