@@ -3,6 +3,8 @@ package org.swrlapi.drools.swrl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.swrlapi.drools.DroolsNames;
+
 /**
  * Class representing the names of variables passed to built-ins. Non variable arguments positions are represented by
  * empty strings.
@@ -136,7 +138,7 @@ public class BAVNs
 	@Override
 	public String toString()
 	{
-		String representation = "BAVNs(";
+		String representation = DroolsNames.BuiltInVariableNamesClassName + "(";
 		boolean isFirst = true;
 
 		for (String variableName : this.variableNames) {
