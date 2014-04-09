@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.swrlapi.converters.TargetRuleEngineOWLAxiomConverter;
-import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.APA;
 import org.swrlapi.drools.owl.axioms.APDA;
 import org.swrlapi.drools.owl.axioms.CAA;
@@ -64,11 +63,13 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.extractors.TargetRuleEngineExtractor;
 
 /**
- * This interface list methods for converting Drools objects represented by the class {@link A} to their OWLAPI
- * representation. Only OWL axioms currently supported by the Drools implementation will appear in this list. Supported
- * axioms are targeted to the requirements of an OWL 2 RL reasoner. For a complete list of possible OWL axioms see
+ * This interface list methods for converting the Drools representation of OWL axioms to their OWLAPI representation.
+ * Only OWL axioms currently supported by the Drools implementation will appear in this list. Supported axioms are
+ * targeted to the requirements of an OWL 2 RL reasoner. For a complete list of possible OWL axioms see
  * {@link TargetRuleEngineOWLAxiomConverter}. Some axioms (e.g., annotation axioms) may never be reasoned with so are
  * unlikely to require extraction.
+ * 
+ * @see A, OWLAxiom
  */
 public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 {

@@ -2,38 +2,38 @@ package org.swrlapi.drools;
 
 public class DroolsNames
 {
-	public static final String PluginName = "SWRLDroolsTab";
-	public static final String RuleEngineName = "Drools";
-	public static final String VersionString = "5.4.0-SNAPSHOT"; // TODO Pull this from Drools itself.
+	public static final String PLUGIN_NAME = "SWRLDroolsTab";
+	public static final String RULE_ENGINE_NAME = "Drools";
+	public static final String VERSION_STRING = "5.4.0-SNAPSHOT"; // TODO Pull this from Drools itself.
 
-	public static final String ClassAssertionAxiomClassName = "CAA";
-	public static final String ObjectPropertyAssertionAxiomClassName = "OPAA";
-	public static final String DataPropertyAssertionAxiomClassName = "DPAA";
-	public static final String SameIndividualAxiomClassName = "SIA";
-	public static final String DifferentIndividualsAxiomClassName = "DIA";
+	public static final String CLASS_ASSERTION_AXIOM_CLASS_NAME = "CAA";
+	public static final String OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME = "OPAA";
+	public static final String DATA_PROPERTY_ASSERTION_AXIOM_CLASS_NAME = "DPAA";
+	public static final String SAME_INDIVIDUAL_AXIOM_CLASS_NAME = "SIA";
+	public static final String DIFFERENT_INDIVIDUALS_AXIOM_CLASS_NAME = "DIA";
 
-	public static final String BuiltInArgumentsPatternClassName = "BAP";
-	public static final String BuiltInVariablePathClassName = "VPATH";
-	public static final String BuiltInVariableNamesClassName = "BAVNs";
+	public static final String BUILT_IN_ARGUMENTS_PATTERN_CLASS_NAME = "BAP";
+	public static final String BUILT_IN_VARIABLE_PATH_CLASS_NAME = "VPATH";
+	public static final String BUILT_IN_VARIABLE_NAMES_CLASS_NAME = "BAVNs";
 
-	public static final String ClassClassName = "C";
-	public static final String IndividualClassName = "I";
-	public static final String ObjectPropertyClassName = "OP";
-	public static final String DataPropertyClassName = "DP";
-	public static final String LiteralClassName = "L";
+	public static final String CLASS_CLASS_NAME = "C";
+	public static final String INDVIDUAL_CLASS_NAME = "I";
+	public static final String OBJECT_PROPERTY_CLASS_NAME = "OP";
+	public static final String DATA_PROPERTY_CLASS_NAME = "DP";
+	public static final String LITERAL_CLASS_NAME = "L";
 
-	public static final String SQWRLCollectionClassName = "SQWRLC";
-	public static final String QueryNameFieldName = "queryName";
-	public static final String CollectionNameFieldName = "collectionName";
+	public static final String SQWRL_COLLECTION_CLASS_NAME = "SQWRLC";
+	public static final String QUERY_NAME_FIELD_NAME = "queryName";
+	public static final String COLLECTION_NAME_FIELD_NAME = "collectionName";
 
-	public static final String ClassFieldName = "c";
-	public static final String IndividualFieldName = "i";
-	public static final String PropertyFieldName = "p";
-	public static final String SubjectFieldName = "s";
-	public static final String ObjectFieldName = "o";
-	public static final String Individual1FieldName = "i1";
-	public static final String Individual2FieldName = "i2";
-	public static final String BuiltInArgumentPatternFieldNamePrefix = "a";
+	public static final String CLASS_FIELD_NAME = "c";
+	public static final String INDIVIDUAL_FIELD_NAME = "i";
+	public static final String PROPERTY_FIELD_NAME = "p";
+	public static final String SUBJECT_FIELD_NAME = "s";
+	public static final String OBJECT_FIELD_NAME = "o";
+	public static final String INDIVIDUAL_1_FIELD_NAME = "i1";
+	public static final String INDIVIDUAL_2_FIELD_NAME = "i2";
+	public static final String BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX = "a";
 
-	public static final String IDFieldName = "id";
+	public static final String ID_FIELD_NAME = "id";
 }

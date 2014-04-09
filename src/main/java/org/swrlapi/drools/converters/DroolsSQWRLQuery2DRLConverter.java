@@ -115,8 +115,8 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 					String collectionVariableName = atom.getArgumentVariableName(0);
 					if (!variableNames.contains(collectionVariableName)) {
 						String collectionName = collectionVariableName;
-						drlPhase2Rule += "\n  $" + collectionVariableName + ":" + DroolsNames.SQWRLCollectionClassName + "("
-								+ DroolsNames.QueryNameFieldName + "==\"" + queryName + "\", " + DroolsNames.CollectionNameFieldName
+						drlPhase2Rule += "\n  $" + collectionVariableName + ":" + DroolsNames.SQWRL_COLLECTION_CLASS_NAME + "("
+								+ DroolsNames.QUERY_NAME_FIELD_NAME + "==\"" + queryName + "\", " + DroolsNames.COLLECTION_NAME_FIELD_NAME
 								+ "==\"" + collectionName + "\")";
 						variableNames.add(collectionVariableName);
 					}

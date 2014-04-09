@@ -21,7 +21,7 @@ public class DroolsOWLLiteral2DRLConverter extends TargetRuleEngineConverterBase
 	@Override
 	public String convert(OWLLiteral literal) throws TargetRuleEngineException
 	{
-		return "new " + DroolsNames.LiteralClassName + "(\"" + literal.getLiteral() + "\", \""
+		return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \""
 				+ getOWLIRIResolver().iri2ShortName(literal.getDatatype().getIRI()) + "\")";
 	}
 }

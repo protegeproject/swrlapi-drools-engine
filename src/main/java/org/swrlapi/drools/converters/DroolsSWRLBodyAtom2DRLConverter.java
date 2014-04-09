@@ -30,6 +30,8 @@ import org.swrlapi.ext.SWRLAPIBuiltInAtom;
  * know the variables defined by previous atoms because a different syntax is required in DRL for declaring a variable
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
  * declared in SWRL.
+ * 
+ * @see SWRLAtom
  */
 public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
@@ -94,10 +96,10 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 	{
 		String classID = getOWLClassExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument = atom.getArgument();
-		String representation = DroolsNames.ClassAssertionAxiomClassName + "(" + DroolsNames.ClassFieldName + "=="
+		String representation = DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + "(" + DroolsNames.CLASS_FIELD_NAME + "=="
 				+ addQuotes(classID) + ", ";
 
-		representation += getSWRLBodyAtomArgumentConverter().convert(argument, DroolsNames.IndividualFieldName,
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument, DroolsNames.INDIVIDUAL_FIELD_NAME,
 				variableNames);
 		representation += ")";
 
@@ -110,13 +112,14 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLDArgument argument2 = atom.getSecondArgument();
-		String representation = DroolsNames.DataPropertyAssertionAxiomClassName + "(";
+		String representation = DroolsNames.DATA_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
-		representation += getSWRLBodyAtomArgumentConverter()
-				.convert(argument1, DroolsNames.SubjectFieldName, variableNames);
-		representation += ", " + DroolsNames.PropertyFieldName + "." + DroolsNames.IDFieldName + "=="
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.SUBJECT_FIELD_NAME,
+				variableNames);
+		representation += ", " + DroolsNames.PROPERTY_FIELD_NAME + "." + DroolsNames.ID_FIELD_NAME + "=="
 				+ addQuotes(propertyID) + ", ";
-		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.ObjectFieldName, variableNames);
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.OBJECT_FIELD_NAME,
+				variableNames);
 		representation += ")";
 
 		return representation;
@@ -128,13 +131,14 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
-		String representation = DroolsNames.ObjectPropertyAssertionAxiomClassName + "(";
+		String representation = DroolsNames.OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
-		representation += getSWRLBodyAtomArgumentConverter()
-				.convert(argument1, DroolsNames.SubjectFieldName, variableNames);
-		representation += ", " + DroolsNames.PropertyFieldName + "." + DroolsNames.IDFieldName + "=="
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.SUBJECT_FIELD_NAME,
+				variableNames);
+		representation += ", " + DroolsNames.PROPERTY_FIELD_NAME + "." + DroolsNames.ID_FIELD_NAME + "=="
 				+ addQuotes(propertyID) + ", ";
-		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.ObjectFieldName, variableNames);
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.OBJECT_FIELD_NAME,
+				variableNames);
 		representation += ")";
 
 		return representation;
@@ -145,12 +149,12 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
-		String representation = DroolsNames.SameIndividualAxiomClassName + "(";
+		String representation = DroolsNames.SAME_INDIVIDUAL_AXIOM_CLASS_NAME + "(";
 
-		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.Individual1FieldName,
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.INDIVIDUAL_1_FIELD_NAME,
 				variableNames);
 		representation += ", ";
-		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.Individual2FieldName,
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.INDIVIDUAL_2_FIELD_NAME,
 				variableNames);
 		representation += ")";
 
@@ -162,12 +166,12 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
-		String representation = DroolsNames.DifferentIndividualsAxiomClassName + "(";
+		String representation = DroolsNames.DIFFERENT_INDIVIDUALS_AXIOM_CLASS_NAME + "(";
 
-		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.Individual1FieldName,
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.INDIVIDUAL_1_FIELD_NAME,
 				variableNames);
 		representation += ", ";
-		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.Individual2FieldName,
+		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.INDIVIDUAL_2_FIELD_NAME,
 				variableNames);
 		representation += ")";
 
@@ -180,7 +184,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		String builtInName = builtInAtom.getBuiltInShortName();
 		String ruleName = builtInAtom.getRuleName();
 		boolean variableArgumentEncountered = false;
-		String representation = DroolsNames.BuiltInArgumentsPatternClassName + "(";
+		String representation = DroolsNames.BUILT_IN_ARGUMENTS_PATTERN_CLASS_NAME + "(";
 		boolean isFirst;
 
 		int argumentNumber = 1;
@@ -189,7 +193,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 				String variableName = swrlVariable2VariableName(argument.asVariable());
 				if (variableArgumentEncountered)
 					representation += ", ";
-				representation += variableName2DRL(variableName, DroolsNames.BuiltInArgumentPatternFieldNamePrefix
+				representation += variableName2DRL(variableName, DroolsNames.BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX
 						+ argumentNumber, variableNames);
 				variableArgumentEncountered = true;
 			}
@@ -207,7 +211,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 					+ " built-in arguments are currently supported by Drools");
 
 		isFirst = true;
-		representation += "new " + DroolsNames.BuiltInVariablePathClassName + "(";
+		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_PATH_CLASS_NAME + "(";
 		isFirst = true;
 		for (String variableName : builtInAtom.getPathVariableNames()) {
 			if (!isFirst)
@@ -221,7 +225,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 			throw new TargetRuleEngineException("a maximum of " + BAVNs.MaxArguments
 					+ " built-in arguments are currently supported by Drools");
 
-		representation += "new " + DroolsNames.BuiltInVariableNamesClassName + "(";
+		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
 		isFirst = true;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
 			if (!isFirst)

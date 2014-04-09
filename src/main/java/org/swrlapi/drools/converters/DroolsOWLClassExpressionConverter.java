@@ -79,6 +79,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		this.classExpressionIndex = 0;
 		this.classExpression2IDMap.clear();
 		this.convertedClassExpressionIDs.clear();
+
 		getOWLClassExpressionResolver().reset();
 	}
 

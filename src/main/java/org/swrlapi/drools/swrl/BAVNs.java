@@ -138,7 +138,7 @@ public class BAVNs
 	@Override
 	public String toString()
 	{
-		String representation = DroolsNames.BuiltInVariableNamesClassName + "(";
+		String representation = DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
 		boolean isFirst = true;
 
 		for (String variableName : this.variableNames) {

@@ -31,7 +31,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
- * This class converts SWRL atom arguments to their Drools representation.
+ * This class converts SWRL arguments to their Drools representation.
+ * 
+ * @see SWRLArgument, AA
  */
 public class DroolsSWRLAtomArgument2AAConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLAtomArgumentConverter<AA>

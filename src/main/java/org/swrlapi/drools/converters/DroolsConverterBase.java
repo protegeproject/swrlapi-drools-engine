@@ -5,6 +5,9 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 
+/**
+ * Base class providing functionality common to all Drools converters.
+ */
 public class DroolsConverterBase extends TargetRuleEngineConverterBase
 {
 	private final DroolsOWLLiteral2DRLConverter literal2DRLConverter;

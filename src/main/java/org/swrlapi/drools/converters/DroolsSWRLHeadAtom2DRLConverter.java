@@ -82,10 +82,10 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		String className = getOWLClassExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument = atom.getArgument();
 		String caaVariable = "caa" + this.inferredAxiomVariableIndex++;
-		String representation = DroolsNames.ClassAssertionAxiomClassName + " " + caaVariable + "=new "
-				+ DroolsNames.ClassAssertionAxiomClassName + "(" + addQuotes(className) + ", ";
+		String representation = DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + " " + caaVariable + "=new "
+				+ DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + "(" + addQuotes(className) + ", ";
 
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument) + ")";
 		representation += "); ";
 		representation += "inferrer.infer(" + caaVariable + "); ";
@@ -100,13 +100,13 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
 		String opaaVariable = "opaa" + this.inferredAxiomVariableIndex++;
-		String representation = DroolsNames.ObjectPropertyAssertionAxiomClassName + " " + opaaVariable + "=new "
-				+ DroolsNames.ObjectPropertyAssertionAxiomClassName + "(";
+		String representation = DroolsNames.OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + " " + opaaVariable + "=new "
+				+ DroolsNames.OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument1) + ")";
 		representation += ", " + addQuotes(propertyID) + ", ";
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument2) + ")";
 		representation += "); ";
 		representation += "inferrer.infer(" + opaaVariable + "); ";
@@ -121,13 +121,13 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLDArgument argument2 = atom.getSecondArgument();
 		String dpaaVariable = "dpaa" + this.inferredAxiomVariableIndex++;
-		String representation = DroolsNames.DataPropertyAssertionAxiomClassName + " " + dpaaVariable + "=new "
-				+ DroolsNames.DataPropertyAssertionAxiomClassName + "(";
+		String representation = DroolsNames.DATA_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + " " + dpaaVariable + "=new "
+				+ DroolsNames.DATA_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument1) + ")";
 		representation += ", " + addQuotes(propertyID) + ", ";
-		representation += "new " + DroolsNames.LiteralClassName + "("
+		representation += "new " + DroolsNames.LITERAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument2) + ")";
 		representation += "); ";
 		representation += "inferrer.infer(" + dpaaVariable + "); ";
@@ -141,13 +141,13 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
 		String siaVariable = "sia" + this.inferredAxiomVariableIndex++;
-		String representation = DroolsNames.SameIndividualAxiomClassName + " " + siaVariable + "=new "
-				+ DroolsNames.SameIndividualAxiomClassName + "(";
+		String representation = DroolsNames.SAME_INDIVIDUAL_AXIOM_CLASS_NAME + " " + siaVariable + "=new "
+				+ DroolsNames.SAME_INDIVIDUAL_AXIOM_CLASS_NAME + "(";
 
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument1) + ")";
 		representation += ", ";
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument2) + ")";
 		representation += "); ";
 		representation += "inferrer.infer(" + siaVariable + "); ";
@@ -161,13 +161,13 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
 		String diaVariable = "dia" + this.inferredAxiomVariableIndex++;
-		String representation = DroolsNames.DifferentIndividualsAxiomClassName + " " + diaVariable + "=new "
-				+ DroolsNames.DifferentIndividualsAxiomClassName + "(";
+		String representation = DroolsNames.DIFFERENT_INDIVIDUALS_AXIOM_CLASS_NAME + " " + diaVariable + "=new "
+				+ DroolsNames.DIFFERENT_INDIVIDUALS_AXIOM_CLASS_NAME + "(";
 
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument1) + ")";
 		representation += ", ";
-		representation += "new " + DroolsNames.IndividualClassName + "("
+		representation += "new " + DroolsNames.INDVIDUAL_CLASS_NAME + "("
 				+ getSWRLHeadAtomArgumentConverter().convert(argument2) + ")";
 		representation += "); ";
 		representation += "inferrer.infer(" + diaVariable + "); ";

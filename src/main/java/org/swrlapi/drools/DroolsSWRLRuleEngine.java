@@ -261,13 +261,13 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	@Override
 	public String getName()
 	{
-		return DroolsNames.RuleEngineName;
+		return DroolsNames.RULE_ENGINE_NAME;
 	}
 
 	@Override
 	public String getVersion()
 	{
-		return DroolsNames.VersionString;
+		return DroolsNames.VERSION_STRING;
 	}
 
 	private void resetKnowledgeSession()

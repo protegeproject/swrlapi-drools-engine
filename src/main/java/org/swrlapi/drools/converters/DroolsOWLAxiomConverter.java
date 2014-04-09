@@ -94,8 +94,8 @@ import org.swrlapi.ext.SWRLAPIRule;
  * annotation axioms) may never be reasoned with so are unlikely to require conversion to Drools.
  * <p>
  * Note that SWRL rules are also a type of OWL axiom so are also converted here.
- * <p>
  * 
+ * @see OWLAxiom, A
  */
 public class DroolsOWLAxiomConverter extends DroolsConverterBase implements TargetRuleEngineOWLAxiomConverter
 {
