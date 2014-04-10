@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineOWLIndividualConverter;
@@ -21,7 +22,8 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
 	public String convert(OWLIndividual individual) throws TargetRuleEngineException
 	{
 		if (individual.isNamed()) {
-			return addQuotes(getOWLIRIResolver().iri2ShortName(individual.asOWLNamedIndividual().getIRI()));
+			IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
+			return addQuotes(getOWLIRIResolver().iri2ShortName(individualIRI));
 		} else
 			return addQuotes(individual.asOWLAnonymousIndividual().getID().getID());
 	}

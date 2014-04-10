@@ -1,28 +1,33 @@
 package org.swrlapi.drools.converters;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineOWLIndividualConverter;
-import org.swrlapi.core.OWLIRIResolver;
+import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Converts an OWL individual to a Drools individual represented by the class {@link I}.
+ * 
+ * @see OWLIndividual, OWLAnonymousIndividual, OWLNamedIndividual, I
  */
-public class DroolsOWLIndividual2IConverter implements TargetRuleEngineOWLIndividualConverter<I>
+public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBase implements
+		TargetRuleEngineOWLIndividualConverter<I>
 {
-	private final OWLIRIResolver iriResolver;
-
-	public DroolsOWLIndividual2IConverter(OWLIRIResolver iriResolver)
+	public DroolsOWLIndividual2IConverter(SWRLRuleEngineBridge bridge)
 	{
-		this.iriResolver = iriResolver;
+		super(bridge);
 	}
 
 	@Override
 	public I convert(OWLIndividual individual) throws TargetRuleEngineException
 	{
 		if (individual.isNamed()) {
-			return new I(iriResolver.iri2ShortName(individual.asOWLNamedIndividual().getIRI()));
+			IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
+			String individualShortName = getOWLIRIResolver().iri2ShortName(individualIRI);
+			return new I(individualShortName);
 		} else
 			return new I(individual.asOWLAnonymousIndividual().getID().getID());
 	}

@@ -5,18 +5,20 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLNamedObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.swrlapi.converters.TargetRuleEngineOWLPropertyExpressionConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
-import org.swrlapi.drools.owl.entities.P;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWL property expressions to their Drools DRL representation for use in rules or to the {@link P}
- * class for knowledge base storage.
+ * This class converts OWL property expressions to their Drools representation. Its basic function is to generate a
+ * unique identifier for each property expressions. This identifier can be used in rules and in generating knowledge
+ * base objects.
  */
 public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLPropertyExpressionConverter<String>
@@ -24,7 +26,6 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 	private final Map<OWLPropertyExpression<?, ?>, String> propertyExpression2IDMap;
 	private final Set<String> convertedPropertyExpressionIDs;
 	private int propertyExpressionIndex;
-	private final Set<P> propertyExpressions;
 
 	public DroolsOWLPropertyExpressionConverter(SWRLRuleEngineBridge bridge)
 	{
@@ -33,37 +34,39 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 		this.propertyExpression2IDMap = new HashMap<OWLPropertyExpression<?, ?>, String>();
 		this.propertyExpressionIndex = 0;
 		this.convertedPropertyExpressionIDs = new HashSet<String>();
-		this.propertyExpressions = new HashSet<P>();
 		getOWLPropertyExpressionResolver().reset();
 	}
 
 	public void reset()
 	{
-		this.propertyExpressions.clear();
 		this.propertyExpressionIndex = 0;
 		this.propertyExpression2IDMap.clear();
 		this.convertedPropertyExpressionIDs.clear();
 		getOWLPropertyExpressionResolver().reset();
 	}
 
-	// TODO this is a bit rough and ready - see if we can be more principled
 	@Override
 	public String convert(OWLObjectPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
-		if (propertyExpression instanceof OWLNamedObject)
-			return getOWLIRIResolver().iri2ShortName(((OWLNamedObject)propertyExpression).getIRI());
-		else
+		if (propertyExpression.isAnonymous())
 			return getPropertyExpressionID(propertyExpression);
+		else {
+			OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
+			IRI propertyIRI = objectProperty.getIRI();
+			return getOWLIRIResolver().iri2ShortName(propertyIRI);
+		}
 	}
 
-	// TODO this is a bit rough and ready - see if we can be more principled
 	@Override
 	public String convert(OWLDataPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
-		if (propertyExpression instanceof OWLNamedObject)
-			return getOWLIRIResolver().iri2ShortName(((OWLNamedObject)propertyExpression).getIRI());
-		else
+		if (propertyExpression.isAnonymous())
 			return getPropertyExpressionID(propertyExpression);
+		else {
+			OWLDataProperty objectProperty = propertyExpression.asOWLDataProperty();
+			IRI propertyIRI = objectProperty.getIRI();
+			return getOWLIRIResolver().iri2ShortName(propertyIRI);
+		}
 	}
 
 	private String getPropertyExpressionID(OWLPropertyExpression<?, ?> propertyExpression)

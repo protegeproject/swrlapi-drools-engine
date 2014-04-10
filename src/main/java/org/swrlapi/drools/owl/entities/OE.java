@@ -16,9 +16,9 @@ public abstract class OE implements OO, AA, BA
 {
 	public String id;
 
-	public OE(String name)
+	public OE(String id)
 	{
-		this.id = name;
+		this.id = id;
 	}
 
 	public String getName()

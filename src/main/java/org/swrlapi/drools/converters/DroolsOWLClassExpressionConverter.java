@@ -47,8 +47,8 @@ import org.swrlapi.drools.owl.expressions.OUOCE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWL class expressions to their Drools DRL representation for use in rules or to the {@link CE}
- * class for knowledge base storage.
+ * This class converts OWL class expressions to their Drools representation. Its basic function is to generate a unique
+ * identifier for each class expressions. This identifier can be used in rules and in generating knowledge base objects.
  */
 public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLClassExpressionConverter<String>
@@ -65,8 +65,8 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
 
-		this.classExpressions = new HashSet<CE>();
 		this.classExpressionIndex = 0;
+		this.classExpressions = new HashSet<CE>();
 		this.classExpression2IDMap = new HashMap<OWLClassExpression, String>();
 		this.convertedClassExpressionIDs = new HashSet<String>();
 
@@ -75,8 +75,8 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 
 	public void reset()
 	{
-		this.classExpressions.clear();
 		this.classExpressionIndex = 0;
+		this.classExpressions.clear();
 		this.classExpression2IDMap.clear();
 		this.convertedClassExpressionIDs.clear();
 
@@ -131,19 +131,19 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLClass cls) throws TargetRuleEngineException
 	{
-		String classExpressionID = getOWLIRIResolver().iri2ShortName(cls.getIRI());
+		String classShortName = getOWLIRIResolver().iri2ShortName(cls.getIRI());
 
-		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, cls);
-			this.convertedClassExpressionIDs.add(classExpressionID);
+		if (!this.convertedClassExpressionIDs.contains(classShortName)) {
+			getOWLClassExpressionResolver().recordOWLClassExpression(classShortName, cls);
+			this.convertedClassExpressionIDs.add(classShortName);
 		}
-		return classExpressionID;
+		return classShortName;
 	}
 
 	@Override
 	public String convert(OWLObjectOneOf classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			for (OWLIndividual individual1 : classExpression.getIndividuals()) {
@@ -166,7 +166,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectIntersectionOf classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			for (OWLClassExpression ce : classExpression.getOperands()) {
@@ -182,7 +182,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectUnionOf classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			for (OWLClassExpression ce1 : classExpression.getOperands()) {
@@ -198,7 +198,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectComplementOf classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String complementClassID = convert(classExpression.getOperand());
@@ -216,7 +216,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectSomeValuesFrom classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String someValuesFromClassID = convert(classExpression.getFiller());
@@ -235,7 +235,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLDataSomeValuesFrom classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String someValuesFromDataRangeID = getDroolsOWLDataRange2DRLConverter().convert(classExpression.getFiller());
@@ -254,7 +254,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLDataExactCardinality classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -273,7 +273,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectExactCardinality classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -292,7 +292,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLDataMinCardinality classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -311,7 +311,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectMinCardinality classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -330,7 +330,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLDataMaxCardinality classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -349,7 +349,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectMaxCardinality classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -368,7 +368,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLDataHasValue classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -387,7 +387,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectHasValue classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -406,7 +406,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLObjectAllValuesFrom classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -425,7 +425,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLDataAllValuesFrom classExpression) throws TargetRuleEngineException
 	{
-		String classExpressionID = getClassExpressionID(classExpression);
+		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
@@ -441,7 +441,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		return classExpressionID;
 	}
 
-	private String getClassExpressionID(OWLClassExpression classExpression)
+	private String getOWLClassExpressionID(OWLClassExpression classExpression)
 	{
 		if (this.classExpression2IDMap.containsKey(classExpression))
 			return this.classExpression2IDMap.get(classExpression);
