@@ -53,5 +53,4 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 
 		return variableName;
 	}
-
 }

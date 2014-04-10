@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.DroolsNames;
 import org.swrlapi.drools.DroolsSWRLRuleEngine;
@@ -15,8 +14,7 @@ import org.swrlapi.sqwrl.SQWRLNames;
 import org.swrlapi.sqwrl.SQWRLQuery;
 import org.swrlapi.sqwrl.TargetRuleEngineSQWRLQueryConverter;
 
-public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineSQWRLQueryConverter
+public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implements TargetRuleEngineSQWRLQueryConverter
 {
 	private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
 	private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
@@ -61,12 +59,12 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 
 	private void sqwrlNonCollectionQuery2DRL(SQWRLQuery query) throws TargetRuleEngineException
 	{
-		Set<String> variableNames = new HashSet<String>();
+		Set<String> variableShortNames = new HashSet<String>();
 		String ruleName = query.getName();
 		String drlRule = getQueryPreamble(ruleName);
 
 		for (SWRLAtom atom : query.getBodyAtoms())
-			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
+			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, variableShortNames) + " ";
 
 		drlRule = addQueryThenClause(drlRule);
 
@@ -80,7 +78,7 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 
 	private void sqwrlCollectionQuery2DRL(SQWRLQuery query) throws TargetRuleEngineException
 	{
-		Set<String> variableNames = new HashSet<String>();
+		Set<String> variableShortNames = new HashSet<String>();
 		String queryName = query.getName();
 		String phase1RuleName = queryName + "-makeCollection";
 		String phase2RuleName = queryName + "-operateCollection";
@@ -88,7 +86,7 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 		String drlPhase2Rule = getQueryPreamble(phase2RuleName);
 
 		for (SWRLAtom atom : query.getSQWRLPhase1BodyAtoms())
-			drlPhase1Rule += "\n  " + getDroolsSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
+			drlPhase1Rule += "\n  " + getDroolsSWRLBodyAtomConverter().convert(atom, variableShortNames) + " ";
 
 		drlPhase1Rule = addQueryThenClause(drlPhase1Rule);
 
@@ -96,8 +94,9 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 																	// built-ins
 			try {
 				for (SWRLAPIBuiltInAtom atom : query.getBuiltInAtomsFromBody(SQWRLNames.getCollectionMakeBuiltInNames())) {
-					String collectionVariableName = atom.getArgumentVariableName(0);
-					drlPhase1Rule += "\n  sqwrlInferrer.infer($" + collectionVariableName + "); ";
+					String collectionVariableShortName = atom.getArgumentVariableShortName(0);
+					drlPhase1Rule += "\n  sqwrlInferrer.infer("
+							+ getDroolsSWRLVariableConverter().variableShortName2DRL(collectionVariableShortName) + "); ";
 				}
 			} catch (RuntimeException e) {
 				throw new TargetRuleEngineException("error processing SQWRL collection make in query " + queryName + ": "
@@ -107,18 +106,18 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 		drlPhase1Rule = addQueryEndClause(drlPhase1Rule);
 		getDroolsEngine().defineDRLSQWRLPhase1Rule(queryName, phase1RuleName, drlPhase1Rule);
 
-		variableNames.clear();
+		variableShortNames.clear();
 
 		if (query.hasCollections()) { // Match relevant collections
 			try {
 				for (SWRLAPIBuiltInAtom atom : query.getBuiltInAtomsFromBody(SQWRLNames.getCollectionMakeBuiltInNames())) {
-					String collectionVariableName = atom.getArgumentVariableName(0);
-					if (!variableNames.contains(collectionVariableName)) {
+					String collectionVariableName = atom.getArgumentVariableShortName(0);
+					if (!variableShortNames.contains(collectionVariableName)) {
 						String collectionName = collectionVariableName;
 						drlPhase2Rule += "\n  $" + collectionVariableName + ":" + DroolsNames.SQWRL_COLLECTION_CLASS_NAME + "("
-								+ DroolsNames.QUERY_NAME_FIELD_NAME + "==\"" + queryName + "\", " + DroolsNames.COLLECTION_NAME_FIELD_NAME
-								+ "==\"" + collectionName + "\")";
-						variableNames.add(collectionVariableName);
+								+ DroolsNames.QUERY_NAME_FIELD_NAME + "==\"" + queryName + "\", "
+								+ DroolsNames.COLLECTION_NAME_FIELD_NAME + "==\"" + collectionName + "\")";
+						variableShortNames.add(collectionVariableName);
 					}
 				}
 			} catch (RuntimeException e) {
@@ -127,7 +126,7 @@ public class DroolsSQWRLQuery2DRLConverter extends TargetRuleEngineConverterBase
 			}
 		}
 		for (SWRLAtom atom : query.getSQWRLPhase2BodyAtoms())
-			drlPhase2Rule += "\n  " + getDroolsSWRLBodyAtomConverter().convert(atom, variableNames) + " ";
+			drlPhase2Rule += "\n  " + getDroolsSWRLBodyAtomConverter().convert(atom, variableShortNames) + " ";
 
 		drlPhase2Rule = addQueryThenClause(drlPhase2Rule);
 		for (SWRLAtom atom : query.getHeadAtoms())
