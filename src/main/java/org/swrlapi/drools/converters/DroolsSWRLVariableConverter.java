@@ -1,5 +1,7 @@
 package org.swrlapi.drools.converters;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
@@ -45,6 +47,17 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 	public String variableName2DRL(String variableName)
 	{
 		return "$" + variableName;
+	}
+
+	public String variableShortName2DRL(String variableShortName, String fieldName,
+			Set<String> previouslyEncounteredVariableShortNames)
+	{
+		if (previouslyEncounteredVariableShortNames.contains(variableShortName)) {
+			return fieldName + "==" + variableShortName2DRL(variableShortName);
+		} else {
+			previouslyEncounteredVariableShortNames.add(variableShortName);
+			return variableShortName2DRL(variableShortName) + ":" + fieldName;
+		}
 	}
 
 	private String variableShortName2VariableName(String variableShortName)

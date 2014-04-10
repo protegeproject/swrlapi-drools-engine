@@ -30,13 +30,14 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 	{
 		String ruleName = rule.getRuleName();
 		String drlRule = getRulePreamble(ruleName);
-		Set<String> variableShortNames = new HashSet<String>();
+		Set<String> previouslyEncounteredVariableShortNames = new HashSet<String>();
 
 		getDroolsSWRLBodyAtomConverter().reset();
 		getDroolsSWRLHeadAtomConverter().reset();
 
 		for (SWRLAtom atom : rule.getBodyAtoms())
-			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, variableShortNames) + " ";
+			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariableShortNames)
+					+ " ";
 
 		drlRule = addRuleThenClause(drlRule);
 
