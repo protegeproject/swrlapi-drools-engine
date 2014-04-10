@@ -1,5 +1,12 @@
 package org.swrlapi.drools.converters;
 
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -62,62 +69,64 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	@Override
 	public C convert(SWRLClassBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
+		OWLClass cls = argument.getOWLClass();
 
-		return new C(shortName);
+		return getDroolsOWLEntity2OEConverter().convert(cls);
 	}
 
 	@Override
 	public I convert(SWRLNamedIndividualBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
+		OWLNamedIndividual individual = argument.getOWLNamedIndividual();
 
-		return new I(shortName);
+		return getDroolsOWLEntity2OEConverter().convert(individual);
 	}
 
 	@Override
 	public OP convert(SWRLObjectPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
+		OWLObjectProperty property = argument.getOWLObjectProperty();
 
-		return new OP(shortName);
+		return getDroolsOWLEntity2OEConverter().convert(property);
 	}
 
 	@Override
 	public DP convert(SWRLDataPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
+		OWLDataProperty property = argument.getOWLDataProperty();
 
-		return new DP(shortName);
+		return getDroolsOWLEntity2OEConverter().convert(property);
 	}
 
 	@Override
 	public AP convert(SWRLAnnotationPropertyBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
+		OWLAnnotationProperty property = argument.getOWLAnnotationProperty();
 
-		return new AP(shortName);
+		return getDroolsOWLEntity2OEConverter().convert(property);
 	}
 
 	@Override
 	public D convert(SWRLDatatypeBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(argument.getIRI());
+		OWLDatatype datatype = argument.getOWLDatatype();
 
-		return new D(shortName);
+		return getDroolsOWLEntity2OEConverter().convert(datatype);
 	}
 
 	@Override
 	public L convert(SWRLLiteralBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return getDroolsOWLLiteral2LConverter().convert(argument.getLiteral());
+		OWLLiteral literal = argument.getLiteral();
+
+		return getDroolsOWLLiteral2LConverter().convert(literal);
 	}
 
 	@Override
 	public UBA convert(SWRLVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
 		if (argument.isUnbound())
-			return new UBA(swrlVariable2VariableName(argument));
+			return new UBA(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument));
 		else
 			throw new TargetRuleEngineException("expecting unbound argument, got bound argument " + argument);
 	}
@@ -125,7 +134,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	@Override
 	public BA convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
-		return new SQWRLC(swrlVariable2VariableName(argument), argument.getQueryName(), argument.getCollectionName(),
-				argument.getGroupID());
+		return new SQWRLC(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument), argument.getQueryName(),
+				argument.getCollectionName(), argument.getGroupID());
 	}
 }

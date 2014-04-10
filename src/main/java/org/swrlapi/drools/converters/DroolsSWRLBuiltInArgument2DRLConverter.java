@@ -54,9 +54,9 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	public String convert(SWRLVariableBuiltInArgument argument) throws TargetRuleEngineException
 	{
 		if (argument.isUnbound())
-			return "new UBA(\"" + swrlVariable2VariableName(argument) + "\")";
+			return "new UBA(\"" + getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument) + "\")";
 		else
-			return swrlVariable2DRL(argument);
+			return getDroolsSWRLVariableConverter().swrlVariable2DRL(argument);
 	}
 
 	@Override

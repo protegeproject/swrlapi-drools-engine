@@ -64,7 +64,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLVariable variableArgument) throws TargetRuleEngineException
 	{
-		return swrlVariable2DRL(variableArgument);
+		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLVariableBuiltInArgument variableArgument) throws TargetRuleEngineException
 	{
-		return swrlVariable2DRL(variableArgument);
+		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
 	}
 
 	@Override

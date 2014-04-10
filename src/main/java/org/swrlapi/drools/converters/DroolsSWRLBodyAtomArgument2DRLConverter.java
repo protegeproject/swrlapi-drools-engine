@@ -68,7 +68,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLVariable variableArgument) throws TargetRuleEngineException
 	{
-		return swrlVariable2DRL(variableArgument);
+		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLVariableBuiltInArgument variableArgument) throws TargetRuleEngineException
 	{
-		return swrlVariable2DRL(variableArgument);
+		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
 	}
 
 	@Override
@@ -195,13 +195,13 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLVariableBuiltInArgument argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
-		String variableName = swrlVariable2VariableName(argument);
+		String variableName = getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument);
 
 		if (variableNames.contains(variableName)) {
 			return fieldName + "==$" + variableName;
 		} else {
 			variableNames.add(variableName);
-			return variableName2DRL(variableName) + ":" + fieldName;
+			return getDroolsSWRLVariableConverter().variableName2DRL(variableName) + ":" + fieldName;
 		}
 	}
 
@@ -209,13 +209,13 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLVariable argument, String fieldName, Set<String> variableNames)
 			throws TargetRuleEngineException
 	{
-		String variableName = swrlVariable2VariableName(argument);
+		String variableName = getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument);
 
 		if (variableNames.contains(variableName)) {
 			return fieldName + "==$" + variableName;
 		} else {
 			variableNames.add(variableName);
-			return variableName2DRL(variableName) + ":" + fieldName;
+			return getDroolsSWRLVariableConverter().variableName2DRL(variableName) + ":" + fieldName;
 		}
 	}
 

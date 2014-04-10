@@ -1,7 +1,13 @@
 package org.swrlapi.drools.extractors;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.core.arguments.SWRLBuiltInArgument;
@@ -38,50 +44,44 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends DroolsExtractorBase impl
 
 	public SWRLBuiltInArgument extract(C c) throws TargetRuleEngineException
 	{
-		String classPrefixedName = c.getName();
-		IRI classIRI = shortName2IRI(classPrefixedName);
+		OWLClass cls = getDroolsOWLEntityExtractor().extract(c);
 
-		return getSWRLBuiltInArgumentFactory().getClassBuiltInArgument(classIRI);
+		return getSWRLBuiltInArgumentFactory().getClassBuiltInArgument(cls);
 	}
 
 	public SWRLBuiltInArgument extract(I i) throws TargetRuleEngineException
 	{
-		String individualPrefixedName = i.getName();
-		IRI individualIRI = shortName2IRI(individualPrefixedName);
+		OWLNamedIndividual individual = getDroolsOWLEntityExtractor().extract(i);
 
-		return getSWRLBuiltInArgumentFactory().getNamedIndividualBuiltInArgument(individualIRI);
-	}
-
-	public SWRLBuiltInArgument extract(DP dp) throws TargetRuleEngineException
-	{
-		String propertyPrefixedName = dp.getName();
-		IRI propertyIRI = shortName2IRI(propertyPrefixedName);
-
-		return getSWRLBuiltInArgumentFactory().getDataPropertyBuiltInArgument(propertyIRI);
-	}
-
-	public SWRLBuiltInArgument extract(AP ap) throws TargetRuleEngineException
-	{
-		String propertyPrefixedName = ap.getName();
-		IRI propertyIRI = shortName2IRI(propertyPrefixedName);
-
-		return getSWRLBuiltInArgumentFactory().getDataPropertyBuiltInArgument(propertyIRI);
+		return getSWRLBuiltInArgumentFactory().getNamedIndividualBuiltInArgument(individual);
 	}
 
 	public SWRLBuiltInArgument extract(OP op) throws TargetRuleEngineException
 	{
-		String propertyPrefixedName = op.getName();
-		IRI propertyIRI = shortName2IRI(propertyPrefixedName);
+		OWLObjectProperty property = getDroolsOWLEntityExtractor().extract(op);
 
-		return getSWRLBuiltInArgumentFactory().getObjectPropertyBuiltInArgument(propertyIRI);
+		return getSWRLBuiltInArgumentFactory().getObjectPropertyBuiltInArgument(property);
+	}
+
+	public SWRLBuiltInArgument extract(DP dp) throws TargetRuleEngineException
+	{
+		OWLDataProperty property = getDroolsOWLEntityExtractor().extract(dp);
+
+		return getSWRLBuiltInArgumentFactory().getDataPropertyBuiltInArgument(property);
+	}
+
+	public SWRLBuiltInArgument extract(AP ap) throws TargetRuleEngineException
+	{
+		OWLAnnotationProperty property = getDroolsOWLEntityExtractor().extract(ap);
+
+		return getSWRLBuiltInArgumentFactory().getAnnotationPropertyBuiltInArgument(property);
 	}
 
 	public SWRLBuiltInArgument extract(D d) throws TargetRuleEngineException
 	{
-		String datatypePrefixedName = d.getName();
-		IRI datatypeIRI = shortName2IRI(datatypePrefixedName);
+		OWLDatatype datatype = getDroolsOWLEntityExtractor().extract(d);
 
-		return getSWRLBuiltInArgumentFactory().getDatatypeBuiltInArgument(datatypeIRI);
+		return getSWRLBuiltInArgumentFactory().getDatatypeBuiltInArgument(datatype);
 	}
 
 	public SWRLBuiltInArgument extract(L l) throws TargetRuleEngineException

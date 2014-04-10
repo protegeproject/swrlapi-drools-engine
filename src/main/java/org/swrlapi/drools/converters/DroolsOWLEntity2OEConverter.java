@@ -4,11 +4,10 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.converters.TargetRuleEngineOWLNamedObjectConverter;
+import org.swrlapi.converters.TargetRuleEngineOWLEntityConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.entities.AP;
 import org.swrlapi.drools.owl.entities.C;
@@ -20,33 +19,14 @@ import org.swrlapi.drools.owl.entities.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWL named objects to their DRL representation for use in rules.
+ * This class converts OWL entities to their DRL representation for use in rules.
  */
-public class DroolsOWLNamedObject2OEConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLNamedObjectConverter<OE>
+public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase implements
+		TargetRuleEngineOWLEntityConverter<OE>
 {
-	public DroolsOWLNamedObject2OEConverter(SWRLRuleEngineBridge bridge)
+	public DroolsOWLEntity2OEConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
-	}
-
-	@Override
-	public OE convert(OWLEntity entity) throws TargetRuleEngineException
-	{ // TODO Replace instanceof using visitor
-		if (entity instanceof OWLClass)
-			return convert((OWLClass)entity);
-		else if (entity instanceof OWLNamedIndividual)
-			return convert((OWLNamedIndividual)entity);
-		else if (entity instanceof OWLObjectProperty)
-			return convert((OWLObjectProperty)entity);
-		else if (entity instanceof OWLDataProperty)
-			return convert((OWLDataProperty)entity);
-		else if (entity instanceof OWLAnnotationProperty)
-			return convert((OWLAnnotationProperty)entity);
-		else if (entity instanceof OWLDatatype)
-			return convert((OWLDatatype)entity);
-		else
-			throw new RuntimeException("unknown OWL entity type " + entity.getClass().getCanonicalName());
 	}
 
 	@Override

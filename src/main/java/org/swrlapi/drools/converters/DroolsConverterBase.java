@@ -1,7 +1,5 @@
 package org.swrlapi.drools.converters;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 
@@ -13,10 +11,11 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 	private final DroolsOWLLiteral2DRLConverter literal2DRLConverter;
 	private final DroolsOWLLiteral2LConverter literal2LConverter;
 	private final DroolsOWLNamedObject2DRLConverter namedObject2DRLConverter;
-	private final DroolsOWLNamedObject2OEConverter namedObject2OEConverter;
+	private final DroolsOWLEntity2OEConverter entity2OEConverter;
 	private final DroolsOWLIndividual2DRLConverter individual2DRLConverter;
 	private final DroolsOWLIndividual2IConverter individual2IConverter;
 	private final DroolsOWLDataRange2DRLConverter dataRange2DRLConverter;
+	private final DroolsSWRLVariableConverter variableConverter;
 
 	public DroolsConverterBase(SWRLRuleEngineBridge bridge)
 	{
@@ -24,10 +23,11 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 		this.literal2DRLConverter = new DroolsOWLLiteral2DRLConverter(bridge);
 		this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge);
 		this.namedObject2DRLConverter = new DroolsOWLNamedObject2DRLConverter(bridge);
-		this.namedObject2OEConverter = new DroolsOWLNamedObject2OEConverter(bridge);
+		this.entity2OEConverter = new DroolsOWLEntity2OEConverter(bridge);
 		this.individual2DRLConverter = new DroolsOWLIndividual2DRLConverter(bridge);
 		this.individual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
 		this.dataRange2DRLConverter = new DroolsOWLDataRange2DRLConverter(bridge);
+		this.variableConverter = new DroolsSWRLVariableConverter(bridge);
 	}
 
 	protected DroolsOWLLiteral2DRLConverter getDroolsOWLLiteral2DRLConverter()
@@ -45,9 +45,9 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 		return this.namedObject2DRLConverter;
 	}
 
-	protected DroolsOWLNamedObject2OEConverter getDroolsOWLNamedObject2OEConverter()
+	protected DroolsOWLEntity2OEConverter getDroolsOWLEntity2OEConverter()
 	{
-		return this.namedObject2OEConverter;
+		return this.entity2OEConverter;
 	}
 
 	protected DroolsOWLIndividual2DRLConverter getDroolsOWLIndividual2DRLConverter()
@@ -65,46 +65,8 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 		return this.dataRange2DRLConverter;
 	}
 
-	protected String swrlVariable2DRL(SWRLVariable variable)
+	protected DroolsSWRLVariableConverter getDroolsSWRLVariableConverter()
 	{
-		IRI variableIRI = variable.getIRI();
-		String variableShortName = getOWLIRIResolver().iri2ShortName(variableIRI);
-
-		return variableShortName2DRL(variableShortName);
+		return this.variableConverter;
 	}
-
-	protected String swrlVariable2VariableName(SWRLVariable variable)
-	{
-		IRI variableIRI = variable.getIRI();
-		String variableShortName = getOWLIRIResolver().iri2ShortName(variableIRI);
-
-		return variableShortName2VariableName(variableShortName);
-	}
-
-	protected String variableIRI2DRL(IRI variableIRI)
-	{
-		String variableShortName = getOWLIRIResolver().iri2ShortName(variableIRI);
-
-		return variableShortName2DRL(variableShortName);
-	}
-
-	protected String variableShortName2DRL(String variableShortName)
-	{
-		String variableName = variableShortName2VariableName(variableShortName);
-
-		return variableName2DRL(variableName);
-	}
-
-	protected String variableName2DRL(String variableName)
-	{
-		return "$" + variableName;
-	}
-
-	private String variableShortName2VariableName(String variableShortName)
-	{
-		String variableName = variableShortName.startsWith(":") ? variableShortName.substring(1) : variableShortName;
-
-		return variableName;
-	}
-
 }

@@ -4,11 +4,10 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.converters.TargetRuleEngineOWLNamedObjectConverter;
+import org.swrlapi.converters.TargetRuleEngineOWLEntityConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -16,17 +15,11 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * This class converts OWL named objects to their DRL representation for use in rules.
  */
 public class DroolsOWLNamedObject2DRLConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLNamedObjectConverter<String>
+		TargetRuleEngineOWLEntityConverter<String>
 {
 	public DroolsOWLNamedObject2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
-	}
-
-	@Override
-	public String convert(OWLEntity entity) throws TargetRuleEngineException
-	{
-		return getOWLIRIResolver().iri2ShortName(entity.getIRI());
 	}
 
 	@Override

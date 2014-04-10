@@ -4,12 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -34,8 +37,10 @@ import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -229,19 +234,28 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	public void convert(OWLDeclarationAxiom axiom) throws TargetRuleEngineException
 	{
 		OWLEntity entity = axiom.getEntity();
-		String entityID = getDroolsOWLNamedObject2DRLConverter().convert(axiom.getEntity());
 
 		if (entity.isOWLClass()) {
-			createNonRuleOWLAxiom(new CDA(entityID));
-			getOWLClassExpressionResolver().recordOWLClassExpression(entityID, axiom.getEntity().asOWLClass());
+			OWLClass cls = axiom.getEntity().asOWLClass();
+			String classShortName = getDroolsOWLNamedObject2DRLConverter().convert(cls);
+			createNonRuleOWLAxiom(new CDA(classShortName));
+			getOWLClassExpressionResolver().recordOWLClassExpression(classShortName, cls);
 		} else if (entity.isOWLNamedIndividual()) {
-			createNonRuleOWLAxiom(new IDA(entityID));
+			OWLNamedIndividual individual = entity.asOWLNamedIndividual();
+			String individualShortName = getDroolsOWLNamedObject2DRLConverter().convert(individual);
+			createNonRuleOWLAxiom(new IDA(individualShortName));
 		} else if (entity.isOWLObjectProperty()) {
-			createNonRuleOWLAxiom(new OPDA(entityID));
+			OWLObjectProperty property = entity.asOWLObjectProperty();
+			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			createNonRuleOWLAxiom(new OPDA(propertyShortName));
 		} else if (entity.isOWLDataProperty()) {
-			createNonRuleOWLAxiom(new DPDA(entityID));
+			OWLDataProperty property = entity.asOWLDataProperty();
+			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			createNonRuleOWLAxiom(new DPDA(propertyShortName));
 		} else if (entity.isOWLAnnotationProperty()) {
-			createNonRuleOWLAxiom(new APDA(entityID));
+			OWLAnnotationProperty property = entity.asOWLAnnotationProperty();
+			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			createNonRuleOWLAxiom(new APDA(propertyShortName));
 		} else
 			throw new RuntimeException("unknown entity type " + entity.getClass().getCanonicalName()
 					+ " in OWL declaration axiom");

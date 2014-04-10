@@ -190,7 +190,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		int argumentNumber = 1;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
 			if (argument.isVariable()) {
-				String variableName = swrlVariable2VariableName(argument.asVariable());
+				String variableName = getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument.asVariable());
 				if (variableArgumentEncountered)
 					representation += ", ";
 				representation += variableName2DRL(variableName, DroolsNames.BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX
@@ -216,7 +216,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		for (String variableName : builtInAtom.getPathVariableNames()) {
 			if (!isFirst)
 				representation += ", ";
-			representation += variableName2DRL(variableName);
+			representation += getDroolsSWRLVariableConverter().variableName2DRL(variableName);
 			isFirst = false;
 		}
 		representation += "), ";
@@ -231,7 +231,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 			if (!isFirst)
 				representation += ", ";
 			if (argument.isVariable())
-				representation += "\"" + swrlVariable2VariableName(argument.asVariable()) + "\"";
+				representation += "\"" + getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument.asVariable())
+						+ "\"";
 			else
 				representation += "\"\"";
 			isFirst = false;
@@ -263,7 +264,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 			return fieldName + "==$" + variableName;
 		} else {
 			variableNames.add(variableName);
-			return variableName2DRL(variableName) + ":" + fieldName;
+			return getDroolsSWRLVariableConverter().variableName2DRL(variableName) + ":" + fieldName;
 		}
 	}
 
