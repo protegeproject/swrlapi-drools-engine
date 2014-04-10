@@ -94,14 +94,15 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends DroolsExtractorBase impl
 	public SWRLBuiltInArgument extract(UBA uba) throws TargetRuleEngineException
 	{
 		String variableName = uba.getVariableName();
-		IRI variableIRI = shortName2IRI(variableName);
+		IRI variableIRI = getDroolsSWRLVariableExtractor().variableName2VariableIRI(variableName);
+
 		return getSWRLBuiltInArgumentFactory().getUnboundVariableBuiltInArgument(variableIRI);
 	}
 
 	public SWRLBuiltInArgument extract(SQWRLC sqwrlc) throws TargetRuleEngineException
 	{
 		String variableName = sqwrlc.getVariableName();
-		IRI variableIRI = shortName2IRI(variableName);
+		IRI variableIRI = getDroolsSWRLVariableExtractor().variableName2VariableIRI(variableName);
 
 		return getSWRLBuiltInArgumentFactory().getSQWRLCollectionVariableBuiltInArgument(variableIRI,
 				sqwrlc.getQueryName(), sqwrlc.getCollectionName(), sqwrlc.getCollectionID());

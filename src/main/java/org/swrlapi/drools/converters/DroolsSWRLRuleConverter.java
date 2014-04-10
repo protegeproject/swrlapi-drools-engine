@@ -42,7 +42,7 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 
 		// TODO HACK!!! Need to reference these variables before use or will get null pointer error when invoking built-ins
 		// for (String variableShortName : variableShortNames)
-		// drlRule += "$" + variableName + ";";
+		// drlRule += getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName);
 
 		for (SWRLAtom atom : rule.getHeadAtoms())
 			drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";
