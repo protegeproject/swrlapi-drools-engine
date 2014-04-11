@@ -30,6 +30,13 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 		return variableShortName2VariableName(variableShortName);
 	}
 
+	public String swrlVariable2VariableShortName(SWRLVariable variable)
+	{
+		IRI variableIRI = variable.getIRI();
+
+		return getOWLIRIResolver().iri2ShortName(variableIRI);
+	}
+
 	public String variableIRI2DRL(IRI variableIRI)
 	{
 		String variableShortName = getOWLIRIResolver().iri2ShortName(variableIRI);
@@ -60,7 +67,7 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 		}
 	}
 
-	private String variableShortName2VariableName(String variableShortName)
+	public String variableShortName2VariableName(String variableShortName)
 	{
 		String variableName = variableShortName.startsWith(":") ? variableShortName.substring(1) : variableShortName;
 

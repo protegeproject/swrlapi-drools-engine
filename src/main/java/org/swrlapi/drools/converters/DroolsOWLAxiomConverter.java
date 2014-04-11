@@ -131,7 +131,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 
 	public Set<A> getNonRuleAssertedOWLAxioms()
 	{
-		return this.nonRuleAssertedOWLAxioms;
+		return new HashSet<A>(this.nonRuleAssertedOWLAxioms);
 	}
 
 	public Set<CE> getOWLClassExpressions()
@@ -139,9 +139,8 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		return this.classExpressionConverter.getOWLClassExpressions();
 	}
 
-	// TODO Get rid of these instanceof with visitor
 	public void convert(OWLAxiom axiom) throws TargetRuleEngineException
-	{
+	{ // TODO Get rid of these instanceof with visitor
 		if (axiom instanceof SWRLAPIRule) {
 			convert((SWRLAPIRule)axiom);
 		} else if (axiom instanceof OWLDeclarationAxiom) {

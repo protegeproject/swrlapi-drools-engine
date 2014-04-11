@@ -197,7 +197,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLVariableBuiltInArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
 	{
-		String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument);
+		String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableShortName(argument);
 
 		if (previouslyEncounteredVariableShortNames.contains(variableShortName)) {
 			return fieldName + "==" + getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName);
@@ -211,7 +211,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLVariable argument, String fieldName, Set<String> previouslyEncounteredVariableShortNames)
 			throws TargetRuleEngineException
 	{
-		String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument);
+		String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableShortName(argument);
 
 		if (previouslyEncounteredVariableShortNames.contains(variableShortName)) {
 			return fieldName + "==" + getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName);

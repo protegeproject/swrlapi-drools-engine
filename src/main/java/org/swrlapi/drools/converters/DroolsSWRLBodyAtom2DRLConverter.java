@@ -198,7 +198,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		int argumentNumber = 1;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
 			if (argument.isVariable()) {
-				String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument.asVariable());
+				String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableShortName(
+						argument.asVariable());
 				if (variableArgumentEncountered)
 					representation += ", ";
 				representation += getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName,
@@ -212,8 +213,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 						+ " built-in arguments are currently supported by Drools");
 		}
 
-		representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInShortName + "\", " + this.builtInIndexInBody
-				+ ", false, ";
+		representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInShortName + "\", "
+				+ this.builtInIndexInBody + ", false, ";
 
 		if (builtInAtom.getPathVariableShortNames().size() > VPATH.MaxArguments)
 			throw new TargetRuleEngineException("a maximum of " + VPATH.MaxArguments
