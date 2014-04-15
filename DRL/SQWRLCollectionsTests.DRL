@@ -1,0 +1,1467 @@
+  BAP($size:a1, a2==$s, a3==$p) from invoker.invoke("NumberOfCarsPerPerson", "sqwrl:size", 1, false, new VPATH(), new BAVNs("size", "s", "p"), new UBA("size"), $s, $p) 
+then 
+  invoker.invoke("NumberOfCarsPerPerson", "sqwrl:select", 0, true, $p, $size); 
+  invoker.invoke("NumberOfCarsPerPerson", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: UnionTest-makeCollection
+rule "UnionTest-makeCollection" 
+when 
+  BAP($s1:a1) from invoker.invoke("UnionTest", "sqwrl:makeSet", 0, false, new VPATH(), new BAVNs("s1", ""), new UBA("s1"), new I("DDI")) 
+  BAP($s2:a1) from invoker.invoke("UnionTest", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("s2", ""), new UBA("s2"), new I("AZT")) 
+then 
+  sqwrlInferrer.infer($s1); 
+  sqwrlInferrer.infer($s2); 
+end
+Rule name: UnionTest-operateCollection
+rule "UnionTest-operateCollection" 
+when 
+  $s1:SQWRLC(queryName=="UnionTest", collectionName=="s1")
+  $s2:SQWRLC(queryName=="UnionTest", collectionName=="s2")
+  BAP($u:a1, a2==$s1, a3==$s2) from invoker.invoke("UnionTest", "sqwrl:union", 2, false, new VPATH(), new BAVNs("u", "s1", "s2"), new UBA("u"), $s1, $s2) 
+  BAP($e:a1, a2==$u) from invoker.invoke("UnionTest", "sqwrl:element", 3, false, new VPATH(), new BAVNs("e", "u"), new UBA("e"), $u) 
+then 
+  invoker.invoke("UnionTest", "sqwrl:select", 0, true, $e); 
+  invoker.invoke("UnionTest", "sqwrl:orderBy", 1, true, $e); 
+end
+Rule name: AlphabeticallyFirstNameWithSets-makeCollection
+rule "AlphabeticallyFirstNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyFirstNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyFirstNameWithSets-operateCollection
+rule "AlphabeticallyFirstNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyFirstNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($first:a1, a2==$s) from invoker.invoke("AlphabeticallyFirstNameWithSets", "sqwrl:first", 1, false, new VPATH(), new BAVNs("first", "s"), new UBA("first"), $s) 
+then 
+  invoker.invoke("AlphabeticallyFirstNameWithSets", "sqwrl:select", 0, true, $first); 
+end
+Rule name: PersonsWithNumberOfDosesAndAverageDosePerDrug-makeCollection
+rule "PersonsWithNumberOfDosesAndAverageDosePerDrug-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($s:a1, a2==$dose, a3==$p, a4==$d) from invoker.invoke("PersonsWithNumberOfDosesAndAverageDosePerDrug", "sqwrl:makeBag", 0, false, new VPATH($d, $t, $p), new BAVNs("s", "dose", "p", "d"), new UBA("s"), $dose, $p, $d) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithNumberOfDosesAndAverageDosePerDrug-operateCollection
+rule "PersonsWithNumberOfDosesAndAverageDosePerDrug-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithNumberOfDosesAndAverageDosePerDrug", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($avg:a1, a2==$s, a3==$p, a4==$d) from invoker.invoke("PersonsWithNumberOfDosesAndAverageDosePerDrug", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "s", "p", "d"), new UBA("avg"), $s, $p, $d) 
+  BAP($size:a1, a2==$s, a3==$p, a4==$d) from invoker.invoke("PersonsWithNumberOfDosesAndAverageDosePerDrug", "sqwrl:size", 2, false, new VPATH(), new BAVNs("size", "s", "p", "d"), new UBA("size"), $s, $p, $d) 
+then 
+  invoker.invoke("PersonsWithNumberOfDosesAndAverageDosePerDrug", "sqwrl:select", 0, true, $p, $d, $size, $avg); 
+  invoker.invoke("PersonsWithNumberOfDosesAndAverageDosePerDrug", "sqwrl:orderBy", 1, true, $p, $d); 
+end
+Rule name: PersonAverageDDIDosesAndAverageAllDDIDoses-makeCollection
+rule "PersonAverageDDIDosesAndAverageAllDDIDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($sp:a1, a2==$dose, a3==$p) from invoker.invoke("PersonAverageDDIDosesAndAverageAllDDIDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("sp", "dose", "p"), new UBA("sp"), $dose, $p) 
+  BAP($sddi:a1, a2==$dose) from invoker.invoke("PersonAverageDDIDosesAndAverageAllDDIDoses", "sqwrl:makeBag", 1, false, new VPATH($t, $sp, $p), new BAVNs("sddi", "dose"), new UBA("sddi"), $dose) 
+then 
+  sqwrlInferrer.infer($sp); 
+  sqwrlInferrer.infer($sddi); 
+end
+Rule name: PersonAverageDDIDosesAndAverageAllDDIDoses-operateCollection
+rule "PersonAverageDDIDosesAndAverageAllDDIDoses-operateCollection" 
+when 
+  $sp:SQWRLC(queryName=="PersonAverageDDIDosesAndAverageAllDDIDoses", collectionName=="sp")
+  $sddi:SQWRLC(queryName=="PersonAverageDDIDosesAndAverageAllDDIDoses", collectionName=="sddi")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($avgP:a1, a2==$sp, a3==$p) from invoker.invoke("PersonAverageDDIDosesAndAverageAllDDIDoses", "sqwrl:avg", 2, false, new VPATH(), new BAVNs("avgP", "sp", "p"), new UBA("avgP"), $sp, $p) 
+  BAP($avgDDI:a1, a2==$sddi) from invoker.invoke("PersonAverageDDIDosesAndAverageAllDDIDoses", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("avgDDI", "sddi"), new UBA("avgDDI"), $sddi) 
+then 
+  invoker.invoke("PersonAverageDDIDosesAndAverageAllDDIDoses", "sqwrl:select", 0, true, $p, $avgP, $avgDDI); 
+  invoker.invoke("PersonAverageDDIDosesAndAverageAllDDIDoses", "sqwrl:orderBy", 1, true, $p, $avgP, $avgDDI); 
+end
+Rule name: AverageSaleAmountPerProduct-makeCollection
+rule "AverageSaleAmountPerProduct-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  OPAA(s==$sale, p.id=="hasProduct", $product:o) 
+  BAP($s:a1, a2==$amt, a3==$product) from invoker.invoke("AverageSaleAmountPerProduct", "sqwrl:makeSet", 0, false, new VPATH($product, $p, $sale), new BAVNs("s", "amt", "product"), new UBA("s"), $amt, $product) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AverageSaleAmountPerProduct-operateCollection
+rule "AverageSaleAmountPerProduct-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AverageSaleAmountPerProduct", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  OPAA(s==$sale, p.id=="hasProduct", $product:o) 
+  BAP($avg:a1, a2==$s, a3==$product) from invoker.invoke("AverageSaleAmountPerProduct", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "s", "product"), new UBA("avg"), $s, $product) 
+then 
+  invoker.invoke("AverageSaleAmountPerProduct", "sqwrl:select", 0, true, $product, $avg); 
+  invoker.invoke("AverageSaleAmountPerProduct", "sqwrl:orderBy", 1, true, $product, $avg); 
+end
+Rule name: AlphabeticallyAllExceptThirdLastNameWithSets-makeCollection
+rule "AlphabeticallyAllExceptThirdLastNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyAllExceptThirdLastNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyAllExceptThirdLastNameWithSets-operateCollection
+rule "AlphabeticallyAllExceptThirdLastNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyAllExceptThirdLastNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($notThirdLastL:a1, a2==$s) from invoker.invoke("AlphabeticallyAllExceptThirdLastNameWithSets", "sqwrl:notNthLast", 1, false, new VPATH(), new BAVNs("notThirdLastL", "s", ""), new UBA("notThirdLastL"), $s, new L("3", "xsd:integer")) 
+  BAP($e:a1, a2==$notThirdLastL) from invoker.invoke("AlphabeticallyAllExceptThirdLastNameWithSets", "sqwrl:element", 2, false, new VPATH(), new BAVNs("e", "notThirdLastL"), new UBA("e"), $notThirdLastL) 
+then 
+  invoker.invoke("AlphabeticallyAllExceptThirdLastNameWithSets", "sqwrl:select", 0, true, $e); 
+  invoker.invoke("AlphabeticallyAllExceptThirdLastNameWithSets", "sqwrl:orderBy", 1, true, $e); 
+end
+Rule name: PersonsWithAboveAverageDDIDoses-makeCollection
+rule "PersonsWithAboveAverageDDIDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($sp:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithAboveAverageDDIDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("sp", "dose", "p"), new UBA("sp"), $dose, $p) 
+  BAP($sddi:a1, a2==$dose) from invoker.invoke("PersonsWithAboveAverageDDIDoses", "sqwrl:makeBag", 1, false, new VPATH($t, $sp, $p), new BAVNs("sddi", "dose"), new UBA("sddi"), $dose) 
+then 
+  sqwrlInferrer.infer($sp); 
+  sqwrlInferrer.infer($sddi); 
+end
+Rule name: PersonsWithAboveAverageDDIDoses-operateCollection
+rule "PersonsWithAboveAverageDDIDoses-operateCollection" 
+when 
+  $sp:SQWRLC(queryName=="PersonsWithAboveAverageDDIDoses", collectionName=="sp")
+  $sddi:SQWRLC(queryName=="PersonsWithAboveAverageDDIDoses", collectionName=="sddi")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($avgP:a1, a2==$sp, a3==$p) from invoker.invoke("PersonsWithAboveAverageDDIDoses", "sqwrl:avg", 2, false, new VPATH(), new BAVNs("avgP", "sp", "p"), new UBA("avgP"), $sp, $p) 
+  BAP($avgDDI:a1, a2==$sddi) from invoker.invoke("PersonsWithAboveAverageDDIDoses", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("avgDDI", "sddi"), new UBA("avgDDI"), $sddi) 
+  BAP(a1==$avgP, a2==$avgDDI) from invoker.invoke("PersonsWithAboveAverageDDIDoses", "swrlb:greaterThan", 4, false, new VPATH(), new BAVNs("avgP", "avgDDI"), $avgP, $avgDDI) 
+then 
+  invoker.invoke("PersonsWithAboveAverageDDIDoses", "sqwrl:select", 0, true, $p, $avgP, $avgDDI); 
+  invoker.invoke("PersonsWithAboveAverageDDIDoses", "sqwrl:orderBy", 1, true, $p, $avgP, $avgDDI); 
+end
+Rule name: AlphabeticallySecondNameWithSets-makeCollection
+rule "AlphabeticallySecondNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallySecondNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallySecondNameWithSets-operateCollection
+rule "AlphabeticallySecondNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallySecondNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($second:a1, a2==$s) from invoker.invoke("AlphabeticallySecondNameWithSets", "sqwrl:nth", 1, false, new VPATH(), new BAVNs("second", "s", ""), new UBA("second"), $s, new L("2", "xsd:integer")) 
+then 
+  invoker.invoke("AlphabeticallySecondNameWithSets", "sqwrl:select", 0, true, $second); 
+end
+Rule name: PersonsWithMaximumAge-makeCollection
+rule "PersonsWithMaximumAge-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($s:a1, a2==$age) from invoker.invoke("PersonsWithMaximumAge", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "age"), new UBA("s"), $age) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithMaximumAge-operateCollection
+rule "PersonsWithMaximumAge-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithMaximumAge", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($max:a1, a2==$s) from invoker.invoke("PersonsWithMaximumAge", "sqwrl:max", 1, false, new VPATH(), new BAVNs("max", "s"), new UBA("max"), $s) 
+  BAP(a1==$age, a2==$max) from invoker.invoke("PersonsWithMaximumAge", "swrlb:equal", 2, false, new VPATH(), new BAVNs("age", "max"), $age, $max) 
+then 
+  invoker.invoke("PersonsWithMaximumAge", "sqwrl:select", 0, true, $p, $max); 
+  invoker.invoke("PersonsWithMaximumAge", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses-makeCollection
+rule "PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($s:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("s", "dose", "p"), new UBA("s"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses-operateCollection
+rule "PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($lowest2s:a1, a2==$s, a4==$p) from invoker.invoke("PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:leastN", 1, false, new VPATH(), new BAVNs("lowest2s", "s", "", "p"), new UBA("lowest2s"), $s, new L("2", "xsd:integer"), $p) 
+  BAP($greatest2s:a1, a2==$s, a4==$p) from invoker.invoke("PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:greatestN", 2, false, new VPATH(), new BAVNs("greatest2s", "s", "", "p"), new UBA("greatest2s"), $s, new L("2", "xsd:integer"), $p) 
+  BAP($avgL2:a1, a2==$lowest2s, a3==$p) from invoker.invoke("PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("avgL2", "lowest2s", "p"), new UBA("avgL2"), $lowest2s, $p) 
+  BAP($avgG2:a1, a2==$greatest2s, a3==$p) from invoker.invoke("PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:avg", 4, false, new VPATH(), new BAVNs("avgG2", "greatest2s", "p"), new UBA("avgG2"), $greatest2s, $p) 
+then 
+  invoker.invoke("PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:selectDistinct", 0, true, $p, $avgL2, $avgG2); 
+  invoker.invoke("PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsWithNonDDITreatments-makeCollection
+rule "PersonsWithNonDDITreatments-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP($s:a1, a2==$d, a3==$p) from invoker.invoke("PersonsWithNonDDITreatments", "sqwrl:makeSet", 0, false, new VPATH($t, $p), new BAVNs("s", "d", "p"), new UBA("s"), $d, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithNonDDITreatments-operateCollection
+rule "PersonsWithNonDDITreatments-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithNonDDITreatments", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP(a2==$s, a3==$p) from invoker.invoke("PersonsWithNonDDITreatments", "sqwrl:notElement", 1, false, new VPATH(), new BAVNs("", "s", "p"), new I("DDI"), $s, $p) 
+then 
+  invoker.invoke("PersonsWithNonDDITreatments", "sqwrl:select", 0, true, $p); 
+  invoker.invoke("PersonsWithNonDDITreatments", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: AlphabeticallyFirstAndLastNamesWithSets-makeCollection
+rule "AlphabeticallyFirstAndLastNamesWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyFirstAndLastNamesWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyFirstAndLastNamesWithSets-operateCollection
+rule "AlphabeticallyFirstAndLastNamesWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyFirstAndLastNamesWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($first:a1, a2==$s) from invoker.invoke("AlphabeticallyFirstAndLastNamesWithSets", "sqwrl:first", 1, false, new VPATH(), new BAVNs("first", "s"), new UBA("first"), $s) 
+  BAP($last:a1, a2==$s) from invoker.invoke("AlphabeticallyFirstAndLastNamesWithSets", "sqwrl:last", 2, false, new VPATH(), new BAVNs("last", "s"), new UBA("last"), $s) 
+then 
+  invoker.invoke("AlphabeticallyFirstAndLastNamesWithSets", "sqwrl:select", 0, true, $first, $last); 
+  invoker.invoke("AlphabeticallyFirstAndLastNamesWithSets", "sqwrl:orderBy", 1, true, $last, $first); 
+end
+Rule name: PersonsWithAverageDDIDoseMoreThan10PercentOfAverage-makeCollection
+rule "PersonsWithAverageDDIDoseMoreThan10PercentOfAverage-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($sp:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("sp", "dose", "p"), new UBA("sp"), $dose, $p) 
+  BAP($sddi:a1, a2==$dose) from invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "sqwrl:makeBag", 1, false, new VPATH($t, $sp, $p), new BAVNs("sddi", "dose"), new UBA("sddi"), $dose) 
+then 
+  sqwrlInferrer.infer($sp); 
+  sqwrlInferrer.infer($sddi); 
+end
+Rule name: PersonsWithAverageDDIDoseMoreThan10PercentOfAverage-operateCollection
+rule "PersonsWithAverageDDIDoseMoreThan10PercentOfAverage-operateCollection" 
+when 
+  $sp:SQWRLC(queryName=="PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", collectionName=="sp")
+  $sddi:SQWRLC(queryName=="PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", collectionName=="sddi")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($avgP:a1, a2==$sp, a3==$p) from invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "sqwrl:avg", 2, false, new VPATH(), new BAVNs("avgP", "sp", "p"), new UBA("avgP"), $sp, $p) 
+  BAP($avgDDI:a1, a2==$sddi) from invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("avgDDI", "sddi"), new UBA("avgDDI"), $sddi) 
+  BAP($r:a1, a3==$avgP, a4==$avgDDI) from invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "swrlm:eval", 4, false, new VPATH(), new BAVNs("r", "", "avgP", "avgDDI"), new UBA("r"), new L("(avgP - avgDDI) / avgDDI * 100", "xsd:string"), $avgP, $avgDDI) 
+  BAP(a1==$r) from invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "swrlb:greaterThan", 5, false, new VPATH(), new BAVNs("r", ""), $r, new L("10", "xsd:integer")) 
+then 
+  invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "sqwrl:select", 0, true, $p, $avgP, $avgDDI); 
+  invoker.invoke("PersonsWithAverageDDIDoseMoreThan10PercentOfAverage", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsWithMinimumAge-makeCollection
+rule "PersonsWithMinimumAge-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($s:a1, a2==$age) from invoker.invoke("PersonsWithMinimumAge", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "age"), new UBA("s"), $age) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithMinimumAge-operateCollection
+rule "PersonsWithMinimumAge-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithMinimumAge", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($min:a1, a2==$s) from invoker.invoke("PersonsWithMinimumAge", "sqwrl:min", 1, false, new VPATH(), new BAVNs("min", "s"), new UBA("min"), $s) 
+  BAP(a1==$age, a2==$min) from invoker.invoke("PersonsWithMinimumAge", "swrlb:equal", 2, false, new VPATH(), new BAVNs("age", "min"), $age, $min) 
+then 
+  invoker.invoke("PersonsWithMinimumAge", "sqwrl:select", 0, true, $p, $min); 
+end
+Rule name: PersonsWithNonAZTTreatments-makeCollection
+rule "PersonsWithNonAZTTreatments-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP($sp:a1, a2==$d, a3==$p) from invoker.invoke("PersonsWithNonAZTTreatments", "sqwrl:makeSet", 0, false, new VPATH($t, $p), new BAVNs("sp", "d", "p"), new UBA("sp"), $d, $p) 
+  BAP($sazt:a1) from invoker.invoke("PersonsWithNonAZTTreatments", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("sazt", ""), new UBA("sazt"), new I("AZT")) 
+then 
+  sqwrlInferrer.infer($sp); 
+  sqwrlInferrer.infer($sazt); 
+end
+Rule name: PersonsWithNonAZTTreatments-operateCollection
+rule "PersonsWithNonAZTTreatments-operateCollection" 
+when 
+  $sp:SQWRLC(queryName=="PersonsWithNonAZTTreatments", collectionName=="sp")
+  $sazt:SQWRLC(queryName=="PersonsWithNonAZTTreatments", collectionName=="sazt")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP(a1==$sp, a2==$sazt, a3==$p) from invoker.invoke("PersonsWithNonAZTTreatments", "sqwrl:notIntersects", 2, false, new VPATH(), new BAVNs("sp", "sazt", "p"), $sp, $sazt, $p) 
+then 
+  invoker.invoke("PersonsWithNonAZTTreatments", "sqwrl:select", 0, true, $p); 
+end
+Rule name: PersonsWithDrugTreatmentDurations-makeCollection
+rule "PersonsWithDrugTreatmentDurations-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+  DPAA(s==$t, p.id=="temporal:hasFinishTime", $finish:o) 
+  BAP($duration:a1, a2==$start, a3==$finish) from invoker.invoke("PersonsWithDrugTreatmentDurations", "temporal:duration", 0, false, new VPATH($d, $t, $p), new BAVNs("duration", "start", "finish", ""), new UBA("duration"), $start, $finish, new I("temporal:Days")) 
+  BAP($sp:a1, a2==$duration, a3==$p, a4==$d) from invoker.invoke("PersonsWithDrugTreatmentDurations", "sqwrl:makeSet", 1, false, new VPATH($finish, $d, $t, $start, $p), new BAVNs("sp", "duration", "p", "d"), new UBA("sp"), $duration, $p, $d) 
+then 
+  sqwrlInferrer.infer($sp); 
+end
+Rule name: PersonsWithDrugTreatmentDurations-operateCollection
+rule "PersonsWithDrugTreatmentDurations-operateCollection" 
+when 
+  $sp:SQWRLC(queryName=="PersonsWithDrugTreatmentDurations", collectionName=="sp")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+  DPAA(s==$t, p.id=="temporal:hasFinishTime", $finish:o) 
+  BAP($duration:a1, a2==$start, a3==$finish) from invoker.invoke("PersonsWithDrugTreatmentDurations", "temporal:duration", 2, false, new VPATH($d, $t, $p), new BAVNs("duration", "start", "finish", ""), new UBA("duration"), $start, $finish, new I("temporal:Days")) 
+  BAP($minP:a1, a2==$sp, a3==$p, a4==$d) from invoker.invoke("PersonsWithDrugTreatmentDurations", "sqwrl:min", 3, false, new VPATH(), new BAVNs("minP", "sp", "p", "d"), new UBA("minP"), $sp, $p, $d) 
+then 
+  invoker.invoke("PersonsWithDrugTreatmentDurations", "sqwrl:select", 0, true, $p, $d, $minP); 
+  invoker.invoke("PersonsWithDrugTreatmentDurations", "sqwrl:orderBy", 1, true, $p, $d); 
+  invoker.invoke("PersonsWithDrugTreatmentDurations", "sqwrl:columnNames", 2, true, new L("Person", "xsd:string"), new L("Drug", "xsd:string"), new L("Duration (Days)", "xsd:string")); 
+end
+Rule name: AlphabeticallyThirdNameWithSets-makeCollection
+rule "AlphabeticallyThirdNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyThirdNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyThirdNameWithSets-operateCollection
+rule "AlphabeticallyThirdNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyThirdNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($third:a1, a2==$s) from invoker.invoke("AlphabeticallyThirdNameWithSets", "sqwrl:nth", 1, false, new VPATH(), new BAVNs("third", "s", ""), new UBA("third"), $s, new L("3", "xsd:integer")) 
+then 
+  invoker.invoke("AlphabeticallyThirdNameWithSets", "sqwrl:select", 0, true, $third); 
+end
+Rule name: AverageSet-makeCollection
+rule "AverageSet-makeCollection" 
+when 
+  BAP($s:a1) from invoker.invoke("AverageSet", "sqwrl:makeSet", 0, false, new VPATH(), new BAVNs("s", ""), new UBA("s"), new L("1", "xsd:integer")) 
+  BAP(a1==$s) from invoker.invoke("AverageSet", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("s", ""), $s, new L("3", "xsd:integer")) 
+  BAP(a1==$s) from invoker.invoke("AverageSet", "sqwrl:makeSet", 2, false, new VPATH(), new BAVNs("s", ""), $s, new L("3", "xsd:integer")) 
+then 
+  sqwrlInferrer.infer($s); 
+  sqwrlInferrer.infer($s); 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AverageSet-operateCollection
+rule "AverageSet-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AverageSet", collectionName=="s")
+  BAP($avg:a1, a2==$s) from invoker.invoke("AverageSet", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("avg", "s"), new UBA("avg"), $s) 
+then 
+  invoker.invoke("AverageSet", "sqwrl:select", 0, true, $avg); 
+end
+Rule name: PersonsWithMoreThan2Cars-makeCollection
+rule "PersonsWithMoreThan2Cars-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasCar", $c:o) 
+  BAP($s:a1, a2==$c, a3==$p) from invoker.invoke("PersonsWithMoreThan2Cars", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "c", "p"), new UBA("s"), $c, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithMoreThan2Cars-operateCollection
+rule "PersonsWithMoreThan2Cars-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithMoreThan2Cars", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasCar", $c:o) 
+  BAP($size:a1, a2==$s, a3==$p) from invoker.invoke("PersonsWithMoreThan2Cars", "sqwrl:size", 1, false, new VPATH(), new BAVNs("size", "s", "p"), new UBA("size"), $s, $p) 
+  BAP(a1==$size) from invoker.invoke("PersonsWithMoreThan2Cars", "swrlb:greaterThan", 2, false, new VPATH(), new BAVNs("size", ""), $size, new L("2", "xsd:integer")) 
+then 
+  invoker.invoke("PersonsWithMoreThan2Cars", "sqwrl:select", 0, true, $p, $size); 
+  invoker.invoke("PersonsWithMoreThan2Cars", "sqwrl:orderBy", 1, true, $p, $size); 
+end
+Rule name: DifferentCollectionsEqualTest-makeCollection
+rule "DifferentCollectionsEqualTest-makeCollection" 
+when 
+  BAP($s1:a1) from invoker.invoke("DifferentCollectionsEqualTest", "sqwrl:makeSet", 0, false, new VPATH(), new BAVNs("s1", ""), new UBA("s1"), new I("AZT")) 
+  BAP($s2:a1) from invoker.invoke("DifferentCollectionsEqualTest", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("s2", ""), new UBA("s2"), new I("AZT")) 
+then 
+  sqwrlInferrer.infer($s1); 
+  sqwrlInferrer.infer($s2); 
+end
+Rule name: DifferentCollectionsEqualTest-operateCollection
+rule "DifferentCollectionsEqualTest-operateCollection" 
+when 
+  $s1:SQWRLC(queryName=="DifferentCollectionsEqualTest", collectionName=="s1")
+  $s2:SQWRLC(queryName=="DifferentCollectionsEqualTest", collectionName=="s2")
+  BAP(a1==$s1, a2==$s2) from invoker.invoke("DifferentCollectionsEqualTest", "sqwrl:equal", 2, false, new VPATH(), new BAVNs("s1", "s2"), $s1, $s2) 
+then 
+  invoker.invoke("DifferentCollectionsEqualTest", "sqwrl:select", 0, true, new L("Equal!", "xsd:string")); 
+end
+Rule name: PersonsWithLowest2Doses-makeCollection
+rule "PersonsWithLowest2Doses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($s:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithLowest2Doses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("s", "dose", "p"), new UBA("s"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithLowest2Doses-operateCollection
+rule "PersonsWithLowest2Doses-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithLowest2Doses", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($lowest2C:a1, a2==$s, a4==$p) from invoker.invoke("PersonsWithLowest2Doses", "sqwrl:leastN", 1, false, new VPATH(), new BAVNs("lowest2C", "s", "", "p"), new UBA("lowest2C"), $s, new L("2", "xsd:integer"), $p) 
+  BAP($lowest2:a1, a2==$lowest2C, a3==$p) from invoker.invoke("PersonsWithLowest2Doses", "sqwrl:element", 2, false, new VPATH(), new BAVNs("lowest2", "lowest2C", "p"), new UBA("lowest2"), $lowest2C, $p) 
+then 
+  invoker.invoke("PersonsWithLowest2Doses", "sqwrl:select", 0, true, $p, $lowest2); 
+  invoker.invoke("PersonsWithLowest2Doses", "sqwrl:orderBy", 1, true, $p, $lowest2); 
+end
+Rule name: AverageSalesAmountPerPerson-makeCollection
+rule "AverageSalesAmountPerPerson-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  BAP($b:a1, a2==$amt, a3==$p) from invoker.invoke("AverageSalesAmountPerPerson", "sqwrl:makeBag", 0, false, new VPATH($p, $sale), new BAVNs("b", "amt", "p"), new UBA("b"), $amt, $p) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: AverageSalesAmountPerPerson-operateCollection
+rule "AverageSalesAmountPerPerson-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="AverageSalesAmountPerPerson", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  BAP($avg:a1, a2==$b, a3==$p) from invoker.invoke("AverageSalesAmountPerPerson", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "b", "p"), new UBA("avg"), $b, $p) 
+then 
+  invoker.invoke("AverageSalesAmountPerPerson", "sqwrl:select", 0, true, $p, $avg); 
+  invoker.invoke("AverageSalesAmountPerPerson", "sqwrl:orderBy", 1, true, $p, $avg); 
+end
+Rule name: AverageBag-makeCollection
+rule "AverageBag-makeCollection" 
+when 
+  BAP($b:a1) from invoker.invoke("AverageBag", "sqwrl:makeBag", 0, false, new VPATH(), new BAVNs("b", ""), new UBA("b"), new L("1", "xsd:integer")) 
+  BAP(a1==$b) from invoker.invoke("AverageBag", "sqwrl:makeBag", 1, false, new VPATH(), new BAVNs("b", ""), $b, new L("2", "xsd:integer")) 
+  BAP(a1==$b) from invoker.invoke("AverageBag", "sqwrl:makeBag", 2, false, new VPATH(), new BAVNs("b", ""), $b, new L("3", "xsd:integer")) 
+then 
+  sqwrlInferrer.infer($b); 
+  sqwrlInferrer.infer($b); 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: AverageBag-operateCollection
+rule "AverageBag-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="AverageBag", collectionName=="b")
+  BAP($size:a1, a2==$b) from invoker.invoke("AverageBag", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("size", "b"), new UBA("size"), $b) 
+then 
+  invoker.invoke("AverageBag", "sqwrl:select", 0, true, $size); 
+end
+Rule name: PersonsWithAverageDDIDoses-makeCollection
+rule "PersonsWithAverageDDIDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($bd:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithAverageDDIDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("bd", "dose", "p"), new UBA("bd"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($bd); 
+end
+Rule name: PersonsWithAverageDDIDoses-operateCollection
+rule "PersonsWithAverageDDIDoses-operateCollection" 
+when 
+  $bd:SQWRLC(queryName=="PersonsWithAverageDDIDoses", collectionName=="bd")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($avg:a1, a2==$bd, a3==$p) from invoker.invoke("PersonsWithAverageDDIDoses", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "bd", "p"), new UBA("avg"), $bd, $p) 
+  BAP($size:a1, a2==$bd, a3==$p) from invoker.invoke("PersonsWithAverageDDIDoses", "sqwrl:size", 2, false, new VPATH(), new BAVNs("size", "bd", "p"), new UBA("size"), $bd, $p) 
+then 
+  invoker.invoke("PersonsWithAverageDDIDoses", "sqwrl:select", 0, true, $p, $avg, $size); 
+  invoker.invoke("PersonsWithAverageDDIDoses", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: SameCollectionEqualTest-makeCollection
+rule "SameCollectionEqualTest-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($s:a1, a2==$dose, a3==$p) from invoker.invoke("SameCollectionEqualTest", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("s", "dose", "p"), new UBA("s"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: SameCollectionEqualTest-operateCollection
+rule "SameCollectionEqualTest-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="SameCollectionEqualTest", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($lowest2L:a1, a2==$s, a4==$p) from invoker.invoke("SameCollectionEqualTest", "sqwrl:leastN", 1, false, new VPATH(), new BAVNs("lowest2L", "s", "", "p"), new UBA("lowest2L"), $s, new L("2", "xsd:integer"), $p) 
+  BAP($greatest2L:a1, a2==$s, a4==$p) from invoker.invoke("SameCollectionEqualTest", "sqwrl:greatestN", 2, false, new VPATH(), new BAVNs("greatest2L", "s", "", "p"), new UBA("greatest2L"), $s, new L("2", "xsd:integer"), $p) 
+  BAP(a1==$lowest2L, a2==$lowest2L, a3==$p, a4==$p) from invoker.invoke("SameCollectionEqualTest", "sqwrl:equal", 3, false, new VPATH(), new BAVNs("lowest2L", "lowest2L", "p", "p"), $lowest2L, $lowest2L, $p, $p) 
+then 
+  invoker.invoke("SameCollectionEqualTest", "sqwrl:select", 0, true, $p); 
+  invoker.invoke("SameCollectionEqualTest", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: AverageSaleAmountPerState-makeCollection
+rule "AverageSaleAmountPerState-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  OPAA(s==$sale, p.id=="hasState", $state:o) 
+  BAP($b:a1, a2==$amt, a3==$state) from invoker.invoke("AverageSaleAmountPerState", "sqwrl:makeBag", 0, false, new VPATH($p, $state, $sale), new BAVNs("b", "amt", "state"), new UBA("b"), $amt, $state) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: AverageSaleAmountPerState-operateCollection
+rule "AverageSaleAmountPerState-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="AverageSaleAmountPerState", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  OPAA(s==$sale, p.id=="hasState", $state:o) 
+  BAP($avg:a1, a2==$b, a3==$state) from invoker.invoke("AverageSaleAmountPerState", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "b", "state"), new UBA("avg"), $b, $state) 
+then 
+  invoker.invoke("AverageSaleAmountPerState", "sqwrl:select", 0, true, $state, $avg); 
+  invoker.invoke("AverageSaleAmountPerState", "sqwrl:orderBy", 1, true, $state, $avg); 
+end
+Rule name: PersonsWithLessThanAverageDDIDoses-makeCollection
+rule "PersonsWithLessThanAverageDDIDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($sp:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithLessThanAverageDDIDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("sp", "dose", "p"), new UBA("sp"), $dose, $p) 
+  BAP($sddi:a1, a2==$dose) from invoker.invoke("PersonsWithLessThanAverageDDIDoses", "sqwrl:makeBag", 1, false, new VPATH($t, $sp, $p), new BAVNs("sddi", "dose"), new UBA("sddi"), $dose) 
+then 
+  sqwrlInferrer.infer($sp); 
+  sqwrlInferrer.infer($sddi); 
+end
+Rule name: PersonsWithLessThanAverageDDIDoses-operateCollection
+rule "PersonsWithLessThanAverageDDIDoses-operateCollection" 
+when 
+  $sp:SQWRLC(queryName=="PersonsWithLessThanAverageDDIDoses", collectionName=="sp")
+  $sddi:SQWRLC(queryName=="PersonsWithLessThanAverageDDIDoses", collectionName=="sddi")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($avgP:a1, a2==$sp, a3==$p) from invoker.invoke("PersonsWithLessThanAverageDDIDoses", "sqwrl:avg", 2, false, new VPATH(), new BAVNs("avgP", "sp", "p"), new UBA("avgP"), $sp, $p) 
+  BAP($avgDDI:a1, a2==$sddi) from invoker.invoke("PersonsWithLessThanAverageDDIDoses", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("avgDDI", "sddi"), new UBA("avgDDI"), $sddi) 
+  BAP(a1==$avgP, a2==$avgDDI) from invoker.invoke("PersonsWithLessThanAverageDDIDoses", "swrlb:lessThan", 4, false, new VPATH(), new BAVNs("avgP", "avgDDI"), $avgP, $avgDDI) 
+then 
+  invoker.invoke("PersonsWithLessThanAverageDDIDoses", "sqwrl:select", 0, true, $p, $avgP, $avgDDI); 
+  invoker.invoke("PersonsWithLessThanAverageDDIDoses", "sqwrl:orderBy", 1, true, $p, $avgP, $avgDDI); 
+  invoker.invoke("PersonsWithLessThanAverageDDIDoses", "sqwrl:columnNames", 2, true, new L("Patient", "xsd:string"), new L("Average DDI Dose", "xsd:string"), new L("Average All DDI Doses", "xsd:string")); 
+end
+Rule name: PersonsWithDDIOrAZTTreatments-makeCollection
+rule "PersonsWithDDIOrAZTTreatments-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP($s:a1, a2==$d, a3==$p) from invoker.invoke("PersonsWithDDIOrAZTTreatments", "sqwrl:makeSet", 0, false, new VPATH($t, $p), new BAVNs("s", "d", "p"), new UBA("s"), $d, $p) 
+  BAP($sd:a1) from invoker.invoke("PersonsWithDDIOrAZTTreatments", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("sd", ""), new UBA("sd"), new I("DDI")) 
+  BAP(a1==$sd) from invoker.invoke("PersonsWithDDIOrAZTTreatments", "sqwrl:makeSet", 2, false, new VPATH(), new BAVNs("sd", ""), $sd, new I("AZT")) 
+then 
+  sqwrlInferrer.infer($s); 
+  sqwrlInferrer.infer($sd); 
+  sqwrlInferrer.infer($sd); 
+end
+Rule name: PersonsWithDDIOrAZTTreatments-operateCollection
+rule "PersonsWithDDIOrAZTTreatments-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithDDIOrAZTTreatments", collectionName=="s")
+  $sd:SQWRLC(queryName=="PersonsWithDDIOrAZTTreatments", collectionName=="sd")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP(a1==$s, a2==$sd, a3==$p) from invoker.invoke("PersonsWithDDIOrAZTTreatments", "sqwrl:intersects", 3, false, new VPATH(), new BAVNs("s", "sd", "p"), $s, $sd, $p) 
+then 
+  invoker.invoke("PersonsWithDDIOrAZTTreatments", "sqwrl:select", 0, true, $p); 
+  invoker.invoke("PersonsWithDDIOrAZTTreatments", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsWithAverageOfLowestTwoDDITreatmentDoses-makeCollection
+rule "PersonsWithAverageOfLowestTwoDDITreatmentDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($s:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithAverageOfLowestTwoDDITreatmentDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("s", "dose", "p"), new UBA("s"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithAverageOfLowestTwoDDITreatmentDoses-operateCollection
+rule "PersonsWithAverageOfLowestTwoDDITreatmentDoses-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithAverageOfLowestTwoDDITreatmentDoses", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($lowest2L:a1, a2==$s, a5==$p) from invoker.invoke("PersonsWithAverageOfLowestTwoDDITreatmentDoses", "sqwrl:nthSlice", 1, false, new VPATH(), new BAVNs("lowest2L", "s", "", "", "p"), new UBA("lowest2L"), $s, new L("1", "xsd:integer"), new L("2", "xsd:integer"), $p) 
+  BAP($avg:a1, a2==$lowest2L, a3==$p) from invoker.invoke("PersonsWithAverageOfLowestTwoDDITreatmentDoses", "sqwrl:avg", 2, false, new VPATH(), new BAVNs("avg", "lowest2L", "p"), new UBA("avg"), $lowest2L, $p) 
+then 
+  invoker.invoke("PersonsWithAverageOfLowestTwoDDITreatmentDoses", "sqwrl:select", 0, true, $p, $avg); 
+  invoker.invoke("PersonsWithAverageOfLowestTwoDDITreatmentDoses", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses-makeCollection
+rule "PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($s:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("s", "dose", "p"), new UBA("s"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses-operateCollection
+rule "PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($lowest2L:a1, a2==$s, a5==$p) from invoker.invoke("PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses", "sqwrl:nthSlice", 1, false, new VPATH(), new BAVNs("lowest2L", "s", "", "", "p"), new UBA("lowest2L"), $s, new L("1", "xsd:integer"), new L("2", "xsd:integer"), $p) 
+  BAP($avg:a1, a2==$lowest2L, a3==$p) from invoker.invoke("PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses", "sqwrl:avg", 2, false, new VPATH(), new BAVNs("avg", "lowest2L", "p"), new UBA("avg"), $lowest2L, $p) 
+  BAP($min:a1, a2==$lowest2L, a3==$p) from invoker.invoke("PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses", "sqwrl:min", 3, false, new VPATH(), new BAVNs("min", "lowest2L", "p"), new UBA("min"), $lowest2L, $p) 
+then 
+  invoker.invoke("PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses", "sqwrl:select", 0, true, $p, $avg, $min); 
+  invoker.invoke("PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonWithAverageDosePerDrugIn2007-makeCollection
+rule "PersonWithAverageDosePerDrugIn2007-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP(a1==$start) from invoker.invoke("PersonWithAverageDosePerDrugIn2007", "temporal:equals", 0, false, new VPATH($d, $t, $p, $dose), new BAVNs("start", "", ""), $start, new L("2007", "xsd:string"), new I("temporal:Years")) 
+  BAP($s:a1, a2==$dose, a3==$p, a4==$d) from invoker.invoke("PersonWithAverageDosePerDrugIn2007", "sqwrl:makeBag", 1, false, new VPATH($d, $t, $start, $p), new BAVNs("s", "dose", "p", "d"), new UBA("s"), $dose, $p, $d) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonWithAverageDosePerDrugIn2007-operateCollection
+rule "PersonWithAverageDosePerDrugIn2007-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonWithAverageDosePerDrugIn2007", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP(a1==$start) from invoker.invoke("PersonWithAverageDosePerDrugIn2007", "temporal:equals", 2, false, new VPATH($d, $t, $p, $dose), new BAVNs("start", "", ""), $start, new L("2007", "xsd:string"), new I("temporal:Years")) 
+  BAP($avg:a1, a2==$s, a3==$p, a4==$d) from invoker.invoke("PersonWithAverageDosePerDrugIn2007", "sqwrl:avg", 3, false, new VPATH(), new BAVNs("avg", "s", "p", "d"), new UBA("avg"), $s, $p, $d) 
+then 
+  invoker.invoke("PersonWithAverageDosePerDrugIn2007", "sqwrl:select", 0, true, $p, $d, $avg); 
+end
+Rule name: PersonsTreatedWith2ExactlyDrugs-makeCollection
+rule "PersonsTreatedWith2ExactlyDrugs-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP($sp:a1, a2==$d, a3==$p) from invoker.invoke("PersonsTreatedWith2ExactlyDrugs", "sqwrl:makeSet", 0, false, new VPATH($t, $p), new BAVNs("sp", "d", "p"), new UBA("sp"), $d, $p) 
+then 
+  sqwrlInferrer.infer($sp); 
+end
+Rule name: PersonsTreatedWith2ExactlyDrugs-operateCollection
+rule "PersonsTreatedWith2ExactlyDrugs-operateCollection" 
+when 
+  $sp:SQWRLC(queryName=="PersonsTreatedWith2ExactlyDrugs", collectionName=="sp")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP(a2==$sp, a3==$p) from invoker.invoke("PersonsTreatedWith2ExactlyDrugs", "sqwrl:size", 1, false, new VPATH(), new BAVNs("", "sp", "p"), new L("2", "xsd:integer"), $sp, $p) 
+then 
+  invoker.invoke("PersonsTreatedWith2ExactlyDrugs", "sqwrl:select", 0, true, $p); 
+  invoker.invoke("PersonsTreatedWith2ExactlyDrugs", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsWithEqualLowest2DDIAndAZTDoses-makeCollection
+rule "PersonsWithEqualLowest2DDIAndAZTDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $trDDI:o) 
+  OPAA(s==$trDDI, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$trDDI, p.id=="hasDose", $doseDDI:o) 
+  OPAA(s==$p, p.id=="hasTreatment", $trAZT:o) 
+  OPAA(s==$trAZT, p.id=="hasDrug", o.id=="AZT") 
+  DPAA(s==$trAZT, p.id=="hasDose", $doseAZT:o) 
+  BAP($bDDI:a1, a2==$doseDDI, a3==$p) from invoker.invoke("PersonsWithEqualLowest2DDIAndAZTDoses", "sqwrl:makeBag", 0, false, new VPATH($trDDI, $p), new BAVNs("bDDI", "doseDDI", "p"), new UBA("bDDI"), $doseDDI, $p) 
+  BAP($bAZT:a1, a2==$doseAZT, a3==$p) from invoker.invoke("PersonsWithEqualLowest2DDIAndAZTDoses", "sqwrl:makeBag", 1, false, new VPATH($trAZT, $p), new BAVNs("bAZT", "doseAZT", "p"), new UBA("bAZT"), $doseAZT, $p) 
+then 
+  sqwrlInferrer.infer($bDDI); 
+  sqwrlInferrer.infer($bAZT); 
+end
+Rule name: PersonsWithEqualLowest2DDIAndAZTDoses-operateCollection
+rule "PersonsWithEqualLowest2DDIAndAZTDoses-operateCollection" 
+when 
+  $bDDI:SQWRLC(queryName=="PersonsWithEqualLowest2DDIAndAZTDoses", collectionName=="bDDI")
+  $bAZT:SQWRLC(queryName=="PersonsWithEqualLowest2DDIAndAZTDoses", collectionName=="bAZT")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $trDDI:o) 
+  OPAA(s==$trDDI, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$trDDI, p.id=="hasDose", $doseDDI:o) 
+  OPAA(s==$p, p.id=="hasTreatment", $trAZT:o) 
+  OPAA(s==$trAZT, p.id=="hasDrug", o.id=="AZT") 
+  DPAA(s==$trAZT, p.id=="hasDose", $doseAZT:o) 
+  BAP($lowest2DosesBoth:a1, a2==$bDDI, a4==$p) from invoker.invoke("PersonsWithEqualLowest2DDIAndAZTDoses", "sqwrl:leastN", 2, false, new VPATH(), new BAVNs("lowest2DosesBoth", "bDDI", "", "p"), new UBA("lowest2DosesBoth"), $bDDI, new L("2", "xsd:integer"), $p) 
+  BAP(a1==$lowest2DosesBoth, a2==$bAZT, a4==$p) from invoker.invoke("PersonsWithEqualLowest2DDIAndAZTDoses", "sqwrl:leastN", 3, false, new VPATH(), new BAVNs("lowest2DosesBoth", "bAZT", "", "p"), $lowest2DosesBoth, $bAZT, new L("2", "xsd:integer"), $p) 
+  BAP($e:a1, a2==$lowest2DosesBoth, a3==$p) from invoker.invoke("PersonsWithEqualLowest2DDIAndAZTDoses", "sqwrl:element", 4, false, new VPATH(), new BAVNs("e", "lowest2DosesBoth", "p"), new UBA("e"), $lowest2DosesBoth, $p) 
+then 
+  invoker.invoke("PersonsWithEqualLowest2DDIAndAZTDoses", "sqwrl:select", 0, true, $p, $e); 
+  invoker.invoke("PersonsWithEqualLowest2DDIAndAZTDoses", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: AlphabeticallyLastNameWithSets-makeCollection
+rule "AlphabeticallyLastNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyLastNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyLastNameWithSets-operateCollection
+rule "AlphabeticallyLastNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyLastNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($last:a1, a2==$s) from invoker.invoke("AlphabeticallyLastNameWithSets", "sqwrl:last", 1, false, new VPATH(), new BAVNs("last", "s"), new UBA("last"), $s) 
+then 
+  invoker.invoke("AlphabeticallyLastNameWithSets", "sqwrl:select", 0, true, $last); 
+end
+Rule name: LowestDDIDosePerPatient-makeCollection
+rule "LowestDDIDosePerPatient-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$tr, p.id=="hasDose", $dose:o) 
+  BAP($b:a1, a2==$dose, a3==$p) from invoker.invoke("LowestDDIDosePerPatient", "sqwrl:makeSet", 0, false, new VPATH($tr, $p), new BAVNs("b", "dose", "p"), new UBA("b"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: LowestDDIDosePerPatient-operateCollection
+rule "LowestDDIDosePerPatient-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="LowestDDIDosePerPatient", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$tr, p.id=="hasDose", $dose:o) 
+  BAP($leastDose:a1, a2==$b, a3==$p) from invoker.invoke("LowestDDIDosePerPatient", "sqwrl:least", 1, false, new VPATH(), new BAVNs("leastDose", "b", "p"), new UBA("leastDose"), $b, $p) 
+  BAP(a1==$leastDose, a2==$dose) from invoker.invoke("LowestDDIDosePerPatient", "swrlb:equal", 2, false, new VPATH(), new BAVNs("leastDose", "dose"), $leastDose, $dose) 
+then 
+  invoker.invoke("LowestDDIDosePerPatient", "sqwrl:select", 0, true, $p, $leastDose); 
+  invoker.invoke("LowestDDIDosePerPatient", "sqwrl:orderBy", 1, true, $p, $leastDose); 
+end
+Rule name: PersonsWithFirstTreatment-makeCollection
+rule "PersonsWithFirstTreatment-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+  BAP($s:a1, a2==$start) from invoker.invoke("PersonsWithFirstTreatment", "sqwrl:makeSet", 0, false, new VPATH($t, $p), new BAVNs("s", "start"), new UBA("s"), $start) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithFirstTreatment-operateCollection
+rule "PersonsWithFirstTreatment-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithFirstTreatment", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+  BAP($min:a1, a2==$s) from invoker.invoke("PersonsWithFirstTreatment", "sqwrl:min", 1, false, new VPATH(), new BAVNs("min", "s"), new UBA("min"), $s) 
+  BAP(a1==$min, a2==$start) from invoker.invoke("PersonsWithFirstTreatment", "swrlb:equal", 2, false, new VPATH(), new BAVNs("min", "start"), $min, $start) 
+then 
+  invoker.invoke("PersonsWithFirstTreatment", "sqwrl:select", 0, true, $p); 
+  invoker.invoke("PersonsWithFirstTreatment", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: AlphabeticallySecondAndThirdNamesWithSets-makeCollection
+rule "AlphabeticallySecondAndThirdNamesWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallySecondAndThirdNamesWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallySecondAndThirdNamesWithSets-operateCollection
+rule "AlphabeticallySecondAndThirdNamesWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallySecondAndThirdNamesWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($second:a1, a2==$s) from invoker.invoke("AlphabeticallySecondAndThirdNamesWithSets", "sqwrl:nth", 1, false, new VPATH(), new BAVNs("second", "s", ""), new UBA("second"), $s, new L("2", "xsd:integer")) 
+  BAP($third:a1, a2==$s) from invoker.invoke("AlphabeticallySecondAndThirdNamesWithSets", "sqwrl:nth", 2, false, new VPATH(), new BAVNs("third", "s", ""), new UBA("third"), $s, new L("3", "xsd:integer")) 
+then 
+  invoker.invoke("AlphabeticallySecondAndThirdNamesWithSets", "sqwrl:select", 0, true, $second, $third); 
+end
+Rule name: AverageAgeOfPersonsWithBags-makeCollection
+rule "AverageAgeOfPersonsWithBags-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($b:a1, a2==$age) from invoker.invoke("AverageAgeOfPersonsWithBags", "sqwrl:makeBag", 0, false, new VPATH($p), new BAVNs("b", "age"), new UBA("b"), $age) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: AverageAgeOfPersonsWithBags-operateCollection
+rule "AverageAgeOfPersonsWithBags-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="AverageAgeOfPersonsWithBags", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($avg:a1, a2==$b) from invoker.invoke("AverageAgeOfPersonsWithBags", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "b"), new UBA("avg"), $b) 
+then 
+  invoker.invoke("AverageAgeOfPersonsWithBags", "sqwrl:select", 0, true, $avg); 
+end
+Rule name: PersonsWithDDIAndAZTTreatments-makeCollection
+rule "PersonsWithDDIAndAZTTreatments-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", $d:o) 
+  BAP($pds:a1, a2==$d, a3==$p) from invoker.invoke("PersonsWithDDIAndAZTTreatments", "sqwrl:makeSet", 0, false, new VPATH($tr, $p), new BAVNs("pds", "d", "p"), new UBA("pds"), $d, $p) 
+  BAP($ds:a1) from invoker.invoke("PersonsWithDDIAndAZTTreatments", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("ds", ""), new UBA("ds"), new I("DDI")) 
+  BAP(a1==$ds) from invoker.invoke("PersonsWithDDIAndAZTTreatments", "sqwrl:makeSet", 2, false, new VPATH(), new BAVNs("ds", ""), $ds, new I("AZT")) 
+then 
+  sqwrlInferrer.infer($pds); 
+  sqwrlInferrer.infer($ds); 
+  sqwrlInferrer.infer($ds); 
+end
+Rule name: PersonsWithDDIAndAZTTreatments-operateCollection
+rule "PersonsWithDDIAndAZTTreatments-operateCollection" 
+when 
+  $pds:SQWRLC(queryName=="PersonsWithDDIAndAZTTreatments", collectionName=="pds")
+  $ds:SQWRLC(queryName=="PersonsWithDDIAndAZTTreatments", collectionName=="ds")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", $d:o) 
+  BAP(a1==$pds, a2==$ds, a3==$p) from invoker.invoke("PersonsWithDDIAndAZTTreatments", "sqwrl:contains", 3, false, new VPATH(), new BAVNs("pds", "ds", "p"), $pds, $ds, $p) 
+then 
+  invoker.invoke("PersonsWithDDIAndAZTTreatments", "sqwrl:select", 0, true, $p); 
+  invoker.invoke("PersonsWithDDIAndAZTTreatments", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsOnBothDDIandAZTAndNoOtherDrugs-makeCollection
+rule "PersonsOnBothDDIandAZTAndNoOtherDrugs-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", $d:o) 
+  BAP($pds:a1, a2==$d, a3==$p) from invoker.invoke("PersonsOnBothDDIandAZTAndNoOtherDrugs", "sqwrl:makeSet", 0, false, new VPATH($tr, $p), new BAVNs("pds", "d", "p"), new UBA("pds"), $d, $p) 
+  BAP($ds:a1) from invoker.invoke("PersonsOnBothDDIandAZTAndNoOtherDrugs", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("ds", ""), new UBA("ds"), new I("DDI")) 
+  BAP(a1==$ds) from invoker.invoke("PersonsOnBothDDIandAZTAndNoOtherDrugs", "sqwrl:makeSet", 2, false, new VPATH(), new BAVNs("ds", ""), $ds, new I("AZT")) 
+then 
+  sqwrlInferrer.infer($pds); 
+  sqwrlInferrer.infer($ds); 
+  sqwrlInferrer.infer($ds); 
+end
+Rule name: PersonsOnBothDDIandAZTAndNoOtherDrugs-operateCollection
+rule "PersonsOnBothDDIandAZTAndNoOtherDrugs-operateCollection" 
+when 
+  $pds:SQWRLC(queryName=="PersonsOnBothDDIandAZTAndNoOtherDrugs", collectionName=="pds")
+  $ds:SQWRLC(queryName=="PersonsOnBothDDIandAZTAndNoOtherDrugs", collectionName=="ds")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", $d:o) 
+  BAP(a1==$pds, a2==$ds, a3==$p) from invoker.invoke("PersonsOnBothDDIandAZTAndNoOtherDrugs", "sqwrl:equal", 3, false, new VPATH(), new BAVNs("pds", "ds", "p"), $pds, $ds, $p) 
+then 
+  invoker.invoke("PersonsOnBothDDIandAZTAndNoOtherDrugs", "sqwrl:select", 0, true, $p); 
+  invoker.invoke("PersonsOnBothDDIandAZTAndNoOtherDrugs", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: Lowest2DDIDosesPerPatientWithSets-makeCollection
+rule "Lowest2DDIDosesPerPatientWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$tr, p.id=="hasDose", $dose:o) 
+  BAP($b:a1, a2==$dose, a3==$p) from invoker.invoke("Lowest2DDIDosesPerPatientWithSets", "sqwrl:makeSet", 0, false, new VPATH($tr, $p), new BAVNs("b", "dose", "p"), new UBA("b"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: Lowest2DDIDosesPerPatientWithSets-operateCollection
+rule "Lowest2DDIDosesPerPatientWithSets-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="Lowest2DDIDosesPerPatientWithSets", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$tr, p.id=="hasDose", $dose:o) 
+  BAP($least2DosesC:a1, a2==$b, a4==$p) from invoker.invoke("Lowest2DDIDosesPerPatientWithSets", "sqwrl:leastN", 1, false, new VPATH(), new BAVNs("least2DosesC", "b", "", "p"), new UBA("least2DosesC"), $b, new L("2", "xsd:integer"), $p) 
+  BAP($e:a1, a2==$least2DosesC, a3==$p) from invoker.invoke("Lowest2DDIDosesPerPatientWithSets", "sqwrl:element", 2, false, new VPATH(), new BAVNs("e", "least2DosesC", "p"), new UBA("e"), $least2DosesC, $p) 
+then 
+  invoker.invoke("Lowest2DDIDosesPerPatientWithSets", "sqwrl:select", 0, true, $p, new I("DDI"), $e); 
+  invoker.invoke("Lowest2DDIDosesPerPatientWithSets", "sqwrl:orderBy", 1, true, $p, $e); 
+end
+Rule name: PersonsWithAgesLessThanTheAverageAge-makeCollection
+rule "PersonsWithAgesLessThanTheAverageAge-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $ageP:o) 
+  BAP($b:a1, a2==$ageP) from invoker.invoke("PersonsWithAgesLessThanTheAverageAge", "sqwrl:makeBag", 0, false, new VPATH($p), new BAVNs("b", "ageP"), new UBA("b"), $ageP) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: PersonsWithAgesLessThanTheAverageAge-operateCollection
+rule "PersonsWithAgesLessThanTheAverageAge-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="PersonsWithAgesLessThanTheAverageAge", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $ageP:o) 
+  BAP($avgAll:a1, a2==$b) from invoker.invoke("PersonsWithAgesLessThanTheAverageAge", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avgAll", "b"), new UBA("avgAll"), $b) 
+  BAP(a1==$ageP, a2==$avgAll) from invoker.invoke("PersonsWithAgesLessThanTheAverageAge", "swrlb:lessThan", 2, false, new VPATH(), new BAVNs("ageP", "avgAll"), $ageP, $avgAll) 
+then 
+  invoker.invoke("PersonsWithAgesLessThanTheAverageAge", "sqwrl:select", 0, true, $p, $ageP, $avgAll); 
+  invoker.invoke("PersonsWithAgesLessThanTheAverageAge", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: AlphabeticallySecondAndThirdNamesWithSetSlice-makeCollection
+rule "AlphabeticallySecondAndThirdNamesWithSetSlice-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallySecondAndThirdNamesWithSetSlice", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallySecondAndThirdNamesWithSetSlice-operateCollection
+rule "AlphabeticallySecondAndThirdNamesWithSetSlice-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallySecondAndThirdNamesWithSetSlice", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($secondAndThirdL:a1, a2==$s) from invoker.invoke("AlphabeticallySecondAndThirdNamesWithSetSlice", "sqwrl:nthSlice", 1, false, new VPATH(), new BAVNs("secondAndThirdL", "s", "", ""), new UBA("secondAndThirdL"), $s, new L("2", "xsd:integer"), new L("2", "xsd:integer")) 
+  BAP($e:a1, a2==$secondAndThirdL) from invoker.invoke("AlphabeticallySecondAndThirdNamesWithSetSlice", "sqwrl:element", 2, false, new VPATH(), new BAVNs("e", "secondAndThirdL"), new UBA("e"), $secondAndThirdL) 
+then 
+  invoker.invoke("AlphabeticallySecondAndThirdNamesWithSetSlice", "sqwrl:select", 0, true, $e); 
+end
+Rule name: AlphabeticallySecondAndThirdLastNamesWithSets-makeCollection
+rule "AlphabeticallySecondAndThirdLastNamesWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallySecondAndThirdLastNamesWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallySecondAndThirdLastNamesWithSets-operateCollection
+rule "AlphabeticallySecondAndThirdLastNamesWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallySecondAndThirdLastNamesWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($secondAndThirdLastL:a1, a2==$s) from invoker.invoke("AlphabeticallySecondAndThirdLastNamesWithSets", "sqwrl:nthLastSlice", 1, false, new VPATH(), new BAVNs("secondAndThirdLastL", "s", "", ""), new UBA("secondAndThirdLastL"), $s, new L("3", "xsd:integer"), new L("2", "xsd:integer")) 
+  BAP($e:a1, a2==$secondAndThirdLastL) from invoker.invoke("AlphabeticallySecondAndThirdLastNamesWithSets", "sqwrl:element", 2, false, new VPATH(), new BAVNs("e", "secondAndThirdLastL"), new UBA("e"), $secondAndThirdLastL) 
+then 
+  invoker.invoke("AlphabeticallySecondAndThirdLastNamesWithSets", "sqwrl:select", 0, true, $e); 
+end
+Rule name: PersonsWithEqualLowestDDIAndAZTDoses-makeCollection
+rule "PersonsWithEqualLowestDDIAndAZTDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $trDDI:o) 
+  OPAA(s==$trDDI, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$trDDI, p.id=="hasDose", $doseDDI:o) 
+  OPAA(s==$p, p.id=="hasTreatment", $trAZT:o) 
+  OPAA(s==$trAZT, p.id=="hasDrug", o.id=="AZT") 
+  DPAA(s==$trAZT, p.id=="hasDose", $doseAZT:o) 
+  BAP($bDDI:a1, a2==$doseDDI, a3==$p) from invoker.invoke("PersonsWithEqualLowestDDIAndAZTDoses", "sqwrl:makeBag", 0, false, new VPATH($trDDI, $p), new BAVNs("bDDI", "doseDDI", "p"), new UBA("bDDI"), $doseDDI, $p) 
+  BAP($bAZT:a1, a2==$doseAZT, a3==$p) from invoker.invoke("PersonsWithEqualLowestDDIAndAZTDoses", "sqwrl:makeBag", 1, false, new VPATH($trAZT, $p), new BAVNs("bAZT", "doseAZT", "p"), new UBA("bAZT"), $doseAZT, $p) 
+then 
+  sqwrlInferrer.infer($bDDI); 
+  sqwrlInferrer.infer($bAZT); 
+end
+Rule name: PersonsWithEqualLowestDDIAndAZTDoses-operateCollection
+rule "PersonsWithEqualLowestDDIAndAZTDoses-operateCollection" 
+when 
+  $bDDI:SQWRLC(queryName=="PersonsWithEqualLowestDDIAndAZTDoses", collectionName=="bDDI")
+  $bAZT:SQWRLC(queryName=="PersonsWithEqualLowestDDIAndAZTDoses", collectionName=="bAZT")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $trDDI:o) 
+  OPAA(s==$trDDI, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$trDDI, p.id=="hasDose", $doseDDI:o) 
+  OPAA(s==$p, p.id=="hasTreatment", $trAZT:o) 
+  OPAA(s==$trAZT, p.id=="hasDrug", o.id=="AZT") 
+  DPAA(s==$trAZT, p.id=="hasDose", $doseAZT:o) 
+  BAP($lowestDose:a1, a2==$bDDI, a3==$p) from invoker.invoke("PersonsWithEqualLowestDDIAndAZTDoses", "sqwrl:least", 2, false, new VPATH(), new BAVNs("lowestDose", "bDDI", "p"), new UBA("lowestDose"), $bDDI, $p) 
+  BAP(a1==$lowestDose, a2==$bAZT, a3==$p) from invoker.invoke("PersonsWithEqualLowestDDIAndAZTDoses", "sqwrl:least", 3, false, new VPATH(), new BAVNs("lowestDose", "bAZT", "p"), $lowestDose, $bAZT, $p) 
+then 
+  invoker.invoke("PersonsWithEqualLowestDDIAndAZTDoses", "sqwrl:select", 0, true, $p, $lowestDose); 
+  invoker.invoke("PersonsWithEqualLowestDDIAndAZTDoses", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsWithTreatmentsLastingMoreThan1Month
+rule "PersonsWithTreatmentsLastingMoreThan1Month" 
+when 
+   CAA(c=="Person", $p:i) 
+   OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+   DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+   DPAA(s==$t, p.id=="temporal:hasFinishTime", $finish:o) 
+   BAP($d:a1, a2==$start, a3==$finish) from invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "temporal:duration", 0, false, new VPATH($t, $p), new BAVNs("d", "start", "finish", ""), new UBA("d"), $start, $finish, new I("temporal:Months")) 
+   BAP(a1==$d) from invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "swrlb:greaterThan", 1, false, new VPATH($finish, $t, $start, $p), new BAVNs("d", ""), $d, new L("1", "xsd:integer")) 
+then 
+   invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "sqwrl:select", 0, true, $p, $d);  
+   invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "sqwrl:orderBy", 1, true, $p, $d);  
+   invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "sqwrl:columnNames", 2, true, new L("Person", "xsd:string"), new L("Months", "xsd:string"));  
+end
+Rule name: AlphabeticallyAllExceptFirstNameWithSets-makeCollection
+rule "AlphabeticallyAllExceptFirstNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyAllExceptFirstNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyAllExceptFirstNameWithSets-operateCollection
+rule "AlphabeticallyAllExceptFirstNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyAllExceptFirstNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($notFirstL:a1, a2==$s) from invoker.invoke("AlphabeticallyAllExceptFirstNameWithSets", "sqwrl:notFirst", 1, false, new VPATH(), new BAVNs("notFirstL", "s"), new UBA("notFirstL"), $s) 
+  BAP($e:a1, a2==$notFirstL) from invoker.invoke("AlphabeticallyAllExceptFirstNameWithSets", "sqwrl:element", 2, false, new VPATH(), new BAVNs("e", "notFirstL"), new UBA("e"), $notFirstL) 
+then 
+  invoker.invoke("AlphabeticallyAllExceptFirstNameWithSets", "sqwrl:select", 0, true, $e); 
+  invoker.invoke("AlphabeticallyAllExceptFirstNameWithSets", "sqwrl:orderBy", 1, true, $e); 
+end
+Rule name: PersonsWithAgesGreaterThanTheAverage-makeCollection
+rule "PersonsWithAgesGreaterThanTheAverage-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($b:a1, a2==$age) from invoker.invoke("PersonsWithAgesGreaterThanTheAverage", "sqwrl:makeBag", 0, false, new VPATH($p), new BAVNs("b", "age"), new UBA("b"), $age) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: PersonsWithAgesGreaterThanTheAverage-operateCollection
+rule "PersonsWithAgesGreaterThanTheAverage-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="PersonsWithAgesGreaterThanTheAverage", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP($avg:a1, a2==$b) from invoker.invoke("PersonsWithAgesGreaterThanTheAverage", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "b"), new UBA("avg"), $b) 
+  BAP(a1==$age, a2==$avg) from invoker.invoke("PersonsWithAgesGreaterThanTheAverage", "swrlb:greaterThan", 2, false, new VPATH(), new BAVNs("age", "avg"), $age, $avg) 
+then 
+  invoker.invoke("PersonsWithAgesGreaterThanTheAverage", "sqwrl:select", 0, true, $p, $age, $avg); 
+  invoker.invoke("PersonsWithAgesGreaterThanTheAverage", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: NumberOfAdults-makeCollection
+rule "NumberOfAdults-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP(a1==$age) from invoker.invoke("NumberOfAdults", "swrlb:greaterThan", 0, false, new VPATH($p), new BAVNs("age", ""), $age, new L("17", "xsd:integer")) 
+  BAP($s:a1, a2==$p) from invoker.invoke("NumberOfAdults", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("s", "p"), new UBA("s"), $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: NumberOfAdults-operateCollection
+rule "NumberOfAdults-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="NumberOfAdults", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasAge", $age:o) 
+  BAP(a1==$age) from invoker.invoke("NumberOfAdults", "swrlb:greaterThan", 2, false, new VPATH($p), new BAVNs("age", ""), $age, new L("17", "xsd:integer")) 
+  BAP($size:a1, a2==$s) from invoker.invoke("NumberOfAdults", "sqwrl:size", 3, false, new VPATH(), new BAVNs("size", "s"), new UBA("size"), $s) 
+then 
+  invoker.invoke("NumberOfAdults", "sqwrl:select", 0, true, $size); 
+end
+Rule name: PersonsWithLeastDoseGreaterThan3.0-makeCollection
+rule "PersonsWithLeastDoseGreaterThan3.0-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$tr, p.id=="hasDose", $dose:o) 
+  BAP($b:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithLeastDoseGreaterThan3.0", "sqwrl:makeBag", 0, false, new VPATH($tr, $p), new BAVNs("b", "dose", "p"), new UBA("b"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: PersonsWithLeastDoseGreaterThan3.0-operateCollection
+rule "PersonsWithLeastDoseGreaterThan3.0-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="PersonsWithLeastDoseGreaterThan3.0", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $tr:o) 
+  OPAA(s==$tr, p.id=="hasDrug", o.id=="DDI") 
+  DPAA(s==$tr, p.id=="hasDose", $dose:o) 
+  BAP($l:a1, a2==$b, a3==$p) from invoker.invoke("PersonsWithLeastDoseGreaterThan3.0", "sqwrl:least", 1, false, new VPATH(), new BAVNs("l", "b", "p"), new UBA("l"), $b, $p) 
+  BAP(a1==$l) from invoker.invoke("PersonsWithLeastDoseGreaterThan3.0", "swrlb:greaterThan", 2, false, new VPATH(), new BAVNs("l", ""), $l, new L("3.0", "xsd:double")) 
+then 
+  invoker.invoke("PersonsWithLeastDoseGreaterThan3.0", "sqwrl:select", 0, true, $p, $l); 
+  invoker.invoke("PersonsWithLeastDoseGreaterThan3.0", "sqwrl:orderBy", 1, true, $p); 
+end
+Rule name: PersonsAndTreatmentDurations
+rule "PersonsAndTreatmentDurations" 
+when 
+   CAA(c=="Person", $p:i) 
+   OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+   OPAA(s==$t, p.id=="hasDrug", $d:o) 
+   DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+   DPAA(s==$t, p.id=="temporal:hasFinishTime", $finish:o) 
+   BAP($duration:a1, a2==$start, a3==$finish) from invoker.invoke("PersonsAndTreatmentDurations", "temporal:duration", 0, false, new VPATH($d, $t, $p), new BAVNs("duration", "start", "finish", ""), new UBA("duration"), $start, $finish, new I("temporal:Days")) 
+then 
+   invoker.invoke("PersonsAndTreatmentDurations", "sqwrl:select", 0, true, $p, $d, $duration);  
+   invoker.invoke("PersonsAndTreatmentDurations", "sqwrl:orderBy", 1, true, $p, $d, $duration);  
+end
+Rule name: AllAdultsWithCollections-makeCollection
+rule "AllAdultsWithCollections-makeCollection" 
+when 
+  CAA(c=="Adult", $a:i) 
+  BAP($s:a1, a2==$a) from invoker.invoke("AllAdultsWithCollections", "sqwrl:makeSet", 0, false, new VPATH(), new BAVNs("s", "a"), new UBA("s"), $a) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AllAdultsWithCollections-operateCollection
+rule "AllAdultsWithCollections-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AllAdultsWithCollections", collectionName=="s")
+  CAA(c=="Adult", $a:i) 
+  BAP($e:a1, a2==$s) from invoker.invoke("AllAdultsWithCollections", "sqwrl:element", 1, false, new VPATH(), new BAVNs("e", "s"), new UBA("e"), $s) 
+then 
+  invoker.invoke("AllAdultsWithCollections", "sqwrl:select", 0, true, $e); 
+  invoker.invoke("AllAdultsWithCollections", "sqwrl:orderBy", 1, true, $e); 
+end
+Rule name: PersonsWithMaximumDosePerDrug-makeCollection
+rule "PersonsWithMaximumDosePerDrug-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($s:a1, a2==$dose, a3==$p, a4==$d) from invoker.invoke("PersonsWithMaximumDosePerDrug", "sqwrl:makeBag", 0, false, new VPATH($d, $t, $p), new BAVNs("s", "dose", "p", "d"), new UBA("s"), $dose, $p, $d) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithMaximumDosePerDrug-operateCollection
+rule "PersonsWithMaximumDosePerDrug-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithMaximumDosePerDrug", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  BAP($max:a1, a2==$s, a3==$p, a4==$d) from invoker.invoke("PersonsWithMaximumDosePerDrug", "sqwrl:max", 1, false, new VPATH(), new BAVNs("max", "s", "p", "d"), new UBA("max"), $s, $p, $d) 
+then 
+  invoker.invoke("PersonsWithMaximumDosePerDrug", "sqwrl:select", 0, true, $p, $d, $max); 
+  invoker.invoke("PersonsWithMaximumDosePerDrug", "sqwrl:orderBy", 1, true, $p, $d); 
+end
+Rule name: DifferenceTest-makeCollection
+rule "DifferenceTest-makeCollection" 
+when 
+  BAP($s1:a1) from invoker.invoke("DifferenceTest", "sqwrl:makeSet", 0, false, new VPATH(), new BAVNs("s1", ""), new UBA("s1"), new I("DDI")) 
+  BAP($s2:a1) from invoker.invoke("DifferenceTest", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("s2", ""), new UBA("s2"), new I("AZT")) 
+then 
+  sqwrlInferrer.infer($s1); 
+  sqwrlInferrer.infer($s2); 
+end
+Rule name: DifferenceTest-operateCollection
+rule "DifferenceTest-operateCollection" 
+when 
+  $s1:SQWRLC(queryName=="DifferenceTest", collectionName=="s1")
+  $s2:SQWRLC(queryName=="DifferenceTest", collectionName=="s2")
+  BAP($d:a1, a2==$s1, a3==$s2) from invoker.invoke("DifferenceTest", "sqwrl:difference", 2, false, new VPATH(), new BAVNs("d", "s1", "s2"), new UBA("d"), $s1, $s2) 
+  BAP($size:a1, a2==$d) from invoker.invoke("DifferenceTest", "sqwrl:size", 3, false, new VPATH(), new BAVNs("size", "d"), new UBA("size"), $d) 
+then 
+  invoker.invoke("DifferenceTest", "sqwrl:select", 0, true, $size); 
+end
+Rule name: AlphabeticallyAllExceptThirdNameWithSets-makeCollection
+rule "AlphabeticallyAllExceptThirdNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyAllExceptThirdNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyAllExceptThirdNameWithSets-operateCollection
+rule "AlphabeticallyAllExceptThirdNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyAllExceptThirdNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($notThirdL:a1, a2==$s) from invoker.invoke("AlphabeticallyAllExceptThirdNameWithSets", "sqwrl:notNth", 1, false, new VPATH(), new BAVNs("notThirdL", "s", ""), new UBA("notThirdL"), $s, new L("3", "xsd:integer")) 
+  BAP($e:a1, a2==$notThirdL) from invoker.invoke("AlphabeticallyAllExceptThirdNameWithSets", "sqwrl:element", 2, false, new VPATH(), new BAVNs("e", "notThirdL"), new UBA("e"), $notThirdL) 
+then 
+  invoker.invoke("AlphabeticallyAllExceptThirdNameWithSets", "sqwrl:select", 0, true, $e); 
+  invoker.invoke("AlphabeticallyAllExceptThirdNameWithSets", "sqwrl:orderBy", 1, true, $e); 
+end
+Rule name: IntersectionTest-makeCollection
+rule "IntersectionTest-makeCollection" 
+when 
+  BAP($s1:a1) from invoker.invoke("IntersectionTest", "sqwrl:makeSet", 0, false, new VPATH(), new BAVNs("s1", ""), new UBA("s1"), new I("DDI")) 
+  BAP(a1==$s1) from invoker.invoke("IntersectionTest", "sqwrl:makeSet", 1, false, new VPATH(), new BAVNs("s1", ""), $s1, new I("AZT")) 
+  BAP($s2:a1) from invoker.invoke("IntersectionTest", "sqwrl:makeSet", 2, false, new VPATH(), new BAVNs("s2", ""), new UBA("s2"), new I("AZT")) 
+then 
+  sqwrlInferrer.infer($s1); 
+  sqwrlInferrer.infer($s1); 
+  sqwrlInferrer.infer($s2); 
+end
+Rule name: IntersectionTest-operateCollection
+rule "IntersectionTest-operateCollection" 
+when 
+  $s1:SQWRLC(queryName=="IntersectionTest", collectionName=="s1")
+  $s2:SQWRLC(queryName=="IntersectionTest", collectionName=="s2")
+  BAP($i:a1, a2==$s1, a3==$s2) from invoker.invoke("IntersectionTest", "sqwrl:intersection", 3, false, new VPATH(), new BAVNs("i", "s1", "s2"), new UBA("i"), $s1, $s2) 
+  BAP($size:a1, a2==$i) from invoker.invoke("IntersectionTest", "sqwrl:size", 4, false, new VPATH(), new BAVNs("size", "i"), new UBA("size"), $i) 
+then 
+  invoker.invoke("IntersectionTest", "sqwrl:select", 0, true, $size); 
+end
+Rule name: AlphabeticallyThirdLastNameWithSets-makeCollection
+rule "AlphabeticallyThirdLastNameWithSets-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($s:a1, a2==$name) from invoker.invoke("AlphabeticallyThirdLastNameWithSets", "sqwrl:makeSet", 0, false, new VPATH($p), new BAVNs("s", "name"), new UBA("s"), $name) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: AlphabeticallyThirdLastNameWithSets-operateCollection
+rule "AlphabeticallyThirdLastNameWithSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="AlphabeticallyThirdLastNameWithSets", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  DPAA(s==$p, p.id=="hasName", $name:o) 
+  BAP($thirdLast:a1, a2==$s) from invoker.invoke("AlphabeticallyThirdLastNameWithSets", "sqwrl:nthLast", 1, false, new VPATH(), new BAVNs("thirdLast", "s", ""), new UBA("thirdLast"), $s, new L("3", "xsd:integer")) 
+then 
+  invoker.invoke("AlphabeticallyThirdLastNameWithSets", "sqwrl:select", 0, true, $thirdLast); 
+end
+Rule name: PersonsOnMoreThan1Drug-makeCollection
+rule "PersonsOnMoreThan1Drug-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP($s:a1, a2==$d, a3==$p) from invoker.invoke("PersonsOnMoreThan1Drug", "sqwrl:makeSet", 0, false, new VPATH($t, $p), new BAVNs("s", "d", "p"), new UBA("s"), $d, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsOnMoreThan1Drug-operateCollection
+rule "PersonsOnMoreThan1Drug-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsOnMoreThan1Drug", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  OPAA(s==$t, p.id=="hasDrug", $d:o) 
+  BAP($size:a1, a2==$s, a3==$p) from invoker.invoke("PersonsOnMoreThan1Drug", "sqwrl:size", 1, false, new VPATH(), new BAVNs("size", "s", "p"), new UBA("size"), $s, $p) 
+  BAP(a1==$size) from invoker.invoke("PersonsOnMoreThan1Drug", "swrlb:greaterThan", 2, false, new VPATH(), new BAVNs("size", ""), $size, new L("1", "xsd:integer")) 
+then 
+  invoker.invoke("PersonsOnMoreThan1Drug", "sqwrl:select", 0, true, $p, $size); 
+  invoker.invoke("PersonsOnMoreThan1Drug", "sqwrl:orderBy", 1, true, $p, $size); 
+end
+Rule name: NumberOfCarsUsingSets-makeCollection
+rule "NumberOfCarsUsingSets-makeCollection" 
+when 
+  CAA(c=="Car", $c:i) 
+  BAP($s:a1, a2==$c) from invoker.invoke("NumberOfCarsUsingSets", "sqwrl:makeSet", 0, false, new VPATH(), new BAVNs("s", "c"), new UBA("s"), $c) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: NumberOfCarsUsingSets-operateCollection
+rule "NumberOfCarsUsingSets-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="NumberOfCarsUsingSets", collectionName=="s")
+  CAA(c=="Car", $c:i) 
+  BAP($size:a1, a2==$s) from invoker.invoke("NumberOfCarsUsingSets", "sqwrl:size", 1, false, new VPATH(), new BAVNs("size", "s"), new UBA("size"), $s) 
+then 
+  invoker.invoke("NumberOfCarsUsingSets", "sqwrl:select", 0, true, $size); 
+end
+Rule name: MaximumOfAverageSalePerPerson-makeCollection
+rule "MaximumOfAverageSalePerPerson-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  BAP($b:a1, a2==$amt, a3==$p) from invoker.invoke("MaximumOfAverageSalePerPerson", "sqwrl:makeBag", 0, false, new VPATH($p, $sale), new BAVNs("b", "amt", "p"), new UBA("b"), $amt, $p) 
+then 
+  sqwrlInferrer.infer($b); 
+end
+Rule name: MaximumOfAverageSalePerPerson-operateCollection
+rule "MaximumOfAverageSalePerPerson-operateCollection" 
+when 
+  $b:SQWRLC(queryName=="MaximumOfAverageSalePerPerson", collectionName=="b")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasSales", $sale:o) 
+  DPAA(s==$sale, p.id=="hasAmount", $amt:o) 
+  BAP($avg:a1, a2==$b, a3==$p) from invoker.invoke("MaximumOfAverageSalePerPerson", "sqwrl:avg", 1, false, new VPATH(), new BAVNs("avg", "b", "p"), new UBA("avg"), $b, $p) 
+then 
+  invoker.invoke("MaximumOfAverageSalePerPerson", "sqwrl:select", 0, true, $p, $avg); 
+  invoker.invoke("MaximumOfAverageSalePerPerson", "sqwrl:orderByDescending", 1, true, $avg); 
+  invoker.invoke("MaximumOfAverageSalePerPerson", "sqwrl:firstN", 2, true, new L("1", "xsd:integer")); 
+end
+Rule name: PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses-makeCollection
+rule "PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses-makeCollection" 
+when 
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($s:a1, a2==$dose, a3==$p) from invoker.invoke("PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:makeBag", 0, false, new VPATH($t, $p), new BAVNs("s", "dose", "p"), new UBA("s"), $dose, $p) 
+then 
+  sqwrlInferrer.infer($s); 
+end
+Rule name: PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses-operateCollection
+rule "PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses-operateCollection" 
+when 
+  $s:SQWRLC(queryName=="PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", collectionName=="s")
+  CAA(c=="Person", $p:i) 
+  OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+  DPAA(s==$t, p.id=="hasDose", $dose:o) 
+  OPAA(s==$t, p.id=="hasDrug", o.id=="DDI") 
+  BAP($lowest2L:a1, a2==$s, a4==$p) from invoker.invoke("PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:leastN", 1, false, new VPATH(), new BAVNs("lowest2L", "s", "", "p"), new UBA("lowest2L"), $s, new L("2", "xsd:integer"), $p) 
+  BAP($greatest2L:a1, a2==$s, a4==$p) from invoker.invoke("PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:greatestN", 2, false, new VPATH(), new BAVNs("greatest2L", "s", "", "p"), new UBA("greatest2L"), $s, new L("2", "xsd:integer"), $p) 
+  BAP($rL:a1, a2==$lowest2L, a3==$greatest2L, a4==$p, a5==$p) from invoker.invoke("PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:append", 3, false, new VPATH(), new BAVNs("rL", "lowest2L", "greatest2L", "p", "p"), new UBA("rL"), $lowest2L, $greatest2L, $p, $p) 
+  BAP($avg:a1, a2==$rL, a3==$p, a4==$p) from invoker.invoke("PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:avg", 4, false, new VPATH(), new BAVNs("avg", "rL", "p", "p"), new UBA("avg"), $rL, $p, $p) 
+then 
+  invoker.invoke("PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:select", 0, true, $p, $avg); 
+  invoker.invoke("PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses", "sqwrl:orderBy", 1, true, $p, $avg); 
+end
+PASSED
+Running test PersonWithAverageDosePerDrugIn2007...PASSED
+Running test AverageAgeOfPersonsWithBags...PASSED
+Running test PersonsWithDDIOrAZTTreatments...PASSED
+Running test PersonsWithAverageDDIDoseMoreThan10PercentOfAverage...PASSED
+Running test PersonsOnMoreThan1Drug...PASSED
+Running test PersonsWithEqualLowest2DDIAndAZTDoses...PASSED
+Running test AlphabeticallySecondAndThirdNamesWithSets...PASSED
+Running test PersonsWithAveragesOfLowestAndHighestTwoDDITreatmentDoses...PASSED
+Running test AverageSaleAmountPerState...PASSED
+Running test PersonsTreatedWith2ExactlyDrugs...PASSED
+Running test SameCollectionEqualTest...PASSED
+Running test AverageSalesAmountPerPerson...PASSED
+Running test AlphabeticallyAllExceptFirstNameWithSets...PASSED
+Running test AverageSet...PASSED
+Running test DifferentCollectionsEqualTest...PASSED
+Running test PersonsWithLessThanAverageDDIDoses...PASSED
+Running test AlphabeticallyThirdLastNameWithSets...PASSED
+Running test PersonsWithMaximumDosePerDrug...PASSED
+Running test NumberOfCarsPerPerson...PASSED
+Running test PersonsWithDDITreatments...PASSED
+Running test AverageSaleAmountPerProduct...PASSED
+Running test PersonsWithNonAZTTreatments...PASSED
+Running test Lowest2DDIDosesPerPatientWithSets...PASSED
+Running test AlphabeticallyThirdNameWithSets...PASSED
+Running test PersonsWithMinimumAge...PASSED
+Running test AlphabeticallyFirstAndLastNamesWithSets...PASSED
+Running test PersonsWithLeastDoseGreaterThan3.0...PASSED
+Running test PersonsWithFirstTreatment...PASSED
+Running test PersonsWithMaximumAge...PASSED
+Running test PersonsWithAverageDDIDoses...PASSED
+Running test NumberOfAdults...PASSED
+Running test LowestDDIDosePerPatient...PASSED
+Running test PersonAverageDDIDosesAndAverageAllDDIDoses...PASSED
+Running test PersonsWithAverageOfLowestTwoDDITreatmentDoses...PASSED
+Running test AlphabeticallyFirstNameWithSets...PASSED
+Running test PersonsWithLowest2Doses...PASSED
+Running test AlphabeticallyAllExceptThirdLastNameWithSets...PASSED
+Running test PersonsWithNonDDITreatments...PASSED
+Running test PersonsWithAgesLessThanTheAverageAge...PASSED
+Running test AllAdultsWithCollections...PASSED
+Running test PersonsWithTreatmentsLastingMoreThan1Month...PASSED
+Running test PersonsAndTreatmentDurations...PASSED
+Running test AlphabeticallyAllExceptThirdNameWithSets...PASSED
+Running test AlphabeticallySecondAndThirdLastNamesWithSets...PASSED
+Running test PersonsWithAverageOfLowestAndHighestTwoDDITreatmentDoses...PASSED
+Running test NumberOfCarsUsingSets...PASSED
+Running test PersonsWithAverageAndMinOfLowestTwoDDITreatmentDoses...PASSED
+Running test UnionTest...PASSED
+Running test PersonsOnBothDDIandAZTAndNoOtherDrugs...PASSED
+Running test PersonsWithAboveAverageDDIDoses...PASSED
+Running test PersonsWithDrugTreatmentDurations...PASSED
+Running test DifferenceTest...PASSED
+Running test PersonsWithDDIAndAZTTreatments...PASSED
+Running test AverageBag...PASSED
+Running test PersonsWithNumberOfDosesAndAverageDosePerDrug...PASSED
+Running test PersonsWithAgesGreaterThanTheAverage...PASSED
+Running test IntersectionTest...PASSED
+Running test MaximumOfAverageSalePerPerson...PASSED
+Running test AlphabeticallySecondNameWithSets...PASSED
+Running test PersonsWithEqualLowestDDIAndAZTDoses...PASSED
+Running test AlphabeticallyLastNameWithSets...PASSED
+Running test PersonsWithMoreThan2Cars...PASSED
+Number of tests: 63
+Passed 63 test(s)!
+
