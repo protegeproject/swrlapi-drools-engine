@@ -1,0 +1,718 @@
+Running tests with rule engine Drools
+Running test test-table5-prp-dom-op-query...
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_SCO)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_INV2)
+Axiom: OPDA(hasBrother)
+Axiom: EOPA(hasBrother, hasSister)
+Axiom: EOPA(hasSister, hasBrother)
+Axiom: CDA(Man)
+Rule name: test-table5-pro-spo1-op-rule
+rule "test-table5-pro-spo1-op-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i48"), "hasBrother", new I("i49")); inferrer.infer(opaa0);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXC2)
+Rule name: test-table7-cax-eqc1-rule
+rule "test-table7-cax-eqc1-rule" 
+when 
+then 
+   CAA caa0=new CAA("Male", new I("i71")); inferrer.infer(caa0);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_FP)
+Axiom: CAA(Person, i53)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_THING)
+Axiom: CAA(Person, i44)
+Axiom: CAA(Person, i70)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_HV)
+Axiom: DOPA(protege:FROM, protege:DIRECTED-BINARY-RELATION)
+Axiom: CAA(Prescription, prescription1)
+Axiom: DPDA(hasHeight)
+Axiom: CAA(Person, i54)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_TRP)
+Axiom: FDPA(swrla:isRuleEnabled)
+Rule name: test-table5-prp-inv2-rule
+rule "test-table5-prp-inv2-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i61"), "drives", new I("i62")); inferrer.infer(opaa0);  
+end
+Axiom: FDPA(hasAge)
+Axiom: CAA(Person, i36)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REP_O)
+Axiom: DDPA(swrla:isRuleEnabled, swrl:Imp)
+Axiom: CDA(Prescription)
+Axiom: CAA(Person, i33)
+Axiom: FDPA(swrla:isRuleGroupEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_OP)
+Axiom: OPDA(hasFather)
+Rule name: test-table5-prp-irp-rule
+rule "test-table5-prp-irp-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i40"), "flowsInto", new I("i40")); inferrer.infer(opaa0);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_KEY)
+Axiom: DPDA(rdfs:comment)
+Axiom: CAA(Person, i62)
+Axiom: CAA(Person, i15)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_HV1)
+Axiom: CAA(Person, i11)
+Axiom: TPA(hasSister)
+Axiom: CDA(SolidThing)
+Axiom: CAA(Person, i19)
+Axiom: DPDA(protege:PAL-DESCRIPTION)
+Axiom: OPDA(hasUncle)
+Axiom: CAA(Person, i9)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SVF2)
+Axiom: CAA(Person, i61)
+Axiom: FDPA(swrla:isOWL2RLRuleEnabled)
+Axiom: ECA(CEID0, TallSolidBuilding)
+Axiom: ECA(TallSolidBuilding, CEID0)
+Axiom: DDPA(swrla:isRuleGroupEnabled, swrla:RuleGroup)
+Axiom: ECA(CEID1, Fruit)
+Axiom: ECA(Fruit, CEID1)
+Axiom: CAA(Person, i40)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REF)
+Axiom: SDPA(hasBodyMassIndex, hasMeasurement)
+Axiom: CAA(Person, i2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_EQ)
+Axiom: CDA(SweetFruit)
+Axiom: CDA(Building)
+Rule name: test-table4-eq-rep-o-op-rule
+rule "test-table4-eq-rep-o-op-rule" 
+when 
+then 
+   SIA sia0=new SIA(new I("i17"), new I("i18")); inferrer.infer(sia0);  
+   OPAA opaa1=new OPAA(new I("i16"), "hasSibling", new I("i17")); inferrer.infer(opaa1);  
+end
+Axiom: CAA(Person, i3)
+Rule name: test-table5-prp-inv1-rule
+rule "test-table5-prp-inv1-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i59"), "hasDriver", new I("i60")); inferrer.infer(opaa0);  
+end
+Axiom: CAA(SweetFruit, sf)
+Axiom: SDPA(hasAge, hasMeasurement)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC3)
+Axiom: CAA(Person, i57)
+Axiom: OPDA(hasPrescription)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_AVF2)
+Axiom: CAA(Prescription, prescription2)
+Axiom: SDPA(hasHeight, hasMeasurement)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_INT1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_UNI)
+Axiom: CAA(Person, i42)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXC1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_COM)
+Axiom: RDPA(swrla:isRuleEnabled, xsd:boolean)
+Rule name: test-table4-eq-trans-rule
+rule "test-table4-eq-trans-rule" 
+when 
+then 
+   SIA sia0=new SIA(new I("i6"), new I("i7")); inferrer.infer(sia0);  
+   SIA sia1=new SIA(new I("i7"), new I("i8")); inferrer.infer(sia1);  
+end
+Axiom: CAA(Person, i39)
+Axiom: DPDA(swrla:hasBuiltInPhrase)
+Axiom: DPDA(swrla:hasBuiltInPhrase)
+Rule name: test-table7-cax-sco-rule
+rule "test-table7-cax-sco-rule" 
+when 
+then 
+   CAA caa0=new CAA("Male", new I("i70")); inferrer.infer(caa0);  
+end
+Axiom: OPDA(hasSibling)
+Rule name: test-table5-eqp2-op-rule
+rule "test-table5-eqp2-op-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i54"), "hasPart", new I("i55")); inferrer.infer(opaa0);  
+end
+Axiom: CAA(Person, i12)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_DIFF1)
+Axiom: DPDA(swrla:hasPropertyPhrase)
+Axiom: DPDA(swrla:hasPropertyPhrase)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_DOM2)
+Axiom: RDPA(hasBMI, xsd:double)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_DW)
+Rule name: test-table5-prp-trp-rule
+rule "test-table5-prp-trp-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i45"), "hasSibling", new I("i46")); inferrer.infer(opaa0);  
+   OPAA opaa1=new OPAA(new I("i46"), "hasSibling", new I("i47")); inferrer.infer(opaa1);  
+end
+Axiom: CAA(Person, i35)
+Rule name: test-table5-prp-eqp1-op-rule
+rule "test-table5-prp-eqp1-op-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i51"), "partOf", new I("i52")); inferrer.infer(opaa0);  
+end
+Axiom: RDPA(swrla:isOWL2RLRuleEnabled, xsd:boolean)
+Rule name: test-table5-prp-dom-op-rule
+rule "test-table5-prp-dom-op-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i30"), "hasUncle", new I("i31")); inferrer.infer(opaa0);  
+end
+Axiom: RDPA(rdfs:comment, xsd:string)
+Axiom: ROPA(hasAunt, Female)
+Rule name: test-table4-eq-sym-rule
+rule "test-table4-eq-sym-rule" 
+when 
+then 
+   SIA sia0=new SIA(new I("i4"), new I("i5")); inferrer.infer(sia0);  
+end
+Axiom: IPA(hasPrescription)
+Axiom: CAA(Person, i46)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_AP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_IFP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_NOTHING2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SPO)
+Axiom: CAA(Person, i55)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_EQC1)
+Axiom: SOPA(hasSister, hasSibling)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_NOT_TYPE)
+Axiom: DDPA(protege:PAL-RANGE, protege:PAL-CONSTRAINT)
+Axiom: CAA(Person, i49)
+Axiom: DDPA(hasBMI, Person)
+Axiom: ECA(CEID2, Man)
+Axiom: ECA(Man, CEID2)
+Axiom: DPDA(hasMeasurement)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_AVF)
+Axiom: TPA(hasBrother)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_SFV2)
+Axiom: DPDA(protege:PAL-NAME)
+Axiom: CDA(NonSweetFruit)
+Axiom: CDA(Male)
+Rule name: test-table7-cax-eqc2-rule
+rule "test-table7-cax-eqc2-rule" 
+when 
+then 
+   CAA caa0=new CAA("Man", new I("i72")); inferrer.infer(caa0);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQC1)
+Rule name: test-table4-eq-ref-dp-rule
+rule "test-table4-eq-ref-dp-rule" 
+when 
+then 
+   DPAA dpaa0=new DPAA(new I("i4"), "hasAge", new L(new L("33", "xsd:integer"))); inferrer.infer(dpaa0);  
+end
+Axiom: DOPA(hasPrescription, Person)
+Axiom: CDA(swrl:Imp)
+Axiom: OPDA(protege:TO)
+Axiom: CAA(Person, i47)
+Axiom: RDPA(hasHeight, xsd:double)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SCO)
+Axiom: OPDA(partOf)
+Axiom: DOPA(hasAunt, Person)
+Axiom: CDA(owl:Thing)
+Rule name: test-table6-cls-int1-rule
+rule "test-table6-cls-int1-rule" 
+when 
+then 
+   CAA caa0=new CAA("TallThing", new I("b1")); inferrer.infer(caa0);  
+   CAA caa1=new CAA("SolidThing", new I("b1")); inferrer.infer(caa1);  
+end
+Axiom: DDPA(protege:PAL-NAME, protege:PAL-CONSTRAINT)
+Rule name: test-table5-prp-dom-dp-rule
+rule "test-table5-prp-dom-dp-rule" 
+when 
+then 
+   DPAA dpaa0=new DPAA(new I("i32"), "hasBMI", new L(new L("23.4", "xsd:double"))); inferrer.infer(dpaa0);  
+end
+Axiom: DPDA(swrla:hasRuleCategory)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_NPA2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_UNI)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_TRANS)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_ADC)
+Axiom: SCA(swrla:RuleGroup, swrla:Entity)
+Axiom: OPDA(swrla:hasRuleGroup)
+Axiom: DPDA(swrla:hasRuleGroup)
+Axiom: CAA(Person, i8)
+Axiom: FOPA(hasFather)
+Axiom: CAA(Person, i18)
+Axiom: CAA(Person, i34)
+Axiom: OPDA(drives)
+Axiom: OPDA(flowsInto)
+Axiom: DDPA(protege:PAL-DESCRIPTION, protege:PAL-CONSTRAINT)
+Rule name: test-table6-cls-int2-rule
+rule "test-table6-cls-int2-rule" 
+when 
+then 
+   CAA caa0=new CAA("TallSolidBuilding", new I("b2")); inferrer.infer(caa0);  
+end
+Axiom: CAA(Person, i56)
+Axiom: IOPA(drives, hasDriver)
+Axiom: IOPA(hasDriver, drives)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_IRP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SVF1)
+Axiom: CDA(protege:PAL-CONSTRAINT)
+Rule name: test-table5-prp-eqp1-dp-rule
+rule "test-table5-prp-eqp1-dp-rule" 
+when 
+then 
+   DPAA dpaa0=new DPAA(new I("i51"), "hasBMI", new L(new L("34.0", "xsd:double"))); inferrer.infer(dpaa0);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC4)Rule name: test-table5-prp-ifp-rule
+rule "test-table5-prp-ifp-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i38"), "hasPrescription", new I("prescription1")); inferrer.infer(opaa0);  
+   OPAA opaa1=new OPAA(new I("i39"), "hasPrescription", new I("prescription1")); inferrer.infer(opaa1);  
+end
+
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REP_P)
+Rule name: test-table4-eq-rep-s-dp-rule
+rule "test-table4-eq-rep-s-dp-rule" 
+when 
+then 
+   SIA sia0=new SIA(new I("i14"), new I("i15")); inferrer.infer(sia0);  
+   DPAA dpaa1=new DPAA(new I("i14"), "hasAge", new L(new L("44", "xsd:integer"))); inferrer.infer(dpaa1);  
+end
+Axiom: OPDA(hasPart)
+Axiom: DOPA(protege:SLOT-CONSTRAINTS, owl:Thing)
+Axiom: DPDA(swrla:hasClassPhrase)
+Rule name: test-table5-eqp2-dp-rule
+rule "test-table5-eqp2-dp-rule" 
+when 
+then 
+   DPAA dpaa0=new DPAA(new I("i56"), "hasBodyMassIndex", new L(new L("23.0", "xsd:double"))); inferrer.infer(dpaa0);  
+end
+Axiom: SCA(swrla:OWL2RLRule, swrla:Entity)
+Axiom: DPDA(swrla:hasClassPhrase)
+Axiom: CAA(Person, i20)
+Rule name: test-table5-prp-rng-op-rule
+rule "test-table5-prp-rng-op-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i33"), "hasUncle", new I("i34")); inferrer.infer(opaa0);  
+endAxiom: CDA(Person)
+
+Rule name: test-table4-eq-ref-c-rule
+rule "test-table4-eq-ref-c-rule" 
+when 
+then 
+   CAA caa0=new CAA("Person", new I("i1")); inferrer.infer(caa0);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_CLS)
+Axiom: DOPA(swrla:hasRuleGroup, swrl:Imp)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_RNG2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_ADP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_ASYP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_DIFF3)
+Axiom: CAA(Person, i43)
+Axiom: OPDA(hasDriver)
+Axiom: IOPA(hasSibling, hasSibling)
+Axiom: DPDA(swrla:isRuleEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQP2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_NPA1)
+Axiom: DPDA(swrla:isRuleEnabled)
+Axiom: CAA(Person, i58)
+Rule name: test-table5-eqp1-dp-rule
+rule "test-table5-eqp1-dp-rule" 
+when 
+then 
+   DPAA dpaa0=new DPAA(new I("i53"), "hasBMI", new L(new L("23.4", "xsd:double"))); inferrer.infer(dpaa0);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_DOM)
+Axiom: OPDA(protege:SLOT-CONSTRAINTS)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_INV1)
+Axiom: DPDA(hasAge)
+Axiom: EDPA(hasBMI, hasBodyMassIndex)
+Axiom: EDPA(hasBodyMassIndex, hasBMI)
+Axiom: SCA(Female, Person)
+Rule name: test-table7-cax-dw-rule
+rule "test-table7-cax-dw-rule" 
+when 
+then 
+   CAA caa0=new CAA("Male", new I("i73")); inferrer.infer(caa0);  
+   CAA caa1=new CAA("Female", new I("i73")); inferrer.infer(caa1);  
+end
+Axiom: EOPA(hasPart, partOf)
+Rule name: test-table4-eq-rep-s-c-rule
+rule "test-table4-eq-rep-s-c-rule" 
+when 
+then 
+   SIA sia0=new SIA(new I("i9"), new I("i10")); inferrer.infer(sia0);  
+   CAA caa1=new CAA("Person", new I("i10")); inferrer.infer(caa1);  
+end
+Axiom: EOPA(partOf, hasPart)
+Axiom: DPDA(hasBMI)
+Axiom: RDPA(swrla:hasPropertyPhrase, xsd:string)
+Axiom: CAA(Person, i5)
+Rule name: test-table4-eq-ref-op-rule
+rule "test-table4-eq-ref-op-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i2"), "hasSibling", new I("i3")); inferrer.infer(opaa0);  
+end
+Axiom: CAA(Person, i1)
+Axiom: CAA(Person, i48)
+Axiom: CAA(Person, i59)
+Axiom: DPDA(swrla:isRuleGroupEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_DIFF2)
+Axiom: CDA(Female)
+Axiom: CAA(Person, i31)
+Rule name: test-table5-spo1-op-rule
+rule "test-table5-spo1-op-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i50"), "hasBrother", new I("i51")); inferrer.infer(opaa0);  
+end
+Axiom: CAA(Person, i13)
+Axiom: CAA(Person, i37)
+Axiom: RDPA(hasAge, xsd:int)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_NOTHING1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_DIFF)
+Axiom: CAA(Person, i51)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_TYPE1)
+Axiom: SOPA(hasBrother, hasSibling)
+Axiom: CAA(Person, i14)
+Axiom: DPDA(swrla:isOWL2RLRuleEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_RNG1)
+Axiom: CAA(Person, i60)
+Axiom: DPDA(swrla:isOWL2RLRuleEnabled)
+Rule name: test-table5-prp-fp-rule
+rule "test-table5-prp-fp-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i35"), "hasFather", new I("i36")); inferrer.infer(opaa0);  
+   OPAA opaa1=new OPAA(new I("i35"), "hasFather", new I("i37")); inferrer.infer(opaa1);  
+end
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQC2)
+Rule name: test-table4-eq-rep-s-op-rule
+rule "test-table4-eq-rep-s-op-rule" 
+when 
+then 
+   SIA sia0=new SIA(new I("i11"), new I("i12")); inferrer.infer(sia0);  
+   OPAA opaa1=new OPAA(new I("i11"), "hasSibling", new I("i13")); inferrer.infer(opaa1);  
+end
+Axiom: OPDA(protege:FROM)
+Axiom: ROPA(hasFather, Male)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_RNG)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_OO)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_EQP1)
+Axiom: CAA(Person, i50)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_SFV1)
+Axiom: CAA(Person, i17)
+Axiom: FDPA(hasBMI)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_INT2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_PDW)
+Axiom: RDPA(swrla:isRuleGroupEnabled, xsd:boolean)
+Axiom: CDA(swrla:RuleGroup)
+Axiom: DOPA(hasFather, Person)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_TYPE2)
+Axiom: CAA(Person, i71)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_EQC2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQP1)
+Axiom: CAA(TallSolidBuilding, b2)
+Axiom: CDA(swrla:OWL2RLRule)
+Axiom: DDPA(protege:PAL-STATEMENT, protege:PAL-CONSTRAINT)
+Axiom: CDA(TallThing)
+Axiom: CDA(swrla:Entity)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_SPO2)
+Axiom: CAA(Person, i6)
+Axiom: CAA(Person, i16)
+Axiom: FDPA(hasHeight)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_SPO1)
+Axiom: SPA(hasSibling)
+Axiom: TPA(hasSibling)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_INT)
+Axiom: DPDA(protege:PAL-RANGE)
+Axiom: ROPA(swrla:hasRuleGroup, swrla:RuleGroup)
+Axiom: SCA(Male, Person)
+Axiom: CAA(Person, i45)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_EQP2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REP_S)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_SYMP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_DOM1)
+Axiom: CAA(Person, i38)
+Axiom: CDA(Fruit)
+Rule name: test-table5-prp-symp-rule
+rule "test-table5-prp-symp-rule" 
+when 
+then 
+   OPAA opaa0=new OPAA(new I("i41"), "hasSibling", new I("i42")); inferrer.infer(opaa0);  
+end
+Axiom: CAA(Person, i4)
+Axiom: DPDA(protege:PAL-STATEMENT)
+Axiom: ROPA(hasUncle, Male)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_AVF1)
+Axiom: CAA(Person, i41)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_DP)
+Axiom: CDA(TallSolidBuilding)
+Axiom: DOPA(hasUncle, Person)
+Axiom: FDPA(swrla:hasPropertyPhrase)
+Rule name: test-table5-spo1-dp-rule
+rule "test-table5-spo1-dp-rule" 
+when 
+then 
+   DPAA dpaa0=new DPAA(new I("i50"), "hasAge", new L(new L("45", "xsd:integer"))); inferrer.infer(dpaa0);  
+end
+Axiom: CAA(Person, i30)
+Axiom: RDPA(swrla:hasClassPhrase, xsd:string)
+Axiom: CDA(protege:DIRECTED-BINARY-RELATION)
+Axiom: CAA(Person, i10)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_HV2)
+Axiom: CAA(Person, i52)
+Axiom: FDPA(swrla:hasBuiltInPhrase)
+Axiom: OPDA(hasSister)
+Axiom: FDPA(swrla:hasClassPhrase)
+Axiom: CAA(Person, i32)
+Axiom: CAA(Building, b1)
+Axiom: DOPA(protege:TO, protege:DIRECTED-BINARY-RELATION)
+Axiom: SDPA(hasBMI, hasMeasurement)
+Axiom: OPDA(proper_part_of)
+Axiom: RDPA(swrla:hasBuiltInPhrase, xsd:string)
+Axiom: CDA(owl:Nothing)
+Axiom: CAA(Person, i73)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_SYM)
+Axiom: DPDA(hasBodyMassIndex)
+Axiom: OPDA(hasAunt)
+Axiom: CAA(Person, i72)
+Axiom: CAA(Person, i7)
+Rule name: test-table4-eq-rep-s-dp-query
+rule "test-table4-eq-rep-s-dp-query" 
+when 
+   DPAA(s.id=="i15", p.id=="hasAge", o==new L("44", "xsd:integer")) 
+then 
+   invoker.invoke("test-table4-eq-rep-s-dp-query", "sqwrl:select", 0, true, new I("i15"), new L("44", "xsd:integer"));  
+end
+Rule name: test-table6-cls-uni-query
+rule "test-table6-cls-uni-query" 
+when 
+   CAA(c=="Fruit", i.id=="sf") 
+then 
+   invoker.invoke("test-table6-cls-uni-query", "sqwrl:select", 0, true, new I("sf"));  
+end
+Rule name: test-table7-cax-eqc2-query
+rule "test-table7-cax-eqc2-query" 
+when 
+   CAA(c=="Male", i.id=="i72") 
+then 
+   invoker.invoke("test-table7-cax-eqc2-query", "sqwrl:select", 0, true, new I("i72"));  
+end
+Rule name: test-table6-cls-thing-query
+rule "test-table6-cls-thing-query" 
+when 
+   BAP() from invoker.invoke("test-table6-cls-thing-query", "tbox:isClass", 0, false, new VPATH(), new BAVNs(""), new C("owl:Thing")) 
+then 
+   invoker.invoke("test-table6-cls-thing-query", "sqwrl:select", 0, true, new C("owl:Thing"));  
+end
+Rule name: test-table5-prp-ifp-query
+rule "test-table5-prp-ifp-query" 
+when 
+   SIA(i1.id=="i38", i2.id=="i39") 
+then 
+   invoker.invoke("test-table5-prp-ifp-query", "sqwrl:select", 0, true, new I("i38"), new I("i39"));  
+end
+Rule name: test-table4-eq-rep-o-op-query
+rule "test-table4-eq-rep-o-op-query" 
+when 
+   OPAA(s.id=="i16", p.id=="hasSibling", o.id=="i18") 
+then 
+   invoker.invoke("test-table4-eq-rep-o-op-query", "sqwrl:select", 0, true, new I("i16"), new I("i18"));  
+end
+Rule name: test-table5-prp-dom-op-query
+rule "test-table5-prp-dom-op-query" 
+when 
+   CAA(c=="Person", i.id=="i30") 
+then 
+   invoker.invoke("test-table5-prp-dom-op-query", "sqwrl:select", 0, true, new I("i30"));  
+end
+Rule name: test-table5-spo1-op-query
+rule "test-table5-spo1-op-query" 
+when 
+   OPAA(s.id=="i50", p.id=="hasSibling", o.id=="i51") 
+then 
+   invoker.invoke("test-table5-spo1-op-query", "sqwrl:select", 0, true, new I("i50"), new I("i51"));  
+end
+Rule name: test-table4-eq-ref-dp-query
+rule "test-table4-eq-ref-dp-query" 
+when 
+   SIA(i1.id=="i4", i2.id=="i4") 
+then 
+   invoker.invoke("test-table4-eq-ref-dp-query", "sqwrl:select", 0, true, new I("i4"));  
+end
+Rule name: test-table4-eq-rep-s-c-query
+rule "test-table4-eq-rep-s-c-query" 
+when 
+   CAA(c=="Person", i.id=="i9") 
+then 
+   invoker.invoke("test-table4-eq-rep-s-c-query", "sqwrl:select", 0, true, new I("i9"));  
+end
+Rule name: test-table5-prp-fp-query
+rule "test-table5-prp-fp-query" 
+when 
+   SIA(i1.id=="i36", i2.id=="i37") 
+then 
+   invoker.invoke("test-table5-prp-fp-query", "sqwrl:select", 0, true, new I("i36"), new I("i37"));  
+end
+Rule name: test-table4-eq-ref-c-query
+rule "test-table4-eq-ref-c-query" 
+when 
+   SIA(i1.id=="i1", i2.id=="i1") 
+then 
+   invoker.invoke("test-table4-eq-ref-c-query", "sqwrl:select", 0, true, new I("i1"));  
+end
+Rule name: test-table5-prp-trp-query
+rule "test-table5-prp-trp-query" 
+when 
+   OPAA(s.id=="i45", p.id=="hasSibling", o.id=="i47") 
+then 
+   invoker.invoke("test-table5-prp-trp-query", "sqwrl:select", 0, true, new I("i45"), new I("i47"));  
+end
+Rule name: test-table5-prp-eqp1-op-query
+rule "test-table5-prp-eqp1-op-query" 
+when 
+   OPAA(s.id=="i51", p.id=="hasPart", o.id=="i52") 
+then 
+   invoker.invoke("test-table5-prp-eqp1-op-query", "sqwrl:select", 0, true, new I("i51"), new I("i52"));  
+end
+Rule name: test-table4-eq-sym-query
+rule "test-table4-eq-sym-query" 
+when 
+   SIA(i1.id=="i5", i2.id=="i4") 
+then 
+   invoker.invoke("test-table4-eq-sym-query", "sqwrl:select", 0, true, new I("i5"), new I("i4"));  
+end
+Rule name: test-table6-cls-int2-query
+rule "test-table6-cls-int2-query" 
+when 
+   CAA(c=="Building", i.id=="b2") 
+then 
+   invoker.invoke("test-table6-cls-int2-query", "sqwrl:select", 0, true, new I("b2"));  
+end
+Rule name: test-table5-eqp2-op-query
+rule "test-table5-eqp2-op-query" 
+when 
+   OPAA(s.id=="i54", p.id=="partOf", o.id=="i55") 
+then 
+   invoker.invoke("test-table5-eqp2-op-query", "sqwrl:select", 0, true, new I("i54"), new I("i55"));  
+end
+Rule name: test-table5-prp-inv1-query
+rule "test-table5-prp-inv1-query" 
+when 
+   OPAA(s.id=="i60", p.id=="drives", o.id=="i59") 
+then 
+   invoker.invoke("test-table5-prp-inv1-query", "sqwrl:select", 0, true, new I("i60"), new I("i59"));  
+end
+Rule name: test-table6-cls-nothing-query
+rule "test-table6-cls-nothing-query" 
+when 
+   BAP() from invoker.invoke("test-table6-cls-nothing-query", "tbox:isClass", 0, false, new VPATH(), new BAVNs(""), new C("owl:Nothing")) 
+then 
+   invoker.invoke("test-table6-cls-nothing-query", "sqwrl:select", 0, true, new C("owl:Nothing"));  
+end
+Rule name: test-table5-eqp1-dp-query
+rule "test-table5-eqp1-dp-query" 
+when 
+   DPAA(s.id=="i53", p.id=="hasBodyMassIndex", o==new L("23.4", "xsd:double")) 
+then 
+   invoker.invoke("test-table5-eqp1-dp-query", "sqwrl:select", 0, true, new I("i53"), new L("23.0", "xsd:double"));  
+end
+Rule name: test-table4-eq-trans-query
+rule "test-table4-eq-trans-query" 
+when 
+   SIA(i1.id=="i6", i2.id=="i8") 
+then 
+   invoker.invoke("test-table4-eq-trans-query", "sqwrl:select", 0, true, new I("i6"), new I("i8"));  
+end
+Rule name: test-table6-cls-int1-query
+rule "test-table6-cls-int1-query" 
+when 
+   CAA(c=="TallSolidBuilding", i.id=="b1") 
+then 
+   invoker.invoke("test-table6-cls-int1-query", "sqwrl:select", 0, true, new I("b1"));  
+end
+Rule name: test-table4-eq-ref-op-query
+rule "test-table4-eq-ref-op-query" 
+when 
+   SIA(i1.id=="i2", i2.id=="i2") 
+   SIA(i1.id=="i3", i2.id=="i3") 
+then 
+   invoker.invoke("test-table4-eq-ref-op-query", "sqwrl:select", 0, true, new I("i2"), new I("i3"));  
+end
+Rule name: test-table5-prp-dom-dp-query
+rule "test-table5-prp-dom-dp-query" 
+when 
+   CAA(c=="Person", i.id=="i32") 
+then 
+   invoker.invoke("test-table5-prp-dom-dp-query", "sqwrl:select", 0, true, new I("i32"));  
+end
+Rule name: test-table4-eq-rep-s-op-query
+rule "test-table4-eq-rep-s-op-query" 
+when 
+   OPAA(s.id=="i12", p.id=="hasSibling", o.id=="i13") 
+then 
+   invoker.invoke("test-table4-eq-rep-s-op-query", "sqwrl:select", 0, true, new I("i12"), new I("i13"));  
+end
+Rule name: test-table5-spo1-dp-query
+rule "test-table5-spo1-dp-query" 
+when 
+   DPAA(s.id=="i50", p.id=="hasMeasurement", o==new L("45", "xsd:integer")) 
+then 
+   invoker.invoke("test-table5-spo1-dp-query", "sqwrl:select", 0, true, new I("i50"), new L("45", "xsd:integer"));  
+end
+Rule name: test-table5-prp-rng-op-query
+rule "test-table5-prp-rng-op-query" 
+when 
+   CAA(c=="Male", i.id=="i34") 
+then 
+   invoker.invoke("test-table5-prp-rng-op-query", "sqwrl:select", 0, true, new I("i34"));  
+end
+Rule name: test-table7-cax-eqc1-query
+rule "test-table7-cax-eqc1-query" 
+when 
+   CAA(c=="Man", i.id=="i71") 
+then 
+   invoker.invoke("test-table7-cax-eqc1-query", "sqwrl:select", 0, true, new I("i71"));  
+end
+Rule name: test-table5-pro-spo1-op-query
+rule "test-table5-pro-spo1-op-query" 
+when 
+   OPAA(s.id=="i48", p.id=="hasSibling", o.id=="i49") 
+then 
+   invoker.invoke("test-table5-pro-spo1-op-query", "sqwrl:select", 0, true, new I("i48"), new I("i49"));  
+end
+Rule name: test-table5-eqp2-dp-query
+rule "test-table5-eqp2-dp-query" 
+when 
+   DPAA(s.id=="i56", p.id=="hasBMI", o==new L("23.0", "xsd:double")) 
+then 
+   invoker.invoke("test-table5-eqp2-dp-query", "sqwrl:select", 0, true, new I("i56"), new L("23.0", "xsd:double"));  
+end
+Rule name: test-table5-prp-eqp1-dp-query
+rule "test-table5-prp-eqp1-dp-query" 
+when 
+   DPAA(s.id=="i51", p.id=="hasBodyMassIndex", o==new L("34.0", "xsd:double")) 
+then 
+   invoker.invoke("test-table5-prp-eqp1-dp-query", "sqwrl:select", 0, true, new I("i51"), new L("34.0", "xsd:double"));  
+end
+Rule name: test-table5-prp-symp-query
+rule "test-table5-prp-symp-query" 
+when 
+   OPAA(s.id=="i42", p.id=="hasSibling", o.id=="i41") 
+then 
+   invoker.invoke("test-table5-prp-symp-query", "sqwrl:select", 0, true, new I("i42"), new I("i41"));  
+end
+Rule name: test-table5-prp-inv2-query
+rule "test-table5-prp-inv2-query" 
+when 
+   OPAA(s.id=="i62", p.id=="hasDriver", o.id=="i61") 
+then 
+   invoker.invoke("test-table5-prp-inv2-query", "sqwrl:select", 0, true, new I("i62"), new I("i61"));  
+end
+Rule name: test-table7-cax-sco-query
+rule "test-table7-cax-sco-query" 
+when 
+   CAA(c=="Person", i.id=="i70") 
+then 
+   invoker.invoke("test-table7-cax-sco-query", "sqwrl:select", 0, true, new I("i70"));  
+end

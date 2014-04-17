@@ -1,0 +1,932 @@
+Running tests with rule engine Drools
+Running test AlphabeticallyLastTwoNames...Axiom: CDA(swrlxml:XMLElement2PropertyValueMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_SCO)
+Axiom: DPAA(Treatment_1, temporal:hasFinishTime, L("2010-02-10T00:00:00", xsd:dateTime))
+Axiom: OPAA(F1, hasTreatment, t6)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_INV2)
+Axiom: RDPA(swrlxml:hasSuperClassName, xsd:string)
+Axiom: FDPA(hasManufactureDate)
+Axiom: FDPA(hasDescription)
+Axiom: OPDA(hasCar)
+Axiom: DDPA(temporal:hasCount, temporal:Duration)
+Axiom: CAA(temporal:Granularity, temporal:Milliseconds)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXC2)
+Axiom: DPAA(F3, hasName, L("Claudi", xsd:string))
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_FP)
+Axiom: DPDA(swrlxml:hasDefiningClassName)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_THING)
+Axiom: DOPA(swrlxml:hasMappedIndividuals, swrlxml:XMLElement)
+Axiom: OPDA(swrlxml:hasSubElements)
+Axiom: DDPA(swrlxml:hasName, CEID0)
+Axiom: SCA(swrlxml:XMLElementDataPropertyMap, swrlxml:XMLElement2PropertyMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_HV)
+Axiom: DOPA(protege:FROM, protege:DIRECTED-BINARY-RELATION)
+Axiom: DOPA(swrlxml:hasRootElement, swrlxml:XMLDocument)
+Axiom: DPAA(M3, hasName, L("Joe", xsd:string))
+Axiom: CDA(swrlxml:XMLElementObjectPropertyMap)
+Axiom: CDA(swrlxml:XMLElement2ClassMap)
+Axiom: FOPA(swrlxml:hasRootElement)
+Axiom: OPAA(sale3, hasProduct, BMW)
+Axiom: DIA(M2, F2)
+Axiom: DIA(M2, M1)
+Axiom: DIA(M2, F1)
+Axiom: DIA(M2, M3)
+Axiom: DIA(M2, F3)
+Axiom: DIA(M1, F2)
+Axiom: DIA(M1, M2)
+Axiom: DIA(M1, F1)
+Axiom: DIA(M1, M3)
+Axiom: DIA(M1, F3)
+Axiom: DIA(F2, M1)
+Axiom: DIA(F2, M2)
+Axiom: DIA(F2, F1)
+Axiom: DIA(F2, M3)
+Axiom: DIA(F2, F3)
+Axiom: DIA(M3, F2)
+Axiom: DIA(M3, M1)
+Axiom: DIA(M3, M2)
+Axiom: DIA(M3, F1)
+Axiom: DIA(M3, F3)
+Axiom: DIA(F1, F2)
+Axiom: DIA(F1, M1)
+Axiom: DIA(F1, M2)
+Axiom: DIA(F1, M3)
+Axiom: DIA(F1, F3)
+Axiom: DIA(F3, F2)
+Axiom: DIA(F3, M1)
+Axiom: DIA(F3, M2)
+Axiom: DIA(F3, F1)
+Axiom: DIA(F3, M3)
+Axiom: DPAA(t2, temporal:hasStartTime, L("2008-02-25T00:00:00", xsd:dateTime))
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_TRP)
+Axiom: FDPA(swrla:isRuleEnabled)
+Axiom: DPDA(hasNumberOfTreatments)
+Axiom: SIA(BMW, BMW)
+Axiom: SIA(BMW, Beemer)
+Axiom: SIA(Beemer, Beemer)
+Axiom: SIA(Beemer, BMW)
+Axiom: DPAA(Suzuki, hasManufactureDate, L("2008-01-25", xsd:date))
+Axiom: CAA(Drug, AZT)
+Axiom: CDA(temporal:ValidTime)
+Axiom: DPDA(hasRadius)
+Axiom: RDPA(swrlxml:hasPropertyName, xsd:string)
+Axiom: FOPA(hasState)
+Axiom: FDPA(temporal:hasTime)
+Axiom: DPAA(Treatment_1, hasDose, L(7.4, xsd:double))
+Axiom: DPAA(F2, hasDOB, L("1977-03-25", xsd:date))
+Axiom: DPDA(swrlxml:hasSuperClassName)
+Axiom: SCA(swrlxml:XMLAttribute2InstanceMap, swrlxml:XMLAttributeMap)
+Axiom: CAA(Circle, circle1)
+Axiom: OPDA(swrlxml:hasElements)
+Axiom: ROPA(swrlxml:hasAttributes, swrlxml:XMLAttribute)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REP_O)
+Axiom: CAA(Treatment, t3)
+Axiom: FDPA(hasAge)
+Axiom: SCA(swrlxml:XMLAttribute2ObjectPropertyPropertyValueMap, swrlxml:XMLAttribute2ObjectPropertyValueMap)
+Axiom: DPDA(swrlxml:hasKeyAttributePrefix)
+Axiom: DDPA(swrla:isRuleEnabled, swrl:Imp)
+Axiom: DPAA(t1, temporal:hasStartTime, L("2007-05-15T00:00:00", xsd:dateTime))
+Axiom: DDPA(swrlxml:hasNamespace, swrlxml:XMLDocumentMap)
+Axiom: SCA(Treatment, temporal:ValidPeriod)
+Axiom: DDPA(hasDOB, Person)
+Axiom: DPAA(Treatment_1, temporal:hasStartTime, L("2010-03-10T00:00:00", xsd:dateTime))
+Axiom: FDPA(swrlxml:hasSuperPropertyName)
+Axiom: FDPA(swrla:isRuleGroupEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_OP)
+Axiom: CAA(Sale, sale2)
+Axiom: CAA(Treatment, t1)
+Axiom: RDPA(hasDOB, xsd:date)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_KEY)
+Axiom: CDA(swrlxml:XMLElement2DataPropertyValueMap)
+Axiom: DPDA(rdfs:comment)
+Axiom: DPAA(M2, hasManufactureDate, L("1999-12-12", xsd:string))
+Axiom: CDA(swrlxml:XMLDocumentMap)
+Axiom: CAA(temporal:Granularity, temporal:Months)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_HV1)
+Axiom: DOPA(hasState, Sale)
+Axiom: SCA(swrlxml:XMLElementMap, swrlxml:XMLMap)
+Axiom: CAA(Car, Beemer)
+Axiom: DPAA(circle1, hasRadius, L(12.5, xsd:double))
+Axiom: SCA(swrlxml:XMLElementObjectPropertyMap, swrlxml:XMLElement2PropertyMap)
+Axiom: CDA(Person)
+Axiom: SCA(Sale, owl:Thing)
+Axiom: OPDA(temporal:hasGranularity)
+Axiom: DPDA(protege:PAL-DESCRIPTION)
+Axiom: DPAA(vi2, temporal:hasTime, L("2007-10-15T00:00:00", xsd:dateTime))
+Axiom: CAA(temporal:Granularity, temporal:Minutes)
+Axiom: RDPA(hasAmount, xsd:double)
+Axiom: CDA(Car)
+Axiom: DPAA(Treatment_2, temporal:hasStartTime, L("2013-02-17T00:00:00", xsd:dateTime))
+Axiom: DPAA(sale2, temporal:hasTime, L("2009-10-21T00:00:00", xsd:dateTime))
+Axiom: DPDA(hasAnyTypeProperty)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SVF2)
+Axiom: DDPA(swrlxml:hasPropertyName, CEID1)
+Axiom: DPAA(t6, temporal:hasFinishTime, L("2009-11-28T00:00:00", xsd:dateTime))
+Axiom: FDPA(swrla:isOWL2RLRuleEnabled)
+Axiom: ROPA(swrlxml:hasElement2PropertyValueMaps, swrlxml:XMLElement2PropertyValueMap)
+Axiom: DDPA(swrla:isRuleGroupEnabled, swrla:RuleGroup)
+Axiom: CDA(State)
+Axiom: DPAA(M3, hasAge, L(12, xsd:integer))
+Axiom: OPDA(hasDrug)
+Axiom: CDA(temporal:Entity)
+Axiom: SCA(temporal:Duration, temporal:Entity)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REF)
+Axiom: FDPA(swrlxml:hasNamespace)
+Axiom: RDPA(swrlxml:hasDefiningClassName, xsd:string)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_EQ)
+Axiom: CDA(swrlxml:XMLAttribute2ObjectPropertyInstanceValueMap)
+Axiom: SCA(swrlxml:XMLDocumentMap, swrlxml:XMLMap)
+Axiom: SCA(Male, Person)
+Axiom: CDA(swrlxml:XMLElement2ObjectPropertyInstanceValueMap)
+Axiom: RDPA(hasRadius, xsd:double)
+Axiom: RDPA(swrlxml:hasNamespace, xsd:string)
+Axiom: OPAA(F1, hasTreatment, t5)
+Axiom: OPAA(F2, hasTreatment, t4)
+Axiom: ROPA(swrlxml:hasAttribute2PropertyValueMaps, swrlxml:XMLAttribute2PropertyValueMap)
+Axiom: DPDA(swrlxml:hasName)
+Axiom: SCA(swrlxml:XMLAttribute2ObjectPropertyMap, swrlxml:XMLAttribute2PropertyMap)
+Axiom: CAA(temporal:ValidInstant, vi1)
+Axiom: CAA(Car, Porsche)
+Axiom: CAA(Female, F2)
+Axiom: CDA(Shape)
+Axiom: DOPA(hasCar, Person)
+Axiom: DPAA(sale4, hasAmount, L(8989.0, xsd:double))
+Axiom: OPAA(t2, temporal:hasGranularity, temporal:Minutes)
+Axiom: OPAA(sale4, hasProduct, Honda)
+Axiom: CAA(temporal:Granularity, temporal:Hours)
+Axiom: DPDA(swrlxml:hasContent)
+Axiom: SCA(swrlxml:XMLElement2ObjectPropertyValueMap, swrlxml:XMLElement2PropertyValueMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC3)
+Axiom: DPDA(hasDose)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_AVF2)
+Axiom: DPDA(swrlxml:hasClassName)
+Axiom: RDPA(swrlxml:hasClassName, xsd:string)
+Axiom: DOPA(swrlxml:hasElementMaps, swrlxml:XMLDocumentMap)
+Axiom: OPAA(t6, temporal:hasGranularity, temporal:Seconds)
+Axiom: FDPA(swrlxml:hasElementName)
+Axiom: FDPA(swrlxml:hasAttributeName)
+Axiom: CAA(Male, M1)
+Axiom: DPAA(t1, temporal:hasFinishTime, L("2007-06-15T00:00:00", xsd:dateTime))
+Axiom: CAA(Treatment, t6)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_INT1)
+Axiom: FDPA(swrlxml:hasPropertyName)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_UNI)
+Axiom: RDPA(temporal:hasTime, xsd:dateTime)
+Axiom: ROPA(swrlxml:hasSubElements, swrlxml:XMLElement)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXC1)
+Axiom: OPAA(t4, temporal:hasGranularity, temporal:Days)
+Axiom: OPAA(vp1, temporal:hasGranularity, temporal:Seconds)
+Axiom: FDPA(hasName)
+Axiom: DDPA(swrlxml:hasClassName, CEID2)
+Axiom: FDPA(swrlxml:hasXSDType)
+Axiom: RDPA(hasDescription, xsd:string)
+Axiom: SCA(swrlxml:XMLElement2ObjectPropertyInstanceValueMap, swrlxml:XMLElement2ObjectPropertyValueMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_COM)
+Axiom: OPAA(t5, temporal:hasGranularity, temporal:Hours)
+Axiom: RDPA(swrla:isRuleEnabled, xsd:boolean)
+Axiom: DDPA(hasAnyTypeProperty, Shape)
+Axiom: OPAA(sale4, temporal:hasGranularity, temporal:Days)
+Axiom: CDA(swrlxml:XMLAttribute2InstanceMap)
+Axiom: RDPA(swrlxml:hasTargetClassPrefix, xsd:string)
+Axiom: CAA(State, NV)
+Axiom: CDA(swrlxml:XMLAttribute2ObjectPropertyValueMap)
+Axiom: DDPA(swrlxml:hasKeyAttributePrefix, swrlxml:XMLElement2ObjectPropertyInstanceValueMap)
+Axiom: CAA(temporal:Granularity, temporal:Days)
+Axiom: DDPA(swrlxml:hasXSDType, CEID3)
+Axiom: OPDA(hasProduct)
+Axiom: DPDA(swrla:hasBuiltInPhrase)
+Axiom: DPDA(swrla:hasBuiltInPhrase)
+Axiom: DOPA(swrlxml:hasSubElements, swrlxml:XMLElement)
+Axiom: CDA(swrlxml:XMLElement2PropertyMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_DIFF1)
+Axiom: DPDA(swrla:hasPropertyPhrase)
+Axiom: DPAA(t3, temporal:hasFinishTime, L("2009-08-20T00:00:00", xsd:dateTime))
+Axiom: DPAA(Honda, hasManufactureTime, L("09:09:09", xsd:time))
+Axiom: DPDA(swrla:hasPropertyPhrase)
+Axiom: SCA(swrlxml:XMLAttribute2ClassMap, swrlxml:XMLAttributeMap)
+Axiom: FDPA(swrlxml:hasName)
+Axiom: CDA(swrlxml:XMLAttribute2ClassMap)
+Axiom: CDA(Male)
+Axiom: RDPA(swrlxml:hasName, xsd:string)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_DOM2)
+Axiom: DPAA(BMW, hasManufactureTime, L("09:09:09", xsd:time))
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_DW)
+Axiom: CAA(Treatment, t2)
+Axiom: DPAA(M1, hasDOB, L("2000-04-25", xsd:date))
+Axiom: OPAA(M1, hasCar, BMW)
+Axiom: RDPA(swrla:isOWL2RLRuleEnabled, xsd:boolean)
+Axiom: RDPA(rdfs:comment, xsd:string)
+Axiom: DDPA(hasManufactureTime, CEID4)
+Axiom: CDA(Triangle)
+Axiom: FDPA(hasDose)
+Axiom: CDA(swrlxml:XMLAttribute2ObjectPropertyMap)
+Axiom: SCA(swrlxml:XMLAttribute2ObjectPropertyValueMap, swrlxml:XMLAttribute2PropertyValueMap)
+Axiom: FDPA(swrlxml:hasKeyAttributeName)
+Axiom: DPAA(M2, hasAge, L(66, xsd:integer))
+Axiom: OPAA(F1, hasSales, sale3)
+Axiom: CDA(swrlxml:XMLElement2ObjectPropertyPropertyValueMap)
+Axiom: FDPA(swrlxml:hasClassName)
+Axiom: OPAA(F1, hasSales, sale1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_AP)
+Axiom: CDA(swrlxml:XMLAttribute)
+Axiom: SCA(temporal:Proposition, temporal:Entity)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_IFP)
+Axiom: CAA(temporal:ValidInstant, vi2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_NOTHING2)
+Axiom: FDPA(swrlxml:hasContent)
+Axiom: SCA(Person, owl:Thing)
+Axiom: OPAA(Treatment_1, temporal:hasGranularity, temporal:Seconds)
+Axiom: CDA(swrlxml:XMLAttribute2PropertyMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SPO)
+Axiom: OPDA(swrlxml:hasAttribute2PropertyValueMaps)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_EQC1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_NOT_TYPE)
+Axiom: DDPA(protege:PAL-RANGE, protege:PAL-CONSTRAINT)
+Axiom: OPAA(t1, hasDrug, DDI)
+Axiom: DPAA(F2, hasName, L("Batty", xsd:string))
+Axiom: DPDA(hasDescription)
+Axiom: RDPA(hasCode, xsd:string)
+Axiom: DDPA(swrlxml:hasNamespaceURI, CEID0)
+Axiom: FDPA(swrlxml:hasNamespacePrefix)
+Axiom: DPAA(sale3, hasAmount, L(67675.0, xsd:double))
+Axiom: FDPA(hasManufactureTime)
+Axiom: DDPA(hasAmount, Sale)
+Axiom: OPAA(sale2, temporal:hasGranularity, temporal:Days)
+Axiom: DDPA(hasRadius, Circle)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_AVF)
+Axiom: SCA(Convertible, Car)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_SFV2)
+Axiom: DPDA(swrlxml:hasValue)
+Axiom: DPDA(protege:PAL-NAME)
+Axiom: CDA(temporal:ExtendedProposition)
+Axiom: OPDA(swrlxml:hasAttributeMaps)
+Axiom: CDA(swrlxml:Entity)
+Axiom: DOPA(hasProduct, Sale)
+Axiom: CDA(Product)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQC1)
+Axiom: DPAA(t5, temporal:hasStartTime, L("2009-01-30T00:00:00", xsd:dateTime))
+Axiom: DPDA(swrlxml:hasAttributePrefix)
+Axiom: CDA(swrl:Imp)
+Axiom: DPAA(Honda, hasManufactureDate, L("2004-11-08", xsd:date))
+Axiom: OPDA(protege:TO)
+Axiom: OPDA(swrlxml:hasRootElement)
+Axiom: DPAA(sale4, temporal:hasTime, L("2009-09-21T00:00:00", xsd:dateTime))
+Axiom: RDPA(temporal:hasStartTime, xsd:dateTime)
+Axiom: SCA(temporal:ValidPeriod, temporal:ValidTime)
+Axiom: RDPA(swrlxml:hasNamespaceURI, xsd:string)
+Axiom: CAA(Sale, sale4)
+Axiom: DDPA(swrlxml:hasValue, swrlxml:XMLAttribute)
+Axiom: FDPA(temporal:hasStartTime)
+Axiom: DDPA(swrlxml:hasAttributePrefix, swrlxml:XMLAttributeMap)
+Axiom: DDPA(hasDose, Treatment)
+Axiom: ROPA(temporal:hasValidTime, temporal:ValidTime)
+Axiom: OPAA(t6, hasDrug, DDI)
+Axiom: ROPA(hasProduct, Product)
+Axiom: SCA(swrlxml:XMLElement, swrlxml:Entity)
+Axiom: CAA(State, FL)
+Axiom: DPAA(t6, temporal:hasStartTime, L("2009-01-28T00:00:00", xsd:dateTime))
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SCO)
+Axiom: RDPA(swrlxml:hasElementName, xsd:string)
+Axiom: DPAA(t4, temporal:hasStartTime, L("2009-10-29T00:00:00", xsd:dateTime))
+Axiom: OPDA(swrlxml:hasAttributes)
+Axiom: CDA(owl:Thing)
+Axiom: FDPA(swrlxml:hasSuperClassName)
+Axiom: CAA(State, ND)
+Axiom: OPDA(hasTreatment)
+Axiom: DPDA(temporal:hasCount)
+Axiom: DDPA(protege:PAL-NAME, protege:PAL-CONSTRAINT)
+Axiom: DPDA(swrla:hasRuleCategory)
+Axiom: SCA(swrlxml:XMLAttribute2ObjectPropertyInstanceValueMap, swrlxml:XMLAttribute2ObjectPropertyValueMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_NPA2)
+Axiom: CAA(temporal:Granularity, temporal:Seconds)
+Axiom: OPAA(sale3, temporal:hasGranularity, temporal:Days)
+Axiom: OPDA(hasState)
+Axiom: RDPA(hasManufactureDatetime, xsd:dateTime)
+Axiom: CAA(Sale, sale3)
+Axiom: FDPA(hasDOB)
+Axiom: SCA(Car, Product)
+Axiom: RDPA(hasDose, xsd:double)
+Axiom: CAA(Treatment, Treatment_2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_UNI)
+Axiom: CDA(temporal:Proposition)
+Axiom: DPAA(sale1, temporal:hasTime, L("2009-06-21T00:00:00", xsd:dateTime))
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_TRANS)
+Axiom: DDPA(swrlxml:hasSuperPropertyName, CEID5)
+Axiom: DPAA(Treatment_2, hasDose, L(33.0, xsd:double))
+Axiom: CDA(temporal:Duration)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_ADC)
+Axiom: CDA(swrlxml:XMLAttribute2PropertyValueMap)
+Axiom: OPAA(F3, hasTreatment, Treatment_2)
+Axiom: SCA(swrla:RuleGroup, swrla:Entity)
+Axiom: DPDA(swrlxml:hasSuperPropertyName)
+Axiom: OPAA(sale2, hasProduct, Suzuki)
+Axiom: OPDA(swrla:hasRuleGroup)
+Axiom: DPDA(swrla:hasRuleGroup)
+Axiom: DPDA(temporal:hasStartTime)
+Axiom: DPAA(Beemer, hasManufactureDate, L("2006-07-25", xsd:date))
+Axiom: DPAA(t3, temporal:hasStartTime, L("2008-12-19T00:00:00", xsd:dateTime))
+Axiom: SCA(temporal:ValidTime, temporal:Entity)
+Axiom: CDA(swrlxml:XMLElement2ObjectPropertyValueMap)
+Axiom: RDPA(temporal:hasFinishTime, xsd:dateTime)
+Axiom: OPAA(sale2, hasState, NY)
+Axiom: RDPA(swrlxml:hasAttributeName, xsd:string)
+Axiom: SCA(swrlxml:XMLAttribute2DataPropertyMap, swrlxml:XMLAttribute2PropertyMap)
+Axiom: FDPA(swrlxml:hasAttributePrefix)
+Axiom: SCA(Person, CEID6)
+Axiom: CDA(swrlxml:XMLAttribute2DataPropertyMap)
+Axiom: DDPA(protege:PAL-DESCRIPTION, protege:PAL-CONSTRAINT)
+Axiom: RDPA(swrlxml:hasAttributePrefix, xsd:string)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_IRP)
+Axiom: ROPA(swrlxml:hasElements, swrlxml:XMLElement)
+Axiom: ROPA(swrlxml:hasAttributeMaps, swrlxml:XMLAttributeMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_SVF1)
+Axiom: FDPA(swrlxml:hasKeyAttributePrefix)
+Axiom: DOPA(hasDrug, Treatment)
+Axiom: CDA(protege:PAL-CONSTRAINT)
+Axiom: DPDA(hasCode)
+Axiom: ROPA(hasSales, Sale)
+Axiom: OPDA(swrlxml:hasElementMaps)
+Axiom: DPAA(t3, hasDose, L(4.3, xsd:double))
+Axiom: DPAA(sale3, temporal:hasTime, L("2009-07-21T00:00:00", xsd:dateTime))
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC4)
+Axiom: RDPA(hasAge, xsd:int)
+Axiom: SCA(swrlxml:XMLAttribute2DataPropertyValueMap, swrlxml:XMLAttribute2PropertyValueMap)
+Axiom: CAA(Male, M3)
+Axiom: DPDA(swrlxml:hasKeyPropertyName)
+Axiom: CDA(Drug)
+Axiom: FOPA(temporal:hasGranularity)
+Axiom: OPDA(temporal:hasValidTime)
+Axiom: DDPA(temporal:hasStartTime, temporal:ValidPeriod)
+Axiom: SCA(Female, Person)
+Axiom: DPAA(F3, hasManufactureDate, L("1999-12-12", xsd:string))
+Axiom: OPAA(F3, hasCar, Suzuki)
+Axiom: OPAA(M2, hasCar, Suzuki)
+Axiom: CAA(State, SD)
+Axiom: SCA(Drug, owl:Thing)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REP_P)
+Axiom: SCA(swrlxml:XMLElement2ObjectPropertyPropertyValueMap, swrlxml:XMLElement2ObjectPropertyValueMap)
+Axiom: CDA(swrlxml:XMLAttribute2ObjectPropertyPropertyValueMap)
+Axiom: RDPA(swrlxml:hasKeyAttributeName, xsd:string)
+Axiom: DDPA(swrlxml:hasKeyPropertyName, swrlxml:XMLElement2ObjectPropertyInstanceValueMap)
+Axiom: DPDA(swrlxml:hasNamespaceURI)
+Axiom: DOPA(hasTreatment, Person)
+Axiom: CAA(Female, F1)
+Axiom: CDA(temporal:ValidPeriod)
+Axiom: DOPA(protege:SLOT-CONSTRAINTS, owl:Thing)
+Axiom: OPAA(t3, hasDrug, DDI)
+Axiom: OPDA(swrlxml:hasMappedIndividuals)
+Axiom: DPDA(swrla:hasClassPhrase)
+Axiom: SCA(swrla:OWL2RLRule, swrla:Entity)
+Axiom: DPDA(swrla:hasClassPhrase)
+Axiom: OPAA(t2, hasDrug, AZT)
+Axiom: CDA(swrlxml:XMLMap)
+Axiom: DPAA(M2, hasName, L("Bob", xsd:string))
+Axiom: OPAA(F2, hasTreatment, Treatment_1)
+Axiom: CDA(Convertible)
+Axiom: DDPA(hasName, CEID7)
+Axiom: DPAA(M1, hasName, L("Andy", xsd:string))
+Axiom: DPDA(swrlxml:hasNamespace)
+Axiom: SCA(Drug, temporal:ValidPeriod)
+Axiom: DOPA(temporal:hasGranularity, CEID8)
+Axiom: DPDA(swrlxml:hasNamespacePrefix)
+Axiom: RDPA(swrlxml:hasNamespacePrefix, xsd:string)
+Axiom: SCA(temporal:ValidInstant, temporal:ValidTime)
+Axiom: ROPA(hasTreatment, Treatment)
+Axiom: DPDA(hasManufactureTime)
+Axiom: SCA(swrlxml:XMLElement2ObjectPropertyClassValueMap, swrlxml:XMLElement2ObjectPropertyValueMap)
+Axiom: SCA(temporal:Granularity, temporal:Entity)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_CLS)
+Axiom: DOPA(swrla:hasRuleGroup, swrl:Imp)
+Axiom: CAA(State, CA)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_RNG2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_ADP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_ASYP)
+Axiom: SCA(Treatment, owl:Thing)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_DIFF3)
+Axiom: OPAA(t3, temporal:hasGranularity, temporal:Minutes)
+Axiom: DPAA(t4, temporal:hasFinishTime, L("2009-11-28T00:00:00", xsd:dateTime))
+Axiom: DPDA(swrla:isRuleEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_NPA1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQP2)
+Axiom: DPDA(swrla:isRuleEnabled)
+Axiom: FDPA(hasNumberOfTreatments)
+Axiom: DDPA(hasNumberOfTreatments, Person)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_DOM)
+Axiom: SCA(swrlxml:XMLAttribute2PropertyMap, swrlxml:XMLAttributeMap)
+Axiom: ROPA(swrlxml:hasRootElement, swrlxml:XMLElement)
+Axiom: OPAA(M3, hasCar, Honda)
+Axiom: OPDA(protege:SLOT-CONSTRAINTS)
+Axiom: CAA(Female, F3)
+Axiom: FDPA(hasRadius)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_INV1)
+Axiom: SCA(Circle, Shape)
+Axiom: DDPA(swrlxml:hasElementName, swrlxml:XMLElementMap)
+Axiom: SCA(swrlxml:XMLAttribute2PropertyValueMap, swrlxml:XMLAttributeMap)
+Axiom: DPDA(hasManufactureDate)
+Axiom: SCA(swrlxml:XMLAttributeMap, swrlxml:XMLMap)
+Axiom: CDA(temporal:Granularity)
+Axiom: FDPA(temporal:hasCount)
+Axiom: DPAA(vi1, temporal:hasTime, L("2007-05-25T00:00:00", xsd:dateTime))
+Axiom: DPAA(t5, hasDose, L(9.0, xsd:double))
+Axiom: CAA(Male, M2)
+Axiom: RDPA(swrlxml:hasContent, xsd:string)
+Axiom: CAA(State, NY)
+Axiom: DPAA(t2, hasDose, L(4.3, xsd:double))
+Axiom: OPAA(F1, hasSales, sale2)
+Axiom: RDPA(swrlxml:hasKeyPropertyName, xsd:string)
+Axiom: OPAA(F2, hasCar, Honda)
+Axiom: OPAA(F1, hasTreatment, t1)
+Axiom: RDPA(swrla:hasPropertyPhrase, xsd:string)
+Axiom: OPAA(F2, hasCar, BMW)
+Axiom: OPAA(sale1, hasState, NV)
+Axiom: DPDA(swrlxml:hasTargetClassPrefix)
+Axiom: FOPA(hasDrug)
+Axiom: SCA(swrlxml:XMLAttribute2ObjectPropertyClassValueMap, swrlxml:XMLAttribute2ObjectPropertyValueMap)
+Axiom: DPAA(BMW, hasDescription, L("This is a fast car.", xsd:string))
+Axiom: DPAA(t2, temporal:hasFinishTime, L("2008-04-28T00:00:00", xsd:dateTime))
+Axiom: OPAA(t4, hasDrug, DDI)
+Axiom: DPDA(swrla:isRuleGroupEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_DIFF2)
+Axiom: OPAA(sale1, hasProduct, Honda)
+Axiom: RDPA(swrlxml:hasSuperPropertyName, xsd:string)
+Axiom: DIA(F2, F1)
+Axiom: DIA(F1, F2)
+Axiom: DPDA(temporal:hasTime)
+Axiom: DPDA(temporal:hasFinishTime)
+Axiom: DPDA(hasAge)
+Axiom: OPAA(M3, hasCar, BMW)
+Axiom: CAA(Car, BMW)
+Axiom: OPAA(F3, hasCar, Honda)
+Axiom: CDA(temporal:ValidInstant)
+Axiom: RDPA(hasName, xsd:string)
+Axiom: FDPA(swrlxml:hasDefiningClassName)
+Axiom: OPAA(F2, hasTreatment, t3)
+Axiom: CAA(Car, Honda)
+Axiom: OPAA(M2, hasCar, BMW)
+Axiom: DPDA(hasDOB)
+Axiom: DDPA(temporal:hasTime, temporal:ValidInstant)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_NOTHING1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_DIFF)
+Axiom: CAA(Sale, sale1)
+Axiom: SCA(swrlxml:XMLElement2PropertyMap, swrlxml:XMLElementMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC2)
+Axiom: CDA(swrlxml:XMLAttribute2ObjectPropertyClassValueMap)
+Axiom: DPAA(M1, hasManufactureDate, L("1999-12-12", xsd:string))
+Axiom: DPAA(F1, hasName, L("Anne", xsd:string))
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_TYPE1)
+Axiom: DPDA(swrla:isOWL2RLRuleEnabled)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_RNG1)
+Axiom: DPDA(swrla:isOWL2RLRuleEnabled)
+Axiom: OPAA(sale1, temporal:hasGranularity, temporal:Days)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQC2)
+Axiom: OPDA(protege:FROM)
+Axiom: SCA(swrlxml:XMLElement2ClassMap, swrlxml:XMLElementMap)
+Axiom: DPAA(M3, hasDOB, L("1988-07-25", xsd:date))
+Axiom: DDPA(temporal:hasFinishTime, temporal:ValidPeriod)
+Rule name: AdultRule
+rule "AdultRule" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasAge", $age:o) 
+   BAP(a1==$age) from invoker.invoke("AdultRule", "swrlb:greaterThan", 0, false, new VPATH(), new BAVNs("age", ""), $age, new L("17", "xsd:integer")) 
+then 
+   CAA caa0=new CAA("Adult", new I($p)); inferrer.infer(caa0);  
+end
+Axiom: DDPA(swrlxml:hasAttributeName, swrlxml:XMLAttributeMap)
+Axiom: CAA(temporal:ValidPeriod, vp1)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_RNG)
+Axiom: SCA(Adult, Person)
+Axiom: DPAA(sale1, hasAmount, L(3443.0, xsd:double))
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_OO)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_EQP1)
+Axiom: DPDA(hasAmount)
+Axiom: RDPA(hasNumberOfTreatments, xsd:int)
+Axiom: RDPA(temporal:hasCount, xsd:int)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_SFV1)
+Axiom: DDPA(swrlxml:hasTargetClassPrefix, CEID9)
+Axiom: DOPA(swrlxml:hasAttribute2PropertyValueMaps, CEID10)
+Axiom: FDPA(swrlxml:hasValue)
+Axiom: DOPA(swrlxml:hasElement2PropertyValueMaps, CEID10)
+Axiom: CDA(swrlxml:XMLElement2InstanceMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_INT2)
+Axiom: OPAA(F2, hasTreatment, t2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_PDW)
+Axiom: RDPA(swrla:isRuleGroupEnabled, xsd:boolean)
+Axiom: CDA(swrla:RuleGroup)
+Axiom: OPAA(t5, hasDrug, DDI)
+Axiom: DDPA(swrlxml:hasKeyAttributeName, swrlxml:XMLElement2ObjectPropertyInstanceValueMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:DT_TYPE2)
+Axiom: DDPA(hasDescription, Car)
+Axiom: SCA(swrlxml:XMLElement2DataPropertyValueMap, swrlxml:XMLElement2PropertyValueMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CAX_EQC2)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_EQP1)
+Axiom: SCA(Square, Shape)
+Axiom: DPAA(F3, hasAge, L(7, xsd:integer))
+Axiom: CDA(swrla:OWL2RLRule)
+Axiom: DDPA(hasAge, Person)
+Axiom: FDPA(swrlxml:hasTargetClassPrefix)
+Axiom: DDPA(protege:PAL-STATEMENT, protege:PAL-CONSTRAINT)
+Axiom: CDA(swrlxml:XMLDocument)
+Axiom: CDA(swrlxml:XMLElement)
+Axiom: DPAA(vp1, temporal:hasFinishTime, L("2008-05-15T00:00:00", xsd:dateTime))
+Axiom: DPDA(swrlxml:hasXSDType)
+Axiom: DPAA(BMW, hasManufactureDate, L("2000-06-08", xsd:date))
+Axiom: OPAA(F3, hasCar, BMW)
+Axiom: CDA(swrla:Entity)
+Axiom: CDA(Adult)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_SPO2)
+Axiom: ROPA(temporal:hasGranularity, temporal:Granularity)
+Axiom: CDA(Female)
+Axiom: SCA(Sale, temporal:ValidInstant)
+Axiom: CDA(swrlxml:XMLElement2ObjectPropertyClassValueMap)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_SPO1)
+Axiom: CAA(Treatment, t5)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_INT)
+Axiom: DDPA(swrlxml:hasDefiningClassName, CEID11)
+Axiom: OPAA(Treatment_2, hasDrug, AZT)
+Axiom: CAA(Drug, DDI)
+Axiom: DPDA(protege:PAL-RANGE)
+Axiom: DPDA(hasManufactureDatetime)
+Axiom: CDA(swrlxml:XMLElementMap)
+Axiom: OPAA(M3, hasCar, Suzuki)
+Axiom: CAA(temporal:Granularity, temporal:Years)
+Axiom: ROPA(swrla:hasRuleGroup, swrla:RuleGroup)
+Axiom: SCA(temporal:ExtendedProposition, temporal:Proposition)
+Axiom: SCA(swrlxml:XMLMap, swrlxml:Entity)
+Axiom: SCA(swrlxml:XMLElement2InstanceMap, swrlxml:XMLElementMap)
+Axiom: CAA(Car, Suzuki)
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_EQP2)
+Axiom: CDA(swrlxml:XMLAttributeMap)
+Axiom: DPDA(swrlxml:hasKeyAttributeName)
+Axiom: DPAA(t4, hasDose, L(7.4, xsd:double))
+Axiom: CAA(swrla:OWL2RLRule, swrla:PRP_SYMP)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_REP_S)
+Axiom: CDA(Sale)
+Axiom: RDPA(swrlxml:hasXSDType, xsd:string)
+Axiom: DPAA(F1, hasManufactureDate, L("1999-12-12", xsd:string))
+Axiom: DOPA(temporal:hasValidTime, temporal:ExtendedProposition)
+Axiom: DPAA(sale2, hasAmount, L(786868.0, xsd:double))
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_MAXQC1)
+Axiom: DDPA(swrlxml:hasNamespacePrefix, CEID0)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_DOM1)
+Axiom: DPAA(F3, hasDOB, L("1992-06-25", xsd:date))
+Axiom: RDPA(swrlxml:hasKeyAttributePrefix, xsd:string)
+Axiom: SCA(swrlxml:XMLDocument, swrlxml:Entity)
+Axiom: DPAA(t5, temporal:hasFinishTime, L("2009-12-30T00:00:00", xsd:dateTime))
+Axiom: DPAA(F1, hasAge, L(77, xsd:integer))
+Axiom: CDA(Square)
+Axiom: FOPA(hasProduct)
+Axiom: DPDA(swrlxml:hasPropertyName)
+Axiom: FDPA(swrlxml:hasKeyPropertyName)
+Axiom: DPDA(protege:PAL-STATEMENT)
+Axiom: OPAA(sale3, hasState, FL)
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_AVF1)
+Axiom: SCA(swrlxml:XMLElement2PropertyValueMap, swrlxml:XMLElementMap)
+Axiom: DPAA(F2, hasManufactureDate, L("1999-12-12", xsd:string))
+Axiom: CAA(swrla:OWL2RLRule, swrla:SCM_DP)
+Axiom: ROPA(hasState, State)
+Axiom: DPAA(t1, hasDose, L(3.0, xsd:double))
+Axiom: DPDA(swrlxml:hasElementName)
+Axiom: DDPA(hasManufactureDatetime, Shape)
+Axiom: FDPA(swrla:hasPropertyPhrase)
+Axiom: DPAA(vp1, temporal:hasStartTime, L("2007-08-15T00:00:00", xsd:dateTime))
+Axiom: DOPA(swrlxml:hasAttributes, swrlxml:XMLElement)
+Axiom: OPAA(F1, hasCar, BMW)
+Axiom: CDA(Treatment)
+Axiom: ROPA(swrlxml:hasElementMaps, swrlxml:XMLElementMap)
+Axiom: SCA(Triangle, Shape)
+Axiom: RDPA(swrla:hasClassPhrase, xsd:string)
+Axiom: DPDA(hasName)
+Axiom: OPAA(F2, hasSales, sale4)
+Axiom: CDA(protege:DIRECTED-BINARY-RELATION)
+Axiom: CAA(swrla:OWL2RLRule, swrla:CLS_HV2)
+Axiom: OPAA(sale4, hasState, ND)
+Axiom: OPDA(hasSales)
+Axiom: FDPA(swrlxml:hasNamespaceURI)
+Axiom: FDPA(swrla:hasBuiltInPhrase)
+Axiom: CDA(swrlxml:XMLElementDataPropertyMap)
+Axiom: DPAA(t6, hasDose, L(33.0, xsd:double))
+Axiom: OPAA(t1, temporal:hasGranularity, temporal:Days)
+Axiom: FDPA(swrla:hasClassPhrase)
+Axiom: FDPA(hasAmount)
+Axiom: OPAA(vi2, temporal:hasGranularity, temporal:Minutes)
+Axiom: OPAA(F1, hasCar, Porsche)
+Axiom: CAA(Treatment, t4)
+Axiom: DDPA(hasManufactureDate, CEID4)
+Axiom: DPAA(Treatment_2, temporal:hasFinishTime, L("2014-02-17T00:00:00", xsd:dateTime))
+Axiom: DPDA(swrlxml:hasAttributeName)
+Axiom: RDPA(hasManufactureDate, xsd:date)
+Axiom: RDPA(hasManufactureTime, xsd:time)
+Axiom: DOPA(protege:TO, protege:DIRECTED-BINARY-RELATION)
+Axiom: DPAA(Porsche, hasManufactureDate, L("2006-04-25", xsd:date))
+Axiom: CDA(swrlxml:XMLAttribute2DataPropertyValueMap)
+Axiom: RDPA(swrla:hasBuiltInPhrase, xsd:string)
+Axiom: CDA(owl:Nothing)
+Axiom: DDPA(swrlxml:hasContent, swrlxml:XMLElement)
+Axiom: SCA(swrlxml:XMLAttribute, swrlxml:Entity)
+Axiom: OPAA(Treatment_1, hasDrug, AZT)
+Axiom: CDA(Circle)
+Axiom: DOPA(swrlxml:hasElements, swrlxml:XMLDocument)
+Axiom: FDPA(temporal:hasFinishTime)
+Axiom: ROPA(hasDrug, Drug)
+Axiom: CAA(swrla:OWL2RLRule, swrla:EQ_SYM)
+Axiom: CAA(Treatment, Treatment_1)
+Axiom: OPDA(swrlxml:hasElement2PropertyValueMaps)
+Axiom: DOPA(hasSales, Person)
+Rule name: AlphabeticallySecondToFourthName
+rule "AlphabeticallySecondToFourthName" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallySecondToFourthName", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallySecondToFourthName", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallySecondToFourthName", "sqwrl:nthSlice", 2, true, new L("2", "xsd:integer"), new L("3", "xsd:integer"));  
+end
+Rule name: AlphabeticallyAllExceptLastTwoNames
+rule "AlphabeticallyAllExceptLastTwoNames" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyAllExceptLastTwoNames", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptLastTwoNames", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptLastTwoNames", "sqwrl:notLastN", 2, true, new L("2", "xsd:integer"));  
+end
+Rule name: AllNames
+rule "AllNames" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AllNames", "sqwrl:select", 0, true, $p, $name);  
+   invoker.invoke("AllNames", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AllNames", "sqwrl:columnNames", 2, true, new L("Person Names", "xsd:string"));  
+end
+Rule name: AllOWLObjectProperties
+rule "AllOWLObjectProperties" 
+when 
+   BAP($p:a1) from invoker.invoke("AllOWLObjectProperties", "tbox:isObjectProperty", 0, false, new VPATH(), new BAVNs("p"), new UBA("p")) 
+then 
+   invoker.invoke("AllOWLObjectProperties", "sqwrl:count", 0, true, $p);  
+end
+Rule name: AllAdults
+rule "AllAdults" 
+when 
+   CAA(c=="Adult", $p:i) 
+then 
+   invoker.invoke("AllAdults", "sqwrl:select", 0, true, $p);  
+   invoker.invoke("AllAdults", "sqwrl:orderBy", 1, true, $p);  
+end
+Rule name: Add
+rule "Add" 
+when 
+   BAP() from invoker.invoke("Add", "swrlb:add", 0, false, new VPATH(), new BAVNs("", "", ""), new L("4", "xsd:integer"), new L("2", "xsd:integer"), new L("2", "xsd:integer")) 
+then 
+   invoker.invoke("Add", "sqwrl:select", 0, true, new L("Yes!", "xsd:string"));  
+end
+Rule name: AlphabeticallyAllExceptThirdLastToSecondLastNames
+rule "AlphabeticallyAllExceptThirdLastToSecondLastNames" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyAllExceptThirdLastToSecondLastNames", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptThirdLastToSecondLastNames", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptThirdLastToSecondLastNames", "sqwrl:notNthLastSlice", 2, true, new L("3", "xsd:integer"), new L("2", "xsd:integer"));  
+end
+Rule name: AlphabeticallyAllExceptLastName
+rule "AlphabeticallyAllExceptLastName" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyAllExceptLastName", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptLastName", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptLastName", "sqwrl:notLastN", 2, true, new L("1", "xsd:integer"));  
+end
+Rule name: AllOWLProperties
+rule "AllOWLProperties" 
+when 
+   BAP($p:a1) from invoker.invoke("AllOWLProperties", "tbox:isProperty", 0, false, new VPATH(), new BAVNs("p"), new UBA("p")) 
+then 
+   invoker.invoke("AllOWLProperties", "sqwrl:count", 0, true, $p);  
+end
+Rule name: AddMilliseconds
+rule "AddMilliseconds" 
+when 
+   BAP($r:a1) from invoker.invoke("AddMilliseconds", "temporal:add", 0, false, new VPATH(), new BAVNs("r", "", "", ""), new UBA("r"), new L("1999-12-21T10:10:10.222", "xsd:string"), new L("111", "xsd:integer"), new I("temporal:Milliseconds")) 
+   BAP(a1==$r) from invoker.invoke("AddMilliseconds", "temporal:equals", 1, false, new VPATH(), new BAVNs("r", ""), $r, new L("1999-12-21T10:10:10.333", "xsd:string")) 
+then 
+   invoker.invoke("AddMilliseconds", "sqwrl:select", 0, true, new L("Yes!", "xsd:string"));  
+end
+Rule name: SubStringQuery
+rule "SubStringQuery" 
+when 
+   BAP($r:a1) from invoker.invoke("SubStringQuery", "swrlb:substringAfter", 0, false, new VPATH(), new BAVNs("r", "", ""), new UBA("r"), new L("http://a.com/MyOntology#Person", "xsd:string"), new L("#", "xsd:string")) 
+then 
+   invoker.invoke("SubStringQuery", "sqwrl:select", 0, true, $r);  
+end
+Rule name: AddNothing
+rule "AddNothing" 
+when 
+   BAP($r:a1) from invoker.invoke("AddNothing", "temporal:add", 0, false, new VPATH(), new BAVNs("r", "", "", ""), new UBA("r"), new L("1999-12-21T10:10:10.222", "xsd:string"), new L("0", "xsd:integer"), new I("temporal:Milliseconds")) 
+   BAP(a1==$r) from invoker.invoke("AddNothing", "temporal:equals", 1, false, new VPATH(), new BAVNs("r", ""), $r, new L("1999-12-21T10:10:10.222", "xsd:string")) 
+then 
+   invoker.invoke("AddNothing", "sqwrl:select", 0, true, new L("Yes!", "xsd:string"));  
+end
+Rule name: AllOWLClasses
+rule "AllOWLClasses" 
+when 
+   BAP($c:a1) from invoker.invoke("AllOWLClasses", "tbox:isClass", 0, false, new VPATH(), new BAVNs("c"), new UBA("c")) 
+then 
+   invoker.invoke("AllOWLClasses", "sqwrl:count", 0, true, $c);  
+end
+Rule name: AlphabeticallyLastTwoNames
+rule "AlphabeticallyLastTwoNames" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyLastTwoNames", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyLastTwoNames", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyLastTwoNames", "sqwrl:lastN", 2, true, new L("2", "xsd:integer"));  
+end
+Rule name: F1AndHerCars
+rule "F1AndHerCars" 
+when 
+   OPAA(s.id=="F1", p.id=="hasCar", $c:o) 
+then 
+   invoker.invoke("F1AndHerCars", "sqwrl:select", 0, true, new I("F1"), $c);  
+   invoker.invoke("F1AndHerCars", "sqwrl:orderBy", 1, true, $c);  
+end
+Rule name: AddSeconds
+rule "AddSeconds" 
+when 
+   BAP($r:a1) from invoker.invoke("AddSeconds", "temporal:add", 0, false, new VPATH(), new BAVNs("r", "", "", ""), new UBA("r"), new L("1999-12-21T10:10:10.222", "xsd:string"), new L("10", "xsd:integer"), new I("temporal:Seconds")) 
+   BAP(a1==$r) from invoker.invoke("AddSeconds", "temporal:equals", 1, false, new VPATH(), new BAVNs("r", ""), $r, new L("1999-12-21T10:10:20.222", "xsd:string")) 
+then 
+   invoker.invoke("AddSeconds", "sqwrl:select", 0, true, new L("Yes!", "xsd:string"));  
+end
+Rule name: AlphabeticallyAllExceptFirstName
+rule "AlphabeticallyAllExceptFirstName" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyAllExceptFirstName", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptFirstName", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptFirstName", "sqwrl:notFirstN", 2, true, new L("1", "xsd:integer"));  
+end
+Rule name: PowerCalculation
+rule "PowerCalculation" 
+when 
+   BAP($r:a1) from invoker.invoke("PowerCalculation", "swrlb:pow", 0, false, new VPATH(), new BAVNs("r", "", ""), new UBA("r"), new L("2.0", "xsd:double"), new L("-0.6", "xsd:double")) 
+then 
+   invoker.invoke("PowerCalculation", "sqwrl:select", 0, true, $r);  
+end
+Rule name: PersonsWithTreatmentsLastingMoreThan1Month
+rule "PersonsWithTreatmentsLastingMoreThan1Month" 
+when 
+   CAA(c=="Person", $p:i) 
+   OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+   DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+   DPAA(s==$t, p.id=="temporal:hasFinishTime", $finish:o) 
+   BAP($d:a1, a2==$start, a3==$finish) from invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "temporal:duration", 0, false, new VPATH($t, $p), new BAVNs("d", "start", "finish", ""), new UBA("d"), $start, $finish, new I("temporal:Months")) 
+   BAP(a1==$d) from invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "swrlb:greaterThan", 1, false, new VPATH($finish, $t, $start, $p), new BAVNs("d", ""), $d, new L("1", "xsd:integer")) 
+then 
+   invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "sqwrl:select", 0, true, $p, $d);  
+   invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "sqwrl:orderBy", 1, true, $p, $d);  
+   invoker.invoke("PersonsWithTreatmentsLastingMoreThan1Month", "sqwrl:columnNames", 2, true, new L("Person", "xsd:string"), new L("Months", "xsd:string"));  
+end
+Rule name: AlphabeticallyAllExceptFirstAndSecondName
+rule "AlphabeticallyAllExceptFirstAndSecondName" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyAllExceptFirstAndSecondName", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptFirstAndSecondName", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyAllExceptFirstAndSecondName", "sqwrl:notFirstN", 2, true, new L("2", "xsd:integer"));  
+end
+Rule name: AlphabeticallyThirdLastToSecondLastNames
+rule "AlphabeticallyThirdLastToSecondLastNames" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyThirdLastToSecondLastNames", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyThirdLastToSecondLastNames", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyThirdLastToSecondLastNames", "sqwrl:nthLastSlice", 2, true, new L("3", "xsd:integer"), new L("2", "xsd:integer"));  
+end
+Rule name: AddMonth
+rule "AddMonth" 
+when 
+   BAP($r:a1) from invoker.invoke("AddMonth", "temporal:add", 0, false, new VPATH(), new BAVNs("r", "", "", ""), new UBA("r"), new L("1999-1-21T10:10:10", "xsd:string"), new L("1", "xsd:integer"), new I("temporal:Months")) 
+   BAP(a1==$r) from invoker.invoke("AddMonth", "temporal:equals", 1, false, new VPATH(), new BAVNs("r", ""), $r, new L("1999-02-21T10:10:10.0", "xsd:string")) 
+then 
+   invoker.invoke("AddMonth", "sqwrl:select", 0, true, new L("Yes!", "xsd:string"));  
+end
+Rule name: Add10MinutesToTreatmentStartTime
+rule "Add10MinutesToTreatmentStartTime" 
+when 
+   OPAA(s.id=="F3", p.id=="hasTreatment", $t:o) 
+   DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+   BAP($startPlus10Minutes:a1, a2==$start) from invoker.invoke("Add10MinutesToTreatmentStartTime", "temporal:add", 0, false, new VPATH($t), new BAVNs("startPlus10Minutes", "start", "", ""), new UBA("startPlus10Minutes"), $start, new L("10", "xsd:integer"), new I("temporal:Minutes")) 
+   BAP(a1==$startPlus10Minutes) from invoker.invoke("Add10MinutesToTreatmentStartTime", "temporal:equals", 1, false, new VPATH($t, $start), new BAVNs("startPlus10Minutes", ""), $startPlus10Minutes, new L("2013-02-17T00:10:00.0", "xsd:string")) 
+then 
+   invoker.invoke("Add10MinutesToTreatmentStartTime", "sqwrl:select", 0, true, new L("Yes!", "xsd:string"));  
+end
+Rule name: AlphabeticallytLastName
+rule "AlphabeticallytLastName" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallytLastName", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallytLastName", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallytLastName", "sqwrl:lastN", 2, true, new L("1", "xsd:integer"));  
+end
+Rule name: AllDifferentsTest
+rule "AllDifferentsTest" 
+when 
+   DIA(i1.id=="F1", i2.id=="F2") 
+then 
+   invoker.invoke("AllDifferentsTest", "sqwrl:select", 0, true, new L("Different!", "xsd:string"));  
+end
+Rule name: NumberOfCars
+rule "NumberOfCars" 
+when 
+   CAA(c=="Car", $c:i) 
+then 
+   invoker.invoke("NumberOfCars", "sqwrl:count", 0, true, $c);  
+end
+Rule name: PersonAndCarCount
+rule "PersonAndCarCount" 
+when 
+   CAA(c=="Person", $p:i) 
+   OPAA(s==$p, p.id=="hasCar", $c:o) 
+then 
+   invoker.invoke("PersonAndCarCount", "sqwrl:select", 0, true, $p);  
+   invoker.invoke("PersonAndCarCount", "sqwrl:count", 1, true, $c);  
+   invoker.invoke("PersonAndCarCount", "sqwrl:orderBy", 2, true, $c, $p);  
+end
+Rule name: AlphabeticallyFirstAndFifthToLastName
+rule "AlphabeticallyFirstAndFifthToLastName" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AlphabeticallyFirstAndFifthToLastName", "sqwrl:select", 0, true, $name);  
+   invoker.invoke("AlphabeticallyFirstAndFifthToLastName", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AlphabeticallyFirstAndFifthToLastName", "sqwrl:notNthSlice", 2, true, new L("2", "xsd:integer"), new L("3", "xsd:integer"));  
+end
+Rule name: AllNamesLimitedTo2Results
+rule "AllNamesLimitedTo2Results" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasName", $name:o) 
+then 
+   invoker.invoke("AllNamesLimitedTo2Results", "sqwrl:select", 0, true, $p, $name);  
+   invoker.invoke("AllNamesLimitedTo2Results", "sqwrl:orderBy", 1, true, $name);  
+   invoker.invoke("AllNamesLimitedTo2Results", "sqwrl:columnNames", 2, true, new L("Person Names", "xsd:string"));  
+   invoker.invoke("AllNamesLimitedTo2Results", "sqwrl:limit", 3, true, new L("2", "xsd:integer"));  
+end
+Rule name: MaximumPersonAge
+rule "MaximumPersonAge" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasAge", $age:o) 
+then 
+   invoker.invoke("MaximumPersonAge", "sqwrl:max", 0, true, $age);  
+end
+Rule name: PersonsAndTreatmentDurations
+rule "PersonsAndTreatmentDurations" 
+when 
+   CAA(c=="Person", $p:i) 
+   OPAA(s==$p, p.id=="hasTreatment", $t:o) 
+   OPAA(s==$t, p.id=="hasDrug", $d:o) 
+   DPAA(s==$t, p.id=="temporal:hasStartTime", $start:o) 
+   DPAA(s==$t, p.id=="temporal:hasFinishTime", $finish:o) 
+   BAP($duration:a1, a2==$start, a3==$finish) from invoker.invoke("PersonsAndTreatmentDurations", "temporal:duration", 0, false, new VPATH($d, $t, $p), new BAVNs("duration", "start", "finish", ""), new UBA("duration"), $start, $finish, new I("temporal:Days")) 
+then 
+   invoker.invoke("PersonsAndTreatmentDurations", "sqwrl:select", 0, true, $p, $d, $duration);  
+   invoker.invoke("PersonsAndTreatmentDurations", "sqwrl:orderBy", 1, true, $p, $d, $duration);  
+end
+Rule name: AreaOfCircle
+rule "AreaOfCircle" 
+when 
+   CAA(c=="Circle", $c:i) 
+   DPAA(s==$c, p.id=="hasRadius", $r:o) 
+   BAP($area:a1, a3==$r) from invoker.invoke("AreaOfCircle", "swrlm:eval", 0, false, new VPATH($c), new BAVNs("area", "", "r"), new UBA("area"), new L(" pi r r", "xsd:string"), $r) 
+then 
+   invoker.invoke("AreaOfCircle", "sqwrl:select", 0, true, $r);  
+end
+Rule name: AverageAgeOfPersons
+rule "AverageAgeOfPersons" 
+when 
+   CAA(c=="Person", $p:i) 
+   DPAA(s==$p, p.id=="hasAge", $age:o) 
+then 
+   invoker.invoke("AverageAgeOfPersons", "sqwrl:avg", 0, true, $age);  
+end
