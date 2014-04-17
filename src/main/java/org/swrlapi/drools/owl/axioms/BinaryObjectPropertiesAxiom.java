@@ -18,4 +18,10 @@ public abstract class BinaryObjectPropertiesAxiom extends BinaryPropertiesAxiom<
 	{
 		return super.getT2();
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 }

@@ -43,4 +43,10 @@ public class DP extends P
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 }

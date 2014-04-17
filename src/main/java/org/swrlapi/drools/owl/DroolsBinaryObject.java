@@ -22,12 +22,6 @@ public abstract class DroolsBinaryObject<T1, T2>
 	}
 
 	@Override
-	public String toString()
-	{
-		return "(" + this.t1 + ", " + this.t2 + ")";
-	}
-
-	@Override
 	public boolean equals(Object obj)
 	{
 
@@ -50,5 +44,11 @@ public abstract class DroolsBinaryObject<T1, T2>
 		hash = hash + (null == getT2() ? 0 : getT2().hashCode());
 
 		return hash;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "(" + this.t1 + ", " + this.t2 + ")";
 	}
 }

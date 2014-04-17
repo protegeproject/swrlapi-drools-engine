@@ -43,4 +43,10 @@ public class D extends OE
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 }

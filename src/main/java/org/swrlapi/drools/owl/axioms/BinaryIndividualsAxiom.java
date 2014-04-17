@@ -19,4 +19,10 @@ public abstract class BinaryIndividualsAxiom extends DroolsBinaryObject<I, I> im
 	{
 		return getT2();
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 }

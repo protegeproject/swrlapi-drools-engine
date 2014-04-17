@@ -40,6 +40,6 @@ public class ROPA extends DroolsBinaryObject<OP, String> implements A
 	@Override
 	public String toString()
 	{
-		return "ROPA" + super.toString();
+		return "ROPA(" + getP() + ", " + getR() + ")";
 	}
 }

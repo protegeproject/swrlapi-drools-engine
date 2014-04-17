@@ -119,10 +119,7 @@ public class L implements OO, BA, Serializable
 	@Override
 	public String toString()
 	{
-		if (isString() || isTime() || isDate() || isDateTime() || isDuration())
-			return "L(\"" + this.value + "\", " + this.datatypeName + ")";
-		else
-			return "L(" + this.value + ", " + this.datatypeName + ")";
+		return "L(\"" + this.value + "\", " + this.datatypeName + ")";
 	}
 
 	public String getTypeName()

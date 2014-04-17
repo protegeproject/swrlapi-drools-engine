@@ -9,4 +9,10 @@ public abstract class BinaryPropertiesAxiom<T extends P> extends DroolsBinaryObj
 	{
 		super(property1, property2);
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 }

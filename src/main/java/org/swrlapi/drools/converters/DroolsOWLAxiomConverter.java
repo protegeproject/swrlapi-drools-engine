@@ -108,7 +108,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	private final DroolsOWLClassExpressionConverter classExpressionConverter;
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
 
-	private final Set<A> nonRuleAssertedOWLAxioms;
+	private final Set<A> assertedOWLAxioms;
 
 	public DroolsOWLAxiomConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine)
 	{
@@ -118,20 +118,20 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge);
 		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
 
-		this.nonRuleAssertedOWLAxioms = new HashSet<A>();
+		this.assertedOWLAxioms = new HashSet<A>();
 	}
 
 	public void reset()
 	{
-		this.nonRuleAssertedOWLAxioms.clear();
+		this.assertedOWLAxioms.clear();
 
 		getDroolsOWLClassExpressionConverter().reset();
 		getDroolsOWLPropertyExpressionConverter().reset();
 	}
 
-	public Set<A> getNonRuleAssertedOWLAxioms()
+	public Set<A> getAssertedOWLAxioms()
 	{
-		return new HashSet<A>(this.nonRuleAssertedOWLAxioms);
+		return new HashSet<A>(this.assertedOWLAxioms);
 	}
 
 	public Set<CE> getOWLClassExpressions()
@@ -237,24 +237,24 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		if (entity.isOWLClass()) {
 			OWLClass cls = axiom.getEntity().asOWLClass();
 			String classShortName = getDroolsOWLNamedObject2DRLConverter().convert(cls);
-			createNonRuleOWLAxiom(new CDA(classShortName));
+			recordOWLAxiom(new CDA(classShortName));
 			getOWLClassExpressionResolver().recordOWLClassExpression(classShortName, cls);
 		} else if (entity.isOWLNamedIndividual()) {
 			OWLNamedIndividual individual = entity.asOWLNamedIndividual();
 			String individualShortName = getDroolsOWLNamedObject2DRLConverter().convert(individual);
-			createNonRuleOWLAxiom(new IDA(individualShortName));
+			recordOWLAxiom(new IDA(individualShortName));
 		} else if (entity.isOWLObjectProperty()) {
 			OWLObjectProperty property = entity.asOWLObjectProperty();
 			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
-			createNonRuleOWLAxiom(new OPDA(propertyShortName));
+			recordOWLAxiom(new OPDA(propertyShortName));
 		} else if (entity.isOWLDataProperty()) {
 			OWLDataProperty property = entity.asOWLDataProperty();
 			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
-			createNonRuleOWLAxiom(new DPDA(propertyShortName));
+			recordOWLAxiom(new DPDA(propertyShortName));
 		} else if (entity.isOWLAnnotationProperty()) {
 			OWLAnnotationProperty property = entity.asOWLAnnotationProperty();
 			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
-			createNonRuleOWLAxiom(new APDA(propertyShortName));
+			recordOWLAxiom(new APDA(propertyShortName));
 		} else
 			throw new RuntimeException("unknown entity type " + entity.getClass().getCanonicalName()
 					+ " in OWL declaration axiom");
@@ -266,10 +266,10 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLClassExpression cls = axiom.getClassExpression();
 		OWLIndividual individual = axiom.getIndividual();
 		String classID = getDroolsOWLClassExpressionConverter().convert(cls);
-		String individualID = getDroolsOWLIndividual2DRLConverter().convert(individual);
-		CAA caa = new CAA(classID, new I(individualID));
+		I i = getDroolsOWLIndividual2IConverter().convert(individual);
+		CAA caa = new CAA(classID, i);
 
-		createNonRuleOWLAxiom(caa);
+		recordOWLAxiom(caa);
 	}
 
 	@Override
@@ -279,11 +279,11 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLIndividual subjectIndividual = axiom.getSubject();
 		OWLIndividual objectIndividual = axiom.getObject();
 		String propertyID = getDroolsOWLPropertyExpressionConverter().convert(property);
-		String subjectIndividualID = getDroolsOWLIndividual2DRLConverter().convert(subjectIndividual);
-		String objectIndividualID = getDroolsOWLIndividual2DRLConverter().convert(objectIndividual);
-		OPAA opaa = new OPAA(subjectIndividualID, propertyID, objectIndividualID);
+		I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
+		I objectI = getDroolsOWLIndividual2IConverter().convert(objectIndividual);
+		OPAA opaa = new OPAA(subjectI, propertyID, objectI);
 
-		createNonRuleOWLAxiom(opaa);
+		recordOWLAxiom(opaa);
 	}
 
 	@Override
@@ -293,11 +293,11 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLIndividual subjectIndividual = axiom.getSubject();
 		OWLLiteral objectLiteral = axiom.getObject();
 		String propertyID = getDroolsOWLPropertyExpressionConverter().convert(property);
-		String subjectIndividualID = getDroolsOWLIndividual2DRLConverter().convert(subjectIndividual);
+		I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
 		L literal = getDroolsOWLLiteral2LConverter().convert(objectLiteral);
-		DPAA dpaa = new DPAA(subjectIndividualID, propertyID, literal);
+		DPAA dpaa = new DPAA(subjectI, propertyID, literal);
 
-		createNonRuleOWLAxiom(dpaa);
+		recordOWLAxiom(dpaa);
 	}
 
 	@Override
@@ -306,15 +306,15 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		if (!axiom.getIndividuals().isEmpty()) {
 			for (OWLIndividual individual1 : axiom.getIndividuals()) {
 				Set<OWLIndividual> sameIndividuals = new HashSet<OWLIndividual>(axiom.getIndividuals());
-				String individual1ID = getDroolsOWLIndividual2DRLConverter().convert(individual1);
-				SIA sia = new SIA(individual1ID, individual1ID);
+				I i1 = getDroolsOWLIndividual2IConverter().convert(individual1);
+				SIA sia = new SIA(i1, i1);
 				sameIndividuals.remove(individual1);
 
-				createNonRuleOWLAxiom(sia);
+				recordOWLAxiom(sia);
 				for (OWLIndividual individual2 : sameIndividuals) {
-					String individual2ID = getDroolsOWLIndividual2DRLConverter().convert(individual2);
-					sia = new SIA(individual1ID, individual2ID);
-					createNonRuleOWLAxiom(sia);
+					I i2 = getDroolsOWLIndividual2IConverter().convert(individual2);
+					sia = new SIA(i1, i2);
+					recordOWLAxiom(sia);
 				}
 			}
 		}
@@ -326,12 +326,12 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		if (!axiom.getIndividuals().isEmpty()) {
 			for (OWLIndividual individual1 : axiom.getIndividuals()) {
 				Set<OWLIndividual> differentIndividuals = new HashSet<OWLIndividual>(axiom.getIndividuals());
-				String individual1ID = getDroolsOWLIndividual2DRLConverter().convert(individual1);
+				I i1 = getDroolsOWLIndividual2IConverter().convert(individual1);
 				differentIndividuals.remove(individual1);
 				for (OWLIndividual individual2 : differentIndividuals) {
-					String individual2ID = getDroolsOWLIndividual2DRLConverter().convert(individual2);
-					DIA dia = new DIA(individual1ID, individual2ID);
-					createNonRuleOWLAxiom(dia);
+					I i2 = getDroolsOWLIndividual2IConverter().convert(individual2);
+					DIA dia = new DIA(i1, i2);
+					recordOWLAxiom(dia);
 				}
 			}
 		}
@@ -345,7 +345,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		SDPA a = new SDPA(getDroolsOWLPropertyExpressionConverter().convert(subProperty),
 				getDroolsOWLPropertyExpressionConverter().convert(superProperty));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -356,7 +356,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		SOPA a = new SOPA(getDroolsOWLPropertyExpressionConverter().convert(subProperty),
 				getDroolsOWLPropertyExpressionConverter().convert(superProperty));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -367,7 +367,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		IOPA a = new IOPA(getDroolsOWLPropertyExpressionConverter().convert(property1),
 				getDroolsOWLPropertyExpressionConverter().convert(property2));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -378,7 +378,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		SCA a = new SCA(getDroolsOWLClassExpressionConverter().convert(subClass), getDroolsOWLClassExpressionConverter()
 				.convert(superClass));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -392,9 +392,9 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 				for (OWLClassExpression class2 : disjointClasses) {
 					String class2ID = getDroolsOWLClassExpressionConverter().convert(class2);
 					DCA a = new DCA(class1ID, class2ID);
-					createNonRuleOWLAxiom(a);
+					recordOWLAxiom(a);
 					a = new DCA(class2ID, class1ID);
-					createNonRuleOWLAxiom(a);
+					recordOWLAxiom(a);
 				}
 			}
 		}
@@ -411,7 +411,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 				for (OWLClassExpression class2 : equivalentClasses) {
 					String class2ID = getDroolsOWLClassExpressionConverter().convert(class2);
 					ECA a = new ECA(class1ID, class2ID);
-					createNonRuleOWLAxiom(a);
+					recordOWLAxiom(a);
 				}
 			}
 		}
@@ -429,7 +429,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 				for (OWLObjectPropertyExpression property2 : equivalentProperties) {
 					String property2ID = getDroolsOWLPropertyExpressionConverter().convert(property2);
 					EOPA a = new EOPA(property1ID, property2ID);
-					createNonRuleOWLAxiom(a);
+					recordOWLAxiom(a);
 				}
 			}
 		}
@@ -447,7 +447,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 				for (OWLDataPropertyExpression property2 : equivalentProperties) {
 					String property2ID = getDroolsOWLPropertyExpressionConverter().convert(property2);
 					EDPA a = new EDPA(property1ID, property2ID);
-					createNonRuleOWLAxiom(a);
+					recordOWLAxiom(a);
 				}
 			}
 		}
@@ -465,7 +465,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 				for (OWLObjectPropertyExpression property2 : disjointProperties) {
 					String property2ID = getDroolsOWLPropertyExpressionConverter().convert(property2);
 					EOPA a = new EOPA(property1ID, property2ID);
-					createNonRuleOWLAxiom(a);
+					recordOWLAxiom(a);
 				}
 			}
 		}
@@ -483,7 +483,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 				for (OWLDataPropertyExpression property2 : disjointProperties) {
 					String property2ID = getDroolsOWLPropertyExpressionConverter().convert(property2);
 					EOPA a = new EOPA(property1ID, property2ID);
-					createNonRuleOWLAxiom(a);
+					recordOWLAxiom(a);
 				}
 			}
 		}
@@ -497,7 +497,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		DOPA a = new DOPA(getDroolsOWLPropertyExpressionConverter().convert(property),
 				getDroolsOWLClassExpressionConverter().convert(domain));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -508,7 +508,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		DDPA a = new DDPA(getDroolsOWLPropertyExpressionConverter().convert(property),
 				getDroolsOWLClassExpressionConverter().convert(domain));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -519,7 +519,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		ROPA a = new ROPA(getDroolsOWLPropertyExpressionConverter().convert(property),
 				getDroolsOWLClassExpressionConverter().convert(domain));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -530,7 +530,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		RDPA a = new RDPA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLDataRange2DRLConverter()
 				.convert(range));
 
-		createNonRuleOWLAxiom(a);
+		recordOWLAxiom(a);
 	}
 
 	@Override
@@ -539,7 +539,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		FOPA fopa = new FOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		createNonRuleOWLAxiom(fopa);
+		recordOWLAxiom(fopa);
 	}
 
 	@Override
@@ -548,7 +548,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLDataPropertyExpression property = axiom.getProperty();
 		FDPA fdpa = new FDPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		createNonRuleOWLAxiom(fdpa);
+		recordOWLAxiom(fdpa);
 	}
 
 	@Override
@@ -557,7 +557,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		IPA ipa = new IPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		createNonRuleOWLAxiom(ipa);
+		recordOWLAxiom(ipa);
 	}
 
 	@Override
@@ -566,7 +566,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		IRPA irpa = new IRPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		createNonRuleOWLAxiom(irpa);
+		recordOWLAxiom(irpa);
 	}
 
 	@Override
@@ -575,7 +575,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		TPA tpa = new TPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		createNonRuleOWLAxiom(tpa);
+		recordOWLAxiom(tpa);
 	}
 
 	@Override
@@ -584,7 +584,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		SPA spa = new SPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		createNonRuleOWLAxiom(spa);
+		recordOWLAxiom(spa);
 	}
 
 	@Override
@@ -593,7 +593,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		APA apa = new APA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		createNonRuleOWLAxiom(apa);
+		recordOWLAxiom(apa);
 	}
 
 	@Override
@@ -662,10 +662,12 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		// We ignore because we do not currently reason with this axiom.
 	}
 
-	private void createNonRuleOWLAxiom(A a)
+	private void recordOWLAxiom(A a)
 	{
-		if (!this.nonRuleAssertedOWLAxioms.contains(a))
-			this.nonRuleAssertedOWLAxioms.add(a);
+		if (!this.assertedOWLAxioms.contains(a)) {
+			System.err.println("Axiom: " + a);
+			this.assertedOWLAxioms.add(a);
+		}
 	}
 
 	private DroolsOWLClassExpressionConverter getDroolsOWLClassExpressionConverter()

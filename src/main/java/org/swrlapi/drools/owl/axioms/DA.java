@@ -17,4 +17,10 @@ public abstract class DA<T1 extends OE> extends DroolsUnaryObject<T1> implements
 	{
 		return getT1();
 	}
+
+	@Override
+	public String toString()
+	{
+		return getE().toString();
+	}
 }

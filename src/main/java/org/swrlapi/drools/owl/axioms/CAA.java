@@ -40,6 +40,6 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 	@Override
 	public String toString()
 	{
-		return "CAA" + super.toString();
+		return "CAA(" + getC() + ", " + getI() + ")";
 	}
 }

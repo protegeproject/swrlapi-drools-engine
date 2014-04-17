@@ -50,4 +50,10 @@ public class C extends OE implements CE
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 }

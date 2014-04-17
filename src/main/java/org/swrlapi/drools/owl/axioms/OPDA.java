@@ -28,7 +28,7 @@ public class OPDA extends DA<OP>
 	@Override
 	public String toString()
 	{
-		return "OPDA" + super.toString();
+		return "OPDA(" + super.toString() + ")";
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class IDA extends DA<I>
 	@Override
 	public String toString()
 	{
-		return "IDA" + super.toString();
+		return "IDA(" + super.toString() + ")";
 	}
 
 	@Override

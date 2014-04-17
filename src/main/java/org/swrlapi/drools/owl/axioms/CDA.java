@@ -28,7 +28,7 @@ public class CDA extends DA<C>
 	@Override
 	public String toString()
 	{
-		return "CDA" + super.toString();
+		return "CDA(" + super.toString() + ")";
 	}
 
 	@Override

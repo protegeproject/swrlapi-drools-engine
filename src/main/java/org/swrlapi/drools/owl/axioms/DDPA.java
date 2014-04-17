@@ -40,6 +40,6 @@ public class DDPA extends DroolsBinaryObject<DP, String> implements A
 	@Override
 	public String toString()
 	{
-		return "DDPA" + super.toString();
+		return "DDPA(" + getP() + ", " + getD() + ")";
 	}
 }

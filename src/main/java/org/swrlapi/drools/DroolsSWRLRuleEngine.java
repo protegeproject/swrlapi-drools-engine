@@ -153,10 +153,10 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 			this.knowledgePackagesAdditionRequired = false;
 		}
 
-		try { // Non rule asserted OWL axioms and class expressions must be added after rules are added to knowledge base.
-			for (A axiom : getOWLAxiomConverter().getNonRuleAssertedOWLAxioms())
+		try { // Asserted OWL axioms and class expressions must be added after rules are added to knowledge base.
+			for (A axiom : getDroolsOWLAxiomConverter().getAssertedOWLAxioms())
 				this.knowledgeSession.insert(axiom);
-			for (CE classExpression : getOWLAxiomConverter().getOWLClassExpressions())
+			for (CE classExpression : getDroolsOWLAxiomConverter().getOWLClassExpressions())
 				this.knowledgeSession.insert(classExpression);
 		} catch (Exception e) { // Remember, SWRL built-ins can be called during this insertion
 			Thread.currentThread().setContextClassLoader(oldClassLoader);
@@ -166,7 +166,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 
 		// Supply the inferrer with the set of asserted OWL axioms so that it does not redundantly put inferred axioms into
 		// the knowledge session that are identical to asserted knowledge.
-		this.owlAxiomInferrer.setAssertedOWLAxioms(getOWLAxiomConverter().getNonRuleAssertedOWLAxioms());
+		this.owlAxiomInferrer.setAssertedOWLAxioms(getDroolsOWLAxiomConverter().getAssertedOWLAxioms());
 
 		try { // Fire the rules.
 			this.knowledgeSession.fireAllRules(this.sqwrlPhase1AgendaFilter);
@@ -192,7 +192,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	public void defineOWLAxiom(OWLAxiom axiom) throws TargetRuleEngineException
 	{
 		if (!this.definedOWLAxioms.contains(axiom)) {
-			getOWLAxiomConverter().convert(axiom);
+			getDroolsOWLAxiomConverter().convert(axiom);
 			this.definedOWLAxioms.add(axiom);
 		}
 	}
@@ -208,7 +208,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		if (query.isActive()) // If a query is not active, we convert it but record it as inactive.
 			this.activeSQWRLQueryNames.add(query.getName());
 
-		getSQWRLQueryConverter().convert(query); // Will call defineRule(String, String).
+		getDroolsSQWRLQueryConverter().convert(query); // Will call defineRule(String, String).
 	}
 
 	/**
@@ -304,7 +304,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	{
 		try {
 			for (A a : this.owlAxiomInferrer.getInferredOWLAxioms()) {
-				OWLAxiom axiom = a.extract(getOWLAxiomExtractor());
+				OWLAxiom axiom = a.extract(getDroolsOWLAxiomExtractor());
 				getBridge().inferOWLAxiom(axiom);
 			}
 		} catch (SWRLRuleEngineBridgeException e) {
@@ -316,7 +316,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 			throws TargetRuleEngineException
 	{
 		try {
-			System.err.println("Rule " + ruleName + "\n" + ruleText);
+			System.out.println("Rule " + ruleName + "\n" + ruleText);
 			defineDRLResource(ruleText, knowledgeBuilder);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -444,26 +444,6 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		return ResourceFactory.newReaderResource(new StringReader(resourceText));
 	}
 
-	private SWRLRuleEngineBridge getBridge()
-	{
-		return this.bridge;
-	}
-
-	private DroolsOWLAxiomConverter getOWLAxiomConverter()
-	{
-		return this.axiomConverter;
-	}
-
-	private DroolsOWLAxiomExtractor getOWLAxiomExtractor()
-	{
-		return this.axiomExtractor;
-	}
-
-	private DroolsSQWRLQuery2DRLConverter getSQWRLQueryConverter()
-	{
-		return this.queryConverter;
-	}
-
 	/**
 	 * Drools is supplied with all currently enabled SQWRL queries. Typically, only one is active so we use an agenda
 	 * filter to ignore the ones that are not active.
@@ -514,5 +494,25 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 			} else
 				return false;
 		}
+	}
+
+	private SWRLRuleEngineBridge getBridge()
+	{
+		return this.bridge;
+	}
+
+	private DroolsOWLAxiomConverter getDroolsOWLAxiomConverter()
+	{
+		return this.axiomConverter;
+	}
+
+	private DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor()
+	{
+		return this.axiomExtractor;
+	}
+
+	private DroolsSQWRLQuery2DRLConverter getDroolsSQWRLQueryConverter()
+	{
+		return this.queryConverter;
 	}
 }

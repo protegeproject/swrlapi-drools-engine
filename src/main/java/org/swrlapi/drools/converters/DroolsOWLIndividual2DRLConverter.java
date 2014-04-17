@@ -32,5 +32,4 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
 	{
 		return "\"" + s + "\"";
 	}
-
 }

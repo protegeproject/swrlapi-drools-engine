@@ -9,4 +9,10 @@ public abstract class P extends OE
 	{
 		super(propertyID);
 	}
+
+	@Override
+	public String toString()
+	{
+		return super.toString();
+	}
 }
