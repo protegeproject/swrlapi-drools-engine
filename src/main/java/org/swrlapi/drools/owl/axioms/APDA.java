@@ -28,7 +28,7 @@ public class APDA extends DA<AP>
 	@Override
 	public String toString()
 	{
-		return "DPDA" + super.toString();
+		return "APDA(" + super.toString() + ")";
 	}
 
 	@Override
