@@ -160,7 +160,8 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 				this.knowledgeSession.insert(classExpression);
 		} catch (Exception e) { // Remember, SWRL built-ins can be called during this insertion
 			Thread.currentThread().setContextClassLoader(oldClassLoader);
-			String errorMessage = (e.getCause() == null) ? e.getMessage() : e.getCause().getMessage();
+			String errorMessage = (e.getCause() == null) ? (e.getMessage() == null ? e.toString() : e.getMessage()) : (e
+					.getCause().getMessage() == null ? e.toString() : e.getCause().getMessage());
 			throw new TargetRuleEngineException("error inserting OWL axioms into Drools rule engine:\n" + errorMessage, e);
 		}
 

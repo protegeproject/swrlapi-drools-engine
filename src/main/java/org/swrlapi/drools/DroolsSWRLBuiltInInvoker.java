@@ -404,14 +404,17 @@ public class DroolsSWRLBuiltInInvoker
 					+ " in rule " + ruleName);
 
 		try {
-			// int argumentNumber = 0;
+			int argumentNumber = 0;
 			for (BA ba : bas) {
 				SWRLBuiltInArgument argument = ba.extract(getSWRLAtomArgumentExtractor());
-				// if (argumentVariableNames.hasVariableNames()
-				// && argumentVariableNames.getVariableNames().get(argumentNumber).length() != 0)
-				// argument.setVariableName(argumentVariableNames.getVariableNames().get(argumentNumber));
+				if (argumentVariableNames.hasVariableNames()
+						&& argumentVariableNames.getVariableNames().get(argumentNumber).length() != 0) {
+					String variableName = argumentVariableNames.getVariableNames().get(argumentNumber);
+					argument.setBoundVariableName(variableName); // This argument was bound from this original variable
+				}
 				arguments.add(argument);
-				// argumentNumber++;
+				argumentNumber++;
+
 			}
 		} catch (TargetRuleEngineException e) {
 			throw new RuntimeException("error extracting arguments from Drools when invoking built-in " + builtInName
