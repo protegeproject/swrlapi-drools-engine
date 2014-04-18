@@ -665,7 +665,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	private void recordOWLAxiom(A a)
 	{
 		if (!this.assertedOWLAxioms.contains(a)) {
-			System.err.println("Axiom: " + a);
+			// System.err.println("Axiom: " + a);
 			this.assertedOWLAxioms.add(a);
 		}
 	}
