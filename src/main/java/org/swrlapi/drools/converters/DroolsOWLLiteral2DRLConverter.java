@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.swrlapi.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.converters.TargetRuleEngineOWLLiteralConverter;
@@ -21,7 +22,10 @@ public class DroolsOWLLiteral2DRLConverter extends TargetRuleEngineConverterBase
 	@Override
 	public String convert(OWLLiteral literal) throws TargetRuleEngineException
 	{
-		return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \""
-				+ getOWLIRIResolver().iri2ShortName(literal.getDatatype().getIRI()) + "\")";
+		IRI datatypeIRI = literal.getDatatype().getIRI();
+		String datatypeShortName = getOWLIRIResolver().iri2ShortName(datatypeIRI);
+
+		return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \"" + datatypeShortName
+				+ "\")";
 	}
 }
