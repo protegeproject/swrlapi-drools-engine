@@ -8,7 +8,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.L;
-import org.swrlapi.exceptions.SQWRLLiteralException;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.extractors.TargetRuleEngineOWLLiteralExtractor;
@@ -68,7 +67,7 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase imp
 					+ l.getTypeName() + " from Drools: ", e);
 		} catch (URISyntaxException e) {
 			throw new TargetRuleEngineException("IRI exception extracting OWL URI literal " + l + " from Drools: ", e);
-		} catch (SQWRLLiteralException e) {
+		} catch (IllegalArgumentException e) {
 			throw new TargetRuleEngineException("exception extracting OWL literal " + l + " with type " + l.getTypeName()
 					+ " from Drools: " + e.getMessage(), e);
 		}
