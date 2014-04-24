@@ -133,8 +133,7 @@ public class L implements OO, BA, Serializable
 	}
 
 	// We consider literals to be equal if they have the same type name and value.
-	// TODO This is a very broken implementation of equals.
-	// TODO We should also consider XSD type hierarchies when looking at equality
+	// TODO This is a very simple minded implementation of equals. Think about using the OWLLiteralComparator
 
 	@Override
 	public boolean equals(Object obj)

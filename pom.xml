@@ -15,6 +15,7 @@
     <log4j.version>1.2.16</log4j.version>
     <junit.version>3.8.1</junit.version>
     <jep.version>2.4.0</jep.version>
+    <drools.version>5.4.0.Final</drools.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
   </properties>
@@ -49,25 +50,25 @@
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-compiler</artifactId>
-			<version>5.4.0.Final</version>
+			<version>${drools.version}</version>
 		</dependency>
     
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
-			<version>5.4.0.Final</version>
+			<version>${drools.version}</version>
 		</dependency>
     
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>knowledge-api</artifactId>
-			<version>5.4.0.Final</version>
+			<version>${drools.version}</version>
 		</dependency>
     
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>knowledge-internal-api</artifactId>
-			<version>5.4.0.Final</version>
+			<version>${drools.version}</version>
 		</dependency>
     
 		<dependency>

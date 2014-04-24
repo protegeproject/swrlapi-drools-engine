@@ -41,7 +41,8 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 
 		drlRule = addRuleThenClause(drlRule);
 
-		// TODO HACK!!! Need to reference these variables before use or will get null pointer error when invoking built-ins
+		// Old code to reference these variables before use or got null pointer error in Drools when invoking built-ins.
+		// Seems to be unnecessary now.
 		// for (String variableShortName : variableShortNames)
 		// drlRule += getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName);
 

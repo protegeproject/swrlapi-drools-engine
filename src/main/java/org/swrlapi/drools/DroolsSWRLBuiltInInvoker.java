@@ -17,7 +17,7 @@ import org.swrlapi.exceptions.BuiltInException;
 import org.swrlapi.exceptions.BuiltInMethodRuntimeException;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
-// TODO Varargs seem to work inconsistently in Drools. Hence the need for the  repetitions for the BA arguments. 
+// Varargs seem to work inconsistently in Drools. Hence the need for the  repetitions for the BA arguments. 
 // We really want to replace this with  with a single call with a varargs argument. 
 
 /**

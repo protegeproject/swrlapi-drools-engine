@@ -279,7 +279,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"cls_avf",
 				"rule cls_avf_op when OAVFCE($x:ceid, $p:p, $y:v) CAA(c==$x, $u:i) OPAA(s==$u, p==$p, $v:o) then CAA caa=new CAA($y, $v); inferrer.infer(caa); end");
 
-		// TODO cls_avf_dp
+		// TODO CLS_AVF_DP
 
 		createRuleDefinition(
 				Rule.CLS_HV1,
@@ -315,7 +315,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		/*
 		 * putRuleMapping(Rule.CLS_MAXQC1, "cls_maxqc1",
 		 * "rule cls_maxqc1_op when MQCCE($x:ceid, $p:p, card==0, $c:c)) CAA($x:c, $u:i) OPAA(s==$u, p==$p, $y:o) CAA(c==$c, i==$y) then inferrer.inferFalse(\""
-		 * + Rule.CLS_MAXQC1.toString() + "\", $x, $c, $p.id, $u.id, $y.id); end"); // TODO cls_maxqc1_dp$
+		 * + Rule.CLS_MAXQC1.toString() + "\", $x, $c, $p.id, $u.id, $y.id); end"); // TODO CLS_MAXQC1_DP
 		 * 
 		 * putRuleMapping( Rule.CLS_MAXQC2, "cls_maxqc2",
 		 * "rule cls_maxqc2 when MQCCE($x:ceid, $p:p, card==0, \"owl:Thing\") CAA(c, $u:i) OPAA(s==$u, p==$p, $y:o) then inferrer.inferFalse(\""

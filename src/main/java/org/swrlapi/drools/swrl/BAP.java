@@ -13,7 +13,7 @@ public class BAP
 
 	@SuppressWarnings("unused")
 	// This are used indirectly by Drools. The actual arguments are placed in this.arguments.
-	// TODO This approach is not great.
+	// This approach is not great but it will do for the moment.
 	private BA a1 = null, a2 = null, a3 = null, a4 = null, a5 = null, a6 = null, a7 = null, a8 = null, a9 = null,
 			a10 = null, a11 = null;
 

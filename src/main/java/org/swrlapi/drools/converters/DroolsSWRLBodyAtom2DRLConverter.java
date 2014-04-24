@@ -231,7 +231,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		}
 		representation += "), ";
 
-		if (builtInAtom.getNumberOfArguments() > BAVNs.MaxArguments) // TODO fix with BAVNs varargs Drools fix
+		if (builtInAtom.getNumberOfArguments() > BAVNs.MaxArguments)
 			throw new TargetRuleEngineException("a maximum of " + BAVNs.MaxArguments
 					+ " built-in arguments are currently supported by Drools");
 

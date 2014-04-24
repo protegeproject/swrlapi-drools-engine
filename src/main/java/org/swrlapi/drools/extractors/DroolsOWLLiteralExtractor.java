@@ -58,7 +58,7 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase imp
 			else if (l.isDuration())
 				return getOWLLiteralFactory().getOWLLiteral(new XSDDuration(l.getValue()));
 			else {
-				IRI IRI = shortName2IRI(l.datatypeName); // TODO Test this
+				IRI IRI = shortName2IRI(l.datatypeName);
 				OWLDatatype datatype = getOWLDatatypeFactory().getOWLDatatype(IRI);
 				return getOWLLiteralFactory().getOWLLiteral(l.value, datatype);
 			}

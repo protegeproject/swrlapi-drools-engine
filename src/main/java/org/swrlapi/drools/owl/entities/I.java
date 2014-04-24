@@ -9,7 +9,7 @@ import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
-// TODO An anonymous individual should not be a subclass of an OWL entity.
+// TODO This class represents both a named an anonymous individual - but an anonymous individual should not be a subclass of an OWL entity.
 
 /**
  * This class represents an OWL named or anonymous individual.
