@@ -15,7 +15,7 @@
     <log4j.version>1.2.16</log4j.version>
     <junit.version>3.8.1</junit.version>
     <jep.version>2.4.0</jep.version>
-    <drools.version>5.4.0.Final</drools.version>
+    <drools.version>5.4.0.Final</drools.version> <!-- Tried 4.6.0.Final but got runtime errors -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
   </properties>
