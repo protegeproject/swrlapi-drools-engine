@@ -12,15 +12,15 @@ public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
 		super(bridge);
 	}
 
-	public String variableName2VariableShortName(String variableName)
+	public String variableName2VariablePrefixedName(String variableName)
 	{
 		return ":" + variableName;
 	}
 
 	public IRI variableName2VariableIRI(String variableName) throws TargetRuleEngineException
 	{
-		String variableShortName = variableName2VariableShortName(variableName);
+		String variablePrefixedName = variableName2VariablePrefixedName(variableName);
 
-		return shortName2IRI(variableShortName);
+		return prefixedName2IRI(variablePrefixedName);
 	}
 }

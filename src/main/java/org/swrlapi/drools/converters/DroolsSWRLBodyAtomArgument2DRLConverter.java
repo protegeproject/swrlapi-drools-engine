@@ -94,49 +94,49 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(classArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(classArgument.getIRI());
 
-		return addQuotes(shortName);
+		return addQuotes(prefixedName);
 	}
 
 	@Override
 	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(individualArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(individualArgument.getIRI());
 
-		return addQuotes(shortName);
+		return addQuotes(prefixedName);
 	}
 
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
-		return addQuotes(shortName);
+		return addQuotes(prefixedName);
 	}
 
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
-		return addQuotes(shortName);
+		return addQuotes(prefixedName);
 	}
 
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(propertyArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
-		return addQuotes(shortName);
+		return addQuotes(prefixedName);
 	}
 
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(datatypeArgument.getIRI());
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
 
-		return addQuotes(shortName);
+		return addQuotes(prefixedName);
 	}
 
 	@Override
@@ -154,132 +154,133 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		throw new TargetRuleEngineNotImplementedFeatureException(
 				"unexpected call to convert a SQWRLCollectionBuiltInArgument");
 	}
 
-	public String convert(SWRLArgument argument, String fieldName, Set<String> previouslyEncounteredVariableShortNames)
+	public String convert(SWRLArgument argument, String fieldName, Set<String> previouslyEncounteredVariablePrefixedNames)
 			throws TargetRuleEngineException
 	{ // TODO Visitor to replace instanceof
 		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument, fieldName,
-					previouslyEncounteredVariableShortNames);
+					previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
-			return convert((SWRLVariableBuiltInArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLVariableBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLClassBuiltInArgument) {
-			return convert((SWRLClassBuiltInArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLClassBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
-			return convert((SWRLNamedIndividualBuiltInArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLNamedIndividualBuiltInArgument)argument, fieldName,
+					previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLIndividualArgument) {
-			return convert((SWRLIndividualArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLIndividualArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
-			return convert((SWRLLiteralBuiltInArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLLiteralBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
-			return convert((SWRLObjectPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLObjectPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLDataPropertyBuiltInArgument) {
-			return convert((SWRLDataPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLDataPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLAnnotationPropertyBuiltInArgument) {
 			return convert((SWRLAnnotationPropertyBuiltInArgument)argument, fieldName,
-					previouslyEncounteredVariableShortNames);
+					previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
-			return convert((SWRLDatatypeBuiltInArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLDatatypeBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLVariable) {
-			return convert((SWRLVariable)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLVariable)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else if (argument instanceof SWRLLiteralArgument) {
-			return convert((SWRLLiteralArgument)argument, fieldName, previouslyEncounteredVariableShortNames);
+			return convert((SWRLLiteralArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else
 			throw new RuntimeException("unknown SWRL argument type " + argument.getClass().getCanonicalName());
 	}
 
 	@Override
 	public String convert(SWRLVariableBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
-		String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableShortName(argument);
+		String variablePrefixedName = getDroolsSWRLVariableConverter().swrlVariable2VariablePrefixedName(argument);
 
-		if (previouslyEncounteredVariableShortNames.contains(variableShortName)) {
-			return fieldName + "==" + getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName);
+		if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
+			return fieldName + "==" + getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
 		} else {
-			previouslyEncounteredVariableShortNames.add(variableShortName);
-			return getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName) + ":" + fieldName;
+			previouslyEncounteredVariablePrefixedNames.add(variablePrefixedName);
+			return getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
 		}
 	}
 
 	@Override
-	public String convert(SWRLVariable argument, String fieldName, Set<String> previouslyEncounteredVariableShortNames)
+	public String convert(SWRLVariable argument, String fieldName, Set<String> previouslyEncounteredVariablePrefixedNames)
 			throws TargetRuleEngineException
 	{
-		String variableShortName = getDroolsSWRLVariableConverter().swrlVariable2VariableShortName(argument);
+		String variablePrefixedName = getDroolsSWRLVariableConverter().swrlVariable2VariablePrefixedName(argument);
 
-		if (previouslyEncounteredVariableShortNames.contains(variableShortName)) {
-			return fieldName + "==" + getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName);
+		if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
+			return fieldName + "==" + getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
 		} else {
-			previouslyEncounteredVariableShortNames.add(variableShortName);
-			return getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName) + ":" + fieldName;
+			previouslyEncounteredVariablePrefixedNames.add(variablePrefixedName);
+			return getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
 		}
 	}
 
 	@Override
 	public String convert(SWRLIndividualArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLLiteralArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLClassBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLNamedIndividualBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLLiteralBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument argument, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames) throws TargetRuleEngineException
+			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
 		return fieldName + "==" + convert(argument);
 	}

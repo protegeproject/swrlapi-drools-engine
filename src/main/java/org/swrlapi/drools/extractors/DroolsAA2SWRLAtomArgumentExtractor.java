@@ -38,7 +38,7 @@ public class DroolsAA2SWRLAtomArgumentExtractor extends DroolsExtractorBase impl
 
 	public SWRLVariable extract(VA va) throws TargetRuleEngineException
 	{
-		IRI iri = shortName2IRI(va.getVariableName());
+		IRI iri = prefixedName2IRI(va.getVariableName());
 		return getOWLDataFactory().getSWRLVariable(iri);
 	}
 

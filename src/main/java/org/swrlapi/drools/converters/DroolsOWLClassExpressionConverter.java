@@ -131,13 +131,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	@Override
 	public String convert(OWLClass cls) throws TargetRuleEngineException
 	{
-		String classShortName = getOWLIRIResolver().iri2ShortName(cls.getIRI());
+		String classPrefixedName = getOWLIRIResolver().iri2PrefixedName(cls.getIRI());
 
-		if (!this.convertedClassExpressionIDs.contains(classShortName)) {
-			getOWLClassExpressionResolver().recordOWLClassExpression(classShortName, cls);
-			this.convertedClassExpressionIDs.add(classShortName);
+		if (!this.convertedClassExpressionIDs.contains(classPrefixedName)) {
+			getOWLClassExpressionResolver().recordOWLClassExpression(classPrefixedName, cls);
+			this.convertedClassExpressionIDs.add(classPrefixedName);
 		}
-		return classShortName;
+		return classPrefixedName;
 	}
 
 	@Override

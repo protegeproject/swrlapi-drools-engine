@@ -32,42 +32,42 @@ public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase i
 	@Override
 	public C convert(OWLClass cls) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(cls.getIRI());
-		return new C(shortName);
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(cls.getIRI());
+		return new C(prefixedName);
 	}
 
 	@Override
 	public I convert(OWLNamedIndividual individual) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(individual.getIRI());
-		return new I(shortName);
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(individual.getIRI());
+		return new I(prefixedName);
 	}
 
 	@Override
 	public OP convert(OWLObjectProperty property) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(property.getIRI());
-		return new OP(shortName);
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(property.getIRI());
+		return new OP(prefixedName);
 	}
 
 	@Override
 	public DP convert(OWLDataProperty property) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(property.getIRI());
-		return new DP(shortName);
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(property.getIRI());
+		return new DP(prefixedName);
 	}
 
 	@Override
 	public AP convert(OWLAnnotationProperty property) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(property.getIRI());
-		return new AP(shortName);
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(property.getIRI());
+		return new AP(prefixedName);
 	}
 
 	@Override
 	public D convert(OWLDatatype datatype) throws TargetRuleEngineException
 	{
-		String shortName = getOWLIRIResolver().iri2ShortName(datatype.getIRI());
-		return new D(shortName);
+		String prefixedName = getOWLIRIResolver().iri2PrefixedName(datatype.getIRI());
+		return new D(prefixedName);
 	}
 }

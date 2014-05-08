@@ -17,36 +17,36 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 	public String swrlVariable2DRL(SWRLVariable variable)
 	{
 		IRI variableIRI = variable.getIRI();
-		String variableShortName = getOWLIRIResolver().iri2ShortName(variableIRI);
+		String variablePrefixedName = getOWLIRIResolver().iri2PrefixedName(variableIRI);
 
-		return variableShortName2DRL(variableShortName);
+		return variablePrefixedName2DRL(variablePrefixedName);
 	}
 
 	public String swrlVariable2VariableName(SWRLVariable variable)
 	{
 		IRI variableIRI = variable.getIRI();
-		String variableShortName = getOWLIRIResolver().iri2ShortName(variableIRI);
+		String variablePrefixedName = getOWLIRIResolver().iri2PrefixedName(variableIRI);
 
-		return variableShortName2VariableName(variableShortName);
+		return variablePrefixedName2VariableName(variablePrefixedName);
 	}
 
-	public String swrlVariable2VariableShortName(SWRLVariable variable)
+	public String swrlVariable2VariablePrefixedName(SWRLVariable variable)
 	{
 		IRI variableIRI = variable.getIRI();
 
-		return getOWLIRIResolver().iri2ShortName(variableIRI);
+		return getOWLIRIResolver().iri2PrefixedName(variableIRI);
 	}
 
 	public String variableIRI2DRL(IRI variableIRI)
 	{
-		String variableShortName = getOWLIRIResolver().iri2ShortName(variableIRI);
+		String variablePrefixedName = getOWLIRIResolver().iri2PrefixedName(variableIRI);
 
-		return variableShortName2DRL(variableShortName);
+		return variablePrefixedName2DRL(variablePrefixedName);
 	}
 
-	public String variableShortName2DRL(String variableShortName)
+	public String variablePrefixedName2DRL(String variablePrefixedName)
 	{
-		String variableName = variableShortName2VariableName(variableShortName);
+		String variableName = variablePrefixedName2VariableName(variablePrefixedName);
 
 		return variableName2DRL(variableName);
 	}
@@ -56,20 +56,21 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 		return "$" + variableName;
 	}
 
-	public String variableShortName2DRL(String variableShortName, String fieldName,
-			Set<String> previouslyEncounteredVariableShortNames)
+	public String variablePrefixedName2DRL(String variablePrefixedName, String fieldName,
+			Set<String> previouslyEncounteredVariablePrefixedNames)
 	{
-		if (previouslyEncounteredVariableShortNames.contains(variableShortName)) {
-			return fieldName + "==" + variableShortName2DRL(variableShortName);
+		if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
+			return fieldName + "==" + variablePrefixedName2DRL(variablePrefixedName);
 		} else {
-			previouslyEncounteredVariableShortNames.add(variableShortName);
-			return variableShortName2DRL(variableShortName) + ":" + fieldName;
+			previouslyEncounteredVariablePrefixedNames.add(variablePrefixedName);
+			return variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
 		}
 	}
 
-	public String variableShortName2VariableName(String variableShortName)
+	public String variablePrefixedName2VariableName(String variablePrefixedName)
 	{
-		String variableName = variableShortName.startsWith(":") ? variableShortName.substring(1) : variableShortName;
+		String variableName = variablePrefixedName.startsWith(":") ? variablePrefixedName.substring(1)
+				: variablePrefixedName;
 
 		return variableName;
 	}

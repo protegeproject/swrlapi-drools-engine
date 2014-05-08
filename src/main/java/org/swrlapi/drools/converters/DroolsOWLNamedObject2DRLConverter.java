@@ -25,36 +25,36 @@ public class DroolsOWLNamedObject2DRLConverter extends TargetRuleEngineConverter
 	@Override
 	public String convert(OWLClass cls) throws TargetRuleEngineException
 	{
-		return getOWLIRIResolver().iri2ShortName(cls.getIRI());
+		return getOWLIRIResolver().iri2PrefixedName(cls.getIRI());
 	}
 
 	@Override
 	public String convert(OWLNamedIndividual individual) throws TargetRuleEngineException
 	{
-		return getOWLIRIResolver().iri2ShortName(individual.getIRI());
+		return getOWLIRIResolver().iri2PrefixedName(individual.getIRI());
 	}
 
 	@Override
 	public String convert(OWLObjectProperty property) throws TargetRuleEngineException
 	{
-		return getOWLIRIResolver().iri2ShortName(property.getIRI());
+		return getOWLIRIResolver().iri2PrefixedName(property.getIRI());
 	}
 
 	@Override
 	public String convert(OWLDataProperty property) throws TargetRuleEngineException
 	{
-		return getOWLIRIResolver().iri2ShortName(property.getIRI());
+		return getOWLIRIResolver().iri2PrefixedName(property.getIRI());
 	}
 
 	@Override
 	public String convert(OWLAnnotationProperty property) throws TargetRuleEngineException
 	{
-		return getOWLIRIResolver().iri2ShortName(property.getIRI());
+		return getOWLIRIResolver().iri2PrefixedName(property.getIRI());
 	}
 
 	@Override
 	public String convert(OWLDatatype datatype) throws TargetRuleEngineException
 	{
-		return getOWLIRIResolver().iri2ShortName(datatype.getIRI());
+		return getOWLIRIResolver().iri2PrefixedName(datatype.getIRI());
 	}
 }

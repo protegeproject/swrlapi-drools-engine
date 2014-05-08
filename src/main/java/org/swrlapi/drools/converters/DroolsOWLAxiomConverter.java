@@ -236,25 +236,25 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 
 		if (entity.isOWLClass()) {
 			OWLClass cls = axiom.getEntity().asOWLClass();
-			String classShortName = getDroolsOWLNamedObject2DRLConverter().convert(cls);
-			recordOWLAxiom(new CDA(classShortName));
-			getOWLClassExpressionResolver().recordOWLClassExpression(classShortName, cls);
+			String classPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(cls);
+			recordOWLAxiom(new CDA(classPrefixedName));
+			getOWLClassExpressionResolver().recordOWLClassExpression(classPrefixedName, cls);
 		} else if (entity.isOWLNamedIndividual()) {
 			OWLNamedIndividual individual = entity.asOWLNamedIndividual();
-			String individualShortName = getDroolsOWLNamedObject2DRLConverter().convert(individual);
-			recordOWLAxiom(new IDA(individualShortName));
+			String individualPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(individual);
+			recordOWLAxiom(new IDA(individualPrefixedName));
 		} else if (entity.isOWLObjectProperty()) {
 			OWLObjectProperty property = entity.asOWLObjectProperty();
-			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
-			recordOWLAxiom(new OPDA(propertyShortName));
+			String propertyPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			recordOWLAxiom(new OPDA(propertyPrefixedName));
 		} else if (entity.isOWLDataProperty()) {
 			OWLDataProperty property = entity.asOWLDataProperty();
-			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
-			recordOWLAxiom(new DPDA(propertyShortName));
+			String propertyPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			recordOWLAxiom(new DPDA(propertyPrefixedName));
 		} else if (entity.isOWLAnnotationProperty()) {
 			OWLAnnotationProperty property = entity.asOWLAnnotationProperty();
-			String propertyShortName = getDroolsOWLNamedObject2DRLConverter().convert(property);
-			recordOWLAxiom(new APDA(propertyShortName));
+			String propertyPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			recordOWLAxiom(new APDA(propertyPrefixedName));
 		} else
 			throw new RuntimeException("unknown entity type " + entity.getClass().getCanonicalName()
 					+ " in OWL declaration axiom");

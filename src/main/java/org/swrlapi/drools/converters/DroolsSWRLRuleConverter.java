@@ -30,21 +30,21 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 	{
 		String ruleName = rule.getRuleName();
 		String drlRule = getRulePreamble(ruleName);
-		Set<String> previouslyEncounteredVariableShortNames = new HashSet<String>();
+		Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<String>();
 
 		getDroolsSWRLBodyAtomConverter().reset();
 		getDroolsSWRLHeadAtomConverter().reset();
 
 		for (SWRLAtom atom : rule.getBodyAtoms())
-			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariableShortNames)
+			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariablePrefixedNames)
 					+ " ";
 
 		drlRule = addRuleThenClause(drlRule);
 
 		// Old code to reference these variables before use or got null pointer error in Drools when invoking built-ins.
 		// Seems to be unnecessary now.
-		// for (String variableShortName : variableShortNames)
-		// drlRule += getDroolsSWRLVariableConverter().variableShortName2DRL(variableShortName);
+		// for (String variablePrefixedName : variablePrefixedNames)
+		// drlRule += getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
 
 		for (SWRLAtom atom : rule.getHeadAtoms())
 			drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";

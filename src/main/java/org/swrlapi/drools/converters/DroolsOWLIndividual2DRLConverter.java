@@ -23,7 +23,7 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
 	{
 		if (individual.isNamed()) {
 			IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
-			return addQuotes(getOWLIRIResolver().iri2ShortName(individualIRI));
+			return addQuotes(getOWLIRIResolver().iri2PrefixedName(individualIRI));
 		} else
 			return addQuotes(individual.asOWLAnonymousIndividual().getID().getID());
 	}

@@ -89,7 +89,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLDeclarationAxiom extract(CDA da) throws TargetRuleEngineException
 	{
-		OWLClass cls = getOWLDataFactory().getOWLClass(shortName2IRI(da.getE().getName()));
+		OWLClass cls = getOWLDataFactory().getOWLClass(prefixedName2IRI(da.getE().getName()));
 
 		return getSWRLAPIOWLDataFactory().getOWLClassDeclarationAxiom(cls);
 	}
@@ -97,7 +97,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLDeclarationAxiom extract(IDA da) throws TargetRuleEngineException
 	{
-		OWLNamedIndividual individual = getOWLDataFactory().getOWLNamedIndividual(shortName2IRI(da.getE().getName()));
+		OWLNamedIndividual individual = getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(da.getE().getName()));
 
 		return getSWRLAPIOWLDataFactory().getOWLIndividualDeclarationAxiom(individual);
 	}
@@ -105,7 +105,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLDeclarationAxiom extract(OPDA da) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = getOWLDataFactory().getOWLObjectProperty(shortName2IRI(da.getE().getName()));
+		OWLObjectProperty property = getOWLDataFactory().getOWLObjectProperty(prefixedName2IRI(da.getE().getName()));
 
 		return getSWRLAPIOWLDataFactory().getOWLObjectPropertyDeclarationAxiom(property);
 	}
@@ -113,7 +113,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLDeclarationAxiom extract(DPDA da) throws TargetRuleEngineException
 	{
-		OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(shortName2IRI(da.getE().getName()));
+		OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(prefixedName2IRI(da.getE().getName()));
 
 		return getSWRLAPIOWLDataFactory().getOWLDataPropertyDeclarationAxiom(property);
 	}
@@ -121,7 +121,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLDeclarationAxiom extract(APDA da) throws TargetRuleEngineException
 	{
-		OWLAnnotationProperty property = getOWLDataFactory().getOWLAnnotationProperty(shortName2IRI(da.getE().getName()));
+		OWLAnnotationProperty property = getOWLDataFactory().getOWLAnnotationProperty(prefixedName2IRI(da.getE().getName()));
 
 		return getSWRLAPIOWLDataFactory().getOWLAnnotationPropertyDeclarationAxiom(property);
 	}
