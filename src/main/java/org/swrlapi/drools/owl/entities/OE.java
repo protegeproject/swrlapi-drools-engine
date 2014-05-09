@@ -19,9 +19,6 @@ public abstract class OE implements OO, AA, BA
 	public OE(String id)
 	{
 		this.id = id;
-
-		if (id.startsWith("\""))
-			System.err.println("Hih?");
 	}
 
 	public String getName()
