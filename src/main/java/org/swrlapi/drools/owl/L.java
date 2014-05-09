@@ -47,67 +47,67 @@ public class L implements OO, BA, Serializable
 
 	public boolean isInteger()
 	{
-		return this.datatypeName.equals(XSDVocabulary.INTEGER.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.INTEGER.getPrefixedName());
 	}
 
 	public boolean isLong()
 	{
-		return this.datatypeName.equals(XSDVocabulary.LONG.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.LONG.getPrefixedName());
 	}
 
 	public boolean isFloat()
 	{
-		return this.datatypeName.equals(XSDVocabulary.FLOAT.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.FLOAT.getPrefixedName());
 	}
 
 	public boolean isDouble()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DOUBLE.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.DOUBLE.getPrefixedName());
 	}
 
 	public boolean isShort()
 	{
-		return this.datatypeName.equals(XSDVocabulary.SHORT.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.SHORT.getPrefixedName());
 	}
 
 	public boolean isBoolean()
 	{
-		return this.datatypeName.equals(XSDVocabulary.BOOLEAN.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.BOOLEAN.getPrefixedName());
 	}
 
 	public boolean isByte()
 	{
-		return this.datatypeName.equals(XSDVocabulary.BYTE.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.BYTE.getPrefixedName());
 	}
 
 	public boolean isAnyURI()
 	{
-		return this.datatypeName.equals(XSDVocabulary.ANY_URI.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.ANY_URI.getPrefixedName());
 	}
 
 	public boolean isTime()
 	{
-		return this.datatypeName.equals(XSDVocabulary.TIME.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.TIME.getPrefixedName());
 	}
 
 	public boolean isDate()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DATE.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.DATE.getPrefixedName());
 	}
 
 	public boolean isDateTime()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DATE_TIME.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.DATE_TIME.getPrefixedName());
 	}
 
 	public boolean isDuration()
 	{
-		return this.datatypeName.equals(XSDVocabulary.DURATION.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.DURATION.getPrefixedName());
 	}
 
 	public boolean isString()
 	{
-		return this.datatypeName.equals(XSDVocabulary.STRING.getShortForm());
+		return this.datatypeName.equals(XSDVocabulary.STRING.getPrefixedName());
 	}
 
 	@Override
