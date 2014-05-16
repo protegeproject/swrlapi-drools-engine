@@ -204,10 +204,10 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	@Override
 	public void defineSQWRLQuery(SQWRLQuery query) throws TargetRuleEngineException, BuiltInException
 	{
-		this.allSQWRLQueryNames.add(query.getName());
+		this.allSQWRLQueryNames.add(query.getQueryName());
 
 		if (query.isActive()) // If a query is not active, we convert it but record it as inactive.
-			this.activeSQWRLQueryNames.add(query.getName());
+			this.activeSQWRLQueryNames.add(query.getQueryName());
 
 		getDroolsSQWRLQueryConverter().convert(query); // Will call defineRule(String, String).
 	}
