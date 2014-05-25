@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl;
 import java.io.Serializable;
 
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
-import org.swrlapi.core.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;

@@ -9,14 +9,14 @@ import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.converters.TargetRuleEngineSWRLHeadAtomConverter;
+import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.core.SWRLRuleEngineBridge;
-import org.swrlapi.core.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.DroolsNames;
 import org.swrlapi.drools.DroolsSWRLBuiltInInvoker;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
-import org.swrlapi.ext.SWRLAPIBuiltInAtom;
 
 /**
  * This class converts SWRL head atoms to a their DRL representation for use in rules.

@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.swrlapi.converters.TargetRuleEngineOWLAxiomConverter;
+import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.DroolsSWRLRuleEngine;
 import org.swrlapi.drools.owl.L;
@@ -91,7 +92,6 @@ import org.swrlapi.drools.owl.axioms.TPA;
 import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.drools.owl.expressions.CE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.ext.SWRLAPIRule;
 
 /**
  * This class converts OWL axioms to their Drools representation. Not all OWL axioms are currently supported. These

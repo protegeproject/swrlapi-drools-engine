@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.entities;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.swrlapi.core.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.swrl.BA;

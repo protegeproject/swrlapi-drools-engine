@@ -1,17 +1,17 @@
 package org.swrlapi.drools.converters;
 
+import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLAnnotationPropertyBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLClassBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLDataPropertyBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLDatatypeBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.core.SWRLRuleEngineBridge;
-import org.swrlapi.core.arguments.SQWRLCollectionVariableBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLAnnotationPropertyBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLClassBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLDataPropertyBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLDatatypeBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLLiteralBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLNamedIndividualBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLObjectPropertyBuiltInArgument;
-import org.swrlapi.core.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
