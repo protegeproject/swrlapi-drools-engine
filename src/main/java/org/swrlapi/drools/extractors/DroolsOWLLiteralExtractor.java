@@ -6,15 +6,15 @@ import java.net.URISyntaxException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
+import org.swrlapi.bridge.extractors.TargetRuleEngineOWLLiteralExtractor;
+import org.swrlapi.core.xsd.XSDDate;
+import org.swrlapi.core.xsd.XSDDateTime;
+import org.swrlapi.core.xsd.XSDDuration;
+import org.swrlapi.core.xsd.XSDTime;
 import org.swrlapi.drools.owl.L;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
-import org.swrlapi.extractors.TargetRuleEngineOWLLiteralExtractor;
-import org.swrlapi.xsd.XSDDate;
-import org.swrlapi.xsd.XSDDateTime;
-import org.swrlapi.xsd.XSDDuration;
-import org.swrlapi.xsd.XSDTime;
 
 /**
  * This class converts Drools OWL literals represented by the class {@link L} to their OWLAPI representation.

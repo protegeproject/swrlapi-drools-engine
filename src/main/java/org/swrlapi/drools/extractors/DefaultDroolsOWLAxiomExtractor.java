@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.APA;
 import org.swrlapi.drools.owl.axioms.APDA;

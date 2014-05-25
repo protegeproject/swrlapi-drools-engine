@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.converters.DroolsSWRLBuiltInArgument2BAConverter;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
 import org.swrlapi.drools.sqwrl.VPATH;

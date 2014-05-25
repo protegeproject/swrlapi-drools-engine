@@ -1,7 +1,7 @@
 package org.swrlapi.drools.extractors;
 
-import org.swrlapi.core.SWRLRuleEngineBridge;
-import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 
 public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 {

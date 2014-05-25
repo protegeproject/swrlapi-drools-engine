@@ -1,8 +1,8 @@
 package org.swrlapi.drools;
 
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.TargetRuleEngine;
 import org.swrlapi.core.SWRLRuleEngineManager;
-import org.swrlapi.core.TargetRuleEngine;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

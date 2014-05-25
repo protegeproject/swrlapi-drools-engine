@@ -1,10 +1,10 @@
 package org.swrlapi.drools.extractors;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
 
 /**
  * Converts an OWL individual represented by the class {@link I} to an OWLAPI OWL individual.

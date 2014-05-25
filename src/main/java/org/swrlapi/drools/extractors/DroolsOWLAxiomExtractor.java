@@ -27,7 +27,8 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.swrlapi.converters.TargetRuleEngineOWLAxiomConverter;
+import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
+import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
 import org.swrlapi.drools.owl.axioms.APA;
 import org.swrlapi.drools.owl.axioms.APDA;
 import org.swrlapi.drools.owl.axioms.CAA;
@@ -60,7 +61,6 @@ import org.swrlapi.drools.owl.axioms.SOPA;
 import org.swrlapi.drools.owl.axioms.SPA;
 import org.swrlapi.drools.owl.axioms.TPA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.extractors.TargetRuleEngineExtractor;
 
 /**
  * This interface list methods for converting the Drools representation of OWL axioms to their OWLAPI representation.

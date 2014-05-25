@@ -1,7 +1,7 @@
 package org.swrlapi.drools.converters;
 
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 
 /**
  * Base class providing functionality common to all Drools converters.

@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
 import org.swrlapi.drools.owl.entities.AP;
 import org.swrlapi.drools.owl.entities.C;
 import org.swrlapi.drools.owl.entities.D;
@@ -14,7 +15,6 @@ import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.drools.owl.entities.OE;
 import org.swrlapi.drools.owl.entities.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.extractors.TargetRuleEngineExtractor;
 
 /**
  * This interface describes methods for converting the Drools representation of OWL entities represented by the class

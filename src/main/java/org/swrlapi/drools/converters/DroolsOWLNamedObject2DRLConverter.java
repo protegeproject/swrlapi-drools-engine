@@ -6,9 +6,9 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.converters.TargetRuleEngineOWLEntityConverter;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
+import org.swrlapi.bridge.converters.TargetRuleEngineOWLEntityConverter;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

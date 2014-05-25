@@ -4,8 +4,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 
 public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 {

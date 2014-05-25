@@ -2,9 +2,9 @@ package org.swrlapi.drools.converters;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.swrlapi.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.converters.TargetRuleEngineOWLIndividualConverter;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
+import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

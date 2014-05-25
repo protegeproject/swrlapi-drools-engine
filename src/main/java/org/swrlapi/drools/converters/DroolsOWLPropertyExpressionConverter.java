@@ -11,8 +11,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.swrlapi.converters.TargetRuleEngineOWLPropertyExpressionConverter;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

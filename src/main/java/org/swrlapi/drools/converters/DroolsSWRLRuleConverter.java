@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIRule;
-import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.DroolsSWRLRuleEngine;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 

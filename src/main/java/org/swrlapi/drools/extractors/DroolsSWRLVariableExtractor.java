@@ -1,9 +1,9 @@
 package org.swrlapi.drools.extractors;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.swrlapi.core.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.extractors.TargetRuleEngineExtractorBase;
 
 public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
 {

@@ -9,8 +9,9 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.extractors.TargetRuleEngineSWRLAtomArgumentExtractor;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.core.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.L;
 import org.swrlapi.drools.owl.entities.AP;
 import org.swrlapi.drools.owl.entities.C;
@@ -23,7 +24,6 @@ import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.UBA;
 import org.swrlapi.drools.swrl.VA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.extractors.TargetRuleEngineSWRLAtomArgumentExtractor;
 
 /**
  * This class creates Drools SWRL atom arguments represented, by the class {@link AA}, to their SWRLAPI representation.
