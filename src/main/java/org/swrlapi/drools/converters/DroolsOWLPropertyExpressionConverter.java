@@ -53,7 +53,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 		else {
 			OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
 			IRI propertyIRI = objectProperty.getIRI();
-			return getOWLIRIResolver().iri2PrefixedName(propertyIRI);
+			return getIRIResolver().iri2PrefixedName(propertyIRI);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 		else {
 			OWLDataProperty objectProperty = propertyExpression.asOWLDataProperty();
 			IRI propertyIRI = objectProperty.getIRI();
-			return getOWLIRIResolver().iri2PrefixedName(propertyIRI);
+			return getIRIResolver().iri2PrefixedName(propertyIRI);
 		}
 	}
 

@@ -45,7 +45,7 @@ public class DroolsOWLDataRange2DRLConverter extends TargetRuleEngineConverterBa
 	@Override
 	public String convert(OWLDatatype range) throws TargetRuleEngineException
 	{
-		return getOWLIRIResolver().iri2PrefixedName(range.getIRI());
+		return getIRIResolver().iri2PrefixedName(range.getIRI());
 	}
 
 	@Override

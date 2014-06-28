@@ -17,7 +17,7 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 	public String swrlVariable2DRL(SWRLVariable variable)
 	{
 		IRI variableIRI = variable.getIRI();
-		String variablePrefixedName = getOWLIRIResolver().iri2PrefixedName(variableIRI);
+		String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
 
 		return variablePrefixedName2DRL(variablePrefixedName);
 	}
@@ -25,7 +25,7 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 	public String swrlVariable2VariableName(SWRLVariable variable)
 	{
 		IRI variableIRI = variable.getIRI();
-		String variablePrefixedName = getOWLIRIResolver().iri2PrefixedName(variableIRI);
+		String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
 
 		return variablePrefixedName2VariableName(variablePrefixedName);
 	}
@@ -34,12 +34,12 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 	{
 		IRI variableIRI = variable.getIRI();
 
-		return getOWLIRIResolver().iri2PrefixedName(variableIRI);
+		return getIRIResolver().iri2PrefixedName(variableIRI);
 	}
 
 	public String variableIRI2DRL(IRI variableIRI)
 	{
-		String variablePrefixedName = getOWLIRIResolver().iri2PrefixedName(variableIRI);
+		String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
 
 		return variablePrefixedName2DRL(variablePrefixedName);
 	}

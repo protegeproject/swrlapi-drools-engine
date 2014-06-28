@@ -94,7 +94,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(classArgument.getIRI());
+		String prefixedName = getIRIResolver().iri2PrefixedName(classArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -102,7 +102,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(individualArgument.getIRI());
+		String prefixedName = getIRIResolver().iri2PrefixedName(individualArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -110,7 +110,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -118,7 +118,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -126,7 +126,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -134,7 +134,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
 	{
-		String prefixedName = getOWLIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
+		String prefixedName = getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}

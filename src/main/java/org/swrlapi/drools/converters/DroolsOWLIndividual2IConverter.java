@@ -26,7 +26,7 @@ public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBas
 	{
 		if (individual.isNamed()) {
 			IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
-			String individualPrefixedName = getOWLIRIResolver().iri2PrefixedName(individualIRI);
+			String individualPrefixedName = getIRIResolver().iri2PrefixedName(individualIRI);
 			return new I(individualPrefixedName);
 		} else
 			return new I(individual.asOWLAnonymousIndividual().getID().getID());

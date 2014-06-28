@@ -20,7 +20,7 @@ public class DefaultDroolsI2OWLIndividualExtractor extends TargetRuleEngineExtra
 	@Override
 	public OWLIndividual extract(I i) throws TargetRuleEngineException
 	{
-		if (getOWLIRIResolver().isOWLNamedIndividual(i.getName()))
+		if (getIRIResolver().isOWLNamedIndividual(i.getName()))
 			return getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(i.getName()));
 		else
 			return getOWLDataFactory().getOWLAnonymousIndividual(i.getName());

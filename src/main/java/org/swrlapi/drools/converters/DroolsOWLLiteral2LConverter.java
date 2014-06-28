@@ -24,7 +24,7 @@ public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase i
 	{
 		String literalValue = literal.getLiteral();
 		IRI datatypeIRI = literal.getDatatype().getIRI();
-		String datatypePrefixedName = getOWLIRIResolver().iri2PrefixedName(datatypeIRI);
+		String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatypeIRI);
 		return new L(literalValue, datatypePrefixedName);
 	}
 }
