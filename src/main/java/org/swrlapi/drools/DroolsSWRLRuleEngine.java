@@ -37,11 +37,8 @@ import org.swrlapi.owl2rl.OWL2RLEngine;
 import org.swrlapi.sqwrl.SQWRLQuery;
 
 /**
- * This class provides a Drools implementation of a rule engine for SWRL using the SWRLTab's Rule Engine Bridge
+ * This class provides a Drools implementation of a rule engine for SWRL using the SWRLAPI's Rule Engine Bridge
  * mechanism.
- * <p>
- * See <a href="http://protege.cim3.net/cgi-bin/wiki.pl?SWRLRuleEngineBridgeFAQ">here</a> for detailed documentation of
- * this bridge.
  */
 public class DroolsSWRLRuleEngine implements TargetRuleEngine
 {
