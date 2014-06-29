@@ -4,18 +4,16 @@
 
   <groupId>org.swrlapi</groupId>
   <artifactId>swrlapi-drools-engine</artifactId>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Drools implementation of SWRLAPI SWRL rule engine</name>
 
   <properties>
 
     <owlapi.version>3.5.0</owlapi.version> 
-    <swrlapi.version>1.0</swrlapi.version>
-    <log4j.version>1.2.16</log4j.version>
-    <junit.version>3.8.1</junit.version>
-    <jep.version>2.4.0</jep.version>
+    <swrlapi.version>1.0-SNAPSHOT</swrlapi.version>
     <drools.version>5.4.0.Final</drools.version> <!-- Tried 4.6.0.Final but got runtime errors -->
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
   </properties>
@@ -32,19 +30,6 @@
       <groupId>org.swrlapi</groupId>
       <artifactId>swrlapi</artifactId>
       <version>${swrlapi.version}</version>
-    </dependency>
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-      <version>${log4j.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
     </dependency>
 
 		<dependency>
