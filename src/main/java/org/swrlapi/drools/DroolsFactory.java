@@ -6,6 +6,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import org.swrlapi.core.SWRLRuleEngineManager;
+import org.swrlapi.exceptions.SWRLAPIException;
 
 public class DroolsFactory
 {
@@ -16,13 +17,13 @@ public class DroolsFactory
 		return new DroolsSWRLRuleEngineCreator();
 	}
 
-	public static Icon getSWRLRuleEngineIcon()
+	public static Icon getSWRLRuleEngineIcon() throws SWRLAPIException
 	{
 		URL url = DroolsFactory.class.getResource(DROOLS_ICON_NAME);
 
 		if (url != null)
 			return new ImageIcon(url);
 		else
-			throw new RuntimeException("No Drools icon found!");
+			throw new SWRLAPIException("No Drools icon found!");
 	}
 }

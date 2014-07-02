@@ -13,6 +13,7 @@
     <owlapi.version>3.5.0</owlapi.version> 
     <swrlapi.version>1.0-SNAPSHOT</swrlapi.version>
     <drools.version>5.4.0.Final</drools.version> <!-- Tried 4.6.0.Final but got runtime errors -->
+    <log4j.version>1.2.17</log4j.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -73,7 +74,12 @@
 			<artifactId>mvel2</artifactId>
 			<version>2.1.0.drools8</version>
 		</dependency>
-    
+
+    <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>    
 
 	</dependencies>
 
