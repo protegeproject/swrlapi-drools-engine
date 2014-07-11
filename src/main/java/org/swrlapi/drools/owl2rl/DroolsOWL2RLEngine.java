@@ -10,9 +10,10 @@ import org.swrlapi.owl2rl.AbstractOWL2RLEngine;
 import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
 
 /**
- * Class providing Drools implementation of OWL 2 RL rules. In its current state, this is a fairly naive,
- * straightforward implementation of the OWL 2 RL rules in the specification. Many optimizations are possible.
- * <p>
+ * Class providing Drools implementation of OWL 2 RL rules. In its current state, this is a fairly naive
+ * implementation of the rules in the OWL 2 RL specification. Many optimizations are possible.
+ * <p/>
+ * <p/>
  * The reason the the strange-looking $variable.id formulation for named entities in the consequent of some rules is
  * that Drools does not always seem to correctly determine the appropriate specialized variable type when Java generics
  * are used and gives a rule compilation error when looking for a constructor with the specialized type; pulling the
@@ -52,43 +53,18 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		defineOWL2RLTable9DroolsRules();
 	}
 
-	private static Set<Rule> generateUnsupportedRules()
-	{
-		return EnumSet.of(Rule.PRP_SPO2, Rule.PRP_KEY, Rule.PRP_NPA1, Rule.PRP_NPA2, Rule.CLS_MAXQC1, Rule.CLS_MAXQC2,
-				Rule.CLS_MAXQC3, Rule.CLS_MAXQC4, Rule.DT_NOT_TYPE);
-
-		// Table 5
-		// TODO prp_ap
-		// TODO Rule.PRP_RNG partial; data property range not supported
-		// TODO PRP_SPO2 - Property chain - not in OWL 1
-		// TODO PRP_KEY - Keys - not in OWL 1
-		// TODO PRP_NPA1 - Negative property assertion
-		// TODO PRP_NPA2 - Negative property assertion
-
-		// Table 6
-		// TODO CLS_SFV1 partial: cls_sfv1_dp not implemented
-		// TODO CLS_MAXQC1 - Qualified cardinality; OWL 2 only
-		// TODO CLS_MAXQC2 - Qualified cardinality; OWL 2 only
-		// TODO CLS_MAXQC3 - Qualified cardinality; OWL 2 only
-		// TODO CLS_MAXQC4 - Qualified cardinality; OWL 2 only
-
-		// Table 7
-		// TODO CLS_AVF partial: cls_avf_dp not implemented
-
-		// Table 8
-		// TODO DT_NOT_TYPE;
-
-		// Table 9
-		// TODO SCM_RNG1 partial: scm_rng1_dp not implemented
-		// TODO SCM_RNG2 partial: scm_rng2_fp not implemented
-	}
-
+	/**
+	 * These are rules that are always enabled and that cannot be disabled.
+	 */
 	private static Set<Rule> generatePermanentlyOnRules()
 	{
 		return EnumSet.of(Rule.CLS_THING, Rule.CLS_NOTHING1, Rule.CLS_NOTHING2, Rule.DT_TYPE1, Rule.DT_TYPE2, Rule.DT_EQ,
 				Rule.DT_DIFF);
 	}
 
+	/**
+	 * These are rules that must be enabled and disabled in groups.
+	 */
 	private static Set<Set<Rule>> generateGroupedRuleSets()
 	{
 		Set<Set<Rule>> groupedRuleSets = new HashSet<Set<Rule>>();
@@ -101,43 +77,89 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		return groupedRuleSets;
 	}
 
+	private static Set<Rule> generateUnsupportedRules()
+	{
+		return EnumSet.of(Rule.PRP_SPO2, Rule.PRP_KEY, Rule.PRP_NPA1, Rule.PRP_NPA2, Rule.CLS_MAXQC1, Rule.CLS_MAXQC2,
+				Rule.CLS_MAXQC3, Rule.CLS_MAXQC4, Rule.DT_NOT_TYPE);
+
+		// http://www.w3.org/TR/owl2-profiles/
+
+		// Table 5
+		// TODO Rule.PRP_AP:
+		// -> T(ap, rdf:type, owl:AnnotationProperty)
+
+		// TODO Rule.PRP_RNG partial; data property range not supported
+		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
+
+		// TODO Rule.PRP_SPO2 - Property chains - not in OWL 1
+		// TODO Rule.PRP_KEY - Keys - not in OWL 1
+
+		// TODO Rule.PRP_NPA1 - Negative property assertion
+		// T(?x, owl:sourceIndividual, ?i1) T(?x, owl:assertionProperty, ?p)
+		// T(?x, owl:targetIndividual, ?i2) T(?i1, ?p, ?i2) -> false
+
+		// TODO Rule.PRP_NPA2 - Negative property assertion
+		// T(?x, owl:sourceIndividual, ?i) T(?x, owl:assertionProperty, ?p)
+		// T(?x, owl:targetValue, ?lt)		T(?i, ?p, ?lt) -> false
+
+		// Table 6
+		// TODO CLS_SFV1 - partial: cls_sfv1_dp not implemented
+		// T(?x, owl:someValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, ?p, ?v) T(?v, rdf:type, ?y)
+		// -> T(?u, rdf:type, ?x)
+		// TODO CLS_AVF - partial: cls_avf_dp not implemented
+		// T(?x, owl:allValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, rdf:type, ?x) T(?u, ?p, ?v)
+		// -> T(?v, rdf:type, ?y)
+		// TODO CLS_MAXQC1 - Qualified cardinality; OWL 2 only
+		// T(?x, owl:maxQualifiedCardinality, "0"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p) T(?x, owl:onClass, ?c)
+		// T(?u, rdf:type, ?x) T(?u, ?p, ?y) T(?y, rdf:type, ?c) -> false
+		// TODO CLS_MAXQC2 - Qualified cardinality; OWL 2 only
+		// TODO CLS_MAXQC3 - Qualified cardinality; OWL 2 only
+		// TODO CLS_MAXQC4 - Qualified cardinality; OWL 2 only
+
+		// Table 8
+		// TODO DT_NOT_TYPE
+		// T(lt, rdf:type, dt) -> false
+
+		// Table 9
+		// TODO SCM_RNG1 - partial: scm_rng1_dp not implemented
+		// T(?p, rdfs:range, ?c1) T(?c1, rdfs:subClassOf, ?c2) -> T(?p, rdfs:range, ?c2)
+
+		// TODO SCM_RNG2 - partial: scm_rng2_fp not implemented
+		// T(?p2, rdfs:range, ?c) T(?p1, rdfs:subPropertyOf, ?p2) -> T(?p1, rdfs:range, ?c)
+	}
+
 	private void defineOWL2RLTable4DroolsRules()
 	{
 		createRuleDefinition(Rule.EQ_REF, "eq_ref_c",
 				"rule eq_ref_c when CAA($s:c, $o:i) then SIA sia=new SIA($o, $o); inferrer.infer(sia); end");
-		createRuleDefinition(
-				Rule.EQ_REF,
-				"eq_ref_op",
+
+		createRuleDefinition(Rule.EQ_REF, "eq_ref_op",
 				"rule eq_ref_op when OPAA($s:s, $p:p, $o:o) then SIA sia1=new SIA($s, $s); SIA sia2=new SIA($o, $o); inferrer.infer(sia1, sia2); end");
+
 		createRuleDefinition(Rule.EQ_REF, "eq_ref_dp",
 				"rule eq_ref_dp when DPAA($s:s, $p:p, $o:o) then SIA sia=new SIA($s, $s); inferrer.infer(sia); end");
 
 		createRuleDefinition(Rule.EQ_SYM, "eq_sym",
 				"rule eq_sym when SIA($x:i1, $y:i2) then SIA sia=new SIA($y, $x); inferrer.infer(sia); end");
+
 		createRuleDefinition(Rule.EQ_TRANS, "eq_trans",
 				"rule eq_trans when SIA($s1:i1, $s2:i2) SIA(i1==$s2, $s3:i2) then SIA sia=new SIA($s1, $s3); inferrer.infer(sia); end");
 
 		createRuleDefinition(Rule.EQ_REP_S, "eq_rep_s_c",
 				"rule eq_rep_s_c when SIA($s:i1, $sp:i2) CAA($c:c, i==$s) then CAA caa=new CAA($c, $sp); inferrer.infer(caa); end");
-		createRuleDefinition(
-				Rule.EQ_REP_S,
-				"eq_rep_s_op",
+
+		createRuleDefinition(Rule.EQ_REP_S, "eq_rep_s_op",
 				"rule eq_rep_s_op when SIA($s:i1, $sp:i2) OPAA(s==$s, $p:p, $o:o) then OPAA opaa=new OPAA($sp, $p, $o); inferrer.infer(opaa); end");
-		createRuleDefinition(
-				Rule.EQ_REP_S,
-				"eq_rep_s_dp",
+
+		createRuleDefinition(Rule.EQ_REP_S, "eq_rep_s_dp",
 				"rule eq_rep_s_dp when SIA($s:i1, $sp:i2) DPAA(s==$s, $p:p, $o:o) then DPAA dpaa=new DPAA($sp, $p, $o); inferrer.infer(dpaa); end");
 
 		// EQ_REP_P will be handled by PRP_EQP1 and PRP_EQP2.
 
-		createRuleDefinition(
-				Rule.EQ_REP_O,
-				"eq_rep_o",
+		createRuleDefinition(Rule.EQ_REP_O, "eq_rep_o",
 				"rule eq_rep_o when SIA($o:i1, $op:i2) OPAA($s:s, $p:p, o==$o) then OPAA opaa=new OPAA($s, $p, $op); inferrer.infer(opaa); end");
 
-		createRuleDefinition(
-				Rule.EQ_DIFF1,
-				"eq_diff1",
+		createRuleDefinition(Rule.EQ_DIFF1, "eq_diff1",
 				"rule eq_diff1 when SIA($x:i1, $y:i2) DIA(i1==$x, i2==$y) then inferrer.inferFalse(\""
 						+ Rule.EQ_DIFF1.toString() + "\", $x.id, $y.id); end");
 
@@ -148,47 +170,43 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 	private void defineOWL2RLTable5DroolsRules()
 	{
 		// TODO prp_ap
+
 		createRuleDefinition(Rule.PRP_DOM, "prp_dom_op",
 				"rule prp_dom_op when DOPA($p:p, $c:d) OPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($c, $x); inferrer.infer(caa); end");
+
 		createRuleDefinition(Rule.PRP_DOM, "prp_dom_dp",
 				"rule prp_dom_dp when DDPA($p:p, $c:d) DPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($c, $x); inferrer.infer(caa); end");
 
 		createRuleDefinition(Rule.PRP_RNG, "prp_rng",
 				"rule prp_rng_op when ROPA($p:p, $c:r) OPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($c, $y); inferrer.infer(caa); end");
+
 		// TODO prp_rng_dp
 
-		createRuleDefinition(
-				Rule.PRP_FP,
-				"prp_fp",
+		createRuleDefinition(Rule.PRP_FP, "prp_fp",
 				"rule prp_fp when FOPA($p:p) OPAA($x:s, p==$p, $y1:o) OPAA(s==$x, p==$p, $y2:o) then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 
-		createRuleDefinition(
-				Rule.PRP_IFP,
-				"prp_ifp",
+		createRuleDefinition(Rule.PRP_IFP, "prp_ifp",
 				"rule prp_ifp_op when IPA($p:p) OPAA($x1:s, p==$p, $y:o) OPAA($x2:s, p==$p, o==$y) then SIA sia=new SIA($x1, $x2); inferrer.infer(sia); end");
 
 		createRuleDefinition(Rule.PRP_IRP, "prp_irp",
 				"rule prp_irp when IRPA($p:p) OPAA($s:s, p==$p, $x:o) then inferrer.inferFalse(\"" + Rule.PRP_IRP.toString()
 						+ "\", $x.id, $p.id); end");
 
-		createRuleDefinition(
-				Rule.PRP_SYMP,
-				"prp_symp",
+		createRuleDefinition(Rule.PRP_SYMP, "prp_symp",
 				"rule prp_symp when SPA($p:p) OPAA($x:s, p==$p, $y:o) then OPAA opaa=new OPAA($y, $p.id, $x); inferrer.infer(opaa); end");
 
 		createRuleDefinition(Rule.PRP_ASYP, "prp_asyp",
 				"rule prp_asyp when APA($p:p) OPAA($x:s, p==$p, $y:o) OPAA(s==$y, p==$p, o==$x) then inferrer.inferFalse(\""
 						+ Rule.PRP_ASYP.toString() + "\", $x.id, $y.id, $p.id); end");
 
-		createRuleDefinition(
-				Rule.PRP_TRP,
-				"prp_trp",
+		createRuleDefinition(Rule.PRP_TRP, "prp_trp",
 				"rule prp_trp when TPA($p:p) OPAA($x:s, p==$p, $y:o) OPAA(s==$y, p==$p, $z:o) then OPAA opaa=new OPAA($x, $p.id, $z); inferrer.infer(opaa); end");
 
 		createRuleDefinition(
 				Rule.PRP_SPO1,
 				"prp_spo1_op",
 				"rule prp_spo1_op when SOPA($p1:sub, $p2:sup) OPAA($x:s, p==$p1, $y:o) then OPAA opaa=new OPAA($x, $p2, $y); inferrer.infer(opaa); end");
+
 		createRuleDefinition(
 				Rule.PRP_SPO1,
 				"prp_spo1_dp",
@@ -230,7 +248,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"prp_inv2",
 				"rule prp_inv2 when IOPA($p1:p1, $p2:p2) OPAA($x:s, p==$p2, $y:o) then OPAA opaa=new OPAA($y, $p1.id, $x); inferrer.infer(opaa); end");
 
-		// TODO prp_key; OWL 1 only
+		// TODO prp_key - property chains; OWL 1 only
 		// TODO pro_npa1; negative property assertion axioms
 		// TODO pro_npa2; negative property assertion axioms
 	}
@@ -267,6 +285,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				Rule.CLS_SFV1,
 				"cls_sfv1",
 				"rule cls_sfv1_op when OSVFCE($x:ceid, $p:p, $y:v) OPAA($u:s, p==$p, $v:o) CAA(c==$y, i==$v) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
+
 		// TODO cls_sfv1_dp
 
 		createRuleDefinition(
@@ -279,7 +298,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"cls_avf",
 				"rule cls_avf_op when OAVFCE($x:ceid, $p:p, $y:v) CAA(c==$x, $u:i) OPAA(s==$u, p==$p, $v:o) then CAA caa=new CAA($y, $v); inferrer.infer(caa); end");
 
-		// TODO CLS_AVF_DP
+		// TODO cls_avf_dp
 
 		createRuleDefinition(
 				Rule.CLS_HV1,
@@ -313,22 +332,23 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 						+ "then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 
 		/*
-		 * putRuleMapping(Rule.CLS_MAXQC1, "cls_maxqc1",
+		 * createRuleDefinition(Rule.CLS_MAXQC1, "cls_maxqc1",
 		 * "rule cls_maxqc1_op when MQCCE($x:ceid, $p:p, card==0, $c:c)) CAA($x:c, $u:i) OPAA(s==$u, p==$p, $y:o) CAA(c==$c, i==$y) then inferrer.inferFalse(\""
 		 * + Rule.CLS_MAXQC1.toString() + "\", $x, $c, $p.id, $u.id, $y.id); end"); // TODO CLS_MAXQC1_DP
 		 * 
-		 * putRuleMapping( Rule.CLS_MAXQC2, "cls_maxqc2",
+		 * createRuleDefinition( Rule.CLS_MAXQC2, "cls_maxqc2",
 		 * "rule cls_maxqc2 when MQCCE($x:ceid, $p:p, card==0, \"owl:Thing\") CAA(c, $u:i) OPAA(s==$u, p==$p, $y:o) then inferrer.inferFalse(\""
 		 * + Rule.CLS_MAXQC2.toString() + "\", $x, $c, $p.id, $u.id, $y.id); end");
 		 * 
-		 * putRuleMapping(Rule.CLS_MAXQC3, "cls_maxqc3",
+		 * createRuleDefinition(Rule.CLS_MAXQC3, "cls_maxqc3",
 		 * "rule cls_maxqc3 when MQCCE($x:ceid, $p:p, card==1, $c:c) CAA(c==$x, $u:i) OPAA(s==$u, p==$p, $y1:o) CAA(c==$c, i==$y1) OPAA(s==$u, p==$p, $y2:o) CAA(c==$c, i==$y2) "
 		 * + "then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 		 * 
-		 * putRuleMapping(Rule.CLS_MAXQC4, "cls_maxqc4",
+		 * createRuleDefinition(Rule.CLS_MAXQC4, "cls_maxqc4",
 		 * "rule cls_maxqc4 when MQCCE($x:ceid, $p:p, card==1, \"owl:Thing\") CAA($x:c, $u:i) OPAA(s==$u, p==$p, $y1:o) OPAA(s==$u, p==$p, $y2:o) "
 		 * + "then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 		 */
+
 		createRuleDefinition(
 				Rule.CLS_OO,
 				"cls_oo",
@@ -339,8 +359,10 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 	{
 		createRuleDefinition(Rule.CAX_SCO, "cax_sco",
 				"rule cax_sco  when SCA($c1:sub, $c2:sup) CAA(c==$c1, $x:i) then CAA caa=new CAA($c2, $x); inferrer.infer(caa); end");
+
 		createRuleDefinition(Rule.CAX_EQC1, "cax_eqc1",
 				"rule cax_eqc1 when ECA($c1:c1, $c2:c2) CAA(c==$c1, $x:i) then CAA caa=new CAA($c2, $x); inferrer.infer(caa); end");
+
 		createRuleDefinition(Rule.CAX_EQC2, "cax_eqc2",
 				"rule cax_eqc2 when ECA($c1:c1, $c2:c2) CAA(c==$c2, $x:i) then CAA caa=new CAA($c1, $x); inferrer.infer(caa); end");
 
@@ -451,6 +473,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		createRuleDefinition(Rule.SCM_HV, "scm_hv_op",
 				"rule scm_hv_op when OHVCE($c1:ceid, $p1:p, $i:v) OHVCE($c2:ceid, $p2:p, v==$i) SOPA(sub==$p1, sup==$p2) "
 						+ "then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
+
 		createRuleDefinition(Rule.SCM_HV, "scm_hv_dp",
 				"rule scm_hv_dp when DHVCE($c1:ceid, $p1:p, $i:v) DHVCE($c2:ceid, $p2:p, v==$i) SDPA(sub==$p1, sup==$p2) "
 						+ "then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
@@ -462,6 +485,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		createRuleDefinition(Rule.SCM_SVF2, "scm_svf2_op",
 				"rule scm_svf2_op when OSVFCE($c1:ceid, $p1:p, $y:v) OSVFCE($c2:ceid, $p2:p, v==$y) SOPA(sub==$p1, sup==$p2) "
 						+ "then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
+
 		createRuleDefinition(Rule.SCM_SVF2, "scm_svf2_dp",
 				"rule scm_svf2_dp when DSVFCE($c1:ceid, $p1:p, $y:v) DSVFCE($c2:ceid, $p2:p, v==$y) SDPA(sub==$p1, sup==$p2) "
 						+ "then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
@@ -474,6 +498,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		createRuleDefinition(Rule.SCM_AVF2, "scm_avf2_op",
 				"rule scm_avf2_op when OAVFCE($c1:ceid, $p1:p, $y:v) OAVFCE($c2:ceid, $p2:p, v==$y) SOPA(sub==$p1, sup==$p2) "
 						+ " then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
+
 		createRuleDefinition(Rule.SCM_AVF2, "scm_avf2_dop",
 				"rule scm_avf2_dp when DAVFCE($c1:ceid, $p1:p, $y:v) DAVFCE($c2:ceid, $p2:p, v==$y) SDPA(sub==$p1, sup==$p2) "
 						+ " then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
