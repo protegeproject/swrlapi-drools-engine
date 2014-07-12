@@ -113,12 +113,21 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// T(?x, owl:maxQualifiedCardinality, "0"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p) T(?x, owl:onClass, ?c)
 		// T(?u, rdf:type, ?x) T(?u, ?p, ?y) T(?y, rdf:type, ?c) -> false
 		// TODO CLS_MAXQC2 - Qualified cardinality; OWL 2 only
+		// T(?x, owl:maxQualifiedCardinality, "0"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p)
+    // T(?x, owl:onClass, owl:Thing) T(?u, rdf:type, ?x) T(?u, ?p, ?y) -> false
 		// TODO CLS_MAXQC3 - Qualified cardinality; OWL 2 only
+		// T(?x, owl:maxQualifiedCardinality, "1"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p) T(?x, owl:onClass, ?c)
+		// T(?u, rdf:type, ?x) T(?u, ?p, ?y1) T(?y1, rdf:type, ?c) T(?u, ?p, ?y2) T(?y2, rdf:type, ?c)
+		// // -> T(?y1, owl:sameAs, ?y2)
 		// TODO CLS_MAXQC4 - Qualified cardinality; OWL 2 only
+		// T(?x, owl:maxQualifiedCardinality, "1"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p)
+		// T(?x, owl:onClass, owl:Thing) T(?u, rdf:type, ?x) T(?u, ?p, ?y1) T(?u, ?p, ?y2) -> false
 
 		// Table 8
 		// TODO DT_NOT_TYPE
 		// T(lt, rdf:type, dt) -> false
+		// for each literal lt and each datatype dt supported in OWL 2 RL such that the data value of lt is not
+		// contained in the value space of dt.
 
 		// Table 9
 		// TODO SCM_RNG1 - partial: scm_rng1_dp not implemented
