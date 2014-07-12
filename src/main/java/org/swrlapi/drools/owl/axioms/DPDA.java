@@ -6,7 +6,7 @@ import org.swrlapi.drools.owl.entities.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an OWL data property declaration axiom.
+ * This class represents an OWL data property declaration.
  */
 public class DPDA extends DA<DP>
 {

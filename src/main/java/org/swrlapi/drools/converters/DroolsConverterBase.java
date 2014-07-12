@@ -14,7 +14,7 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 	private final DroolsOWLEntity2OEConverter entity2OEConverter;
 	private final DroolsOWLIndividual2DRLConverter individual2DRLConverter;
 	private final DroolsOWLIndividual2IConverter individual2IConverter;
-	private final DroolsOWLDataRange2DRLConverter dataRange2DRLConverter;
+	private final DroolsOWLDataRangeConverter dataRangeConverter;
 	private final DroolsSWRLVariableConverter variableConverter;
 
 	public DroolsConverterBase(SWRLRuleEngineBridge bridge)
@@ -26,7 +26,7 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 		this.entity2OEConverter = new DroolsOWLEntity2OEConverter(bridge);
 		this.individual2DRLConverter = new DroolsOWLIndividual2DRLConverter(bridge);
 		this.individual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
-		this.dataRange2DRLConverter = new DroolsOWLDataRange2DRLConverter(bridge);
+		this.dataRangeConverter = new DroolsOWLDataRangeConverter(bridge);
 		this.variableConverter = new DroolsSWRLVariableConverter(bridge);
 	}
 
@@ -60,9 +60,9 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 		return this.individual2IConverter;
 	}
 
-	protected DroolsOWLDataRange2DRLConverter getDroolsOWLDataRange2DRLConverter()
+	protected DroolsOWLDataRangeConverter getDroolsOWLDataRangeConverter()
 	{
-		return this.dataRange2DRLConverter;
+		return this.dataRangeConverter;
 	}
 
 	protected DroolsSWRLVariableConverter getDroolsSWRLVariableConverter()

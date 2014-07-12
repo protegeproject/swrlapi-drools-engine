@@ -5,45 +5,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.*;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
-import org.swrlapi.drools.owl.expressions.CE;
-import org.swrlapi.drools.owl.expressions.DAVFCE;
-import org.swrlapi.drools.owl.expressions.DCCE;
-import org.swrlapi.drools.owl.expressions.DHVCE;
-import org.swrlapi.drools.owl.expressions.DMaxCCE;
-import org.swrlapi.drools.owl.expressions.DMinCCE;
-import org.swrlapi.drools.owl.expressions.DSVFCE;
-import org.swrlapi.drools.owl.expressions.OAVFCE;
-import org.swrlapi.drools.owl.expressions.OCCE;
-import org.swrlapi.drools.owl.expressions.OCOCE;
-import org.swrlapi.drools.owl.expressions.OHVCE;
-import org.swrlapi.drools.owl.expressions.OIOCE;
-import org.swrlapi.drools.owl.expressions.OMaxCCE;
-import org.swrlapi.drools.owl.expressions.OMinCCE;
-import org.swrlapi.drools.owl.expressions.OOOCE;
-import org.swrlapi.drools.owl.expressions.OSVFCE;
-import org.swrlapi.drools.owl.expressions.OUOCE;
+import org.swrlapi.drools.owl.expressions.*;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -238,7 +203,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
-			String someValuesFromDataRangeID = getDroolsOWLDataRange2DRLConverter().convert(classExpression.getFiller());
+			String someValuesFromDataRangeID = getDroolsOWLDataRangeConverter().convert(classExpression.getFiller());
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
 			DSVFCE dsvfce = new DSVFCE(classExpressionID, propertyID, someValuesFromDataRangeID);
 
@@ -335,12 +300,17 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
 			int cardinality = classExpression.getCardinality();
-			DMaxCCE dmaxcce = new DMaxCCE(classExpressionID, propertyID, cardinality);
+
+			if (classExpression.isQualified()) {
+				String fillerID = getDroolsOWLDataRangeConverter().convert(classExpression.getFiller());
+				DMaxQCCE dmaxqcce = new DMaxQCCE(classExpressionID, propertyID, fillerID, cardinality);
+				addOWLClassExpression(dmaxqcce);
+			} else {
+				DMaxCCE dmaxcce = new DMaxCCE(classExpressionID, propertyID, cardinality);
+				addOWLClassExpression(dmaxcce);
+			}
 
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
-
-			addOWLClassExpression(dmaxcce);
-
 			this.convertedClassExpressionIDs.add(classExpressionID);
 		}
 		return classExpressionID;
@@ -354,12 +324,16 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
 			int cardinality = classExpression.getCardinality();
-			OMaxCCE omaxcce = new OMaxCCE(classExpressionID, propertyID, cardinality);
 
+			if (classExpression.isQualified()) {
+				String fillerID = convert(classExpression.getFiller());
+				OMaxQCCE omaxqcce = new OMaxQCCE(classExpressionID, propertyID, fillerID, cardinality);
+				addOWLClassExpression(omaxqcce);
+			} else {
+				OMaxCCE omaxcce = new OMaxCCE(classExpressionID, propertyID, cardinality);
+				addOWLClassExpression(omaxcce);
+			}
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
-
-			addOWLClassExpression(omaxcce);
-
 			this.convertedClassExpressionIDs.add(classExpressionID);
 		}
 		return classExpressionID;
@@ -429,7 +403,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
-			String allValuesFromDataRangeID = getDroolsOWLDataRange2DRLConverter().convert(classExpression.getFiller());
+			String allValuesFromDataRangeID = getDroolsOWLDataRangeConverter().convert(classExpression.getFiller());
 			DAVFCE davfce = new DAVFCE(classExpressionID, propertyID, allValuesFromDataRangeID);
 
 			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);

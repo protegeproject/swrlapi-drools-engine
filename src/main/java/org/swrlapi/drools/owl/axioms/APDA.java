@@ -6,7 +6,7 @@ import org.swrlapi.drools.owl.entities.AP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an OWL annotation property declaration axiom.
+ * This class represents an OWL annotation property declaration.
  */
 public class APDA extends DA<AP>
 {

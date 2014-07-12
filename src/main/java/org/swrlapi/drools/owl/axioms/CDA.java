@@ -6,7 +6,7 @@ import org.swrlapi.drools.owl.entities.C;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an OWL class declaration axiom.
+ * This class represents an OWL class declaration.
  */
 public class CDA extends DA<C>
 {

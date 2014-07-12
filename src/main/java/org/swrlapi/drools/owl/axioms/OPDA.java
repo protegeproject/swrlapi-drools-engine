@@ -6,7 +6,7 @@ import org.swrlapi.drools.owl.entities.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /*
- * This class represents an OWL object property declaration axiom.
+ * This class represents an OWL object property declaration.
  */
 public class OPDA extends DA<OP>
 {

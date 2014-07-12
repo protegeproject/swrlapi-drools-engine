@@ -94,9 +94,19 @@ import org.swrlapi.drools.owl.expressions.CE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWL axioms to their Drools representation. Not all OWL axioms are currently supported. These
- * axioms are ignored. Supported axioms are targeted to the requirements of an OWL 2 RL reasoner. Some axioms (e.g.,
- * annotation axioms) may never be reasoned with so are unlikely to require conversion to Drools.
+ * This class converts OWL axioms to their Drools representation.
+ * <p>
+ * The following axioms are not currently supported and are ignored:
+ * <p>
+ * OWLDatatypeDefinitionAxiom
+ * OWLNegativeDataPropertyAssertionAxiom, OWLNegativeObjectPropertyAssertionAxiom
+ * OWLReflexiveObjectPropertyAxiom OWLDisjointUnionAxiom
+ * OWLSubPropertyChainOfAxiom OWLHasKeyAxiom
+ * <p>
+ * The following annotation axioms are ignored because they are not involved in reasoning:
+ * <p>
+ * OWLAnnotationAssertionAxiom OWLAnnotationPropertyRangeAxiom OWLAnnotationPropertyDomainAxiom OWLSubAnnotationPropertyOfAxiom
+ *
  * <p>
  * Note that SWRL rules are also a type of OWL axiom so are also converted here.
  * 
@@ -527,7 +537,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLDataRange range = axiom.getRange();
-		RDPA a = new RDPA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLDataRange2DRLConverter()
+		RDPA a = new RDPA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLDataRangeConverter()
 				.convert(range));
 
 		recordOWLAxiom(a);

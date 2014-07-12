@@ -6,7 +6,7 @@ import org.swrlapi.drools.owl.entities.I;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an OWL individual declaration axiom.
+ * This class represents an OWL individual declaration.
  */
 public class IDA extends DA<I>
 {

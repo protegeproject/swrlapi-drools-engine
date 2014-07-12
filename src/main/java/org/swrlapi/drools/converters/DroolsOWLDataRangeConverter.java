@@ -14,12 +14,12 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
- * Converts an OWL data range to its DRL representation for use in a Drools rule.
+ * Converts an OWL data range to its Drools representation
  */
-public class DroolsOWLDataRange2DRLConverter extends TargetRuleEngineConverterBase implements
+public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLDataRangeConverter<String>
 {
-	public DroolsOWLDataRange2DRLConverter(SWRLRuleEngineBridge bridge)
+	public DroolsOWLDataRangeConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 	}
