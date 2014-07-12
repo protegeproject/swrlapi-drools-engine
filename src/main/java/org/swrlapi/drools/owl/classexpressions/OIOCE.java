@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl.expressions;
+package org.swrlapi.drools.owl.classexpressions;
 
 import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
 import org.swrlapi.drools.owl.DroolsBinaryObject;

@@ -8,7 +8,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.*;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
-import org.swrlapi.drools.owl.expressions.*;
+import org.swrlapi.drools.owl.classexpressions.*;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

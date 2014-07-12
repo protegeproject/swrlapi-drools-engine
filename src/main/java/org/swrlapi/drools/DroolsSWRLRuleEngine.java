@@ -26,7 +26,7 @@ import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.DroolsOWLAxiomInferrer;
 import org.swrlapi.drools.owl.axioms.A;
-import org.swrlapi.drools.owl.expressions.CE;
+import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionInferrer;
 import org.swrlapi.drools.sqwrl.SQWRLC;

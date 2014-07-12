@@ -1,19 +1,19 @@
-package org.swrlapi.drools.owl.expressions;
+package org.swrlapi.drools.owl.classexpressions;
 
 import org.swrlapi.drools.owl.DroolsTernaryObject;
 import org.swrlapi.drools.owl.entities.DP;
 
 /**
- * This class represents an OWL data maximum cardinality class expression in Drools.
+ * This class represents an OWL data exact cardinality class expression in Drools.
  */
-public class DMaxCCE extends DroolsTernaryObject<String, DP, Integer> implements CE
+public class DCCE extends DroolsTernaryObject<String, DP, Integer> implements CE
 {
-	public DMaxCCE(String id, DP p, Integer card)
+	public DCCE(String id, DP p, Integer card)
 	{
 		super(id, p, card);
 	}
 
-	public DMaxCCE(String id, String propertyID, Integer card)
+	public DCCE(String id, String propertyID, Integer card)
 	{
 		super(id, new DP(propertyID), card);
 	}
@@ -37,6 +37,6 @@ public class DMaxCCE extends DroolsTernaryObject<String, DP, Integer> implements
 	@Override
 	public String toString()
 	{
-		return "DMaxCCE" + super.toString();
+		return "DCCE" + super.toString();
 	}
 }

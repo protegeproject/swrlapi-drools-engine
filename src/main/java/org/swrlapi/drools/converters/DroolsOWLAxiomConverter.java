@@ -90,7 +90,7 @@ import org.swrlapi.drools.owl.axioms.SOPA;
 import org.swrlapi.drools.owl.axioms.SPA;
 import org.swrlapi.drools.owl.axioms.TPA;
 import org.swrlapi.drools.owl.entities.I;
-import org.swrlapi.drools.owl.expressions.CE;
+import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

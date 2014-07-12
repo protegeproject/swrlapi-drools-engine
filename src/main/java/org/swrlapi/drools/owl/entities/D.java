@@ -4,13 +4,14 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
+import org.swrlapi.drools.owl.dataranges.DR;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL datatype (e.g., xsd:int).
  */
-public class D extends OE
+public class D extends OE implements DR
 {
 	public D(String datatypeID)
 	{
@@ -30,6 +31,11 @@ public class D extends OE
 		} else
 			throw new RuntimeException("expecting OWL datatype from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
+	}
+
+	public String getdrid()
+	{
+		return getName();
 	}
 
 	@Override

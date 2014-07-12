@@ -1,19 +1,19 @@
-package org.swrlapi.drools.owl.expressions;
+package org.swrlapi.drools.owl.classexpressions;
 
 import org.swrlapi.drools.owl.DroolsTernaryObject;
 import org.swrlapi.drools.owl.entities.OP;
 
 /**
- * This class represents an OWL object minimum cardinality class expression in Drools.
+ * This class represents an OWL object maximum cardinality class expression in Drools.
  */
-public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
+public class OMaxCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {
-	public OMinCCE(String id, OP p, Integer card)
+	public OMaxCCE(String id, OP p, Integer card)
 	{
 		super(id, p, card);
 	}
 
-	public OMinCCE(String id, String propertyID, Integer card)
+	public OMaxCCE(String id, String propertyID, Integer card)
 	{
 		super(id, new OP(propertyID), card);
 	}
@@ -37,6 +37,6 @@ public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements
 	@Override
 	public String toString()
 	{
-		return "OMinCE" + super.toString();
+		return "OMaxCE" + super.toString();
 	}
 }
