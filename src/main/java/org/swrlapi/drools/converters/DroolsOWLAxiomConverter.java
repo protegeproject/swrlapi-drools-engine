@@ -137,6 +137,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 
 		getDroolsOWLClassExpressionConverter().reset();
 		getDroolsOWLPropertyExpressionConverter().reset();
+		getDroolsOWLDataRangeConverter().reset();
 	}
 
 	public Set<A> getAssertedOWLAxioms()

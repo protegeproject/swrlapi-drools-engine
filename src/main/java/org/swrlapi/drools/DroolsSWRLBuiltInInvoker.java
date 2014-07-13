@@ -17,9 +17,6 @@ import org.swrlapi.exceptions.BuiltInException;
 import org.swrlapi.exceptions.BuiltInMethodRuntimeException;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
-// Varargs seem to work inconsistently in Drools. Hence the need for the  repetitions for the BA arguments. 
-// We really want to replace this with  with a single call with a varargs argument. 
-
 /**
  * This class is used to invoke SWRL built-ins from within a Drools rule.
  * <p>
@@ -32,7 +29,7 @@ public class DroolsSWRLBuiltInInvoker
 	private final DroolsSWRLBuiltInArgument2BAConverter builtInArgumentConvertor;
 	private final DroolsAA2SWRLAtomArgumentExtractor atomArgumentExtractor;
 
-	public static final int MaxBuiltInArguments = 11;
+	public static final int MAX_BUILTIN_ARGUMENTS = 11;
 
 	private final Map<String, List<List<SWRLBuiltInArgument>>> invocationPatternMap;
 

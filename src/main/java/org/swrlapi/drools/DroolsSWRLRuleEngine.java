@@ -39,6 +39,8 @@ import org.swrlapi.sqwrl.SQWRLQuery;
 /**
  * This class provides a Drools implementation of a rule engine for SWRL using the SWRLAPI's Rule Engine Bridge
  * mechanism.
+ *
+ * @see TargetRuleEngine
  */
 public class DroolsSWRLRuleEngine implements TargetRuleEngine
 {
@@ -59,10 +61,10 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	private boolean knowledgePackagesAdditionRequired;
 
 	private Set<OWLAxiom> definedOWLAxioms; // We keep track of axioms supplied to and inferred by Drools so that
-																					// we do not redundantly assert them.
+	// we do not redundantly assert them.
 	private Set<String> allSQWRLQueryNames; // Drools is supplied with all currently enabled SQWRL queries.
-	private Set<String> activeSQWRLQueryNames; // Typically, only one is active so we use an agenda filter to ignore the
-																							// ones that are not active.
+	private Set<String> activeSQWRLQueryNames; // Typically, only one query is active so we use an agenda filter to ignore the
+	// ones that are not active.
 	private Set<String> phase1SQWRLRuleNames;
 	private Set<String> phase2SQWRLRuleNames;
 	private Map<String, String> ruleName2SQWRLQueryNameMap;
@@ -430,7 +432,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DCO");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DUO");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DOO");
-		
+
 		// Drools classes representing SWRL built-in arguments and other built-in support classes
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.BA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.BAP");
@@ -453,8 +455,8 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	}
 
 	/**
-	 * Drools is supplied with all currently enabled SQWRL queries. Typically, only one is active so we use an agenda
-	 * filter to ignore the ones that are not active.
+	 * Drools is supplied with all currently enabled SQWRL queries. Typically, only one query is active so we use an
+	 * agenda filter to ignore the ones that are not active.
 	 */
 	private class SQWRLPhase1AgendaFilter implements AgendaFilter
 	{
@@ -489,7 +491,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 			String ruleName = activation.getRule().getName();
 
 			if (DroolsSWRLRuleEngine.this.phase2SQWRLRuleNames.contains(ruleName)) { // A rule representing phase 1 of a SQWRL
-																																								// query
+				// query
 				if (DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.containsKey(ruleName)) {
 					String sqwrlQueryName = DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.get(ruleName);
 					if (DroolsSWRLRuleEngine.this.activeSQWRLQueryNames.contains(sqwrlQueryName)) {

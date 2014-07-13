@@ -1,7 +1,5 @@
 package org.swrlapi.drools.owl.dataranges;
 
-import java.util.Set;
-
 /**
  * Class representing an OWL data complement of data range
  */

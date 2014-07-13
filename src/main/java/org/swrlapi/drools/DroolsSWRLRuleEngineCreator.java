@@ -8,6 +8,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 /**
  * Creator class that is supplied to a {@link SWRLRuleEngineManager} to create new instances of a
  * {@link DroolsSWRLRuleEngine}.
+ *
+ * @see SWRLRuleEngineManager, DroolsSWRLRuleEngine
  */
 public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.TargetSWRLRuleEngineCreator
 {

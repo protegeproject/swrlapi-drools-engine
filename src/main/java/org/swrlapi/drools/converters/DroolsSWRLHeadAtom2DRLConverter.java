@@ -184,8 +184,8 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 				+ ", true, ";
 		boolean isFirst = true;
 
-		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MaxBuiltInArguments)
-			throw new TargetRuleEngineException("A maximum of " + DroolsSWRLBuiltInInvoker.MaxBuiltInArguments
+		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
+			throw new TargetRuleEngineException("A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
 					+ " can be passed to built-ins");
 
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {

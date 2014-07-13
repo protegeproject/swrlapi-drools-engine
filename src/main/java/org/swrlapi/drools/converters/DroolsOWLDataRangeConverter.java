@@ -35,6 +35,16 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		this.dataRanges = new HashSet<DR>();
 		this.dataRange2IDMap = new HashMap<OWLDataRange, String>();
 		this.convertedDataRangeIDs = new HashSet<String>();
+		getOWLDataRangeResolver().reset();
+	}
+
+	public void reset()
+	{
+		this.dataRangeIndex = 0;
+		this.dataRanges.clear();
+		this.dataRange2IDMap.clear();
+		this.convertedDataRangeIDs.clear();
+		getOWLDataRangeResolver().reset();
 	}
 
 	public String convert(OWLDataRange range) throws TargetRuleEngineException
@@ -62,6 +72,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 
 		if (!this.convertedDataRangeIDs.contains(datatypePrefixedName)) {
 			this.convertedDataRangeIDs.add(datatypePrefixedName);
+			getOWLDataRangeResolver().recordOWLDataRange(datatypePrefixedName, dataRange);
 		}
 		return datatypePrefixedName;
 	}
@@ -77,6 +88,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 			DOO doo = new DOO(dataRangeID, literals);
 			addOWLDataRange(doo);
 			this.convertedDataRangeIDs.add(dataRangeID);
+			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
@@ -90,6 +102,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 			DCO dco = null; // TODO
 			addOWLDataRange(dco);
 			this.convertedDataRangeIDs.add(dataRangeID);
+			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
@@ -103,6 +116,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 			DIO dio = null; // TODO
 			addOWLDataRange(dio);
 			this.convertedDataRangeIDs.add(dataRangeID);
+			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
@@ -116,6 +130,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 			DUO duo = null; // TODO
 			addOWLDataRange(duo);
 			this.convertedDataRangeIDs.add(dataRangeID);
+			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
