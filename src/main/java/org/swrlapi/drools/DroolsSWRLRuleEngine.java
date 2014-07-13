@@ -388,8 +388,8 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMaxCCE");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxQCCE");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMaxQCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMinQCCE");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMinCCE");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OCCE");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DCCE");

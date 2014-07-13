@@ -8,7 +8,7 @@ import org.swrlapi.drools.owl.entities.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * Class representing an OWL range data property axiom in Drools.
+ * This class represents an OWL range data property axiom in Drools.
  */
 public class RDPA extends DroolsBinaryObject<DP, D> implements A
 {

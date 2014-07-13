@@ -18,7 +18,7 @@ public class DOO implements DR
 		this.literals = literals;
 	}
 
-	public String getdrid()
+	public String getid()
 	{
 		return this.id;
 	}

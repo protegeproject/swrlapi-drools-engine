@@ -282,19 +282,19 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// T(?u, rdf:type, ?x) T(?u, ?p, ?y) T(?y, rdf:type, ?c) -> false
 
 		createRuleDefinition(Rule.CLS_MAXQC1, "cls_maxqc1_op",
-				"rule cls_maxqc1_op when OMaxQCCE($x:ceid, $p:p, $f:f, card==0)) CAA($x:c, $u:i) OPAA(s==$u, p==$p, $y:o) CAA(c==$f, i==$y) then inferrer.inferFalse(\""
+				"rule cls_maxqc1_op when OMaxQCCE($x:ceid, $p:p, $f:f, card==0) CAA(c==$x, $u:i) OPAA(s==$u, p==$p, $y:o) CAA(c==$f, i==$y) then inferrer.inferFalse(\""
 						+ Rule.CLS_MAXQC1.toString() + "\", $x, $f, $p.id, $u.id, $y.id); end");
 
 		// T(?x, owl:maxQualifiedCardinality, "0"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p)
 		// T(?x, owl:onClass, owl:Thing) T(?u, rdf:type, ?x) T(?u, ?p, ?y) -> false
 
 		createRuleDefinition(Rule.CLS_MAXQC2, "cls_maxqc2_op",
-				"rule cls_maxqc2 when OMaxQCCE($x:ceid, $p:p, \"owl:Thing\", card==0) CAA(c, $u:i) OPAA(s==$u, p==$p, $y:o) then inferrer.inferFalse(\""
-						+ Rule.CLS_MAXQC2.toString() + "\", $x, $c, $p.id, $u.id, $y.id); end");
+				"rule cls_maxqc2 when OMaxQCCE($x:ceid, $p:p, f==\"owl:Thing\", card==0) CAA(c==$x, $u:i) OPAA(s==$u, p==$p, $y:o) then inferrer.inferFalse(\""
+						+ Rule.CLS_MAXQC2.toString() + "\", $x, $p.id, $u.id, $y.id); end");
 
 		createRuleDefinition(Rule.CLS_MAXQC2, "cls_maxqc2_dp",
-				"rule cls_maxqc2 when DMaxQCCE($x:ceid, $p:p, \"owl:Thing\", card==0) CAA(c, $u:i) DPAA(s==$u, p==$p, $y:o) then inferrer.inferFalse(\""
-						+ Rule.CLS_MAXQC2.toString() + "\", $x, $c, $p.id, $u.id, $y.id); end");
+				"rule cls_maxqc2 when DMaxQCCE($x:ceid, $p:p, f==\"owl:Thing\", card==0) CAA(c==$x, $u:i) DPAA(s==$u, p==$p, $y:o) then inferrer.inferFalse(\""
+						+ Rule.CLS_MAXQC2.toString() + "\", $x, $p.id, $u.id, $y.toString()); end");
 
 		// T(?x, owl:maxQualifiedCardinality, "1"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p) T(?x, owl:onClass, ?c)
 		// T(?u, rdf:type, ?x) T(?u, ?p, ?y1) T(?y1, rdf:type, ?c) T(?u, ?p, ?y2) T(?y2, rdf:type, ?c)
@@ -306,7 +306,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// T(?x, owl:maxQualifiedCardinality, "1"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p)
 		// T(?x, owl:onClass, owl:Thing) T(?u, rdf:type, ?x) T(?u, ?p, ?y1) T(?u, ?p, ?y2) -> false
 		createRuleDefinition(Rule.CLS_MAXQC4, "cls_maxqc4",
-				"rule cls_maxqc4 when OMaxQCCE($x:ceid, $p:p, \"owl:Thing\", card==1) CAA($x:c, $u:i) OPAA(s==$u, p==$p, $y1:o) OPAA(s==$u, p==$p, $y2:o) "
+				"rule cls_maxqc4 when OMaxQCCE($x:ceid, $p:p, f==\"owl:Thing\", card==1) CAA(c==$x, $u:i) OPAA(s==$u, p==$p, $y1:o) OPAA(s==$u, p==$p, $y2:o) "
 						+ "then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 
 		createRuleDefinition(Rule.CLS_OO, "cls_oo",

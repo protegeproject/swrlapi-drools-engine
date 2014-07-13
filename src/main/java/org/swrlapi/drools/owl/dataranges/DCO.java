@@ -14,7 +14,7 @@ public class DCO implements DR
 		this.complement = complement;
 	}
 
-	public String getdrid()
+	public String getid()
 	{
 		return this.id;
 	}

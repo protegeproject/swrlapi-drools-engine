@@ -16,7 +16,7 @@ public class DIO implements DR
 		this.dataRanges = dataRanges;
 	}
 
-	public String getdrid()
+	public String getid()
 	{
 		return this.id;
 	}
