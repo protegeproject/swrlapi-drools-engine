@@ -369,27 +369,28 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.OP");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.DP");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.AP");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.D");
 
 		// Drools classes representing OWL class expressions
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.CE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OCOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OIOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OOOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OUOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OHVCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.DHVCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OSVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.DSVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OAVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.DAVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OMaxCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.DMaxCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OMaxCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.DMaxQCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OMinQCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.DMinCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.OCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.expressions.DCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.CE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OCOCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OIOCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OOOCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OUOCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OHVCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DHVCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OSVFCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DSVFCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OAVFCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DAVFCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMaxCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMaxQCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMinQCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMinCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OCCE");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DCCE");
 
 		// Drools classes representing OWL axioms
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.APA");
@@ -423,6 +424,13 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SPA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.TPA");
 
+		// Drools classes representing OWL data ranges
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DR");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DIO");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DCO");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DUO");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DOO");
+		
 		// Drools classes representing SWRL built-in arguments and other built-in support classes
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.BA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.BAP");
