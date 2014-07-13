@@ -632,12 +632,6 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLAnnotationAssertionAxiom axiom) throws TargetRuleEngineException
-	{
-		// We ignore because we do not currently reason with this axiom.
-	}
-
-	@Override
 	public void convert(OWLSubPropertyChainOfAxiom axiom) throws TargetRuleEngineException
 	{
 		// We ignore because we do not currently reason with this axiom.
@@ -651,6 +645,12 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 
 	@Override
 	public void convert(OWLDatatypeDefinitionAxiom axiom) throws TargetRuleEngineException
+	{
+		// We ignore because we do not currently reason with this axiom.
+	}
+
+	@Override
+	public void convert(OWLAnnotationAssertionAxiom axiom) throws TargetRuleEngineException
 	{
 		// We ignore because we do not currently reason with this axiom.
 	}

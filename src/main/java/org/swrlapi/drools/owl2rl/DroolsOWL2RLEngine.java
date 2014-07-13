@@ -93,17 +93,14 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// TODO Rule.PRP_KEY - Keys - not in OWL 1
 
 		// TODO Rule.PRP_NPA1 - Negative property assertion
-		// T(?x, owl:sourceIndividual, ?i1) T(?x, owl:assertionProperty, ?p)
-		// T(?x, owl:targetIndividual, ?i2) T(?i1, ?p, ?i2) -> false
+		// T(?x, owl:sourceIndividual, ?i1) T(?x, owl:assertionProperty, ?p) T(?x, owl:targetIndividual, ?i2) T(?i1, ?p, ?i2) -> false
 
 		// TODO Rule.PRP_NPA2 - Negative property assertion
-		// T(?x, owl:sourceIndividual, ?i) T(?x, owl:assertionProperty, ?p)
-		// T(?x, owl:targetValue, ?lt) T(?i, ?p, ?lt) -> false
+		// T(?x, owl:sourceIndividual, ?i) T(?x, owl:assertionProperty, ?p) T(?x, owl:targetValue, ?lt) T(?i, ?p, ?lt) -> false
 
 		// Table 6
 		// TODO CLS_SFV1 - partial: cls_sfv1_dp not implemented
-		// T(?x, owl:someValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, ?p, ?v) T(?v, rdf:type, ?y)
-		// -> T(?u, rdf:type, ?x)
+		// T(?x, owl:someValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, ?p, ?v) T(?v, rdf:type, ?y) -> T(?u, rdf:type, ?x)
 		// TODO CLS_AVF - partial: cls_avf_dp not implemented
 		// T(?x, owl:allValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, rdf:type, ?x) T(?u, ?p, ?v) -> T(?v, rdf:type, ?y)
 		// TODO CLS_MAXQC1 - partial: cls_maxqc1_dp not implemented
@@ -118,7 +115,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// TODO SCM_RNG1 - partial: scm_rng1_dp not implemented
 		// T(?p, rdfs:range, ?c1) T(?c1, rdfs:subClassOf, ?c2) -> T(?p, rdfs:range, ?c2)
 
-		// TODO SCM_RNG2 - partial: scm_rng2_fp not implemented
+		// TODO SCM_RNG2 - partial: scm_rng2_dp not implemented
 		// T(?p2, rdfs:range, ?c) T(?p1, rdfs:subPropertyOf, ?p2) -> T(?p1, rdfs:range, ?c)
 	}
 

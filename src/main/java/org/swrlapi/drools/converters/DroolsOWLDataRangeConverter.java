@@ -47,32 +47,32 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		getOWLDataRangeResolver().reset();
 	}
 
-	public String convert(OWLDataRange range) throws TargetRuleEngineException
+	public String convert(OWLDataRange dataRange) throws TargetRuleEngineException
 	{ // TODO Use visitor to get rid of instanceof
-		if (range instanceof OWLDatatype) {
-			return convert((OWLDatatype)range);
-		} else if (range instanceof OWLDataOneOf) {
-			return convert((OWLDataOneOf)range);
-		} else if (range instanceof OWLDataComplementOf) {
-			return convert((OWLDataComplementOf)range);
-		} else if (range instanceof OWLDataIntersectionOf) {
-			return convert((OWLDataIntersectionOf)range);
-		} else if (range instanceof OWLDataUnionOf) {
-			return convert((OWLDataUnionOf)range);
-		} else if (range instanceof OWLDatatypeRestriction) {
-			return convert((OWLDatatypeRestriction)range);
+		if (dataRange instanceof OWLDatatype) {
+			return convert((OWLDatatype)dataRange);
+		} else if (dataRange instanceof OWLDataOneOf) {
+			return convert((OWLDataOneOf)dataRange);
+		} else if (dataRange instanceof OWLDataComplementOf) {
+			return convert((OWLDataComplementOf)dataRange);
+		} else if (dataRange instanceof OWLDataIntersectionOf) {
+			return convert((OWLDataIntersectionOf)dataRange);
+		} else if (dataRange instanceof OWLDataUnionOf) {
+			return convert((OWLDataUnionOf)dataRange);
+		} else if (dataRange instanceof OWLDatatypeRestriction) {
+			return convert((OWLDatatypeRestriction)dataRange);
 		} else
-			throw new RuntimeException("unknown OWL data range type " + range.getClass().getCanonicalName());
+			throw new RuntimeException("unknown OWL data range type " + dataRange.getClass().getCanonicalName());
 	}
 
 	@Override
-	public String convert(OWLDatatype dataRange) throws TargetRuleEngineException
+	public String convert(OWLDatatype datatype) throws TargetRuleEngineException
 	{
-		String datatypePrefixedName = getIRIResolver().iri2PrefixedName(dataRange.getIRI());
+		String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
 
 		if (!this.convertedDataRangeIDs.contains(datatypePrefixedName)) {
 			this.convertedDataRangeIDs.add(datatypePrefixedName);
-			getOWLDataRangeResolver().recordOWLDataRange(datatypePrefixedName, dataRange);
+			getOWLDataRangeResolver().recordOWLDataRange(datatypePrefixedName, datatype);
 		}
 		return datatypePrefixedName;
 	}
