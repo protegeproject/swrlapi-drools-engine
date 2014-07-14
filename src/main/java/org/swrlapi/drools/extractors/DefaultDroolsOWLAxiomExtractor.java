@@ -5,38 +5,7 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.*;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.drools.owl.axioms.A;
-import org.swrlapi.drools.owl.axioms.APA;
-import org.swrlapi.drools.owl.axioms.APDA;
-import org.swrlapi.drools.owl.axioms.CAA;
-import org.swrlapi.drools.owl.axioms.CDA;
-import org.swrlapi.drools.owl.axioms.DCA;
-import org.swrlapi.drools.owl.axioms.DDPA;
-import org.swrlapi.drools.owl.axioms.DIA;
-import org.swrlapi.drools.owl.axioms.DJDPA;
-import org.swrlapi.drools.owl.axioms.DJOPA;
-import org.swrlapi.drools.owl.axioms.DOPA;
-import org.swrlapi.drools.owl.axioms.DPAA;
-import org.swrlapi.drools.owl.axioms.DPDA;
-import org.swrlapi.drools.owl.axioms.ECA;
-import org.swrlapi.drools.owl.axioms.EDPA;
-import org.swrlapi.drools.owl.axioms.EOPA;
-import org.swrlapi.drools.owl.axioms.FDPA;
-import org.swrlapi.drools.owl.axioms.FOPA;
-import org.swrlapi.drools.owl.axioms.IDA;
-import org.swrlapi.drools.owl.axioms.IOPA;
-import org.swrlapi.drools.owl.axioms.IPA;
-import org.swrlapi.drools.owl.axioms.IRPA;
-import org.swrlapi.drools.owl.axioms.OPAA;
-import org.swrlapi.drools.owl.axioms.OPDA;
-import org.swrlapi.drools.owl.axioms.RDPA;
-import org.swrlapi.drools.owl.axioms.ROPA;
-import org.swrlapi.drools.owl.axioms.SCA;
-import org.swrlapi.drools.owl.axioms.SDPA;
-import org.swrlapi.drools.owl.axioms.SIA;
-import org.swrlapi.drools.owl.axioms.SOPA;
-import org.swrlapi.drools.owl.axioms.SPA;
-import org.swrlapi.drools.owl.axioms.TPA;
+import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -109,6 +78,16 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	}
 
 	@Override
+	public OWLNegativeObjectPropertyAssertionAxiom extract(NOPAA nopaa) throws TargetRuleEngineException
+	{
+		OWLIndividual subject = nopaa.getT1().extract(getDroolsOWLIndividualExtractor());
+		OWLObjectPropertyExpression property = nopaa.getT2().extract(getDroolsOWLEntityExtractor());
+		OWLIndividual object = nopaa.getT3().extract(getDroolsOWLIndividualExtractor());
+
+		return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object);
+	}
+
+	@Override
 	public OWLDataPropertyAssertionAxiom extract(DPAA dpaa) throws TargetRuleEngineException
 	{
 		OWLIndividual subject = dpaa.getT1().extract(getDroolsOWLIndividualExtractor());
@@ -116,6 +95,16 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 		OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(dpaa.getT3());
 
 		return getOWLDataFactory().getOWLDataPropertyAssertionAxiom(property, subject, literal);
+	}
+
+	@Override
+	public OWLNegativeDataPropertyAssertionAxiom extract(NDPAA ndpaa) throws TargetRuleEngineException
+	{
+		OWLIndividual subject = ndpaa.getT1().extract(getDroolsOWLIndividualExtractor());
+		OWLDataProperty property = ndpaa.getT2().extract(getDroolsOWLEntityExtractor());
+		OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(ndpaa.getT3());
+
+		return getOWLDataFactory().getOWLNegativeDataPropertyAssertionAxiom(property, subject, literal);
 	}
 
 	@Override

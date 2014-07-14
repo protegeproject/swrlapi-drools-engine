@@ -6,6 +6,8 @@ import org.swrlapi.drools.owl.entities.DP;
 
 /**
  * This class represents an OWL data some values from of class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataSomeValuesFrom
  */
 public class DSVFCE extends DroolsTernaryObject<String, DP, D> implements CE
 {

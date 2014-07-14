@@ -168,8 +168,9 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		createRuleDefinition(Rule.PRP_DOM, "prp_dom_dp",
 				"rule prp_dom_dp when DDPA($p:p, $c:d) DPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($c, $x); inferrer.infer(caa); end");
 
-		createRuleDefinition(Rule.PRP_RNG, "prp_rng",
-				"rule prp_rng_op when ROPA($p:p, $c:r) OPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($c, $y); inferrer.infer(caa); end");
+		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
+		createRuleDefinition(Rule.PRP_RNG, "prp_rng_op",
+				"rule prp_rng_op when ROPA($p:p, $r:r) OPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($r, $y); inferrer.infer(caa); end");
 
 		createRuleDefinition(Rule.PRP_FP, "prp_fp",
 				"rule prp_fp when FOPA($p:p) OPAA($x:s, p==$p, $y1:o) OPAA(s==$x, p==$p, $y2:o) then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
