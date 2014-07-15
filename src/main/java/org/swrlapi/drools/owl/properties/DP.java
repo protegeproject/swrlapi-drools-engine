@@ -10,6 +10,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL data property.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataProperty
  */
 public class DP extends OE implements P, DPE
 {

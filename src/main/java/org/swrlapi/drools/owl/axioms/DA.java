@@ -5,6 +5,8 @@ import org.swrlapi.drools.owl.core.OE;
 
 /**
  * Base class representing an OWL declaration axiom.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
 public abstract class DA<T1 extends OE> extends DroolsUnaryObject<T1> implements A
 {
