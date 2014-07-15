@@ -6,6 +6,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL disjoint classes axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDisjointClassesAxiom
  */
 public class DCA extends BinaryClassesAxiom
 {

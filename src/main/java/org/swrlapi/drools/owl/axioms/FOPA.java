@@ -5,6 +5,9 @@ import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.entities.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
+/**
+ * @see org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom
+ */
 public class FOPA extends UnaryObjectPropertyAxiom
 {
 	public FOPA(OP p)

@@ -8,6 +8,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL domain object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom
  */
 public class DOPA extends DroolsBinaryObject<OP, String> implements A
 {

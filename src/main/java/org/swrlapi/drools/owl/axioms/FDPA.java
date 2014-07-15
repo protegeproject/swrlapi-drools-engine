@@ -5,6 +5,10 @@ import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.entities.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
+/**
+ *
+ * @see org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom
+ */
 public class FDPA extends UnaryDataPropertyAxiom
 {
 	public FDPA(DP p)

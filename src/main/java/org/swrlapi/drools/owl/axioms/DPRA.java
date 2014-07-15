@@ -3,22 +3,22 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.DroolsBinaryObject;
-import org.swrlapi.drools.owl.dataranges.DR;
-import org.swrlapi.drools.owl.entities.D;
 import org.swrlapi.drools.owl.entities.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an OWL range data property axiom in Drools.
+ * This class represents an OWL data property range axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom
  */
-public class RDPA extends DroolsBinaryObject<DP, String> implements A
+public class DPRA extends DroolsBinaryObject<DP, String> implements A
 {
-	public RDPA(DP property, String dataRangeID)
+	public DPRA(DP property, String dataRangeID)
 	{
 		super(property, dataRangeID);
 	}
 
-	public RDPA(String propertyID, String dataRangeID)
+	public DPRA(String propertyID, String dataRangeID)
 	{
 		this(new DP(propertyID), dataRangeID);
 	}
@@ -42,6 +42,6 @@ public class RDPA extends DroolsBinaryObject<DP, String> implements A
 	@Override
 	public String toString()
 	{
-		return "RDPA" + super.toString();
+		return "DPRA" + super.toString();
 	}
 }

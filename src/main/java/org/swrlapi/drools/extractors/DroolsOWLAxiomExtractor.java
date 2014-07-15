@@ -31,9 +31,9 @@ public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 
 	OWLDeclarationAxiom extract(IDA da) throws TargetRuleEngineException;
 
-	OWLDataPropertyRangeAxiom extract(RDPA rdpa) throws TargetRuleEngineException;
+	OWLDataPropertyRangeAxiom extract(DPRA DPRA) throws TargetRuleEngineException;
 
-	OWLObjectPropertyRangeAxiom extract(ROPA ropa) throws TargetRuleEngineException;
+	OWLObjectPropertyRangeAxiom extract(OPRA OPRA) throws TargetRuleEngineException;
 
 	OWLDeclarationAxiom extract(OPDA da) throws TargetRuleEngineException;
 

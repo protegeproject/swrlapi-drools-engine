@@ -87,29 +87,36 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// -> T(ap, rdf:type, owl:AnnotationProperty)
 
 		// TODO Rule.PRP_SPO2 - Property chains - not in OWL 1
-		// TODO Rule.PRP_KEY - Keys - not in OWL 1
+		// T(?p, owl:propertyChainAxiom, ?x) LIST[c?x, ?p1,...,?pn] T(?u1, ?p1, ?u2) T(?u2, ?p2, ?u3) ...
+		// T( ? un,?pn,?un + 1) -> T(?u1, ?p, ?un+1)
 
-		// TODO Rule.PRP_RNG partial; data property range not supported
+		// TODO Rule.PRP_KEY - Keys - not in OWL 1
+		// T(?c, owl:hasKey, ?u) LIST[?u, ?p1, ..., ?pn] T(?x, rdf:type, ?c) T(?x, ?p1, ?z1) ...
+		// T(?x, ?pn, ?zn) T(?y, rdf:type, ?c) T(?y, ?p1, ?z1) ...
+		// T(?y, ?pn, ?zn) -> T(?x, owl:sameAs, ?y)
+
+		// TODO Rule.PRP_RNG partial; data property range not supported. DPAA ^ L(value, datatype) -> DPRA?
 		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
 
 		// Table 6
-		// TODO CLS_SFV1 - partial: cls_sfv1_dp not implemented
+		// TODO CLS_SFV1 - partial: cls_sfv1_dp not implemented. -> L(?u, ?x) explode if invalid?
 		// T(?x, owl:someValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, ?p, ?v) T(?v, rdf:type, ?y) -> T(?u, rdf:type, ?x)
-		// TODO CLS_AVF - partial: cls_avf_dp not implemented
+		// TODO CLS_AVF - partial: cls_avf_dp not implemented. -> L(?u, ?x) explode if invalid?
 		// T(?x, owl:allValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, rdf:type, ?x) T(?u, ?p, ?v) -> T(?v, rdf:type, ?y)
-		// TODO CLS_MAXQC1 - partial: cls_maxqc1_dp not implemented
+		// TODO CLS_MAXQC1 - partial: cls_maxqc1_dp not implemented. -> L(?u, ?x) explode if invalid?
 
 		// Table 8
 		// TODO DT_NOT_TYPE Basically verify that the raw value of each literal is valid for its datatype
+		// L(l., dt) ^ notvalid(l, dt) -> explode?
 		// T(lt, rdf:type, dt) -> false
 		// For each literal lt and each datatype dt supported in OWL 2 RL such that the data value of lt is not
 		// contained in the value space of dt.
 
 		// Table 9
-		// TODO SCM_RNG1 - partial: scm_rng1_dp not implemented
+		// TODO SCM_RNG1 - partial: scm_rng1_dp not implemented. -> DPRA?
 		// T(?p, rdfs:range, ?c1) T(?c1, rdfs:subClassOf, ?c2) -> T(?p, rdfs:range, ?c2)
 
-		// TODO SCM_RNG2 - partial: scm_rng2_dp not implemented
+		// TODO SCM_RNG2 - partial: scm_rng2_dp not implemented. -> DPRA?
 		// T(?p2, rdfs:range, ?c) T(?p1, rdfs:subPropertyOf, ?p2) -> T(?p1, rdfs:range, ?c)
 	}
 
@@ -164,7 +171,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 
 		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
 		createRuleDefinition(Rule.PRP_RNG, "prp_rng_op",
-				"rule prp_rng_op when ROPA($p:p, $r:r) OPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($r, $y); inferrer.infer(caa); end");
+				"rule prp_rng_op when OPRA($p:p, $r:r) OPAA($x:s, p==$p, $y:o) then CAA caa=new CAA($r, $y); inferrer.infer(caa); end");
 
 		createRuleDefinition(Rule.PRP_FP, "prp_fp",
 				"rule prp_fp when FOPA($p:p) OPAA($x:s, p==$p, $y1:o) OPAA(s==$x, p==$p, $y2:o) then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
@@ -421,12 +428,12 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		createRuleDefinition(
 				Rule.SCM_RNG1,
 				"scm_rng2_op",
-				"rule scm_rng1_op when ROPA($p:p, $c1:r) SCA(sub==$c1, $c2:sup) then ROPA ropa=new ROPA($p, $c2); inferrer.infer(ropa); end");
+				"rule scm_rng1_op when OPRA($p:p, $c1:r) SCA(sub==$c1, $c2:sup) then OPRA ropa=new OPRA($p, $c2); inferrer.infer(ropa); end");
 
 		createRuleDefinition(
 				Rule.SCM_RNG2,
 				"scm_rng2_op",
-				"rule scm_rng2_op when ROPA($p2:p, $c:r) SOPA($p1:sub, sup==$p2) then ROPA ropa=new ROPA($p1, $c); inferrer.infer(ropa); end");
+				"rule scm_rng2_op when OPRA($p2:p, $c:r) SOPA($p1:sub, sup==$p2) then OPRA ropa=new OPRA($p1, $c); inferrer.infer(ropa); end");
 
 		createRuleDefinition(Rule.SCM_HV, "scm_hv_op",
 				"rule scm_hv_op when OHVCE($c1:ceid, $p1:p, $i:v) OHVCE($c2:ceid, $p2:p, v==$i) SOPA(sub==$p1, sup==$p2) "

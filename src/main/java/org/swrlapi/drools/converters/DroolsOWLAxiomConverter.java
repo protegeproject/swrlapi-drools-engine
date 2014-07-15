@@ -81,8 +81,8 @@ import org.swrlapi.drools.owl.axioms.IPA;
 import org.swrlapi.drools.owl.axioms.IRPA;
 import org.swrlapi.drools.owl.axioms.OPAA;
 import org.swrlapi.drools.owl.axioms.OPDA;
-import org.swrlapi.drools.owl.axioms.RDPA;
-import org.swrlapi.drools.owl.axioms.ROPA;
+import org.swrlapi.drools.owl.axioms.DPRA;
+import org.swrlapi.drools.owl.axioms.OPRA;
 import org.swrlapi.drools.owl.axioms.SCA;
 import org.swrlapi.drools.owl.axioms.SDPA;
 import org.swrlapi.drools.owl.axioms.SIA;
@@ -527,7 +527,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		OWLClassExpression domain = axiom.getRange();
-		ROPA a = new ROPA(getDroolsOWLPropertyExpressionConverter().convert(property),
+		OPRA a = new OPRA(getDroolsOWLPropertyExpressionConverter().convert(property),
 				getDroolsOWLClassExpressionConverter().convert(domain));
 
 		recordOWLAxiom(a);
@@ -538,7 +538,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLDataRange range = axiom.getRange();
-		RDPA a = new RDPA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLDataRangeConverter()
+		DPRA a = new DPRA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLDataRangeConverter()
 				.convert(range));
 
 		recordOWLAxiom(a);

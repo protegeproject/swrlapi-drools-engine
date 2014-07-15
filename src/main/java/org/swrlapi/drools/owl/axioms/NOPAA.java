@@ -13,6 +13,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * <p>
  * We need to have 8 possible constructors for the different argument combinations. This approach provided
  * more flexibility when generating Drools rules and makes the generated rules more readable.
+ *
+ * @see org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom
  */
 public class NOPAA extends DroolsTernaryObject<I, OP, I> implements A
 {

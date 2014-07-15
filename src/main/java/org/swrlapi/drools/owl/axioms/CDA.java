@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL class declaration.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
 public class CDA extends DA<C>
 {

@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL symmetric object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom
  */
 public class SPA extends UnaryObjectPropertyAxiom
 {

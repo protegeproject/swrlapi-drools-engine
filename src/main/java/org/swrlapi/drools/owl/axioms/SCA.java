@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL subclass axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLSubClassOfAxiom
  */
 public class SCA extends BinaryClassesAxiom
 {

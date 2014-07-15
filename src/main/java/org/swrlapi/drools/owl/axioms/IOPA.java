@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL inverse object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom
  */
 public class IOPA extends BinaryObjectPropertiesAxiom
 {

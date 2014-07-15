@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing a sub data property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom
  */
 public class SDPA extends BinaryDataPropertiesAxiom
 {

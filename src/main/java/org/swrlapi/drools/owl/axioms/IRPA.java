@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL irreflexive object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom
  */
 public class IRPA extends UnaryObjectPropertyAxiom
 {

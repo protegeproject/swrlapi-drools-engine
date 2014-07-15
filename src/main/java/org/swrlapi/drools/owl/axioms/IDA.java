@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL individual declaration.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
 public class IDA extends DA<I>
 {

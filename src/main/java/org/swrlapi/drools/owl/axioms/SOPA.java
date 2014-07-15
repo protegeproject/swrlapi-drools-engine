@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing a sub object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom
  */
 public class SOPA extends BinaryObjectPropertiesAxiom
 {

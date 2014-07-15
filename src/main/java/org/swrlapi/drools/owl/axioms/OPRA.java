@@ -8,15 +8,17 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL range object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom
  */
-public class ROPA extends DroolsBinaryObject<OP, String> implements A
+public class OPRA extends DroolsBinaryObject<OP, String> implements A
 {
-	public ROPA(OP property, String rangeClassID)
+	public OPRA(OP property, String rangeClassID)
 	{
 		super(property, rangeClassID);
 	}
 
-	public ROPA(String propertyID, String rangeClassID)
+	public OPRA(String propertyID, String rangeClassID)
 	{
 		this(new OP(propertyID), rangeClassID);
 	}
@@ -40,6 +42,6 @@ public class ROPA extends DroolsBinaryObject<OP, String> implements A
 	@Override
 	public String toString()
 	{
-		return "ROPA(" + getP() + ", " + getR() + ")";
+		return "OPRA(" + getP() + ", " + getR() + ")";
 	}
 }

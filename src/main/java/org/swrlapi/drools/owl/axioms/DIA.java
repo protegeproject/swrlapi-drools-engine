@@ -13,6 +13,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * <p>
  * We need to have 4 possible constructors for the different argument combinations. This approach makes the rules more
  * readable.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom
  */
 public class DIA extends BinaryIndividualsAxiom
 {

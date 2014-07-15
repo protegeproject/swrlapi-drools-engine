@@ -417,8 +417,8 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.IRPA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.OPAA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.OPDA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.RDPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.ROPA");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DPRA");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.OPRA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SCA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SDPA");
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SIA");

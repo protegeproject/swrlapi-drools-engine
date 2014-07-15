@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL equivalent classes axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom
  */
 public class ECA extends BinaryClassesAxiom
 {

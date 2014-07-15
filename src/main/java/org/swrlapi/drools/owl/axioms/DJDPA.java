@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing a disjoint data property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom
  */
 public class DJDPA extends BinaryDataPropertiesAxiom
 {

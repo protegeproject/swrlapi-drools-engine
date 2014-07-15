@@ -185,19 +185,19 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	}
 
 	@Override
-	public OWLObjectPropertyRangeAxiom extract(ROPA ropa) throws TargetRuleEngineException
+	public OWLObjectPropertyRangeAxiom extract(OPRA OPRA) throws TargetRuleEngineException
 	{
-		OWLObjectProperty property = ropa.getP().extract(getDroolsOWLEntityExtractor());
-		OWLClassExpression range = getOWLClassExpressionResolver().resolveOWLClassExpression(ropa.getR());
+		OWLObjectProperty property = OPRA.getP().extract(getDroolsOWLEntityExtractor());
+		OWLClassExpression range = getOWLClassExpressionResolver().resolveOWLClassExpression(OPRA.getR());
 
 		return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
 	}
 
 	@Override
-	public OWLDataPropertyRangeAxiom extract(RDPA rdpa) throws TargetRuleEngineException
+	public OWLDataPropertyRangeAxiom extract(DPRA DPRA) throws TargetRuleEngineException
 	{
-		OWLDataProperty property = rdpa.getP().extract(getDroolsOWLEntityExtractor());
-		OWLDataRange range = getOWLDataRangeResolver().resolveOWLDataRange(rdpa.getR());
+		OWLDataProperty property = DPRA.getP().extract(getDroolsOWLEntityExtractor());
+		OWLDataRange range = getOWLDataRangeResolver().resolveOWLDataRange(DPRA.getR());
 
 		return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range);
 	}

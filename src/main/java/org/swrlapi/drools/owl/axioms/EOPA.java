@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an equivalent object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom
  */
 public class EOPA extends BinaryObjectPropertiesAxiom
 {

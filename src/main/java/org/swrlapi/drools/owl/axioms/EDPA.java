@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an equivalent data property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom
  */
 public class EDPA extends BinaryDataPropertiesAxiom
 {

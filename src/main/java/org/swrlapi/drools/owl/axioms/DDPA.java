@@ -8,6 +8,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL domain data property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom
  */
 public class DDPA extends DroolsBinaryObject<DP, String> implements A
 {

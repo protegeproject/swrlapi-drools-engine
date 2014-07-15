@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL transitive object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom
  */
 public class TPA extends UnaryObjectPropertyAxiom
 {

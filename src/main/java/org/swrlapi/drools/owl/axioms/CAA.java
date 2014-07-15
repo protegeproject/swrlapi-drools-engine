@@ -8,6 +8,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL class assertion axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLClassAssertionAxiom
  */
 public class CAA extends DroolsBinaryObject<String, I> implements A
 {

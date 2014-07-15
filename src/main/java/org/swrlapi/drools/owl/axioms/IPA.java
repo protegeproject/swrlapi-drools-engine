@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL inverse functional object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom
  */
 public class IPA extends UnaryObjectPropertyAxiom
 {

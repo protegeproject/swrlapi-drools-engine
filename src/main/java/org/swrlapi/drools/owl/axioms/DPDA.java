@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL data property declaration.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
 public class DPDA extends DA<DP>
 {

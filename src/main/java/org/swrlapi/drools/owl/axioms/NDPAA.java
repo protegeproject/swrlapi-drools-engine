@@ -11,6 +11,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL negative data property assertion axiom.
+ *
+ * @see org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom
  */
 public class NDPAA extends DroolsTernaryObject<I, DP, L> implements A
 {
