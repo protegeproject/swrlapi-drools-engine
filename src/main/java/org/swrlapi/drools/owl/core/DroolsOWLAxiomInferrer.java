@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl;
+package org.swrlapi.drools.owl.core;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -63,7 +63,7 @@ public class DroolsOWLAxiomInferrer
 	/**
 	 * This method is called by an OWL 2 RL inconsistency detection rule when an inconsistency is detected. It throws and
 	 * exception that halts the inference process. The exception contains details of the offending rule and the OWL
-	 * entities involved in the detected inconsistency.
+	 * properties involved in the detected inconsistency.
 	 */
 	public void inferFalse(String owl2RLRuleName, String... arguments)
 	{

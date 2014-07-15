@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
-import org.swrlapi.drools.owl.DroolsBinaryObject;
-import org.swrlapi.drools.owl.entities.I;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
+import org.swrlapi.drools.owl.core.I;
 
 public abstract class BinaryIndividualsAxiom extends DroolsBinaryObject<I, I> implements A
 {

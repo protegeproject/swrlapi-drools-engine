@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLLiteralConverter;
-import org.swrlapi.drools.owl.L;
+import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

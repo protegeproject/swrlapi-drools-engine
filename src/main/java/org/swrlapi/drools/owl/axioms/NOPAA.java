@@ -1,11 +1,10 @@
 package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.drools.owl.DroolsTernaryObject;
-import org.swrlapi.drools.owl.entities.I;
-import org.swrlapi.drools.owl.entities.OP;
+import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

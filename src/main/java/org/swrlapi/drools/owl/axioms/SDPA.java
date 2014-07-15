@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.drools.owl.entities.DP;
+import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

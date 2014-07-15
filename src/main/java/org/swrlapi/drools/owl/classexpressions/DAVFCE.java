@@ -1,8 +1,8 @@
 package org.swrlapi.drools.owl.classexpressions;
 
-import org.swrlapi.drools.owl.DroolsTernaryObject;
-import org.swrlapi.drools.owl.entities.D;
-import org.swrlapi.drools.owl.entities.DP;
+import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.drools.owl.core.D;
+import org.swrlapi.drools.owl.properties.DP;
 
 /**
  * This class represents an OWL data all values from class expression in Drools.

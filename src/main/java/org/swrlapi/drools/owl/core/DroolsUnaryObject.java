@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl;
+package org.swrlapi.drools.owl.core;
 
 public abstract class DroolsUnaryObject<T1>
 {

@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.classexpressions;
 
 import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
-import org.swrlapi.drools.owl.DroolsBinaryObject;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 /**
  * This class represents an OWL object intersection of class expression in Drools. Each element of the intersection

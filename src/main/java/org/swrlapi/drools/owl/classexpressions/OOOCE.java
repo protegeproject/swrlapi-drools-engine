@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.classexpressions;
 
-import org.swrlapi.drools.owl.DroolsTernaryObject;
-import org.swrlapi.drools.owl.entities.I;
+import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.drools.owl.core.I;
 
 /**
  * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise

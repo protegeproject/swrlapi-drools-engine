@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl;
+package org.swrlapi.drools.owl.core;
 
 public abstract class DroolsQuadObject<T1, T2, T3, T4>
 {

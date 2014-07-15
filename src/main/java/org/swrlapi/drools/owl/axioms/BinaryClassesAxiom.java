@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
-import org.swrlapi.drools.owl.DroolsBinaryObject;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 public abstract class BinaryClassesAxiom extends DroolsBinaryObject<String, String> implements A
 {

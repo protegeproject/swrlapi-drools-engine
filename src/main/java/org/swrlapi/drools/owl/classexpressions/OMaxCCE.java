@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.classexpressions;
 
-import org.swrlapi.drools.owl.DroolsTernaryObject;
-import org.swrlapi.drools.owl.entities.OP;
+import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.drools.owl.properties.OP;
 
 /**
  * This class represents an OWL object maximum cardinality class expression in Drools.

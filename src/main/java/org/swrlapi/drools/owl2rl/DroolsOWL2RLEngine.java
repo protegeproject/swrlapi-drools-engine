@@ -13,7 +13,7 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * Class providing Drools implementation of OWL 2 RL rules. In its current state, this is a fairly naive
  * implementation of the rules in the OWL 2 RL specification. Many optimizations are possible.
  * <p/>
- * The reason the the strange-looking $variable.id formulation for named entities in the consequent of some rules is
+ * The reason the the strange-looking $variable.id formulation for named properties in the consequent of some rules is
  * that Drools does not always seem to correctly determine the appropriate specialized variable type when Java generics
  * are used and gives a rule compilation error when looking for a constructor with the specialized type; pulling the
  * entity name from the variable works around this because the constructor in which it is used creates the correct type.

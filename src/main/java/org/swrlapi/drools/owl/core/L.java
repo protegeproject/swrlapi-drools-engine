@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl;
+package org.swrlapi.drools.owl.core;
 
 import java.io.Serializable;
 

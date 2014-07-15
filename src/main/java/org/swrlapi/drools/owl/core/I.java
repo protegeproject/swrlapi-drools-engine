@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl.entities;
+package org.swrlapi.drools.owl.core;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;

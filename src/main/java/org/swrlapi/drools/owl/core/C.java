@@ -1,39 +1,46 @@
-package org.swrlapi.drools.owl.entities;
+package org.swrlapi.drools.owl.core;
 
-import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
+import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an OWL data property.
+ * Class representing an OWL named class in Drools. A named class is a type of class expression in OWL.
  */
-public class DP extends P
+public class C extends OE implements CE
 {
-	public DP(String propertyID)
+	public C(String classID)
 	{
-		super(propertyID);
+		super(classID);
+	}
+
+	@Override
+	public String getceid()
+	{
+		return super.getName();
 	}
 
 	/**
 	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
 	 */
-	public DP(BA ba)
+	public C(BA ba)
 	{
 		super("<InProcess>");
 
-		if (ba instanceof DP) {
-			DP p = (DP)ba;
-			setId(p.getName());
+		if (ba instanceof C) {
+			C c = (C)ba;
+			setId(c.getName());
 		} else
-			throw new RuntimeException("expecting OWL data property from bound built-in argument, got "
+			throw new RuntimeException("expecting OWL class from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
 	@Override
-	public OWLDataProperty extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLClass extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

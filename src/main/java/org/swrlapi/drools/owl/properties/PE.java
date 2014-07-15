@@ -1,6 +1,6 @@
-package org.swrlapi.drools.owl.entities;
+package org.swrlapi.drools.owl.properties;
 
-import org.swrlapi.drools.owl.OO;
+import org.swrlapi.drools.owl.core.OO;
 
 /**
  *

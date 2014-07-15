@@ -24,7 +24,7 @@ import org.swrlapi.drools.converters.DroolsOWLAxiomConverter;
 import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.drools.owl.DroolsOWLAxiomInferrer;
+import org.swrlapi.drools.owl.core.DroolsOWLAxiomInferrer;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
@@ -336,7 +336,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 
 	private void defineGlobalJavaObjects(KnowledgeBuilder knowledgeBuilder)
 	{
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.DroolsOWLAxiomInferrer;");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.DroolsOWLAxiomInferrer;");
 		defineDRLResource(knowledgeBuilder, "global DroolsOWLAxiomInferrer inferrer;");
 
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionInferrer;");
@@ -363,15 +363,15 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	private void importOWLAndSWRLJavaClasses(KnowledgeBuilder knowledgeBuilder)
 	{
 		// Drools class representing an OWL literal
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.L");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.L");
 
-		// Drools classes representing OWL named entities
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.C");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.I");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.OP");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.DP");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.AP");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.entities.D");
+		// Drools classes representing OWL named properties
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.C");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.I");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.properties.OP");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.properties.DP");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.properties.AP");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.D");
 
 		// Drools classes representing OWL class expressions
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.CE");

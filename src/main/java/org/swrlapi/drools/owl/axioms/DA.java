@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
-import org.swrlapi.drools.owl.DroolsUnaryObject;
-import org.swrlapi.drools.owl.entities.OE;
+import org.swrlapi.drools.owl.core.DroolsUnaryObject;
+import org.swrlapi.drools.owl.core.OE;
 
 /**
  * Base class representing an OWL declaration axiom.

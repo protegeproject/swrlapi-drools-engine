@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
-import org.swrlapi.drools.owl.DroolsBinaryObject;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 /**
  * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise

@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl;
+package org.swrlapi.drools.owl.core;
 
 public abstract class DroolsBinaryObject<T1, T2>
 {

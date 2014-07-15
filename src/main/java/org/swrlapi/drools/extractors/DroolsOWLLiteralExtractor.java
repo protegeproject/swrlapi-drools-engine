@@ -13,7 +13,7 @@ import org.swrlapi.core.xsd.XSDDate;
 import org.swrlapi.core.xsd.XSDDateTime;
 import org.swrlapi.core.xsd.XSDDuration;
 import org.swrlapi.core.xsd.XSDTime;
-import org.swrlapi.drools.owl.L;
+import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

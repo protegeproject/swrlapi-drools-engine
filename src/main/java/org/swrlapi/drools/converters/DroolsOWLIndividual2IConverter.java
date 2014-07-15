@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
-import org.swrlapi.drools.owl.entities.I;
+import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**

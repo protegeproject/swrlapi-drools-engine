@@ -1,10 +1,9 @@
-package org.swrlapi.drools.owl.entities;
+package org.swrlapi.drools.owl.core;
 
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
-import org.swrlapi.drools.owl.OO;
 import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -24,6 +23,11 @@ public abstract class OE implements OO, AA, BA
 	}
 
 	public String getName()
+	{
+		return this.id;
+	}
+
+	public String getid()
 	{
 		return this.id;
 	}
@@ -54,7 +58,7 @@ public abstract class OE implements OO, AA, BA
 		if ((obj == null) || (obj.getClass() != this.getClass()))
 			return false;
 		OE e = (OE)obj;
-		return (getName() == e.getName() || (getName() != null && getName().equals(e.getName())));
+		return (getid() == e.getid() || (getid() != null && getid().equals(e.getid())));
 	}
 
 	@Override

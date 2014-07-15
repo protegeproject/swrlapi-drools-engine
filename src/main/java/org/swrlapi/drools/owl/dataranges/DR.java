@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl.dataranges;
 
-import org.swrlapi.drools.owl.OO;
+import org.swrlapi.drools.owl.core.OO;
 
 /**
  * This interface represents an OWL data range in a Drools knowledge base.

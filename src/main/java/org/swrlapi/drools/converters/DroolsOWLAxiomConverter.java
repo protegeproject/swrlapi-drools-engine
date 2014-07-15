@@ -58,7 +58,7 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.drools.DroolsSWRLRuleEngine;
-import org.swrlapi.drools.owl.L;
+import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.APA;
 import org.swrlapi.drools.owl.axioms.APDA;
@@ -89,7 +89,7 @@ import org.swrlapi.drools.owl.axioms.SIA;
 import org.swrlapi.drools.owl.axioms.SOPA;
 import org.swrlapi.drools.owl.axioms.SPA;
 import org.swrlapi.drools.owl.axioms.TPA;
-import org.swrlapi.drools.owl.entities.I;
+import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 

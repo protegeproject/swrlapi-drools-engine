@@ -9,17 +9,17 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
-import org.swrlapi.drools.owl.entities.AP;
-import org.swrlapi.drools.owl.entities.C;
-import org.swrlapi.drools.owl.entities.D;
-import org.swrlapi.drools.owl.entities.DP;
-import org.swrlapi.drools.owl.entities.I;
-import org.swrlapi.drools.owl.entities.OE;
-import org.swrlapi.drools.owl.entities.OP;
+import org.swrlapi.drools.owl.properties.AP;
+import org.swrlapi.drools.owl.core.C;
+import org.swrlapi.drools.owl.core.D;
+import org.swrlapi.drools.owl.properties.DP;
+import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.core.OE;
+import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts the Drools representation of OWL entities represented by the class {@link OE} to their OWLAPI
+ * This class converts the Drools representation of OWL properties represented by the class {@link OE} to their OWLAPI
  * representation.
  */
 public class DefaultDroolsOE2OWLEntityExtractor extends TargetRuleEngineExtractorBase implements

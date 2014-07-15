@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
-import org.swrlapi.drools.owl.entities.OP;
+import org.swrlapi.drools.owl.properties.OP;
 
 public abstract class UnaryObjectPropertyAxiom extends UnaryPropertyAxiom<OP>
 {

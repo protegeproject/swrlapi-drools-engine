@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl.entities;
+package org.swrlapi.drools.owl.properties;
 
 /**
  * @see org.semanticweb.owlapi.model.OWLDataPropertyExpression

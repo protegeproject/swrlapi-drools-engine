@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl.dataranges;
 
-import org.swrlapi.drools.owl.L;
+import org.swrlapi.drools.owl.core.L;
 
 import java.util.Set;
 
