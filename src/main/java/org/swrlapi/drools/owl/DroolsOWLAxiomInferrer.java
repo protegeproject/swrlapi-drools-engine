@@ -10,7 +10,8 @@ import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.owl2rl.OWL2RLEngine;
 
 /**
- * This infer() method in this class is called to inform Drools of inferred OWL axioms during rule execution.
+ * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called to inform Drools of inferred
+ * OWL axioms during rule execution.
  */
 public class DroolsOWLAxiomInferrer
 {

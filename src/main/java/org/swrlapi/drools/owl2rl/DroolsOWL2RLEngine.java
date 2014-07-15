@@ -78,7 +78,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 
 	private static Set<Rule> generateUnsupportedRules()
 	{
-		return EnumSet.of(Rule.PRP_AP, Rule.PRP_SPO2, Rule.PRP_KEY, Rule.PRP_NPA1, Rule.PRP_NPA2, Rule.DT_NOT_TYPE);
+		return EnumSet.of(Rule.PRP_AP, Rule.PRP_SPO2, Rule.PRP_KEY, Rule.DT_NOT_TYPE);
 
 		// http://www.w3.org/TR/owl2-profiles/
 
@@ -86,17 +86,11 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// TODO Rule.PRP_AP:
 		// -> T(ap, rdf:type, owl:AnnotationProperty)
 
-		// TODO Rule.PRP_RNG partial; data property range not supported
-		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
-
 		// TODO Rule.PRP_SPO2 - Property chains - not in OWL 1
 		// TODO Rule.PRP_KEY - Keys - not in OWL 1
 
-		// TODO Rule.PRP_NPA1 - Negative property assertion
-		// T(?x, owl:sourceIndividual, ?i1) T(?x, owl:assertionProperty, ?p) T(?x, owl:targetIndividual, ?i2) T(?i1, ?p, ?i2) -> false
-
-		// TODO Rule.PRP_NPA2 - Negative property assertion
-		// T(?x, owl:sourceIndividual, ?i) T(?x, owl:assertionProperty, ?p) T(?x, owl:targetValue, ?lt) T(?i, ?p, ?lt) -> false
+		// TODO Rule.PRP_RNG partial; data property range not supported
+		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
 
 		// Table 6
 		// TODO CLS_SFV1 - partial: cls_sfv1_dp not implemented
@@ -219,6 +213,16 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 
 		createRuleDefinition(Rule.PRP_INV2, "prp_inv2",
 				"rule prp_inv2 when IOPA($p1:p1, $p2:p2) OPAA($x:s, p==$p2, $y:o) then OPAA opaa=new OPAA($y, $p1.id, $x); inferrer.infer(opaa); end");
+
+		// T(?x, owl:sourceIndividual, ?i1) T(?x, owl:assertionProperty, ?p) T(?x, owl:targetIndividual, ?i2) T(?i1, ?p, ?i2) -> false
+		createRuleDefinition(Rule.PRP_NPA1, "prp_npa1",
+				"rule prp_npa1 when NOPAA($i1:s, $p:p, $i2:o) OPAA(s==$i1, p==$p, o==$i2) then inferrer.inferFalse(\""
+						+ Rule.PRP_NPA1.toString() + "\", $p.id, $i1.id, $i2.id); end");
+
+		// T(?x, owl:sourceIndividual, ?i) T(?x, owl:assertionProperty, ?p) T(?x, owl:targetValue, ?lt) T(?i, ?p, ?lt) -> false
+		createRuleDefinition(Rule.PRP_NPA2, "prp_npa2",
+				"rule prp_npa2 when NDPAA($i:s, $p:p, $l:o) DPAA(s==$i, p==$p, o==$l) then inferrer.inferFalse(\""
+						+ Rule.PRP_NPA2.toString() + "\", $p.id, $i.id, $l.value); end");
 	}
 
 	private void defineOWL2RLTable6DroolsRules()
@@ -245,7 +249,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 
 		createRuleDefinition(Rule.CLS_COM, "cls_com",
 				"rule cls_com when OCOCE($c1:ceid, $c2:c) CAA(c==$c1, $x:i) CAA(c==$c2, i==$x) then inferrer.inferFalse(\""
-						+ Rule.CLS_COM.toString() + "\", $c2, $c2); end");
+						+ Rule.CLS_COM.toString() + "\", $c1, $c2); end");
 
 		createRuleDefinition(Rule.CLS_SFV1, "cls_sfv1",
 				"rule cls_sfv1_op when OSVFCE($x:ceid, $p:p, $y:v) OPAA($u:s, p==$p, $v:o) CAA(c==$y, i==$v) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
