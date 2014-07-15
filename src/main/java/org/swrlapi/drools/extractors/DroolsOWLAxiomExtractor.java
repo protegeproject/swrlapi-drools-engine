@@ -79,7 +79,7 @@ public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 
 	OWLSymmetricObjectPropertyAxiom extract(SPA spa) throws TargetRuleEngineException;
 
-	OWLTransitiveObjectPropertyAxiom extract(TPA spa) throws TargetRuleEngineException;
+	OWLTransitiveObjectPropertyAxiom extract(TPA tpa) throws TargetRuleEngineException;
 
 	OWLInverseObjectPropertiesAxiom extract(IOPA iopa) throws TargetRuleEngineException;
 }

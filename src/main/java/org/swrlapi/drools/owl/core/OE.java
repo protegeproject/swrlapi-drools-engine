@@ -66,7 +66,7 @@ public abstract class OE implements OO, AA, BA
 	{
 		int hash = 731;
 
-		hash = hash + (null == getName() ? 0 : getName().hashCode());
+		hash = hash + (null == getid() ? 0 : getid().hashCode());
 
 		return hash;
 	}

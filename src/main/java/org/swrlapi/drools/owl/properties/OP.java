@@ -13,7 +13,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLObjectProperty
  */
-public class OP extends OE implements P, OOPE
+public class OP extends OE implements P, OPE
 {
 	public OP(String propertyName)
 	{

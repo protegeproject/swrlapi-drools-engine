@@ -11,7 +11,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 /**
  * This class represents an OWL data property.
  */
-public class DP extends OE implements P, ODPE
+public class DP extends OE implements P, DPE
 {
 	public DP(String propertyName)
 	{
