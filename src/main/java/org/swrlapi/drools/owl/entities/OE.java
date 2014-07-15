@@ -11,6 +11,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL entity.
+ *
+ * @see org.semanticweb.owlapi.model.OWLEntity
  */
 public abstract class OE implements OO, AA, BA
 {

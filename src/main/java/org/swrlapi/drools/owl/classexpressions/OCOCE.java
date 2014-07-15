@@ -5,6 +5,9 @@ import org.swrlapi.drools.owl.DroolsBinaryObject;
 /**
  * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise
  * set of classes from the list in an OWL one of class expression.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectOneOf
+ * @see org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter#convert(org.semanticweb.owlapi.model.OWLObjectOneOf)
  */
 public class OCOCE extends DroolsBinaryObject<String, String> implements CE
 {

@@ -6,6 +6,8 @@ import java.util.Set;
 
 /**
  * Class representing an OWL data one of data range
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataOneOf
  */
 public class DOO implements DR
 {

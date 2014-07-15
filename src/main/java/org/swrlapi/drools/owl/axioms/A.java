@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This interface represents an OWL axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLAxiom
  */
 public interface A extends OO
 {

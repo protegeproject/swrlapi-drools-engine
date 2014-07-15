@@ -10,13 +10,14 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL literal in Drools
+ *
+ * @see org.semanticweb.owlapi.model.OWLLiteral
  */
 public class L implements OO, BA, Serializable
 {
 	private static final long serialVersionUID = 1L;
 
 	public final String value;
-
 	public final String datatypeName;
 
 	public L(String value, String datatypeName)

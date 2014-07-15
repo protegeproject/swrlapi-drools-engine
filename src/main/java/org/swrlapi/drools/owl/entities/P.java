@@ -2,6 +2,8 @@ package org.swrlapi.drools.owl.entities;
 
 /**
  * This class represents an OWL property.
+ *
+ * @see org.semanticweb.owlapi.model.OWLProperty
  */
 public abstract class P extends OE
 {

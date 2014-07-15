@@ -9,6 +9,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL object property.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectProperty
  */
 public class OP extends P
 {

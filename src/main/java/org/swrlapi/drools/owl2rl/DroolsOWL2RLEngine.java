@@ -86,11 +86,12 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// TODO Rule.PRP_AP:
 		// -> T(ap, rdf:type, owl:AnnotationProperty)
 
-		// TODO Rule.PRP_SPO2 - Property chains - not in OWL 1
+		// TODO Rule.PRP_SPO2 - Property chains
+		// See DroolsOWLClassExpressionConverter conversion of OWLObjectOnOf for pairwise extraction
 		// T(?p, owl:propertyChainAxiom, ?x) LIST[c?x, ?p1,...,?pn] T(?u1, ?p1, ?u2) T(?u2, ?p2, ?u3) ...
 		// T( ? un,?pn,?un + 1) -> T(?u1, ?p, ?un+1)
 
-		// TODO Rule.PRP_KEY - Keys - not in OWL 1
+		// TODO Rule.PRP_KEY - Keys
 		// T(?c, owl:hasKey, ?u) LIST[?u, ?p1, ..., ?pn] T(?x, rdf:type, ?c) T(?x, ?p1, ?z1) ...
 		// T(?x, ?pn, ?zn) T(?y, rdf:type, ?c) T(?y, ?p1, ?z1) ...
 		// T(?y, ?pn, ?zn) -> T(?x, owl:sameAs, ?y)
@@ -107,7 +108,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 
 		// Table 8
 		// TODO DT_NOT_TYPE Basically verify that the raw value of each literal is valid for its datatype
-		// L(l., dt) ^ notvalid(l, dt) -> explode?
+		// L(l., dt) ^ notValid(l, dt) -> explode?
 		// T(lt, rdf:type, dt) -> false
 		// For each literal lt and each datatype dt supported in OWL 2 RL such that the data value of lt is not
 		// contained in the value space of dt.
