@@ -226,7 +226,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLIndividualArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
-		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
+		return fieldName + "==" + convert(argument);
 	}
 
 	@Override
@@ -240,35 +240,35 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	public String convert(SWRLClassBuiltInArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
-		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
+		return fieldName + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLNamedIndividualBuiltInArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
-		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
+		return fieldName + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLObjectPropertyBuiltInArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
-		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
+		return fieldName + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLDataPropertyBuiltInArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
-		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
+		return fieldName + "==" + convert(argument);
 	}
 
 	@Override
 	public String convert(SWRLAnnotationPropertyBuiltInArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariablePrefixedNames) throws TargetRuleEngineException
 	{
-		return fieldName + "." + DroolsNames.ID_FIELD_NAME + "==" + convert(argument);
+		return fieldName + "==" + convert(argument);
 	}
 
 	@Override

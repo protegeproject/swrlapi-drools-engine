@@ -10,45 +10,32 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL data property assertion axiom.
- * <p>
- * We need to have 4 possible constructors for the different argument combinations. This approach makes the rules more
- * readable.
  *
  * @see org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom
  */
-public class DPAA extends DroolsTernaryObject<I, DP, L> implements A
+public class DPAA extends DroolsTernaryObject<I, String, L> implements A
 {
-	public DPAA(I subject, DP property, L object)
+	public DPAA(String subjectName, String propertyID, L object)
 	{
-		super(subject, property, object);
+		super(new I(subjectName), propertyID, object);
 	}
 
-	public DPAA(String subjectName, DP property, L object)
+	public DPAA(I subject, String propertyID, L object)
 	{
-		this(new I(subjectName), property, object);
+		super(subject, propertyID, object);
 	}
 
-	public DPAA(String subjectName, String propertyName, L object)
-	{
-		this(new I(subjectName), new DP(propertyName), object);
-	}
-
-	public DPAA(I subject, String propertyName, L object)
-	{
-		this(subject, new DP(propertyName), object);
-	}
-
-	public I getS()
+	public I gets()
 	{
 		return getT1();
 	}
 
-	public DP getP()
+	public String getpid()
 	{
 		return getT2();
 	}
 
-	public L getO()
+	public L geto()
 	{
 		return getT3();
 	}

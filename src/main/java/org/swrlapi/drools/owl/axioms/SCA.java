@@ -3,6 +3,7 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.classexpressions.CE;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -10,36 +11,21 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLSubClassOfAxiom
  */
-public class SCA extends BinaryClassesAxiom
+public class SCA extends DroolsBinaryObject<String, String> implements A
 {
 	public SCA(String class1ID, String class2ID)
 	{
 		super(class1ID, class2ID);
 	}
 
-	public SCA(CE class1, CE class2)
+	public String getsubcid()
 	{
-		super(class1.getceid(), class2.getceid());
+		return getT1();
 	}
 
-	public SCA(String class1ID, CE class2)
+	public String getsupercid()
 	{
-		super(class1ID, class2.getceid());
-	}
-
-	public SCA(CE class1, String class2ID)
-	{
-		super(class1.getceid(), class2ID);
-	}
-
-	public String getSub()
-	{
-		return getC1();
-	}
-
-	public String getSup()
-	{
-		return getC2();
+		return getT2();
 	}
 
 	@Override

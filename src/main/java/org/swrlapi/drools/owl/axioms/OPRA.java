@@ -3,7 +3,6 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
-import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -11,24 +10,19 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom
  */
-public class OPRA extends DroolsBinaryObject<OP, String> implements A
+public class OPRA extends DroolsBinaryObject<String, String> implements A
 {
-	public OPRA(OP property, String rangeClassID)
-	{
-		super(property, rangeClassID);
-	}
-
 	public OPRA(String propertyID, String rangeClassID)
 	{
-		this(new OP(propertyID), rangeClassID);
+		super(propertyID, rangeClassID);
 	}
 
-	public OP getP()
+	public String getpid()
 	{
 		return getT1();
 	}
 
-	public String getR()
+	public String getrid()
 	{
 		return getT2();
 	}
@@ -42,6 +36,6 @@ public class OPRA extends DroolsBinaryObject<OP, String> implements A
 	@Override
 	public String toString()
 	{
-		return "OPRA(" + getP() + ", " + getR() + ")";
+		return "OPRA(" + getpid() + ", " + getrid() + ")";
 	}
 }

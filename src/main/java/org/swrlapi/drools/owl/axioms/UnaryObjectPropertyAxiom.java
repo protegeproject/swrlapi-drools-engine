@@ -1,15 +1,16 @@
 package org.swrlapi.drools.owl.axioms;
 
+import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 import org.swrlapi.drools.owl.properties.OP;
 
-public abstract class UnaryObjectPropertyAxiom extends UnaryPropertyAxiom<OP>
+public abstract class UnaryObjectPropertyAxiom extends DroolsUnaryObject<String>
 {
-	public UnaryObjectPropertyAxiom(OP p)
+	public UnaryObjectPropertyAxiom(String propertyID)
 	{
-		super(p);
+		super(propertyID);
 	}
 
-	public OP getP()
+	public String getP()
 	{
 		return super.getT1();
 	}

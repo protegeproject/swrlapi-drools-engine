@@ -9,71 +9,52 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL negative object property assertion axiom.
- * <p>
- * We need to have 8 possible constructors for the different argument combinations. This approach provided
+ * <p/>
+ * We have 4 possible constructors for the different argument combinations. This approach provides
  * more flexibility when generating Drools rules and makes the generated rules more readable.
  *
  * @see org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom
  */
-public class NOPAA extends DroolsTernaryObject<I, OP, I> implements A
+public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
 {
-	public NOPAA(I subject, OP property, I object)
+	public NOPAA(I subject, String propertyID, I object)
 	{
-		super(subject, property, object);
+		super(subject, propertyID, object);
 	}
 
-	public NOPAA(I subject, OP property, String objectName)
+	public NOPAA(I subject, String propertyID, String objectName)
 	{
-		this(subject, property, new I(objectName));
+		this(subject, propertyID, new I(objectName));
 	}
 
-	public NOPAA(I subject, String propertyName, I object)
+	public NOPAA(String subjectName, String propertyID, I object)
 	{
-		this(subject, new OP(propertyName), object);
+		this(new I(subjectName), propertyID, object);
 	}
 
-	public NOPAA(I subject, String propertyName, String objectName)
+	public NOPAA(String subjectName, String propertyID, String objectName)
 	{
-		this(subject, new OP(propertyName), new I(objectName));
+		this(new I(subjectName), propertyID, new I(objectName));
 	}
 
-	public NOPAA(String subjectName, OP property, I object)
-	{
-		this(new I(subjectName), property, object);
-	}
-
-	public NOPAA(String subjectName, OP property, String objectName)
-	{
-		this(new I(subjectName), property, new I(objectName));
-	}
-
-	public NOPAA(String subjectName, String propertyName, I object)
-	{
-		this(new I(subjectName), new OP(propertyName), object);
-	}
-
-	public NOPAA(String subjectName, String propertyName, String objectName)
-	{
-		this(new I(subjectName), new OP(propertyName), new I(objectName));
-	}
-
-	public I getS()
+	public I gets()
 	{
 		return getT1();
 	}
 
-	public OP getP()
+	public String getpid()
 	{
 		return getT2();
 	}
 
-	public I getO()
+	public I geto()
 	{
 		return getT3();
 	}
 
 	@Override
-	public OWLNegativeObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLNegativeObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
+			throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

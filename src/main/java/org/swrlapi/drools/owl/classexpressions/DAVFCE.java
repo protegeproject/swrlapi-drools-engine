@@ -7,16 +7,11 @@ import org.swrlapi.drools.owl.properties.DP;
 /**
  * This class represents an OWL data all values from class expression in Drools.
  */
-public class DAVFCE extends DroolsTernaryObject<String, DP, D> implements CE
+public class DAVFCE extends DroolsTernaryObject<String, String, D> implements CE
 {
-	public DAVFCE(String id, DP p, D o)
-	{
-		super(id, p, o);
-	}
-
 	public DAVFCE(String id, String propertyID, String datatypeID)
 	{
-		super(id, new DP(propertyID), new D(datatypeID));
+		super(id, propertyID, new D(datatypeID));
 	}
 
 	@Override
@@ -25,7 +20,7 @@ public class DAVFCE extends DroolsTernaryObject<String, DP, D> implements CE
 		return getT1();
 	}
 
-	public DP getP()
+	public String getpid()
 	{
 		return getT2();
 	}

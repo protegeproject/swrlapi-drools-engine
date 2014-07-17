@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -10,17 +11,14 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom
  */
-public class TPA extends UnaryObjectPropertyAxiom
+public class TPA extends DroolsUnaryObject<String> implements A
 {
-	public TPA(OP p)
-	{
-		super(p);
-	}
-
 	public TPA(String propertyID)
 	{
-		super(new OP(propertyID));
+		super(propertyID);
 	}
+
+	public String getpid() { return getT1(); }
 
 	@Override
 	public String toString()

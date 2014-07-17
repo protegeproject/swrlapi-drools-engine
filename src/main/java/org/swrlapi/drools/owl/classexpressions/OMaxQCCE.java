@@ -6,16 +6,11 @@ import org.swrlapi.drools.owl.properties.DP;
 /**
  * This class represents an OWL data maximum qualified cardinality class expression in Drools.
  */
-public class OMaxQCCE extends DroolsQuadObject<String, DP, String, Integer> implements CE
+public class OMaxQCCE extends DroolsQuadObject<String, String, String, Integer> implements CE
 {
-	public OMaxQCCE(String id, DP p, String fillerID, Integer card)
-	{
-		super(id, p, fillerID, card);
-	}
-
 	public OMaxQCCE(String id, String propertyID, String fillerID, Integer card)
 	{
-		super(id, new DP(propertyID), fillerID, card);
+		super(id, propertyID, fillerID, card);
 	}
 
 	@Override
@@ -24,17 +19,17 @@ public class OMaxQCCE extends DroolsQuadObject<String, DP, String, Integer> impl
 		return getT1();
 	}
 
-	public DP getP()
+	public String getpid()
 	{
 		return getT2();
 	}
 
-	public String getF()
+	public String getf()
 	{
 		return getT3();
 	}
 
-	public Integer getCard()
+	public Integer getcard()
 	{
 		return getT4();
 	}

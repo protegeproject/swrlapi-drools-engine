@@ -5,17 +5,14 @@ import org.swrlapi.drools.owl.properties.OP;
 
 /**
  * This class represents an OWL object maximum cardinality class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectMaxCardinality
  */
-public class OMaxCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
+public class OMaxCCE extends DroolsTernaryObject<String, String, Integer> implements CE
 {
-	public OMaxCCE(String id, OP p, Integer card)
-	{
-		super(id, p, card);
-	}
-
 	public OMaxCCE(String id, String propertyID, Integer card)
 	{
-		super(id, new OP(propertyID), card);
+		super(id, propertyID, card);
 	}
 
 	@Override
@@ -24,7 +21,7 @@ public class OMaxCCE extends DroolsTernaryObject<String, OP, Integer> implements
 		return getT1();
 	}
 
-	public OP getP()
+	public String getpid()
 	{
 		return getT2();
 	}

@@ -11,24 +11,19 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom
  */
-public class DOPA extends DroolsBinaryObject<OP, String> implements A
+public class DOPA extends DroolsBinaryObject<String, String> implements A
 {
-	public DOPA(OP property, String domainClassID)
-	{
-		super(property, domainClassID);
-	}
-
 	public DOPA(String propertyID, String domainClassID)
 	{
-		this(new OP(propertyID), domainClassID);
+		super(propertyID, domainClassID);
 	}
 
-	public OP getP()
+	public String getpid()
 	{
 		return getT1();
 	}
 
-	public String getD()
+	public String getdid()
 	{
 		return getT2();
 	}

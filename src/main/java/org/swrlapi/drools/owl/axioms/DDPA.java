@@ -3,7 +3,6 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
-import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -11,24 +10,19 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom
  */
-public class DDPA extends DroolsBinaryObject<DP, String> implements A
+public class DDPA extends DroolsBinaryObject<String, String> implements A
 {
-	public DDPA(DP property, String domainClassID)
+	public DDPA(String propertyID, String domainID)
 	{
-		super(property, domainClassID);
+		super(propertyID, domainID);
 	}
 
-	public DDPA(String propertyID, String domainClassID)
-	{
-		this(new DP(propertyID), domainClassID);
-	}
-
-	public DP getP()
+	public String getpid()
 	{
 		return getT1();
 	}
 
-	public String getD()
+	public String getdid()
 	{
 		return getT2();
 	}
@@ -42,6 +36,6 @@ public class DDPA extends DroolsBinaryObject<DP, String> implements A
 	@Override
 	public String toString()
 	{
-		return "DDPA(" + getP() + ", " + getD() + ")";
+		return "DDPA(" + getpid() + ", " + getdid() + ")";
 	}
 }

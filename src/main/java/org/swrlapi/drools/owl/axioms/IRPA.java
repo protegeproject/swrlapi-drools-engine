@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -10,17 +11,14 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom
  */
-public class IRPA extends UnaryObjectPropertyAxiom
+public class IRPA extends DroolsUnaryObject<String> implements A
 {
-	public IRPA(OP p)
-	{
-		super(p);
-	}
-
 	public IRPA(String propertyID)
 	{
-		super(new OP(propertyID));
+		super(propertyID);
 	}
+
+	public String getpid() { return getT1(); }
 
 	@Override
 	public OWLIrreflexiveObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor)

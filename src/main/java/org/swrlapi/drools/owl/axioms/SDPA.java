@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -10,36 +11,21 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom
  */
-public class SDPA extends BinaryDataPropertiesAxiom
+public class SDPA extends DroolsBinaryObject<String, String> implements A
 {
-	public SDPA(DP property1, DP property2)
-	{
-		super(property1, property2);
-	}
-
 	public SDPA(String property1ID, String property2ID)
 	{
-		this(new DP(property1ID), new DP(property2ID));
+		super(property1ID, property2ID);
 	}
 
-	public SDPA(DP property1, String property2ID)
+	public String getsubpid()
 	{
-		this(property1, new DP(property2ID));
+		return getT1();
 	}
 
-	public SDPA(String property1ID, DP property2)
+	public String getsuperpid()
 	{
-		this(new DP(property1ID), property2);
-	}
-
-	public DP getSub()
-	{
-		return getP1();
-	}
-
-	public DP getSup()
-	{
-		return getP2();
+		return getT2();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -10,36 +11,21 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom
  */
-public class SOPA extends BinaryObjectPropertiesAxiom
+public class SOPA extends DroolsBinaryObject<String, String> implements A
 {
-	public SOPA(OP property1, OP property2)
-	{
-		super(property1, property2);
-	}
-
 	public SOPA(String property1ID, String property2ID)
 	{
-		this(new OP(property1ID), new OP(property2ID));
+		super(property1ID, property2ID);
 	}
 
-	public SOPA(OP property1, String property2ID)
+	public String getsubpid()
 	{
-		this(property1, new OP(property2ID));
+		return getT1();
 	}
 
-	public SOPA(String property1ID, OP property2)
+	public String getsuperpid()
 	{
-		this(new OP(property1ID), property2);
-	}
-
-	public OP getSub()
-	{
-		return getP1();
-	}
-
-	public OP getSup()
-	{
-		return getP2();
+		return getT2();
 	}
 
 	@Override

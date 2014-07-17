@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -10,27 +11,16 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom
  */
-public class DJDPA extends BinaryDataPropertiesAxiom
+public class DJDPA extends DroolsBinaryObject<String, String> implements A
 {
-	public DJDPA(DP property1, DP property2)
-	{
-		super(property1, property2);
-	}
-
 	public DJDPA(String property1ID, String property2ID)
 	{
-		this(new DP(property1ID), new DP(property2ID));
+		super(property1ID, property2ID);
 	}
 
-	public DJDPA(DP property1, String property2ID)
-	{
-		this(property1, new DP(property2ID));
-	}
+	public String getp1id() { return getT1(); }
 
-	public DJDPA(String property1ID, DP property2)
-	{
-		this(new DP(property1ID), property2);
-	}
+	public String getp2id() { return getT2(); }
 
 	@Override
 	public OWLDisjointDataPropertiesAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetRuleEngineException

@@ -11,24 +11,19 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom
  */
-public class DPRA extends DroolsBinaryObject<DP, String> implements A
+public class DPRA extends DroolsBinaryObject<String, String> implements A
 {
-	public DPRA(DP property, String dataRangeID)
-	{
-		super(property, dataRangeID);
-	}
-
 	public DPRA(String propertyID, String dataRangeID)
 	{
-		this(new DP(propertyID), dataRangeID);
+		super(propertyID, dataRangeID);
 	}
 
-	public DP getP()
+	public String getpid()
 	{
 		return getT1();
 	}
 
-	public String getR()
+	public String getrid()
 	{
 		return getT2();
 	}

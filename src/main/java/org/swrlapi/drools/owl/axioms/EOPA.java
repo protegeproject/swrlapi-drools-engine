@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -10,27 +11,16 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom
  */
-public class EOPA extends BinaryObjectPropertiesAxiom
+public class EOPA extends DroolsBinaryObject<String, String> implements A
 {
-	public EOPA(OP property1, OP property2)
-	{
-		super(property1, property2);
-	}
-
 	public EOPA(String property1ID, String property2ID)
 	{
-		this(new OP(property1ID), new OP(property2ID));
+		super(property1ID, property2ID);
 	}
 
-	public EOPA(OP property1, String property2ID)
-	{
-		this(property1, new OP(property2ID));
-	}
+	public String getp1id() { return getT1(); }
 
-	public EOPA(String property1ID, OP property2)
-	{
-		this(new OP(property1ID), property2);
-	}
+	public String getp2id() { return getT2(); }
 
 	@Override
 	public OWLEquivalentObjectPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor)

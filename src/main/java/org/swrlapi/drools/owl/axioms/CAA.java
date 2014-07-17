@@ -23,7 +23,7 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 		this(classID, new I(individualID));
 	}
 
-	public String getC()
+	public String getcid()
 	{
 		return getT1();
 	}
@@ -42,6 +42,6 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 	@Override
 	public String toString()
 	{
-		return "CAA(" + getC() + ", " + getI() + ")";
+		return "CAA(" + getcid() + ", " + getI() + ")";
 	}
 }

@@ -9,16 +9,11 @@ import org.swrlapi.drools.owl.properties.DP;
  *
  * @see org.semanticweb.owlapi.model.OWLDataSomeValuesFrom
  */
-public class DSVFCE extends DroolsTernaryObject<String, DP, D> implements CE
+public class DSVFCE extends DroolsTernaryObject<String, String, D> implements CE
 {
-	public DSVFCE(String id, DP p, D o)
-	{
-		super(id, p, o);
-	}
-
 	public DSVFCE(String id, String propertyID, String objectID)
 	{
-		super(id, new DP(propertyID), new D(objectID));
+		super(id, propertyID, new D(objectID));
 	}
 
 	@Override
@@ -27,7 +22,7 @@ public class DSVFCE extends DroolsTernaryObject<String, DP, D> implements CE
 		return getT1();
 	}
 
-	public DP getP()
+	public String getpid()
 	{
 		return getT2();
 	}

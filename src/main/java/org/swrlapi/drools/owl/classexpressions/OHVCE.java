@@ -7,16 +7,11 @@ import org.swrlapi.drools.owl.properties.OP;
 /**
  * This class represents an OWL object has value class expression in Drools.
  */
-public class OHVCE extends DroolsTernaryObject<String, OP, I> implements CE
+public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
 {
-	public OHVCE(String id, OP p, I o)
-	{
-		super(id, p, o);
-	}
-
 	public OHVCE(String id, String propertyID, String individualID)
 	{
-		super(id, new OP(propertyID), new I(individualID));
+		super(id, propertyID, new I(individualID));
 	}
 
 	@Override
@@ -25,7 +20,7 @@ public class OHVCE extends DroolsTernaryObject<String, OP, I> implements CE
 		return getT1();
 	}
 
-	public OP getP()
+	public String getpid()
 	{
 		return getT2();
 	}

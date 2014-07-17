@@ -10,12 +10,12 @@ public abstract class BinaryIndividualsAxiom extends DroolsBinaryObject<I, I> im
 		super(individual1, individual2);
 	}
 
-	public I getI1()
+	public I geti1()
 	{
 		return getT1();
 	}
 
-	public I getI2()
+	public I geti2()
 	{
 		return getT2();
 	}

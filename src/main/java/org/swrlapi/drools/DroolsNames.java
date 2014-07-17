@@ -26,9 +26,9 @@ public class DroolsNames
 	public static final String QUERY_NAME_FIELD_NAME = "queryName";
 	public static final String COLLECTION_NAME_FIELD_NAME = "collectionName";
 
-	public static final String CLASS_FIELD_NAME = "c";
+	public static final String CLASS_FIELD_NAME = "cid";
 	public static final String INDIVIDUAL_FIELD_NAME = "i";
-	public static final String PROPERTY_FIELD_NAME = "p";
+	public static final String PROPERTY_FIELD_NAME = "pid";
 	public static final String SUBJECT_FIELD_NAME = "s";
 	public static final String OBJECT_FIELD_NAME = "o";
 	public static final String INDIVIDUAL_1_FIELD_NAME = "i1";

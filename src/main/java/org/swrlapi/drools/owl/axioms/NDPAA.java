@@ -13,34 +13,29 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom
  */
-public class NDPAA extends DroolsTernaryObject<I, DP, L> implements A
+public class NDPAA extends DroolsTernaryObject<I, String, L> implements A
 {
-	public NDPAA(I subject, DP property, L object)
-	{
-		super(subject, property, object);
-	}
-
 	public NDPAA(String subjectName, String propertyID, L object)
 	{
-		this(new I(subjectName), new DP(propertyID), object);
+		super(new I(subjectName), propertyID, object);
 	}
 
-	public NDPAA(I subject, String propertyName, L object)
+	public NDPAA(I subject, String propertyID, L object)
 	{
-		this(subject, new DP(propertyName), object);
+		super(subject, propertyID, object);
 	}
 
-	public I getS()
+	public I gets()
 	{
 		return getT1();
 	}
 
-	public DP getP()
+	public String getpid()
 	{
 		return getT2();
 	}
 
-	public L getO()
+	public L geto()
 	{
 		return getT3();
 	}

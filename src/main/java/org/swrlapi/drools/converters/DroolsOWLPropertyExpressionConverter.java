@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -23,33 +22,41 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
-	private final Map<OWLPropertyExpression<?, ?>, String> propertyExpression2IDMap;
+	private final Map<OWLObjectPropertyExpression, String> objectPropertyExpression2IDMap;
+	private final Map<OWLDataPropertyExpression, String> dataPropertyExpression2IDMap;
 	private final Set<String> convertedPropertyExpressionIDs;
-	private int propertyExpressionIndex;
+	private int objectPropertyExpressionIndex;
+	private int dataPropertyExpressionIndex;
 
 	public DroolsOWLPropertyExpressionConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 
-		this.propertyExpression2IDMap = new HashMap<OWLPropertyExpression<?, ?>, String>();
-		this.propertyExpressionIndex = 0;
+		this.objectPropertyExpression2IDMap = new HashMap<OWLObjectPropertyExpression, String>();
+		this.dataPropertyExpression2IDMap = new HashMap<OWLDataPropertyExpression, String>();
+		this.objectPropertyExpressionIndex = 0;
+		this.dataPropertyExpressionIndex = 0;
 		this.convertedPropertyExpressionIDs = new HashSet<String>();
-		getOWLPropertyExpressionResolver().reset();
+		getOWLObjectPropertyExpressionResolver().reset();
+		getOWLDataPropertyExpressionResolver().reset();
 	}
 
 	public void reset()
 	{
-		this.propertyExpressionIndex = 0;
-		this.propertyExpression2IDMap.clear();
+		this.objectPropertyExpressionIndex = 0;
+		this.dataPropertyExpressionIndex = 0;
+		this.objectPropertyExpression2IDMap.clear();
+		this.dataPropertyExpression2IDMap.clear();
 		this.convertedPropertyExpressionIDs.clear();
-		getOWLPropertyExpressionResolver().reset();
+		getOWLObjectPropertyExpressionResolver().reset();
+		getOWLDataPropertyExpressionResolver().reset();
 	}
 
 	@Override
 	public String convert(OWLObjectPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression.isAnonymous())
-			return getPropertyExpressionID(propertyExpression);
+			return getObjectPropertyExpressionID(propertyExpression);
 		else {
 			OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
 			IRI propertyIRI = objectProperty.getIRI();
@@ -61,7 +68,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 	public String convert(OWLDataPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression.isAnonymous())
-			return getPropertyExpressionID(propertyExpression);
+			return getDataPropertyExpressionID(propertyExpression);
 		else {
 			OWLDataProperty objectProperty = propertyExpression.asOWLDataProperty();
 			IRI propertyIRI = objectProperty.getIRI();
@@ -69,14 +76,26 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 		}
 	}
 
-	private String getPropertyExpressionID(OWLPropertyExpression<?, ?> propertyExpression)
+	private String getObjectPropertyExpressionID(OWLObjectPropertyExpression propertyExpression)
 	{
-		if (this.propertyExpression2IDMap.containsKey(propertyExpression))
-			return this.propertyExpression2IDMap.get(propertyExpression);
+		if (this.objectPropertyExpression2IDMap.containsKey(propertyExpression))
+			return this.objectPropertyExpression2IDMap.get(propertyExpression);
 		else {
-			String propertyExpressionID = "PEID" + this.propertyExpressionIndex++;
-			this.propertyExpression2IDMap.put(propertyExpression, propertyExpressionID);
-			getOWLPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
+			String propertyExpressionID = "OPEID" + this.objectPropertyExpressionIndex++;
+			this.objectPropertyExpression2IDMap.put(propertyExpression, propertyExpressionID);
+			getOWLObjectPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
+			return propertyExpressionID;
+		}
+	}
+
+	private String getDataPropertyExpressionID(OWLDataPropertyExpression propertyExpression)
+	{
+		if (this.dataPropertyExpression2IDMap.containsKey(propertyExpression))
+			return this.dataPropertyExpression2IDMap.get(propertyExpression);
+		else {
+			String propertyExpressionID = "DPEID" + this.dataPropertyExpressionIndex++;
+			this.dataPropertyExpression2IDMap.put(propertyExpression, propertyExpressionID);
+			getOWLDataPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
 			return propertyExpressionID;
 		}
 	}
