@@ -110,18 +110,17 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLDataPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+	public String convert(SWRLObjectPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
 			throws TargetRuleEngineException
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
-		SWRLDArgument argument2 = atom.getSecondArgument();
-		String representation = DroolsNames.DATA_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
+		SWRLIArgument argument2 = atom.getSecondArgument();
+		String representation = DroolsNames.OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
 		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.SUBJECT_FIELD_NAME,
 				previouslyEncounteredVariablePrefixedNames);
-		representation += ", " + DroolsNames.PROPERTY_FIELD_NAME + "=="
-				+ addQuotes(propertyID) + ", ";
+		representation += ", " + DroolsNames.PROPERTY_FIELD_NAME + "==" + addQuotes(propertyID) + ", ";
 		representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.OBJECT_FIELD_NAME,
 				previouslyEncounteredVariablePrefixedNames);
 		representation += ")";
@@ -130,13 +129,13 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLObjectPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+	public String convert(SWRLDataPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
 			throws TargetRuleEngineException
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
-		SWRLIArgument argument2 = atom.getSecondArgument();
-		String representation = DroolsNames.OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
+		SWRLDArgument argument2 = atom.getSecondArgument();
+		String representation = DroolsNames.DATA_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
 		representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.SUBJECT_FIELD_NAME,
 				previouslyEncounteredVariablePrefixedNames);
@@ -208,16 +207,14 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 			}
 			argumentNumber++;
 			if (argumentNumber > BAP.MaxArguments)
-				throw new TargetRuleEngineException("a maximum of " + BAP.MaxArguments
-						+ " built-in arguments are currently supported by Drools");
+				throw new TargetRuleEngineException("at most " + BAP.MaxArguments + " built-in arguments currently supported");
 		}
 
 		representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInPrefixedName + "\", "
 				+ this.builtInIndexInBody + ", false, ";
 
 		if (builtInAtom.getPathVariablePrefixedNames().size() > VPATH.MaxArguments)
-			throw new TargetRuleEngineException("a maximum of " + VPATH.MaxArguments
-					+ " built-in arguments are currently supported by Drools");
+			throw new TargetRuleEngineException("at most " + VPATH.MaxArguments + " built-in arguments supported");
 
 		isFirst = true;
 		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_PATH_CLASS_NAME + "(";
@@ -231,8 +228,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		representation += "), ";
 
 		if (builtInAtom.getNumberOfArguments() > BAVNs.MaxArguments)
-			throw new TargetRuleEngineException("a maximum of " + BAVNs.MaxArguments
-					+ " built-in arguments are currently supported by Drools");
+			throw new TargetRuleEngineException("at most " + BAVNs.MaxArguments + " built-in arguments supported");
 
 		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
 		isFirst = true;
@@ -249,8 +245,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		representation += "), ";
 
 		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
-			throw new TargetRuleEngineException("a maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
-					+ " can be passed to built-ins");
+			throw new TargetRuleEngineException("at most " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " allowed");
 
 		isFirst = true;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {

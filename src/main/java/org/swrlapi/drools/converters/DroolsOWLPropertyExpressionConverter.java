@@ -56,11 +56,13 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 	public String convert(OWLObjectPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression.isAnonymous())
-			return getObjectPropertyExpressionID(propertyExpression);
+			return generateAnonymousObjectPropertyExpressionID(propertyExpression);
 		else {
 			OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
 			IRI propertyIRI = objectProperty.getIRI();
-			return getIRIResolver().iri2PrefixedName(propertyIRI);
+			String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
+			recordObjectPropertyExpressionID(prefixedName, propertyExpression);
+			return prefixedName;
 		}
 	}
 
@@ -68,35 +70,51 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 	public String convert(OWLDataPropertyExpression propertyExpression) throws TargetRuleEngineException
 	{
 		if (propertyExpression.isAnonymous())
-			return getDataPropertyExpressionID(propertyExpression);
+			return generateAnonymousDataPropertyExpressionID(propertyExpression);
 		else {
 			OWLDataProperty objectProperty = propertyExpression.asOWLDataProperty();
 			IRI propertyIRI = objectProperty.getIRI();
-			return getIRIResolver().iri2PrefixedName(propertyIRI);
+			String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
+			recordDataPropertyExpressionID(prefixedName, propertyExpression);
+			return prefixedName;
 		}
 	}
 
-	private String getObjectPropertyExpressionID(OWLObjectPropertyExpression propertyExpression)
+	private String generateAnonymousObjectPropertyExpressionID(OWLObjectPropertyExpression propertyExpression)
 	{
 		if (this.objectPropertyExpression2IDMap.containsKey(propertyExpression))
 			return this.objectPropertyExpression2IDMap.get(propertyExpression);
 		else {
 			String propertyExpressionID = "OPEID" + this.objectPropertyExpressionIndex++;
-			this.objectPropertyExpression2IDMap.put(propertyExpression, propertyExpressionID);
-			getOWLObjectPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
+			recordObjectPropertyExpressionID(propertyExpressionID, propertyExpression);
 			return propertyExpressionID;
 		}
 	}
 
-	private String getDataPropertyExpressionID(OWLDataPropertyExpression propertyExpression)
+	private String generateAnonymousDataPropertyExpressionID(OWLDataPropertyExpression propertyExpression)
 	{
 		if (this.dataPropertyExpression2IDMap.containsKey(propertyExpression))
 			return this.dataPropertyExpression2IDMap.get(propertyExpression);
 		else {
 			String propertyExpressionID = "DPEID" + this.dataPropertyExpressionIndex++;
+			recordDataPropertyExpressionID(propertyExpressionID, propertyExpression);
+			return propertyExpressionID;
+		}
+	}
+
+	private void recordObjectPropertyExpressionID(String propertyExpressionID, OWLObjectPropertyExpression propertyExpression)
+	{
+		if (!this.objectPropertyExpression2IDMap.containsKey(propertyExpression)) {
+			this.objectPropertyExpression2IDMap.put(propertyExpression, propertyExpressionID);
+			getOWLObjectPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
+		}
+	}
+
+	private void recordDataPropertyExpressionID(String propertyExpressionID, OWLDataPropertyExpression propertyExpression)
+	{
+		if (!this.dataPropertyExpression2IDMap.containsKey(propertyExpression)) {
 			this.dataPropertyExpression2IDMap.put(propertyExpression, propertyExpressionID);
 			getOWLDataPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
-			return propertyExpressionID;
 		}
 	}
 }

@@ -17,7 +17,7 @@ public class DroolsNames
 	public static final String BUILT_IN_VARIABLE_NAMES_CLASS_NAME = "BAVNs";
 
 	public static final String CLASS_CLASS_NAME = "C";
-	public static final String INDVIDUAL_CLASS_NAME = "I";
+	public static final String INDIVIDUAL_CLASS_NAME = "I";
 	public static final String OBJECT_PROPERTY_CLASS_NAME = "OP";
 	public static final String DATA_PROPERTY_CLASS_NAME = "DP";
 	public static final String LITERAL_CLASS_NAME = "L";

@@ -99,7 +99,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		String classPrefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
 
 		if (!this.convertedClassExpressionIDs.contains(classPrefixedName)) {
-			getOWLClassExpressionResolver().recordOWLClassExpression(classPrefixedName, cls);
+			getOWLClassExpressionResolver().record(classPrefixedName, cls);
 			this.convertedClassExpressionIDs.add(classPrefixedName);
 		}
 		return classPrefixedName;
@@ -169,7 +169,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			String complementClassID = convert(classExpression.getOperand());
 			OCOCE ouoce = new OCOCE(classExpressionID, complementClassID);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(ouoce);
 
@@ -188,7 +188,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
 			OSVFCE osvfce = new OSVFCE(classExpressionID, propertyID, someValuesFromClassID);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(osvfce);
 
@@ -207,7 +207,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
 			DSVFCE dsvfce = new DSVFCE(classExpressionID, propertyID, someValuesFromDataRangeID);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(dsvfce);
 
@@ -226,7 +226,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			int cardinality = classExpression.getCardinality();
 			DCCE dcce = new DCCE(classExpressionID, propertyID, cardinality);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(dcce);
 
@@ -245,7 +245,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			int cardinality = classExpression.getCardinality();
 			OCCE occe = new OCCE(classExpressionID, propertyID, cardinality);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(occe);
 
@@ -264,7 +264,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			int cardinality = classExpression.getCardinality();
 			DMinCCE dmincce = new DMinCCE(classExpressionID, propertyID, cardinality);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(dmincce);
 
@@ -283,7 +283,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			int cardinality = classExpression.getCardinality();
 			OMinCCE omincce = new OMinCCE(classExpressionID, propertyID, cardinality);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(omincce);
 
@@ -310,7 +310,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 				addOWLClassExpression(dmaxcce);
 			}
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 			this.convertedClassExpressionIDs.add(classExpressionID);
 		}
 		return classExpressionID;
@@ -333,7 +333,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 				OMaxCCE omaxcce = new OMaxCCE(classExpressionID, propertyID, cardinality);
 				addOWLClassExpression(omaxcce);
 			}
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 			this.convertedClassExpressionIDs.add(classExpressionID);
 		}
 		return classExpressionID;
@@ -349,7 +349,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			OWLLiteral valueLiteral = classExpression.getValue();
 			DHVCE dhvce = new DHVCE(classExpressionID, propertyID, getDroolsOWLLiteral2LConverter().convert(valueLiteral));
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(dhvce);
 
@@ -368,7 +368,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			String valueIndividualID = getDroolsOWLIndividual2DRLConverter().convert(classExpression.getValue());
 			OHVCE ohvce = new OHVCE(classExpressionID, propertyID, valueIndividualID);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(ohvce);
 
@@ -387,7 +387,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			String allValuesFromClassID = convert(classExpression.getFiller());
 			OAVFCE oavfce = new OAVFCE(classExpressionID, propertyID, allValuesFromClassID);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(oavfce);
 
@@ -406,7 +406,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 			String allValuesFromDataRangeID = getDroolsOWLDataRangeConverter().convert(classExpression.getFiller());
 			DAVFCE davfce = new DAVFCE(classExpressionID, propertyID, allValuesFromDataRangeID);
 
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
 			addOWLClassExpression(davfce);
 
@@ -422,7 +422,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		else {
 			String classExpressionID = "CEID" + this.classExpressionIndex++;
 			this.classExpression2IDMap.put(classExpression, classExpressionID);
-			getOWLClassExpressionResolver().recordOWLClassExpression(classExpressionID, classExpression);
+			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 			return classExpressionID;
 		}
 	}

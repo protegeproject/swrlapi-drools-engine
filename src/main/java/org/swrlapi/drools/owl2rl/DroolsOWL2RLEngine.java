@@ -96,29 +96,13 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// T(?x, ?pn, ?zn) T(?y, rdf:type, ?c) T(?y, ?p1, ?z1) ...
 		// T(?y, ?pn, ?zn) -> T(?x, owl:sameAs, ?y)
 
-		// TODO Rule.PRP_RNG partial; data property range not supported. DPAA ^ L(value, datatype) -> DPRA?
-		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
-
-		// Table 6
-		// TODO CLS_SFV1 - partial: cls_sfv1_dp not implemented. -> L(?u, ?x) explode if invalid?
-		// T(?x, owl:someValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, ?p, ?v) T(?v, rdf:type, ?y) -> T(?u, rdf:type, ?x)
-		// TODO CLS_AVF - partial: cls_avf_dp not implemented. -> L(?u, ?x) explode if invalid?
-		// T(?x, owl:allValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, rdf:type, ?x) T(?u, ?p, ?v) -> T(?v, rdf:type, ?y)
-		// TODO CLS_MAXQC1 - partial: cls_maxqc1_dp not implemented. -> L(?u, ?x) explode if invalid?
-
 		// Table 8
-		// TODO DT_NOT_TYPE Basically verify that the raw value of each literal is valid for its datatype
-		// L(l., dt) ^ notValid(l, dt) -> explode?
+		// TODO DT_NOT_TYPE 
 		// T(lt, rdf:type, dt) -> false
-		// For each literal lt and each datatype dt supported in OWL 2 RL such that the data value of lt is not
-		// contained in the value space of dt.
-
-		// Table 9
-		// TODO SCM_RNG1 - partial: scm_rng1_dp not implemented. -> DPRA?
-		// T(?p, rdfs:range, ?c1) T(?c1, rdfs:subClassOf, ?c2) -> T(?p, rdfs:range, ?c2)
-
-		// TODO SCM_RNG2 - partial: scm_rng2_dp not implemented. -> DPRA?
-		// T(?p2, rdfs:range, ?c) T(?p1, rdfs:subPropertyOf, ?p2) -> T(?p1, rdfs:range, ?c)
+		// "For each literal lt and each datatype dt supported in OWL 2 RL such that the data value of lt is not
+		// contained in the value space of dt."
+		// Basically verify that the raw value of each literal is valid for its datatype
+		// L(l., dt) ^ notValid(l, dt) -> explode?
 	}
 
 	private void defineOWL2RLTable4DroolsRules()
@@ -171,8 +155,8 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"rule prp_dom_dp when DDPA($p:pid, $c:did) DPAA($x:s, pid==$p, $y:o) then CAA caa=new CAA($c, $x); inferrer.infer(caa); end");
 
 		// T(?x, ?p, ?y)	 T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
-		createRuleDefinition(Rule.PRP_RNG, "prp_rng_op",
-				"rule prp_rng_op when OPRA($p:pid, $r:rid) OPAA($x:s, pid==$p, $y:o) then CAA caa=new CAA($r, $y); inferrer.infer(caa); end");
+		createRuleDefinition(Rule.PRP_RNG, "prp_rng",
+				"rule prp_rng when OPRA($p:pid, $r:rid) OPAA($x:s, pid==$p, $y:o) then CAA caa=new CAA($r, $y); inferrer.infer(caa); end");
 
 		createRuleDefinition(Rule.PRP_FP, "prp_fp",
 				"rule prp_fp when FOPA($p:pid) OPAA($x:s, pid==$p, $y1:o) OPAA(s==$x, pid==$p, $y2:o) then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
@@ -259,14 +243,16 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"rule cls_com when OCOCE($c1:ceid, $c2:c) CAA(cid==$c1, $x:i) CAA(cid==$c2, i==$x) then inferrer.inferFalse(\""
 						+ Rule.CLS_COM.toString() + "\", $c1, $c2); end");
 
+		// T(?x, owl:someValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, ?p, ?v) T(?v, rdf:type, ?y) -> T(?u, rdf:type, ?x)
 		createRuleDefinition(Rule.CLS_SFV1, "cls_sfv1",
-				"rule cls_sfv1_op when OSVFCE($x:ceid, $p:pid, $y:v) OPAA($u:s, pid==$p, $v:o) CAA(cid==$y, i==$v) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
+				"rule cls_sfv1 when OSVFCE($x:ceid, $p:pid, $y:v) OPAA($u:s, pid==$p, $v:o) CAA(cid==$y, i==$v) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
 
 		createRuleDefinition(Rule.CLS_SFV2, "cls_sfv2",
 				"rule cls_sfv2 when OSVFCE($x:ceid, $p:pid, v==\"owl:Thing\") OPAA($u:s, pid==$p, $v:o) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
 
+		// T(?x, owl:allValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, rdf:type, ?x) T(?u, ?p, ?v) -> T(?v, rdf:type, ?y)
 		createRuleDefinition(Rule.CLS_AVF, "cls_avf",
-				"rule cls_avf_op when OAVFCE($x:ceid, $p:pid, $y:v) CAA(cid==$x, $u:i) OPAA(s==$u, pid==$p, $v:o) then CAA caa=new CAA($y, $v); inferrer.infer(caa); end");
+				"rule cls_avf when OAVFCE($x:ceid, $p:pid, $y:v) CAA(cid==$x, $u:i) OPAA(s==$u, pid==$p, $v:o) then CAA caa=new CAA($y, $v); inferrer.infer(caa); end");
 
 		createRuleDefinition(Rule.CLS_HV1, "cls_hv1_op",
 				"rule cls_hv1_op when OHVCE($x:ceid, $p:pid, $y:v) CAA(cid==$x, $u:i) then OPAA opaa=new OPAA($u, $p, $y); inferrer.infer(opaa); end");
@@ -291,8 +277,8 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// T(?x, owl:maxQualifiedCardinality, "0"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p) T(?x, owl:onClass, ?c)
 		// T(?u, rdf:type, ?x) T(?u, ?p, ?y) T(?y, rdf:type, ?c) -> false
 
-		createRuleDefinition(Rule.CLS_MAXQC1, "cls_maxqc1_op",
-				"rule cls_maxqc1_op when OMaxQCCE($x:ceid, $p:pid, $f:f, card==0) CAA(cid==$x, $u:i) OPAA(s==$u, pid==$p, $y:o) CAA(cid==$f, i==$y) then inferrer.inferFalse(\""
+		createRuleDefinition(Rule.CLS_MAXQC1, "cls_maxqc1",
+				"rule cls_maxqc1 when OMaxQCCE($x:ceid, $p:pid, $f:f, card==0) CAA(cid==$x, $u:i) OPAA(s==$u, pid==$p, $y:o) CAA(cid==$f, i==$y) then inferrer.inferFalse(\""
 						+ Rule.CLS_MAXQC1.toString() + "\", $x, $f, $p, $u.id, $y.id); end");
 
 		// T(?x, owl:maxQualifiedCardinality, "0"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p)
@@ -354,13 +340,13 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"rule scm_cls when CDA($c:c) then SCA sca1=new SCA($c.id, $c.id); ECA eca=new ECA($c.id, $c.id); SCA sca2=new SCA($c.id, \"owl:Thing\"); SCA sca3=new SCA(\"owl:Nothing\", $c.id); "
 						+ "inferrer.infer(sca1, eca, sca2, sca3); end");
 
-		createRuleDefinition(Rule.SCM_SCO,"scm_sco",
+		createRuleDefinition(Rule.SCM_SCO, "scm_sco",
 				"rule scm_sco when SCA($c1:subcid, $c2:supercid) SCA(subcid==$c2, $c3:supercid) then SCA sca=new SCA($c1, $c3); inferrer.infer(sca); end");
 
-		createRuleDefinition(Rule.SCM_EQC1,"scm_eqc1",
+		createRuleDefinition(Rule.SCM_EQC1, "scm_eqc1",
 				"rule scm_eqc1 when ECA($c1:c1id, $c2:c2id) then SCA sca1=new SCA($c1, $c2); SCA sca2=new SCA($c2, $c1); inferrer.infer(sca1, sca2); end");
 
-		createRuleDefinition(Rule.SCM_EQC2,"scm_eqc2",
+		createRuleDefinition(Rule.SCM_EQC2, "scm_eqc2",
 				"rule scm_eqc2 when SCA($c1:subcid, $c2:supercid) SCA(subcid==$c2, supercid==$c1) then ECA eca=new ECA($c1, $c2); inferrer.infer(eca); end");
 
 		createRuleDefinition(Rule.SCM_OP, "scm_op",
@@ -375,30 +361,48 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"rule scm_spo_dp when SDPA($p1:subpid, $p2:superpid) SDPA(subpid==$p2, $p3:superpid) then SDPA sdpa=new SDPA($p1, $p3); inferrer.infer(sdpa); end");
 
 		createRuleDefinition(Rule.SCM_EQP1, "scm_eqp1_op",
-				"rule scm_eqp1_op when EOPA($p1:p1id, $p2:p2id) then SOPA sopa1=new SOPA($p1, $p2); SOPA sopa2=new SOPA($p2, $p1); inferrer.infer(sopa1, sopa2); end");
+				"rule scm_eqp1_op when EOPA($p1:p1id, $p2:p2id) "
+						+ "then SOPA sopa1=new SOPA($p1, $p2); SOPA sopa2=new SOPA($p2, $p1); inferrer.infer(sopa1, sopa2); end");
 		createRuleDefinition(Rule.SCM_EQP1, "scm_eqp1_dp",
-				"rule scm_eqp1_dp when EDPA($p1:p1id, $p2:p2id) then SDPA sdpa1=new SDPA($p1, $p2); SDPA sdpa2=new SDPA($p2, $p1); inferrer.infer(sdpa1, sdpa2); end");
+				"rule scm_eqp1_dp when EDPA($p1:p1id, $p2:p2id) "
+						+ "then SDPA sdpa1=new SDPA($p1, $p2); SDPA sdpa2=new SDPA($p2, $p1); inferrer.infer(sdpa1, sdpa2); end");
 
 		createRuleDefinition(Rule.SCM_EQP2, "scm_eqp2_op",
-				"rule scm_eqp2_op when SOPA($p1:subpid, $p2:superpid) SOPA(subpid==$p2, superpid==$p1) then EOPA eopa=new EOPA($p1, $p2); inferrer.infer(eopa); end");
+				"rule scm_eqp2_op when SOPA($p1:subpid, $p2:superpid) SOPA(subpid==$p2, superpid==$p1) "
+						+ "then EOPA eopa=new EOPA($p1, $p2); inferrer.infer(eopa); end");
 		createRuleDefinition(Rule.SCM_EQP2, "scm_eqp2_dp",
-				"rule scm_eqp2_dp when SDPA($p1:subpid, $p2:superpid) SDPA(subpid==$p2, superpid==$p1) then EDPA edpa=new EDPA($p1, $p2); inferrer.infer(edpa); end");
+				"rule scm_eqp2_dp when SDPA($p1:subpid, $p2:superpid) SDPA(subpid==$p2, superpid==$p1) "
+						+ "then EDPA edpa=new EDPA($p1, $p2); inferrer.infer(edpa); end");
 
-		createRuleDefinition(Rule.SCM_DOM1,"scm_dom1_op",
-				"rule scm_dom1_op when DOPA($p:pid, $c1:did) SCA(subcid==$c1, $c2:supercid) then DOPA dopa=new DOPA($p, $c2); inferrer.infer(dopa); end");
-		createRuleDefinition(Rule.SCM_DOM1,"scm_dom1_dp",
-				"rule scm_dom1_dp when DDPA($p:pid, $c1:did) SCA(subcid==$c1, $c2:supercid) then DDPA ddpa=new DDPA($p, $c2); inferrer.infer(ddpa); end");
+		createRuleDefinition(Rule.SCM_DOM1, "scm_dom1_op",
+				"rule scm_dom1_op when DOPA($p:pid, $c1:did) SCA(subcid==$c1, $c2:supercid) "
+						+ "then DOPA dopa=new DOPA($p, $c2); inferrer.infer(dopa); end");
+		createRuleDefinition(Rule.SCM_DOM1, "scm_dom1_dp",
+				"rule scm_dom1_dp when DDPA($p:pid, $c1:did) SCA(subcid==$c1, $c2:supercid) "
+						+ "then DDPA ddpa=new DDPA($p, $c2); inferrer.infer(ddpa); end");
 
 		createRuleDefinition(Rule.SCM_DOM2, "scm_dom2_op",
-				"rule scm_dom2_op when DOPA($p2:pid, $c:did) SOPA($p1:subpid, superpid==$p2) then DOPA dopa=new DOPA($p1, $c); inferrer.infer(dopa); end");
+				"rule scm_dom2_op when DOPA($p2:pid, $c:did) SOPA($p1:subpid, superpid==$p2) "
+						+ "then DOPA dopa=new DOPA($p1, $c); inferrer.infer(dopa); end");
 		createRuleDefinition(Rule.SCM_DOM2, "scm_dom2_dp",
-				"rule scm_dom2_dp when DDPA($p2:pid, $c:did) SDPA($p1:subpid, superpid==$p2) then DDPA ddpa=new DDPA($p1, $c); inferrer.infer(ddpa); end");
+				"rule scm_dom2_dp when DDPA($p2:pid, $c:did) SDPA($p1:subpid, superpid==$p2) "
+						+ "then DDPA ddpa=new DDPA($p1, $c); inferrer.infer(ddpa); end");
 
-		createRuleDefinition(Rule.SCM_RNG1, "scm_rng2_op",
-				"rule scm_rng1_op when OPRA($p:pid, $c1:rid) SCA(subcid==$c1, $c2:supercid) then OPRA ropa=new OPRA($p, $c2); inferrer.infer(ropa); end");
+		// T(?p, rdfs:range, ?c1) T(?c1, rdfs:subClassOf, ?c2) -> T(?p, rdfs:range, ?c2)
+		createRuleDefinition(Rule.SCM_RNG1, "scm_rng1_op",
+				"rule scm_rng1_op when OPRA($p:pid, $c1:rid) SCA(subcid==$c1, $c2:supercid) "
+						+ "then OPRA opra=new OPRA($p, $c2); inferrer.infer(opra); end");
+		createRuleDefinition(Rule.SCM_RNG1, "scm_rng1_dp",
+				"rule scm_rng1_dp when DPRA($p:pid, $c1:rid) SCA(subcid==$c1, $c2:supercid) "
+						+ "then DPRA dpra=new DPRA($p, $c2); inferrer.infer(dpra); end");
 
+		// T(?p2, rdfs:range, ?c) T(?p1, rdfs:subPropertyOf, ?p2) -> T(?p1, rdfs:range, ?c)
 		createRuleDefinition(Rule.SCM_RNG2, "scm_rng2_op",
-				"rule scm_rng2_op when OPRA($p2:pid, $c:rid) SOPA($p1:subpid, superpid==$p2) then OPRA ropa=new OPRA($p1, $c); inferrer.infer(ropa); end");
+				"rule scm_rng2_op when OPRA($p2:pid, $c:rid) SOPA($p1:subpid, superpid==$p2) "
+						+ "then OPRA opra=new OPRA($p1, $c); inferrer.infer(opra); end");
+		createRuleDefinition(Rule.SCM_RNG2, "scm_rng2_dp",
+				"rule scm_rng2_dp when DPRA($p2:pid, $c:rid) SDPA($p1:subpid, superpid==$p2) "
+						+ "then DPRA dpra=new DPRA($p1, $c); inferrer.infer(dpra); end");
 
 		createRuleDefinition(Rule.SCM_HV, "scm_hv_op",
 				"rule scm_hv_op when OHVCE($c1:ceid, $p1:pid, $i:v) OHVCE($c2:ceid, $p2:pid, v==$i) SOPA(subpid==$p1, superpid==$p2) "

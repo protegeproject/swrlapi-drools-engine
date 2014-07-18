@@ -249,7 +249,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 			OWLClass cls = axiom.getEntity().asOWLClass();
 			String classPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(cls);
 			recordOWLAxiom(new CDA(classPrefixedName));
-			getOWLClassExpressionResolver().recordOWLClassExpression(classPrefixedName, cls);
+			getOWLClassExpressionResolver().record(classPrefixedName, cls);
 		} else if (entity.isOWLNamedIndividual()) {
 			OWLNamedIndividual individual = entity.asOWLNamedIndividual();
 			String individualPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(individual);
