@@ -19,7 +19,7 @@ import org.drools.runtime.rule.Activation;
 import org.drools.runtime.rule.AgendaFilter;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.bridge.TargetRuleEngine;
+import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.drools.converters.DroolsOWLAxiomConverter;
 import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
 import org.swrlapi.drools.converters.DroolsOWLPropertyExpressionConverter;
@@ -42,9 +42,9 @@ import org.swrlapi.sqwrl.SQWRLQuery;
  * This class provides a Drools implementation of a rule engine for SWRL using the SWRLAPI's Rule Engine Bridge
  * mechanism.
  *
- * @see TargetRuleEngine
+ * @see org.swrlapi.bridge.TargetSWRLRuleEngine
  */
-public class DroolsSWRLRuleEngine implements TargetRuleEngine
+public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 {
 	private final SWRLRuleEngineBridge bridge;
 

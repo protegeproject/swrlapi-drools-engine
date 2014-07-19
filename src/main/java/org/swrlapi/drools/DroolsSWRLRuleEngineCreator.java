@@ -1,7 +1,7 @@
 package org.swrlapi.drools;
 
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.bridge.TargetRuleEngine;
+import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -22,7 +22,7 @@ public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.Target
 	}
 
 	@Override
-	public TargetRuleEngine create(SWRLRuleEngineBridge bridge) throws TargetRuleEngineException
+	public TargetSWRLRuleEngine create(SWRLRuleEngineBridge bridge) throws TargetRuleEngineException
 	{
 		return new DroolsSWRLRuleEngine(bridge);
 	}
