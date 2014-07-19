@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetRuleEngine;
 import org.swrlapi.drools.converters.DroolsOWLAxiomConverter;
+import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
+import org.swrlapi.drools.converters.DroolsOWLPropertyExpressionConverter;
 import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
@@ -49,10 +51,12 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	private final DroolsOWLAxiomConverter axiomConverter;
 	private final DroolsSQWRLQuery2DRLConverter queryConverter;
 	private final DroolsOWLAxiomExtractor axiomExtractor;
-	private final DroolsOWLAxiomInferrer owlAxiomInferrer;
+	private final DroolsOWLAxiomInferrer axiomInferrer;
 	private final DroolsSQWRLCollectionInferrer sqwrlCollectionInferrer;
 	private final DroolsSWRLBuiltInInvoker builtInInvoker;
 	private final DroolsOWL2RLEngine owl2RLEngine;
+	private final DroolsOWLClassExpressionConverter classExpressionConverter;
+	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
 
 	private KnowledgeBase knowledgeBase;
 	private KnowledgeBuilder knowledgeBuilder;
@@ -78,11 +82,13 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		this.axiomExtractor = new DefaultDroolsOWLAxiomExtractor(bridge);
 		this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
 		this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
-		this.owlAxiomInferrer = new DroolsOWLAxiomInferrer(this.owl2RLEngine);
+		this.axiomInferrer = new DroolsOWLAxiomInferrer(this.owl2RLEngine);
 		this.sqwrlCollectionInferrer = new DroolsSQWRLCollectionInferrer();
 
-		this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this);
-		this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this);
+		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
+		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge, propertyExpressionConverter);
+		this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this, classExpressionConverter, propertyExpressionConverter);
+		this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter, propertyExpressionConverter);
 
 		this.definedOWLAxioms = new HashSet<OWLAxiom>();
 
@@ -166,7 +172,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 
 		// Supply the inferrer with the set of asserted OWL axioms so that it does not redundantly put inferred axioms into
 		// the knowledge session that are identical to asserted knowledge.
-		this.owlAxiomInferrer.setAssertedOWLAxioms(getDroolsOWLAxiomConverter().getAssertedOWLAxioms());
+		this.axiomInferrer.setAssertedOWLAxioms(getDroolsOWLAxiomConverter().getAssertedOWLAxioms());
 
 		try { // Fire the rules.
 			this.knowledgeSession.fireAllRules(this.sqwrlPhase1AgendaFilter);
@@ -278,12 +284,12 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 		this.knowledgeSession = this.knowledgeBase.newStatefulKnowledgeSession();
 
 		// Supply the inferrer with the knowledge session is so that it can insert new facts as inference is performed.
-		this.owlAxiomInferrer.reset(this.knowledgeSession);
+		this.axiomInferrer.reset(this.knowledgeSession);
 
 		this.sqwrlCollectionInferrer.reset();
 
 		this.knowledgeSession.setGlobal("invoker", this.builtInInvoker);
-		this.knowledgeSession.setGlobal("inferrer", this.owlAxiomInferrer);
+		this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
 		this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionInferrer);
 
 		this.definedOWLAxioms = new HashSet<OWLAxiom>();
@@ -303,7 +309,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 	private void writeInferredOWLAxiomsToBridge() throws TargetRuleEngineException
 	{
 		try {
-			for (A a : this.owlAxiomInferrer.getInferredOWLAxioms()) {
+			for (A a : this.axiomInferrer.getInferredOWLAxioms()) {
 				OWLAxiom axiom = a.extract(getDroolsOWLAxiomExtractor());
 				getBridge().inferOWLAxiom(axiom);
 			}
@@ -316,7 +322,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 			throws TargetRuleEngineException
 	{
 		try {
-			System.out.println("Rule " + ruleName + "\n" + ruleText);
+			//System.out.println("Rule " + ruleName + "\n" + ruleText);
 			defineDRLResource(ruleText, knowledgeBuilder);
 		} catch (RuntimeException e) {
 			e.printStackTrace();

@@ -120,13 +120,15 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 
 	private final Set<A> assertedOWLAxioms;
 
-	public DroolsOWLAxiomConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine)
+	public DroolsOWLAxiomConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine,
+			DroolsOWLClassExpressionConverter classExpressionConverter,
+			DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
-		this.swrlRuleConverter = new DroolsSWRLRuleConverter(bridge, droolsEngine);
-		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge);
-		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
+		this.swrlRuleConverter = new DroolsSWRLRuleConverter(bridge, droolsEngine, classExpressionConverter, propertyExpressionConverter);
+		this.classExpressionConverter = classExpressionConverter;
+		this.propertyExpressionConverter = propertyExpressionConverter;
 
 		this.assertedOWLAxioms = new HashSet<A>();
 	}
@@ -134,10 +136,6 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	public void reset()
 	{
 		this.assertedOWLAxioms.clear();
-
-		getDroolsOWLClassExpressionConverter().reset();
-		getDroolsOWLPropertyExpressionConverter().reset();
-		getDroolsOWLDataRangeConverter().reset();
 	}
 
 	public Set<A> getAssertedOWLAxioms()
@@ -256,11 +254,11 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 			recordOWLAxiom(new IDA(individualPrefixedName));
 		} else if (entity.isOWLObjectProperty()) {
 			OWLObjectProperty property = entity.asOWLObjectProperty();
-			String propertyPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			String propertyPrefixedName = getDroolsOWLPropertyExpressionConverter().convert(property);
 			recordOWLAxiom(new OPDA(propertyPrefixedName));
 		} else if (entity.isOWLDataProperty()) {
 			OWLDataProperty property = entity.asOWLDataProperty();
-			String propertyPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(property);
+			String propertyPrefixedName = getDroolsOWLPropertyExpressionConverter().convert(property);
 			recordOWLAxiom(new DPDA(propertyPrefixedName));
 		} else if (entity.isOWLAnnotationProperty()) {
 			OWLAnnotationProperty property = entity.asOWLAnnotationProperty();

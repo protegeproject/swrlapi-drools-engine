@@ -21,13 +21,17 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 
 	private final DroolsSWRLRuleEngine droolsEngine;
 
-	public DroolsSQWRLQuery2DRLConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine)
+	public DroolsSQWRLQuery2DRLConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine,
+			DroolsOWLClassExpressionConverter classExpressionConverter,
+			DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
 		this.droolsEngine = droolsEngine;
-		this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge);
-		this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge);
+		this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpressionConverter,
+				propertyExpressionConverter);
+		this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
+				propertyExpressionConverter);
 	}
 
 	public void reset()
@@ -92,8 +96,9 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 
 		drlPhase1Rule = addQueryThenClause(drlPhase1Rule);
 
-		if (query.hasSQWRLCollections()) { // Assert existence of all relevant collections returned from collection construction
-																	// built-ins
+		if (query
+				.hasSQWRLCollections()) { // Assert existence of all relevant collections returned from collection construction
+			// built-ins
 			try {
 				for (SWRLAPIBuiltInAtom atom : query.getBuiltInAtomsFromBody(SQWRLNames.getCollectionMakeBuiltInNames())) {
 					String collectionVariablePrefixedName = atom.getArgumentVariablePrefixedName(0);

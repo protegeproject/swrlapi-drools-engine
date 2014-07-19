@@ -36,14 +36,16 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 
 	private int inferredAxiomVariableIndex, builtInIndexInHead;
 
-	public DroolsSWRLHeadAtom2DRLConverter(SWRLRuleEngineBridge bridge)
+	public DroolsSWRLHeadAtom2DRLConverter(SWRLRuleEngineBridge bridge,
+			DroolsOWLClassExpressionConverter classExpressionConverter,
+			DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
 		this.headAtomArgumentConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge);
 		this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
-		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
-		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge);
+		this.classExpressionConverter = classExpressionConverter;
+		this.propertyExpressionConverter = propertyExpressionConverter;
 
 		this.inferredAxiomVariableIndex = 0;
 		this.builtInIndexInHead = 0;
@@ -53,7 +55,6 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	{
 		this.inferredAxiomVariableIndex = 0;
 		this.builtInIndexInHead = 0;
-		this.propertyExpressionConverter.reset();
 	}
 
 	public String convert(SWRLAtom atom) throws TargetRuleEngineException

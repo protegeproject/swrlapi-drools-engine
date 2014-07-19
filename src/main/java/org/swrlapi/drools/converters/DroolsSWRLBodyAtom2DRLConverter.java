@@ -43,21 +43,22 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	private int builtInIndexInBody; // Each built-in atom in the body gets a unique index, starting at 0
 
-	public DroolsSWRLBodyAtom2DRLConverter(SWRLRuleEngineBridge bridge)
+	public DroolsSWRLBodyAtom2DRLConverter(SWRLRuleEngineBridge bridge,
+			DroolsOWLClassExpressionConverter classExpressionConverter,
+			DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
 		this.bodyAtomArgumentConverter = new DroolsSWRLBodyAtomArgument2DRLConverter(bridge);
 		this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
-		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
-		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge);
+		this.classExpressionConverter = classExpressionConverter;
+		this.propertyExpressionConverter = propertyExpressionConverter;
 		this.builtInIndexInBody = 0;
 	}
 
 	public void reset()
 	{
 		this.builtInIndexInBody = 0;
-		this.propertyExpressionConverter.reset();
 	}
 
 	public String convert(SWRLAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)

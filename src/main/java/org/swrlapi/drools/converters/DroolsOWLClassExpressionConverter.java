@@ -24,11 +24,11 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	private int classExpressionIndex;
 	private final Set<CE> classExpressions;
 
-	public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge)
+	public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge, DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
-		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
+		this.propertyExpressionConverter = propertyExpressionConverter;
 
 		this.classExpressionIndex = 0;
 		this.classExpressions = new HashSet<CE>();

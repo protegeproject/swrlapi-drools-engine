@@ -16,12 +16,16 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 
 	private final DroolsSWRLRuleEngine droolsEngine;
 
-	public DroolsSWRLRuleConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine)
+	public DroolsSWRLRuleConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine,
+			DroolsOWLClassExpressionConverter classExpressionConverter,
+			DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
-		this.bodyAtomConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge);
-		this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge);
+		this.bodyAtomConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpressionConverter,
+				propertyExpressionConverter);
+		this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
+				propertyExpressionConverter);
 
 		this.droolsEngine = droolsEngine;
 	}
