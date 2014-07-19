@@ -22,6 +22,8 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts SWRL head atom and built-in arguments to DRL clauses for use in rules.
+ *
+ * @see org.swrlapi.drools.converters.DroolsSWRLBodyAtomArgument2DRLConverter
  */
 public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLHeadAtomArgumentConverter<String>

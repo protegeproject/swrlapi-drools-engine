@@ -4,6 +4,8 @@ import java.util.Set;
 
 /**
  * Class representing an OWL data union of data range
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataUnionOf
  */
 public class DUO implements DR
 {

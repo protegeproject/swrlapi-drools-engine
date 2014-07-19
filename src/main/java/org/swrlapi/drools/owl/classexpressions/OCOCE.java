@@ -7,7 +7,6 @@ import org.swrlapi.drools.owl.core.DroolsBinaryObject;
  * set of classes from the list in an OWL one of class expression.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectOneOf
- * @see org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter#convert(org.semanticweb.owlapi.model.OWLObjectOneOf)
  */
 public class OCOCE extends DroolsBinaryObject<String, String> implements CE
 {

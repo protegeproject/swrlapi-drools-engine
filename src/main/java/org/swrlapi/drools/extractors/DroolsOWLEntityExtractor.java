@@ -17,8 +17,12 @@ import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This interface describes methods for converting the Drools representation of OWL properties represented by the class
- * {@link OE} to their OWLAPI representation.
+ * This interface describes methods for converting the Drools representation of OWL entities to their OWLAPI
+ * representation.
+ *
+ * @see org.semanticweb.owlapi.model.OWLEntity
+ * @see org.swrlapi.drools.owl.core.OE
+ * @see org.swrlapi.drools.extractors.DefaultDroolsOWLEntityExtractor
  */
 public interface DroolsOWLEntityExtractor extends TargetRuleEngineExtractor
 {

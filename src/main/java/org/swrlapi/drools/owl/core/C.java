@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.core;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.swrl.BA;
@@ -10,6 +10,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL named class in Drools. A named class is a type of class expression in OWL.
+ *
+ * @see org.semanticweb.owlapi.model.OWLClass
  */
 public class C extends OE implements CE
 {
@@ -46,7 +48,7 @@ public class C extends OE implements CE
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsAA2SWRLAtomArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl.core;
+package org.swrlapi.drools.owl2rl;
 
 import java.util.Arrays;
 import java.util.HashSet;

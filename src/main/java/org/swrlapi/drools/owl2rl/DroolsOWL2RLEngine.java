@@ -16,7 +16,8 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
  * </p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in
- * the Specification). The value space of literals is also not validated (specified by rule dt-not-type).
+ * the Specification). The value space of literals is also not validated (specified by rule dt-not-type). All
+ * other rules are implemented.
  *
  * @see org.swrlapi.owl2rl.AbstractOWL2RLEngine
  */
@@ -112,7 +113,8 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"rule eq_ref_c when CAA($s:cid, $o:i) then SIA sia=new SIA($o, $o); inferrer.infer(sia); end");
 
 		createRuleDefinition(Rule.EQ_REF, "eq_ref_op",
-				"rule eq_ref_op when OPAA($s:s, $p:pid, $o:o) then SIA sia1=new SIA($s, $s); SIA sia2=new SIA($o, $o); inferrer.infer(sia1, sia2); end");
+				"rule eq_ref_op when OPAA($s:s, $p:pid, $o:o) then "
+						+ "SIA sia1=new SIA($s, $s); SIA sia2=new SIA($o, $o); inferrer.infer(sia1, sia2); end");
 
 		createRuleDefinition(Rule.EQ_REF, "eq_ref_dp",
 				"rule eq_ref_dp when DPAA($s:s, $p:pid, $o:o) then SIA sia=new SIA($s, $s); inferrer.infer(sia); end");
@@ -121,21 +123,26 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 				"rule eq_sym when SIA($x:i1, $y:i2) then SIA sia=new SIA($y, $x); inferrer.infer(sia); end");
 
 		createRuleDefinition(Rule.EQ_TRANS, "eq_trans",
-				"rule eq_trans when SIA($s1:i1, $s2:i2) SIA(i1==$s2, $s3:i2) then SIA sia=new SIA($s1, $s3); inferrer.infer(sia); end");
+				"rule eq_trans when SIA($s1:i1, $s2:i2) SIA(i1==$s2, $s3:i2) "
+						+ "then SIA sia=new SIA($s1, $s3); inferrer.infer(sia); end");
 
 		createRuleDefinition(Rule.EQ_REP_S, "eq_rep_s_c",
-				"rule eq_rep_s_c when SIA($s:i1, $sp:i2) CAA($c:cid, i==$s) then CAA caa=new CAA($c, $sp); inferrer.infer(caa); end");
+				"rule eq_rep_s_c when SIA($s:i1, $sp:i2) CAA($c:cid, i==$s) "
+						+ "then CAA caa=new CAA($c, $sp); inferrer.infer(caa); end");
 
 		createRuleDefinition(Rule.EQ_REP_S, "eq_rep_s_op",
-				"rule eq_rep_s_op when SIA($s:i1, $sp:i2) OPAA(s==$s, $p:pid, $o:o) then OPAA opaa=new OPAA($sp, $p, $o); inferrer.infer(opaa); end");
+				"rule eq_rep_s_op when SIA($s:i1, $sp:i2) OPAA(s==$s, $p:pid, $o:o) "
+						+ "then OPAA opaa=new OPAA($sp, $p, $o); inferrer.infer(opaa); end");
 
 		createRuleDefinition(Rule.EQ_REP_S, "eq_rep_s_dp",
-				"rule eq_rep_s_dp when SIA($s:i1, $sp:i2) DPAA(s==$s, $p:pid, $o:o) then DPAA dpaa=new DPAA($sp, $p, $o); inferrer.infer(dpaa); end");
+				"rule eq_rep_s_dp when SIA($s:i1, $sp:i2) DPAA(s==$s, $p:pid, $o:o) "
+						+ "then DPAA dpaa=new DPAA($sp, $p, $o); inferrer.infer(dpaa); end");
 
 		// EQ_REP_P will be handled by PRP_EQP1 and PRP_EQP2.
 
 		createRuleDefinition(Rule.EQ_REP_O, "eq_rep_o",
-				"rule eq_rep_o when SIA($o:i1, $op:i2) OPAA($s:s, $p:pid, o==$o) then OPAA opaa=new OPAA($s, $p, $op); inferrer.infer(opaa); end");
+				"rule eq_rep_o when SIA($o:i1, $op:i2) OPAA($s:s, $p:pid, o==$o) "
+						+ "then OPAA opaa=new OPAA($s, $p, $op); inferrer.infer(opaa); end");
 
 		createRuleDefinition(Rule.EQ_DIFF1, "eq_diff1",
 				"rule eq_diff1 when SIA($x:i1, $y:i2) DIA(i1==$x, i2==$y) then inferrer.inferFalse(\""

@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.properties;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.swrl.BA;
@@ -42,7 +42,7 @@ public class DP extends OE implements P, DPE
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsAA2SWRLAtomArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

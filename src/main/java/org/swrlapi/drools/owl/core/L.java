@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
@@ -112,7 +112,7 @@ public class L implements OO, BA, Serializable
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsAA2SWRLAtomArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

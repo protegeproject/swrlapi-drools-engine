@@ -17,7 +17,10 @@ import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts Drools OWL literals represented by the class {@link L} to their OWLAPI representation.
+ * This class converts a Drools OWL literal representation to its OWLAPI representation.
+ *
+ * @see org.semanticweb.owlapi.model.OWLLiteral
+ * @see org.swrlapi.drools.owl.core.L
  */
 public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase implements
 		TargetRuleEngineOWLLiteralExtractor<L>

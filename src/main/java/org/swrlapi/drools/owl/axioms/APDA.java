@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents an OWL annotation property declaration.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
 public class APDA extends DA<AP>
 {

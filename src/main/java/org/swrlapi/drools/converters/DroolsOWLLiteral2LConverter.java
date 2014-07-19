@@ -10,6 +10,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class to convert OWL literal to instances of the {@link L} class, which represents literals in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLLiteral
  */
 public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLLiteralConverter<L>

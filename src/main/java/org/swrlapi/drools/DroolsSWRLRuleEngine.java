@@ -26,7 +26,7 @@ import org.swrlapi.drools.converters.DroolsOWLPropertyExpressionConverter;
 import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.drools.owl.core.DroolsOWLAxiomInferrer;
+import org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
@@ -342,7 +342,7 @@ public class DroolsSWRLRuleEngine implements TargetRuleEngine
 
 	private void defineGlobalJavaObjects(KnowledgeBuilder knowledgeBuilder)
 	{
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.DroolsOWLAxiomInferrer;");
+		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer;");
 		defineDRLResource(knowledgeBuilder, "global DroolsOWLAxiomInferrer inferrer;");
 
 		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionInferrer;");

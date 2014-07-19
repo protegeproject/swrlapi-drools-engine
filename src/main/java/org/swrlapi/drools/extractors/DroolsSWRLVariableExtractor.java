@@ -5,6 +5,10 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
+/**
+ *
+ * @see org.semanticweb.owlapi.model.SWRLVariable
+ */
 public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
 {
 	public DroolsSWRLVariableExtractor(SWRLRuleEngineBridge bridge)

@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.bridge.extractors.TargetRuleEngineSWRLAtomArgumentExtractor;
+import org.swrlapi.bridge.extractors.TargetRuleEngineSWRLBuiltInArgumentExtractor;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.properties.AP;
@@ -26,12 +26,14 @@ import org.swrlapi.drools.swrl.VA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class creates Drools SWRL atom arguments represented, by the class {@link AA}, to their SWRLAPI representation.
+ * This class creates SWRLAPI built-in arguments from their Drool's representation.
+ *
+ * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
-public class DroolsAA2SWRLAtomArgumentExtractor extends DroolsExtractorBase implements
-		TargetRuleEngineSWRLAtomArgumentExtractor
+public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase implements
+		TargetRuleEngineSWRLBuiltInArgumentExtractor
 {
-	public DroolsAA2SWRLAtomArgumentExtractor(SWRLRuleEngineBridge bridge)
+	public DroolsSWRLBuiltInArgumentExtractor(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 	}

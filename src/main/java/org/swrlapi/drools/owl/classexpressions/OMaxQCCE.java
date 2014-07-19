@@ -5,6 +5,8 @@ import org.swrlapi.drools.owl.properties.DP;
 
 /**
  * This class represents an OWL data maximum qualified cardinality class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataMaxCardinality
  */
 public class OMaxQCCE extends DroolsQuadObject<String, String, String, Integer> implements CE
 {

@@ -5,6 +5,8 @@ import org.swrlapi.drools.owl.properties.OP;
 
 /**
  * This class represents an OWL object exact cardinality class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectExactCardinality
  */
 public class OCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {

@@ -5,6 +5,8 @@ import org.swrlapi.drools.owl.properties.OP;
 
 /**
  * This class represents an OWL object minimum cardinality class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectMinCardinality
  */
 public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {

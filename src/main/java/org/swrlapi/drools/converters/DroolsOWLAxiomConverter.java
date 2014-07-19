@@ -58,59 +58,20 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.drools.DroolsSWRLRuleEngine;
+import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.drools.owl.axioms.A;
-import org.swrlapi.drools.owl.axioms.APA;
-import org.swrlapi.drools.owl.axioms.APDA;
-import org.swrlapi.drools.owl.axioms.CAA;
-import org.swrlapi.drools.owl.axioms.CDA;
-import org.swrlapi.drools.owl.axioms.DCA;
-import org.swrlapi.drools.owl.axioms.DDPA;
-import org.swrlapi.drools.owl.axioms.DIA;
-import org.swrlapi.drools.owl.axioms.DOPA;
-import org.swrlapi.drools.owl.axioms.DPAA;
-import org.swrlapi.drools.owl.axioms.DPDA;
-import org.swrlapi.drools.owl.axioms.ECA;
-import org.swrlapi.drools.owl.axioms.EDPA;
-import org.swrlapi.drools.owl.axioms.EOPA;
-import org.swrlapi.drools.owl.axioms.FDPA;
-import org.swrlapi.drools.owl.axioms.FOPA;
-import org.swrlapi.drools.owl.axioms.IDA;
-import org.swrlapi.drools.owl.axioms.IOPA;
-import org.swrlapi.drools.owl.axioms.IPA;
-import org.swrlapi.drools.owl.axioms.IRPA;
-import org.swrlapi.drools.owl.axioms.OPAA;
-import org.swrlapi.drools.owl.axioms.OPDA;
-import org.swrlapi.drools.owl.axioms.DPRA;
-import org.swrlapi.drools.owl.axioms.OPRA;
-import org.swrlapi.drools.owl.axioms.SCA;
-import org.swrlapi.drools.owl.axioms.SDPA;
-import org.swrlapi.drools.owl.axioms.SIA;
-import org.swrlapi.drools.owl.axioms.SOPA;
-import org.swrlapi.drools.owl.axioms.SPA;
-import org.swrlapi.drools.owl.axioms.TPA;
 import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts OWL axioms to their Drools representation.
- * <p>
- * The following axioms are not currently supported and are ignored:
- * <p>
- * OWLDatatypeDefinitionAxiom
- * OWLNegativeDataPropertyAssertionAxiom, OWLNegativeObjectPropertyAssertionAxiom
- * OWLReflexiveObjectPropertyAxiom OWLDisjointUnionAxiom
- * OWLSubPropertyChainOfAxiom OWLHasKeyAxiom
- * <p>
- * The following annotation axioms are ignored because they are not involved in reasoning:
- * <p>
- * OWLAnnotationAssertionAxiom OWLAnnotationPropertyRangeAxiom OWLAnnotationPropertyDomainAxiom OWLSubAnnotationPropertyOfAxiom
- *
- * <p>
+ * <p/>
  * Note that SWRL rules are also a type of OWL axiom so are also converted here.
- * 
- * @see OWLAxiom, A
+ *
+ * @see org.semanticweb.owlapi.model.OWLAxiom
+ * @see org.swrlapi.drools.owl.axioms.A
+ * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
 public class DroolsOWLAxiomConverter extends DroolsConverterBase implements TargetRuleEngineOWLAxiomConverter
 {
@@ -126,7 +87,8 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		super(bridge);
 
-		this.swrlRuleConverter = new DroolsSWRLRuleConverter(bridge, droolsEngine, classExpressionConverter, propertyExpressionConverter);
+		this.swrlRuleConverter = new DroolsSWRLRuleConverter(bridge, droolsEngine, classExpressionConverter,
+				propertyExpressionConverter);
 		this.classExpressionConverter = classExpressionConverter;
 		this.propertyExpressionConverter = propertyExpressionConverter;
 
@@ -536,8 +498,8 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLDataRange range = axiom.getRange();
-		DPRA a = new DPRA(getDroolsOWLPropertyExpressionConverter().convert(property), getDroolsOWLDataRangeConverter()
-				.convert(range));
+		DPRA a = new DPRA(getDroolsOWLPropertyExpressionConverter().convert(property),
+				getDroolsOWLDataRangeConverter().convert(range));
 
 		recordOWLAxiom(a);
 	}
@@ -606,69 +568,85 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLNegativeDataPropertyAssertionAxiom axiom) throws TargetRuleEngineException
-	{
-		// We ignore because we do not currently reason with this axiom.
-	}
-
-	@Override
 	public void convert(OWLNegativeObjectPropertyAssertionAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		OWLObjectPropertyExpression property = axiom.getProperty();
+		OWLIndividual subjectIndividual = axiom.getSubject();
+		OWLIndividual objectIndividual = axiom.getObject();
+		String propertyID = getDroolsOWLPropertyExpressionConverter().convert(property);
+		I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
+		I objectI = getDroolsOWLIndividual2IConverter().convert(objectIndividual);
+		NOPAA nopaa = new NOPAA(subjectI, propertyID, objectI);
+
+		recordOWLAxiom(nopaa);
 	}
 
 	@Override
-	public void convert(OWLReflexiveObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLNegativeDataPropertyAssertionAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
-	}
+		OWLDataPropertyExpression property = axiom.getProperty();
+		OWLIndividual subjectIndividual = axiom.getSubject();
+		OWLLiteral objectLiteral = axiom.getObject();
+		String propertyID = getDroolsOWLPropertyExpressionConverter().convert(property);
+		I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
+		L literal = getDroolsOWLLiteral2LConverter().convert(objectLiteral);
+		NDPAA ndpaa = new NDPAA(subjectI, propertyID, literal);
 
-	@Override
-	public void convert(OWLDisjointUnionAxiom axiom) throws TargetRuleEngineException
-	{
-		// We ignore because we do not currently reason with this axiom.
+		recordOWLAxiom(ndpaa);
 	}
 
 	@Override
 	public void convert(OWLSubPropertyChainOfAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		// TODO
 	}
 
 	@Override
 	public void convert(OWLHasKeyAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		// TODO
+	}
+
+	@Override
+	public void convert(OWLReflexiveObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	{
+		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
+	}
+
+	@Override
+	public void convert(OWLDisjointUnionAxiom axiom) throws TargetRuleEngineException
+	{
+		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
 	public void convert(OWLDatatypeDefinitionAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
 	public void convert(OWLAnnotationAssertionAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
 	public void convert(OWLAnnotationPropertyRangeAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
 	public void convert(OWLAnnotationPropertyDomainAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
 	public void convert(OWLSubAnnotationPropertyOfAxiom axiom) throws TargetRuleEngineException
 	{
-		// We ignore because we do not currently reason with this axiom.
+		// We ignore because we do not reason with this axiom.
 	}
 
 	private void recordOWLAxiom(A a)

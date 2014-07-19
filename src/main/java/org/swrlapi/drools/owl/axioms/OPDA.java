@@ -5,10 +5,10 @@ import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
-/*
+/**
  * This class represents an OWL object property declaration.
  *
- * @see OWLDeclarationAxiom
+ * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
 public class OPDA extends DA<OP>
 {

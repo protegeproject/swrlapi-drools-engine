@@ -5,17 +5,14 @@ import org.swrlapi.drools.owl.properties.DP;
 
 /**
  * This class represents an OWL data exact cardinality class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataExactCardinality
  */
-public class DCCE extends DroolsTernaryObject<String, DP, Integer> implements CE
+public class DCCE extends DroolsTernaryObject<String, String, Integer> implements CE
 {
-	public DCCE(String id, DP p, Integer card)
-	{
-		super(id, p, card);
-	}
-
 	public DCCE(String id, String propertyID, Integer card)
 	{
-		super(id, new DP(propertyID), card);
+		super(id, propertyID, card);
 	}
 
 	@Override
@@ -24,12 +21,12 @@ public class DCCE extends DroolsTernaryObject<String, DP, Integer> implements CE
 		return getT1();
 	}
 
-	public DP getP()
+	public String getpid()
 	{
 		return getT2();
 	}
 
-	public Integer getCard()
+	public Integer getcard()
 	{
 		return getT3();
 	}

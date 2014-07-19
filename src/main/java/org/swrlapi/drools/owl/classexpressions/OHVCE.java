@@ -6,6 +6,8 @@ import org.swrlapi.drools.owl.properties.OP;
 
 /**
  * This class represents an OWL object has value class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectHasValue
  */
 public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
 {

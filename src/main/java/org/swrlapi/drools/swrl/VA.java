@@ -1,9 +1,12 @@
 package org.swrlapi.drools.swrl;
 
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
+/**
+ * @see org.semanticweb.owlapi.model.SWRLVariable
+ */
 public class VA implements AA
 {
 	private final String variableName;
@@ -19,7 +22,7 @@ public class VA implements AA
 	}
 
 	@Override
-	public SWRLVariable extract(DroolsAA2SWRLAtomArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLVariable extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
 	{
 		return extractor.extract(this);
 	}

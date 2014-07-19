@@ -10,6 +10,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts OWL literals to their DRL representation for use in rules.
+ *
+ * @see org.semanticweb.owlapi.model.OWLLiteral
  */
 public class DroolsOWLLiteral2DRLConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLLiteralConverter<String>

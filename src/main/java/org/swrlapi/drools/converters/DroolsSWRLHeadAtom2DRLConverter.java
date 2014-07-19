@@ -25,6 +25,8 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
  * know the variables defined by previous atoms because a different syntax is required in DRL for declaring a variable
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
  * declared because SWRL demands this.
+ *
+ * @see org.swrlapi.drools.converters.DroolsSWRLBodyAtom2DRLConverter
  */
 public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLHeadAtomConverter<String>

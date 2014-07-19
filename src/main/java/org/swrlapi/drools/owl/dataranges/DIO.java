@@ -4,6 +4,8 @@ import java.util.Set;
 
 /**
  * Class representing an OWL data intersection of data range
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataIntersectionOf
  */
 public class DIO implements DR
 {

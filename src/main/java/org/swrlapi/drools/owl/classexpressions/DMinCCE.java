@@ -4,7 +4,9 @@ import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.properties.DP;
 
 /**
- * This class represents an OWL data maximum cardinality class expression in Drools.
+ * This class represents an OWL data minimum cardinality class expression in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataMinCardinality
  */
 public class DMinCCE extends DroolsTernaryObject<String, DP, Integer> implements CE
 {

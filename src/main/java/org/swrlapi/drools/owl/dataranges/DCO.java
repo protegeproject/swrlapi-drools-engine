@@ -2,6 +2,8 @@ package org.swrlapi.drools.owl.dataranges;
 
 /**
  * Class representing an OWL data complement of data range
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataComplementOf
  */
 public class DCO implements DR
 {
@@ -18,4 +20,6 @@ public class DCO implements DR
 	{
 		return this.id;
 	}
+
+	public DR getcomplement() { return this.complement; }
 }

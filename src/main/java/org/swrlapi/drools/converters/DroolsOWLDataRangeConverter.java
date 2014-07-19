@@ -16,6 +16,8 @@ import java.util.Set;
 
 /**
  * Converts an OWL data range to its Drools representation
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataRange
  */
 public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLDataRangeConverter<String>

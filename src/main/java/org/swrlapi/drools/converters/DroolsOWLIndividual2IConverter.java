@@ -11,7 +11,10 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 /**
  * Converts an OWL individual to a Drools individual represented by the class {@link I}.
  * 
- * @see OWLIndividual, OWLAnonymousIndividual, OWLNamedIndividual, I
+ * @see org.semanticweb.owlapi.model.OWLIndividual
+ * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
+ * @see org.semanticweb.owlapi.model.OWLNamedIndividual
+ * @see org.swrlapi.drools.owl.core.I
  */
 public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLIndividualConverter<I>

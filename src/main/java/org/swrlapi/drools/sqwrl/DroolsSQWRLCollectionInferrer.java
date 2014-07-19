@@ -7,7 +7,8 @@ import java.util.Set;
 import org.swrlapi.drools.swrl.BA;
 
 /**
- * This {@link #infer(SQWRLC)} method in this class is called to inform Drools of inferred SQWRL collections
+ * The {@link #infer(org.swrlapi.drools.swrl.BA)} method in this class is called to inform Drools of
+ * inferred SQWRL collections.
  */
 public class DroolsSQWRLCollectionInferrer
 {

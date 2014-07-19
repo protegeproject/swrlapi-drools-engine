@@ -8,12 +8,10 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This interface list methods for converting the Drools representation of OWL axioms to their OWLAPI representation.
- * Only OWL axioms currently supported by the Drools implementation will appear in this list. Supported axioms are
- * targeted to the requirements of an OWL 2 RL reasoner. For a complete list of possible OWL axioms see
- * {@link TargetRuleEngineOWLAxiomConverter}. Some axioms (e.g., annotation axioms) may never be reasoned with so are
- * unlikely to require extraction.
  * 
- * @see A, OWLAxiom
+ * @see org.semanticweb.owlapi.model.OWLAxiom
+ * @see org.swrlapi.drools.owl.axioms.A
+ * @see org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor
  */
 public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 {

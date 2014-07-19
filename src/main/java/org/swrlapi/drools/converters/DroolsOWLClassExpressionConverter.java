@@ -14,6 +14,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 /**
  * This class converts OWL class expressions to their Drools representation. Its basic function is to generate a unique
  * identifier for each class expressions. This identifier can be used in rules and in generating knowledge base objects.
+ *
+ * @see org.semanticweb.owlapi.model.OWLClassExpression
  */
 public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLClassExpressionConverter<String>
@@ -21,8 +23,8 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
 	private final Map<OWLClassExpression, String> classExpression2IDMap;
 	private final Set<String> convertedClassExpressionIDs;
-	private int classExpressionIndex;
 	private final Set<CE> classExpressions;
+	private int classExpressionIndex;
 
 	public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge, DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{

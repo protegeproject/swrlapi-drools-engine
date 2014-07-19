@@ -15,8 +15,8 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 		super(bridge);
 
 		this.literalExtractor = new DroolsOWLLiteralExtractor(bridge);
-		this.entityExtractor = new DefaultDroolsOE2OWLEntityExtractor(bridge);
-		this.individualExtractor = new DefaultDroolsI2OWLIndividualExtractor(bridge);
+		this.entityExtractor = new DefaultDroolsOWLEntityExtractor(bridge);
+		this.individualExtractor = new DefaultDroolsOWLIndividualExtractor(bridge);
 		this.variableExtractor = new DroolsSWRLVariableExtractor(bridge);
 	}
 

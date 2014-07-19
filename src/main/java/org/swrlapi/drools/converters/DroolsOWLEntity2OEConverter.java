@@ -20,6 +20,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts OWL properties to their DRL representation for use in rules.
+ *
+ * @see org.semanticweb.owlapi.model.OWLEntity
  */
 public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLEntityConverter<OE>

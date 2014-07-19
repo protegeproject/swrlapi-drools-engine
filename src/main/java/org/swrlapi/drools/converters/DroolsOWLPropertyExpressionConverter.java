@@ -18,6 +18,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * This class converts OWL property expressions to their Drools representation. Its basic function is to generate a
  * unique identifier for each property expressions. This identifier can be used in rules and in generating knowledge
  * base objects.
+ *
+ * @see org.semanticweb.owlapi.model.OWLDataPropertyExpression
+ * @see org.semanticweb.owlapi.model.OWLObjectPropertyExpression
  */
 public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLPropertyExpressionConverter<String>

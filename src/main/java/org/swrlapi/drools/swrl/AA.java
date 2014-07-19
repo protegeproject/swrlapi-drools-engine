@@ -1,7 +1,7 @@
 package org.swrlapi.drools.swrl;
 
 import org.semanticweb.owlapi.model.SWRLArgument;
-import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -11,5 +11,5 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public interface AA
 {
-	SWRLArgument extract(DroolsAA2SWRLAtomArgumentExtractor extractor) throws TargetRuleEngineException;
+	SWRLArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException;
 }

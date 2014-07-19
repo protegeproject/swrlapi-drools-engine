@@ -7,6 +7,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class representing an OWL asymmetric object property axiom in Drools.
+ *
+ * @see org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom
  */
 public class APA extends DroolsUnaryObject<String> implements A
 {

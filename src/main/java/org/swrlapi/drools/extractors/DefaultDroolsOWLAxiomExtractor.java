@@ -9,7 +9,10 @@ import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts a Drools OWL axioms represented by the class {@link A} to OWLAPI axioms.
+ * This class defined methods for converting the Drools representation of OWL axioms to their OWLAPI representation.
+ *
+ * @see org.semanticweb.owlapi.model.OWLAxiom
+ * @see org.swrlapi.drools.owl.axioms.A
  */
 public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements DroolsOWLAxiomExtractor
 {

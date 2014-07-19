@@ -1,7 +1,7 @@
 package org.swrlapi.drools.swrl;
 
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsAA2SWRLAtomArgumentExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -12,5 +12,5 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 public interface BA extends AA
 {
 	@Override
-	SWRLBuiltInArgument extract(DroolsAA2SWRLAtomArgumentExtractor extractor) throws TargetRuleEngineException;
+	SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException;
 }

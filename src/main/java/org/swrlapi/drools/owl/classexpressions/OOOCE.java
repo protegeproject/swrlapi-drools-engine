@@ -6,6 +6,8 @@ import org.swrlapi.drools.owl.core.I;
 /**
  * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise
  * set of classes from the list in an OWL one of class expression.
+ *
+ * @see org.semanticweb.owlapi.model.OWLObjectOneOf
  */
 public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
 {
