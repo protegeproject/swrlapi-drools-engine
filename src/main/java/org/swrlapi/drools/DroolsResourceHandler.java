@@ -41,11 +41,11 @@ public class DroolsResourceHandler
 
 	private void defineGlobalJavaObjects()
 	{
-		defineDRLResource("import org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer;");
-		defineDRLResource("global DroolsOWLAxiomInferrer inferrer;");
+		defineDRLResource("import org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler;");
+		defineDRLResource("global DroolsOWLAxiomHandler inferrer;");
 
-		defineDRLResource("import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionInferrer;");
-		defineDRLResource("global DroolsSQWRLCollectionInferrer sqwrlInferrer;");
+		defineDRLResource("import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;");
+		defineDRLResource("global DroolsSQWRLCollectionHandler sqwrlInferrer;");
 
 		defineDRLResource("import org.swrlapi.drools.DroolsSWRLBuiltInInvoker;");
 		defineDRLResource("global DroolsSWRLBuiltInInvoker invoker;");

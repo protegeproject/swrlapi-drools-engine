@@ -7,15 +7,15 @@ import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.owl2rl.OWL2RLEngine;
 
 /**
- * The OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine} se this class to accumulate
- * inferred axioms.
+ * Keeps track of OWL axioms during rule execution. All Drools rules generated from SWRL rules and the OWL 2 RL rules
+ * defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine} use an instance of this class to assert inferred axioms.
  * </p>
- * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called to inform Drools of inferred
- * OWL axioms during rule execution.
+ * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during rule execution. It
+ * keeps track of the inferred axioms and also insterts them in to a a Drools knowledge session.
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
-public class DroolsOWLAxiomInferrer
+public class DroolsOWLAxiomHandler
 {
 	private final OWL2RLEngine owl2RLEngine;
 
@@ -24,7 +24,7 @@ public class DroolsOWLAxiomInferrer
 
 	private StatefulKnowledgeSession knowledgeSession;
 
-	public DroolsOWLAxiomInferrer(OWL2RLEngine owl2RLEngine)
+	public DroolsOWLAxiomHandler(OWL2RLEngine owl2RLEngine)
 	{
 		this.inferredOWLAxioms = new HashSet<A>();
 		this.assertedOWLAxioms = new HashSet<A>();
@@ -84,7 +84,7 @@ public class DroolsOWLAxiomInferrer
 				inconsistentErrorMessage += "\n Classes:";
 				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfClassArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next().toString();
+					inconsistentErrorMessage += " " + argumentsIterator.next();
 				}
 			}
 
@@ -92,7 +92,7 @@ public class DroolsOWLAxiomInferrer
 				inconsistentErrorMessage += "\n Individuals:";
 				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfIndividualArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next().toString();
+					inconsistentErrorMessage += " " + argumentsIterator.next();
 				}
 			}
 
@@ -100,7 +100,7 @@ public class DroolsOWLAxiomInferrer
 				inconsistentErrorMessage += "\n Object Properties:";
 				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfObjectPropertyArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next().toString();
+					inconsistentErrorMessage += " " + argumentsIterator.next();
 				}
 			}
 
@@ -108,7 +108,7 @@ public class DroolsOWLAxiomInferrer
 				inconsistentErrorMessage += "\n Data Properties:";
 				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfObjectPropertyArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next().toString();
+					inconsistentErrorMessage += " " + argumentsIterator.next();
 				}
 			}
 		}

@@ -14,7 +14,7 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * </p>
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
  * </p>
- * All axioms inferred by the rules are accumulated by a {@link org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer}.
+ * All axioms inferred by the rules are accumulated by a {@link DroolsOWLAxiomHandler}.
  * </p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in
  * the Specification). The value space of literals is also not validated (specified by rule dt-not-type). All
@@ -24,7 +24,7 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * Many optimizations are possible.
  *
  * @see org.swrlapi.owl2rl.AbstractOWL2RLEngine
- * @see org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer
+ * @see DroolsOWLAxiomHandler
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {

@@ -7,14 +7,16 @@ import java.util.Set;
 import org.swrlapi.drools.swrl.BA;
 
 /**
+ * Keeps track of SQWRL collections during rule execution.
+ * </p>
  * The {@link #infer(org.swrlapi.drools.swrl.BA)} method in this class is called to inform Drools of
  * inferred SQWRL collections.
  */
-public class DroolsSQWRLCollectionInferrer
+public class DroolsSQWRLCollectionHandler
 {
 	private final Set<SQWRLC> generatedSQWRLCollections;
 
-	public DroolsSQWRLCollectionInferrer()
+	public DroolsSQWRLCollectionHandler()
 	{
 		this.generatedSQWRLCollections = new HashSet<SQWRLC>();
 	}

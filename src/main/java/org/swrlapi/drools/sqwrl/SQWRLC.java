@@ -7,7 +7,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class represents a SQWRL collection. These are created by SQWRL collection construction operators and passed to
- * the second phase of rule execution via the {@link DroolsSQWRLCollectionInferrer}.
+ * the second phase of rule execution via the {@link DroolsSQWRLCollectionHandler}.
  */
 public class SQWRLC implements BA
 {

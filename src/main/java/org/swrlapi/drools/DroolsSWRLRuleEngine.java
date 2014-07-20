@@ -22,11 +22,11 @@ import org.swrlapi.drools.converters.DroolsOWLPropertyExpressionConverter;
 import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer;
+import org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
-import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionInferrer;
+import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
 import org.swrlapi.drools.sqwrl.SQWRLC;
 import org.swrlapi.exceptions.BuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
@@ -48,9 +48,9 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	private final DroolsSQWRLQuery2DRLConverter queryConverter;
 	private final DroolsOWLAxiomExtractor axiomExtractor;
 	private final DroolsSWRLBuiltInInvoker builtInInvoker;
-	private final DroolsSQWRLCollectionInferrer sqwrlCollectionInferrer;
+	private final DroolsSQWRLCollectionHandler sqwrlCollectionInferrer;
 	private final DroolsOWL2RLEngine owl2RLEngine;
-	private final DroolsOWLAxiomInferrer axiomInferrer;
+	private final DroolsOWLAxiomHandler axiomInferrer;
 
 	private KnowledgeBase knowledgeBase;
 	private KnowledgeBuilder knowledgeBuilder;
@@ -86,8 +86,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		this.axiomExtractor = new DefaultDroolsOWLAxiomExtractor(bridge);
 		this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
 		this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
-		this.axiomInferrer = new DroolsOWLAxiomInferrer(this.owl2RLEngine);
-		this.sqwrlCollectionInferrer = new DroolsSQWRLCollectionInferrer();
+		this.axiomInferrer = new DroolsOWLAxiomHandler(this.owl2RLEngine);
+		this.sqwrlCollectionInferrer = new DroolsSQWRLCollectionHandler();
 
 		this.definedOWLAxioms = new HashSet<OWLAxiom>();
 
@@ -197,7 +197,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	public void defineOWLAxiom(OWLAxiom axiom) throws TargetRuleEngineException
 	{
 		if (!this.definedOWLAxioms.contains(axiom)) {
-			getDroolsOWLAxiomConverter().convert(axiom);
+			getDroolsOWLAxiomConverter().convert(axiom); // Put the axiom into the Drools knowledge base.
 			this.definedOWLAxioms.add(axiom);
 		}
 	}
