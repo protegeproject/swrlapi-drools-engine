@@ -164,11 +164,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 				this.knowledgeSession.insert(axiom);
 			for (CE classExpression : getDroolsOWLAxiomConverter().getOWLClassExpressions())
 				this.knowledgeSession.insert(classExpression);
-		} catch (Exception e) { // Remember, SWRL built-ins can be called during this insertion
+		} catch (Exception e) { // Note: SWRL built-ins can be called during this insertion process
 			Thread.currentThread().setContextClassLoader(oldClassLoader);
 			String errorMessage = (e.getCause() == null) ? (e.getMessage() == null ? e.toString() : e.getMessage()) : (e
 					.getCause().getMessage() == null ? e.toString() : e.getCause().getMessage());
-			throw new TargetRuleEngineException("error inserting OWL axioms into Drools rule engine:\n" + errorMessage, e);
+			throw new TargetRuleEngineException("error inserting asserted OWL axioms into Drools:\n" + errorMessage, e);
 		}
 
 		// Supply the inferrer with the set of asserted OWL axioms so that it does not redundantly put inferred axioms into
