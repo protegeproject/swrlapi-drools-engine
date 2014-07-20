@@ -7,7 +7,7 @@ import java.util.List;
 import org.swrlapi.drools.swrl.BA;
 
 /**
- * Drools has issues with some varargs so we need to explicitly define the various argument combinations.
+ * Drools has issues with some varargs so we need to explicitly define constructors the various argument combinations.
  */
 public class VPATH
 {

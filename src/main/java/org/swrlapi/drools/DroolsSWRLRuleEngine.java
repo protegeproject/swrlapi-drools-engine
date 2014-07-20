@@ -1,6 +1,5 @@
 package org.swrlapi.drools;
 
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -11,9 +10,6 @@ import org.drools.KnowledgeBaseConfiguration;
 import org.drools.KnowledgeBaseFactory;
 import org.drools.builder.KnowledgeBuilder;
 import org.drools.builder.KnowledgeBuilderFactory;
-import org.drools.builder.ResourceType;
-import org.drools.io.Resource;
-import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.rule.Activation;
 import org.drools.runtime.rule.AgendaFilter;
@@ -50,8 +46,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
 	private final DroolsOWLAxiomConverter axiomConverter;
 	private final DroolsSQWRLQuery2DRLConverter queryConverter;
-	private final DroolsOWLClassExpressionConverter classExpressionConverter;
-	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
 	private final DroolsOWLAxiomExtractor axiomExtractor;
 	private final DroolsSWRLBuiltInInvoker builtInInvoker;
 	private final DroolsSQWRLCollectionInferrer sqwrlCollectionInferrer;
@@ -63,6 +57,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	private StatefulKnowledgeSession knowledgeSession;
 	private boolean knowledgeBaseCreatedAtLeastOnce;
 	private boolean knowledgePackagesAdditionRequired;
+	private DroolsResourceHandler resourceHandler;
 
 	// We keep track of axioms supplied to and inferred by Drools so that we do not redundantly assert them.
 	private Set<OWLAxiom> definedOWLAxioms;
@@ -80,16 +75,19 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	{
 		this.bridge = bridge;
 
+		DroolsOWLPropertyExpressionConverter propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
+		DroolsOWLClassExpressionConverter classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge,
+				propertyExpressionConverter);
+		this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this, classExpressionConverter,
+				propertyExpressionConverter);
+		this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter,
+				propertyExpressionConverter);
+
 		this.axiomExtractor = new DefaultDroolsOWLAxiomExtractor(bridge);
 		this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
 		this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
 		this.axiomInferrer = new DroolsOWLAxiomInferrer(this.owl2RLEngine);
 		this.sqwrlCollectionInferrer = new DroolsSQWRLCollectionInferrer();
-
-		this.propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge);
-		this.classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge, propertyExpressionConverter);
-		this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this, classExpressionConverter, propertyExpressionConverter);
-		this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter, propertyExpressionConverter);
 
 		this.definedOWLAxioms = new HashSet<OWLAxiom>();
 
@@ -122,16 +120,16 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 			config.setProperty("drools.dialect.mvel.strict", "false");
 			this.knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase(config);
 			this.knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+			this.resourceHandler = new DroolsResourceHandler(this.knowledgeBuilder);
 
-			defineGlobalJavaObjects(this.knowledgeBuilder);
-			importOWLAndSWRLJavaClasses(this.knowledgeBuilder);
+			resourceHandler.defineJavaResources();
 
 			// Add the globals and OWL and SWRL Java classes to knowledge base
 			addKnowledgePackages(this.knowledgeBase, this.knowledgeBuilder);
 
 			// OWL 2 RL rules are not added to knowledge base until the runRuleEngine method is invoked
 			for (DroolsOWL2RLEngine.DroolsRuleDefinition ruleDefinition : this.owl2RLEngine.getEnabledRuleDefinitions())
-				defineDRLRule(ruleDefinition.getRuleName(), ruleDefinition.getRuleText(), this.knowledgeBuilder);
+				defineDRLRule(ruleDefinition.getRuleName(), ruleDefinition.getRuleText());
 
 			this.knowledgeBaseCreatedAtLeastOnce = true;
 			this.knowledgePackagesAdditionRequired = true;
@@ -215,7 +213,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		if (query.isActive()) // If a query is not active, we convert it but record it as inactive.
 			this.activeSQWRLQueryNames.add(query.getQueryName());
 
-		getDroolsSQWRLQueryConverter().convert(query); // Will call defineRule(String, String).
+		getDroolsSQWRLQueryConverter().convert(query); // Will call local defineSQWRLPhase{1,2}Rule.
 	}
 
 	/**
@@ -225,7 +223,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	public void defineDRLRule(String ruleName, String ruleText) throws TargetRuleEngineException
 	{
 		if (this.knowledgePackagesAdditionRequired)
-			defineDRLRule(ruleName, ruleText, this.knowledgeBuilder);
+			resourceHandler.defineDRLRule(ruleName, ruleText);
 	}
 
 	/**
@@ -239,7 +237,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
 
 		if (this.knowledgePackagesAdditionRequired)
-			defineDRLRule(ruleName, ruleText, this.knowledgeBuilder);
+			defineDRLRule(ruleName, ruleText);
 	}
 
 	/**
@@ -253,7 +251,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
 
 		if (this.knowledgePackagesAdditionRequired)
-			defineDRLRule(ruleName, ruleText, this.knowledgeBuilder);
+			defineDRLRule(ruleName, ruleText);
 	}
 
 	/**
@@ -319,40 +317,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		}
 	}
 
-	private void defineDRLRule(String ruleName, String ruleText, KnowledgeBuilder knowledgeBuilder)
-			throws TargetRuleEngineException
-	{
-		try {
-			//System.out.println("Rule " + ruleName + "\n" + ruleText);
-			defineDRLResource(ruleText, knowledgeBuilder);
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			throw new TargetRuleEngineException(
-					"internal error generating Drools rule \n" + ruleText + "\n" + e.getMessage(), e);
-		}
-
-		if (knowledgeBuilder.hasErrors())
-			throw new TargetRuleEngineException("internal error generating Drools rule\n" + ruleText + "\n"
-					+ knowledgeBuilder.getErrors().toString());
-	}
-
-	private void defineDRLResource(String resourceText, KnowledgeBuilder knowledgeBuilder)
-	{
-		knowledgeBuilder.add(createDRLResource(resourceText), ResourceType.DRL);
-	}
-
-	private void defineGlobalJavaObjects(KnowledgeBuilder knowledgeBuilder)
-	{
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer;");
-		defineDRLResource(knowledgeBuilder, "global DroolsOWLAxiomInferrer inferrer;");
-
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionInferrer;");
-		defineDRLResource(knowledgeBuilder, "global DroolsSQWRLCollectionInferrer sqwrlInferrer;");
-
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.DroolsSWRLBuiltInInvoker;");
-		defineDRLResource(knowledgeBuilder, "global DroolsSWRLBuiltInInvoker invoker;");
-	}
-
 	private void addKnowledgePackages(KnowledgeBase knowledgeBase, KnowledgeBuilder knowledgeBuilder)
 			throws TargetRuleEngineException
 	{
@@ -365,102 +329,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		} catch (Exception e) {
 			throw new TargetRuleEngineException("error configuring Drools rule engine: " + e.getMessage(), e);
 		}
-	}
-
-	private void importOWLAndSWRLJavaClasses(KnowledgeBuilder knowledgeBuilder)
-	{
-		// Drools class representing an OWL literal
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.L");
-
-		// Drools classes representing OWL named properties
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.C");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.I");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.properties.OP");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.properties.DP");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.properties.AP");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.core.D");
-
-		// Drools classes representing OWL class expressions
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.CE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OCOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OIOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OOOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OUOCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OHVCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DHVCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OSVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DSVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OAVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DAVFCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMaxCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OMaxQCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMaxQCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DMinCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.OCCE");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.classexpressions.DCCE");
-
-		// Drools classes representing OWL axioms
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.APA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.CAA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.CDA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DCA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DDPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DIA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DJOPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DJDPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DOPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DPAA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DPDA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.ECA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.EDPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.EOPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.FDPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.FOPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.IDA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.IOPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.IPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.IRPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.OPAA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.OPDA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.DPRA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.OPRA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SCA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SDPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SIA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SOPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.SPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.TPA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.NOPAA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.axioms.NDPAA");
-
-		// Drools classes representing OWL data ranges
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DR");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DIO");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DCO");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DUO");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.owl.dataranges.DOO");
-
-		// Drools classes representing SWRL built-in arguments and other built-in support classes
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.BA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.BAP");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.UBA");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.swrl.BAVNs");
-
-		// Drools class representing SQWRL collections
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.sqwrl.SQWRLC");
-		defineDRLResource(knowledgeBuilder, "import org.swrlapi.drools.sqwrl.VPATH");
-	}
-
-	private void defineDRLResource(KnowledgeBuilder knowledgeBuilder, String resourceText)
-	{
-		knowledgeBuilder.add(createDRLResource(resourceText), ResourceType.DRL);
-	}
-
-	private Resource createDRLResource(String resourceText)
-	{
-		return ResourceFactory.newReaderResource(new StringReader(resourceText));
 	}
 
 	/**
@@ -478,17 +346,12 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 				// A rule representing phase 1 of a SQWRL query
 				if (DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.containsKey(ruleName)) {
 					String sqwrlQueryName = DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.get(ruleName);
-					if (DroolsSWRLRuleEngine.this.activeSQWRLQueryNames.contains(sqwrlQueryName)) {
-						return true;
-					} else
-						return false;
+					return DroolsSWRLRuleEngine.this.activeSQWRLQueryNames.contains(sqwrlQueryName);
 				} else
 					throw new RuntimeException("internal error: phase 1 SQWRL rule " + ruleName
 							+ " not correctly recorded as query");
-			} else if (DroolsSWRLRuleEngine.this.phase2SQWRLRuleNames.contains(ruleName)) {
-				return false; // Phase 2 SQWRL rule should not be executed yet
 			} else
-				return true; // All enabled SWRL rules are processed
+				return !DroolsSWRLRuleEngine.this.phase2SQWRLRuleNames.contains(ruleName);
 		}
 	}
 
@@ -499,14 +362,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		{
 			String ruleName = activation.getRule().getName();
 
-			if (DroolsSWRLRuleEngine.this.phase2SQWRLRuleNames.contains(ruleName)) { // A rule representing phase 1 of a SQWRL
-				// query
+			if (DroolsSWRLRuleEngine.this.phase2SQWRLRuleNames.contains(ruleName)) {
+				// A rule representing phase 1 of a SQWRL query
 				if (DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.containsKey(ruleName)) {
 					String sqwrlQueryName = DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.get(ruleName);
-					if (DroolsSWRLRuleEngine.this.activeSQWRLQueryNames.contains(sqwrlQueryName)) {
-						return true;
-					} else
-						return false;
+					return DroolsSWRLRuleEngine.this.activeSQWRLQueryNames.contains(sqwrlQueryName);
 				} else
 					throw new RuntimeException("internal error: phase 2 rule " + ruleName
 							+ " not correctly recorded as SQWRL query");
