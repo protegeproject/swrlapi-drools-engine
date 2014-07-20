@@ -10,7 +10,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 /**
  * This class represents an OWL object property assertion axiom.
  * <p>
- * We need to have 4 possible constructors for the different argument combinations. This approach provides
+ * We have 4 possible constructors for the different argument combinations. This approach provides
  * more flexibility when generating Drools rules and makes the generated rules more readable.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom

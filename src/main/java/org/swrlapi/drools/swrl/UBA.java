@@ -5,7 +5,7 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an unbound argument to a built-in
+ * This class represents an unbound argument to a SWRL built-in in Drools.
  */
 public class UBA implements BA
 {

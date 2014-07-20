@@ -5,6 +5,8 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
+ * This class represents a SWRL variable argument in Drools.
+ *
  * @see org.semanticweb.owlapi.model.SWRLVariable
  */
 public class VA implements AA

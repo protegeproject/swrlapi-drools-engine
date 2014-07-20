@@ -50,13 +50,13 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
 	private final DroolsOWLAxiomConverter axiomConverter;
 	private final DroolsSQWRLQuery2DRLConverter queryConverter;
-	private final DroolsOWLAxiomExtractor axiomExtractor;
-	private final DroolsOWLAxiomInferrer axiomInferrer;
-	private final DroolsSQWRLCollectionInferrer sqwrlCollectionInferrer;
-	private final DroolsSWRLBuiltInInvoker builtInInvoker;
-	private final DroolsOWL2RLEngine owl2RLEngine;
 	private final DroolsOWLClassExpressionConverter classExpressionConverter;
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
+	private final DroolsOWLAxiomExtractor axiomExtractor;
+	private final DroolsSWRLBuiltInInvoker builtInInvoker;
+	private final DroolsSQWRLCollectionInferrer sqwrlCollectionInferrer;
+	private final DroolsOWL2RLEngine owl2RLEngine;
+	private final DroolsOWLAxiomInferrer axiomInferrer;
 
 	private KnowledgeBase knowledgeBase;
 	private KnowledgeBuilder knowledgeBuilder;
@@ -64,11 +64,12 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	private boolean knowledgeBaseCreatedAtLeastOnce;
 	private boolean knowledgePackagesAdditionRequired;
 
-	private Set<OWLAxiom> definedOWLAxioms; // We keep track of axioms supplied to and inferred by Drools so that
-	// we do not redundantly assert them.
+	// We keep track of axioms supplied to and inferred by Drools so that we do not redundantly assert them.
+	private Set<OWLAxiom> definedOWLAxioms;
+
 	private Set<String> allSQWRLQueryNames; // Drools is supplied with all currently enabled SQWRL queries.
-	private Set<String> activeSQWRLQueryNames; // Typically, only one query is active so we use an agenda filter to ignore the
-	// ones that are not active.
+	// Typically, only one query is active so we use an agenda filter to ignore the ones that are not active.
+	private Set<String> activeSQWRLQueryNames;
 	private Set<String> phase1SQWRLRuleNames;
 	private Set<String> phase2SQWRLRuleNames;
 	private Map<String, String> ruleName2SQWRLQueryNameMap;

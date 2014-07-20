@@ -2,8 +2,6 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.drools.owl.classexpressions.CE;
-import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -11,16 +9,12 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom
  */
-public class ECA extends DroolsBinaryObject<String, String> implements A
+public class ECA extends DroolsBinaryClassesAxiom
 {
 	public ECA(String class1ID, String class2ID)
 	{
 		super(class1ID, class2ID);
 	}
-
-	public String getc1id() { return getT1(); }
-
-	public String getc2id() { return getT2(); }
 
 	@Override
 	public OWLEquivalentClassesAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException

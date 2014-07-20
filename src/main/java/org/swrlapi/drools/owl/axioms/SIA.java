@@ -16,7 +16,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLSameIndividualAxiom
  */
-public class SIA extends BinaryIndividualsAxiom
+public class SIA extends DroolsBinaryIndividualsAxiom
 {
 	public SIA(I individual1, I individual2)
 	{

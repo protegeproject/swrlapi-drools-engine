@@ -3,9 +3,9 @@ package org.swrlapi.drools.owl.axioms;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.core.I;
 
-public abstract class BinaryIndividualsAxiom extends DroolsBinaryObject<I, I> implements A
+public abstract class DroolsBinaryIndividualsAxiom extends DroolsBinaryObject<I, I> implements A
 {
-	public BinaryIndividualsAxiom(I individual1, I individual2)
+	public DroolsBinaryIndividualsAxiom(I individual1, I individual2)
 	{
 		super(individual1, individual2);
 	}

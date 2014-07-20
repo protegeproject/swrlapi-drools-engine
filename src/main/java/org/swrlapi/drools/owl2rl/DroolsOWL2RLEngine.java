@@ -10,26 +10,31 @@ import org.swrlapi.owl2rl.AbstractOWL2RLEngine;
 import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
 
 /**
- * Class providing a Drools implementation of OWL 2 RL rules. In its current state, this is a fairly naive
- * implementation of the rules in the OWL 2 RL Specification. Many optimizations are possible.
+ * Class providing a Drools implementation of an OWL 2 RL-based reasoner.
  * </p>
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
+ * </p>
+ * All axioms inferred by the rules are accumulated by a {@link org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer}.
  * </p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in
  * the Specification). The value space of literals is also not validated (specified by rule dt-not-type). All
  * other rules are implemented.
+ * </p>
+ * In its current state, this is a fairly naive implementation of the rules in the OWL 2 RL Specification.
+ * Many optimizations are possible.
  *
  * @see org.swrlapi.owl2rl.AbstractOWL2RLEngine
+ * @see org.swrlapi.drools.owl2rl.DroolsOWLAxiomInferrer
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {
-	private final Map<Rule, Set<DroolsRuleDefinition>> droolsRules;
+	private final Map<Rule, Set<DroolsRuleDefinition>> droolsOWL2RLRules;
 
 	public DroolsOWL2RLEngine(OWL2RLPersistenceLayer persistenceLayer)
 	{
 		super(persistenceLayer, generateUnsupportedRules(), generatePermanentlyOnRules(), generateGroupedRuleSets());
 
-		this.droolsRules = new HashMap<Rule, Set<DroolsRuleDefinition>>();
+		this.droolsOWL2RLRules = new HashMap<Rule, Set<DroolsRuleDefinition>>();
 
 		defineOWL2RLDroolsRules();
 	}
@@ -39,8 +44,8 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<DroolsRuleDefinition>();
 
 		for (Rule rule : getEnabledRules())
-			if (this.droolsRules.containsKey(rule))
-				enabledRuleDefinitions.addAll(this.droolsRules.get(rule));
+			if (this.droolsOWL2RLRules.containsKey(rule))
+				enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.get(rule));
 
 		return enabledRuleDefinitions;
 	}
@@ -485,12 +490,12 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 	{
 		DroolsRuleDefinition newRuleDefinition = new DroolsRuleDefinition(ruleName, ruleText);
 
-		if (this.droolsRules.containsKey(rule))
-			this.droolsRules.get(rule).add(newRuleDefinition);
+		if (this.droolsOWL2RLRules.containsKey(rule))
+			this.droolsOWL2RLRules.get(rule).add(newRuleDefinition);
 		else {
 			Set<DroolsRuleDefinition> newRuleDefinitions = new HashSet<DroolsRuleDefinition>();
 			newRuleDefinitions.add(newRuleDefinition);
-			this.droolsRules.put(rule, newRuleDefinitions);
+			this.droolsOWL2RLRules.put(rule, newRuleDefinitions);
 		}
 	}
 }

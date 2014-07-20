@@ -9,7 +9,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDisjointClassesAxiom
  */
-public class DCA extends BinaryClassesAxiom
+public class DCA extends DroolsBinaryClassesAxiom
 {
 	public DCA(String class1ID, String class2ID)
 	{

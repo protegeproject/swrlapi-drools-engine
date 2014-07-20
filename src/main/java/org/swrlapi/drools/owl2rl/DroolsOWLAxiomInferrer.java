@@ -1,17 +1,19 @@
 package org.swrlapi.drools.owl2rl;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.owl2rl.OWL2RLEngine;
 
 /**
+ * The OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine} se this class to accumulate
+ * inferred axioms.
+ * </p>
  * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called to inform Drools of inferred
  * OWL axioms during rule execution.
+ *
+ * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
 public class DroolsOWLAxiomInferrer
 {
@@ -36,6 +38,9 @@ public class DroolsOWLAxiomInferrer
 		this.knowledgeSession = knowledgeSession;
 	}
 
+	/**
+	 * Supply the asserted OWL axioms.
+	 */
 	public void setAssertedOWLAxioms(Set<A> newAssertedOWLAxioms)
 	{
 		this.assertedOWLAxioms = newAssertedOWLAxioms;
@@ -57,13 +62,12 @@ public class DroolsOWLAxiomInferrer
 
 	public Set<A> getInferredOWLAxioms()
 	{
-		return this.inferredOWLAxioms;
+		return Collections.unmodifiableSet(this.inferredOWLAxioms);
 	}
 
 	/**
-	 * This method is called by an OWL 2 RL inconsistency detection rule when an inconsistency is detected. It throws and
-	 * exception that halts the inference process. The exception contains details of the offending rule and the OWL
-	 * properties involved in the detected inconsistency.
+	 * This method is called by an OWL 2 RL inconsistency detection rule when an inconsistency is detected.
+	 * The parameters contains details of the offending rule and the OWL entities involved in the detected inconsistency.
 	 */
 	public void inferFalse(String owl2RLRuleName, String... arguments)
 	{

@@ -16,7 +16,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom
  */
-public class DIA extends BinaryIndividualsAxiom
+public class DIA extends DroolsBinaryIndividualsAxiom
 {
 	public DIA(I individual1, I individual2)
 	{

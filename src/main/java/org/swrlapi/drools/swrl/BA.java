@@ -7,7 +7,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 /**
  * This interface represents a SWRL built-in argument in Drools.
  * 
- * @see SWRLBuiltInArgument
+ * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
 public interface BA extends AA
 {

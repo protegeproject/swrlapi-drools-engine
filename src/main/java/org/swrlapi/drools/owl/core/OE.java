@@ -9,7 +9,7 @@ import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents an OWL entity.
+ * This class represents an OWL entity in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLEntity
  */
