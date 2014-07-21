@@ -24,7 +24,7 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {
-	private DroolsOWL2RLRules droolsOWL2RLRules;
+	private final DroolsOWL2RLRules droolsOWL2RLRules;
 
 	public DroolsOWL2RLEngine(OWL2RLPersistenceLayer persistenceLayer)
 	{

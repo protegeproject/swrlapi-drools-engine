@@ -4,7 +4,6 @@ import java.util.*;
 
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;
-import org.swrlapi.owl2rl.OWL2RLEngine;
 import org.swrlapi.owl2rl.OWL2RLInconsistency;
 
 /**
@@ -13,7 +12,7 @@ import org.swrlapi.owl2rl.OWL2RLInconsistency;
  * to assert inferred axioms.
  * </p>
  * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during rule execution. It
- * keeps track of the inferred axioms and also inserts them in to a a Drools knowledge session.
+ * keeps track of the inferred axioms and also inserts them in to a Drools knowledge session.
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
@@ -68,6 +67,10 @@ public class DroolsOWLAxiomHandler
 		}
 	}
 
+	/**
+	 * This method can be called after the rule engine has finished executing to see if an inconsistency was detected.
+	 * been inferred.
+	 */
 	public boolean isInconsistent() { return this.isInconsistent; }
 
 	/**
