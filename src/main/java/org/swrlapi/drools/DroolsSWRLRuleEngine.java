@@ -130,7 +130,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 			addKnowledgePackages(this.knowledgeBase, this.knowledgeBuilder);
 
 			// OWL 2 RL rules are not added to knowledge base until the runRuleEngine method is invoked
-			for (DroolsOWL2RLEngine.DroolsRuleDefinition ruleDefinition : this.owl2RLEngine.getEnabledRuleDefinitions())
+			for (DroolsRuleDefinition ruleDefinition : this.owl2RLEngine.getEnabledRuleDefinitions())
 				defineDRLRule(ruleDefinition.getRuleName(), ruleDefinition.getRuleText());
 
 			this.knowledgeBaseCreatedAtLeastOnce = true;

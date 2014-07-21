@@ -8,11 +8,12 @@ import org.swrlapi.owl2rl.OWL2RLEngine;
 import org.swrlapi.owl2rl.OWL2RLInconsistency;
 
 /**
- * Keeps track of OWL axioms during rule execution. All Drools rules generated from SWRL rules and the OWL 2 RL rules
- * defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine} use an instance of this class to assert inferred axioms.
+ * Keeps track of OWL axioms that are inferred during rule execution. All Drools rules generated from SWRL rules and
+ * the OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} use an instance of this class
+ * to assert inferred axioms.
  * </p>
  * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during rule execution. It
- * keeps track of the inferred axioms and also insterts them in to a a Drools knowledge session.
+ * keeps track of the inferred axioms and also inserts them in to a a Drools knowledge session.
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
