@@ -14,7 +14,8 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * </p>
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
  * </p>
- * All axioms inferred by the rules are accumulated by a {@link DroolsOWLAxiomHandler}.
+ * This engine is created by a {@link org.swrlapi.drools.DroolsSWRLRuleEngine}. All axioms inferred by Drools rules
+ * are handled by a {@link DroolsOWLAxiomHandler}.
  * </p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in
  * the Specification). The value space of literals is also not validated (specified by rule dt-not-type). All
@@ -24,7 +25,8 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * Many optimizations are possible.
  *
  * @see org.swrlapi.owl2rl.AbstractOWL2RLEngine
- * @see DroolsOWLAxiomHandler
+ * @see org.swrlapi.drools.DroolsSWRLRuleEngine
+ * @see org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {
@@ -106,7 +108,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// T(?y, ?pn, ?zn) -> T(?x, owl:sameAs, ?y)
 
 		// Table 8
-		// TODO DT_NOT_TYPE - basically verify that the raw value of each literal is valid for its datatype
+		// TODO DT_NOT_TYPE - Basically verify that the raw value of each literal is valid for its datatype
 		// T(lt, rdf:type, dt) -> false
 		// "For each literal lt and each datatype dt supported in OWL 2 RL such that the data value of lt is not
 		// contained in the value space of dt."  L(l., dt) ^ notValid(l, dt) -> explode?

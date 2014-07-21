@@ -5,6 +5,7 @@ import java.util.*;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.owl2rl.OWL2RLEngine;
+import org.swrlapi.owl2rl.OWL2RLInconsistency;
 
 /**
  * Keeps track of OWL axioms during rule execution. All Drools rules generated from SWRL rules and the OWL 2 RL rules
@@ -17,18 +18,19 @@ import org.swrlapi.owl2rl.OWL2RLEngine;
  */
 public class DroolsOWLAxiomHandler
 {
-	private final OWL2RLEngine owl2RLEngine;
-
 	private final Set<A> inferredOWLAxioms;
 	private Set<A> assertedOWLAxioms;
+	private boolean isInconsistent;
+	private final Set<String> inconsistentMessages;
 
 	private StatefulKnowledgeSession knowledgeSession;
 
-	public DroolsOWLAxiomHandler(OWL2RLEngine owl2RLEngine)
+	public DroolsOWLAxiomHandler()
 	{
 		this.inferredOWLAxioms = new HashSet<A>();
 		this.assertedOWLAxioms = new HashSet<A>();
-		this.owl2RLEngine = owl2RLEngine;
+		this.isInconsistent = false;
+		this.inconsistentMessages = new HashSet<String>();
 	}
 
 	public void reset(StatefulKnowledgeSession knowledgeSession)
@@ -36,6 +38,8 @@ public class DroolsOWLAxiomHandler
 		this.assertedOWLAxioms.clear();
 		this.inferredOWLAxioms.clear();
 		this.knowledgeSession = knowledgeSession;
+		this.isInconsistent = false;
+		this.inconsistentMessages.clear();
 	}
 
 	/**
@@ -46,6 +50,9 @@ public class DroolsOWLAxiomHandler
 		this.assertedOWLAxioms = newAssertedOWLAxioms;
 	}
 
+	/**
+	 * This method is called by Drools rules at runtime.
+	 */
 	public void infer(A... newInferredOWLAxioms)
 	{
 		if (this.knowledgeSession == null)
@@ -60,9 +67,20 @@ public class DroolsOWLAxiomHandler
 		}
 	}
 
+	public boolean isInconsistent() { return this.isInconsistent; }
+
+	/**
+	 * This method can be called after the rule engine has finished executing to get all the OWL axioms that have
+	 * been inferred.
+	 */
 	public Set<A> getInferredOWLAxioms()
 	{
 		return Collections.unmodifiableSet(this.inferredOWLAxioms);
+	}
+
+	public Set<String> getInconsistentMessages()
+	{
+		return Collections.unmodifiableSet(this.inconsistentMessages);
 	}
 
 	/**
@@ -71,48 +89,47 @@ public class DroolsOWLAxiomHandler
 	 */
 	public void inferFalse(String owl2RLRuleName, String... arguments)
 	{
-		String inconsistentErrorMessage = "OWL 2 RL rule detected an inconsistency in the ontology.\n "
+		String inconsistentMessage = "OWL 2 RL rule detected an inconsistency in the ontology.\n "
 				+ "See http://www.w3.org/TR/owl-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules for a list of inconsistency detection rules.\n"
 				+ "Rule that detected an inconsistency: " + owl2RLRuleName;
 		Iterator<String> argumentsIterator = Arrays.asList(arguments).iterator();
 
-		if (this.owl2RLEngine.hasFalseArgumentsDescription(owl2RLRuleName)) {
-			OWL2RLEngine.OWL2RLFalseArgumentsDescription argumentsDescription = this.owl2RLEngine
-					.getFalseArgumentsDescription(owl2RLRuleName);
+		if (OWL2RLInconsistency.hasInconsistencyRuleArgumentsDescription(owl2RLRuleName)) {
+			OWL2RLInconsistency.OWL2RLRuleArguments ruleArguments = OWL2RLInconsistency.getRuleArguments(owl2RLRuleName);
 
-			if (argumentsDescription.hasClassArguments()) {
-				inconsistentErrorMessage += "\n Classes:";
-				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfClassArguments())
+			if (ruleArguments.hasClassArguments()) {
+				inconsistentMessage += "\n Classes:";
+				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfClassArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next();
+					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
 
-			if (argumentsDescription.hasIndividualArguments()) {
-				inconsistentErrorMessage += "\n Individuals:";
-				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfIndividualArguments())
+			if (ruleArguments.hasIndividualArguments()) {
+				inconsistentMessage += "\n Individuals:";
+				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfIndividualArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next();
+					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
 
-			if (argumentsDescription.hasObjectPropertyArguments()) {
-				inconsistentErrorMessage += "\n Object Properties:";
-				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfObjectPropertyArguments())
+			if (ruleArguments.hasObjectPropertyArguments()) {
+				inconsistentMessage += "\n Object Properties:";
+				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next();
+					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
 
-			if (argumentsDescription.hasDataPropertyArguments()) {
-				inconsistentErrorMessage += "\n Data Properties:";
-				for (int argumentCount = 0; (argumentCount < argumentsDescription.getNumberOfObjectPropertyArguments())
+			if (ruleArguments.hasDataPropertyArguments()) {
+				inconsistentMessage += "\n Data Properties:";
+				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments())
 						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentErrorMessage += " " + argumentsIterator.next();
+					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
+			this.isInconsistent = true;
 		}
-
-		throw new RuntimeException(inconsistentErrorMessage);
+		this.inconsistentMessages.add(inconsistentMessage);
 	}
 }

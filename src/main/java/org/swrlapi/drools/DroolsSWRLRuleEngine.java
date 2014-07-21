@@ -36,9 +36,10 @@ import org.swrlapi.sqwrl.SQWRLQuery;
 
 /**
  * This class provides a Drools implementation of a rule engine for SWRL using the SWRLAPI's Rule Engine Bridge
- * mechanism.
+ * mechanism. The underlying reasoner is supplier by the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine}.
  *
  * @see org.swrlapi.bridge.TargetSWRLRuleEngine
+ * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
 public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 {
@@ -60,7 +61,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	private DroolsResourceHandler resourceHandler;
 
 	// We keep track of axioms supplied to and inferred by Drools so that we do not redundantly assert them.
-	private Set<OWLAxiom> definedOWLAxioms;
+	private Set<OWLAxiom> assertedAndInferredOWLAxioms;
 
 	private Set<String> allSQWRLQueryNames; // Drools is supplied with all currently enabled SQWRL queries.
 	// Typically, only one query is active so we use an agenda filter to ignore the ones that are not active.
@@ -86,10 +87,10 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		this.axiomExtractor = new DefaultDroolsOWLAxiomExtractor(bridge);
 		this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
 		this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
-		this.axiomInferrer = new DroolsOWLAxiomHandler(this.owl2RLEngine);
+		this.axiomInferrer = new DroolsOWLAxiomHandler();
 		this.sqwrlCollectionInferrer = new DroolsSQWRLCollectionHandler();
 
-		this.definedOWLAxioms = new HashSet<OWLAxiom>();
+		this.assertedAndInferredOWLAxioms = new HashSet<OWLAxiom>();
 
 		this.knowledgeBaseCreatedAtLeastOnce = false;
 		this.knowledgePackagesAdditionRequired = false;
@@ -122,6 +123,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 			this.knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
 			this.resourceHandler = new DroolsResourceHandler(this.knowledgeBuilder);
 
+			// Import OWL and SWRL Java classes
 			resourceHandler.defineJavaResources();
 
 			// Add the globals and OWL and SWRL Java classes to knowledge base
@@ -196,9 +198,9 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	@Override
 	public void defineOWLAxiom(OWLAxiom axiom) throws TargetRuleEngineException
 	{
-		if (!this.definedOWLAxioms.contains(axiom)) {
+		if (!this.assertedAndInferredOWLAxioms.contains(axiom)) {
 			getDroolsOWLAxiomConverter().convert(axiom); // Put the axiom into the Drools knowledge base.
-			this.definedOWLAxioms.add(axiom);
+			this.assertedAndInferredOWLAxioms.add(axiom);
 		}
 	}
 
@@ -291,7 +293,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
 		this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionInferrer);
 
-		this.definedOWLAxioms = new HashSet<OWLAxiom>();
+		this.assertedAndInferredOWLAxioms = new HashSet<OWLAxiom>();
 		this.allSQWRLQueryNames = new HashSet<String>();
 		this.activeSQWRLQueryNames = new HashSet<String>();
 		this.phase1SQWRLRuleNames = new HashSet<String>();
