@@ -11,21 +11,11 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
-public class DPDA extends DA<DP>
+public class DPDA extends DroolsUnaryPropertyAxiom
 {
 	public DPDA(String propertyID)
 	{
-		super(new DP(propertyID));
-	}
-
-	public DPDA(DP property)
-	{
-		super(property);
-	}
-
-	public DP getP()
-	{
-		return getE();
+		super(propertyID);
 	}
 
 	@Override

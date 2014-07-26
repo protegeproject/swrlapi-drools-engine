@@ -11,21 +11,11 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
-public class CDA extends DA<C>
+public class CDA extends DroolsUnaryClassAxiom
 {
 	public CDA(String classID)
 	{
-		super(new C(classID));
-	}
-
-	public CDA(C c)
-	{
-		super(c);
-	}
-
-	public C getC()
-	{
-		return getE();
+		super(classID);
 	}
 
 	@Override
@@ -42,5 +32,4 @@ public class CDA extends DA<C>
 
 	@Override
 	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
-
 }

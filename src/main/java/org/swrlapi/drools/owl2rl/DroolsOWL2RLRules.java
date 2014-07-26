@@ -306,9 +306,9 @@ public class DroolsOWL2RLRules
 	private void defineOWL2RLTable9DroolsRules()
 	{
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_CLS, "scm_cls",
-				"rule scm_cls when CDA($c:c) "
-						+ "then SCA sca1=new SCA($c.id, $c.id); ECA eca=new ECA($c.id, $c.id); SCA sca2=new SCA($c.id, \"owl:Thing\"); "
-						+ "SCA sca3=new SCA(\"owl:Nothing\", $c.id); inferrer.infer(sca1, eca, sca2, sca3); end");
+				"rule scm_cls when CDA($c:cid) "
+						+ "then SCA sca1=new SCA($c, $c); ECA eca=new ECA($c, $c); SCA sca2=new SCA($c, \"owl:Thing\"); "
+						+ "SCA sca3=new SCA(\"owl:Nothing\", $c); inferrer.infer(sca1, eca, sca2, sca3); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_SCO, "scm_sco",
 				"rule scm_sco when SCA($c1:subcid, $c2:supercid) SCA(subcid==$c2, $c3:supercid) "
@@ -323,12 +323,12 @@ public class DroolsOWL2RLRules
 						+ " then ECA eca=new ECA($c1, $c2); inferrer.infer(eca); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_OP, "scm_op",
-				"rule scm_op when OPDA($p:p) "
-						+ "then SOPA sopa=new SOPA($p.id, $p.id); EOPA eopa=new EOPA($p.id, $p.id); inferrer.infer(sopa, eopa); end");
+				"rule scm_op when OPDA($p:pid) "
+						+ "then SOPA sopa=new SOPA($p, $p); EOPA eopa=new EOPA($p, $p); inferrer.infer(sopa, eopa); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_DP, "scm_dp",
-				"rule scm_dp when DPDA($p:p) "
-						+ "then SDPA sdpa=new SDPA($p.id, $p.id); EDPA edpa=new EDPA($p.id, $p.id); inferrer.infer(sdpa, edpa); end");
+				"rule scm_dp when DPDA($p:pid) "
+						+ "then SDPA sdpa=new SDPA($p, $p); EDPA edpa=new EDPA($p, $p); inferrer.infer(sdpa, edpa); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_SPO, "scm_spo_op",
 				"rule scm_spo_op when SOPA($p1:subpid, $p2:superpid) SOPA(subpid==$p2, $p3:superpid) "
