@@ -173,7 +173,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
 		// Supply the inferrer with the set of asserted OWL axioms so that it does not redundantly put inferred axioms into
 		// the knowledge session that are identical to asserted knowledge.
-		this.axiomInferrer.setAssertedOWLAxioms(getDroolsOWLAxiomConverter().getAssertedOWLAxioms());
+		this.axiomInferrer.assertOWLAxioms(getDroolsOWLAxiomConverter().getAssertedOWLAxioms());
 
 		try { // Fire the rules.
 			this.knowledgeSession.fireAllRules(this.sqwrlPhase1AgendaFilter);

@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.properties.OP;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -33,6 +34,9 @@ public class DOPA extends DroolsBinaryObject<String, String> implements A
 	{
 		return converter.extract(this);
 	}
+
+	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
 
 	@Override
 	public String toString()

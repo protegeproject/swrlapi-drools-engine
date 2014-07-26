@@ -3,6 +3,7 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -10,9 +11,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom
  */
-public class APA extends DroolsUnaryObject<String> implements A
+public class AOPA extends DroolsUnaryObject<String> implements A
 {
-	public APA(String propertyID)
+	public AOPA(String propertyID)
 	{
 		super(propertyID);
 	}
@@ -22,7 +23,7 @@ public class APA extends DroolsUnaryObject<String> implements A
 	@Override
 	public String toString()
 	{
-		return "APA" + super.toString();
+		return "AOPA" + super.toString();
 	}
 
 	@Override
@@ -30,4 +31,7 @@ public class APA extends DroolsUnaryObject<String> implements A
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
 }

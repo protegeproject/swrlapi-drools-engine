@@ -299,25 +299,25 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	}
 
 	@Override
-	public OWLInverseFunctionalObjectPropertyAxiom extract(IPA ipa) throws TargetRuleEngineException
+	public OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA IFOPA) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(ipa.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(IFOPA.getpid());
 
 		return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
 	}
 
 	@Override
-	public OWLIrreflexiveObjectPropertyAxiom extract(IRPA irpa) throws TargetRuleEngineException
+	public OWLIrreflexiveObjectPropertyAxiom extract(IROPA IROPA) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(irpa.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(IROPA.getpid());
 
 		return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
 	}
 
 	@Override
-	public OWLAsymmetricObjectPropertyAxiom extract(APA apa) throws TargetRuleEngineException
+	public OWLAsymmetricObjectPropertyAxiom extract(AOPA AOPA) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(apa.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(AOPA.getpid());
 
 		return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
 	}
@@ -331,9 +331,9 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	}
 
 	@Override
-	public OWLTransitiveObjectPropertyAxiom extract(TPA tpa) throws TargetRuleEngineException
+	public OWLTransitiveObjectPropertyAxiom extract(TOPA TOPA) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(tpa.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(TOPA.getpid());
 
 		return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
 	}

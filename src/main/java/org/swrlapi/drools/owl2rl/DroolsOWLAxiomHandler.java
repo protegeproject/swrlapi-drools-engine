@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl2rl;
 import java.util.*;
 
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.swrlapi.drools.owl.axioms.A;
+import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.owl2rl.OWL2RLInconsistency;
 
 /**
@@ -16,12 +16,12 @@ import org.swrlapi.owl2rl.OWL2RLInconsistency;
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
-public class DroolsOWLAxiomHandler
+public class DroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor
 {
 	private final Set<A> inferredOWLAxioms;
-	private Set<A> assertedOWLAxioms;
-	private boolean isInconsistent;
+	private final Set<A> assertedOWLAxioms;
 	private final Set<String> inconsistentMessages;
+	private boolean isInconsistent;
 
 	private StatefulKnowledgeSession knowledgeSession;
 
@@ -45,9 +45,12 @@ public class DroolsOWLAxiomHandler
 	/**
 	 * Supply the asserted OWL axioms.
 	 */
-	public void setAssertedOWLAxioms(Set<A> newAssertedOWLAxioms)
+	public void assertOWLAxioms(Set<A> newAssertedOWLAxioms)
 	{
-		this.assertedOWLAxioms = newAssertedOWLAxioms;
+		this.assertedOWLAxioms.addAll(newAssertedOWLAxioms);
+
+		for (A a : newAssertedOWLAxioms)
+		  a.visit(this);
 	}
 
 	/**
@@ -63,6 +66,8 @@ public class DroolsOWLAxiomHandler
 					&& (!this.assertedOWLAxioms.contains(newInferredOWLAxiom))) {
 				this.inferredOWLAxioms.add(newInferredOWLAxiom);
 				this.knowledgeSession.insert(newInferredOWLAxiom);
+
+				newInferredOWLAxiom.visit(this);
 			}
 		}
 	}
@@ -135,5 +140,170 @@ public class DroolsOWLAxiomHandler
 			this.isInconsistent = true;
 		}
 		this.inconsistentMessages.add(inconsistentMessage);
+	}
+
+	@Override public void visit(CDA cda)
+	{
+
+	}
+
+	@Override public void visit(OPDA cda)
+	{
+
+	}
+
+	@Override public void visit(DPDA cda)
+	{
+
+	}
+
+	@Override public void visit(APDA cda)
+	{
+
+	}
+
+	@Override public void visit(IDA cda)
+	{
+
+	}
+
+	@Override public void visit(SCA sca)
+	{
+
+	}
+
+	@Override public void visit(NOPAA nopa)
+	{
+
+	}
+
+	@Override public void visit(AOPA aopa)
+	{
+
+	}
+
+	@Override public void visit(DCA dca)
+	{
+
+	}
+
+	@Override public void visit(DDPA ddpa)
+	{
+
+	}
+
+	@Override public void visit(DOPA dopa)
+	{
+
+	}
+
+	@Override public void visit(EOPA eopa)
+	{
+
+	}
+
+	@Override public void visit(NDPAA ndpaa)
+	{
+
+	}
+
+	@Override public void visit(DIA dia)
+	{
+
+	}
+
+	@Override public void visit(DJDPA djdpa)
+	{
+
+	}
+
+	@Override public void visit(DJOPA djopa)
+	{
+
+	}
+
+	@Override public void visit(OPRA opra)
+	{
+
+	}
+
+	@Override public void visit(OPAA opaa)
+	{
+
+	}
+
+	@Override public void visit(FOPA fopa)
+	{
+
+	}
+
+	@Override public void visit(SOPA sopa)
+	{
+
+	}
+
+	@Override public void visit(SPA spa)
+	{
+
+	}
+
+	@Override public void visit(DPRA dpra)
+	{
+
+	}
+
+	@Override public void visit(FDPA fdpa)
+	{
+
+	}
+
+	@Override public void visit(EDPA edpa)
+	{
+
+	}
+
+	@Override public void visit(CAA caa)
+	{
+
+	}
+
+	@Override public void visit(ECA eca)
+	{
+
+	}
+
+	@Override public void visit(DPAA dpaa)
+	{
+
+	}
+
+	@Override public void visit(TOPA TOPA)
+	{
+
+	}
+
+	@Override public void visit(IROPA iropa)
+	{
+
+	}
+
+	@Override public void visit(SDPA sdpa)
+	{
+
+	}
+
+	@Override public void visit(IFOPA IFOPA)
+	{
+
+	}
+
+	@Override public void visit(SIA sia)
+	{
+
+	}
+
+	@Override public void visit(IOPA iopa)
+	{
+
 	}
 }

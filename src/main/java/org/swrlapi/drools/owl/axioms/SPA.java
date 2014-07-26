@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -19,7 +20,7 @@ public class SPA extends DroolsUnaryPropertyAxiom
 	@Override
 	public String toString()
 	{
-		return "SPA" + super.toString();
+		return "SYOPA" + super.toString();
 	}
 
 	@Override
@@ -27,4 +28,7 @@ public class SPA extends DroolsUnaryPropertyAxiom
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
 }

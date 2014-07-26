@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -20,6 +21,9 @@ public class FDPA extends DroolsUnaryPropertyAxiom
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
 
 	@Override
 	public String toString()

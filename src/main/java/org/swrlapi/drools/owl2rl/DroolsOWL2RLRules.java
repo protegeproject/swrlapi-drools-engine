@@ -125,10 +125,10 @@ public class DroolsOWL2RLRules
 				"rule prp_fp when FOPA($p:pid) OPAA($x:s, pid==$p, $y1:o) OPAA(s==$x, pid==$p, $y2:o) then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_IFP, "prp_ifp",
-				"rule prp_ifp_op when IPA($p:pid) OPAA($x1:s, pid==$p, $y:o) OPAA($x2:s, pid==$p, o==$y) then SIA sia=new SIA($x1, $x2); inferrer.infer(sia); end");
+				"rule prp_ifp_op when IFOPA($p:pid) OPAA($x1:s, pid==$p, $y:o) OPAA($x2:s, pid==$p, o==$y) then SIA sia=new SIA($x1, $x2); inferrer.infer(sia); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_IRP, "prp_irp",
-				"rule prp_irp when IRPA($p:pid) OPAA($s:s, pid==$p, $x:o) then inferrer.inferFalse(\""
+				"rule prp_irp when IROPA($p:pid) OPAA($s:s, pid==$p, $x:o) then inferrer.inferFalse(\""
 						+ OWL2RLNames.Rule.PRP_IRP.toString()
 						+ "\", $x.id, $p); end");
 
@@ -136,11 +136,11 @@ public class DroolsOWL2RLRules
 				"rule prp_symp when SPA($p:pid) OPAA($x:s, pid==$p, $y:o) then OPAA opaa=new OPAA($y, $p, $x); inferrer.infer(opaa); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_ASYP, "prp_asyp",
-				"rule prp_asyp when APA($p:pid) OPAA($x:s, pid==$p, $y:o) OPAA(s==$y, pid==$p, o==$x) then inferrer.inferFalse(\""
+				"rule prp_asyp when AOPA($p:pid) OPAA($x:s, pid==$p, $y:o) OPAA(s==$y, pid==$p, o==$x) then inferrer.inferFalse(\""
 						+ OWL2RLNames.Rule.PRP_ASYP.toString() + "\", $x.id, $y.id, $p); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_TRP, "prp_trp",
-				"rule prp_trp when TPA($p:pid) OPAA($x:s, pid==$p, $y:o) OPAA(s==$y, pid==$p, $z:o) then OPAA opaa=new OPAA($x, $p, $z); inferrer.infer(opaa); end");
+				"rule prp_trp when TOPA($p:pid) OPAA($x:s, pid==$p, $y:o) OPAA(s==$y, pid==$p, $z:o) then OPAA opaa=new OPAA($x, $p, $z); inferrer.infer(opaa); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_SPO1, "prp_spo1_op",
 				"rule prp_spo1_op when SOPA($p1:subpid, $p2:superpid) OPAA($x:s, pid==$p1, $y:o) then OPAA opaa=new OPAA($x, $p2, $y); inferrer.infer(opaa); end");

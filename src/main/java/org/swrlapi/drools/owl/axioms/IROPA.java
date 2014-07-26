@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -9,9 +10,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom
  */
-public class IRPA extends DroolsUnaryPropertyAxiom
+public class IROPA extends DroolsUnaryPropertyAxiom
 {
-	public IRPA(String propertyID)
+	public IROPA(String propertyID)
 	{
 		super(propertyID);
 	}
@@ -24,8 +25,11 @@ public class IRPA extends DroolsUnaryPropertyAxiom
 	}
 
 	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+
+	@Override
 	public String toString()
 	{
-		return "IRPA" + super.toString();
+		return "IROPA" + super.toString();
 	}
 }

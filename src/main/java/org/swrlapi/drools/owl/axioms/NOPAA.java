@@ -5,6 +5,7 @@ import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.properties.OP;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -58,6 +59,9 @@ public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
 
 	@Override
 	public String toString()

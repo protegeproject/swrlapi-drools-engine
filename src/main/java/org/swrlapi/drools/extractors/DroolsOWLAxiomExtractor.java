@@ -1,7 +1,6 @@
 package org.swrlapi.drools.extractors;
 
 import org.semanticweb.owlapi.model.*;
-import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
 import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.exceptions.TargetRuleEngineException;
@@ -69,15 +68,15 @@ public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 
 	OWLFunctionalDataPropertyAxiom extract(FDPA fopa) throws TargetRuleEngineException;
 
-	OWLInverseFunctionalObjectPropertyAxiom extract(IPA ipa) throws TargetRuleEngineException;
+	OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA IFOPA) throws TargetRuleEngineException;
 
-	OWLIrreflexiveObjectPropertyAxiom extract(IRPA irpa) throws TargetRuleEngineException;
+	OWLIrreflexiveObjectPropertyAxiom extract(IROPA IROPA) throws TargetRuleEngineException;
 
-	OWLAsymmetricObjectPropertyAxiom extract(APA apa) throws TargetRuleEngineException;
+	OWLAsymmetricObjectPropertyAxiom extract(AOPA AOPA) throws TargetRuleEngineException;
 
 	OWLSymmetricObjectPropertyAxiom extract(SPA spa) throws TargetRuleEngineException;
 
-	OWLTransitiveObjectPropertyAxiom extract(TPA tpa) throws TargetRuleEngineException;
+	OWLTransitiveObjectPropertyAxiom extract(TOPA TOPA) throws TargetRuleEngineException;
 
 	OWLInverseObjectPropertiesAxiom extract(IOPA iopa) throws TargetRuleEngineException;
 }

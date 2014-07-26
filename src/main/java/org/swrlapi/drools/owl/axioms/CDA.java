@@ -3,6 +3,7 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.C;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -38,4 +39,8 @@ public class CDA extends DA<C>
 	{
 		return extractor.extract(this);
 	}
+
+	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+
 }

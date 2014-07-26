@@ -90,7 +90,7 @@ public class DroolsResourceHandler
 	private void importOWLAxiomJavaClasses()
 	{
 		// Drools classes representing OWL axioms
-		defineDRLResource("import org.swrlapi.drools.owl.axioms.APA");
+		defineDRLResource("import org.swrlapi.drools.owl.axioms.AOPA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.CAA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.CDA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.DCA");
@@ -108,8 +108,8 @@ public class DroolsResourceHandler
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.FOPA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.IDA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.IOPA");
-		defineDRLResource("import org.swrlapi.drools.owl.axioms.IPA");
-		defineDRLResource("import org.swrlapi.drools.owl.axioms.IRPA");
+		defineDRLResource("import org.swrlapi.drools.owl.axioms.IFOPA");
+		defineDRLResource("import org.swrlapi.drools.owl.axioms.IROPA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.OPAA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.OPDA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.DPRA");
@@ -119,7 +119,7 @@ public class DroolsResourceHandler
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.SIA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.SOPA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.SPA");
-		defineDRLResource("import org.swrlapi.drools.owl.axioms.TPA");
+		defineDRLResource("import org.swrlapi.drools.owl.axioms.TOPA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.NOPAA");
 		defineDRLResource("import org.swrlapi.drools.owl.axioms.NDPAA");
 	}

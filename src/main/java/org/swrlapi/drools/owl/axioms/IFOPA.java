@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -9,9 +10,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom
  */
-public class IPA extends DroolsUnaryPropertyAxiom
+public class IFOPA extends DroolsUnaryPropertyAxiom
 {
-	public IPA(String propertyID)
+	public IFOPA(String propertyID)
 	{
 		super(propertyID);
 	}
@@ -24,8 +25,11 @@ public class IPA extends DroolsUnaryPropertyAxiom
 	}
 
 	@Override
+	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+
+	@Override
 	public String toString()
 	{
-		return "IPA" + super.toString();
+		return "IFOPA" + super.toString();
 	}
 }

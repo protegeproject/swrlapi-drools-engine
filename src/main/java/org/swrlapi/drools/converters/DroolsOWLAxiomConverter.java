@@ -526,27 +526,27 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	public void convert(OWLInverseFunctionalObjectPropertyAxiom axiom) throws TargetRuleEngineException
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
-		IPA ipa = new IPA(getDroolsOWLPropertyExpressionConverter().convert(property));
+		IFOPA ifopa = new IFOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		recordOWLAxiom(ipa);
+		recordOWLAxiom(ifopa);
 	}
 
 	@Override
 	public void convert(OWLIrreflexiveObjectPropertyAxiom axiom) throws TargetRuleEngineException
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
-		IRPA irpa = new IRPA(getDroolsOWLPropertyExpressionConverter().convert(property));
+		IROPA IROPA = new IROPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		recordOWLAxiom(irpa);
+		recordOWLAxiom(IROPA);
 	}
 
 	@Override
 	public void convert(OWLTransitiveObjectPropertyAxiom axiom) throws TargetRuleEngineException
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
-		TPA tpa = new TPA(getDroolsOWLPropertyExpressionConverter().convert(property));
+		TOPA TOPA = new TOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		recordOWLAxiom(tpa);
+		recordOWLAxiom(TOPA);
 	}
 
 	@Override
@@ -562,9 +562,9 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	public void convert(OWLAsymmetricObjectPropertyAxiom axiom) throws TargetRuleEngineException
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
-		APA apa = new APA(getDroolsOWLPropertyExpressionConverter().convert(property));
+		AOPA AOPA = new AOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
 
-		recordOWLAxiom(apa);
+		recordOWLAxiom(AOPA);
 	}
 
 	@Override
