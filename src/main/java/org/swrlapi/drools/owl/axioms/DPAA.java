@@ -31,6 +31,11 @@ public class DPAA extends DroolsTernaryObject<I, String, L> implements A
 		return getT1();
 	}
 
+	public String getsid()
+	{
+		return getT1().getid();
+	}
+
 	public String getpid()
 	{
 		return getT2();

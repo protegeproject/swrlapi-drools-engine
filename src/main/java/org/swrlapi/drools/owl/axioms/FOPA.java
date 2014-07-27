@@ -6,6 +6,8 @@ import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
+ * This class represents on OWL functional object property axiom.
+ *
  * @see org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom
  */
 public class FOPA extends DroolsUnaryPropertyAxiom

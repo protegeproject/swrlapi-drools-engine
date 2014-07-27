@@ -20,6 +20,16 @@ public abstract class DroolsBinaryIndividualsAxiom extends DroolsBinaryObject<I,
 		return getT2();
 	}
 
+	public String geti1id()
+	{
+		return getT1().getid();
+	}
+
+	public String geti2id()
+	{
+		return getT2().getid();
+	}
+
 	@Override
 	public String toString()
 	{

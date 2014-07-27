@@ -29,10 +29,9 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 		return getT1();
 	}
 
-	public I getI()
-	{
-		return getT2();
-	}
+	public I getI() { return getT2(); }
+
+	public String getiid() { return getT2().getid(); }
 
 	@Override
 	public OWLClassAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException

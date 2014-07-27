@@ -1,14 +1,46 @@
 package org.swrlapi.drools.owl2rl;
 
-import org.swrlapi.drools.owl.axioms.*;
+import org.swrlapi.drools.owl.axioms.AOPA;
+import org.swrlapi.drools.owl.axioms.APDA;
+import org.swrlapi.drools.owl.axioms.CAA;
+import org.swrlapi.drools.owl.axioms.CDA;
+import org.swrlapi.drools.owl.axioms.DCA;
+import org.swrlapi.drools.owl.axioms.DDPA;
+import org.swrlapi.drools.owl.axioms.DIA;
+import org.swrlapi.drools.owl.axioms.DJDPA;
+import org.swrlapi.drools.owl.axioms.DJOPA;
+import org.swrlapi.drools.owl.axioms.DOPA;
+import org.swrlapi.drools.owl.axioms.DPAA;
+import org.swrlapi.drools.owl.axioms.DPDA;
+import org.swrlapi.drools.owl.axioms.DPRA;
+import org.swrlapi.drools.owl.axioms.ECA;
+import org.swrlapi.drools.owl.axioms.EDPA;
+import org.swrlapi.drools.owl.axioms.EOPA;
+import org.swrlapi.drools.owl.axioms.FDPA;
+import org.swrlapi.drools.owl.axioms.FOPA;
+import org.swrlapi.drools.owl.axioms.IDA;
+import org.swrlapi.drools.owl.axioms.IFOPA;
+import org.swrlapi.drools.owl.axioms.IOPA;
+import org.swrlapi.drools.owl.axioms.IROPA;
+import org.swrlapi.drools.owl.axioms.NDPAA;
+import org.swrlapi.drools.owl.axioms.NOPAA;
+import org.swrlapi.drools.owl.axioms.OPAA;
+import org.swrlapi.drools.owl.axioms.OPDA;
+import org.swrlapi.drools.owl.axioms.OPRA;
+import org.swrlapi.drools.owl.axioms.SCA;
+import org.swrlapi.drools.owl.axioms.SDPA;
+import org.swrlapi.drools.owl.axioms.SIA;
+import org.swrlapi.drools.owl.axioms.SOPA;
+import org.swrlapi.drools.owl.axioms.SPA;
+import org.swrlapi.drools.owl.axioms.TOPA;
 
 /**
  * A visitor that can visit a Drools representation of OWL axioms ({@link org.swrlapi.drools.owl.axioms.A}).
- * Its primary role is to deal with axioms asserted by Drools' OWL 2 RL reasoner.
+ * Its primary role is to provide a visitor to deal with axioms asserted by a Drools OWL 2 RL reasoner.
  * </p>
  * It is based on the OWLAPI's {@link org.semanticweb.owlapi.model.OWLAxiomVisitor} but only defines visitor
  * methods for axioms that are asserted by an OWL 2 RL reasoner. If an axiom is not asserted by an OWL 2
- * RL reasoner then it is not handled.
+ * RL reasoner then it is not handled by this visitor.
  *
  * @see org.swrlapi.drools.owl.axioms.A
  * @see org.semanticweb.owlapi.model.OWLAxiomVisitor
@@ -93,5 +125,5 @@ public interface DroolsOWL2RLAxiomVisitor
 
 	// An OWLDatatypeDefinitionAxiom not asserted by OWL 2 RL rules so we do not need to record it
 
-	// A SWRLRule not asserted by OWL 2 RL rules so we do not need to record it
+	// A SWRLRule is not asserted by OWL 2 RL rules so we do not need to record it
 }

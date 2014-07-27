@@ -30,12 +30,6 @@ public class SOPA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public String toString()
-	{
-		return "SOPA" + super.toString();
-	}
-
-	@Override
 	public OWLSubObjectPropertyOfAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetRuleEngineException
 	{
 		return converter.extract(this);
@@ -43,4 +37,10 @@ public class SOPA extends DroolsBinaryObject<String, String> implements A
 
 	@Override
 	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+
+	@Override
+	public String toString()
+	{
+		return "SOPA" + super.toString();
+	}
 }
