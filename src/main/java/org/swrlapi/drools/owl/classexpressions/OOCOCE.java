@@ -3,14 +3,14 @@ package org.swrlapi.drools.owl.classexpressions;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 /**
- * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise
+ * This class represents an OWL object complement of class expression in Drools. Drools is supplied with an exhaustive pairwise
  * set of classes from the list in an OWL one of class expression.
  *
- * @see org.semanticweb.owlapi.model.OWLObjectOneOf
+ * @see org.semanticweb.owlapi.model.OWLObjectComplementOf
  */
-public class OCOCE extends DroolsBinaryObject<String, String> implements CE
+public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
 {
-	public OCOCE(String id, String c)
+	public OOCOCE(String id, String c)
 	{
 		super(id, c);
 	}
@@ -29,6 +29,6 @@ public class OCOCE extends DroolsBinaryObject<String, String> implements CE
 	@Override
 	public String toString()
 	{
-		return "OCOCE" + super.toString();
+		return "OOCOCE" + super.toString();
 	}
 }

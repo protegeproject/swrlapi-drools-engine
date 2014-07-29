@@ -9,10 +9,10 @@ import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class defined methods for converting the Drools representation of OWL axioms to their OWLAPI representation.
+ * This class defines methods for converting the Drools representation of OWL axioms to their OWLAPI representation.
  *
- * @see org.semanticweb.owlapi.model.OWLAxiom
  * @see org.swrlapi.drools.owl.axioms.A
+ * @see org.semanticweb.owlapi.model.OWLAxiom
  */
 public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements DroolsOWLAxiomExtractor
 {
@@ -298,25 +298,25 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	}
 
 	@Override
-	public OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA IFOPA) throws TargetRuleEngineException
+	public OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA ifopa) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(IFOPA.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(ifopa.getpid());
 
 		return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
 	}
 
 	@Override
-	public OWLIrreflexiveObjectPropertyAxiom extract(IROPA IROPA) throws TargetRuleEngineException
+	public OWLIrreflexiveObjectPropertyAxiom extract(IROPA iropa) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(IROPA.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(iropa.getpid());
 
 		return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
 	}
 
 	@Override
-	public OWLAsymmetricObjectPropertyAxiom extract(AOPA AOPA) throws TargetRuleEngineException
+	public OWLAsymmetricObjectPropertyAxiom extract(AOPA aopa) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(AOPA.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(aopa.getpid());
 
 		return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
 	}
@@ -330,9 +330,9 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	}
 
 	@Override
-	public OWLTransitiveObjectPropertyAxiom extract(TOPA TOPA) throws TargetRuleEngineException
+	public OWLTransitiveObjectPropertyAxiom extract(TOPA topa) throws TargetRuleEngineException
 	{
-		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(TOPA.getpid());
+		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(topa.getpid());
 
 		return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
 	}

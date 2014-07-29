@@ -63,7 +63,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	public String convert(SWRLAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
 			throws TargetRuleEngineException
-	{ // TODO Visitor to replace instanceof
+	{ // TODO Visitor to replace instanceof (define SWRLObjectVisitorEx)
 		if (atom instanceof SWRLDataRangeAtom) {
 			return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariablePrefixedNames);
 		} else if (atom instanceof SWRLClassAtom) {

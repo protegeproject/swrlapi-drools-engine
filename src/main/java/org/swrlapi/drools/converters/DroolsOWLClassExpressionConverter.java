@@ -169,11 +169,11 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 
 		if (!this.convertedClassExpressionIDs.contains(classExpressionID)) {
 			String complementClassID = convert(classExpression.getOperand());
-			OCOCE ouoce = new OCOCE(classExpressionID, complementClassID);
+			OOCOCE oooce = new OOCOCE(classExpressionID, complementClassID);
 
 			getOWLClassExpressionResolver().record(classExpressionID, classExpression);
 
-			addOWLClassExpression(ouoce);
+			addOWLClassExpression(oooce);
 
 			this.convertedClassExpressionIDs.add(classExpressionID);
 		}

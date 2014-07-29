@@ -532,7 +532,7 @@ public class DroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor
 		}
 	}
 
-	@Override public void visit(TOPA TOPA)
+	@Override public void visit(TOPA topa)
 	{
 
 	}
@@ -564,7 +564,7 @@ public class DroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor
 		}
 	}
 
-	@Override public void visit(IFOPA IFOPA)
+	@Override public void visit(IFOPA ifopa)
 	{
 	}
 

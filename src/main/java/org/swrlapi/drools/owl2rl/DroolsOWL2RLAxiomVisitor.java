@@ -65,8 +65,6 @@ public interface DroolsOWL2RLAxiomVisitor
 
 	void visit(AOPA aopa);
 
-	// OWLReflexiveObjectPropertyAxiom not dealt with by OWL 2 RL so we ignore
-
 	void visit(DCA dca);
 
 	void visit(DDPA ddpa);
@@ -91,8 +89,6 @@ public interface DroolsOWL2RLAxiomVisitor
 
 	void visit(SOPA sopa);
 
-	// An OWLDisjointUnionAxiom not dealt with by OWL 2 RL so we ignore
-
 	void visit(SPA spa);
 
 	void visit(DPRA dpra);
@@ -113,13 +109,17 @@ public interface DroolsOWL2RLAxiomVisitor
 
 	void visit(SDPA sdpa);
 
-	void visit(IFOPA IFOPA);
+	void visit(IFOPA ifopa);
 
 	void visit(SIA sia);
 
-	// An OWLSubPropertyChainOfAxiom not asserted by OWL 2 RL rules so we do not need to record it
-
 	void visit(IOPA iopa);
+
+	// OWLReflexiveObjectPropertyAxiom not dealt with by OWL 2 RL so we ignore
+
+	// An OWLDisjointUnionAxiom not dealt with by OWL 2 RL so we ignore
+
+	// An OWLSubPropertyChainOfAxiom not asserted by OWL 2 RL rules so we do not need to record it
 
 	// An OWLHasKeyAxiom not asserted by OWL 2 RL rules so we do not need to record it
 

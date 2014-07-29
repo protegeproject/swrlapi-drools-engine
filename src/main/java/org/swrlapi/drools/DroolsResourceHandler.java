@@ -128,7 +128,7 @@ public class DroolsResourceHandler
 	{
 		// Drools classes representing OWL class expressions
 		defineDRLResource("import org.swrlapi.drools.owl.classexpressions.CE");
-		defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OCOCE");
+		defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OOCOCE");
 		defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OIOCE");
 		defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OOOCE");
 		defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OUOCE");
