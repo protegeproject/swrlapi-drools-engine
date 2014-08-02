@@ -52,4 +52,8 @@ public class OP extends OE implements P, OPE
 	{
 		return super.toString();
 	}
+
+	public static OP  getOWLTopObjectProperty() { return new OP("owl:TopObjectProperty"); }
+
+	public static OP  getOWLBottomObjectProperty() { return new OP("owl:BottomObjectProperty"); }
 }

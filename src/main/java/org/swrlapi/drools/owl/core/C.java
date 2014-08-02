@@ -58,4 +58,8 @@ public class C extends OE implements CE
 	{
 		return super.toString();
 	}
+
+	public static C getOWLThing() { return new C("owl:Thing"); }
+
+	public static C getOWLNothing() { return new C("owl:Nothing"); }
 }

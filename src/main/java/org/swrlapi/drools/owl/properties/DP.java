@@ -52,4 +52,8 @@ public class DP extends OE implements P, DPE
 	{
 		return super.toString();
 	}
+
+	public static DP  getOWLTopDataProperty() { return new DP("owl:TopDataProperty"); }
+
+	public static DP  getOWLBottomDataProperty() { return new DP("owl:BottomDataProperty"); }
 }

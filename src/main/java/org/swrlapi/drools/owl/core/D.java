@@ -57,4 +57,6 @@ public class D extends OE implements DR
 	{
 		return super.toString();
 	}
+
+	public static D getTopDatatype() { return new D("rdfs:Literal"); }
 }
