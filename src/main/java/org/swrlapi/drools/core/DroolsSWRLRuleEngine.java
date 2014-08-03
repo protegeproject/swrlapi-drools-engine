@@ -1,4 +1,4 @@
-package org.swrlapi.drools;
+package org.swrlapi.drools.core;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -173,7 +173,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
 		// Supply the inferrer with the set of asserted OWL axioms so that it does not redundantly put inferred axioms into
 		// the knowledge session that are identical to asserted knowledge.
-		this.axiomInferrer.assertOWLAxioms(getDroolsOWLAxiomConverter().getAssertedOWLAxioms());
+		this.axiomInferrer.addAssertOWLAxioms(getDroolsOWLAxiomConverter().getAssertedOWLAxioms());
 
 		try { // Fire the rules.
 			this.knowledgeSession.fireAllRules(this.sqwrlPhase1AgendaFilter);

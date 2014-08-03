@@ -11,14 +11,14 @@ import org.swrlapi.drools.owl.core.I;
  */
 public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
 {
-	public OOOCE(String id, I i1, I i2)
+	public OOOCE(String ceid, I i1, I i2)
 	{
-		super(id, i1, i2);
+		super(ceid, i1, i2);
 	}
 
-	public OOOCE(String id, String individual1ID, String individual2ID)
+	public OOOCE(String ceid, String individual1ID, String individual2ID)
 	{
-		super(id, new I(individual1ID), new I(individual2ID));
+		super(ceid, new I(individual1ID), new I(individual2ID));
 	}
 
 	@Override

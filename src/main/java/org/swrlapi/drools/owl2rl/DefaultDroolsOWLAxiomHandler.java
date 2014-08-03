@@ -132,7 +132,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 	/**
 	 * Supply the asserted OWL axioms.
 	 */
-	public void assertOWLAxioms(Set<A> newAssertedOWLAxioms)
+	public void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms)
 	{
 		this.assertedOWLAxioms.addAll(newAssertedOWLAxioms);
 

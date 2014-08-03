@@ -10,9 +10,9 @@ import org.swrlapi.drools.owl.properties.DP;
  */
 public class OMaxQCCE extends DroolsQuadObject<String, String, String, Integer> implements CE
 {
-	public OMaxQCCE(String id, String propertyID, String fillerID, Integer card)
+	public OMaxQCCE(String ceid, String propertyID, String fillerID, Integer card)
 	{
-		super(id, propertyID, fillerID, card);
+		super(ceid, propertyID, fillerID, card);
 	}
 
 	@Override

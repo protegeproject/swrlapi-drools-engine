@@ -1,4 +1,4 @@
-package org.swrlapi.drools;
+package org.swrlapi.drools.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;

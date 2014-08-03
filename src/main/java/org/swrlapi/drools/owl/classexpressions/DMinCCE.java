@@ -10,14 +10,14 @@ import org.swrlapi.drools.owl.properties.DP;
  */
 public class DMinCCE extends DroolsTernaryObject<String, DP, Integer> implements CE
 {
-	public DMinCCE(String id, DP p, Integer card)
+	public DMinCCE(String ceid, DP p, Integer card)
 	{
-		super(id, p, card);
+		super(ceid, p, card);
 	}
 
-	public DMinCCE(String id, String propertyID, Integer card)
+	public DMinCCE(String ceid, String propertyID, Integer card)
 	{
-		super(id, new DP(propertyID), card);
+		super(ceid, new DP(propertyID), card);
 	}
 
 	@Override

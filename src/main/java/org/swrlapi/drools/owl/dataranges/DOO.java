@@ -11,17 +11,17 @@ import java.util.Set;
  */
 public class DOO implements DR
 {
-	private final String id;
+	private final String rid;
 	private final Set<L> literals;
 
-	public DOO(String id, Set<L> literals)
+	public DOO(String rid, Set<L> literals)
 	{
-		this.id = id;
+		this.rid = rid;
 		this.literals = literals;
 	}
 
 	public String getid()
 	{
-		return this.id;
+		return this.rid;
 	}
 }

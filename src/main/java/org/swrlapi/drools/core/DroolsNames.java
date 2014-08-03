@@ -1,4 +1,4 @@
-package org.swrlapi.drools;
+package org.swrlapi.drools.core;
 
 public class DroolsNames
 {

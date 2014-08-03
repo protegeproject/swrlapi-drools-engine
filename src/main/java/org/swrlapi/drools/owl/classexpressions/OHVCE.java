@@ -11,9 +11,9 @@ import org.swrlapi.drools.owl.properties.OP;
  */
 public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
 {
-	public OHVCE(String id, String propertyID, String individualID)
+	public OHVCE(String ceid, String propertyID, String individualID)
 	{
-		super(id, propertyID, new I(individualID));
+		super(ceid, propertyID, new I(individualID));
 	}
 
 	@Override

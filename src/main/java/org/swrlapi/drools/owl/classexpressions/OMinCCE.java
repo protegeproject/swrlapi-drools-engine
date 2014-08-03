@@ -10,14 +10,14 @@ import org.swrlapi.drools.owl.properties.OP;
  */
 public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {
-	public OMinCCE(String id, OP p, Integer card)
+	public OMinCCE(String ceid, OP p, Integer card)
 	{
-		super(id, p, card);
+		super(ceid, p, card);
 	}
 
-	public OMinCCE(String id, String propertyID, Integer card)
+	public OMinCCE(String ceid, String propertyID, Integer card)
 	{
-		super(id, new OP(propertyID), card);
+		super(ceid, new OP(propertyID), card);
 	}
 
 	@Override

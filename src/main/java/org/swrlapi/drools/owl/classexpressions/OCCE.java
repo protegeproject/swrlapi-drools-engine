@@ -10,14 +10,14 @@ import org.swrlapi.drools.owl.properties.OP;
  */
 public class OCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {
-	public OCCE(String id, OP p, Integer card)
+	public OCCE(String ceid, OP p, Integer card)
 	{
-		super(id, p, card);
+		super(ceid, p, card);
 	}
 
-	public OCCE(String id, String propertyID, Integer card)
+	public OCCE(String ceid, String propertyID, Integer card)
 	{
-		super(id, new OP(propertyID), card);
+		super(ceid, new OP(propertyID), card);
 	}
 
 	@Override

@@ -10,9 +10,9 @@ import org.swrlapi.drools.owl.properties.OP;
  */
 public class OSVFCE extends DroolsTernaryObject<String, String, String> implements CE
 {
-	public OSVFCE(String id, String propertyID, String valueClassID)
+	public OSVFCE(String ceid, String propertyID, String valueClassID)
 	{
-		super(id, propertyID, valueClassID);
+		super(ceid, propertyID, valueClassID);
 	}
 
 	@Override

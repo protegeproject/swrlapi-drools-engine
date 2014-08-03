@@ -12,9 +12,9 @@ import org.swrlapi.drools.owl.core.DroolsBinaryObject;
  */
 public class OUOCE extends DroolsBinaryObject<String, String> implements CE
 {
-	public OUOCE(String id, String c1)
+	public OUOCE(String ceid, String c1)
 	{
-		super(id, c1);
+		super(ceid, c1);
 	}
 
 	@Override

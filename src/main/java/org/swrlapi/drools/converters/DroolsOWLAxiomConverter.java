@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
-import org.swrlapi.drools.DroolsSWRLRuleEngine;
+import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.core.I;

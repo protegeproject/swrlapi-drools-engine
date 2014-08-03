@@ -3,7 +3,7 @@ package org.swrlapi.drools.swrl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.swrlapi.drools.DroolsNames;
+import org.swrlapi.drools.core.DroolsNames;
 
 /**
  * Class representing the names of variables passed to built-ins. Non variable arguments positions are represented by

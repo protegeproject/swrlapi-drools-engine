@@ -9,17 +9,17 @@ import java.util.Set;
  */
 public class DIO implements DR
 {
-	private final String id;
+	private final String rid;
 	private final Set<DR> dataRanges;
 
-	public DIO(String id, Set<DR> dataRanges)
+	public DIO(String rid, Set<DR> dataRanges)
 	{
-		this.id = id;
+		this.rid = rid;
 		this.dataRanges = dataRanges;
 	}
 
 	public String getid()
 	{
-		return this.id;
+		return this.rid;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.swrlapi.drools.DroolsRuleDefinition;
+import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.OWL2RLNames;
 
 /**
@@ -24,7 +24,7 @@ import org.swrlapi.owl2rl.OWL2RLNames;
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  * @see DefaultDroolsOWLAxiomHandler
- * @see org.swrlapi.drools.DroolsSWRLRuleEngine
+ * @see org.swrlapi.drools.core.DroolsSWRLRuleEngine
  */
 public class DroolsOWL2RLRules
 {

@@ -1,4 +1,4 @@
-package org.swrlapi.drools;
+package org.swrlapi.drools.core;
 
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
@@ -10,7 +10,7 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * {@link DroolsSWRLRuleEngine}.
  *
  * @see org.swrlapi.core.SWRLRuleEngineManager
- * @see org.swrlapi.drools.DroolsSWRLRuleEngine
+ * @see DroolsSWRLRuleEngine
  */
 public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.TargetSWRLRuleEngineCreator
 {

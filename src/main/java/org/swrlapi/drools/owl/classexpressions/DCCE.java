@@ -10,9 +10,9 @@ import org.swrlapi.drools.owl.properties.DP;
  */
 public class DCCE extends DroolsTernaryObject<String, String, Integer> implements CE
 {
-	public DCCE(String id, String propertyID, Integer card)
+	public DCCE(String ceid, String propertyID, Integer card)
 	{
-		super(id, propertyID, card);
+		super(ceid, propertyID, card);
 	}
 
 	@Override

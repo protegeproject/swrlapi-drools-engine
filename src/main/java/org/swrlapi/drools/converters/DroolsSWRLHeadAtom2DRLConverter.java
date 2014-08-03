@@ -13,8 +13,8 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLHeadAtomConverter;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
-import org.swrlapi.drools.DroolsNames;
-import org.swrlapi.drools.DroolsSWRLBuiltInInvoker;
+import org.swrlapi.drools.core.DroolsNames;
+import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 

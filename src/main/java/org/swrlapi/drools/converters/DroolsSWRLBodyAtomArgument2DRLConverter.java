@@ -18,7 +18,6 @@ import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
-import org.swrlapi.drools.DroolsNames;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 

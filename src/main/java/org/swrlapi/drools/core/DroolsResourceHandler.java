@@ -1,4 +1,4 @@
-package org.swrlapi.drools;
+package org.swrlapi.drools.core;
 
 import org.drools.builder.KnowledgeBuilder;
 import org.drools.builder.ResourceType;
@@ -47,7 +47,7 @@ public class DroolsResourceHandler
 		defineDRLResource("import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;");
 		defineDRLResource("global DroolsSQWRLCollectionHandler sqwrlInferrer;");
 
-		defineDRLResource("import org.swrlapi.drools.DroolsSWRLBuiltInInvoker;");
+		defineDRLResource("import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;");
 		defineDRLResource("global DroolsSWRLBuiltInInvoker invoker;");
 	}
 

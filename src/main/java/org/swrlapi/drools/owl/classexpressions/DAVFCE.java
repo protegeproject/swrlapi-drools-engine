@@ -11,9 +11,9 @@ import org.swrlapi.drools.owl.properties.DP;
  */
 public class DAVFCE extends DroolsTernaryObject<String, String, D> implements CE
 {
-	public DAVFCE(String id, String propertyID, String datatypeID)
+	public DAVFCE(String ceid, String propertyID, String datatypeID)
 	{
-		super(id, propertyID, new D(datatypeID));
+		super(ceid, propertyID, new D(datatypeID));
 	}
 
 	@Override
