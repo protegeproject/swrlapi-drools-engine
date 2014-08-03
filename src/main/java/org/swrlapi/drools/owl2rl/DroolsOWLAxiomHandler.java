@@ -1,721 +1,77 @@
 package org.swrlapi.drools.owl2rl;
 
-import java.util.*;
-
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.swrlapi.drools.owl.axioms.*;
+import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.owl2rl.OWL2RLInconsistency;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
- * Keeps track of OWL axioms that are inferred during rule execution. All Drools rules generated from SWRL rules and
- * the OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} share an instance of this class
- * to assert inferred axioms.
- * </p>
- * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during rule execution. It
- * keeps track of the inferred axioms and also inserts them in to a Drools knowledge session.
+ * Keeps track of OWL axioms that are inferred during rule execution.
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
+ * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
+ * @see org.swrlapi.drools.reasoner.DroolsOWLReasoner
  */
-public class DroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor
+public interface DroolsOWLAxiomHandler
 {
-	private final Set<A> inferredOWLAxioms;
-	private final Set<A> assertedOWLAxioms;
-	private final Set<String> inconsistentMessages;
-	private final Set<String> declaredClassIDs;
-	private final Set<String> declaredIndivualIDs;
-	private final Set<String> declaredObjectPropertyIDs;
-	private final Set<String> declaredDataPropertyIDs;
-	private final Set<String> declaredAnnotationPropertyIDs;
-	private final Map<String, Set<String>> subClasses;
-	private final Map<String, Set<String>> subObjectProperties;
-	private final Map<String, Set<String>> subDataProperties;
-	private final Map<String, Set<String>> superClasses;
-	private final Map<String, Set<String>> superObjectProperties;
-	private final Map<String, Set<String>> superDataProperties;
-	private final Map<String, Set<String>> sameIndividual;
-	private final Map<String, Set<String>> differentIndividuals;
-	private final Map<String, Set<String>> disjointClasses;
-	private final Map<String, Set<String>> disjointObjectProperties;
-	private final Map<String, Set<String>> disjointDataProperties;
-	private final Map<String, Set<String>> equivalentClasses;
-	private final Map<String, Set<String>> equivalentObjectProperties;
-	private final Map<String, Set<String>> equivalentDataProperties;
-	private final Map<String, Set<String>> classAssertions;
-	private final Map<String, Set<String>> inverseObjectProperties;
-	private final Map<String, Set<String>> objectPropertyRanges;
-	private final Map<String, Set<String>> objectPropertyDomains;
-	private final Map<String, Set<String>> dataPropertyDomains;
-	private final Map<String, Map<String, Set<String>>> objectPropertyAssertions;
-	private final Map<String, Map<String, Set<L>>> dataPropertyAssertions;
+	boolean isInconsistent();
 
-	private boolean isInconsistent;
+	boolean isEntailed(A a);
 
-	private StatefulKnowledgeSession knowledgeSession;
+	boolean isEntailed(Set<? extends A> axioms);
 
-	public DroolsOWLAxiomHandler()
-	{
-		this.inferredOWLAxioms = new HashSet<A>();
-		this.assertedOWLAxioms = new HashSet<A>();
-		this.isInconsistent = false;
-		this.inconsistentMessages = new HashSet<String>();
-		this.declaredClassIDs = new HashSet<String>();
-		this.declaredIndivualIDs = new HashSet<String>();
-		this.declaredObjectPropertyIDs = new HashSet<String>();
-		this.declaredDataPropertyIDs = new HashSet<String>();
-		this.declaredAnnotationPropertyIDs = new HashSet<String>();
-		this.subClasses = new HashMap<String, Set<String>>();
-		this.subObjectProperties = new HashMap<String, Set<String>>();
-		this.subDataProperties = new HashMap<String, Set<String>>();
-		this.superClasses = new HashMap<String, Set<String>>();
-		this.superObjectProperties = new HashMap<String, Set<String>>();
-		this.superDataProperties = new HashMap<String, Set<String>>();
-		this.sameIndividual = new HashMap<String, Set<String>>();
-		this.differentIndividuals = new HashMap<String, Set<String>>();
-		this.disjointClasses = new HashMap<String, Set<String>>();
-		this.disjointObjectProperties = new HashMap<String, Set<String>>();
-		this.disjointDataProperties = new HashMap<String, Set<String>>();
-		this.equivalentClasses = new HashMap<String, Set<String>>();
-		this.equivalentObjectProperties = new HashMap<String, Set<String>>();
-		this.equivalentDataProperties = new HashMap<String, Set<String>>();
-		this.classAssertions = new HashMap<String, Set<String>>();
-		this.inverseObjectProperties = new HashMap<String, Set<String>>();
-		this.objectPropertyRanges = new HashMap<String, Set<String>>();
-		this.objectPropertyDomains = new HashMap<String, Set<String>>();
-		this.dataPropertyDomains = new HashMap<String, Set<String>>();
-		this.objectPropertyAssertions = new HashMap<String, Map<String, Set<String>>>();
-		this.dataPropertyAssertions = new HashMap<String, Map<String, Set<L>>>();
-	}
+	Set<A> getInferredOWLAxioms();
 
-	public void reset(StatefulKnowledgeSession knowledgeSession)
-	{
-		this.assertedOWLAxioms.clear();
-		this.inferredOWLAxioms.clear();
-		this.knowledgeSession = knowledgeSession;
-		this.isInconsistent = false;
-		this.inconsistentMessages.clear();
-		this.declaredClassIDs.clear();
-		this.declaredIndivualIDs.clear();
-		this.declaredObjectPropertyIDs.clear();
-		this.declaredDataPropertyIDs.clear();
-		this.declaredAnnotationPropertyIDs.clear();
-		this.subClasses.clear();
-		this.subObjectProperties.clear();
-		this.subDataProperties.clear();
-		this.superClasses.clear();
-		this.superObjectProperties.clear();
-		this.superDataProperties.clear();
-		this.sameIndividual.clear();
-		this.differentIndividuals.clear();
-		this.disjointClasses.clear();
-		this.disjointObjectProperties.clear();
-		this.disjointDataProperties.clear();
-		this.equivalentClasses.clear();
-		this.equivalentObjectProperties.clear();
-		this.equivalentDataProperties.clear();
-		this.classAssertions.clear();
-		this.inverseObjectProperties.clear();
-		this.objectPropertyRanges.clear();
-		this.objectPropertyDomains.clear();
-		this.dataPropertyDomains.clear();
-		this.objectPropertyAssertions.clear();
-		this.dataPropertyAssertions.clear();
-	}
+	Set<A> getAssertedOWLAxioms();
 
-	/**
-	 * Supply the asserted OWL axioms.
-	 */
-	public void assertOWLAxioms(Set<A> newAssertedOWLAxioms)
-	{
-		this.assertedOWLAxioms.addAll(newAssertedOWLAxioms);
+	boolean isDeclaredClass(String classID);
 
-		for (A a : newAssertedOWLAxioms)
-			a.visit(this);
-	}
+	boolean isDeclaredIndividual(String individualID);
 
-	/**
-	 * This method is called by Drools rules at runtime.
-	 */
-	public void infer(A... newInferredOWLAxioms)
-	{
-		if (this.knowledgeSession == null)
-			throw new RuntimeException("internal error: knowledge session not initialized in axiom inferrer");
+	boolean isDeclaredObjectProperty(String propertyID);
 
-		for (A newInferredOWLAxiom : newInferredOWLAxioms) {
-			if (!this.inferredOWLAxioms.contains(newInferredOWLAxiom)
-					&& (!this.assertedOWLAxioms.contains(newInferredOWLAxiom))) {
-				this.inferredOWLAxioms.add(newInferredOWLAxiom);
-				this.knowledgeSession.insert(newInferredOWLAxiom);
+	boolean isDeclaredDataProperty(String propertyID);
 
-				newInferredOWLAxiom.visit(this);
-			}
-		}
-	}
+	boolean isDeclaredAnnotation(String propertyID);
 
-	/**
-	 * This method can be called after the rule engine has finished executing to see if an inconsistency was detected.
-	 * been inferred.
-	 */
-	public boolean isInconsistent()
-	{
-		return this.isInconsistent;
-	}
+	Set<String> getClassAssertions(String classID);
 
-	/**
-	 * This method can be called after the rule engine has finished executing to get all the OWL axioms that have
-	 * been inferred.
-	 */
-	public Set<A> getInferredOWLAxioms()
-	{
-		return Collections.unmodifiableSet(this.inferredOWLAxioms);
-	}
+	Set<String> getSubClasses(String classID);
 
-	public Set<String> getInconsistentMessages()
-	{
-		return Collections.unmodifiableSet(this.inconsistentMessages);
-	}
+	Set<String> getSuperClasses(String classID);
 
-	/**
-	 * This method is called by an OWL 2 RL inconsistency detection rule when an inconsistency is detected.
-	 * The parameters contains details of the offending rule and the OWL entities involved in the detected inconsistency.
-	 */
-	public void inferFalse(String owl2RLRuleName, String... arguments)
-	{
-		String inconsistentMessage = "OWL 2 RL rule detected an inconsistency in the ontology.\n "
-				+ "See http://www.w3.org/TR/owl-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules for a list of inconsistency detection rules.\n"
-				+ "Rule that detected an inconsistency: " + owl2RLRuleName;
-		Iterator<String> argumentsIterator = Arrays.asList(arguments).iterator();
+	Set<String> getDisjointClasses(String classID);
 
-		if (OWL2RLInconsistency.hasInconsistencyRuleArgumentsDescription(owl2RLRuleName)) {
-			OWL2RLInconsistency.OWL2RLRuleArguments ruleArguments = OWL2RLInconsistency.getRuleArguments(owl2RLRuleName);
+	Set<String> getEquivalentClasses(String classID);
 
-			if (ruleArguments.hasClassArguments()) {
-				inconsistentMessage += "\n Classes:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfClassArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentMessage += " " + argumentsIterator.next();
-				}
-			}
+	Set<String> getSameIndividual(String individualID);
 
-			if (ruleArguments.hasIndividualArguments()) {
-				inconsistentMessage += "\n Individuals:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfIndividualArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentMessage += " " + argumentsIterator.next();
-				}
-			}
+	Set<String> getDifferentIndividuals(String individualID);
 
-			if (ruleArguments.hasObjectPropertyArguments()) {
-				inconsistentMessage += "\n Object Properties:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentMessage += " " + argumentsIterator.next();
-				}
-			}
+	Set<String> getSubObjectProperties(String propertyID);
 
-			if (ruleArguments.hasDataPropertyArguments()) {
-				inconsistentMessage += "\n Data Properties:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
-					inconsistentMessage += " " + argumentsIterator.next();
-				}
-			}
-			this.isInconsistent = true;
-		}
-		this.inconsistentMessages.add(inconsistentMessage);
-	}
+	Set<String> getObjectPropertyRanges(String propertyID);
 
-	@Override public void visit(CDA cda)
-	{
-		this.declaredClassIDs.add(cda.getcid());
-	}
+	Set<String> getObjectPropertyDomains(String propertyID);
 
-	@Override public void visit(OPDA opda)
-	{
-		this.declaredObjectPropertyIDs.add(opda.getpid());
-	}
+	Set<String> getDisjointObjectProperties(String propertyID);
 
-	@Override public void visit(DPDA dpda)
-	{
-		this.declaredDataPropertyIDs.add(dpda.getpid());
-	}
+	Set<String> getEquivalentObjectProperties(String propertyID);
 
-	@Override public void visit(APDA apda)
-	{
-		this.declaredAnnotationPropertyIDs.add(apda.getpid());
-	}
+	Set<String> getInverseObjectProperties(String propertyID);
 
-	@Override public void visit(IDA ida)
-	{
-		this.declaredIndivualIDs.add(ida.getI().getid());
-	}
+	Map<String, Set<String>> getObjectPropertyAssertions(String propertyID);
 
-	@Override public void visit(SCA sca)
-	{
-		String subClassID = sca.getsubcid();
-		String superClassID = sca.getsupercid();
+	Set<String> getSubDataProperties(String propertyID);
 
-		if (this.subClasses.containsKey(superClassID)) {
-			this.subClasses.get(superClassID).add(subClassID);
-		} else {
-			Set<String> subClasses = new HashSet<String>();
-			subClasses.add(subClassID);
-			this.subClasses.put(superClassID, subClasses);
-		}
+	Set<String> getSuperDataProperties(String propertyID);
 
-		if (this.superClasses.containsKey(subClassID)) {
-			this.superClasses.get(subClassID).add(superClassID);
-		} else {
-			Set<String> superClasses = new HashSet<String>();
-			superClasses.add(superClassID);
-			this.superClasses.put(subClassID, superClasses);
-		}
-	}
+	Set<String> getDataPropertyDomains(String propertyID);
 
-	@Override public void visit(NOPAA nopa)
-	{
+	Set<String> getDisjointDataProperties(String propertyID);
 
-	}
+	Set<String> getEquivalentDataProperties(String propertyID);
 
-	@Override public void visit(AOPA aopa)
-	{
-
-	}
-
-	@Override public void visit(DCA dca)
-	{
-		String c1ID = dca.getc1id();
-		String c2ID = dca.getc2id();
-
-		if (this.disjointClasses.containsKey(c1ID)) {
-			this.disjointClasses.get(c1ID).add(c2ID);
-		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(c2ID);
-			this.disjointClasses.put(c1ID, classes);
-		}
-	}
-
-	@Override public void visit(DDPA ddpa)
-	{
-		String propertyID = ddpa.getpid();
-		String domainID = ddpa.getdid();
-
-		if (this.dataPropertyDomains.containsKey(propertyID)) {
-			this.dataPropertyDomains.get(propertyID).add(domainID);
-		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(domainID);
-			this.dataPropertyDomains.put(propertyID, classes);
-		}
-	}
-
-	@Override public void visit(DOPA dopa)
-	{
-		String propertyID = dopa.getpid();
-		String domainID = dopa.getdid();
-
-		if (this.objectPropertyDomains.containsKey(propertyID)) {
-			this.objectPropertyDomains.get(propertyID).add(domainID);
-		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(domainID);
-			this.objectPropertyDomains.put(propertyID, classes);
-		}
-	}
-
-	@Override public void visit(EOPA eopa)
-	{
-		String p1ID = eopa.getp1id();
-		String p2ID = eopa.getp2id();
-
-		if (this.equivalentObjectProperties.containsKey(p1ID)) {
-			this.equivalentObjectProperties.get(p1ID).add(p2ID);
-		} else {
-			Set<String> properties = new HashSet<String>();
-			properties.add(p2ID);
-			this.equivalentObjectProperties.put(p1ID, properties);
-		}
-	}
-
-	@Override public void visit(NDPAA ndpaa)
-	{
-
-	}
-
-	@Override public void visit(DIA dia)
-	{
-		String i1ID = dia.geti1id();
-		String i2ID = dia.geti2id();
-
-		if (this.differentIndividuals.containsKey(i1ID)) {
-			this.differentIndividuals.get(i1ID).add(i2ID);
-		} else {
-			Set<String> individuals = new HashSet<String>();
-			individuals.add(i2ID);
-			this.differentIndividuals.put(i1ID, individuals);
-		}
-	}
-
-	@Override public void visit(DJDPA djdpa)
-	{
-		String p1ID = djdpa.getp1id();
-		String p2ID = djdpa.getp2id();
-
-		if (this.disjointDataProperties.containsKey(p1ID)) {
-			this.disjointDataProperties.get(p1ID).add(p2ID);
-		} else {
-			Set<String> properties = new HashSet<String>();
-			properties.add(p2ID);
-			this.disjointDataProperties.put(p1ID, properties);
-		}
-	}
-
-	@Override public void visit(DJOPA djopa)
-	{
-		String p1ID = djopa.getp1id();
-		String p2ID = djopa.getp2id();
-
-		if (this.disjointObjectProperties.containsKey(p1ID)) {
-			this.disjointObjectProperties.get(p1ID).add(p2ID);
-		} else {
-			Set<String> properties = new HashSet<String>();
-			properties.add(p2ID);
-			this.disjointObjectProperties.put(p1ID, properties);
-		}
-	}
-
-	@Override public void visit(OPRA opra)
-	{
-		String propertyID = opra.getpid();
-		String rangeID = opra.getrid();
-
-		if (this.objectPropertyRanges.containsKey(propertyID)) {
-			this.objectPropertyRanges.get(propertyID).add(rangeID);
-		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(rangeID);
-			this.objectPropertyRanges.put(propertyID, classes);
-		}
-	}
-
-	@Override public void visit(OPAA opaa)
-	{
-		String subjectID = opaa.getsid();
-		String propertyID = opaa.getpid();
-		String objectID = opaa.getoid();
-
-		if (this.objectPropertyAssertions.containsKey(subjectID)) {
-			Map<String, Set<String>> property2Values = objectPropertyAssertions.get(subjectID);
-			if (property2Values.containsKey(propertyID)) {
-				Set<String> values = property2Values.get(propertyID);
-				values.add(objectID);
-			} else {
-				Set<String> values = new HashSet<String>();
-				values.add(objectID);
-				property2Values.put(propertyID, values);
-			}
-		} else {
-			Map<String, Set<String>> property2Values = new HashMap<String, Set<String>>();
-			Set<String> values = new HashSet<String>();
-			values.add(objectID);
-			property2Values.put(propertyID, values);
-			this.objectPropertyAssertions.put(subjectID, property2Values);
-		}
-	}
-
-	@Override public void visit(FOPA fopa)
-	{
-
-	}
-
-	@Override public void visit(SOPA sopa)
-	{
-		String subPropertyID = sopa.getsubpid();
-		String superPropertyID = sopa.getsuperpid();
-
-		if (this.subObjectProperties.containsKey(superPropertyID)) {
-			this.subObjectProperties.get(superPropertyID).add(subPropertyID);
-		} else {
-			Set<String> subProperties = new HashSet<String>();
-			subProperties.add(subPropertyID);
-			this.subObjectProperties.put(superPropertyID, subProperties);
-		}
-
-		if (this.superObjectProperties.containsKey(subPropertyID)) {
-			this.superObjectProperties.get(subPropertyID).add(superPropertyID);
-		} else {
-			Set<String> superProperties = new HashSet<String>();
-			superProperties.add(superPropertyID);
-			this.superObjectProperties.put(subPropertyID, superProperties);
-		}
-	}
-
-	@Override public void visit(SPA spa)
-	{
-
-	}
-
-	@Override public void visit(DPRA dpra)
-	{
-	}
-
-	@Override public void visit(FDPA fdpa)
-	{
-
-	}
-
-	@Override public void visit(EDPA edpa)
-	{
-		String p1ID = edpa.getp1id();
-		String p2ID = edpa.getp2id();
-
-		if (this.equivalentDataProperties.containsKey(p1ID)) {
-			this.equivalentDataProperties.get(p1ID).add(p2ID);
-		} else {
-			Set<String> properties = new HashSet<String>();
-			properties.add(p2ID);
-			this.equivalentDataProperties.put(p1ID, properties);
-		}
-	}
-
-	@Override public void visit(CAA caa)
-	{
-		String classID = caa.getcid();
-		String individualID = caa.getiid();
-
-		if (this.classAssertions.containsKey(classID)) {
-			this.classAssertions.get(classID).add(individualID);
-		} else {
-			Set<String> individuals = new HashSet<String>();
-			individuals.add(individualID);
-			this.classAssertions.put(classID, individuals);
-		}
-	}
-
-	@Override public void visit(ECA eca)
-	{
-		String c1ID = eca.getc1id();
-		String c2ID = eca.getc2id();
-
-		if (this.equivalentClasses.containsKey(c1ID)) {
-			this.equivalentClasses.get(c1ID).add(c2ID);
-		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(c2ID);
-			this.equivalentClasses.put(c1ID, classes);
-		}
-	}
-
-	@Override public void visit(DPAA dpaa)
-	{
-		String subjectID = dpaa.getsid();
-		String propertyID = dpaa.getpid();
-		L object = dpaa.geto();
-
-		if (this.dataPropertyAssertions.containsKey(subjectID)) {
-			Map<String, Set<L>> property2Values = dataPropertyAssertions.get(subjectID);
-			if (property2Values.containsKey(propertyID)) {
-				Set<L> values = property2Values.get(propertyID);
-				values.add(object);
-			} else {
-				Set<L> values = new HashSet<L>();
-				values.add(object);
-				property2Values.put(propertyID, values);
-			}
-		} else {
-			Map<String, Set<L>> property2Values = new HashMap<String, Set<L>>();
-			Set<L> values = new HashSet<L>();
-			values.add(object);
-			property2Values.put(propertyID, values);
-			this.dataPropertyAssertions.put(subjectID, property2Values);
-		}
-	}
-
-	@Override public void visit(TOPA topa)
-	{
-
-	}
-
-	@Override public void visit(IROPA iropa)
-	{
-
-	}
-
-	@Override public void visit(SDPA sdpa)
-	{
-		String subPropertyID = sdpa.getsubpid();
-		String superPropertyID = sdpa.getsuperpid();
-
-		if (this.subDataProperties.containsKey(superPropertyID)) {
-			this.subDataProperties.get(superPropertyID).add(subPropertyID);
-		} else {
-			Set<String> subProperties = new HashSet<String>();
-			subProperties.add(subPropertyID);
-			this.subDataProperties.put(superPropertyID, subProperties);
-		}
-
-		if (this.superDataProperties.containsKey(subPropertyID)) {
-			this.superDataProperties.get(subPropertyID).add(superPropertyID);
-		} else {
-			Set<String> superProperties = new HashSet<String>();
-			superProperties.add(superPropertyID);
-			this.superDataProperties.put(subPropertyID, superProperties);
-		}
-	}
-
-	@Override public void visit(SIA sia)
-	{
-		String i1ID = sia.geti1id();
-		String i2ID = sia.geti2id();
-
-		if (this.sameIndividual.containsKey(i1ID)) {
-			this.sameIndividual.get(i1ID).add(i2ID);
-		} else {
-			Set<String> individuals = new HashSet<String>();
-			individuals.add(i2ID);
-			this.sameIndividual.put(i1ID, individuals);
-		}
-	}
-
-	@Override public void visit(IOPA iopa)
-	{
-		String p1ID = iopa.getp1id();
-		String p2ID = iopa.getp2id();
-
-		if (this.inverseObjectProperties.containsKey(p1ID)) {
-			this.inverseObjectProperties.get(p1ID).add(p2ID);
-		} else {
-			Set<String> properties = new HashSet<String>();
-			properties.add(p2ID);
-			this.inverseObjectProperties.put(p1ID, properties);
-		}
-	}
-
-	@Override public void visit(IFOPA ifopa)
-	{
-		// An OWL 2 RL reasoner does not assert axioms of this type so we ignore.
-	}
-
-	/**
-	 * Given two class expressions CE1 and CE2 and an ontology O, CE1 is a strict subclass of CE2, written
-	 * StrictSubClassOf(CE1 CE2) if O entails SubClassOf(CE1 CE2) and O does not entail SubClassOf(CE2 CE1)
-	 */
-	private boolean strictSubClassOf(String ceid1, String ceid2)
-	{
-		checkSubClassIDs(ceid1, ceid2);
-
-		return this.subClasses.get(ceid1).contains(ceid2) && !this.subClasses.get(ceid2).contains(ceid1);
-	}
-
-	/**
-	 * Given two class expressions CE1 and CE2 and an ontology O, CE1 is a direct subclass of CE2, written
-	 * DirectSubClassOf(CE1 CE2), with respect to O if O entails StrictSubClassOf(CE1 CE2) and there is no class
-	 * name C in the signature of O such that O entails StrictSubClassOf(CE1 C) and O entails StrictSubClassOf(C CE2).
-	 */
-	private boolean directSubClassOf(String ceid1, String ceid2)
-	{
-		checkSubClassIDs(ceid1, ceid2);
-
-		if (strictSubClassOf(ceid1, ceid2)) {
-			for (String superClassID : this.subClasses.get(ceid1)) {
-				if (strictSubClassOf(superClassID, ceid2))
-					return false;
-			}
-			return false;
-		} else
-			return false;
-	}
-
-	private void checkSubClassIDs(String... ceids)
-	{
-		for (String ceid : ceids) {
-			if (!this.subClasses.containsKey(ceid)) {
-				throw new RuntimeException("No record of class expression with ID " + ceid);
-			}
-		}
-	}
-
-	/**
-	 * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a strict subproperty of OPE2,
-	 * written StrictSubObjectPropertyOf(OPE1 OPE2) if O entails SubObjectPropertyOf(OPE1 OPE2) and O does not entail
-	 * SubObjectPropertyOf(OPE2 OPE1)
-	 */
-	private boolean strictSubObjectPropertyOf(String opid1, String opid2)
-	{
-		checkSubObjectPropertyIDs(opid1, opid2);
-
-		return this.subObjectProperties.get(opid1).contains(opid2) && !this.subObjectProperties.get(opid2).contains(opid1);
-	}
-
-	/**
-	 * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a direct subproperty of OPE2,
-	 * written DirectSubObjectPropertyOf(OPE1 OPE2), with respect to O if O entails StrictSubObjectPropertyOf(OPE1 OPE2)
-	 * and there is no object property name P in the signature of O such that O entails
-	 * StrictSubObjectPropertyOf(OPE1 P) and O entails StrictSubObjectPropertyOf(P OPE2).
-	 */
-	private boolean directSubObjectPropertyOf(String opid1, String opid2)
-	{
-		checkSubObjectPropertyIDs(opid1, opid2);
-
-		if (strictSubObjectPropertyOf(opid1, opid2)) {
-			for (String superObjectPropertyID : this.subObjectProperties.get(opid1)) {
-				if (strictSubObjectPropertyOf(superObjectPropertyID, opid2))
-					return false;
-			}
-			return false;
-		} else
-			return false;
-	}
-
-	private void checkSubObjectPropertyIDs(String... opids)
-	{
-		for (String opid : opids) {
-			if (!this.subObjectProperties.containsKey(opid)) {
-				throw new RuntimeException("No record of object property expression with ID " + opid);
-			}
-		}
-	}
-
-	/**
-	 * Given two data property expressions DPE1 and DPE2 and an ontology O, DPE1 is a strict subproperty of DPE2,
-	 * written StrictSubDataPropertyOf(DPE1 DPE2) if O entails SubDataPropertyOf(DPE1 DPE2) and O does not entail
-	 * SubDataPropertyOf(DPE2 DPE1)
-	 */
-	private boolean strictSubDataPropertyOf(String opid1, String opid2)
-	{
-		checkSubDataPropertyIDs(opid1, opid2);
-
-		return this.subDataProperties.get(opid1).contains(opid2) && !this.subDataProperties.get(opid2).contains(opid1);
-	}
-
-	/**
-	 * Given two object property expressions DPE1 and DPE2 and an ontology O, DPE1 is a direct subproperty of DPE2,
-	 * written DirectSubDataPropertyOf(DPE1 DPE2), with respect to O if O entails StrictSubDataPropertyOf(DPE1 DPE2)
-	 * and there is no data property name P in the signature of O such that O entails
-	 * StrictSubDataPropertyOf(DPE1 P) and O entails StrictSubDataPropertyOf(P DPE2).
-	 */
-	private boolean directSubDataPropertyOf(String dpid1, String dpid2)
-	{
-		checkSubDataPropertyIDs(dpid1, dpid2);
-
-		if (strictSubDataPropertyOf(dpid1, dpid2)) {
-			for (String superDataPropertyID : this.subDataProperties.get(dpid1)) {
-				if (strictSubDataPropertyOf(superDataPropertyID, dpid2))
-					return false;
-			}
-			return false;
-		} else
-			return false;
-	}
-
-	private void checkSubDataPropertyIDs(String... dpids)
-	{
-		for (String dpid : dpids) {
-			if (!this.subDataProperties.containsKey(dpid)) {
-				throw new RuntimeException("No record of data property expression with ID " + dpid);
-			}
-		}
-	}
-
+	Map<String, Set<L>> getDataPropertyAssertions(String propertyID);
 }

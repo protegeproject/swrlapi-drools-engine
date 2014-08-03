@@ -13,7 +13,7 @@ import org.swrlapi.owl2rl.OWL2RLNames;
  * </p>
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
  * </p>
- * All axioms inferred by these rules are handled by a {@link DroolsOWLAxiomHandler}.
+ * All axioms inferred by these rules are handled by a {@link DefaultDroolsOWLAxiomHandler}.
  * </p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in
  * the Specification). The value space of literals is also not validated (specified by rule dt-not-type). All
@@ -23,7 +23,7 @@ import org.swrlapi.owl2rl.OWL2RLNames;
  * Many optimizations are possible.
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
- * @see org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler
+ * @see DefaultDroolsOWLAxiomHandler
  * @see org.swrlapi.drools.DroolsSWRLRuleEngine
  */
 public class DroolsOWL2RLRules

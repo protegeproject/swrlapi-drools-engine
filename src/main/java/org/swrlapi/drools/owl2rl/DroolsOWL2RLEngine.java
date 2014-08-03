@@ -1,9 +1,7 @@
 package org.swrlapi.drools.owl2rl;
 
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.swrlapi.drools.DroolsRuleDefinition;
@@ -15,12 +13,12 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * </p>
  * This engine is created by a {@link org.swrlapi.drools.DroolsSWRLRuleEngine}. The OWL 2 RL rules are defined
  * in the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} class. All axioms inferred by Drools rules are
- * handled by a {@link DroolsOWLAxiomHandler}.
+ * handled by a {@link DefaultDroolsOWLAxiomHandler}.
  *
  * @see org.swrlapi.owl2rl.AbstractOWL2RLEngine
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
  * @see org.swrlapi.drools.DroolsSWRLRuleEngine
- * @see org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler
+ * @see DefaultDroolsOWLAxiomHandler
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {
