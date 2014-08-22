@@ -13,7 +13,7 @@ import java.util.Set;
  * @see org.swrlapi.drools.owl.classexpressions.CE
  * @see org.semanticweb.owlapi.model.OWLClassExpression
  */
-public class CEResolver
+class CEResolver
 {
 	private final Map<OWLClassExpression, String> owlClassExpression2CEIDMap;
 	private final Set<String> convertedClassExpressionIDs;
