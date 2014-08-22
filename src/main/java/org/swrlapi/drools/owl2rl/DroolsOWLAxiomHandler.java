@@ -7,33 +7,32 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Keeps track of OWL axioms that are inferred during rule execution.
+ * Keeps track of OWL axioms that are inferred during rule execution. Also contains the initial asserted OWL
+ * axioms.
+ * <p>
+ * Used by a {@link org.swrlapi.drools.reasoner.DroolsOWLReasoner}.
  *
+ * @see org.swrlapi.drools.reasoner.DroolsOWLReasoner
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
- * @see org.swrlapi.drools.reasoner.DroolsOWLReasoner
  */
 public interface DroolsOWLAxiomHandler
 {
 	boolean isInconsistent();
 
+	// Axioms
+
+	Set<A> getAssertedOWLAxioms();
+
+	Set<A> getInferredOWLAxioms();
+
 	boolean isEntailed(A a);
 
 	boolean isEntailed(Set<? extends A> axioms);
 
-	Set<A> getInferredOWLAxioms();
-
-	Set<A> getAssertedOWLAxioms();
+	// Classes
 
 	boolean isDeclaredClass(String classID);
-
-	boolean isDeclaredIndividual(String individualID);
-
-	boolean isDeclaredObjectProperty(String propertyID);
-
-	boolean isDeclaredDataProperty(String propertyID);
-
-	boolean isDeclaredAnnotation(String propertyID);
 
 	Set<String> getClassAssertions(String classID);
 
@@ -45,9 +44,21 @@ public interface DroolsOWLAxiomHandler
 
 	Set<String> getEquivalentClasses(String classID);
 
+	boolean strictSubClassOf(String classID1, String classID2);
+
+	boolean directSubClassOf(String classID1, String classID2);
+
+	// Individuals
+
+	boolean isDeclaredIndividual(String individualID);
+
 	Set<String> getSameIndividual(String individualID);
 
 	Set<String> getDifferentIndividuals(String individualID);
+
+	// Object properties
+
+	boolean isDeclaredObjectProperty(String propertyID);
 
 	Set<String> getSubObjectProperties(String propertyID);
 
@@ -63,6 +74,14 @@ public interface DroolsOWLAxiomHandler
 
 	Map<String, Set<String>> getObjectPropertyAssertions(String propertyID);
 
+	boolean strictSubObjectPropertyOf(String propertyID1, String propertyID2);
+
+	boolean directSubObjectPropertyOf(String propertyID1, String propertyID2);
+
+	// Data properties
+
+	boolean isDeclaredDataProperty(String propertyID);
+
 	Set<String> getSubDataProperties(String propertyID);
 
 	Set<String> getSuperDataProperties(String propertyID);
@@ -74,4 +93,12 @@ public interface DroolsOWLAxiomHandler
 	Set<String> getEquivalentDataProperties(String propertyID);
 
 	Map<String, Set<L>> getDataPropertyAssertions(String propertyID);
+
+	boolean strictSubDataPropertyOf(String propertyID1, String propertyID2);
+
+	boolean directSubDataPropertyOf(String propertyID1, String propertyID2);
+
+	// Annotation properties
+
+	boolean isDeclaredAnnotation(String propertyID);
 }

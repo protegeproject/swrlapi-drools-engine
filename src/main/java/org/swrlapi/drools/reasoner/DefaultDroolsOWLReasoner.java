@@ -14,7 +14,8 @@ import java.util.Set;
 
 /**
  * Implements the {@link org.swrlapi.drools.reasoner.DroolsOWLReasoner}. This class is supplied with a
- * {@link org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler} which contains all asserted and inferred OWL axioms.
+ * {@link org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler} which contains all OWL axioms that are
+ * inferred by a reasoner implementation.
  *
  * @see org.semanticweb.owlapi.reasoner.OWLReasoner
  * @see org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler
@@ -33,6 +34,8 @@ public class DefaultDroolsOWLReasoner implements DroolsOWLReasoner
 		return !this.droolsOWLAxiomHandler.isInconsistent();
 	}
 
+	// Axioms
+
 	@Override public boolean isEntailed(A a)
 	{
 		return this.droolsOWLAxiomHandler.isEntailed(a);
@@ -43,50 +46,54 @@ public class DefaultDroolsOWLReasoner implements DroolsOWLReasoner
 		return this.droolsOWLAxiomHandler.isEntailed(axioms);
 	}
 
+	// Classes
+
 	@Override public CNode getUnsatisfiableClasses()
 	{
-		return null;
+		return null; // TODO
 	}
 
 	@Override public CNode getTopClassNode()
 	{
-		return null;
+		return null; // TODO
 	}
 
 	@Override public CNode getBottomClassNode()
 	{
-		return null;
+		return null; // TODO
 	}
 
 	@Override public boolean isSatisfiable(CE ce)
 	{
-		return false;
+		return false; // TODO
 	}
 
 	@Override public CNodeSet getDisjointClasses(CE ce)
 	{
-		return null;
+		return null; // TODO
 	}
 
 	@Override public CNodeSet getSubClasses(CE ce, boolean direct)
 	{
-		return null;
+		return null; // TODO
 	}
 
 	@Override public CNodeSet getSuperClasses(CE ce, boolean direct)
 	{
-		return null;
+		return null; // TODO
 	}
 
 	@Override public CNode getEquivalentClasses(CE ce)
 	{
-		return null;
+		return null; // TODO
 	}
 
 	@Override public CNodeSet getTypes(I i, boolean direct)
 	{
-		return null;
+		return null; // TODO
 	}
+
+	// Individuals
 
 	@Override public INodeSet getInstances(CE ce, boolean direct)
 	{
@@ -102,6 +109,8 @@ public class DefaultDroolsOWLReasoner implements DroolsOWLReasoner
 	{
 		return null;
 	}
+
+	// Object properties
 
 	@Override public OPNode getTopObjectPropertyNode()
 	{
@@ -152,6 +161,8 @@ public class DefaultDroolsOWLReasoner implements DroolsOWLReasoner
 	{
 		return null;
 	}
+
+	// Data properties
 
 	@Override public DPNode getTopDataPropertyNode()
 	{

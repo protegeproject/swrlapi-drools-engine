@@ -13,8 +13,14 @@ import org.swrlapi.drools.owl.properties.OPE;
 import java.util.Set;
 
 /**
+ * A Drools-based implementation of an OWLAPI-based reasoner.
  *
  * @see org.semanticweb.owlapi.reasoner.OWLReasoner
+ * @see org.swrlapi.drools.owl.axioms.A
+ * @see org.swrlapi.drools.owl.classexpressions.CE
+ * @see org.swrlapi.drools.owl.core.I
+ * @see org.swrlapi.drools.owl.properties.OPE
+ * @see org.swrlapi.drools.owl.properties.DPE
  */
 public interface DroolsOWLReasoner
 {
@@ -46,7 +52,7 @@ public interface DroolsOWLReasoner
 
 	CNodeSet getTypes(I i, boolean direct);
 
-	// Idividuals
+	// Individuals
 
 	INodeSet getInstances(CE ce, boolean direct);
 

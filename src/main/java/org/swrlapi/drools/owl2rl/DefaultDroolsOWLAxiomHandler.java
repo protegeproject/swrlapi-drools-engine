@@ -19,7 +19,7 @@ import org.swrlapi.owl2rl.OWL2RLInconsistency;
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
  * @see org.swrlapi.drools.reasoner.DroolsOWLReasoner
  */
-public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, DroolsOWLAxiomHandler
+public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, DroolsOWL2RLAxiomVisitor
 {
 	private final Set<A> inferredOWLAxioms;
 	private final Set<A> assertedOWLAxioms;
@@ -130,6 +130,16 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 	}
 
 	/**
+	 * This method can be called after the rule engine has finished executing to see if an inconsistency was detected.
+	 */
+	@Override public boolean isInconsistent()
+	{
+		return this.isInconsistent;
+	}
+
+	// Axioms
+
+	/**
 	 * Supply the asserted OWL axioms.
 	 */
 	public void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms)
@@ -159,12 +169,18 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 		}
 	}
 
-	/**
-	 * This method can be called after the rule engine has finished executing to see if an inconsistency was detected.
-	 */
-	@Override public boolean isInconsistent()
+	@Override public Set<A> getAssertedOWLAxioms()
 	{
-		return this.isInconsistent;
+		return Collections.unmodifiableSet(this.assertedOWLAxioms);
+	}
+
+	/**
+	 * This method can be called after the rule engine has finished executing to get all the OWL axioms that have
+	 * been inferred.
+	 */
+	@Override public Set<A> getInferredOWLAxioms()
+	{
+		return Collections.unmodifiableSet(this.inferredOWLAxioms);
 	}
 
 	@Override public boolean isEntailed(A a)
@@ -180,43 +196,11 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 		return false;
 	}
 
-	@Override public Set<A> getAssertedOWLAxioms()
-	{
-		return Collections.unmodifiableSet(this.assertedOWLAxioms);
-	}
-
-	/**
-	 * This method can be called after the rule engine has finished executing to get all the OWL axioms that have
-	 * been inferred.
-	 */
-	@Override public Set<A> getInferredOWLAxioms()
-	{
-		return Collections.unmodifiableSet(this.inferredOWLAxioms);
-	}
+	// Classes
 
 	@Override public boolean isDeclaredClass(String classID)
 	{
 		return this.declaredClassIDs.contains(classID);
-	}
-
-	@Override public boolean isDeclaredIndividual(String individualID)
-	{
-		return this.declaredIndividualIDs.contains(individualID);
-	}
-
-	@Override public boolean isDeclaredObjectProperty(String propertyID)
-	{
-		return this.declaredObjectPropertyIDs.contains(propertyID);
-	}
-
-	@Override public boolean isDeclaredDataProperty(String propertyID)
-	{
-		return this.declaredDataPropertyIDs.contains(propertyID);
-	}
-
-	@Override public boolean isDeclaredAnnotation(String propertyID)
-	{
-		return this.declaredAnnotationPropertyIDs.contains(propertyID);
 	}
 
 	@Override public Set<String> getClassAssertions(String classID)
@@ -244,6 +228,43 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 		return this.equivalentClasses.get(classID);
 	}
 
+	/**
+	 * Given two class expressions CE1 and CE2 and an ontology O, CE1 is a strict subclass of CE2, written
+	 * StrictSubClassOf(CE1 CE2) if O entails SubClassOf(CE1 CE2) and O does not entail SubClassOf(CE2 CE1)
+	 */
+	@Override public boolean strictSubClassOf(String ceid1, String ceid2)
+	{
+		checkSubClassIDs(ceid1, ceid2);
+
+		return this.subClasses.get(ceid1).contains(ceid2) && !this.subClasses.get(ceid2).contains(ceid1);
+	}
+
+	/**
+	 * Given two class expressions CE1 and CE2 and an ontology O, CE1 is a direct subclass of CE2, written
+	 * DirectSubClassOf(CE1 CE2), with respect to O if O entails StrictSubClassOf(CE1 CE2) and there is no class
+	 * name C in the signature of O such that O entails StrictSubClassOf(CE1 C) and O entails StrictSubClassOf(C CE2).
+	 */
+	@Override public boolean directSubClassOf(String ceid1, String ceid2)
+	{
+		checkSubClassIDs(ceid1, ceid2);
+
+		if (strictSubClassOf(ceid1, ceid2)) {
+			for (String superClassID : this.subClasses.get(ceid1)) {
+				if (strictSubClassOf(superClassID, ceid2))
+					return false;
+			}
+			return false;
+		} else
+			return false;
+	}
+
+	// Individuals
+
+	@Override public boolean isDeclaredIndividual(String individualID)
+	{
+		return this.declaredIndividualIDs.contains(individualID);
+	}
+
 	@Override public Set<String> getSameIndividual(String individualID)
 	{
 		return this.sameIndividual.get(individualID);
@@ -252,6 +273,13 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 	@Override public Set<String> getDifferentIndividuals(String individualID)
 	{
 		return this.differentIndividuals.get(individualID);
+	}
+
+	// Object properties
+
+	@Override public boolean isDeclaredObjectProperty(String propertyID)
+	{
+		return this.declaredObjectPropertyIDs.contains(propertyID);
 	}
 
 	@Override public Set<String> getSubObjectProperties(String propertyID)
@@ -289,6 +317,45 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 		return this.objectPropertyAssertions.get(propertyID);
 	}
 
+	/**
+	 * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a strict subproperty of OPE2,
+	 * written StrictSubObjectPropertyOf(OPE1 OPE2) if O entails SubObjectPropertyOf(OPE1 OPE2) and O does not entail
+	 * SubObjectPropertyOf(OPE2 OPE1)
+	 */
+	@Override public boolean strictSubObjectPropertyOf(String opid1, String opid2)
+	{
+		checkSubObjectPropertyIDs(opid1, opid2);
+
+		return this.subObjectProperties.get(opid1).contains(opid2) && !this.subObjectProperties.get(opid2).contains(opid1);
+	}
+
+	/**
+	 * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a direct subproperty of OPE2,
+	 * written DirectSubObjectPropertyOf(OPE1 OPE2), with respect to O if O entails StrictSubObjectPropertyOf(OPE1 OPE2)
+	 * and there is no object property name P in the signature of O such that O entails
+	 * StrictSubObjectPropertyOf(OPE1 P) and O entails StrictSubObjectPropertyOf(P OPE2).
+	 */
+	@Override public boolean directSubObjectPropertyOf(String opid1, String opid2)
+	{
+		checkSubObjectPropertyIDs(opid1, opid2);
+
+		if (strictSubObjectPropertyOf(opid1, opid2)) {
+			for (String superObjectPropertyID : this.subObjectProperties.get(opid1)) {
+				if (strictSubObjectPropertyOf(superObjectPropertyID, opid2))
+					return false;
+			}
+			return false;
+		} else
+			return false;
+	}
+
+	// Data properties
+
+	@Override public boolean isDeclaredDataProperty(String propertyID)
+	{
+		return this.declaredDataPropertyIDs.contains(propertyID);
+	}
+
 	@Override public Set<String> getSubDataProperties(String propertyID)
 	{
 		return this.subDataProperties.get(propertyID);
@@ -317,6 +384,45 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 	@Override public Map<String, Set<L>> getDataPropertyAssertions(String propertyID)
 	{
 		return this.dataPropertyAssertions.get(propertyID);
+	}
+
+	/**
+	 * Given two data property expressions DPE1 and DPE2 and an ontology O, DPE1 is a strict subproperty of DPE2,
+	 * written StrictSubDataPropertyOf(DPE1 DPE2) if O entails SubDataPropertyOf(DPE1 DPE2) and O does not entail
+	 * SubDataPropertyOf(DPE2 DPE1)
+	 */
+	@Override public boolean strictSubDataPropertyOf(String opid1, String opid2)
+	{
+		checkSubDataPropertyIDs(opid1, opid2);
+
+		return this.subDataProperties.get(opid1).contains(opid2) && !this.subDataProperties.get(opid2).contains(opid1);
+	}
+
+	/**
+	 * Given two object property expressions DPE1 and DPE2 and an ontology O, DPE1 is a direct subproperty of DPE2,
+	 * written DirectSubDataPropertyOf(DPE1 DPE2), with respect to O if O entails StrictSubDataPropertyOf(DPE1 DPE2)
+	 * and there is no data property name P in the signature of O such that O entails
+	 * StrictSubDataPropertyOf(DPE1 P) and O entails StrictSubDataPropertyOf(P DPE2).
+	 */
+	@Override public boolean directSubDataPropertyOf(String dpid1, String dpid2)
+	{
+		checkSubDataPropertyIDs(dpid1, dpid2);
+
+		if (strictSubDataPropertyOf(dpid1, dpid2)) {
+			for (String superDataPropertyID : this.subDataProperties.get(dpid1)) {
+				if (strictSubDataPropertyOf(superDataPropertyID, dpid2))
+					return false;
+			}
+			return false;
+		} else
+			return false;
+	}
+
+	// Annotations
+
+	@Override public boolean isDeclaredAnnotation(String propertyID)
+	{
+		return this.declaredAnnotationPropertyIDs.contains(propertyID);
 	}
 
 	public Set<String> getInconsistentMessages()
@@ -747,36 +853,6 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 		// An OWL 2 RL reasoner does not assert axioms of this type so we ignore.
 	}
 
-	/**
-	 * Given two class expressions CE1 and CE2 and an ontology O, CE1 is a strict subclass of CE2, written
-	 * StrictSubClassOf(CE1 CE2) if O entails SubClassOf(CE1 CE2) and O does not entail SubClassOf(CE2 CE1)
-	 */
-	private boolean strictSubClassOf(String ceid1, String ceid2)
-	{
-		checkSubClassIDs(ceid1, ceid2);
-
-		return this.subClasses.get(ceid1).contains(ceid2) && !this.subClasses.get(ceid2).contains(ceid1);
-	}
-
-	/**
-	 * Given two class expressions CE1 and CE2 and an ontology O, CE1 is a direct subclass of CE2, written
-	 * DirectSubClassOf(CE1 CE2), with respect to O if O entails StrictSubClassOf(CE1 CE2) and there is no class
-	 * name C in the signature of O such that O entails StrictSubClassOf(CE1 C) and O entails StrictSubClassOf(C CE2).
-	 */
-	private boolean directSubClassOf(String ceid1, String ceid2)
-	{
-		checkSubClassIDs(ceid1, ceid2);
-
-		if (strictSubClassOf(ceid1, ceid2)) {
-			for (String superClassID : this.subClasses.get(ceid1)) {
-				if (strictSubClassOf(superClassID, ceid2))
-					return false;
-			}
-			return false;
-		} else
-			return false;
-	}
-
 	private void checkSubClassIDs(String... ceids)
 	{
 		for (String ceid : ceids) {
@@ -786,38 +862,6 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 		}
 	}
 
-	/**
-	 * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a strict subproperty of OPE2,
-	 * written StrictSubObjectPropertyOf(OPE1 OPE2) if O entails SubObjectPropertyOf(OPE1 OPE2) and O does not entail
-	 * SubObjectPropertyOf(OPE2 OPE1)
-	 */
-	private boolean strictSubObjectPropertyOf(String opid1, String opid2)
-	{
-		checkSubObjectPropertyIDs(opid1, opid2);
-
-		return this.subObjectProperties.get(opid1).contains(opid2) && !this.subObjectProperties.get(opid2).contains(opid1);
-	}
-
-	/**
-	 * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a direct subproperty of OPE2,
-	 * written DirectSubObjectPropertyOf(OPE1 OPE2), with respect to O if O entails StrictSubObjectPropertyOf(OPE1 OPE2)
-	 * and there is no object property name P in the signature of O such that O entails
-	 * StrictSubObjectPropertyOf(OPE1 P) and O entails StrictSubObjectPropertyOf(P OPE2).
-	 */
-	private boolean directSubObjectPropertyOf(String opid1, String opid2)
-	{
-		checkSubObjectPropertyIDs(opid1, opid2);
-
-		if (strictSubObjectPropertyOf(opid1, opid2)) {
-			for (String superObjectPropertyID : this.subObjectProperties.get(opid1)) {
-				if (strictSubObjectPropertyOf(superObjectPropertyID, opid2))
-					return false;
-			}
-			return false;
-		} else
-			return false;
-	}
-
 	private void checkSubObjectPropertyIDs(String... opids)
 	{
 		for (String opid : opids) {
@@ -825,38 +869,6 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWL2RLAxiomVisitor, D
 				throw new RuntimeException("No record of object property expression with ID " + opid);
 			}
 		}
-	}
-
-	/**
-	 * Given two data property expressions DPE1 and DPE2 and an ontology O, DPE1 is a strict subproperty of DPE2,
-	 * written StrictSubDataPropertyOf(DPE1 DPE2) if O entails SubDataPropertyOf(DPE1 DPE2) and O does not entail
-	 * SubDataPropertyOf(DPE2 DPE1)
-	 */
-	private boolean strictSubDataPropertyOf(String opid1, String opid2)
-	{
-		checkSubDataPropertyIDs(opid1, opid2);
-
-		return this.subDataProperties.get(opid1).contains(opid2) && !this.subDataProperties.get(opid2).contains(opid1);
-	}
-
-	/**
-	 * Given two object property expressions DPE1 and DPE2 and an ontology O, DPE1 is a direct subproperty of DPE2,
-	 * written DirectSubDataPropertyOf(DPE1 DPE2), with respect to O if O entails StrictSubDataPropertyOf(DPE1 DPE2)
-	 * and there is no data property name P in the signature of O such that O entails
-	 * StrictSubDataPropertyOf(DPE1 P) and O entails StrictSubDataPropertyOf(P DPE2).
-	 */
-	private boolean directSubDataPropertyOf(String dpid1, String dpid2)
-	{
-		checkSubDataPropertyIDs(dpid1, dpid2);
-
-		if (strictSubDataPropertyOf(dpid1, dpid2)) {
-			for (String superDataPropertyID : this.subDataProperties.get(dpid1)) {
-				if (strictSubDataPropertyOf(superDataPropertyID, dpid2))
-					return false;
-			}
-			return false;
-		} else
-			return false;
 	}
 
 	private void checkSubDataPropertyIDs(String... dpids)
