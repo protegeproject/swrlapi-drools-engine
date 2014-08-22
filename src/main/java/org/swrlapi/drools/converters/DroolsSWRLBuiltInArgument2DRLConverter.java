@@ -16,7 +16,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
- * This class converts SWRL atom arguments to DRL clauses for use in rules.
+ * This class converts SWRLAPI SWRL built-in arguments to DRL clauses for use in rules.
+ *
+ * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
 public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLBuiltInArgumentConverter<String>

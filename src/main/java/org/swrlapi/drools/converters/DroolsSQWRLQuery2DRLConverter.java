@@ -14,6 +14,11 @@ import org.swrlapi.sqwrl.SQWRLNames;
 import org.swrlapi.sqwrl.SQWRLQuery;
 import org.swrlapi.sqwrl.TargetRuleEngineSQWRLQueryConverter;
 
+/**
+ * This class converts a SWRLAPI SQWRL query to its Drools representation.
+ *
+ * @see org.swrlapi.sqwrl.SQWRLQuery
+ */
 public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implements TargetRuleEngineSQWRLQueryConverter
 {
 	private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;

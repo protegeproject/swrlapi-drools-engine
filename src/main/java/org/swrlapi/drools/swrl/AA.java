@@ -5,7 +5,7 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This interface represents a arguments to SWRL atoms in Drools.
+ * This interface represents OWLAPI SWRL arguments in Drools.
  * 
  * @see org.semanticweb.owlapi.model.SWRLArgument
  */

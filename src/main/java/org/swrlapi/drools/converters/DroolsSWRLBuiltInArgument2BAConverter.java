@@ -32,7 +32,7 @@ import org.swrlapi.drools.swrl.UBA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts SWRL atom arguments to Drools {@link BA} instances.
+ * This class converts OWLAPI SWRL atom arguments to Drools {@link org.swrlapi.drools.swrl.BA} instances.
  *
  * @see org.swrlapi.drools.swrl.BA
  */

@@ -6,8 +6,10 @@ import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class represents a SQWRL collection. These are created by SQWRL collection construction operators and passed to
- * the second phase of rule execution via the {@link DroolsSQWRLCollectionHandler}.
+ * This class represents a SQWRL collection in Drools. These are created by SQWRL collection construction operators
+ * and passed to the second phase of rule execution via the {@link org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler}.
+ *
+ * @see org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler
  */
 public class SQWRLC implements BA
 {
@@ -80,5 +82,4 @@ public class SQWRLC implements BA
 
 		return hash;
 	}
-
 }

@@ -9,6 +9,11 @@ import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
+/**
+ * This class converts SWRLAPI rules to their Drools representation.
+ *
+ * @see org.swrlapi.core.SWRLAPIRule
+ */
 public class DroolsSWRLRuleConverter extends DroolsConverterBase
 {
 	private final DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;

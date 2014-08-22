@@ -24,14 +24,14 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
- * This class converts SWRL body atoms to a their DRL representation for use in rules.
+ * This class converts OWLAPI SWRL body atoms to a their DRL representation for use in rules.
  * <p/>
  * Head and body atoms are converted differently - hence the need for two converters. Body atom converters must also
  * know the variables defined by previous atoms because a different syntax is required in DRL for declaring a variable
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
  * declared in SWRL.
  *
- * @see SWRLAtom
+ * @see org.semanticweb.owlapi.model.SWRLAtom
  */
 public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase implements
 		TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>

@@ -5,6 +5,8 @@ import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 
 /**
  * Base class providing functionality common to all Drools converters.
+ *
+ * Drools converters transform OWLAPI-based OWL entities to a Drools representation of those entities.
  */
 public class DroolsConverterBase extends TargetRuleEngineConverterBase
 {
@@ -20,6 +22,7 @@ public class DroolsConverterBase extends TargetRuleEngineConverterBase
 	public DroolsConverterBase(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
+
 		this.literal2DRLConverter = new DroolsOWLLiteral2DRLConverter(bridge);
 		this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge);
 		this.namedObject2DRLConverter = new DroolsOWLNamedObject2DRLConverter(bridge);

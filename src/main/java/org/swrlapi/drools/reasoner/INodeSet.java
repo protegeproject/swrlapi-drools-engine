@@ -9,9 +9,7 @@ import java.util.Set;
  */
 public class INodeSet extends OONodeSet<I>
 {
-	public INodeSet()
-	{
-	}
+	public INodeSet() {}
 
 	public INodeSet(I entity)
 	{

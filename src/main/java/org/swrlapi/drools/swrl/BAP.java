@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * This class represent SWRL built-in argument pattern. Built-ins that evaluate to true return a list of BAPs
  * representing all possible valid argument patterns.
+ *
+ * @see org.swrlapi.drools.swrl.BA
  */
 public class BAP
 {

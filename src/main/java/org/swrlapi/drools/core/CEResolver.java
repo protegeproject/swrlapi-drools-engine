@@ -9,6 +9,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @see org.swrlapi.drools.owl.classexpressions.CE
+ * @see org.semanticweb.owlapi.model.OWLClassExpression
+ */
 public class CEResolver
 {
 	private final Map<OWLClassExpression, String> owlClassExpression2CEIDMap;

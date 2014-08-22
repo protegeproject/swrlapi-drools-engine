@@ -22,8 +22,9 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
 import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
- * This class converts SWRL atom and built-in arguments to DRL clauses for use in rules.
+ * This class converts OWLAPI SWRL atom and built-in arguments to DRL clauses for use in rules.
  *
+ * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see org.swrlapi.drools.converters.DroolsSWRLHeadAtomArgument2DRLConverter
  */
 public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase implements

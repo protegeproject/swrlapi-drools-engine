@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Converts an OWL data range to its Drools representation
+ * Converts an OWLAPI OWL data range to its Drools representation
  *
  * @see org.semanticweb.owlapi.model.OWLDataRange
  */
@@ -24,26 +24,28 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 {
 	private final Map<OWLDataRange, String> dataRange2IDMap;
 	private final Set<String> convertedDataRangeIDs;
-	private int dataRangeIndex;
 	private final Set<DR> dataRanges;
+	private int dataRangeIndex;
 
 	public DroolsOWLDataRangeConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 
-		this.dataRangeIndex = 0;
 		this.dataRanges = new HashSet<DR>();
 		this.dataRange2IDMap = new HashMap<OWLDataRange, String>();
 		this.convertedDataRangeIDs = new HashSet<String>();
+		this.dataRangeIndex = 0;
+
 		getOWLDataRangeResolver().reset();
 	}
 
 	public void reset()
 	{
-		this.dataRangeIndex = 0;
 		this.dataRanges.clear();
 		this.dataRange2IDMap.clear();
 		this.convertedDataRangeIDs.clear();
+		this.dataRangeIndex = 0;
+
 		getOWLDataRangeResolver().reset();
 	}
 

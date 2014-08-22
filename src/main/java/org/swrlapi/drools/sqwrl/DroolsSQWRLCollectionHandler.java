@@ -11,6 +11,8 @@ import org.swrlapi.drools.swrl.BA;
  * </p>
  * The {@link #infer(org.swrlapi.drools.swrl.BA)} method in this class is called to inform Drools of
  * inferred SQWRL collections.
+ *
+ * @see org.swrlapi.drools.sqwrl.SQWRLC
  */
 public class DroolsSQWRLCollectionHandler
 {

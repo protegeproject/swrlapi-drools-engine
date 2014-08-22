@@ -9,9 +9,11 @@ import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * Class to convert OWL literal to instances of the {@link L} class, which represents literals in Drools.
+ * Class to convert an OWLAPI OWL literal to instances of the {@link org.swrlapi.drools.owl.core.L} class,
+ * which represents literals in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLLiteral
+ * @see org.swrlapi.drools.owl.core.L
  */
 public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLLiteralConverter<L>

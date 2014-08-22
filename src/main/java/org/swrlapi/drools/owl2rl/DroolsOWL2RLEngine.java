@@ -13,12 +13,12 @@ import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
  * </p>
  * This engine is created by a {@link org.swrlapi.drools.core.DroolsSWRLRuleEngine}. The OWL 2 RL rules are defined
  * in the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} class. All axioms inferred by Drools rules are
- * handled by a {@link DefaultDroolsOWLAxiomHandler}.
+ * handled by a {@link org.swrlapi.drools.owl2rl.DefaultDroolsOWLAxiomHandler}.
  *
  * @see org.swrlapi.owl2rl.AbstractOWL2RLEngine
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
  * @see org.swrlapi.drools.core.DroolsSWRLRuleEngine
- * @see DefaultDroolsOWLAxiomHandler
+ * @see org.swrlapi.drools.owl2rl.DefaultDroolsOWLAxiomHandler
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {

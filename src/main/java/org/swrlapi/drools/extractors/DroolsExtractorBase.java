@@ -3,6 +3,9 @@ package org.swrlapi.drools.extractors;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 
+/**
+ * Base class providing methods used by all Drools extractors.
+ */
 public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 {
 	private final DroolsOWLLiteralExtractor literalExtractor;

@@ -65,7 +65,7 @@ import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWL axioms to their Drools representation.
+ * This class converts OWLAPI OWL axioms to their Drools representation.
  * <p/>
  * Note that SWRL rules are also a type of OWL axiom so are also converted here.
  *

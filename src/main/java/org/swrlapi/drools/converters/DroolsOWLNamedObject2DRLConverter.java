@@ -12,7 +12,9 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLEntityConverter;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWL named objects to their DRL representation for use in rules.
+ * This class converts OWLAPI OWL named objects to their Drools DRL representation for use in rules.
+ *
+ * @see org.semanticweb.owlapi.model.OWLEntity
  */
 public class DroolsOWLNamedObject2DRLConverter extends TargetRuleEngineConverterBase implements
 		TargetRuleEngineOWLEntityConverter<String>

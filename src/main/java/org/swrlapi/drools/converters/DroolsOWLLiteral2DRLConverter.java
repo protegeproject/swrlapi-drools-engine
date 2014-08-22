@@ -9,7 +9,7 @@ import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWL literals to their DRL representation for use in rules.
+ * This class converts OWLAPI OWL literals to their Drools DRL representation.
  *
  * @see org.semanticweb.owlapi.model.OWLLiteral
  */

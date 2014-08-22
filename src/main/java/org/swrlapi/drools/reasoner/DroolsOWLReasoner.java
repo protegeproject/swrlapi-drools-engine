@@ -46,7 +46,7 @@ public interface DroolsOWLReasoner
 
 	CNodeSet getTypes(I i, boolean direct);
 
-	// Insividuals
+	// Idividuals
 
 	INodeSet getInstances(CE ce, boolean direct);
 
