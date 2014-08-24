@@ -36,9 +36,9 @@ public interface DroolsOWLAxiomHandler
 
 	Set<String> getClassAssertions(String classID);
 
-	Set<String> getSubClasses(String classID);
+	Set<String> getSubClasses(String classID, boolean direct);
 
-	Set<String> getSuperClasses(String classID);
+	Set<String> getSuperClasses(String classID, boolean direct);
 
 	Set<String> getDisjointClasses(String classID);
 
@@ -60,11 +60,13 @@ public interface DroolsOWLAxiomHandler
 
 	boolean isDeclaredObjectProperty(String propertyID);
 
-	Set<String> getSubObjectProperties(String propertyID);
+	Set<String> getSubObjectProperties(String propertyID, boolean direct);
 
-	Set<String> getObjectPropertyRanges(String propertyID);
+	Set<String> getSuperObjectProperties(String propertyID, boolean direct);
 
-	Set<String> getObjectPropertyDomains(String propertyID);
+	Set<String> getObjectPropertyRanges(String propertyID, boolean direct);
+
+	Set<String> getObjectPropertyDomains(String propertyID, boolean direct);
 
 	Set<String> getDisjointObjectProperties(String propertyID);
 
@@ -72,7 +74,9 @@ public interface DroolsOWLAxiomHandler
 
 	Set<String> getInverseObjectProperties(String propertyID);
 
-	Map<String, Set<String>> getObjectPropertyAssertions(String propertyID);
+	Map<String, Set<String>> getObjectPropertyAssertions(String propertyID); // individualID -> Set<individualID>
+
+	Set<String> getObjectPropertyValuesForIndividual(String individualID, String propertyID); // Set<individualID>
 
 	boolean strictSubObjectPropertyOf(String propertyID1, String propertyID2);
 
@@ -82,17 +86,19 @@ public interface DroolsOWLAxiomHandler
 
 	boolean isDeclaredDataProperty(String propertyID);
 
-	Set<String> getSubDataProperties(String propertyID);
+	Set<String> getSubDataProperties(String propertyID, boolean direct);
 
-	Set<String> getSuperDataProperties(String propertyID);
+	Set<String> getSuperDataProperties(String propertyID, boolean direct);
 
-	Set<String> getDataPropertyDomains(String propertyID);
+	Set<String> getDataPropertyDomains(String propertyID, boolean direct);
 
 	Set<String> getDisjointDataProperties(String propertyID);
 
 	Set<String> getEquivalentDataProperties(String propertyID);
 
-	Map<String, Set<L>> getDataPropertyAssertions(String propertyID);
+	Map<String, Set<L>> getDataPropertyAssertions(String propertyID); // individualID -> Set<L>
+
+	Set<L> getDataPropertyValuesForIndividual(String individualID, String propertyID);
 
 	boolean strictSubDataPropertyOf(String propertyID1, String propertyID2);
 

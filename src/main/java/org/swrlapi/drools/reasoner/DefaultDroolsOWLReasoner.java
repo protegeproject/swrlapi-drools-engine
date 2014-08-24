@@ -84,56 +84,65 @@ public class DefaultDroolsOWLReasoner implements DroolsOWLReasoner
 
 	@Override public CNodeSet getDisjointClasses(CE ce)
 	{
-		String classID = ce.getceid();
+		CNodeSet cNodeSet = new CNodeSet();
 
-		return null; // TODO
+		for (String disjointClassID : this.droolsOWLAxiomHandler.getDisjointClasses(ce.getceid())) {
+			CNode cNode = getEquivalentClasses(disjointClassID);
+			cNodeSet.addNode(cNode);
+		}
+		return cNodeSet;
 	}
 
 	@Override public CNodeSet getSubClasses(CE ce, boolean direct)
 	{
-		String classID = ce.getceid();
+		CNodeSet cNodeSet = new CNodeSet();
 
-		return null; // TODO
+		for (String subClassID : this.droolsOWLAxiomHandler.getSubClasses(ce.getceid(), direct)) {
+			CNode cNode = getEquivalentClasses(subClassID);
+			cNodeSet.addNode(cNode);
+		}
+		return cNodeSet;
 	}
 
 	@Override public CNodeSet getSuperClasses(CE ce, boolean direct)
 	{
-		String classID = ce.getceid();
+		CNodeSet cNodeSet = new CNodeSet();
 
-		return null; // TODO
+		for (String superClassID : this.droolsOWLAxiomHandler.getSuperClasses(ce.getceid(), direct)) {
+			CNode cNode = getEquivalentClasses(superClassID);
+			cNodeSet.addNode(cNode);
+		}
+		return cNodeSet;
 	}
 
 	@Override public CNode getEquivalentClasses(CE ce)
 	{
-		CNode cNode = new CNode();
-
-		for (String classID : this.droolsOWLAxiomHandler.getEquivalentClasses(ce.getceid())) {
-			C c = resolveOWLClass(classID);
-			cNode.add(c);
-		}
-		return cNode;
+		return getEquivalentClasses(ce.getceid());
 	}
+
+	// Individuals
 
 	@Override public CNodeSet getTypes(I i, boolean direct)
 	{
 		return null; // TODO
 	}
 
-	// Individuals
-
 	@Override public INodeSet getInstances(CE ce, boolean direct)
 	{
 		return null; // TODO
 	}
 
-	@Override public INodeSet getSameIndividuals(I individual)
-	{
-		return null; // TODO
-	}
+	@Override public INode getSameIndividuals(I individual) { return getSameIndividuals(individual.getid()); }
 
 	@Override public INodeSet getDifferentIndividuals(I individual)
 	{
-		return null; // TODO
+		INodeSet iNodeSet = new INodeSet();
+
+		for (String individualID : this.droolsOWLAxiomHandler.getDifferentIndividuals(individual.getid())) {
+			INode iNode = getSameIndividuals(individualID);
+			iNodeSet.addNode(iNode);
+		}
+		return iNodeSet;
 	}
 
 	// Object properties
@@ -162,43 +171,71 @@ public class DefaultDroolsOWLReasoner implements DroolsOWLReasoner
 
 	@Override public OPNodeSet getSuperObjectProperties(OP op, boolean direct)
 	{
-		return null; // TODO
+		OPNodeSet opNodeSet = new OPNodeSet();
+
+		for (String superPropertyID : this.droolsOWLAxiomHandler.getSuperObjectProperties(op.getid(), direct)) {
+			OPNode opNode = getEquivalentObjectProperties(superPropertyID);
+			opNodeSet.addNode(opNode);
+		}
+		return opNodeSet;
 	}
 
 	@Override public OPNodeSet getSubObjectProperties(OP op, boolean direct)
 	{
-		return null; // TODO
-	}
+		OPNodeSet opNodeSet = new OPNodeSet();
 
-	@Override public OPNode getEquivalentObjectProperties(OP op)
-	{
-		OPNode opNode = new OPNode();
-
-		for (String propertyID : this.droolsOWLAxiomHandler.getEquivalentObjectProperties(op.getid())) {
-			OP eop = resolveOWLObjectProperty(propertyID);
-			opNode.add(eop);
+		for (String subPropertyID : this.droolsOWLAxiomHandler.getSubObjectProperties(op.getid(), direct)) {
+			OPNode opNode = getEquivalentObjectProperties(subPropertyID);
+			opNodeSet.addNode(opNode);
 		}
-		return opNode;
+		return opNodeSet;
 	}
+
+	@Override public OPNode getEquivalentObjectProperties(OP op) { return getEquivalentObjectProperties(op.getid()); }
 
 	@Override public OPNodeSet getDisjointObjectProperties(OPE ope)
 	{
-		return null; // TODO
+		OPNodeSet opNodeSet = new OPNodeSet();
+
+		for (String disjointPropertyID : this.droolsOWLAxiomHandler.getDisjointObjectProperties(ope.getid())) {
+			OPNode opNode = getEquivalentObjectProperties(disjointPropertyID);
+			opNodeSet.addNode(opNode);
+		}
+		return opNodeSet;
 	}
 
 	@Override public CNodeSet getObjectPropertyDomains(OPE ope, boolean direct)
 	{
-		return null;
+		CNodeSet cNodeSet = new CNodeSet();
+
+		for (String superClassID : this.droolsOWLAxiomHandler.getObjectPropertyDomains(ope.getid(), direct)) {
+			CNode cNode = getEquivalentClasses(superClassID);
+			cNodeSet.addNode(cNode);
+		}
+		return cNodeSet;
 	}
 
 	@Override public CNodeSet getObjectPropertyRanges(OPE ope, boolean direct)
 	{
-		return null; // TODO
+		CNodeSet cNodeSet = new CNodeSet();
+
+		for (String superClassID : this.droolsOWLAxiomHandler.getObjectPropertyRanges(ope.getid(), direct)) {
+			CNode cNode = getEquivalentClasses(superClassID);
+			cNodeSet.addNode(cNode);
+		}
+		return cNodeSet;
 	}
 
 	@Override public INodeSet getObjectPropertyValues(I individual, OPE ope)
 	{
-		return null; // TODO
+		INodeSet iNodeSet = new INodeSet();
+
+		for (String individualID : this.droolsOWLAxiomHandler.getObjectPropertyValuesForIndividual(individual.getid(),
+				ope.getid())) {
+			INode iNode = getSameIndividuals(individualID);
+			iNodeSet.addNode(iNode);
+		}
+		return iNodeSet;
 	}
 
 	@Override public DroolsNode<OPE> getInverseObjectProperties(OPE ope)
@@ -232,41 +269,105 @@ public class DefaultDroolsOWLReasoner implements DroolsOWLReasoner
 
 	@Override public Set<L> getDataPropertyValues(I individual, DP dp)
 	{
-		return null; // TODO
+		return this.droolsOWLAxiomHandler.getDataPropertyValuesForIndividual(individual.getid(), dp.getid());
 	}
 
 	@Override public DPNodeSet getDisjointDataProperties(DPE dpe)
 	{
-		return null;  // TODO
+		DPNodeSet dpNodeSet = new DPNodeSet();
+
+		for (String disjointPropertyID : this.droolsOWLAxiomHandler.getDisjointDataProperties(dpe.getid())) {
+			DPNode dpNode = getEquivalentDataProperties(disjointPropertyID);
+			dpNodeSet.addNode(dpNode);
+		}
+		return dpNodeSet;
 	}
 
-	@Override public DPNode getEquivalentDataProperties(DP dp)
+	@Override public DPNode getEquivalentDataProperties(DP dp) {	return getEquivalentDataProperties(dp.getid()); }
+
+	@Override public DPNodeSet getSubDataProperties(DP dp, boolean direct)
+	{
+		DPNodeSet dpNodeSet = new DPNodeSet();
+
+		for (String subPropertyID : this.droolsOWLAxiomHandler.getSubDataProperties(dp.getid(), direct)) {
+		  DPNode dpNode = getEquivalentDataProperties(subPropertyID);
+			dpNodeSet.addNode(dpNode);
+		}
+		return dpNodeSet;
+	}
+
+	@Override public DPNodeSet getSuperDataProperties(DP dp, boolean direct)
+	{
+		DPNodeSet dpNodeSet = new DPNodeSet();
+
+		for (String subPropertyID : this.droolsOWLAxiomHandler.getSuperDataProperties(dp.getid(), direct)) {
+			DPNode dpNode = getEquivalentDataProperties(subPropertyID);
+			dpNodeSet.addNode(dpNode);
+		}
+		return dpNodeSet;
+	}
+
+	@Override public CNodeSet getDataPropertyDomains(DP dp, boolean direct)
+	{
+		CNodeSet cNodeSet = new CNodeSet();
+
+		for (String superClassID : this.droolsOWLAxiomHandler.getDataPropertyDomains(dp.getid(), direct)) {
+			CNode cNode = getEquivalentClasses(superClassID);
+			cNodeSet.addNode(cNode);
+		}
+		return cNodeSet;
+	}
+
+	private CNode getEquivalentClasses(String classID)
+	{
+		CNode cNode = new CNode();
+
+		for (String equivalentClassID : this.droolsOWLAxiomHandler.getEquivalentClasses(classID)) {
+			C c = resolveOWLClass(equivalentClassID);
+			cNode.add(c);
+		}
+		return cNode;
+	}
+
+	private INode getSameIndividuals(String individualID)
+	{
+		INode iNode = new INode();
+
+		for (String sameIndividualID : this.droolsOWLAxiomHandler.getSameIndividual(individualID)) {
+			I i = resolveOWLIndividual(sameIndividualID);
+			iNode.add(i);
+		}
+		return iNode;
+	}
+
+	private OPNode getEquivalentObjectProperties(String propertyID)
+	{
+		OPNode opNode = new OPNode();
+
+		for (String equivalentPropertyID : this.droolsOWLAxiomHandler.getEquivalentObjectProperties(propertyID)) {
+			OP eop = resolveOWLObjectProperty(equivalentPropertyID);
+			opNode.add(eop);
+		}
+		return opNode;
+	}
+
+	private DPNode getEquivalentDataProperties(String propertyID)
 	{
 		DPNode dpNode = new DPNode();
 
-		for (String propertyID : this.droolsOWLAxiomHandler.getEquivalentObjectProperties(dp.getid())) {
-			DP edp = resolveOWLDataProperty(propertyID);
+		for (String equivalentPropertyID : this.droolsOWLAxiomHandler.getEquivalentDataProperties(propertyID)) {
+			DP edp = resolveOWLDataProperty(equivalentPropertyID);
 			dpNode.add(edp);
 		}
 		return dpNode;
 	}
 
-	@Override public DPNodeSet getSubDataProperties(DP dp, boolean direct)
-	{
-		return null;  // TODO
-	}
-
-	@Override public DPNodeSet getSuperDataProperties(DP dp, boolean direct)
-	{
-		return null;  // TODO
-	}
-
-	@Override public CNodeSet getDataPropertyDomains(DP dp, boolean direct)
-	{
-		return null;  // TODO
-	}
-
 	private C resolveOWLClass(String classID)
+	{
+		return null; // TODO
+	}
+
+	private I resolveOWLIndividual(String individualID)
 	{
 		return null; // TODO
 	}

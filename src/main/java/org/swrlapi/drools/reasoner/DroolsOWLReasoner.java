@@ -56,7 +56,7 @@ public interface DroolsOWLReasoner
 
 	INodeSet getInstances(CE ce, boolean direct);
 
-	INodeSet getSameIndividuals(I individual);
+	INode getSameIndividuals(I individual);
 
 	INodeSet getDifferentIndividuals(I individual);
 

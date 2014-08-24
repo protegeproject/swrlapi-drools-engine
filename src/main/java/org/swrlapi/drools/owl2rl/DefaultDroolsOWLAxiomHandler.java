@@ -208,14 +208,36 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		return this.classAssertions.get(classID);
 	}
 
-	@Override public Set<String> getSubClasses(String classID)
+	@Override public Set<String> getSubClasses(String classID, boolean direct)
 	{
-		return this.subClasses.get(classID);
+		Set<String> subClasses = new HashSet<String>();
+
+		for (String subClassID : this.subClasses.get(classID)) {
+			if (direct) {
+				if (directSubClassOf(classID, subClassID))
+					subClasses.add(subClassID);
+			} else {
+				if (strictSubClassOf(classID, subClassID))
+					subClasses.add(subClassID);
+			}
+		}
+		return subClasses;
 	}
 
-	@Override public Set<String> getSuperClasses(String classID)
+	@Override public Set<String> getSuperClasses(String classID, boolean direct)
 	{
-		return this.superClasses.get(classID);
+		Set<String> superClasses = new HashSet<String>();
+
+		for (String superClassID : this.superClasses.get(classID)) {
+			if (direct) {
+				if (directSubClassOf(superClassID, classID))
+					superClasses.add(superClassID);
+			} else {
+				if (strictSubClassOf(superClassID, classID))
+					superClasses.add(superClassID);
+			}
+		}
+		return superClasses;
 	}
 
 	@Override public Set<String> getDisjointClasses(String classID)
@@ -282,19 +304,46 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		return this.declaredObjectPropertyIDs.contains(propertyID);
 	}
 
-	@Override public Set<String> getSubObjectProperties(String propertyID)
+	@Override public Set<String> getSubObjectProperties(String propertyID, boolean direct)
 	{
-		return this.subObjectProperties.get(propertyID);
+		Set<String> subProperties = new HashSet<String>();
+
+		for (String subPropertyID : this.subObjectProperties.get(propertyID)) {
+			if (direct) {
+				if (directSubObjectPropertyOf(propertyID, subPropertyID))
+					subProperties.add(subPropertyID);
+			} else {
+				if (strictSubObjectPropertyOf(propertyID, subPropertyID))
+					subProperties.add(subPropertyID);
+			}
+		}
+		return subProperties;
 	}
 
-	@Override public Set<String> getObjectPropertyRanges(String propertyID)
+	@Override public Set<String> getSuperObjectProperties(String propertyID, boolean direct)
 	{
-		return this.objectPropertyRanges.get(propertyID);
+		Set<String> superProperties = new HashSet<String>();
+
+		for (String superPropertyID : this.superObjectProperties.get(propertyID)) {
+			if (direct) {
+				if (directSubObjectPropertyOf(superPropertyID, propertyID))
+					superProperties.add(superPropertyID);
+			} else {
+				if (strictSubObjectPropertyOf(superPropertyID, propertyID))
+					superProperties.add(superPropertyID);
+			}
+		}
+		return superProperties;
 	}
 
-	@Override public Set<String> getObjectPropertyDomains(String propertyID)
+	@Override public Set<String> getObjectPropertyRanges(String propertyID, boolean direct)
 	{
-		return this.objectPropertyRanges.get(propertyID);
+		return this.objectPropertyRanges.get(propertyID); // TODO direct?
+	}
+
+	@Override public Set<String> getObjectPropertyDomains(String propertyID, boolean direct)
+	{
+		return this.objectPropertyRanges.get(propertyID); // TODO direct?
 	}
 
 	@Override public Set<String> getDisjointObjectProperties(String propertyID)
@@ -315,6 +364,17 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 	@Override public Map<String, Set<String>> getObjectPropertyAssertions(String propertyID)
 	{
 		return this.objectPropertyAssertions.get(propertyID);
+	}
+
+	@Override public Set<String> getObjectPropertyValuesForIndividual(String individualID, String propertyID)
+	{
+		Set<String> individualIDs = new HashSet<String>();
+		Map<String, Set<String>> values = this.objectPropertyAssertions.get(propertyID);
+
+		if (values.containsKey(individualID))
+			individualIDs.addAll(values.get(individualID));
+
+		return individualIDs;
 	}
 
 	/**
@@ -356,19 +416,41 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		return this.declaredDataPropertyIDs.contains(propertyID);
 	}
 
-	@Override public Set<String> getSubDataProperties(String propertyID)
+	@Override public Set<String> getSubDataProperties(String propertyID, boolean direct)
 	{
-		return this.subDataProperties.get(propertyID);
+		Set<String> subProperties = new HashSet<String>();
+
+		for (String subPropertyID : this.subDataProperties.get(propertyID)) {
+			if (direct) {
+				if (directSubDataPropertyOf(propertyID, subPropertyID))
+					subProperties.add(subPropertyID);
+			} else {
+				if (strictSubDataPropertyOf(propertyID, subPropertyID))
+					subProperties.add(subPropertyID);
+			}
+		}
+		return subProperties;
 	}
 
-	@Override public Set<String> getSuperDataProperties(String propertyID)
+	@Override public Set<String> getSuperDataProperties(String propertyID, boolean direct)
 	{
-		return this.superDataProperties.get(propertyID);
+		Set<String> superProperties = new HashSet<String>();
+
+		for (String superPropertyID : this.superDataProperties.get(propertyID)) {
+			if (direct) {
+				if (directSubDataPropertyOf(superPropertyID, propertyID))
+					superProperties.add(superPropertyID);
+			} else {
+				if (strictSubDataPropertyOf(superPropertyID, propertyID))
+					superProperties.add(superPropertyID);
+			}
+		}
+		return superProperties;
 	}
 
-	@Override public Set<String> getDataPropertyDomains(String propertyID)
+	@Override public Set<String> getDataPropertyDomains(String propertyID, boolean direct)
 	{
-		return this.dataPropertyDomains.get(propertyID);
+		return this.dataPropertyDomains.get(propertyID); // TODO direct?
 	}
 
 	@Override public Set<String> getDisjointDataProperties(String propertyID)
@@ -384,6 +466,17 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 	@Override public Map<String, Set<L>> getDataPropertyAssertions(String propertyID)
 	{
 		return this.dataPropertyAssertions.get(propertyID);
+	}
+
+	@Override public Set<L> getDataPropertyValuesForIndividual(String individualID, String propertyID)
+	{
+		Set<L> literals = new HashSet<L>();
+		Map<String, Set<L>> values = this.dataPropertyAssertions.get(propertyID);
+
+		if (values.containsKey(individualID))
+			literals.addAll(values.get(individualID));
+
+		return literals;
 	}
 
 	/**
@@ -535,9 +628,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		if (this.disjointClasses.containsKey(c1ID)) {
 			this.disjointClasses.get(c1ID).add(c2ID);
 		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(c2ID);
-			this.disjointClasses.put(c1ID, classes);
+			Set<String> classIDs = new HashSet<String>();
+			classIDs.add(c2ID);
+			this.disjointClasses.put(c1ID, classIDs);
 		}
 	}
 
@@ -549,9 +642,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		if (this.dataPropertyDomains.containsKey(propertyID)) {
 			this.dataPropertyDomains.get(propertyID).add(domainID);
 		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(domainID);
-			this.dataPropertyDomains.put(propertyID, classes);
+			Set<String> classIDs = new HashSet<String>();
+			classIDs.add(domainID);
+			this.dataPropertyDomains.put(propertyID, classIDs);
 		}
 	}
 
@@ -563,9 +656,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		if (this.objectPropertyDomains.containsKey(propertyID)) {
 			this.objectPropertyDomains.get(propertyID).add(domainID);
 		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(domainID);
-			this.objectPropertyDomains.put(propertyID, classes);
+			Set<String> classIDs = new HashSet<String>();
+			classIDs.add(domainID);
+			this.objectPropertyDomains.put(propertyID, classIDs);
 		}
 	}
 
@@ -633,9 +726,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		if (this.objectPropertyRanges.containsKey(propertyID)) {
 			this.objectPropertyRanges.get(propertyID).add(rangeID);
 		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(rangeID);
-			this.objectPropertyRanges.put(propertyID, classes);
+			Set<String> classIDs = new HashSet<String>();
+			classIDs.add(rangeID);
+			this.objectPropertyRanges.put(propertyID, classIDs);
 		}
 	}
 
@@ -722,9 +815,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 		if (this.equivalentClasses.containsKey(c1ID)) {
 			this.equivalentClasses.get(c1ID).add(c2ID);
 		} else {
-			Set<String> classes = new HashSet<String>();
-			classes.add(c2ID);
-			this.equivalentClasses.put(c1ID, classes);
+			Set<String> classIDs = new HashSet<String>();
+			classIDs.add(c2ID);
+			this.equivalentClasses.put(c1ID, classIDs);
 		}
 	}
 
