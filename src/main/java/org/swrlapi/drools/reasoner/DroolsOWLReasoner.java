@@ -13,7 +13,7 @@ import org.swrlapi.drools.owl.properties.OPE;
 import java.util.Set;
 
 /**
- * A Drools-based equivalent of the OWLAPI {@link org.semanticweb.owlapi.reasoner.OWLReasoner} interface.
+ * A Drools-based reasoner interface modelled on the OWLAPI {@link org.semanticweb.owlapi.reasoner.OWLReasoner} interface.
  *
  * @see org.semanticweb.owlapi.reasoner.OWLReasoner
  * @see org.swrlapi.drools.owl.axioms.A

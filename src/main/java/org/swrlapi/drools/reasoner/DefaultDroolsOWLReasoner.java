@@ -15,7 +15,7 @@ import org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler;
 import java.util.Set;
 
 /**
- * Implements the {@link org.swrlapi.drools.reasoner.DroolsOWLReasoner}. This class is supplied with a
+ * Implements the {@link org.swrlapi.drools.reasoner.DroolsOWLReasoner} interface. This class is supplied with a
  * {@link org.swrlapi.drools.owl2rl.DroolsOWLAxiomHandler} which contains all OWL axioms that are
  * inferred by a reasoner during inference. This handler also contains the initial asserted OWL axioms.
  *

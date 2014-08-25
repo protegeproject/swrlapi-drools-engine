@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.exceptions.SWRLAPIException;
 

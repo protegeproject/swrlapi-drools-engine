@@ -14,6 +14,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.rule.Activation;
 import org.drools.runtime.rule.AgendaFilter;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.drools.converters.DroolsOWLAxiomConverter;
@@ -257,6 +258,14 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
 		if (this.knowledgePackagesAdditionRequired)
 			defineDRLRule(ruleName, ruleText);
+	}
+
+	/**
+	 * A target rule engine must also define an OWL reasoner implementation.
+	 */
+	public OWLReasoner getOWLReasoner()
+	{
+     return null; // TODO
 	}
 
 	/**
