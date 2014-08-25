@@ -64,7 +64,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLClassAssertionAxiom extract(CAA caa) throws TargetRuleEngineException
 	{
-		OWLClassExpression cls = getOWLClassExpressionResolver().resolveOWLClassExpression(caa.getcid());
+		OWLClassExpression cls = getOWLClassExpressionResolver().resolve(caa.getcid());
 		OWLIndividual individual = caa.getI().extract(getDroolsOWLIndividualExtractor());
 
 		return getOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
@@ -139,8 +139,8 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLSubClassOfAxiom extract(SCA sca) throws TargetRuleEngineException
 	{
-		OWLClassExpression superClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getsupercid());
-		OWLClassExpression subClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getsubcid());
+		OWLClassExpression superClass = getOWLClassExpressionResolver().resolve(sca.getsupercid());
+		OWLClassExpression subClass = getOWLClassExpressionResolver().resolve(sca.getsubcid());
 
 		return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
 	}
@@ -148,8 +148,8 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLDisjointClassesAxiom extract(DCA dca) throws TargetRuleEngineException
 	{
-		OWLClassExpression class1 = getOWLClassExpressionResolver().resolveOWLClassExpression(dca.getc1id());
-		OWLClassExpression class2 = getOWLClassExpressionResolver().resolveOWLClassExpression(dca.getc2id());
+		OWLClassExpression class1 = getOWLClassExpressionResolver().resolve(dca.getc1id());
+		OWLClassExpression class2 = getOWLClassExpressionResolver().resolve(dca.getc2id());
 		Set<OWLClassExpression> classes = new HashSet<OWLClassExpression>();
 		classes.add(class1);
 		classes.add(class2);
@@ -160,8 +160,8 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	@Override
 	public OWLEquivalentClassesAxiom extract(ECA eca) throws TargetRuleEngineException
 	{
-		OWLClassExpression class1 = getOWLClassExpressionResolver().resolveOWLClassExpression(eca.getc1id());
-		OWLClassExpression class2 = getOWLClassExpressionResolver().resolveOWLClassExpression(eca.getc2id());
+		OWLClassExpression class1 = getOWLClassExpressionResolver().resolve(eca.getc1id());
+		OWLClassExpression class2 = getOWLClassExpressionResolver().resolve(eca.getc2id());
 		Set<OWLClassExpression> classes = new HashSet<OWLClassExpression>();
 		classes.add(class1);
 		classes.add(class2);
@@ -173,7 +173,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	public OWLObjectPropertyDomainAxiom extract(DOPA dopa) throws TargetRuleEngineException
 	{
 		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(dopa.getpid());
-		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(dopa.getdid());
+		OWLClassExpression domain = getOWLClassExpressionResolver().resolve(dopa.getdid());
 
 		return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
 	}
@@ -182,7 +182,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	public OWLDataPropertyDomainAxiom extract(DDPA ddpa) throws TargetRuleEngineException
 	{
 		OWLDataPropertyExpression property = getOWLDataPropertyExpressionResolver().resolve(ddpa.getpid());
-		OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(ddpa.getdid());
+		OWLClassExpression domain = getOWLClassExpressionResolver().resolve(ddpa.getdid());
 
 		return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
 	}
@@ -191,7 +191,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	public OWLObjectPropertyRangeAxiom extract(OPRA opra) throws TargetRuleEngineException
 	{
 		OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolve(opra.getpid());
-		OWLClassExpression range = getOWLClassExpressionResolver().resolveOWLClassExpression(opra.getrid());
+		OWLClassExpression range = getOWLClassExpressionResolver().resolve(opra.getrid());
 
 		return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
 	}

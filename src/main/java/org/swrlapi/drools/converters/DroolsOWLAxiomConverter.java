@@ -107,7 +107,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 
 	public Set<CE> getOWLClassExpressions()
 	{
-		return this.classExpressionConverter.getOWLClassExpressions();
+		return this.classExpressionConverter.getCEs();
 	}
 
 	public void convert(OWLAxiom axiom) throws TargetRuleEngineException
