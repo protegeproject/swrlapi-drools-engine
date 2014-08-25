@@ -49,7 +49,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		getOWLDataRangeResolver().reset();
 	}
 
-	public String convert(OWLDataRange dataRange) throws TargetRuleEngineException
+	public String convert(OWLDataRange dataRange)
 	{ // TODO Use visitor to get rid of instanceof
 		if (dataRange instanceof OWLDatatype) {
 			return convert((OWLDatatype)dataRange);
@@ -68,7 +68,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public String convert(OWLDatatype datatype) throws TargetRuleEngineException
+	public String convert(OWLDatatype datatype)
 	{
 		String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
 
@@ -80,7 +80,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public String convert(OWLDataOneOf dataRange) throws TargetRuleEngineException
+	public String convert(OWLDataOneOf dataRange)
 	{
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -96,7 +96,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public String convert(OWLDataComplementOf dataRange) throws TargetRuleEngineException
+	public String convert(OWLDataComplementOf dataRange)
 	{
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -110,7 +110,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public String convert(OWLDataIntersectionOf dataRange) throws TargetRuleEngineException
+	public String convert(OWLDataIntersectionOf dataRange)
 	{
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -124,7 +124,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public String convert(OWLDataUnionOf dataRange) throws TargetRuleEngineException
+	public String convert(OWLDataUnionOf dataRange)
 	{
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -138,10 +138,9 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public String convert(OWLDatatypeRestriction range) throws TargetRuleEngineException
+	public String convert(OWLDatatypeRestriction range)
 	{
-		throw new TargetRuleEngineNotImplementedFeatureException(
-				"owl:DatatypeRestriction is not supported in by Drools OWL 2 RL reasoner");
+		throw new RuntimeException("owl:DatatypeRestriction is not supported in by Drools OWL 2 RL reasoner");
 	}
 
 	private String getOWLDataRangeID(OWLDataRange dataRange)

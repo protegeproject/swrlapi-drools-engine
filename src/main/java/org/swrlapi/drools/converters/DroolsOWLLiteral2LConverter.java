@@ -24,7 +24,7 @@ public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public L convert(OWLLiteral literal) throws TargetRuleEngineException
+	public L convert(OWLLiteral literal)
 	{
 		String literalValue = literal.getLiteral();
 		IRI datatypeIRI = literal.getDatatype().getIRI();

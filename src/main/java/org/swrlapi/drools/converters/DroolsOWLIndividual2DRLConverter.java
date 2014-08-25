@@ -23,7 +23,7 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
 	}
 
 	@Override
-	public String convert(OWLIndividual individual) throws TargetRuleEngineException
+	public String convert(OWLIndividual individual)
 	{
 		if (individual.isNamed()) {
 			IRI individualIRI = individual.asOWLNamedIndividual().getIRI();

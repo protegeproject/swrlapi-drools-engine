@@ -8,8 +8,25 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.*;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
-import org.swrlapi.drools.owl.classexpressions.*;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.drools.owl.classexpressions.CE;
+import org.swrlapi.drools.owl.classexpressions.DAVFCE;
+import org.swrlapi.drools.owl.classexpressions.DCCE;
+import org.swrlapi.drools.owl.classexpressions.DHVCE;
+import org.swrlapi.drools.owl.classexpressions.DMaxCCE;
+import org.swrlapi.drools.owl.classexpressions.DMaxQCCE;
+import org.swrlapi.drools.owl.classexpressions.DMinCCE;
+import org.swrlapi.drools.owl.classexpressions.DSVFCE;
+import org.swrlapi.drools.owl.classexpressions.OAVFCE;
+import org.swrlapi.drools.owl.classexpressions.OCCE;
+import org.swrlapi.drools.owl.classexpressions.OHVCE;
+import org.swrlapi.drools.owl.classexpressions.OIOCE;
+import org.swrlapi.drools.owl.classexpressions.OMaxCCE;
+import org.swrlapi.drools.owl.classexpressions.OMaxQCCE;
+import org.swrlapi.drools.owl.classexpressions.OMinCCE;
+import org.swrlapi.drools.owl.classexpressions.OOCOCE;
+import org.swrlapi.drools.owl.classexpressions.OOOCE;
+import org.swrlapi.drools.owl.classexpressions.OSVFCE;
+import org.swrlapi.drools.owl.classexpressions.OUOCE;
 
 /**
  * This class converts OWLAPI OWL class expressions to their Drools representation. Its basic function is to generate
@@ -57,7 +74,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		return this.classExpressions;
 	}
 
-	public String convert(OWLClassExpression ce) throws TargetRuleEngineException
+	public String convert(OWLClassExpression ce)
 	{ // TODO Use visitor to get rid of instanceof
 		if (ce instanceof OWLClass) {
 			return convert((OWLClass)ce);
@@ -98,7 +115,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLClass cls) throws TargetRuleEngineException
+	public String convert(OWLClass cls)
 	{
 		String classPrefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
 
@@ -110,7 +127,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectOneOf classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectOneOf classExpression)
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -133,7 +150,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectIntersectionOf classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectIntersectionOf classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -149,7 +166,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectUnionOf classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectUnionOf classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -165,7 +182,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectComplementOf classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectComplementOf classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -183,7 +200,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectSomeValuesFrom classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectSomeValuesFrom classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -202,7 +219,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataSomeValuesFrom classExpression) throws TargetRuleEngineException
+	public String convert(OWLDataSomeValuesFrom classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -221,7 +238,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataExactCardinality classExpression) throws TargetRuleEngineException
+	public String convert(OWLDataExactCardinality classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -240,7 +257,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectExactCardinality classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectExactCardinality classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -259,7 +276,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataMinCardinality classExpression) throws TargetRuleEngineException
+	public String convert(OWLDataMinCardinality classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -278,7 +295,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectMinCardinality classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectMinCardinality classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -297,7 +314,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataMaxCardinality classExpression) throws TargetRuleEngineException
+	public String convert(OWLDataMaxCardinality classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -321,7 +338,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectMaxCardinality classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectMaxCardinality classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -344,7 +361,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataHasValue classExpression) throws TargetRuleEngineException
+	public String convert(OWLDataHasValue classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -363,7 +380,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectHasValue classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectHasValue classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -382,7 +399,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectAllValuesFrom classExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectAllValuesFrom classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 
@@ -401,7 +418,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataAllValuesFrom classExpression) throws TargetRuleEngineException
+	public String convert(OWLDataAllValuesFrom classExpression) 
 	{
 		String classExpressionID = getOWLClassExpressionID(classExpression);
 

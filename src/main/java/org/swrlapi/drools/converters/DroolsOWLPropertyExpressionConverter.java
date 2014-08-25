@@ -56,7 +56,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 	}
 
 	@Override
-	public String convert(OWLObjectPropertyExpression propertyExpression) throws TargetRuleEngineException
+	public String convert(OWLObjectPropertyExpression propertyExpression)
 	{
 		if (propertyExpression.isAnonymous())
 			return generateAnonymousObjectPropertyExpressionID(propertyExpression);
@@ -70,7 +70,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 	}
 
 	@Override
-	public String convert(OWLDataPropertyExpression propertyExpression) throws TargetRuleEngineException
+	public String convert(OWLDataPropertyExpression propertyExpression)
 	{
 		if (propertyExpression.isAnonymous())
 			return generateAnonymousDataPropertyExpressionID(propertyExpression);

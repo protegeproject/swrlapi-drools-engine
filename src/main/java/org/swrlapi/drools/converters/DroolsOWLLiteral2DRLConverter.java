@@ -22,7 +22,7 @@ public class DroolsOWLLiteral2DRLConverter extends TargetRuleEngineConverterBase
 	}
 
 	@Override
-	public String convert(OWLLiteral literal) throws TargetRuleEngineException
+	public String convert(OWLLiteral literal)
 	{
 		IRI datatypeIRI = literal.getDatatype().getIRI();
 		String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatypeIRI);
