@@ -8,12 +8,12 @@ import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.owl2rl.OWL2RLInconsistency;
 
 /**
- * Drools rules generated from SWRL rules and the OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules}
- * use a single instance of this class to accumulate inferred OWL axioms.
+ * This class is used to accumulate inferred OWL axioms. Drools rules generated from SWRL rules and the OWL 2 RL rules
+ * defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} use a single instance of this class.
  * </p>
  * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during rule execution. It
- * keeps track of the inferred axioms and also inserts them in to a Drools knowledge session.
- * </p>
+ * keeps track of the inferred axioms and associated knowledge and also inserts the axioms in to a Drools
+ * knowledge session.
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
@@ -40,12 +40,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, Droo
 	private final Map<String, Set<String>> differentIndividuals;
 
 	private final Map<String, Set<String>> subObjectProperties;
-	private final Map<String, Set<String>> objectPropertyRanges;
-	private final Map<String, Set<String>> objectPropertyDomains;
 	private final Map<String, Set<String>> superObjectProperties;
 	private final Map<String, Set<String>> disjointObjectProperties;
 	private final Map<String, Set<String>> equivalentObjectProperties;
 	private final Map<String, Set<String>> inverseObjectProperties;
+	private final Map<String, Set<String>> objectPropertyRanges;
+	private final Map<String, Set<String>> objectPropertyDomains;
 	private final Map<String, Map<String, Set<String>>> objectPropertyAssertions;
 
 	private final Map<String, Set<String>> subDataProperties;

@@ -12,10 +12,12 @@ import org.swrlapi.drools.owl.classexpressions.*;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
- * This class converts OWLAPI OWL class expressions to their Drools representation. Its basic function is to generate a unique
- * identifier for each class expressions. This identifier can be used in rules and in generating knowledge base objects.
+ * This class converts OWLAPI OWL class expressions to their Drools representation. Its basic function is to generate
+ * a unique identifier for each class expression. This identifier can be used in rules and in generating knowledge base
+ * objects.
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
+ * @see org.swrlapi.drools.owl.classexpressions.CE
  */
 public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
 		TargetRuleEngineOWLClassExpressionConverter<String>

@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Keeps track of OWL axioms that are inferred during rule execution. Also contains the initial asserted OWL
- * axioms.
+ * Keeps track of OWL axioms that are inferred during rule execution. Also contains the initial asserted OWL axioms.
  * <p>
  * Used by a {@link org.swrlapi.drools.reasoner.DroolsOWLReasoner}.
  *

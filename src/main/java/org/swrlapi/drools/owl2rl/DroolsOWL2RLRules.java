@@ -9,7 +9,7 @@ import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.OWL2RLNames;
 
 /**
- * Class providing Drools OWL 2 RL rules.
+ * Class that defines Drools OWL 2 RL rules.
  * </p>
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
  * </p>
