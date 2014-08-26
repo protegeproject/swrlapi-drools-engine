@@ -3,7 +3,6 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
-import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -33,5 +32,5 @@ public class AOPA extends DroolsUnaryObject<String> implements A
 	}
 
 	@Override
-	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor) { visitor.visit(this); }
 }

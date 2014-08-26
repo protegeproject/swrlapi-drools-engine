@@ -4,7 +4,6 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -40,7 +39,7 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 	}
 
 	@Override
-	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor) { visitor.visit(this); }
 
 	@Override
 	public String toString()

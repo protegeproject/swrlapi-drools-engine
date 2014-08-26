@@ -110,90 +110,6 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		return this.classExpressionConverter.getCEs();
 	}
 
-	public void convert(OWLAxiom axiom) throws TargetRuleEngineException
-	{ // TODO Get rid of these instanceof with visitor
-		if (axiom instanceof SWRLAPIRule) {
-			convert((SWRLAPIRule)axiom);
-		} else if (axiom instanceof OWLDeclarationAxiom) {
-			convert((OWLDeclarationAxiom)axiom);
-		} else if (axiom instanceof OWLClassAssertionAxiom) {
-			convert((OWLClassAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
-			convert((OWLObjectPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLDataPropertyAssertionAxiom) {
-			convert((OWLDataPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLSameIndividualAxiom) {
-			convert((OWLSameIndividualAxiom)axiom);
-		} else if (axiom instanceof OWLDifferentIndividualsAxiom) {
-			convert((OWLDifferentIndividualsAxiom)axiom);
-		} else if (axiom instanceof OWLSubClassOfAxiom) {
-			convert((OWLSubClassOfAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointClassesAxiom) {
-			convert((OWLDisjointClassesAxiom)axiom);
-		} else if (axiom instanceof OWLEquivalentClassesAxiom) {
-			convert((OWLEquivalentClassesAxiom)axiom);
-		} else if (axiom instanceof OWLSubObjectPropertyOfAxiom) {
-			convert((OWLSubObjectPropertyOfAxiom)axiom);
-		} else if (axiom instanceof OWLSubDataPropertyOfAxiom) {
-			convert((OWLSubDataPropertyOfAxiom)axiom);
-		} else if (axiom instanceof OWLEquivalentObjectPropertiesAxiom) {
-			convert((OWLEquivalentObjectPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLEquivalentDataPropertiesAxiom) {
-			convert((OWLEquivalentDataPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointObjectPropertiesAxiom) {
-			convert((OWLDisjointObjectPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointDataPropertiesAxiom) {
-			convert((OWLDisjointDataPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLObjectPropertyDomainAxiom) {
-			convert((OWLObjectPropertyDomainAxiom)axiom);
-		} else if (axiom instanceof OWLDataPropertyDomainAxiom) {
-			convert((OWLDataPropertyDomainAxiom)axiom);
-		} else if (axiom instanceof OWLObjectPropertyRangeAxiom) {
-			convert((OWLObjectPropertyRangeAxiom)axiom);
-		} else if (axiom instanceof OWLDataPropertyRangeAxiom) {
-			convert((OWLDataPropertyRangeAxiom)axiom);
-		} else if (axiom instanceof OWLTransitiveObjectPropertyAxiom) {
-			convert((OWLTransitiveObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
-			convert((OWLSymmetricObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLFunctionalObjectPropertyAxiom) {
-			convert((OWLFunctionalObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLFunctionalDataPropertyAxiom) {
-			convert((OWLFunctionalDataPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
-			convert((OWLInverseFunctionalObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLInverseObjectPropertiesAxiom) {
-			convert((OWLInverseObjectPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
-			convert((OWLIrreflexiveObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
-			convert((OWLAsymmetricObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
-			convert((OWLNegativeDataPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
-			convert((OWLNegativeObjectPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLReflexiveObjectPropertyAxiom) {
-			convert((OWLReflexiveObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointUnionAxiom) {
-			convert((OWLDisjointUnionAxiom)axiom);
-		} else if (axiom instanceof OWLAnnotationAssertionAxiom) {
-			convert((OWLAnnotationAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLSubPropertyChainOfAxiom) {
-			convert((OWLSubPropertyChainOfAxiom)axiom);
-		} else if (axiom instanceof OWLHasKeyAxiom) {
-			convert((OWLHasKeyAxiom)axiom);
-		} else if (axiom instanceof OWLDatatypeDefinitionAxiom) {
-			convert((OWLDatatypeDefinitionAxiom)axiom);
-		} else if (axiom instanceof OWLAnnotationPropertyRangeAxiom) {
-			convert((OWLAnnotationPropertyRangeAxiom)axiom);
-		} else if (axiom instanceof OWLAnnotationPropertyDomainAxiom) {
-			convert((OWLAnnotationPropertyDomainAxiom)axiom);
-		} else if (axiom instanceof OWLSubAnnotationPropertyOfAxiom) {
-			convert((OWLSubAnnotationPropertyOfAxiom)axiom);
-		} else
-			throw new RuntimeException("unknown OWL axiom type " + axiom.getClass().getCanonicalName());
-	}
-
 	@Override
 	public void convert(SWRLAPIRule rule) throws TargetRuleEngineException
 	{
@@ -648,6 +564,91 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		// We ignore because we do not reason with this axiom.
 	}
+
+	public void convert(OWLAxiom axiom) throws TargetRuleEngineException
+	{ // TODO Get rid of these instanceof with visitor: SWRLAPIOWLAxiomVisitorEx
+		if (axiom instanceof SWRLAPIRule) {
+			convert((SWRLAPIRule)axiom);
+		} else if (axiom instanceof OWLDeclarationAxiom) {
+			convert((OWLDeclarationAxiom)axiom);
+		} else if (axiom instanceof OWLClassAssertionAxiom) {
+			convert((OWLClassAssertionAxiom)axiom);
+		} else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
+			convert((OWLObjectPropertyAssertionAxiom)axiom);
+		} else if (axiom instanceof OWLDataPropertyAssertionAxiom) {
+			convert((OWLDataPropertyAssertionAxiom)axiom);
+		} else if (axiom instanceof OWLSameIndividualAxiom) {
+			convert((OWLSameIndividualAxiom)axiom);
+		} else if (axiom instanceof OWLDifferentIndividualsAxiom) {
+			convert((OWLDifferentIndividualsAxiom)axiom);
+		} else if (axiom instanceof OWLSubClassOfAxiom) {
+			convert((OWLSubClassOfAxiom)axiom);
+		} else if (axiom instanceof OWLDisjointClassesAxiom) {
+			convert((OWLDisjointClassesAxiom)axiom);
+		} else if (axiom instanceof OWLEquivalentClassesAxiom) {
+			convert((OWLEquivalentClassesAxiom)axiom);
+		} else if (axiom instanceof OWLSubObjectPropertyOfAxiom) {
+			convert((OWLSubObjectPropertyOfAxiom)axiom);
+		} else if (axiom instanceof OWLSubDataPropertyOfAxiom) {
+			convert((OWLSubDataPropertyOfAxiom)axiom);
+		} else if (axiom instanceof OWLEquivalentObjectPropertiesAxiom) {
+			convert((OWLEquivalentObjectPropertiesAxiom)axiom);
+		} else if (axiom instanceof OWLEquivalentDataPropertiesAxiom) {
+			convert((OWLEquivalentDataPropertiesAxiom)axiom);
+		} else if (axiom instanceof OWLDisjointObjectPropertiesAxiom) {
+			convert((OWLDisjointObjectPropertiesAxiom)axiom);
+		} else if (axiom instanceof OWLDisjointDataPropertiesAxiom) {
+			convert((OWLDisjointDataPropertiesAxiom)axiom);
+		} else if (axiom instanceof OWLObjectPropertyDomainAxiom) {
+			convert((OWLObjectPropertyDomainAxiom)axiom);
+		} else if (axiom instanceof OWLDataPropertyDomainAxiom) {
+			convert((OWLDataPropertyDomainAxiom)axiom);
+		} else if (axiom instanceof OWLObjectPropertyRangeAxiom) {
+			convert((OWLObjectPropertyRangeAxiom)axiom);
+		} else if (axiom instanceof OWLDataPropertyRangeAxiom) {
+			convert((OWLDataPropertyRangeAxiom)axiom);
+		} else if (axiom instanceof OWLTransitiveObjectPropertyAxiom) {
+			convert((OWLTransitiveObjectPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
+			convert((OWLSymmetricObjectPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLFunctionalObjectPropertyAxiom) {
+			convert((OWLFunctionalObjectPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLFunctionalDataPropertyAxiom) {
+			convert((OWLFunctionalDataPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
+			convert((OWLInverseFunctionalObjectPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLInverseObjectPropertiesAxiom) {
+			convert((OWLInverseObjectPropertiesAxiom)axiom);
+		} else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
+			convert((OWLIrreflexiveObjectPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
+			convert((OWLAsymmetricObjectPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
+			convert((OWLNegativeDataPropertyAssertionAxiom)axiom);
+		} else if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
+			convert((OWLNegativeObjectPropertyAssertionAxiom)axiom);
+		} else if (axiom instanceof OWLReflexiveObjectPropertyAxiom) {
+			convert((OWLReflexiveObjectPropertyAxiom)axiom);
+		} else if (axiom instanceof OWLDisjointUnionAxiom) {
+			convert((OWLDisjointUnionAxiom)axiom);
+		} else if (axiom instanceof OWLAnnotationAssertionAxiom) {
+			convert((OWLAnnotationAssertionAxiom)axiom);
+		} else if (axiom instanceof OWLSubPropertyChainOfAxiom) {
+			convert((OWLSubPropertyChainOfAxiom)axiom);
+		} else if (axiom instanceof OWLHasKeyAxiom) {
+			convert((OWLHasKeyAxiom)axiom);
+		} else if (axiom instanceof OWLDatatypeDefinitionAxiom) {
+			convert((OWLDatatypeDefinitionAxiom)axiom);
+		} else if (axiom instanceof OWLAnnotationPropertyRangeAxiom) {
+			convert((OWLAnnotationPropertyRangeAxiom)axiom);
+		} else if (axiom instanceof OWLAnnotationPropertyDomainAxiom) {
+			convert((OWLAnnotationPropertyDomainAxiom)axiom);
+		} else if (axiom instanceof OWLSubAnnotationPropertyOfAxiom) {
+			convert((OWLSubAnnotationPropertyOfAxiom)axiom);
+		} else
+			throw new RuntimeException("unknown OWL axiom type " + axiom.getClass().getCanonicalName());
+	}
+
 
 	private void recordOWLAxiom(A a)
 	{

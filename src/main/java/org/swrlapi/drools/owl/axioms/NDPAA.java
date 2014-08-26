@@ -4,9 +4,7 @@ import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -48,7 +46,7 @@ public class NDPAA extends DroolsTernaryObject<I, String, L> implements A
 	}
 
 	@Override
-	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor) { visitor.visit(this); }
 
 	@Override
 	public String toString()

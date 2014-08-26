@@ -3,7 +3,6 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.drools.owl2rl.DroolsOWL2RLAxiomVisitor;
 import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
@@ -46,7 +45,7 @@ public class DIA extends DroolsBinaryIndividualsAxiom
 	}
 
 	@Override
-	public void visit(DroolsOWL2RLAxiomVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor) { visitor.visit(this); }
 
 	@Override
 	public String toString()

@@ -35,7 +35,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	}
 
 	public String convert(SWRLArgument argument) throws TargetRuleEngineException
-	{ // TODO Use visitor pattern to replace instanceof
+	{ // TODO Use visitor pattern to replace instanceof: SWRLBuiltInArgumentVisitorEx
 		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {

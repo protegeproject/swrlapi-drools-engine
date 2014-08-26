@@ -1,25 +1,25 @@
-package org.swrlapi.drools.owl2rl;
+package org.swrlapi.drools.reasoner;
 
 import java.util.*;
 
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.axioms.AVisitor;
 import org.swrlapi.owl2rl.OWL2RLInconsistency;
 
 /**
- * This class is used to accumulate inferred OWL axioms. Drools rules generated from SWRL rules and the OWL 2 RL rules
- * defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} use a single instance of this class.
+ * This class is used to accumulate inferred OWL axioms during reasoning and rule execution. Drools rules generated
+ * from SWRL rules and a reasoner (e.g., the OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules})
+ * use a single instance of this class.
  * </p>
- * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during rule execution. It
- * keeps track of the inferred axioms and associated knowledge and also inserts the axioms in to a Drools
- * knowledge session.
+ * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during reasoning and
+ * rule execution. It keeps track of the inferred axioms and associated knowledge and also inserts the axioms in to a
+ * Drools knowledge session.
  *
- * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
- * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
  * @see org.swrlapi.drools.reasoner.DroolsOWLReasoner
  */
-public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, DroolsOWL2RLAxiomVisitor
+public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVisitor
 {
 	private final Set<A> inferredOWLAxioms;
 	private final Set<A> assertedOWLAxioms;

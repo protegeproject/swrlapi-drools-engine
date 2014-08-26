@@ -1,9 +1,6 @@
 package org.swrlapi.drools.core;
 
-import org.semanticweb.owlapi.model.*;
-import org.swrlapi.core.OWLClassExpressionResolver;
 import org.swrlapi.drools.owl.classexpressions.*;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 import java.util.*;
 

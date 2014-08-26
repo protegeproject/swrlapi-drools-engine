@@ -45,7 +45,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	public BA convert(SWRLBuiltInArgument argument) throws TargetRuleEngineException
-	{ // TODO Visitor to replace instanceof
+	{ // TODO Visitor to replace instanceof: SWRLBuiltInArgumentVisitorEx
 		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {

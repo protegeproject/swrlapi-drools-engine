@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl2rl;
+package org.swrlapi.drools.owl.axioms;
 
 import org.swrlapi.drools.owl.axioms.AOPA;
 import org.swrlapi.drools.owl.axioms.APDA;
@@ -35,19 +35,15 @@ import org.swrlapi.drools.owl.axioms.SPA;
 import org.swrlapi.drools.owl.axioms.TOPA;
 
 /**
- * A visitor that can visit a Drools representation of OWL axioms ({@link org.swrlapi.drools.owl.axioms.A}).
- * Its primary role is to provide a visitor to deal with axioms asserted by a Drools OWL 2 RL reasoner.
+ * A visitor that can visit a Drools representation of OWL axioms, represented by
+ * {@link org.swrlapi.drools.owl.axioms.A}s.
  * </p>
- * It is based on the OWLAPI's {@link org.semanticweb.owlapi.model.OWLAxiomVisitor} but only defines visitor
- * methods for axioms that are asserted by an OWL 2 RL reasoner. If an axiom is not asserted by an OWL 2
- * RL reasoner then it is not handled by this visitor.
+ * It is modelled on the OWLAPI's {@link org.semanticweb.owlapi.model.OWLAxiomVisitor}.
  *
  * @see org.swrlapi.drools.owl.axioms.A
  * @see org.semanticweb.owlapi.model.OWLAxiomVisitor
- * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
- * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
  */
-public interface DroolsOWL2RLAxiomVisitor
+public interface AVisitor
 {
 	void visit(CDA cda);
 

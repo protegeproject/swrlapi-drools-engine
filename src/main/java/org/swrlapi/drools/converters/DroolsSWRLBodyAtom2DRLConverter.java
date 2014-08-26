@@ -61,27 +61,6 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		this.builtInIndexInBody = 0;
 	}
 
-	public String convert(SWRLAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
-	{ // TODO Visitor to replace instanceof (define SWRLObjectVisitorEx)
-		if (atom instanceof SWRLDataRangeAtom) {
-			return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariablePrefixedNames);
-		} else if (atom instanceof SWRLClassAtom) {
-			return convert((SWRLClassAtom)atom, previouslyEncounteredVariablePrefixedNames);
-		} else if (atom instanceof SWRLDataPropertyAtom) {
-			return convert((SWRLDataPropertyAtom)atom, previouslyEncounteredVariablePrefixedNames);
-		} else if (atom instanceof SWRLObjectPropertyAtom) {
-			return convert((SWRLObjectPropertyAtom)atom, previouslyEncounteredVariablePrefixedNames);
-		} else if (atom instanceof SWRLSameIndividualAtom) {
-			return convert((SWRLSameIndividualAtom)atom, previouslyEncounteredVariablePrefixedNames);
-		} else if (atom instanceof SWRLDifferentIndividualsAtom) {
-			return convert((SWRLDifferentIndividualsAtom)atom, previouslyEncounteredVariablePrefixedNames);
-		} else if (atom instanceof SWRLAPIBuiltInAtom) {
-			return convert((SWRLAPIBuiltInAtom)atom, previouslyEncounteredVariablePrefixedNames);
-		} else
-			throw new RuntimeException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
-	}
-
 	@Override
 	public String convert(SWRLDataRangeAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
 			throws TargetRuleEngineException
@@ -261,6 +240,27 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		this.builtInIndexInBody++;
 
 		return representation;
+	}
+
+	public String convert(SWRLAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+			throws TargetRuleEngineException
+	{ // TODO Visitor to replace instanceof: SWRLAtomVisitorExP
+		if (atom instanceof SWRLDataRangeAtom) {
+			return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariablePrefixedNames);
+		} else if (atom instanceof SWRLClassAtom) {
+			return convert((SWRLClassAtom)atom, previouslyEncounteredVariablePrefixedNames);
+		} else if (atom instanceof SWRLDataPropertyAtom) {
+			return convert((SWRLDataPropertyAtom)atom, previouslyEncounteredVariablePrefixedNames);
+		} else if (atom instanceof SWRLObjectPropertyAtom) {
+			return convert((SWRLObjectPropertyAtom)atom, previouslyEncounteredVariablePrefixedNames);
+		} else if (atom instanceof SWRLSameIndividualAtom) {
+			return convert((SWRLSameIndividualAtom)atom, previouslyEncounteredVariablePrefixedNames);
+		} else if (atom instanceof SWRLDifferentIndividualsAtom) {
+			return convert((SWRLDifferentIndividualsAtom)atom, previouslyEncounteredVariablePrefixedNames);
+		} else if (atom instanceof SWRLAPIBuiltInAtom) {
+			return convert((SWRLAPIBuiltInAtom)atom, previouslyEncounteredVariablePrefixedNames);
+		} else
+			throw new RuntimeException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
 	}
 
 	private DroolsSWRLBodyAtomArgument2DRLConverter getSWRLBodyAtomArgumentConverter()

@@ -20,7 +20,7 @@ import java.util.Set;
  * @see org.semanticweb.owlapi.model.OWLDataRange
  */
 public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLDataRangeConverter<String>
+		TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 {
 	private final Map<OWLDataRange, String> dataRange2IDMap;
 	private final Set<String> convertedDataRangeIDs;
@@ -50,21 +50,8 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	}
 
 	public String convert(OWLDataRange dataRange)
-	{ // TODO Use visitor to get rid of instanceof
-		if (dataRange instanceof OWLDatatype) {
-			return convert((OWLDatatype)dataRange);
-		} else if (dataRange instanceof OWLDataOneOf) {
-			return convert((OWLDataOneOf)dataRange);
-		} else if (dataRange instanceof OWLDataComplementOf) {
-			return convert((OWLDataComplementOf)dataRange);
-		} else if (dataRange instanceof OWLDataIntersectionOf) {
-			return convert((OWLDataIntersectionOf)dataRange);
-		} else if (dataRange instanceof OWLDataUnionOf) {
-			return convert((OWLDataUnionOf)dataRange);
-		} else if (dataRange instanceof OWLDatatypeRestriction) {
-			return convert((OWLDatatypeRestriction)dataRange);
-		} else
-			throw new RuntimeException("unknown OWL data range type " + dataRange.getClass().getCanonicalName());
+	{
+		return dataRange.accept(this);
 	}
 
 	@Override
@@ -159,4 +146,33 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		this.dataRanges.add(dataRange);
 	}
 
+	@Override public String visit(OWLDatatype owlDatatype)
+	{
+		return convert(owlDatatype);
+	}
+
+	@Override public String visit(OWLDataOneOf owlDataOneOf)
+	{
+		return convert(owlDataOneOf);
+	}
+
+	@Override public String visit(OWLDataComplementOf owlDataComplementOf)
+	{
+		return convert(owlDataComplementOf);
+	}
+
+	@Override public String visit(OWLDataIntersectionOf owlDataIntersectionOf)
+	{
+		return convert(owlDataIntersectionOf);
+	}
+
+	@Override public String visit(OWLDataUnionOf owlDataUnionOf)
+	{
+		return convert(owlDataUnionOf);
+	}
+
+	@Override public String visit(OWLDatatypeRestriction owlDatatypeRestriction)
+	{
+		return convert(owlDatatypeRestriction);
+	}
 }

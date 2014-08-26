@@ -1,4 +1,4 @@
-package org.swrlapi.drools.owl2rl;
+package org.swrlapi.drools.reasoner;
 
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.core.L;
