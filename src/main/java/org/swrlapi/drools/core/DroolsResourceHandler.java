@@ -23,19 +23,18 @@ public class DroolsResourceHandler
 		importOWLAndSWRLJavaClasses();
 	}
 
-	public void defineDRLRule(String ruleName, String ruleText) throws TargetRuleEngineException
+	public void defineDRLRule(String ruleName, String ruleText)
 	{
 		try {
 			//System.out.println("Rule " + ruleName + "\n" + ruleText);
 			defineDRLResource(ruleText);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			throw new TargetRuleEngineException(
-					"internal error generating Drools rule \n" + ruleText + "\n" + e.getMessage(), e);
+			throw new RuntimeException("internal error generating Drools rule \n" + ruleText + "\n" + e.getMessage(), e);
 		}
 
 		if (knowledgeBuilder.hasErrors())
-			throw new TargetRuleEngineException("internal error generating Drools rule\n" + ruleText + "\n"
+			throw new RuntimeException("internal error generating Drools rule\n" + ruleText + "\n"
 					+ knowledgeBuilder.getErrors().toString());
 	}
 

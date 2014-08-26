@@ -17,8 +17,6 @@ import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
-import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts OWLAPI SWRL head atom argument to DRL clauses for use in rules.
@@ -34,8 +32,103 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 		super(bridge);
 	}
 
-	public String convert(SWRLArgument argument) throws TargetRuleEngineException
-	{ // TODO Use visitor pattern to replace instanceof: SWRLBuiltInArgumentVisitorEx
+	@Override
+	public String convert(SWRLVariable variableArgument)
+	{
+		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
+	}
+
+	@Override
+	public String convert(SWRLIndividualArgument individualArgument)
+	{
+		OWLIndividual individual = individualArgument.getIndividual();
+
+		if (individual.isNamed()) {
+			IRI iri = individual.asOWLNamedIndividual().getIRI();
+			String prefixedName = getIRIResolver().iri2PrefixedName(iri);
+			return addQuotes(prefixedName);
+		} else if (individual.isAnonymous()) {
+			String id = individual.asOWLAnonymousIndividual().toStringID();
+			return addQuotes(id);
+		} else
+			throw new RuntimeException("unknown OWL individual type " + individual.getClass().getCanonicalName()
+					+ " passed as a " + SWRLIndividualArgument.class.getName());
+	}
+
+	@Override
+	public String convert(SWRLLiteralArgument argument)
+	{
+		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
+	}
+
+	@Override
+	public String convert(SWRLVariableBuiltInArgument variableArgument)
+	{
+		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
+	}
+
+	@Override
+	public String convert(SWRLClassBuiltInArgument classArgument)
+	{
+		String prefixedName = getIRIResolver().iri2PrefixedName(classArgument.getIRI());
+
+		return addQuotes(prefixedName);
+	}
+
+	@Override
+	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument)
+	{
+		String prefixedName = getIRIResolver().iri2PrefixedName(individualArgument.getIRI());
+
+		return addQuotes(prefixedName);
+	}
+
+	@Override
+	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument)
+	{
+		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+
+		return addQuotes(prefixedName);
+	}
+
+	@Override
+	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument)
+	{
+		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+
+		return addQuotes(prefixedName);
+	}
+
+	@Override
+	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument)
+	{
+		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+
+		return addQuotes(prefixedName);
+	}
+
+	@Override
+	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument)
+	{
+		String prefixedName = getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
+
+		return prefixedName;
+	}
+
+	@Override
+	public String convert(SWRLLiteralBuiltInArgument argument)
+	{
+		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
+	}
+
+	@Override
+	public String convert(SQWRLCollectionVariableBuiltInArgument argument)
+	{
+		throw new RuntimeException("SQWRL collections not yet supported in Drools");
+	}
+
+	public String convert(SWRLArgument argument)
+	{ // TODO Use visitor to replace instanceof: define SWRLArgumentVisitorEx in OWLAPI and then SWRLBuiltInArgumentVisitorEx
 		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
@@ -62,101 +155,6 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 			return convert((SWRLIndividualArgument)argument);
 		} else
 			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
-	}
-
-	@Override
-	public String convert(SWRLVariable variableArgument) throws TargetRuleEngineException
-	{
-		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
-	}
-
-	@Override
-	public String convert(SWRLIndividualArgument individualArgument) throws TargetRuleEngineException
-	{
-		OWLIndividual individual = individualArgument.getIndividual();
-
-		if (individual.isNamed()) {
-			IRI iri = individual.asOWLNamedIndividual().getIRI();
-			String prefixedName = getIRIResolver().iri2PrefixedName(iri);
-			return addQuotes(prefixedName);
-		} else if (individual.isAnonymous()) {
-			String id = individual.asOWLAnonymousIndividual().toStringID();
-			return addQuotes(id);
-		} else
-			throw new RuntimeException("unknown OWL individual type " + individual.getClass().getCanonicalName()
-					+ " passed as a " + SWRLIndividualArgument.class.getName());
-	}
-
-	@Override
-	public String convert(SWRLLiteralArgument argument) throws TargetRuleEngineException
-	{
-		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
-	}
-
-	@Override
-	public String convert(SWRLVariableBuiltInArgument variableArgument) throws TargetRuleEngineException
-	{
-		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
-	}
-
-	@Override
-	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(classArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(individualArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
-
-		return addQuotes(prefixedName);
-	}
-
-	@Override
-	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
-
-		return prefixedName;
-	}
-
-	@Override
-	public String convert(SWRLLiteralBuiltInArgument argument) throws TargetRuleEngineException
-	{
-		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
-	}
-
-	@Override
-	public String convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
-	{
-		throw new TargetRuleEngineNotImplementedFeatureException("SQWRL collections not yet supported in Drools");
 	}
 
 	private String addQuotes(String s)

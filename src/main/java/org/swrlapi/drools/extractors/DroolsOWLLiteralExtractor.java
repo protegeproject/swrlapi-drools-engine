@@ -31,7 +31,7 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase imp
 	}
 
 	@Override
-	public OWLLiteral extract(L l) throws TargetRuleEngineException
+	public OWLLiteral extract(L l)
 	{ // TODO See if we can use visitor to get rid of instanceof
 		try {
 			if (l.isString())
@@ -66,12 +66,12 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase imp
 				return getOWLLiteralFactory().getOWLLiteral(l.value, datatype);
 			}
 		} catch (NumberFormatException e) {
-			throw new TargetRuleEngineException("number format exception extracting OWL literal " + l + " with type "
+			throw new RuntimeException("number format exception extracting OWL literal " + l + " with type "
 					+ l.getTypeName() + " from Drools: ", e);
 		} catch (URISyntaxException e) {
-			throw new TargetRuleEngineException("IRI exception extracting OWL URI literal " + l + " from Drools: ", e);
+			throw new RuntimeException("IRI exception extracting OWL URI literal " + l + " from Drools: ", e);
 		} catch (IllegalArgumentException e) {
-			throw new TargetRuleEngineException("exception extracting OWL literal " + l + " with type " + l.getTypeName()
+			throw new RuntimeException("exception extracting OWL literal " + l + " with type " + l.getTypeName()
 					+ " from Drools: " + e.getMessage(), e);
 		}
 	}

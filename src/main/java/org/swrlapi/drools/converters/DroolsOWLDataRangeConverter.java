@@ -130,22 +130,6 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		throw new RuntimeException("owl:DatatypeRestriction is not supported in by Drools OWL 2 RL reasoner");
 	}
 
-	private String getOWLDataRangeID(OWLDataRange dataRange)
-	{
-		if (this.dataRange2IDMap.containsKey(dataRange))
-			return this.dataRange2IDMap.get(dataRange);
-		else {
-			String dataRangeID = "DRID" + this.dataRangeIndex++;
-			this.dataRange2IDMap.put(dataRange, dataRangeID);
-			return dataRangeID;
-		}
-	}
-
-	private void addOWLDataRange(DR dataRange)
-	{
-		this.dataRanges.add(dataRange);
-	}
-
 	@Override public String visit(OWLDatatype owlDatatype)
 	{
 		return convert(owlDatatype);
@@ -174,5 +158,21 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	@Override public String visit(OWLDatatypeRestriction owlDatatypeRestriction)
 	{
 		return convert(owlDatatypeRestriction);
+	}
+
+	private String getOWLDataRangeID(OWLDataRange dataRange)
+	{
+		if (this.dataRange2IDMap.containsKey(dataRange))
+			return this.dataRange2IDMap.get(dataRange);
+		else {
+			String dataRangeID = "DRID" + this.dataRangeIndex++;
+			this.dataRange2IDMap.put(dataRange, dataRangeID);
+			return dataRangeID;
+		}
+	}
+
+	private void addOWLDataRange(DR dataRange)
+	{
+		this.dataRanges.add(dataRange);
 	}
 }

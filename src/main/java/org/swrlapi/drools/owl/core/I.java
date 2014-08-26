@@ -38,7 +38,7 @@ public class I extends OE
 					+ ba.getClass().getCanonicalName());
 	}
 
-	public OWLIndividual extract(DroolsOWLIndividualExtractor extractor) throws TargetRuleEngineException
+	public OWLIndividual extract(DroolsOWLIndividualExtractor extractor)
 	{
 		return extractor.extract(this);
 	}

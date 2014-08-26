@@ -3,66 +3,16 @@ package org.swrlapi.drools.converters;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
+import org.swrlapi.core.visitors.SWRLAPIOWLAxiomVisitor;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.classexpressions.CE;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts OWLAPI OWL axioms to their Drools representation.
@@ -73,7 +23,8 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * @see org.swrlapi.drools.owl.axioms.A
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
-public class DroolsOWLAxiomConverter extends DroolsConverterBase implements TargetRuleEngineOWLAxiomConverter
+public class DroolsOWLAxiomConverter extends DroolsConverterBase implements TargetRuleEngineOWLAxiomConverter,
+		SWRLAPIOWLAxiomVisitor
 {
 	private final DroolsSWRLRuleConverter swrlRuleConverter;
 	private final DroolsOWLClassExpressionConverter classExpressionConverter;
@@ -111,13 +62,13 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(SWRLAPIRule rule) throws TargetRuleEngineException
+	public void convert(SWRLAPIRule rule)
 	{
 		getDroolsSWRLRuleConverter().convert(rule);
 	}
 
 	@Override
-	public void convert(OWLDeclarationAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDeclarationAxiom axiom)
 	{
 		OWLEntity entity = axiom.getEntity();
 
@@ -148,7 +99,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLClassAssertionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLClassAssertionAxiom axiom)
 	{
 		OWLClassExpression cls = axiom.getClassExpression();
 		OWLIndividual individual = axiom.getIndividual();
@@ -160,7 +111,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLObjectPropertyAssertionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLObjectPropertyAssertionAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		OWLIndividual subjectIndividual = axiom.getSubject();
@@ -174,7 +125,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLDataPropertyAssertionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDataPropertyAssertionAxiom axiom)
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLIndividual subjectIndividual = axiom.getSubject();
@@ -188,7 +139,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLSameIndividualAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLSameIndividualAxiom axiom)
 	{
 		if (!axiom.getIndividuals().isEmpty()) {
 			for (OWLIndividual individual1 : axiom.getIndividuals()) {
@@ -208,7 +159,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLDifferentIndividualsAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDifferentIndividualsAxiom axiom)
 	{
 		if (!axiom.getIndividuals().isEmpty()) {
 			for (OWLIndividual individual1 : axiom.getIndividuals()) {
@@ -225,7 +176,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLSubDataPropertyOfAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLSubDataPropertyOfAxiom axiom)
 	{
 		OWLDataPropertyExpression subProperty = axiom.getSubProperty();
 		OWLDataPropertyExpression superProperty = axiom.getSuperProperty();
@@ -236,7 +187,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLSubObjectPropertyOfAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLSubObjectPropertyOfAxiom axiom)
 	{
 		OWLObjectPropertyExpression subProperty = axiom.getSubProperty();
 		OWLObjectPropertyExpression superProperty = axiom.getSuperProperty();
@@ -247,7 +198,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLInverseObjectPropertiesAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLInverseObjectPropertiesAxiom axiom)
 	{
 		OWLObjectPropertyExpression property1 = axiom.getFirstProperty();
 		OWLObjectPropertyExpression property2 = axiom.getSecondProperty();
@@ -258,7 +209,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLSubClassOfAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLSubClassOfAxiom axiom)
 	{
 		OWLClassExpression subClass = axiom.getSubClass();
 		OWLClassExpression superClass = axiom.getSuperClass();
@@ -269,7 +220,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLDisjointClassesAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDisjointClassesAxiom axiom)
 	{
 		if (!axiom.getClassExpressions().isEmpty()) {
 			for (OWLClassExpression class1 : axiom.getClassExpressions()) {
@@ -288,7 +239,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLEquivalentClassesAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLEquivalentClassesAxiom axiom)
 	{
 		if (!axiom.getClassExpressions().isEmpty()) {
 			for (OWLClassExpression class1 : axiom.getClassExpressions()) {
@@ -305,7 +256,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLEquivalentObjectPropertiesAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLEquivalentObjectPropertiesAxiom axiom)
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
@@ -323,7 +274,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLEquivalentDataPropertiesAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLEquivalentDataPropertiesAxiom axiom)
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
@@ -341,7 +292,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLDisjointObjectPropertiesAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDisjointObjectPropertiesAxiom axiom)
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
@@ -359,7 +310,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLDisjointDataPropertiesAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDisjointDataPropertiesAxiom axiom)
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
@@ -377,7 +328,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLObjectPropertyDomainAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLObjectPropertyDomainAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		OWLClassExpression domain = axiom.getDomain();
@@ -388,7 +339,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLDataPropertyDomainAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDataPropertyDomainAxiom axiom)
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLClassExpression domain = axiom.getDomain();
@@ -399,7 +350,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLObjectPropertyRangeAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLObjectPropertyRangeAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		OWLClassExpression domain = axiom.getRange();
@@ -410,7 +361,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLDataPropertyRangeAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDataPropertyRangeAxiom axiom)
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLDataRange range = axiom.getRange();
@@ -421,7 +372,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLFunctionalObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLFunctionalObjectPropertyAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		FOPA fopa = new FOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
@@ -430,7 +381,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLFunctionalDataPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLFunctionalDataPropertyAxiom axiom)
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		FDPA fdpa = new FDPA(getDroolsOWLPropertyExpressionConverter().convert(property));
@@ -439,7 +390,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLInverseFunctionalObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLInverseFunctionalObjectPropertyAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		IFOPA ifopa = new IFOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
@@ -448,7 +399,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLIrreflexiveObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLIrreflexiveObjectPropertyAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		IROPA iropa = new IROPA(getDroolsOWLPropertyExpressionConverter().convert(property));
@@ -457,7 +408,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLTransitiveObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLTransitiveObjectPropertyAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		TOPA topa = new TOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
@@ -466,7 +417,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLSymmetricObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLSymmetricObjectPropertyAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		SPA spa = new SPA(getDroolsOWLPropertyExpressionConverter().convert(property));
@@ -475,7 +426,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLAsymmetricObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLAsymmetricObjectPropertyAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		AOPA aopa = new AOPA(getDroolsOWLPropertyExpressionConverter().convert(property));
@@ -484,7 +435,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLNegativeObjectPropertyAssertionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLNegativeObjectPropertyAssertionAxiom axiom)
 	{
 		OWLObjectPropertyExpression property = axiom.getProperty();
 		OWLIndividual subjectIndividual = axiom.getSubject();
@@ -498,7 +449,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLNegativeDataPropertyAssertionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLNegativeDataPropertyAssertionAxiom axiom)
 	{
 		OWLDataPropertyExpression property = axiom.getProperty();
 		OWLIndividual subjectIndividual = axiom.getSubject();
@@ -512,143 +463,266 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	}
 
 	@Override
-	public void convert(OWLSubPropertyChainOfAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLSubPropertyChainOfAxiom axiom)
 	{
 		// TODO
 	}
 
 	@Override
-	public void convert(OWLHasKeyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLHasKeyAxiom axiom)
 	{
 		// TODO
 	}
 
 	@Override
-	public void convert(OWLReflexiveObjectPropertyAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLReflexiveObjectPropertyAxiom axiom)
 	{
 		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
-	public void convert(OWLDisjointUnionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDisjointUnionAxiom axiom)
 	{
 		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
-	public void convert(OWLDatatypeDefinitionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLDatatypeDefinitionAxiom axiom)
 	{
 		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
-	public void convert(OWLAnnotationAssertionAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLAnnotationAssertionAxiom axiom)
 	{
 		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
-	public void convert(OWLAnnotationPropertyRangeAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLAnnotationPropertyRangeAxiom axiom)
 	{
 		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
-	public void convert(OWLAnnotationPropertyDomainAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLAnnotationPropertyDomainAxiom axiom)
 	{
 		// We ignore because the OWL 2 RL reasoner does not reason with this axiom.
 	}
 
 	@Override
-	public void convert(OWLSubAnnotationPropertyOfAxiom axiom) throws TargetRuleEngineException
+	public void convert(OWLSubAnnotationPropertyOfAxiom axiom)
 	{
 		// We ignore because we do not reason with this axiom.
 	}
 
-	public void convert(OWLAxiom axiom) throws TargetRuleEngineException
-	{ // TODO Get rid of these instanceof with visitor: SWRLAPIOWLAxiomVisitorEx
-		if (axiom instanceof SWRLAPIRule) {
-			convert((SWRLAPIRule)axiom);
-		} else if (axiom instanceof OWLDeclarationAxiom) {
-			convert((OWLDeclarationAxiom)axiom);
-		} else if (axiom instanceof OWLClassAssertionAxiom) {
-			convert((OWLClassAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
-			convert((OWLObjectPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLDataPropertyAssertionAxiom) {
-			convert((OWLDataPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLSameIndividualAxiom) {
-			convert((OWLSameIndividualAxiom)axiom);
-		} else if (axiom instanceof OWLDifferentIndividualsAxiom) {
-			convert((OWLDifferentIndividualsAxiom)axiom);
-		} else if (axiom instanceof OWLSubClassOfAxiom) {
-			convert((OWLSubClassOfAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointClassesAxiom) {
-			convert((OWLDisjointClassesAxiom)axiom);
-		} else if (axiom instanceof OWLEquivalentClassesAxiom) {
-			convert((OWLEquivalentClassesAxiom)axiom);
-		} else if (axiom instanceof OWLSubObjectPropertyOfAxiom) {
-			convert((OWLSubObjectPropertyOfAxiom)axiom);
-		} else if (axiom instanceof OWLSubDataPropertyOfAxiom) {
-			convert((OWLSubDataPropertyOfAxiom)axiom);
-		} else if (axiom instanceof OWLEquivalentObjectPropertiesAxiom) {
-			convert((OWLEquivalentObjectPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLEquivalentDataPropertiesAxiom) {
-			convert((OWLEquivalentDataPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointObjectPropertiesAxiom) {
-			convert((OWLDisjointObjectPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointDataPropertiesAxiom) {
-			convert((OWLDisjointDataPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLObjectPropertyDomainAxiom) {
-			convert((OWLObjectPropertyDomainAxiom)axiom);
-		} else if (axiom instanceof OWLDataPropertyDomainAxiom) {
-			convert((OWLDataPropertyDomainAxiom)axiom);
-		} else if (axiom instanceof OWLObjectPropertyRangeAxiom) {
-			convert((OWLObjectPropertyRangeAxiom)axiom);
-		} else if (axiom instanceof OWLDataPropertyRangeAxiom) {
-			convert((OWLDataPropertyRangeAxiom)axiom);
-		} else if (axiom instanceof OWLTransitiveObjectPropertyAxiom) {
-			convert((OWLTransitiveObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
-			convert((OWLSymmetricObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLFunctionalObjectPropertyAxiom) {
-			convert((OWLFunctionalObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLFunctionalDataPropertyAxiom) {
-			convert((OWLFunctionalDataPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
-			convert((OWLInverseFunctionalObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLInverseObjectPropertiesAxiom) {
-			convert((OWLInverseObjectPropertiesAxiom)axiom);
-		} else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
-			convert((OWLIrreflexiveObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
-			convert((OWLAsymmetricObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
-			convert((OWLNegativeDataPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
-			convert((OWLNegativeObjectPropertyAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLReflexiveObjectPropertyAxiom) {
-			convert((OWLReflexiveObjectPropertyAxiom)axiom);
-		} else if (axiom instanceof OWLDisjointUnionAxiom) {
-			convert((OWLDisjointUnionAxiom)axiom);
-		} else if (axiom instanceof OWLAnnotationAssertionAxiom) {
-			convert((OWLAnnotationAssertionAxiom)axiom);
-		} else if (axiom instanceof OWLSubPropertyChainOfAxiom) {
-			convert((OWLSubPropertyChainOfAxiom)axiom);
-		} else if (axiom instanceof OWLHasKeyAxiom) {
-			convert((OWLHasKeyAxiom)axiom);
-		} else if (axiom instanceof OWLDatatypeDefinitionAxiom) {
-			convert((OWLDatatypeDefinitionAxiom)axiom);
-		} else if (axiom instanceof OWLAnnotationPropertyRangeAxiom) {
-			convert((OWLAnnotationPropertyRangeAxiom)axiom);
-		} else if (axiom instanceof OWLAnnotationPropertyDomainAxiom) {
-			convert((OWLAnnotationPropertyDomainAxiom)axiom);
-		} else if (axiom instanceof OWLSubAnnotationPropertyOfAxiom) {
-			convert((OWLSubAnnotationPropertyOfAxiom)axiom);
-		} else
-			throw new RuntimeException("unknown OWL axiom type " + axiom.getClass().getCanonicalName());
+	public void convert(OWLAxiom axiom)
+	{
+		axiom.accept(this);
 	}
 
+	@Override public void visit(SWRLRule swrlRule)
+	{
+		if (swrlRule instanceof SWRLAPIRule)
+			convert((SWRLAPIRule)swrlRule);
+		else
+			throw new RuntimeException("Unexpected SWRL rule " + swrlRule + " - expecting SWRLAPIRule");
+	}
+
+	@Override public void visit(SWRLAPIRule swrlapiRule)
+	{
+		convert(swrlapiRule);
+	}
+
+	@Override public void visit(OWLDeclarationAxiom axiom)
+	{
+		convert(axiom);
+	}
+
+	@Override public void visit(OWLSubClassOfAxiom owlSubClassOfAxiom)
+	{
+		convert(owlSubClassOfAxiom);
+	}
+
+	@Override public void visit(OWLNegativeObjectPropertyAssertionAxiom owlNegativeObjectPropertyAssertionAxiom)
+	{
+		convert(owlNegativeObjectPropertyAssertionAxiom);
+	}
+
+	@Override public void visit(OWLAsymmetricObjectPropertyAxiom owlAsymmetricObjectPropertyAxiom)
+	{
+		convert(owlAsymmetricObjectPropertyAxiom);
+	}
+
+	@Override public void visit(OWLReflexiveObjectPropertyAxiom owlReflexiveObjectPropertyAxiom)
+	{
+		convert(owlReflexiveObjectPropertyAxiom);
+	}
+
+	@Override public void visit(OWLDisjointClassesAxiom owlDisjointClassesAxiom)
+	{
+		convert(owlDisjointClassesAxiom);
+	}
+
+	@Override public void visit(OWLDataPropertyDomainAxiom owlDataPropertyDomainAxiom)
+	{
+		convert(owlDataPropertyDomainAxiom);
+	}
+
+	@Override public void visit(OWLObjectPropertyDomainAxiom owlObjectPropertyDomainAxiom)
+	{
+		convert(owlObjectPropertyDomainAxiom);
+	}
+
+	@Override public void visit(OWLEquivalentObjectPropertiesAxiom owlEquivalentObjectPropertiesAxiom)
+	{
+		convert(owlEquivalentObjectPropertiesAxiom);
+	}
+
+	@Override public void visit(OWLNegativeDataPropertyAssertionAxiom owlNegativeDataPropertyAssertionAxiom)
+	{
+		convert(owlNegativeDataPropertyAssertionAxiom);
+	}
+
+	@Override public void visit(OWLDifferentIndividualsAxiom owlDifferentIndividualsAxiom)
+	{
+		convert(owlDifferentIndividualsAxiom);
+	}
+
+	@Override public void visit(OWLDisjointDataPropertiesAxiom owlDisjointDataPropertiesAxiom)
+	{
+		convert(owlDisjointDataPropertiesAxiom);
+	}
+
+	@Override public void visit(OWLDisjointObjectPropertiesAxiom owlDisjointObjectPropertiesAxiom)
+	{
+		convert(owlDisjointObjectPropertiesAxiom);
+	}
+
+	@Override public void visit(OWLObjectPropertyRangeAxiom owlObjectPropertyRangeAxiom)
+	{
+		convert(owlObjectPropertyRangeAxiom);
+	}
+
+	@Override public void visit(OWLObjectPropertyAssertionAxiom owlObjectPropertyAssertionAxiom)
+	{
+		convert(owlObjectPropertyAssertionAxiom);
+	}
+
+	@Override public void visit(OWLFunctionalObjectPropertyAxiom owlFunctionalObjectPropertyAxiom)
+	{
+		convert(owlFunctionalObjectPropertyAxiom);
+	}
+
+	@Override public void visit(OWLSubObjectPropertyOfAxiom owlSubObjectPropertyOfAxiom)
+	{
+		convert(owlSubObjectPropertyOfAxiom);
+	}
+
+	@Override public void visit(OWLDisjointUnionAxiom owlDisjointUnionAxiom)
+	{
+		convert(owlDisjointUnionAxiom);
+	}
+
+	@Override public void visit(OWLSymmetricObjectPropertyAxiom owlSymmetricObjectPropertyAxiom)
+	{
+		convert(owlSymmetricObjectPropertyAxiom);
+	}
+
+	@Override public void visit(OWLDataPropertyRangeAxiom owlDataPropertyRangeAxiom)
+	{
+		convert(owlDataPropertyRangeAxiom);
+	}
+
+	@Override public void visit(OWLFunctionalDataPropertyAxiom owlFunctionalDataPropertyAxiom)
+	{
+		convert(owlFunctionalDataPropertyAxiom);
+	}
+
+	@Override public void visit(OWLEquivalentDataPropertiesAxiom owlEquivalentDataPropertiesAxiom)
+	{
+		convert(owlEquivalentDataPropertiesAxiom);
+	}
+
+	@Override public void visit(OWLClassAssertionAxiom owlClassAssertionAxiom)
+	{
+		convert(owlClassAssertionAxiom);
+	}
+
+	@Override public void visit(OWLEquivalentClassesAxiom owlEquivalentClassesAxiom)
+	{
+		convert(owlEquivalentClassesAxiom);
+	}
+
+	@Override public void visit(OWLDataPropertyAssertionAxiom owlDataPropertyAssertionAxiom)
+	{
+		convert(owlDataPropertyAssertionAxiom);
+	}
+
+	@Override public void visit(OWLTransitiveObjectPropertyAxiom owlTransitiveObjectPropertyAxiom)
+	{
+		convert(owlTransitiveObjectPropertyAxiom);
+	}
+
+	@Override public void visit(OWLIrreflexiveObjectPropertyAxiom owlIrreflexiveObjectPropertyAxiom)
+	{
+		convert(owlIrreflexiveObjectPropertyAxiom);
+	}
+
+	@Override public void visit(OWLSubDataPropertyOfAxiom owlSubDataPropertyOfAxiom)
+	{
+		convert(owlSubDataPropertyOfAxiom);
+	}
+
+	@Override public void visit(OWLInverseFunctionalObjectPropertyAxiom owlInverseFunctionalObjectPropertyAxiom)
+	{
+		convert(owlInverseFunctionalObjectPropertyAxiom);
+	}
+
+	@Override public void visit(OWLSameIndividualAxiom owlSameIndividualAxiom)
+	{
+		convert(owlSameIndividualAxiom);
+	}
+
+	@Override public void visit(OWLSubPropertyChainOfAxiom owlSubPropertyChainOfAxiom)
+	{
+		convert(owlSubPropertyChainOfAxiom);
+	}
+
+	@Override public void visit(OWLInverseObjectPropertiesAxiom owlInverseObjectPropertiesAxiom)
+	{
+		convert(owlInverseObjectPropertiesAxiom);
+	}
+
+	@Override public void visit(OWLHasKeyAxiom owlHasKeyAxiom)
+	{
+		convert(owlHasKeyAxiom);
+	}
+
+	@Override public void visit(OWLDatatypeDefinitionAxiom owlDatatypeDefinitionAxiom)
+	{
+		convert(owlDatatypeDefinitionAxiom);
+	}
+
+	@Override public void visit(OWLAnnotationAssertionAxiom owlAnnotationAssertionAxiom)
+	{
+
+	}
+
+	@Override public void visit(OWLSubAnnotationPropertyOfAxiom owlSubAnnotationPropertyOfAxiom)
+	{
+
+	}
+
+	@Override public void visit(OWLAnnotationPropertyDomainAxiom owlAnnotationPropertyDomainAxiom)
+	{
+
+	}
+
+	@Override public void visit(OWLAnnotationPropertyRangeAxiom owlAnnotationPropertyRangeAxiom)
+	{
+
+	}
 
 	private void recordOWLAxiom(A a)
 	{

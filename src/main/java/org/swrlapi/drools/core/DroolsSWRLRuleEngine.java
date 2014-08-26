@@ -226,7 +226,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * Define a Drools representation of a SWRL rule or a SQWRL query. This method will be called by Drools converters
 	 * after they have translated SWRL rules and SQWRL queries into their Drools equivalent.
 	 */
-	public void defineDRLRule(String ruleName, String ruleText) throws TargetRuleEngineException
+	public void defineDRLRule(String ruleName, String ruleText)
 	{
 		if (this.knowledgePackagesAdditionRequired)
 			resourceHandler.defineDRLRule(ruleName, ruleText);

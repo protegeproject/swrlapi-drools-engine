@@ -453,7 +453,7 @@ public class DroolsSWRLBuiltInInvoker
 				}
 				baps.add(bap);
 			}
-		} catch (TargetRuleEngineException e) {
+		} catch (RuntimeException e) {
 			throw new RuntimeException("error converting return arguments after invoking built-in " + builtInName
 					+ " in rule " + ruleName + ": " + e.toString());
 		}

@@ -63,19 +63,17 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	@Override
 	public String convert(SWRLDataRangeAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{
-		throw new TargetRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule body");
+		throw new RuntimeException("data range atoms not implemented in rule body");
 	}
 
-	public String convert(SWRLDataRangeAtom atom) throws TargetRuleEngineException
+	public String convert(SWRLDataRangeAtom atom)
 	{
-		throw new TargetRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
+		throw new RuntimeException("data range atoms not implemented in rule head");
 	}
 
 	@Override
 	public String convert(SWRLClassAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{
 		String classID = getOWLClassExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument = atom.getArgument();
@@ -91,7 +89,6 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	@Override
 	public String convert(SWRLObjectPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
@@ -110,7 +107,6 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	@Override
 	public String convert(SWRLDataPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
@@ -129,7 +125,6 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	@Override
 	public String convert(SWRLSameIndividualAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
@@ -147,7 +142,6 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	@Override
 	public String convert(SWRLDifferentIndividualsAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
@@ -165,7 +159,6 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 
 	@Override
 	public String convert(SWRLAPIBuiltInAtom builtInAtom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{
 		String builtInPrefixedName = builtInAtom.getBuiltInPrefixedName();
 		String ruleName = builtInAtom.getRuleName();
@@ -187,14 +180,14 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 			}
 			argumentNumber++;
 			if (argumentNumber > BAP.MaxArguments)
-				throw new TargetRuleEngineException("at most " + BAP.MaxArguments + " built-in arguments currently supported");
+				throw new RuntimeException("at most " + BAP.MaxArguments + " built-in arguments currently supported");
 		}
 
 		representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInPrefixedName + "\", "
 				+ this.builtInIndexInBody + ", false, ";
 
 		if (builtInAtom.getPathVariablePrefixedNames().size() > VPATH.MaxArguments)
-			throw new TargetRuleEngineException("at most " + VPATH.MaxArguments + " built-in arguments supported");
+			throw new RuntimeException("at most " + VPATH.MaxArguments + " built-in arguments supported");
 
 		isFirst = true;
 		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_PATH_CLASS_NAME + "(";
@@ -208,7 +201,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		representation += "), ";
 
 		if (builtInAtom.getNumberOfArguments() > BAVNs.MaxArguments)
-			throw new TargetRuleEngineException("at most " + BAVNs.MaxArguments + " built-in arguments supported");
+			throw new RuntimeException("at most " + BAVNs.MaxArguments + " built-in arguments supported");
 
 		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
 		isFirst = true;
@@ -225,7 +218,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		representation += "), ";
 
 		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
-			throw new TargetRuleEngineException("at most " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " allowed");
+			throw new RuntimeException("at most " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " allowed");
 
 		isFirst = true;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
@@ -243,7 +236,6 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	public String convert(SWRLAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
-			throws TargetRuleEngineException
 	{ // TODO Visitor to replace instanceof: SWRLAtomVisitorExP
 		if (atom instanceof SWRLDataRangeAtom) {
 			return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariablePrefixedNames);

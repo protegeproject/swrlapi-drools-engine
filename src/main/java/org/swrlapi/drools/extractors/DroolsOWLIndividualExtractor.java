@@ -14,5 +14,5 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public interface DroolsOWLIndividualExtractor extends TargetRuleEngineExtractor
 {
-	OWLIndividual extract(I i) throws TargetRuleEngineException;
+	OWLIndividual extract(I i);
 }

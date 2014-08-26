@@ -20,7 +20,7 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts OWLAPI SWRL head atoms to a their DRL representation for use in rules.
- * <p>
+ * <p/>
  * Head and body atoms are converted differently - hence the need for two converters. Body atom converters must also
  * know the variables defined by previous atoms because a different syntax is required in DRL for declaring a variable
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
@@ -60,28 +60,8 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		this.builtInIndexInHead = 0;
 	}
 
-	public String convert(SWRLAtom atom) throws TargetRuleEngineException
-	{ // TODO Visitor to replace instanceof: SWRLAtomVisitorEx
-		if (atom instanceof SWRLDataRangeAtom) {
-			return convert((SWRLDataRangeAtom)atom);
-		} else if (atom instanceof SWRLClassAtom) {
-			return convert((SWRLClassAtom)atom);
-		} else if (atom instanceof SWRLDataPropertyAtom) {
-			return convert((SWRLDataPropertyAtom)atom);
-		} else if (atom instanceof SWRLObjectPropertyAtom) {
-			return convert((SWRLObjectPropertyAtom)atom);
-		} else if (atom instanceof SWRLSameIndividualAtom) {
-			return convert((SWRLSameIndividualAtom)atom);
-		} else if (atom instanceof SWRLDifferentIndividualsAtom) {
-			return convert((SWRLDifferentIndividualsAtom)atom);
-		} else if (atom instanceof SWRLAPIBuiltInAtom) {
-			return convert((SWRLAPIBuiltInAtom)atom);
-		} else
-			throw new RuntimeException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
-	}
-
 	@Override
-	public String convert(SWRLClassAtom atom) throws TargetRuleEngineException
+	public String convert(SWRLClassAtom atom)
 	{
 		String className = getOWLClassExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument = atom.getArgument();
@@ -98,7 +78,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLObjectPropertyAtom atom) throws TargetRuleEngineException
+	public String convert(SWRLObjectPropertyAtom atom)
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
@@ -119,7 +99,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLDataPropertyAtom atom) throws TargetRuleEngineException
+	public String convert(SWRLDataPropertyAtom atom)
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
@@ -140,7 +120,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLSameIndividualAtom atom) throws TargetRuleEngineException
+	public String convert(SWRLSameIndividualAtom atom)
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
@@ -160,7 +140,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLDifferentIndividualsAtom atom) throws TargetRuleEngineException
+	public String convert(SWRLDifferentIndividualsAtom atom)
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
@@ -180,7 +160,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLAPIBuiltInAtom builtInAtom) throws TargetRuleEngineException
+	public String convert(SWRLAPIBuiltInAtom builtInAtom)
 	{
 		String builtInName = builtInAtom.getBuiltInPrefixedName();
 		String ruleName = builtInAtom.getRuleName();
@@ -189,7 +169,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		boolean isFirst = true;
 
 		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
-			throw new TargetRuleEngineException("A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
+			throw new RuntimeException("A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
 					+ " can be passed to built-ins");
 
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
@@ -206,9 +186,29 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	}
 
 	@Override
-	public String convert(SWRLDataRangeAtom atom) throws TargetRuleEngineException
+	public String convert(SWRLDataRangeAtom atom)
 	{
-		throw new TargetRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
+		throw new RuntimeException("data range atoms not implemented in rule head");
+	}
+
+	public String convert(SWRLAtom atom)
+	{ // TODO Visitor to replace instanceof: define SWRLAtomVisitorEx in OWLAPI
+		if (atom instanceof SWRLDataRangeAtom) {
+			return convert((SWRLDataRangeAtom)atom);
+		} else if (atom instanceof SWRLClassAtom) {
+			return convert((SWRLClassAtom)atom);
+		} else if (atom instanceof SWRLDataPropertyAtom) {
+			return convert((SWRLDataPropertyAtom)atom);
+		} else if (atom instanceof SWRLObjectPropertyAtom) {
+			return convert((SWRLObjectPropertyAtom)atom);
+		} else if (atom instanceof SWRLSameIndividualAtom) {
+			return convert((SWRLSameIndividualAtom)atom);
+		} else if (atom instanceof SWRLDifferentIndividualsAtom) {
+			return convert((SWRLDifferentIndividualsAtom)atom);
+		} else if (atom instanceof SWRLAPIBuiltInAtom) {
+			return convert((SWRLAPIBuiltInAtom)atom);
+		} else
+			throw new RuntimeException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
 	}
 
 	private DroolsSWRLHeadAtomArgument2DRLConverter getSWRLHeadAtomArgumentConverter()

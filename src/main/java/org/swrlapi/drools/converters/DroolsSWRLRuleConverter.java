@@ -35,7 +35,7 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 		this.droolsEngine = droolsEngine;
 	}
 
-	public void convert(SWRLAPIRule rule) throws TargetRuleEngineException
+	public void convert(SWRLAPIRule rule)
 	{
 		String ruleName = rule.getRuleName();
 		String drlRule = getRulePreamble(ruleName);

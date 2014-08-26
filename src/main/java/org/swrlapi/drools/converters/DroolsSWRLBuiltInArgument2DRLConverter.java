@@ -5,15 +5,15 @@ import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBuiltInArgumentConverte
 import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLAnnotationPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentVisitorEx;
 import org.swrlapi.builtins.arguments.SWRLClassBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLDatatypeBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLMultiValueVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
-import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts SWRLAPI SWRL built-in arguments to DRL clauses for use in rules.
@@ -21,39 +21,17 @@ import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
  * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
 public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase implements
-		TargetRuleEngineSWRLBuiltInArgumentConverter<String>
+		TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
 	public DroolsSWRLBuiltInArgument2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 	}
 
-	public String convert(SWRLBuiltInArgument argument) throws TargetRuleEngineException
-	{ // TODO Visitor to replace instanceof: SWRLBuiltInArgumentVisitorEx
-		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
-			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
-		} else if (argument instanceof SWRLVariableBuiltInArgument) {
-			return convert((SWRLVariableBuiltInArgument)argument);
-		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
-			return convert((SWRLLiteralBuiltInArgument)argument);
-		} else if (argument instanceof SWRLClassBuiltInArgument) {
-			return convert((SWRLClassBuiltInArgument)argument);
-		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
-			return convert((SWRLNamedIndividualBuiltInArgument)argument);
-		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
-			return convert((SWRLObjectPropertyBuiltInArgument)argument);
-		} else if (argument instanceof SWRLDataPropertyBuiltInArgument) {
-			return convert((SWRLDataPropertyBuiltInArgument)argument);
-		} else if (argument instanceof SWRLAnnotationPropertyBuiltInArgument) {
-			return convert((SWRLAnnotationPropertyBuiltInArgument)argument);
-		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
-			return convert((SWRLDatatypeBuiltInArgument)argument);
-		} else
-			throw new RuntimeException("unknown SWRL argument type " + argument.getClass().getCanonicalName());
-	}
+	public String convert(SWRLBuiltInArgument argument)	{ return argument.accept(this); }
 
 	@Override
-	public String convert(SWRLVariableBuiltInArgument argument) throws TargetRuleEngineException
+	public String convert(SWRLVariableBuiltInArgument argument)
 	{
 		if (argument.isUnbound())
 			return "new UBA(\"" + getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument) + "\")";
@@ -62,7 +40,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	}
 
 	@Override
-	public String convert(SWRLClassBuiltInArgument classArgument) throws TargetRuleEngineException
+	public String convert(SWRLClassBuiltInArgument classArgument)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(classArgument.getIRI());
 
@@ -70,7 +48,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	}
 
 	@Override
-	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument) throws TargetRuleEngineException
+	public String convert(SWRLNamedIndividualBuiltInArgument individualArgument)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(individualArgument.getIRI());
 
@@ -78,7 +56,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	}
 
 	@Override
-	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
+	public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
@@ -86,7 +64,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	}
 
 	@Override
-	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
+	public String convert(SWRLDataPropertyBuiltInArgument propertyArgument)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
@@ -94,7 +72,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	}
 
 	@Override
-	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument) throws TargetRuleEngineException
+	public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
@@ -102,7 +80,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	}
 
 	@Override
-	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument) throws TargetRuleEngineException
+	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
 
@@ -110,19 +88,69 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	}
 
 	@Override
-	public String convert(SWRLLiteralBuiltInArgument argument) throws TargetRuleEngineException
+	public String convert(SWRLLiteralBuiltInArgument argument)
 	{
 		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
 	}
 
 	@Override
-	public String convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
+	public String convert(SQWRLCollectionVariableBuiltInArgument argument)
 	{
-		throw new TargetRuleEngineNotImplementedFeatureException("collection built-in arguments not yet implemented");
+		throw new RuntimeException("collection built-in arguments not yet implemented");
 	}
 
 	private String addQuotes(String s)
 	{
 		return "\"" + s + "\"";
+	}
+
+	@Override public String visit(SWRLClassBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLNamedIndividualBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLObjectPropertyBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLDataPropertyBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLAnnotationPropertyBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLDatatypeBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLLiteralBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLVariableBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SWRLMultiValueVariableBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public String visit(SQWRLCollectionVariableBuiltInArgument argument)
+	{
+		return convert(argument);
 	}
 }

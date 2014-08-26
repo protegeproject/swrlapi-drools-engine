@@ -16,7 +16,6 @@ import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.owl.properties.OP;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts OWLAPI OWL entities to their Drools representation.
@@ -32,42 +31,42 @@ public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase i
 	}
 
 	@Override
-	public C convert(OWLClass cls) throws TargetRuleEngineException
+	public C convert(OWLClass cls)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
 		return new C(prefixedName);
 	}
 
 	@Override
-	public I convert(OWLNamedIndividual individual) throws TargetRuleEngineException
+	public I convert(OWLNamedIndividual individual)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(individual.getIRI());
 		return new I(prefixedName);
 	}
 
 	@Override
-	public OP convert(OWLObjectProperty property) throws TargetRuleEngineException
+	public OP convert(OWLObjectProperty property)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
 		return new OP(prefixedName);
 	}
 
 	@Override
-	public DP convert(OWLDataProperty property) throws TargetRuleEngineException
+	public DP convert(OWLDataProperty property)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
 		return new DP(prefixedName);
 	}
 
 	@Override
-	public AP convert(OWLAnnotationProperty property) throws TargetRuleEngineException
+	public AP convert(OWLAnnotationProperty property)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
 		return new AP(prefixedName);
 	}
 
 	@Override
-	public D convert(OWLDatatype datatype) throws TargetRuleEngineException
+	public D convert(OWLDatatype datatype)
 	{
 		String prefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
 		return new D(prefixedName);

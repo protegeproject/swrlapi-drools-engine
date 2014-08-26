@@ -12,10 +12,12 @@ import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBuiltInArgumentConverte
 import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLAnnotationPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentVisitorEx;
 import org.swrlapi.builtins.arguments.SWRLClassBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLDatatypeBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLMultiValueVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
@@ -29,7 +31,6 @@ import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.drools.sqwrl.SQWRLC;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.drools.swrl.UBA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts OWLAPI SWRL atom arguments to Drools {@link org.swrlapi.drools.swrl.BA} instances.
@@ -37,39 +38,17 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  * @see org.swrlapi.drools.swrl.BA
  */
 public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase implements
-		TargetRuleEngineSWRLBuiltInArgumentConverter<BA>
+		TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
 {
 	public DroolsSWRLBuiltInArgument2BAConverter(SWRLRuleEngineBridge bridge)
 	{
 		super(bridge);
 	}
 
-	public BA convert(SWRLBuiltInArgument argument) throws TargetRuleEngineException
-	{ // TODO Visitor to replace instanceof: SWRLBuiltInArgumentVisitorEx
-		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
-			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
-		} else if (argument instanceof SWRLVariableBuiltInArgument) {
-			return convert((SWRLVariableBuiltInArgument)argument);
-		} else if (argument instanceof SWRLLiteralBuiltInArgument) {
-			return convert((SWRLLiteralBuiltInArgument)argument);
-		} else if (argument instanceof SWRLClassBuiltInArgument) {
-			return convert((SWRLClassBuiltInArgument)argument);
-		} else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
-			return convert((SWRLNamedIndividualBuiltInArgument)argument);
-		} else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
-			return convert((SWRLObjectPropertyBuiltInArgument)argument);
-		} else if (argument instanceof SWRLDataPropertyBuiltInArgument) {
-			return convert((SWRLDataPropertyBuiltInArgument)argument);
-		} else if (argument instanceof SWRLAnnotationPropertyBuiltInArgument) {
-			return convert((SWRLAnnotationPropertyBuiltInArgument)argument);
-		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
-			return convert((SWRLDatatypeBuiltInArgument)argument);
-		} else
-			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
-	}
+	public BA convert(SWRLBuiltInArgument argument) { return argument.accept(this); }
 
 	@Override
-	public C convert(SWRLClassBuiltInArgument argument) throws TargetRuleEngineException
+	public C convert(SWRLClassBuiltInArgument argument)
 	{
 		OWLClass cls = argument.getOWLClass();
 
@@ -77,7 +56,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	@Override
-	public I convert(SWRLNamedIndividualBuiltInArgument argument) throws TargetRuleEngineException
+	public I convert(SWRLNamedIndividualBuiltInArgument argument)
 	{
 		OWLNamedIndividual individual = argument.getOWLNamedIndividual();
 
@@ -85,7 +64,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	@Override
-	public OP convert(SWRLObjectPropertyBuiltInArgument argument) throws TargetRuleEngineException
+	public OP convert(SWRLObjectPropertyBuiltInArgument argument)
 	{
 		OWLObjectProperty property = argument.getOWLObjectProperty();
 
@@ -93,7 +72,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	@Override
-	public DP convert(SWRLDataPropertyBuiltInArgument argument) throws TargetRuleEngineException
+	public DP convert(SWRLDataPropertyBuiltInArgument argument)
 	{
 		OWLDataProperty property = argument.getOWLDataProperty();
 
@@ -101,7 +80,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	@Override
-	public AP convert(SWRLAnnotationPropertyBuiltInArgument argument) throws TargetRuleEngineException
+	public AP convert(SWRLAnnotationPropertyBuiltInArgument argument)
 	{
 		OWLAnnotationProperty property = argument.getOWLAnnotationProperty();
 
@@ -109,7 +88,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	@Override
-	public D convert(SWRLDatatypeBuiltInArgument argument) throws TargetRuleEngineException
+	public D convert(SWRLDatatypeBuiltInArgument argument)
 	{
 		OWLDatatype datatype = argument.getOWLDatatype();
 
@@ -117,7 +96,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	@Override
-	public L convert(SWRLLiteralBuiltInArgument argument) throws TargetRuleEngineException
+	public L convert(SWRLLiteralBuiltInArgument argument)
 	{
 		OWLLiteral literal = argument.getLiteral();
 
@@ -125,18 +104,68 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 	}
 
 	@Override
-	public UBA convert(SWRLVariableBuiltInArgument argument) throws TargetRuleEngineException
+	public UBA convert(SWRLVariableBuiltInArgument argument)
 	{
 		if (argument.isUnbound())
 			return new UBA(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument));
 		else
-			throw new TargetRuleEngineException("expecting unbound argument, got bound argument " + argument);
+			throw new RuntimeException("expecting unbound argument, got bound argument " + argument);
 	}
 
 	@Override
-	public BA convert(SQWRLCollectionVariableBuiltInArgument argument) throws TargetRuleEngineException
+	public BA convert(SQWRLCollectionVariableBuiltInArgument argument)
 	{
 		return new SQWRLC(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument), argument.getQueryName(),
 				argument.getCollectionName(), argument.getGroupID());
+	}
+
+	@Override public BA visit(SWRLClassBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLNamedIndividualBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLObjectPropertyBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLDataPropertyBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLAnnotationPropertyBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLDatatypeBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLLiteralBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLVariableBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SWRLMultiValueVariableBuiltInArgument argument)
+	{
+		return convert(argument);
+	}
+
+	@Override public BA visit(SQWRLCollectionVariableBuiltInArgument argument)
+	{
+		return convert(argument);
 	}
 }

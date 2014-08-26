@@ -2,8 +2,39 @@ package org.swrlapi.drools.extractors;
 
 import org.semanticweb.owlapi.model.*;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
-import org.swrlapi.drools.owl.axioms.*;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.drools.owl.axioms.AOPA;
+import org.swrlapi.drools.owl.axioms.APDA;
+import org.swrlapi.drools.owl.axioms.CAA;
+import org.swrlapi.drools.owl.axioms.CDA;
+import org.swrlapi.drools.owl.axioms.DCA;
+import org.swrlapi.drools.owl.axioms.DDPA;
+import org.swrlapi.drools.owl.axioms.DIA;
+import org.swrlapi.drools.owl.axioms.DJDPA;
+import org.swrlapi.drools.owl.axioms.DJOPA;
+import org.swrlapi.drools.owl.axioms.DOPA;
+import org.swrlapi.drools.owl.axioms.DPAA;
+import org.swrlapi.drools.owl.axioms.DPDA;
+import org.swrlapi.drools.owl.axioms.DPRA;
+import org.swrlapi.drools.owl.axioms.ECA;
+import org.swrlapi.drools.owl.axioms.EDPA;
+import org.swrlapi.drools.owl.axioms.EOPA;
+import org.swrlapi.drools.owl.axioms.FDPA;
+import org.swrlapi.drools.owl.axioms.FOPA;
+import org.swrlapi.drools.owl.axioms.IDA;
+import org.swrlapi.drools.owl.axioms.IFOPA;
+import org.swrlapi.drools.owl.axioms.IOPA;
+import org.swrlapi.drools.owl.axioms.IROPA;
+import org.swrlapi.drools.owl.axioms.NDPAA;
+import org.swrlapi.drools.owl.axioms.NOPAA;
+import org.swrlapi.drools.owl.axioms.OPAA;
+import org.swrlapi.drools.owl.axioms.OPDA;
+import org.swrlapi.drools.owl.axioms.OPRA;
+import org.swrlapi.drools.owl.axioms.SCA;
+import org.swrlapi.drools.owl.axioms.SDPA;
+import org.swrlapi.drools.owl.axioms.SIA;
+import org.swrlapi.drools.owl.axioms.SOPA;
+import org.swrlapi.drools.owl.axioms.SPA;
+import org.swrlapi.drools.owl.axioms.TOPA;
 
 /**
  * This interface list methods for converting the Drools representation of OWL axioms to their OWLAPI representation.
@@ -14,69 +45,69 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 {
-	OWLDeclarationAxiom extract(CDA da) throws TargetRuleEngineException;
+	OWLDeclarationAxiom extract(CDA da);
 
-	OWLSubClassOfAxiom extract(SCA sca) throws TargetRuleEngineException;
+	OWLSubClassOfAxiom extract(SCA sca);
 
-	OWLDisjointClassesAxiom extract(DCA dca) throws TargetRuleEngineException;
+	OWLDisjointClassesAxiom extract(DCA dca);
 
-	OWLEquivalentClassesAxiom extract(ECA eca) throws TargetRuleEngineException;
+	OWLEquivalentClassesAxiom extract(ECA eca);
 
-	OWLObjectPropertyDomainAxiom extract(DOPA dopa) throws TargetRuleEngineException;
+	OWLObjectPropertyDomainAxiom extract(DOPA dopa);
 
-	OWLDataPropertyDomainAxiom extract(DDPA ddpa) throws TargetRuleEngineException;
+	OWLDataPropertyDomainAxiom extract(DDPA ddpa);
 
-	OWLDeclarationAxiom extract(IDA da) throws TargetRuleEngineException;
+	OWLDeclarationAxiom extract(IDA da);
 
-	OWLDataPropertyRangeAxiom extract(DPRA DPRA) throws TargetRuleEngineException;
+	OWLDataPropertyRangeAxiom extract(DPRA DPRA);
 
-	OWLObjectPropertyRangeAxiom extract(OPRA OPRA) throws TargetRuleEngineException;
+	OWLObjectPropertyRangeAxiom extract(OPRA OPRA);
 
-	OWLDeclarationAxiom extract(OPDA da) throws TargetRuleEngineException;
+	OWLDeclarationAxiom extract(OPDA da);
 
-	OWLDeclarationAxiom extract(DPDA da) throws TargetRuleEngineException;
+	OWLDeclarationAxiom extract(DPDA da);
 
-	OWLDeclarationAxiom extract(APDA da) throws TargetRuleEngineException;
+	OWLDeclarationAxiom extract(APDA da);
 
-	OWLClassAssertionAxiom extract(CAA caa) throws TargetRuleEngineException;
+	OWLClassAssertionAxiom extract(CAA caa);
 
-	OWLObjectPropertyAssertionAxiom extract(OPAA opaa) throws TargetRuleEngineException;
+	OWLObjectPropertyAssertionAxiom extract(OPAA opaa);
 
-	OWLNegativeObjectPropertyAssertionAxiom extract(NOPAA opaa) throws TargetRuleEngineException;
+	OWLNegativeObjectPropertyAssertionAxiom extract(NOPAA opaa);
 
-	OWLDataPropertyAssertionAxiom extract(DPAA dpaa) throws TargetRuleEngineException;
+	OWLDataPropertyAssertionAxiom extract(DPAA dpaa);
 
-	OWLNegativeDataPropertyAssertionAxiom extract(NDPAA ndpaa) throws TargetRuleEngineException;
+	OWLNegativeDataPropertyAssertionAxiom extract(NDPAA ndpaa);
 
-	OWLSameIndividualAxiom extract(SIA sia) throws TargetRuleEngineException;
+	OWLSameIndividualAxiom extract(SIA sia);
 
-	OWLDifferentIndividualsAxiom extract(DIA dia) throws TargetRuleEngineException;
+	OWLDifferentIndividualsAxiom extract(DIA dia);
 
-	OWLSubObjectPropertyOfAxiom extract(SOPA sopa) throws TargetRuleEngineException;
+	OWLSubObjectPropertyOfAxiom extract(SOPA sopa);
 
-	OWLSubDataPropertyOfAxiom extract(SDPA sdpa) throws TargetRuleEngineException;
+	OWLSubDataPropertyOfAxiom extract(SDPA sdpa);
 
-	OWLEquivalentObjectPropertiesAxiom extract(EOPA eopa) throws TargetRuleEngineException;
+	OWLEquivalentObjectPropertiesAxiom extract(EOPA eopa);
 
-	OWLEquivalentDataPropertiesAxiom extract(EDPA edpa) throws TargetRuleEngineException;
+	OWLEquivalentDataPropertiesAxiom extract(EDPA edpa);
 
-	OWLDisjointObjectPropertiesAxiom extract(DJOPA edpa) throws TargetRuleEngineException;
+	OWLDisjointObjectPropertiesAxiom extract(DJOPA edpa);
 
-	OWLDisjointDataPropertiesAxiom extract(DJDPA edpa) throws TargetRuleEngineException;
+	OWLDisjointDataPropertiesAxiom extract(DJDPA edpa);
 
-	OWLFunctionalObjectPropertyAxiom extract(FOPA fopa) throws TargetRuleEngineException;
+	OWLFunctionalObjectPropertyAxiom extract(FOPA fopa);
 
-	OWLFunctionalDataPropertyAxiom extract(FDPA fopa) throws TargetRuleEngineException;
+	OWLFunctionalDataPropertyAxiom extract(FDPA fopa);
 
-	OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA IFOPA) throws TargetRuleEngineException;
+	OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA IFOPA);
 
-	OWLIrreflexiveObjectPropertyAxiom extract(IROPA IROPA) throws TargetRuleEngineException;
+	OWLIrreflexiveObjectPropertyAxiom extract(IROPA IROPA);
 
-	OWLAsymmetricObjectPropertyAxiom extract(AOPA AOPA) throws TargetRuleEngineException;
+	OWLAsymmetricObjectPropertyAxiom extract(AOPA AOPA);
 
-	OWLSymmetricObjectPropertyAxiom extract(SPA spa) throws TargetRuleEngineException;
+	OWLSymmetricObjectPropertyAxiom extract(SPA spa);
 
-	OWLTransitiveObjectPropertyAxiom extract(TOPA TOPA) throws TargetRuleEngineException;
+	OWLTransitiveObjectPropertyAxiom extract(TOPA TOPA);
 
-	OWLInverseObjectPropertiesAxiom extract(IOPA iopa) throws TargetRuleEngineException;
+	OWLInverseObjectPropertiesAxiom extract(IOPA iopa);
 }
