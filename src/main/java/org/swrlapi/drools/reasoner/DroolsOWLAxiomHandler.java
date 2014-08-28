@@ -16,6 +16,12 @@ import java.util.Set;
  */
 public interface DroolsOWLAxiomHandler
 {
+	void infer(A... newInferredOWLAxioms);
+
+	void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms);
+
+	void inferFalse(String owl2RLRuleName, String... arguments);
+
 	boolean isInconsistent();
 
 	// Axioms

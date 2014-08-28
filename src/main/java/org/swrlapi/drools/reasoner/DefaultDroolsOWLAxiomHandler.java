@@ -143,7 +143,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 	/**
 	 * Supply the asserted OWL axioms.
 	 */
-	public void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms)
+	@Override public void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms)
 	{
 		this.assertedOWLAxioms.addAll(newAssertedOWLAxioms);
 
@@ -154,7 +154,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 	/**
 	 * This method is called by Drools rules at runtime.
 	 */
-	public void infer(A... newInferredOWLAxioms)
+	@Override public void infer(A... newInferredOWLAxioms)
 	{
 		if (this.knowledgeSession == null)
 			throw new TargetSWRLRuleEngineInternalException("knowledge session not initialized in axiom inferrer");
@@ -528,7 +528,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 	 * This method is called by an OWL 2 RL inconsistency detection rule when an inconsistency is detected.
 	 * The parameters contains details of the offending rule and the OWL entities involved in the detected inconsistency.
 	 */
-	public void inferFalse(String owl2RLRuleName, String... arguments)
+	@Override public void inferFalse(String owl2RLRuleName, String... arguments)
 	{
 		String inconsistentMessage = "OWL 2 RL rule detected an inconsistency in the ontology.\n "
 				+ "See http://www.w3.org/TR/owl-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules for a list of inconsistency detection rules.\n"
