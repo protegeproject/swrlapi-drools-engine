@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Class representing an equivalent data property axiom in Drools.
@@ -17,7 +17,8 @@ public class EDPA extends DroolsBinaryPropertiesAxiom
 	}
 
 	@Override
-	public OWLEquivalentDataPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLEquivalentDataPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor) throws
+			TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

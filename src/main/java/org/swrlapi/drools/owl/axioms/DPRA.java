@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL data property range axiom in Drools.
@@ -28,7 +28,7 @@ public class DPRA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public OWLDataPropertyRangeAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLDataPropertyRangeAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

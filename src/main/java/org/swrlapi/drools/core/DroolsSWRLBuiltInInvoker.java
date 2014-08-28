@@ -13,13 +13,14 @@ import org.swrlapi.drools.sqwrl.VPATH;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.drools.swrl.BAP;
 import org.swrlapi.drools.swrl.BAVNs;
-import org.swrlapi.exceptions.BuiltInException;
-import org.swrlapi.exceptions.BuiltInMethodRuntimeException;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.SWRLBuiltInException;
+import org.swrlapi.exceptions.SWRLBuiltInMethodRuntimeException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class is used to invoke SWRL built-ins from within a Drools rule.
- * <p>
+ * <p/>
  * Varargs seem to work inconsistently in this version of Drools. Hence the need for the repetitions for the invoke()
  * methods with varying numbers of arguments. We really want to replace this with a single call with a varargs argument.
  */
@@ -375,17 +376,17 @@ public class DroolsSWRLBuiltInInvoker
 				return swrlBuiltInArgumentPatterns2BAPs(ruleName, builtInName, argumentPatterns);
 			}
 		} catch (Throwable e) {
-			if (e instanceof BuiltInMethodRuntimeException) {
+			if (e instanceof SWRLBuiltInMethodRuntimeException) {
 				Throwable cause = e.getCause();
 				cause.printStackTrace();
-				throw new RuntimeException("runtime exception thrown by built-in " + builtInName + " in rule " + ruleName
+				throw new SWRLBuiltInException("runtime exception thrown by built-in " + builtInName + " in rule " + ruleName
 						+ ": " + cause.toString(), cause);
-			} else if (e instanceof BuiltInException) {
-				throw new RuntimeException("built-in exception thrown by built-in " + builtInName + " in rule " + ruleName
+			} else if (e instanceof SWRLBuiltInException) {
+				throw new SWRLBuiltInException("built-in exception thrown by built-in " + builtInName + " in rule " + ruleName
 						+ ": " + e.getMessage(), e);
 			} else {
 				e.printStackTrace();
-				throw new RuntimeException("unknown exception " + e.getClass().getCanonicalName() + " thrown by built-in "
+				throw new SWRLBuiltInException("unknown exception " + e.getClass().getCanonicalName() + " thrown by built-in "
 						+ builtInName + " in rule " + ruleName + ": " + e.getMessage(), e);
 			}
 		}
@@ -397,7 +398,7 @@ public class DroolsSWRLBuiltInInvoker
 		List<SWRLBuiltInArgument> arguments = new ArrayList<SWRLBuiltInArgument>();
 
 		if (argumentVariableNames.hasVariableNames() && argumentVariableNames.getNumberOfArguments() != bas.size())
-			throw new RuntimeException("internal error: inconsistent variable names passed to built-in " + builtInName
+			throw new TargetSWRLRuleEngineInternalException("inconsistent variable names passed to built-in " + builtInName
 					+ " in rule " + ruleName);
 
 		try {
@@ -413,9 +414,10 @@ public class DroolsSWRLBuiltInInvoker
 				argumentNumber++;
 
 			}
-		} catch (TargetRuleEngineException e) {
-			throw new RuntimeException("error extracting arguments from Drools when invoking built-in " + builtInName
-					+ " in rule " + ruleName + ": " + e.toString());
+		} catch (TargetSWRLRuleEngineException e) {
+			throw new TargetSWRLRuleEngineInternalException(
+					"error extracting arguments from Drools when invoking built-in " + builtInName + " in rule " + ruleName + ": "
+							+ e.toString());
 		}
 		return arguments;
 	}
@@ -429,9 +431,10 @@ public class DroolsSWRLBuiltInInvoker
 				SWRLBuiltInArgument argument = ba.extract(getSWRLAtomArgumentExtractor());
 				arguments.add(argument);
 			}
-		} catch (TargetRuleEngineException e) {
-			throw new RuntimeException("error extracting path arguments from Drools when invoking built-in " + builtInName
-					+ " in rule " + ruleName + ": " + e.toString());
+		} catch (TargetSWRLRuleEngineException e) {
+			throw new TargetSWRLRuleEngineInternalException(
+					"error extracting path arguments from Drools when invoking built-in " + builtInName
+							+ " in rule " + ruleName + ": " + e.toString());
 		}
 		return arguments;
 	}
@@ -454,8 +457,9 @@ public class DroolsSWRLBuiltInInvoker
 				baps.add(bap);
 			}
 		} catch (RuntimeException e) {
-			throw new RuntimeException("error converting return arguments after invoking built-in " + builtInName
-					+ " in rule " + ruleName + ": " + e.toString());
+			throw new TargetSWRLRuleEngineInternalException(
+					"error converting return arguments after invoking built-in " + builtInName
+							+ " in rule " + ruleName + ": " + e.toString());
 		}
 		return baps;
 	}
@@ -471,7 +475,7 @@ public class DroolsSWRLBuiltInInvoker
 		if (!this.invocationPatternMap.containsKey(invocationPattern))
 			this.invocationPatternMap.put(invocationPattern, argumentPatterns);
 		else
-			throw new RuntimeException("internal error: inconsistent invocation pattern in " + builtInName + " in rule");
+			throw new TargetSWRLRuleEngineInternalException("inconsistent invocation pattern in " + builtInName + " in rule");
 	}
 
 	private List<List<SWRLBuiltInArgument>> getInvocationPatternArguments(String ruleName, String builtInName,
@@ -480,7 +484,7 @@ public class DroolsSWRLBuiltInInvoker
 		if (this.invocationPatternMap.containsKey(invocationPattern))
 			return this.invocationPatternMap.get(invocationPattern);
 		else
-			throw new RuntimeException("internal error: unknown invocation pattern in " + builtInName + " in rule "
+			throw new TargetSWRLRuleEngineInternalException("unknown invocation pattern in " + builtInName + " in rule "
 					+ ruleName);
 	}
 

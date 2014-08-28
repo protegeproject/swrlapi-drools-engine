@@ -13,6 +13,7 @@ import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.classexpressions.CE;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class converts OWLAPI OWL axioms to their Drools representation.
@@ -94,7 +95,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 			String propertyPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(property);
 			recordOWLAxiom(new APDA(propertyPrefixedName));
 		} else
-			throw new RuntimeException("unknown entity type " + entity.getClass().getCanonicalName()
+			throw new TargetSWRLRuleEngineInternalException("unknown entity type " + entity.getClass().getCanonicalName()
 					+ " in OWL declaration axiom");
 	}
 
@@ -526,7 +527,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		if (swrlRule instanceof SWRLAPIRule)
 			convert((SWRLAPIRule)swrlRule);
 		else
-			throw new RuntimeException("Unexpected SWRL rule " + swrlRule + " - expecting SWRLAPIRule");
+			throw new TargetSWRLRuleEngineInternalException("Unexpected SWRL rule " + swrlRule + " - expecting SWRLAPIRule");
 	}
 
 	@Override public void visit(SWRLAPIRule swrlapiRule)

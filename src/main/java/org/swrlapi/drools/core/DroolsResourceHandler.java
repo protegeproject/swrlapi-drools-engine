@@ -4,7 +4,7 @@ import org.drools.builder.KnowledgeBuilder;
 import org.drools.builder.ResourceType;
 import org.drools.io.Resource;
 import org.drools.io.ResourceFactory;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 import java.io.StringReader;
 
@@ -30,11 +30,12 @@ public class DroolsResourceHandler
 			defineDRLResource(ruleText);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			throw new RuntimeException("internal error generating Drools rule \n" + ruleText + "\n" + e.getMessage(), e);
+			throw new TargetSWRLRuleEngineInternalException(
+					"internal error generating Drools rule \n" + ruleText + "\n" + e.getMessage(), e);
 		}
 
 		if (knowledgeBuilder.hasErrors())
-			throw new RuntimeException("internal error generating Drools rule\n" + ruleText + "\n"
+			throw new TargetSWRLRuleEngineInternalException("internal error generating Drools rule\n" + ruleText + "\n"
 					+ knowledgeBuilder.getErrors().toString());
 	}
 

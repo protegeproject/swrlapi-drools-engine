@@ -15,8 +15,9 @@ import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
-import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
+import org.swrlapi.exceptions.SWRLBuiltInException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts OWLAPI SWRL head atoms to a their DRL representation for use in rules.
@@ -169,7 +170,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		boolean isFirst = true;
 
 		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
-			throw new RuntimeException("A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
+			throw new SWRLBuiltInException("A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
 					+ " can be passed to built-ins");
 
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
@@ -188,7 +189,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 	@Override
 	public String convert(SWRLDataRangeAtom atom)
 	{
-		throw new RuntimeException("data range atoms not implemented in rule head");
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
 	}
 
 	public String convert(SWRLAtom atom)
@@ -208,7 +209,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		} else if (atom instanceof SWRLAPIBuiltInAtom) {
 			return convert((SWRLAPIBuiltInAtom)atom);
 		} else
-			throw new RuntimeException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
 	}
 
 	private DroolsSWRLHeadAtomArgument2DRLConverter getSWRLHeadAtomArgumentConverter()

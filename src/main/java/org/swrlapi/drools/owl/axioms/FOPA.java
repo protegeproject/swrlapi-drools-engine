@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents on OWL functional object property axiom.
@@ -17,7 +17,8 @@ public class FOPA extends DroolsUnaryPropertyAxiom
 	}
 
 	@Override
-	public OWLFunctionalObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLFunctionalObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws
+			TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

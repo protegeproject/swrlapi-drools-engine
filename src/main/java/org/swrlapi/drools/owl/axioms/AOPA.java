@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Class representing an OWL asymmetric object property axiom in Drools.
@@ -26,7 +26,8 @@ public class AOPA extends DroolsUnaryObject<String> implements A
 	}
 
 	@Override
-	public OWLAsymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLAsymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws
+			TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

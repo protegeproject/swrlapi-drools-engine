@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Class representing an OWL symmetric object property axiom in Drools.
@@ -23,7 +23,7 @@ public class SPA extends DroolsUnaryPropertyAxiom
 	}
 
 	@Override
-	public OWLSymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLSymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

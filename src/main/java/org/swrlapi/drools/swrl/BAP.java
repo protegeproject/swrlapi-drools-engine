@@ -1,5 +1,7 @@
 package org.swrlapi.drools.swrl;
 
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +59,7 @@ public class BAP
 		else if (argumentNumber == 11)
 			this.a11 = argument;
 		else
-			throw new RuntimeException("internal error: argument number " + argumentNumber + " out of bounds ");
+			throw new TargetSWRLRuleEngineInternalException("argument number " + argumentNumber + " out of bounds");
 	}
 
 	public BA getArgument(int argumentNumber)
@@ -65,7 +67,7 @@ public class BAP
 		if (argumentNumber > 0 && this.arguments.size() > argumentNumber)
 			return this.arguments.get(argumentNumber - 1);
 		else
-			throw new RuntimeException("internal error: argument number " + argumentNumber + " out of bounds ");
+			throw new TargetSWRLRuleEngineInternalException("argument number " + argumentNumber + " out of bounds");
 	}
 
 	public BA getA1()
@@ -164,7 +166,7 @@ public class BAP
 
 	private void throwInvalidArgumentNumberException(int argumentNumber)
 	{
-		throw new RuntimeException("internal error: argument number " + argumentNumber
+		throw new TargetSWRLRuleEngineInternalException("argument number " + argumentNumber
 				+ " out of bounds; current number of arguments = " + this.arguments.size());
 	}
 }

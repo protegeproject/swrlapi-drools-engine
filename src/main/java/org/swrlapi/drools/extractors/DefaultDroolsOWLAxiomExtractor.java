@@ -6,7 +6,6 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.*;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.drools.owl.axioms.*;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class defines methods for converting the Drools representation of OWL axioms to their OWLAPI representation.

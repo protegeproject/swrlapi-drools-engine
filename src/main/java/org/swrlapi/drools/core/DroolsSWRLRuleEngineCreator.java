@@ -3,7 +3,7 @@ package org.swrlapi.drools.core;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.core.SWRLRuleEngineManager;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Creator class that is supplied to a {@link org.swrlapi.core.SWRLRuleEngineManager} to create new instances of a
@@ -23,7 +23,7 @@ public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.Target
 	}
 
 	@Override
-	public TargetSWRLRuleEngine create(SWRLRuleEngineBridge bridge) throws TargetRuleEngineException
+	public TargetSWRLRuleEngine create(SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
 	{
 		return new DroolsSWRLRuleEngine(bridge);
 	}

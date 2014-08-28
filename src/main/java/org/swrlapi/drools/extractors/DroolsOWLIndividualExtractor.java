@@ -3,7 +3,6 @@ package org.swrlapi.drools.extractors;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Converts a Drools OWL individual to an OWLAPI OWL individual.

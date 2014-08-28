@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts SWRLAPI rules to their Drools representation.

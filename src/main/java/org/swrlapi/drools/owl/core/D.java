@@ -1,12 +1,14 @@
 package org.swrlapi.drools.owl.core;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.dataranges.DR;
 import org.swrlapi.drools.swrl.BA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class represents an OWL datatype (e.g., xsd:int).
@@ -31,7 +33,7 @@ public class D extends OE implements DR
 			D d = (D)ba;
 			setId(d.getName());
 		} else
-			throw new RuntimeException("expecting OWL datatype from bound built-in argument, got "
+			throw new TargetSWRLRuleEngineInternalException("expecting OWL datatype from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
@@ -41,13 +43,13 @@ public class D extends OE implements DR
 	}
 
 	@Override
-	public OWLDatatype extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLDatatype extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
@@ -58,5 +60,8 @@ public class D extends OE implements DR
 		return super.toString();
 	}
 
-	public static D getTopDatatype() { return new D("rdfs:Literal"); }
+	public static D getTopDatatype()
+	{
+		return new D(OWLRDFVocabulary.RDFS_LITERAL.getShortForm());
+	}
 }

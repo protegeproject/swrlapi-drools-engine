@@ -2,7 +2,7 @@ package org.swrlapi.drools.swrl;
 
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents a SWRL variable argument in Drools.
@@ -24,7 +24,7 @@ public class VA implements AA
 	}
 
 	@Override
-	public SWRLVariable extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLVariable extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

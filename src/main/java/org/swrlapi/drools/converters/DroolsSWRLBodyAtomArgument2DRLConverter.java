@@ -18,6 +18,7 @@ import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class converts OWLAPI SWRL atom and built-in arguments to DRL clauses for use in rules.
@@ -116,14 +117,14 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument)
 	{
-		throw new RuntimeException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
+		throw new TargetSWRLRuleEngineInternalException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
 	}
 
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument, String fieldName,
 			Set<String> previouslyEncounteredVariablePrefixedNames)
 	{
-		throw new RuntimeException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
+		throw new TargetSWRLRuleEngineInternalException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
 	}
 
 	@Override
@@ -250,7 +251,8 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 		} else if (argument instanceof SWRLDatatypeBuiltInArgument) {
 			return convert((SWRLDatatypeBuiltInArgument)argument);
 		} else
-			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException(
+					"unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
 	}
 
 	public String convert(SWRLArgument argument, String fieldName, Set<String> previouslyEncounteredVariablePrefixedNames)
@@ -284,6 +286,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 		} else if (argument instanceof SWRLLiteralArgument) {
 			return convert((SWRLLiteralArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
 		} else
-			throw new RuntimeException("unknown SWRL argument type " + argument.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException(
+					"unknown SWRL argument type " + argument.getClass().getCanonicalName());
 	}
 }

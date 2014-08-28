@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl.axioms;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Class representing a sub data property axiom in Drools.
@@ -34,7 +34,7 @@ public class SDPA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public OWLSubDataPropertyOfAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLSubDataPropertyOfAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

@@ -1,15 +1,17 @@
 package org.swrlapi.drools.owl.properties;
 
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.swrl.BA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
- * This class represents an OWL object property.
+ * This class represents an OWL object property in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectProperty
  */
@@ -31,18 +33,18 @@ public class OP extends OE implements P, OPE
 			OP p = (OP)ba;
 			setId(p.getName());
 		} else
-			throw new RuntimeException("expecting OWL object property from bound built-in argument, got "
+			throw new TargetSWRLRuleEngineInternalException("expecting OWL object property from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
 	@Override
-	public OWLObjectProperty extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLObjectProperty extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
@@ -53,7 +55,13 @@ public class OP extends OE implements P, OPE
 		return super.toString();
 	}
 
-	public static OP  getOWLTopObjectProperty() { return new OP("owl:TopObjectProperty"); }
+	public static OP getOWLTopObjectProperty()
+	{
+		return new OP(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getShortForm());
+	}
 
-	public static OP  getOWLBottomObjectProperty() { return new OP("owl:BottomObjectProperty"); }
+	public static OP getOWLBottomObjectProperty()
+	{
+		return new OP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getShortForm());
+	}
 }

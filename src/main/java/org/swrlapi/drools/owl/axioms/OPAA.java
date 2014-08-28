@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL object property assertion axiom.
@@ -56,7 +56,7 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 	public String getoid() { return getT3().getid(); }
 
 	@Override
-	public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

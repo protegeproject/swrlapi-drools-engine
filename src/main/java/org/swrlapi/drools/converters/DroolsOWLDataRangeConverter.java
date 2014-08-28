@@ -6,8 +6,7 @@ import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLDataRangeConverter;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.dataranges.*;
-import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -127,7 +126,8 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	@Override
 	public String convert(OWLDatatypeRestriction range)
 	{
-		throw new RuntimeException("owl:DatatypeRestriction is not supported in by Drools OWL 2 RL reasoner");
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException(
+				"owl:DatatypeRestriction is not supported in by Drools OWL 2 RL reasoner");
 	}
 
 	@Override public String visit(OWLDatatype owlDatatype)

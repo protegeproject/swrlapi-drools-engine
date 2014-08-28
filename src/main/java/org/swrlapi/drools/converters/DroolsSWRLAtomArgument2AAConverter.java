@@ -33,10 +33,12 @@ import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.drools.swrl.UBA;
 import org.swrlapi.drools.swrl.VA;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts OWLAPI SWRL arguments to their Drools representation.
- * 
+ *
  * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see org.swrlapi.drools.swrl.AA
  */
@@ -131,12 +133,12 @@ public class DroolsSWRLAtomArgument2AAConverter extends DroolsConverterBase impl
 		if (argument.isUnbound())
 			return new UBA(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument));
 		else
-			throw new RuntimeException("expecting unbound argument, got bound argument " + argument);
+			throw new TargetSWRLRuleEngineInternalException("expecting unbound argument, got bound argument " + argument);
 	}
 
 	@Override
 	public BA convert(SQWRLCollectionVariableBuiltInArgument argument)
 	{ // TODO ? Yes it does!?
-		throw new RuntimeException("Drools does not support SQWRL collections yet");
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException("Drools does not support SQWRL collections yet");
 	}
 }

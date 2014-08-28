@@ -6,7 +6,7 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.BA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL entity in Drools.
@@ -44,11 +44,11 @@ public abstract class OE implements OO, AA, BA
 		return this.id;
 	}
 
-	public abstract OWLNamedObject extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException;
+	public abstract OWLNamedObject extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException;
 
 	@Override
 	public abstract SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor)
-			throws TargetRuleEngineException;
+			throws TargetSWRLRuleEngineException;
 
 	@Override
 	public boolean equals(Object obj)

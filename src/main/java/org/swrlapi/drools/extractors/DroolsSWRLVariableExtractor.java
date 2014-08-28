@@ -3,7 +3,7 @@ package org.swrlapi.drools.extractors;
 import org.semanticweb.owlapi.model.IRI;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  *
@@ -21,7 +21,7 @@ public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
 		return ":" + variableName;
 	}
 
-	public IRI variableName2VariableIRI(String variableName) throws TargetRuleEngineException
+	public IRI variableName2VariableIRI(String variableName) throws TargetSWRLRuleEngineException
 	{
 		String variablePrefixedName = variableName2VariablePrefixedName(variableName);
 

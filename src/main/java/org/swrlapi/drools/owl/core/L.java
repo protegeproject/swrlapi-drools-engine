@@ -6,7 +6,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.swrl.BA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * Class representing an OWL literal in Drools
@@ -42,7 +43,7 @@ public class L implements OO, BA, Serializable
 			this.value = l.getValue();
 			this.datatypeName = l.getTypeName();
 		} else
-			throw new RuntimeException("expecting OWL literal from bound built-in argument, got "
+			throw new TargetSWRLRuleEngineInternalException("expecting OWL literal from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
@@ -112,7 +113,7 @@ public class L implements OO, BA, Serializable
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

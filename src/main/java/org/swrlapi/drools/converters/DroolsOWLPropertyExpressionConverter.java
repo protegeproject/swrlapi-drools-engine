@@ -1,10 +1,5 @@
 package org.swrlapi.drools.converters;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -16,9 +11,6 @@ import org.swrlapi.drools.core.DroolsDPEResolver;
 import org.swrlapi.drools.core.DroolsOPEResolver;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
-import org.swrlapi.drools.owl.properties.OPE;
-import org.swrlapi.drools.owl.properties.PE;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * This class converts OWLAPI OWL property expressions to their Drools representation.

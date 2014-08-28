@@ -14,7 +14,7 @@ import org.swrlapi.core.xsd.XSDDateTime;
 import org.swrlapi.core.xsd.XSDDuration;
 import org.swrlapi.core.xsd.XSDTime;
 import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class converts a Drools OWL literal representation to its OWLAPI representation.
@@ -66,13 +66,16 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase imp
 				return getOWLLiteralFactory().getOWLLiteral(l.value, datatype);
 			}
 		} catch (NumberFormatException e) {
-			throw new RuntimeException("number format exception extracting OWL literal " + l + " with type "
-					+ l.getTypeName() + " from Drools: ", e);
+			throw new TargetSWRLRuleEngineInternalException(
+					"number format exception extracting OWL literal " + l + " with type " + l.getTypeName() + " from Drools: ",
+					e);
 		} catch (URISyntaxException e) {
-			throw new RuntimeException("IRI exception extracting OWL URI literal " + l + " from Drools: ", e);
+			throw new TargetSWRLRuleEngineInternalException(
+					"IRI exception extracting OWL URI literal " + l + " from Drools: ", e);
 		} catch (IllegalArgumentException e) {
-			throw new RuntimeException("exception extracting OWL literal " + l + " with type " + l.getTypeName()
-					+ " from Drools: " + e.getMessage(), e);
+			throw new TargetSWRLRuleEngineInternalException(
+					"exception extracting OWL literal " + l + " with type " + l.getTypeName() + " from Drools: " + e.getMessage(),
+					e);
 		}
 	}
 }

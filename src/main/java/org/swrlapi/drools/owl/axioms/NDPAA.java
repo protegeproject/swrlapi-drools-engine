@@ -5,7 +5,7 @@ import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL negative data property assertion axiom.
@@ -40,7 +40,8 @@ public class NDPAA extends DroolsTernaryObject<I, String, L> implements A
 	}
 
 	@Override
-	public OWLNegativeDataPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetRuleEngineException
+	public OWLNegativeDataPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor converter) throws
+			TargetSWRLRuleEngineException
 	{
 		return converter.extract(this);
 	}

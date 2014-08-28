@@ -1,12 +1,14 @@
 package org.swrlapi.drools.owl.core;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.swrl.BA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * Class representing an OWL named class in Drools. A named class is a type of class expression in OWL.
@@ -37,18 +39,18 @@ public class C extends OE implements CE
 			C c = (C)ba;
 			setId(c.getName());
 		} else
-			throw new RuntimeException("expecting OWL class from bound built-in argument, got "
+			throw new TargetSWRLRuleEngineInternalException("expecting OWL class from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
 	@Override
-	public OWLClass extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLClass extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
@@ -59,7 +61,13 @@ public class C extends OE implements CE
 		return super.toString();
 	}
 
-	public static C getOWLThing() { return new C("owl:Thing"); }
+	public static C getOWLThing()
+	{
+		return new C(OWLRDFVocabulary.OWL_THING.getShortForm());
+	}
 
-	public static C getOWLNothing() { return new C("owl:Nothing"); }
+	public static C getOWLNothing()
+	{
+		return new C(OWLRDFVocabulary.OWL_NOTHING.getShortForm());
+	}
 }

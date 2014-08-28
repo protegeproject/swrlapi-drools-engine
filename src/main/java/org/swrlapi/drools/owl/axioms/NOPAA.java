@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL negative object property assertion axiom.
@@ -53,7 +53,7 @@ public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
 
 	@Override
 	public OWLNegativeObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
-			throws TargetRuleEngineException
+			throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

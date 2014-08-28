@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Class representing an OWL transitive object property axiom in Drools.
@@ -23,7 +23,8 @@ public class TOPA extends DroolsUnaryPropertyAxiom
 	}
 
 	@Override
-	public OWLTransitiveObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLTransitiveObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws
+			TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

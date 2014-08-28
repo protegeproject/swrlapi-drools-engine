@@ -14,6 +14,7 @@ import org.swrlapi.builtins.arguments.SWRLMultiValueVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts SWRLAPI SWRL built-in arguments to DRL clauses for use in rules.
@@ -28,7 +29,10 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 		super(bridge);
 	}
 
-	public String convert(SWRLBuiltInArgument argument)	{ return argument.accept(this); }
+	public String convert(SWRLBuiltInArgument argument)
+	{
+		return argument.accept(this);
+	}
 
 	@Override
 	public String convert(SWRLVariableBuiltInArgument argument)
@@ -95,8 +99,9 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument)
-	{
-		throw new RuntimeException("collection built-in arguments not yet implemented");
+	{ // TODO This is not true?
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException(
+				"SQWRL collection built-in arguments not yet implemented");
 	}
 
 	private String addQuotes(String s)

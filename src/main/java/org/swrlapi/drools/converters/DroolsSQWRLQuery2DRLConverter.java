@@ -8,8 +8,8 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
-import org.swrlapi.exceptions.BuiltInException;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.SWRLBuiltInException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.sqwrl.SQWRLNames;
 import org.swrlapi.sqwrl.SQWRLQuery;
 import org.swrlapi.sqwrl.TargetRuleEngineSQWRLQueryConverter;
@@ -46,7 +46,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 	}
 
 	@Override
-	public void convert(SQWRLQuery query) throws TargetRuleEngineException, BuiltInException
+	public void convert(SQWRLQuery query) throws TargetSWRLRuleEngineException, SWRLBuiltInException
 	{
 		getDroolsSWRLBodyAtomConverter().reset();
 		getDroolsSWRLHeadAtomConverter().reset();
@@ -54,7 +54,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 		sqwrlQuery2DRL(query);
 	}
 
-	private void sqwrlQuery2DRL(SQWRLQuery query) throws TargetRuleEngineException
+	private void sqwrlQuery2DRL(SQWRLQuery query) throws TargetSWRLRuleEngineException
 	{
 		if (!query.hasSQWRLCollections())
 			sqwrlNonCollectionQuery2DRL(query);
@@ -66,7 +66,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 	// System.err.println("SWRL: " + rule.getRuleText());
 	// System.err.println("DRL:\n" + drlRule);
 
-	private void sqwrlNonCollectionQuery2DRL(SQWRLQuery query) throws TargetRuleEngineException
+	private void sqwrlNonCollectionQuery2DRL(SQWRLQuery query) throws TargetSWRLRuleEngineException
 	{
 		Set<String> previouslyEncountertedVariablePrefixedNames = new HashSet<String>();
 		String ruleName = query.getQueryName();
@@ -86,7 +86,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 		getDroolsEngine().defineDRLSQWRLPhase1Rule(query.getQueryName(), ruleName, drlRule);
 	}
 
-	private void sqwrlCollectionQuery2DRL(SQWRLQuery query) throws TargetRuleEngineException
+	private void sqwrlCollectionQuery2DRL(SQWRLQuery query) throws TargetSWRLRuleEngineException
 	{
 		Set<String> previouslyEncountertedVariablePrefixedNames = new HashSet<String>();
 		String queryName = query.getQueryName();
@@ -111,7 +111,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 							+ getDroolsSWRLVariableConverter().variablePrefixedName2DRL(collectionVariablePrefixedName) + "); ";
 				}
 			} catch (RuntimeException e) {
-				throw new TargetRuleEngineException("error processing SQWRL collection make in query " + queryName + ": "
+				throw new TargetSWRLRuleEngineException("error processing SQWRL collection make in query " + queryName + ": "
 						+ e.getMessage(), e);
 			}
 		}
@@ -134,7 +134,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 					}
 				}
 			} catch (RuntimeException e) {
-				throw new TargetRuleEngineException("error processing SQWRL collection operate in query " + queryName + ": "
+				throw new TargetSWRLRuleEngineException("error processing SQWRL collection operate in query " + queryName + ": "
 						+ e.getMessage(), e);
 			}
 		}

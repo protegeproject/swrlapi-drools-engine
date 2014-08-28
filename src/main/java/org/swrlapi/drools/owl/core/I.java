@@ -7,7 +7,8 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
 import org.swrlapi.drools.swrl.BA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 // TODO This class represents both a named an anonymous individual - but an anonymous individual should not be a subclass of an OWL entity.
 
@@ -34,7 +35,7 @@ public class I extends OE
 			I i = (I)ba;
 			setId(i.getName());
 		} else
-			throw new RuntimeException("expecting OWL individual from bound built-in argument, got "
+			throw new TargetSWRLRuleEngineInternalException("expecting OWL individual from bound built-in argument, got "
 					+ ba.getClass().getCanonicalName());
 	}
 
@@ -44,13 +45,13 @@ public class I extends OE
 	}
 
 	@Override
-	public OWLNamedIndividual extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLNamedIndividual extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

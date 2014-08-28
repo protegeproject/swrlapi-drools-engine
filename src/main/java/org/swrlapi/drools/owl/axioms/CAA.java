@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Class representing an OWL class assertion axiom in Drools.
@@ -33,7 +33,7 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 	public String getiid() { return getT2().getid(); }
 
 	@Override
-	public OWLClassAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetRuleEngineException
+	public OWLClassAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

@@ -29,9 +29,10 @@ import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
 import org.swrlapi.drools.sqwrl.SQWRLC;
-import org.swrlapi.exceptions.BuiltInException;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.owl2rl.OWL2RLEngine;
 import org.swrlapi.sqwrl.SQWRLQuery;
 
@@ -73,14 +74,15 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	private final SQWRLPhase1AgendaFilter sqwrlPhase1AgendaFilter;
 	private final SQWRLPhase2AgendaFilter sqwrlPhase2AgendaFilter;
 
-	public DroolsSWRLRuleEngine(SWRLRuleEngineBridge bridge) throws TargetRuleEngineException
+	public DroolsSWRLRuleEngine(SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
 	{
 		this.bridge = bridge;
 
 		DroolsCEResolver ceResolver = new DroolsCEResolver();
 		DroolsOPEResolver opeResolver = new DroolsOPEResolver();
 		DroolsDPEResolver dpeResolver = new DroolsDPEResolver();
-		DroolsOWLPropertyExpressionConverter propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge, opeResolver, dpeResolver);
+		DroolsOWLPropertyExpressionConverter propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge,
+				opeResolver, dpeResolver);
 		DroolsOWLClassExpressionConverter classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge,
 				ceResolver, propertyExpressionConverter);
 		this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this, classExpressionConverter,
@@ -109,7 +111,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * Reset the rule engine.
 	 */
 	@Override
-	public void resetRuleEngine() throws TargetRuleEngineException
+	public void resetRuleEngine() throws TargetSWRLRuleEngineException
 	{
 		// The bridge resets the ontology changed status after each reset so we can determine if the ontology has changed
 		// since the last reset and decide if we want to rebuild the knowledge base. A change in OWL 2 RL rule selection
@@ -148,7 +150,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * Run the rule engine.
 	 */
 	@Override
-	public void runRuleEngine() throws TargetRuleEngineException
+	public void runRuleEngine() throws TargetSWRLRuleEngineException
 	{
 		ClassLoader oldClassLoader = Thread.currentThread().getContextClassLoader();
 		Thread.currentThread().setContextClassLoader(DroolsSWRLRuleEngine.class.getClassLoader());
@@ -158,7 +160,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 				this.knowledgeBase.addKnowledgePackages(this.knowledgeBuilder.getKnowledgePackages());
 			} catch (Exception e) {
 				Thread.currentThread().setContextClassLoader(oldClassLoader);
-				throw new TargetRuleEngineException("error transferring rules to Drools rule engine:\n" + e.getMessage(), e);
+				throw new TargetSWRLRuleEngineException("error transferring rules to Drools rule engine:\n" + e.getMessage(),
+						e);
 			}
 			this.knowledgePackagesAdditionRequired = false;
 		}
@@ -172,7 +175,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 			Thread.currentThread().setContextClassLoader(oldClassLoader);
 			String errorMessage = (e.getCause() == null) ? (e.getMessage() == null ? e.toString() : e.getMessage()) : (e
 					.getCause().getMessage() == null ? e.toString() : e.getCause().getMessage());
-			throw new TargetRuleEngineException("error inserting asserted OWL axioms into Drools:\n" + errorMessage, e);
+			throw new TargetSWRLRuleEngineException("error inserting asserted OWL axioms into Drools:\n" + errorMessage, e);
 		}
 
 		// Supply the inferrer with the set of asserted OWL axioms so that it does not redundantly put inferred axioms into
@@ -189,7 +192,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		} catch (Exception e) {
 			Thread.currentThread().setContextClassLoader(oldClassLoader);
 			String errorMessage = e.getMessage();
-			throw new TargetRuleEngineException("error running Drools rule engine:\n" + errorMessage, e);
+			throw new TargetSWRLRuleEngineException("error running Drools rule engine:\n" + errorMessage, e);
 		}
 		Thread.currentThread().setContextClassLoader(oldClassLoader);
 
@@ -200,7 +203,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * Define a Drools representation of an OWL axiom. SWRL rules are a type of OWL axiom.
 	 */
 	@Override
-	public void defineOWLAxiom(OWLAxiom axiom) throws TargetRuleEngineException
+	public void defineOWLAxiom(OWLAxiom axiom) throws TargetSWRLRuleEngineException
 	{
 		if (!this.assertedAndInferredOWLAxioms.contains(axiom)) {
 			getDroolsOWLAxiomConverter().convert(axiom); // Put the axiom into the Drools knowledge base.
@@ -212,7 +215,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * Define a Drools representation of a SQWRL query.
 	 */
 	@Override
-	public void defineSQWRLQuery(SQWRLQuery query) throws TargetRuleEngineException, BuiltInException
+	public void defineSQWRLQuery(SQWRLQuery query) throws TargetSWRLRuleEngineException, SWRLBuiltInException
 	{
 		this.allSQWRLQueryNames.add(query.getQueryName());
 
@@ -237,7 +240,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * the {@link DroolsSQWRLQuery2DRLConverter}.
 	 */
 	public void defineDRLSQWRLPhase1Rule(String queryName, String ruleName, String ruleText)
-			throws TargetRuleEngineException
+			throws TargetSWRLRuleEngineException
 	{
 		this.phase1SQWRLRuleNames.add(ruleName);
 		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
@@ -251,7 +254,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * {@link DroolsSQWRLQuery2DRLConverter}.
 	 */
 	public void defineDRLSQWRLPhase2Rule(String queryName, String ruleName, String ruleText)
-			throws TargetRuleEngineException
+			throws TargetSWRLRuleEngineException
 	{
 		this.phase2SQWRLRuleNames.add(ruleName);
 		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
@@ -265,7 +268,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 */
 	public OWLReasoner getOWLReasoner()
 	{
-     return null; // TODO
+		return null; // TODO
 	}
 
 	/**
@@ -319,7 +322,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	/**
 	 * Converts a Drools representation of an OWL axiom to an OWLAPI equivalent and pass it back to the bridge.
 	 */
-	private void writeInferredOWLAxiomsToBridge() throws TargetRuleEngineException
+	private void writeInferredOWLAxiomsToBridge() throws TargetSWRLRuleEngineException
 	{
 		try {
 			for (A a : this.axiomInferrer.getInferredOWLAxioms()) {
@@ -327,21 +330,21 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 				getBridge().inferOWLAxiom(axiom);
 			}
 		} catch (SWRLRuleEngineBridgeException e) {
-			throw new TargetRuleEngineException("error writing inferred OWL axioms to bridge: " + e.getMessage(), e);
+			throw new TargetSWRLRuleEngineException("error writing inferred OWL axioms to bridge: " + e.getMessage(), e);
 		}
 	}
 
 	private void addKnowledgePackages(KnowledgeBase knowledgeBase, KnowledgeBuilder knowledgeBuilder)
-			throws TargetRuleEngineException
+			throws TargetSWRLRuleEngineException
 	{
 		if (knowledgeBuilder.hasErrors())
-			throw new TargetRuleEngineException("error configuring Drools rule engine: "
+			throw new TargetSWRLRuleEngineException("error configuring Drools rule engine: "
 					+ knowledgeBuilder.getErrors().toString());
 
 		try {
 			knowledgeBase.addKnowledgePackages(knowledgeBuilder.getKnowledgePackages());
 		} catch (Exception e) {
-			throw new TargetRuleEngineException("error configuring Drools rule engine: " + e.getMessage(), e);
+			throw new TargetSWRLRuleEngineException("error configuring Drools rule engine: " + e.getMessage(), e);
 		}
 	}
 
@@ -362,7 +365,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 					String sqwrlQueryName = DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.get(ruleName);
 					return DroolsSWRLRuleEngine.this.activeSQWRLQueryNames.contains(sqwrlQueryName);
 				} else
-					throw new RuntimeException("internal error: phase 1 SQWRL rule " + ruleName
+					throw new TargetSWRLRuleEngineInternalException("phase 1 SQWRL rule " + ruleName
 							+ " not correctly recorded as query");
 			} else
 				return !DroolsSWRLRuleEngine.this.phase2SQWRLRuleNames.contains(ruleName);
@@ -382,7 +385,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 					String sqwrlQueryName = DroolsSWRLRuleEngine.this.ruleName2SQWRLQueryNameMap.get(ruleName);
 					return DroolsSWRLRuleEngine.this.activeSQWRLQueryNames.contains(sqwrlQueryName);
 				} else
-					throw new RuntimeException("internal error: phase 2 rule " + ruleName
+					throw new TargetSWRLRuleEngineInternalException("phase 2 rule " + ruleName
 							+ " not correctly recorded as SQWRL query");
 			} else
 				return false;

@@ -12,9 +12,8 @@ import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.owl.core.D;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.owl.properties.OP;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This interface describes methods for converting the Drools representation of OWL entities to their OWLAPI
@@ -26,15 +25,15 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public interface DroolsOWLEntityExtractor extends TargetRuleEngineExtractor
 {
-	OWLClass extract(C c) throws TargetRuleEngineException;
+	OWLClass extract(C c) throws TargetSWRLRuleEngineException;
 
-	OWLNamedIndividual extract(I i) throws TargetRuleEngineException;
+	OWLNamedIndividual extract(I i) throws TargetSWRLRuleEngineException;
 
-	OWLObjectProperty extract(OP p) throws TargetRuleEngineException;
+	OWLObjectProperty extract(OP p) throws TargetSWRLRuleEngineException;
 
-	OWLDataProperty extract(DP p) throws TargetRuleEngineException;
+	OWLDataProperty extract(DP p) throws TargetSWRLRuleEngineException;
 
-	OWLAnnotationProperty extract(AP p) throws TargetRuleEngineException;
+	OWLAnnotationProperty extract(AP p) throws TargetSWRLRuleEngineException;
 
-	OWLDatatype extract(D d) throws TargetRuleEngineException;
+	OWLDatatype extract(D d) throws TargetSWRLRuleEngineException;
 }

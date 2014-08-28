@@ -20,10 +20,9 @@ import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.drools.sqwrl.SQWRLC;
-import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.UBA;
 import org.swrlapi.drools.swrl.VA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class creates SWRLAPI built-in arguments from their Drool's representation.
@@ -38,62 +37,62 @@ public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase impl
 		super(bridge);
 	}
 
-	public SWRLVariable extract(VA va) throws TargetRuleEngineException
+	public SWRLVariable extract(VA va) throws TargetSWRLRuleEngineException
 	{
 		IRI iri = prefixedName2IRI(va.getVariableName());
 		return getOWLDataFactory().getSWRLVariable(iri);
 	}
 
-	public SWRLBuiltInArgument extract(C c) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(C c) throws TargetSWRLRuleEngineException
 	{
 		OWLClass cls = getDroolsOWLEntityExtractor().extract(c);
 
 		return getSWRLBuiltInArgumentFactory().getClassBuiltInArgument(cls);
 	}
 
-	public SWRLBuiltInArgument extract(I i) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(I i) throws TargetSWRLRuleEngineException
 	{
 		OWLNamedIndividual individual = getDroolsOWLEntityExtractor().extract(i);
 
 		return getSWRLBuiltInArgumentFactory().getNamedIndividualBuiltInArgument(individual);
 	}
 
-	public SWRLBuiltInArgument extract(OP op) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(OP op) throws TargetSWRLRuleEngineException
 	{
 		OWLObjectProperty property = getDroolsOWLEntityExtractor().extract(op);
 
 		return getSWRLBuiltInArgumentFactory().getObjectPropertyBuiltInArgument(property);
 	}
 
-	public SWRLBuiltInArgument extract(DP dp) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DP dp) throws TargetSWRLRuleEngineException
 	{
 		OWLDataProperty property = getDroolsOWLEntityExtractor().extract(dp);
 
 		return getSWRLBuiltInArgumentFactory().getDataPropertyBuiltInArgument(property);
 	}
 
-	public SWRLBuiltInArgument extract(AP ap) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(AP ap) throws TargetSWRLRuleEngineException
 	{
 		OWLAnnotationProperty property = getDroolsOWLEntityExtractor().extract(ap);
 
 		return getSWRLBuiltInArgumentFactory().getAnnotationPropertyBuiltInArgument(property);
 	}
 
-	public SWRLBuiltInArgument extract(D d) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(D d) throws TargetSWRLRuleEngineException
 	{
 		OWLDatatype datatype = getDroolsOWLEntityExtractor().extract(d);
 
 		return getSWRLBuiltInArgumentFactory().getDatatypeBuiltInArgument(datatype);
 	}
 
-	public SWRLBuiltInArgument extract(L l) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(L l) throws TargetSWRLRuleEngineException
 	{
 		OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(l);
 
 		return getSWRLBuiltInArgumentFactory().getLiteralBuiltInArgument(literal);
 	}
 
-	public SWRLBuiltInArgument extract(UBA uba) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(UBA uba) throws TargetSWRLRuleEngineException
 	{
 		String variableName = uba.getVariableName();
 		IRI variableIRI = getDroolsSWRLVariableExtractor().variableName2VariableIRI(variableName);
@@ -101,7 +100,7 @@ public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase impl
 		return getSWRLBuiltInArgumentFactory().getUnboundVariableBuiltInArgument(variableIRI);
 	}
 
-	public SWRLBuiltInArgument extract(SQWRLC sqwrlc) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(SQWRLC sqwrlc) throws TargetSWRLRuleEngineException
 	{
 		String variableName = sqwrlc.getVariableName();
 		IRI variableIRI = getDroolsSWRLVariableExtractor().variableName2VariableIRI(variableName);

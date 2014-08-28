@@ -20,8 +20,9 @@ import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
 import org.swrlapi.drools.sqwrl.VPATH;
 import org.swrlapi.drools.swrl.BAP;
 import org.swrlapi.drools.swrl.BAVNs;
-import org.swrlapi.exceptions.TargetRuleEngineException;
-import org.swrlapi.exceptions.TargetRuleEngineNotImplementedFeatureException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts OWLAPI SWRL body atoms to a their DRL representation for use in rules.
@@ -64,12 +65,12 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 	@Override
 	public String convert(SWRLDataRangeAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
 	{
-		throw new RuntimeException("data range atoms not implemented in rule body");
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule body");
 	}
 
 	public String convert(SWRLDataRangeAtom atom)
 	{
-		throw new RuntimeException("data range atoms not implemented in rule head");
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
 	}
 
 	@Override
@@ -180,14 +181,15 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 			}
 			argumentNumber++;
 			if (argumentNumber > BAP.MaxArguments)
-				throw new RuntimeException("at most " + BAP.MaxArguments + " built-in arguments currently supported");
+				throw new TargetSWRLRuleEngineException(
+						"at most " + BAP.MaxArguments + " built-in arguments currently supported");
 		}
 
 		representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInPrefixedName + "\", "
 				+ this.builtInIndexInBody + ", false, ";
 
 		if (builtInAtom.getPathVariablePrefixedNames().size() > VPATH.MaxArguments)
-			throw new RuntimeException("at most " + VPATH.MaxArguments + " built-in arguments supported");
+			throw new TargetSWRLRuleEngineException("at most " + VPATH.MaxArguments + " built-in arguments supported");
 
 		isFirst = true;
 		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_PATH_CLASS_NAME + "(";
@@ -201,7 +203,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		representation += "), ";
 
 		if (builtInAtom.getNumberOfArguments() > BAVNs.MaxArguments)
-			throw new RuntimeException("at most " + BAVNs.MaxArguments + " built-in arguments supported");
+			throw new TargetSWRLRuleEngineException("at most " + BAVNs.MaxArguments + " built-in arguments supported");
 
 		representation += "new " + DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
 		isFirst = true;
@@ -218,7 +220,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		representation += "), ";
 
 		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
-			throw new RuntimeException("at most " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " allowed");
+			throw new TargetSWRLRuleEngineException("at most " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " allowed");
 
 		isFirst = true;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
@@ -252,7 +254,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase impleme
 		} else if (atom instanceof SWRLAPIBuiltInAtom) {
 			return convert((SWRLAPIBuiltInAtom)atom, previouslyEncounteredVariablePrefixedNames);
 		} else
-			throw new RuntimeException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
 	}
 
 	private DroolsSWRLBodyAtomArgument2DRLConverter getSWRLBodyAtomArgumentConverter()

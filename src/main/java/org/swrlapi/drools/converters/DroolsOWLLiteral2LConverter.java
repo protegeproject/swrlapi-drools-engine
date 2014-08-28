@@ -6,7 +6,6 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLLiteralConverter;
 import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Class to convert an OWLAPI OWL literal to instances of the {@link org.swrlapi.drools.owl.core.L} class,

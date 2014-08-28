@@ -6,6 +6,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.axioms.AVisitor;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.owl2rl.OWL2RLInconsistency;
 
 /**
@@ -156,7 +157,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 	public void infer(A... newInferredOWLAxioms)
 	{
 		if (this.knowledgeSession == null)
-			throw new RuntimeException("internal error: knowledge session not initialized in axiom inferrer");
+			throw new TargetSWRLRuleEngineInternalException("knowledge session not initialized in axiom inferrer");
 
 		for (A newInferredOWLAxiom : newInferredOWLAxioms) {
 			if (!this.inferredOWLAxioms.contains(newInferredOWLAxiom)
@@ -950,7 +951,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 	{
 		for (String ceid : ceids) {
 			if (!this.subClasses.containsKey(ceid)) {
-				throw new RuntimeException("No record of class expression with ID " + ceid);
+				throw new TargetSWRLRuleEngineInternalException("No record of OWL class expression with ID " + ceid);
 			}
 		}
 	}
@@ -959,7 +960,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 	{
 		for (String opid : opids) {
 			if (!this.subObjectProperties.containsKey(opid)) {
-				throw new RuntimeException("No record of object property expression with ID " + opid);
+				throw new TargetSWRLRuleEngineInternalException("No record of OWL object property expression with ID " + opid);
 			}
 		}
 	}
@@ -968,7 +969,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 	{
 		for (String dpid : dpids) {
 			if (!this.subDataProperties.containsKey(dpid)) {
-				throw new RuntimeException("No record of data property expression with ID " + dpid);
+				throw new TargetSWRLRuleEngineInternalException("No record of OWL data property expression with ID " + dpid);
 			}
 		}
 	}

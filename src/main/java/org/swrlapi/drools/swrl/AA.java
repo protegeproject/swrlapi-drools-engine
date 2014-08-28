@@ -2,7 +2,7 @@ package org.swrlapi.drools.swrl;
 
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This interface represents OWLAPI SWRL arguments in Drools.
@@ -11,5 +11,5 @@ import org.swrlapi.exceptions.TargetRuleEngineException;
  */
 public interface AA
 {
-	SWRLArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException;
+	SWRLArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException;
 }

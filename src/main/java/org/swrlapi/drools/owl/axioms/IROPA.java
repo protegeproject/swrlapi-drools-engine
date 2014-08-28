@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * Class representing an OWL irreflexive object property axiom in Drools.
@@ -18,7 +18,7 @@ public class IROPA extends DroolsUnaryPropertyAxiom
 
 	@Override
 	public OWLIrreflexiveObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor)
-			throws TargetRuleEngineException
+			throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

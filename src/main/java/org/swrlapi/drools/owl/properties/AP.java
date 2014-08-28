@@ -6,7 +6,8 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.swrl.BA;
-import org.swrlapi.exceptions.TargetRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class represents an OWL annotation property.
@@ -31,18 +32,19 @@ public class AP extends OE implements P
 			AP p = (AP)ba;
 			setId(p.getName());
 		} else
-			throw new RuntimeException("expecting OWL annotation property from bound built-in argument, got "
-					+ ba.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException(
+					"expecting OWL annotation property for bound built-in argument, got "
+							+ ba.getClass().getCanonicalName());
 	}
 
 	@Override
-	public OWLAnnotationProperty extract(DroolsOWLEntityExtractor extractor) throws TargetRuleEngineException
+	public OWLAnnotationProperty extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetRuleEngineException
+	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}

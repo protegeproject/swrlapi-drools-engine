@@ -31,6 +31,7 @@ import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.drools.sqwrl.SQWRLC;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.drools.swrl.UBA;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class converts OWLAPI SWRL atom arguments to Drools {@link org.swrlapi.drools.swrl.BA} instances.
@@ -109,7 +110,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase i
 		if (argument.isUnbound())
 			return new UBA(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument));
 		else
-			throw new RuntimeException("expecting unbound argument, got bound argument " + argument);
+			throw new TargetSWRLRuleEngineInternalException("expecting unbound argument, got bound argument " + argument);
 	}
 
 	@Override

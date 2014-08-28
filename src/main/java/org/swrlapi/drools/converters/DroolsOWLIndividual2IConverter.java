@@ -6,7 +6,6 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
 import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.exceptions.TargetRuleEngineException;
 
 /**
  * Converts an OWLAPI OWL individual to a Drools individual represented by the class {@link org.swrlapi.drools.owl.core.I}.

@@ -17,6 +17,8 @@ import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
 /**
  * This class converts OWLAPI SWRL head atom argument to DRL clauses for use in rules.
@@ -51,8 +53,9 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 			String id = individual.asOWLAnonymousIndividual().toStringID();
 			return addQuotes(id);
 		} else
-			throw new RuntimeException("unknown OWL individual type " + individual.getClass().getCanonicalName()
-					+ " passed as a " + SWRLIndividualArgument.class.getName());
+			throw new TargetSWRLRuleEngineInternalException(
+					"unknown OWL individual type " + individual.getClass().getCanonicalName() + " passed as a "
+							+ SWRLIndividualArgument.class.getName());
 	}
 
 	@Override
@@ -123,8 +126,8 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument)
-	{
-		throw new RuntimeException("SQWRL collections not yet supported in Drools");
+	{ // TODO This is not true so why is this here?
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException("SQWRL collections not yet supported in Drools");
 	}
 
 	public String convert(SWRLArgument argument)
@@ -154,7 +157,8 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 		} else if (argument instanceof SWRLIndividualArgument) {
 			return convert((SWRLIndividualArgument)argument);
 		} else
-			throw new RuntimeException("unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException(
+					"unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
 	}
 
 	private String addQuotes(String s)
