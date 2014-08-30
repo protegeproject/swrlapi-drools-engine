@@ -59,9 +59,8 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 
 		drlRule = addRuleEndClause(drlRule);
 
-		// System.err.println("----------------------------------------------------------------------------------------------------");
-		// System.err.println("SWRL: " + rule.getRuleText());
-		// System.err.println("DRL:\n" + drlRule);
+		//System.out.println("---------------------------------------------------------------------------------------");
+		//System.out.println("DRL:\n" + drlRule);
 		getDroolsEngine().defineDRLRule(ruleName, drlRule);
 	}
 

@@ -62,7 +62,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 			sqwrlCollectionQuery2DRL(query);
 	}
 
-	// System.err.println("----------------------------------------------------------------------------------------------------");
+	// System.err.println("-------------------------------------------------------------------------------------");
 	// System.err.println("SWRL: " + rule.getRuleText());
 	// System.err.println("DRL:\n" + drlRule);
 
