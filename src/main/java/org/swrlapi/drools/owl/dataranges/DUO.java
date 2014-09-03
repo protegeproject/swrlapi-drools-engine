@@ -10,16 +10,18 @@ import java.util.Set;
 public class DUO implements DR
 {
 	private final String rid;
-	private final Set<DR> dataRanges;
+	private final Set<String> dataRangeIDs;
 
-	public DUO(String rid, Set<DR> dataRanges)
+	public DUO(String rid, Set<String> dataRangeIDs)
 	{
 		this.rid = rid;
-		this.dataRanges = dataRanges;
+		this.dataRangeIDs = dataRangeIDs;
 	}
 
-	public String getid()
+	public String getrid()
 	{
 		return this.rid;
 	}
+
+	public Set<String> getDataRangeIDs() { return this.dataRangeIDs; }
 }

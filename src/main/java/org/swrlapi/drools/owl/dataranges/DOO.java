@@ -20,7 +20,7 @@ public class DOO implements DR
 		this.literals = literals;
 	}
 
-	public String getid()
+	public String getrid()
 	{
 		return this.rid;
 	}

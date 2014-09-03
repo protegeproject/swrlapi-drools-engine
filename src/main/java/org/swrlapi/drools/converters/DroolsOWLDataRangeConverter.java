@@ -75,8 +75,6 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 			// TODO Pull out and convert the literals
 			DOO doo = new DOO(dataRangeID, literals);
 			addOWLDataRange(doo);
-			this.convertedDataRangeIDs.add(dataRangeID);
-			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
@@ -87,10 +85,9 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
 		if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-			DCO dco = null; // TODO
+			String complementDataRangeID = getOWLDataRangeID(dataRange.getDataRange());
+			DCO dco = new DCO(dataRangeID, complementDataRangeID);
 			addOWLDataRange(dco);
-			this.convertedDataRangeIDs.add(dataRangeID);
-			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
@@ -101,10 +98,9 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
 		if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-			DIO dio = null; // TODO
+			Set<String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
+			DIO dio = new DIO(dataRangeID, dataRangeIDs);
 			addOWLDataRange(dio);
-			this.convertedDataRangeIDs.add(dataRangeID);
-			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
@@ -115,19 +111,24 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
 		if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-			DUO duo = null; // TODO
+			Set<String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
+			DUO duo = new DUO(dataRangeID, dataRangeIDs);
 			addOWLDataRange(duo);
-			this.convertedDataRangeIDs.add(dataRangeID);
-			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 		}
 		return dataRangeID;
 	}
 
 	@Override
-	public String convert(OWLDatatypeRestriction range)
+	public String convert(OWLDatatypeRestriction dataRange)
 	{
-		throw new TargetSWRLRuleEngineNotImplementedFeatureException(
-				"owl:DatatypeRestriction is not supported in by Drools OWL 2 RL reasoner");
+		String dataRangeID = getOWLDataRangeID(dataRange);
+
+		if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
+			// TODO Incomplete - does not represent datatype restriction facets
+			DRR drr = new DRR(dataRangeID);
+			addOWLDataRange(drr);
+		}
+		return dataRangeID;
 	}
 
 	@Override public String visit(OWLDatatype owlDatatype)
@@ -167,8 +168,20 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		else {
 			String dataRangeID = "DRID" + this.dataRangeIndex++;
 			this.dataRange2IDMap.put(dataRange, dataRangeID);
+			this.convertedDataRangeIDs.add(dataRangeID);
+			getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
 			return dataRangeID;
 		}
+	}
+
+	private Set<String> getOWLDataRangeIDs(Set<OWLDataRange> dataRanges)
+	{
+		Set<String> dataRangeIDs = new HashSet<String>();
+		for (OWLDataRange dataRange : dataRanges) {
+			String dataRangeID = getOWLDataRangeID(dataRange);
+			dataRangeIDs.add(dataRangeID);
+		}
+		return dataRangeIDs;
 	}
 
 	private void addOWLDataRange(DR dataRange)

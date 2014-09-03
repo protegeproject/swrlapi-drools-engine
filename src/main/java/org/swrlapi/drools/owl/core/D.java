@@ -37,7 +37,7 @@ public class D extends OE implements DR
 					+ ba.getClass().getCanonicalName());
 	}
 
-	public String getid()
+	public String getrid()
 	{
 		return getName();
 	}

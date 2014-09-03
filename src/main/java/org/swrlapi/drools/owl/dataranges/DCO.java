@@ -8,18 +8,18 @@ package org.swrlapi.drools.owl.dataranges;
 public class DCO implements DR
 {
 	private final String rid;
-	private final DR complement;
+	private final String complementRangeID;
 
-	public DCO(String rid, DR complement)
+	public DCO(String rid, String complementRangeID)
 	{
 		this.rid = rid;
-		this.complement = complement;
+		this.complementRangeID = complementRangeID;
 	}
 
-	public String getid()
+	public String getrid()
 	{
 		return this.rid;
 	}
 
-	public DR getcomplement() { return this.complement; }
+	public String getComplementRangeID() { return this.complementRangeID; }
 }

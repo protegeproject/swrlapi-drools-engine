@@ -18,4 +18,6 @@ public interface DRVisitor
 	void visit(DOO dr);
 
 	void visit(DUO dr);
+
+	void visit(DRR drr);
 }
