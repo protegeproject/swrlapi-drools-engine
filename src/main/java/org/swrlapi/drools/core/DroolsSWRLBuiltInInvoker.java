@@ -13,6 +13,7 @@ import org.swrlapi.drools.sqwrl.VPATH;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.drools.swrl.BAP;
 import org.swrlapi.drools.swrl.BAVNs;
+import org.swrlapi.exceptions.SWRLAPIException;
 import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLBuiltInMethodRuntimeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -379,14 +380,14 @@ public class DroolsSWRLBuiltInInvoker
 			if (e instanceof SWRLBuiltInMethodRuntimeException) {
 				Throwable cause = e.getCause();
 				cause.printStackTrace();
-				throw new SWRLBuiltInException("runtime exception thrown by built-in " + builtInName + " in rule " + ruleName
+				throw new SWRLAPIException("runtime exception thrown by built-in " + builtInName + " in rule " + ruleName
 						+ ": " + cause.toString(), cause);
 			} else if (e instanceof SWRLBuiltInException) {
-				throw new SWRLBuiltInException("built-in exception thrown by built-in " + builtInName + " in rule " + ruleName
+				throw new SWRLAPIException("built-in exception thrown by built-in " + builtInName + " in rule " + ruleName
 						+ ": " + e.getMessage(), e);
 			} else {
 				e.printStackTrace();
-				throw new SWRLBuiltInException("unknown exception " + e.getClass().getCanonicalName() + " thrown by built-in "
+				throw new SWRLAPIException("unknown exception " + e.getClass().getCanonicalName() + " thrown by built-in "
 						+ builtInName + " in rule " + ruleName + ": " + e.getMessage(), e);
 			}
 		}

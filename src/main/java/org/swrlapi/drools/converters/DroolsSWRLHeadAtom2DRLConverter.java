@@ -15,6 +15,7 @@ import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
+import org.swrlapi.exceptions.SWRLAPIException;
 import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
@@ -170,7 +171,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		boolean isFirst = true;
 
 		if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
-			throw new SWRLBuiltInException("A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
+			throw new SWRLAPIException("A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS
 					+ " can be passed to built-ins");
 
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
