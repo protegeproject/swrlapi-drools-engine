@@ -10,7 +10,7 @@
 
   <properties>
 
-    <owlapi.version>3.5.0</owlapi.version> 
+    <owlapi.version>3.5.1</owlapi.version> 
     <swrlapi.version>1.0-SNAPSHOT</swrlapi.version>
     <drools.version>5.4.0.Final</drools.version> <!-- Tried 4.6.0.Final but got runtime errors -->
     <log4j.version>1.2.17</log4j.version>
@@ -92,8 +92,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
 
