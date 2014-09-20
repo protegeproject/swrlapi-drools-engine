@@ -1,12 +1,12 @@
 package org.swrlapi.drools.owl2rl;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.AbstractOWL2RLEngine;
 import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
+
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class providing a Drools implementation of an OWL 2 RL-based reasoner.
@@ -35,7 +35,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 
 	public Set<DroolsRuleDefinition> getEnabledRuleDefinitions()
 	{
-		Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<DroolsRuleDefinition>();
+		Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
 		for (Rule rule : getEnabledRules())
 			if (this.droolsOWL2RLRules.hasRule(rule))
@@ -58,7 +58,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 	 */
 	private static Set<Set<Rule>> generateGroupedRuleSets()
 	{
-		Set<Set<Rule>> groupedRuleSets = new HashSet<Set<Rule>>();
+		Set<Set<Rule>> groupedRuleSets = new HashSet<>();
 
 		groupedRuleSets.add(EnumSet.of(Rule.EQ_DIFF1, Rule.EQ_DIFF2, Rule.EQ_DIFF3));
 		groupedRuleSets.add(EnumSet.of(Rule.PRP_EQP1, Rule.PRP_EQP2, Rule.EQ_REP_P));

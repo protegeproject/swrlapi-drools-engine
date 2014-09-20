@@ -1,13 +1,52 @@
 package org.swrlapi.drools.reasoner;
 
-import java.util.*;
-
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.swrlapi.drools.owl.axioms.*;
-import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.axioms.A;
+import org.swrlapi.drools.owl.axioms.AOPA;
+import org.swrlapi.drools.owl.axioms.APDA;
 import org.swrlapi.drools.owl.axioms.AVisitor;
+import org.swrlapi.drools.owl.axioms.CAA;
+import org.swrlapi.drools.owl.axioms.CDA;
+import org.swrlapi.drools.owl.axioms.DCA;
+import org.swrlapi.drools.owl.axioms.DDPA;
+import org.swrlapi.drools.owl.axioms.DIA;
+import org.swrlapi.drools.owl.axioms.DJDPA;
+import org.swrlapi.drools.owl.axioms.DJOPA;
+import org.swrlapi.drools.owl.axioms.DOPA;
+import org.swrlapi.drools.owl.axioms.DPAA;
+import org.swrlapi.drools.owl.axioms.DPDA;
+import org.swrlapi.drools.owl.axioms.DPRA;
+import org.swrlapi.drools.owl.axioms.ECA;
+import org.swrlapi.drools.owl.axioms.EDPA;
+import org.swrlapi.drools.owl.axioms.EOPA;
+import org.swrlapi.drools.owl.axioms.FDPA;
+import org.swrlapi.drools.owl.axioms.FOPA;
+import org.swrlapi.drools.owl.axioms.IDA;
+import org.swrlapi.drools.owl.axioms.IFOPA;
+import org.swrlapi.drools.owl.axioms.IOPA;
+import org.swrlapi.drools.owl.axioms.IROPA;
+import org.swrlapi.drools.owl.axioms.NDPAA;
+import org.swrlapi.drools.owl.axioms.NOPAA;
+import org.swrlapi.drools.owl.axioms.OPAA;
+import org.swrlapi.drools.owl.axioms.OPDA;
+import org.swrlapi.drools.owl.axioms.OPRA;
+import org.swrlapi.drools.owl.axioms.SCA;
+import org.swrlapi.drools.owl.axioms.SDPA;
+import org.swrlapi.drools.owl.axioms.SIA;
+import org.swrlapi.drools.owl.axioms.SOPA;
+import org.swrlapi.drools.owl.axioms.SPA;
+import org.swrlapi.drools.owl.axioms.TOPA;
+import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.owl2rl.OWL2RLInconsistency;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is used to accumulate inferred OWL axioms during reasoning and rule execution. Drools rules generated
@@ -63,36 +102,36 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	public DefaultDroolsOWLAxiomHandler()
 	{
-		this.inferredOWLAxioms = new HashSet<A>();
-		this.assertedOWLAxioms = new HashSet<A>();
+		this.inferredOWLAxioms = new HashSet<>();
+		this.assertedOWLAxioms = new HashSet<>();
 		this.isInconsistent = false;
-		this.inconsistentMessages = new HashSet<String>();
-		this.declaredClassIDs = new HashSet<String>();
-		this.declaredIndividualIDs = new HashSet<String>();
-		this.declaredObjectPropertyIDs = new HashSet<String>();
-		this.declaredDataPropertyIDs = new HashSet<String>();
-		this.declaredAnnotationPropertyIDs = new HashSet<String>();
-		this.subClasses = new HashMap<String, Set<String>>();
-		this.subObjectProperties = new HashMap<String, Set<String>>();
-		this.subDataProperties = new HashMap<String, Set<String>>();
-		this.superClasses = new HashMap<String, Set<String>>();
-		this.superObjectProperties = new HashMap<String, Set<String>>();
-		this.superDataProperties = new HashMap<String, Set<String>>();
-		this.sameIndividual = new HashMap<String, Set<String>>();
-		this.differentIndividuals = new HashMap<String, Set<String>>();
-		this.disjointClasses = new HashMap<String, Set<String>>();
-		this.disjointObjectProperties = new HashMap<String, Set<String>>();
-		this.disjointDataProperties = new HashMap<String, Set<String>>();
-		this.equivalentClasses = new HashMap<String, Set<String>>();
-		this.equivalentObjectProperties = new HashMap<String, Set<String>>();
-		this.equivalentDataProperties = new HashMap<String, Set<String>>();
-		this.classAssertions = new HashMap<String, Set<String>>();
-		this.inverseObjectProperties = new HashMap<String, Set<String>>();
-		this.objectPropertyRanges = new HashMap<String, Set<String>>();
-		this.objectPropertyDomains = new HashMap<String, Set<String>>();
-		this.dataPropertyDomains = new HashMap<String, Set<String>>();
-		this.objectPropertyAssertions = new HashMap<String, Map<String, Set<String>>>();
-		this.dataPropertyAssertions = new HashMap<String, Map<String, Set<L>>>();
+		this.inconsistentMessages = new HashSet<>();
+		this.declaredClassIDs = new HashSet<>();
+		this.declaredIndividualIDs = new HashSet<>();
+		this.declaredObjectPropertyIDs = new HashSet<>();
+		this.declaredDataPropertyIDs = new HashSet<>();
+		this.declaredAnnotationPropertyIDs = new HashSet<>();
+		this.subClasses = new HashMap<>();
+		this.subObjectProperties = new HashMap<>();
+		this.subDataProperties = new HashMap<>();
+		this.superClasses = new HashMap<>();
+		this.superObjectProperties = new HashMap<>();
+		this.superDataProperties = new HashMap<>();
+		this.sameIndividual = new HashMap<>();
+		this.differentIndividuals = new HashMap<>();
+		this.disjointClasses = new HashMap<>();
+		this.disjointObjectProperties = new HashMap<>();
+		this.disjointDataProperties = new HashMap<>();
+		this.equivalentClasses = new HashMap<>();
+		this.equivalentObjectProperties = new HashMap<>();
+		this.equivalentDataProperties = new HashMap<>();
+		this.classAssertions = new HashMap<>();
+		this.inverseObjectProperties = new HashMap<>();
+		this.objectPropertyRanges = new HashMap<>();
+		this.objectPropertyDomains = new HashMap<>();
+		this.dataPropertyDomains = new HashMap<>();
+		this.objectPropertyAssertions = new HashMap<>();
+		this.dataPropertyAssertions = new HashMap<>();
 	}
 
 	public void reset(StatefulKnowledgeSession knowledgeSession)
@@ -161,8 +200,8 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 			throw new TargetSWRLRuleEngineInternalException("knowledge session not initialized in axiom inferrer");
 
 		for (A newInferredOWLAxiom : newInferredOWLAxioms) {
-			if (!this.inferredOWLAxioms.contains(newInferredOWLAxiom)
-					&& (!this.assertedOWLAxioms.contains(newInferredOWLAxiom))) {
+			if (!this.inferredOWLAxioms.contains(newInferredOWLAxiom) && (!this.assertedOWLAxioms
+					.contains(newInferredOWLAxiom))) {
 				this.inferredOWLAxioms.add(newInferredOWLAxiom);
 				this.knowledgeSession.insert(newInferredOWLAxiom);
 
@@ -212,7 +251,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<String> getSubClasses(String classID, boolean direct)
 	{
-		Set<String> subClasses = new HashSet<String>();
+		Set<String> subClasses = new HashSet<>();
 
 		for (String subClassID : this.subClasses.get(classID)) {
 			if (direct) {
@@ -228,7 +267,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<String> getSuperClasses(String classID, boolean direct)
 	{
-		Set<String> superClasses = new HashSet<String>();
+		Set<String> superClasses = new HashSet<>();
 
 		for (String superClassID : this.superClasses.get(classID)) {
 			if (direct) {
@@ -308,7 +347,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<String> getSubObjectProperties(String propertyID, boolean direct)
 	{
-		Set<String> subProperties = new HashSet<String>();
+		Set<String> subProperties = new HashSet<>();
 
 		for (String subPropertyID : this.subObjectProperties.get(propertyID)) {
 			if (direct) {
@@ -324,7 +363,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<String> getSuperObjectProperties(String propertyID, boolean direct)
 	{
-		Set<String> superProperties = new HashSet<String>();
+		Set<String> superProperties = new HashSet<>();
 
 		for (String superPropertyID : this.superObjectProperties.get(propertyID)) {
 			if (direct) {
@@ -370,7 +409,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<String> getObjectPropertyValuesForIndividual(String individualID, String propertyID)
 	{
-		Set<String> individualIDs = new HashSet<String>();
+		Set<String> individualIDs = new HashSet<>();
 		Map<String, Set<String>> values = this.objectPropertyAssertions.get(propertyID);
 
 		if (values.containsKey(individualID))
@@ -420,7 +459,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<String> getSubDataProperties(String propertyID, boolean direct)
 	{
-		Set<String> subProperties = new HashSet<String>();
+		Set<String> subProperties = new HashSet<>();
 
 		for (String subPropertyID : this.subDataProperties.get(propertyID)) {
 			if (direct) {
@@ -436,7 +475,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<String> getSuperDataProperties(String propertyID, boolean direct)
 	{
-		Set<String> superProperties = new HashSet<String>();
+		Set<String> superProperties = new HashSet<>();
 
 		for (String superPropertyID : this.superDataProperties.get(propertyID)) {
 			if (direct) {
@@ -472,7 +511,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	@Override public Set<L> getDataPropertyValuesForIndividual(String individualID, String propertyID)
 	{
-		Set<L> literals = new HashSet<L>();
+		Set<L> literals = new HashSet<>();
 		Map<String, Set<L>> values = this.dataPropertyAssertions.get(propertyID);
 
 		if (values.containsKey(individualID))
@@ -541,32 +580,35 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 			if (ruleArguments.hasClassArguments()) {
 				inconsistentMessage += "\n Classes:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfClassArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
+				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfClassArguments()) && argumentsIterator
+						.hasNext(); argumentCount++) {
 					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
 
 			if (ruleArguments.hasIndividualArguments()) {
 				inconsistentMessage += "\n Individuals:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfIndividualArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
+				for (int argumentCount = 0;
+						 (argumentCount < ruleArguments.getNumberOfIndividualArguments()) && argumentsIterator
+								 .hasNext(); argumentCount++) {
 					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
 
 			if (ruleArguments.hasObjectPropertyArguments()) {
 				inconsistentMessage += "\n Object Properties:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
+				for (int argumentCount = 0;
+						 (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments()) && argumentsIterator
+								 .hasNext(); argumentCount++) {
 					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
 
 			if (ruleArguments.hasDataPropertyArguments()) {
 				inconsistentMessage += "\n Data Properties:";
-				for (int argumentCount = 0; (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments())
-						&& argumentsIterator.hasNext(); argumentCount++) {
+				for (int argumentCount = 0;
+						 (argumentCount < ruleArguments.getNumberOfObjectPropertyArguments()) && argumentsIterator
+								 .hasNext(); argumentCount++) {
 					inconsistentMessage += " " + argumentsIterator.next();
 				}
 			}
@@ -608,7 +650,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.subClasses.containsKey(superClassID)) {
 			this.subClasses.get(superClassID).add(subClassID);
 		} else {
-			Set<String> subClasses = new HashSet<String>();
+			Set<String> subClasses = new HashSet<>();
 			subClasses.add(subClassID);
 			this.subClasses.put(superClassID, subClasses);
 		}
@@ -616,7 +658,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.superClasses.containsKey(subClassID)) {
 			this.superClasses.get(subClassID).add(superClassID);
 		} else {
-			Set<String> superClasses = new HashSet<String>();
+			Set<String> superClasses = new HashSet<>();
 			superClasses.add(superClassID);
 			this.superClasses.put(subClassID, superClasses);
 		}
@@ -630,7 +672,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.disjointClasses.containsKey(c1ID)) {
 			this.disjointClasses.get(c1ID).add(c2ID);
 		} else {
-			Set<String> classIDs = new HashSet<String>();
+			Set<String> classIDs = new HashSet<>();
 			classIDs.add(c2ID);
 			this.disjointClasses.put(c1ID, classIDs);
 		}
@@ -644,7 +686,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.dataPropertyDomains.containsKey(propertyID)) {
 			this.dataPropertyDomains.get(propertyID).add(domainID);
 		} else {
-			Set<String> classIDs = new HashSet<String>();
+			Set<String> classIDs = new HashSet<>();
 			classIDs.add(domainID);
 			this.dataPropertyDomains.put(propertyID, classIDs);
 		}
@@ -658,7 +700,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.objectPropertyDomains.containsKey(propertyID)) {
 			this.objectPropertyDomains.get(propertyID).add(domainID);
 		} else {
-			Set<String> classIDs = new HashSet<String>();
+			Set<String> classIDs = new HashSet<>();
 			classIDs.add(domainID);
 			this.objectPropertyDomains.put(propertyID, classIDs);
 		}
@@ -672,7 +714,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.equivalentObjectProperties.containsKey(p1ID)) {
 			this.equivalentObjectProperties.get(p1ID).add(p2ID);
 		} else {
-			Set<String> properties = new HashSet<String>();
+			Set<String> properties = new HashSet<>();
 			properties.add(p2ID);
 			this.equivalentObjectProperties.put(p1ID, properties);
 		}
@@ -686,7 +728,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.differentIndividuals.containsKey(i1ID)) {
 			this.differentIndividuals.get(i1ID).add(i2ID);
 		} else {
-			Set<String> individuals = new HashSet<String>();
+			Set<String> individuals = new HashSet<>();
 			individuals.add(i2ID);
 			this.differentIndividuals.put(i1ID, individuals);
 		}
@@ -700,7 +742,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.disjointDataProperties.containsKey(p1ID)) {
 			this.disjointDataProperties.get(p1ID).add(p2ID);
 		} else {
-			Set<String> properties = new HashSet<String>();
+			Set<String> properties = new HashSet<>();
 			properties.add(p2ID);
 			this.disjointDataProperties.put(p1ID, properties);
 		}
@@ -714,7 +756,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.disjointObjectProperties.containsKey(p1ID)) {
 			this.disjointObjectProperties.get(p1ID).add(p2ID);
 		} else {
-			Set<String> properties = new HashSet<String>();
+			Set<String> properties = new HashSet<>();
 			properties.add(p2ID);
 			this.disjointObjectProperties.put(p1ID, properties);
 		}
@@ -728,7 +770,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.objectPropertyRanges.containsKey(propertyID)) {
 			this.objectPropertyRanges.get(propertyID).add(rangeID);
 		} else {
-			Set<String> classIDs = new HashSet<String>();
+			Set<String> classIDs = new HashSet<>();
 			classIDs.add(rangeID);
 			this.objectPropertyRanges.put(propertyID, classIDs);
 		}
@@ -746,13 +788,13 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 				Set<String> values = property2Values.get(propertyID);
 				values.add(objectID);
 			} else {
-				Set<String> values = new HashSet<String>();
+				Set<String> values = new HashSet<>();
 				values.add(objectID);
 				property2Values.put(propertyID, values);
 			}
 		} else {
-			Map<String, Set<String>> property2Values = new HashMap<String, Set<String>>();
-			Set<String> values = new HashSet<String>();
+			Map<String, Set<String>> property2Values = new HashMap<>();
+			Set<String> values = new HashSet<>();
 			values.add(objectID);
 			property2Values.put(propertyID, values);
 			this.objectPropertyAssertions.put(subjectID, property2Values);
@@ -767,7 +809,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.subObjectProperties.containsKey(superPropertyID)) {
 			this.subObjectProperties.get(superPropertyID).add(subPropertyID);
 		} else {
-			Set<String> subProperties = new HashSet<String>();
+			Set<String> subProperties = new HashSet<>();
 			subProperties.add(subPropertyID);
 			this.subObjectProperties.put(superPropertyID, subProperties);
 		}
@@ -775,7 +817,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.superObjectProperties.containsKey(subPropertyID)) {
 			this.superObjectProperties.get(subPropertyID).add(superPropertyID);
 		} else {
-			Set<String> superProperties = new HashSet<String>();
+			Set<String> superProperties = new HashSet<>();
 			superProperties.add(superPropertyID);
 			this.superObjectProperties.put(subPropertyID, superProperties);
 		}
@@ -789,7 +831,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.equivalentDataProperties.containsKey(p1ID)) {
 			this.equivalentDataProperties.get(p1ID).add(p2ID);
 		} else {
-			Set<String> properties = new HashSet<String>();
+			Set<String> properties = new HashSet<>();
 			properties.add(p2ID);
 			this.equivalentDataProperties.put(p1ID, properties);
 		}
@@ -803,7 +845,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.classAssertions.containsKey(classID)) {
 			this.classAssertions.get(classID).add(individualID);
 		} else {
-			Set<String> individuals = new HashSet<String>();
+			Set<String> individuals = new HashSet<>();
 			individuals.add(individualID);
 			this.classAssertions.put(classID, individuals);
 		}
@@ -817,7 +859,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.equivalentClasses.containsKey(c1ID)) {
 			this.equivalentClasses.get(c1ID).add(c2ID);
 		} else {
-			Set<String> classIDs = new HashSet<String>();
+			Set<String> classIDs = new HashSet<>();
 			classIDs.add(c2ID);
 			this.equivalentClasses.put(c1ID, classIDs);
 		}
@@ -835,13 +877,13 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 				Set<L> values = property2Values.get(propertyID);
 				values.add(object);
 			} else {
-				Set<L> values = new HashSet<L>();
+				Set<L> values = new HashSet<>();
 				values.add(object);
 				property2Values.put(propertyID, values);
 			}
 		} else {
-			Map<String, Set<L>> property2Values = new HashMap<String, Set<L>>();
-			Set<L> values = new HashSet<L>();
+			Map<String, Set<L>> property2Values = new HashMap<>();
+			Set<L> values = new HashSet<>();
 			values.add(object);
 			property2Values.put(propertyID, values);
 			this.dataPropertyAssertions.put(subjectID, property2Values);
@@ -856,7 +898,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.subDataProperties.containsKey(superPropertyID)) {
 			this.subDataProperties.get(superPropertyID).add(subPropertyID);
 		} else {
-			Set<String> subProperties = new HashSet<String>();
+			Set<String> subProperties = new HashSet<>();
 			subProperties.add(subPropertyID);
 			this.subDataProperties.put(superPropertyID, subProperties);
 		}
@@ -864,7 +906,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.superDataProperties.containsKey(subPropertyID)) {
 			this.superDataProperties.get(subPropertyID).add(superPropertyID);
 		} else {
-			Set<String> superProperties = new HashSet<String>();
+			Set<String> superProperties = new HashSet<>();
 			superProperties.add(superPropertyID);
 			this.superDataProperties.put(subPropertyID, superProperties);
 		}
@@ -878,7 +920,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.sameIndividual.containsKey(i1ID)) {
 			this.sameIndividual.get(i1ID).add(i2ID);
 		} else {
-			Set<String> individuals = new HashSet<String>();
+			Set<String> individuals = new HashSet<>();
 			individuals.add(i2ID);
 			this.sameIndividual.put(i1ID, individuals);
 		}
@@ -892,7 +934,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 		if (this.inverseObjectProperties.containsKey(p1ID)) {
 			this.inverseObjectProperties.get(p1ID).add(p2ID);
 		} else {
-			Set<String> properties = new HashSet<String>();
+			Set<String> properties = new HashSet<>();
 			properties.add(p2ID);
 			this.inverseObjectProperties.put(p1ID, properties);
 		}

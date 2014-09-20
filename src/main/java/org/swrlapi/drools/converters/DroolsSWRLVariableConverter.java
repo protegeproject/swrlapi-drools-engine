@@ -1,11 +1,11 @@
 package org.swrlapi.drools.converters;
 
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
+
+import java.util.Set;
 
 public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 {
@@ -69,9 +69,6 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 
 	public String variablePrefixedName2VariableName(String variablePrefixedName)
 	{
-		String variableName = variablePrefixedName.startsWith(":") ? variablePrefixedName.substring(1)
-				: variablePrefixedName;
-
-		return variableName;
+		return variablePrefixedName.startsWith(":") ? variablePrefixedName.substring(1) : variablePrefixedName;
 	}
 }

@@ -21,8 +21,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  *
  * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
-public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase implements
-		TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
+public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase
+		implements TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
 	public DroolsSWRLBuiltInArgument2DRLConverter(SWRLRuleEngineBridge bridge)
 	{

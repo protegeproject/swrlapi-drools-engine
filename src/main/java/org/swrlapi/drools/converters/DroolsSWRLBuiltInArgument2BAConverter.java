@@ -21,12 +21,12 @@ import org.swrlapi.builtins.arguments.SWRLMultiValueVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
-import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.drools.owl.properties.AP;
 import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.owl.core.D;
-import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.properties.AP;
+import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.drools.sqwrl.SQWRLC;
 import org.swrlapi.drools.swrl.BA;
@@ -38,8 +38,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.swrlapi.drools.swrl.BA
  */
-public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase implements
-		TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
+public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase
+		implements TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
 {
 	public DroolsSWRLBuiltInArgument2BAConverter(SWRLRuleEngineBridge bridge)
 	{

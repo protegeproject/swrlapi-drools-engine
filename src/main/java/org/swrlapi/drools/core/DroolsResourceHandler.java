@@ -23,7 +23,7 @@ public class DroolsResourceHandler
 		importOWLAndSWRLJavaClasses();
 	}
 
-	public void defineDRLRule(String ruleName, String ruleText)
+	public void defineDRLRule(String ruleText)
 	{
 		try {
 			//System.out.println("Rule " + ruleName + "\n" + ruleText);
@@ -35,8 +35,8 @@ public class DroolsResourceHandler
 		}
 
 		if (knowledgeBuilder.hasErrors())
-			throw new TargetSWRLRuleEngineInternalException("internal error generating Drools rule\n" + ruleText + "\n"
-					+ knowledgeBuilder.getErrors().toString());
+			throw new TargetSWRLRuleEngineInternalException(
+					"internal error generating Drools rule\n" + ruleText + "\n" + knowledgeBuilder.getErrors().toString());
 	}
 
 	private void defineGlobalJavaObjects()

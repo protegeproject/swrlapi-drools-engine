@@ -1,10 +1,10 @@
 package org.swrlapi.drools.sqwrl;
 
+import org.swrlapi.drools.swrl.BA;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.swrlapi.drools.swrl.BA;
 
 /**
  * Drools has issues with some varargs so we need to explicitly define constructors the various argument combinations.
@@ -17,25 +17,25 @@ public class VPATH
 
 	public VPATH()
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 	}
 
 	public VPATH(BA ba1)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 	}
 
 	public VPATH(BA ba1, BA ba2)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 	}
 
 	public VPATH(BA ba1, BA ba2, BA ba3)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);
@@ -43,7 +43,7 @@ public class VPATH
 
 	public VPATH(BA ba1, BA ba2, BA ba3, BA ba4)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);
@@ -52,7 +52,7 @@ public class VPATH
 
 	public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);
@@ -62,7 +62,7 @@ public class VPATH
 
 	public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);
@@ -73,7 +73,7 @@ public class VPATH
 
 	public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);
@@ -85,7 +85,7 @@ public class VPATH
 
 	public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);
@@ -98,7 +98,7 @@ public class VPATH
 
 	public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);
@@ -112,7 +112,7 @@ public class VPATH
 
 	public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9, BA ba10)
 	{
-		this.arguments = new ArrayList<BA>();
+		this.arguments = new ArrayList<>();
 		this.arguments.add(ba1);
 		this.arguments.add(ba2);
 		this.arguments.add(ba3);

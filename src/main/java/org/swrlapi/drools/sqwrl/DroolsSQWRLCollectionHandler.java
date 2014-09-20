@@ -1,10 +1,9 @@
-
 package org.swrlapi.drools.sqwrl;
+
+import org.swrlapi.drools.swrl.BA;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import org.swrlapi.drools.swrl.BA;
 
 /**
  * Keeps track of SQWRL collections during rule execution.
@@ -20,7 +19,7 @@ public class DroolsSQWRLCollectionHandler
 
 	public DroolsSQWRLCollectionHandler()
 	{
-		this.generatedSQWRLCollections = new HashSet<SQWRLC>();
+		this.generatedSQWRLCollections = new HashSet<>();
 	}
 
 	public void reset()

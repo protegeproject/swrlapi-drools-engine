@@ -13,8 +13,8 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @see org.semanticweb.owlapi.model.OWLNamedIndividual
  */
-public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLIndividualConverter<String>
+public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterBase
+		implements TargetRuleEngineOWLIndividualConverter<String>
 {
 	public DroolsOWLIndividual2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
@@ -36,8 +36,5 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
 		}
 	}
 
-	private String addQuotes(String s)
-	{
-		return "\"" + s + "\"";
-	}
+	//private String addQuotes(String s) { return "\"" + s + "\""; }
 }

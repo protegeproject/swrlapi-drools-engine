@@ -1,13 +1,10 @@
 package org.swrlapi.drools.core;
 
-import java.net.URL;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.exceptions.SWRLAPIException;
+
+import javax.swing.*;
+import java.net.URL;
 
 public class DroolsFactory
 {

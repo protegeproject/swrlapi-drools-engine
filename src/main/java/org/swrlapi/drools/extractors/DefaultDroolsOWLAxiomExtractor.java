@@ -1,11 +1,82 @@
 package org.swrlapi.drools.extractors;
 
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.drools.owl.axioms.AOPA;
+import org.swrlapi.drools.owl.axioms.APDA;
+import org.swrlapi.drools.owl.axioms.CAA;
+import org.swrlapi.drools.owl.axioms.CDA;
+import org.swrlapi.drools.owl.axioms.DCA;
+import org.swrlapi.drools.owl.axioms.DDPA;
+import org.swrlapi.drools.owl.axioms.DIA;
+import org.swrlapi.drools.owl.axioms.DJDPA;
+import org.swrlapi.drools.owl.axioms.DJOPA;
+import org.swrlapi.drools.owl.axioms.DOPA;
+import org.swrlapi.drools.owl.axioms.DPAA;
+import org.swrlapi.drools.owl.axioms.DPDA;
+import org.swrlapi.drools.owl.axioms.DPRA;
+import org.swrlapi.drools.owl.axioms.ECA;
+import org.swrlapi.drools.owl.axioms.EDPA;
+import org.swrlapi.drools.owl.axioms.EOPA;
+import org.swrlapi.drools.owl.axioms.FDPA;
+import org.swrlapi.drools.owl.axioms.FOPA;
+import org.swrlapi.drools.owl.axioms.IDA;
+import org.swrlapi.drools.owl.axioms.IFOPA;
+import org.swrlapi.drools.owl.axioms.IOPA;
+import org.swrlapi.drools.owl.axioms.IROPA;
+import org.swrlapi.drools.owl.axioms.NDPAA;
+import org.swrlapi.drools.owl.axioms.NOPAA;
+import org.swrlapi.drools.owl.axioms.OPAA;
+import org.swrlapi.drools.owl.axioms.OPDA;
+import org.swrlapi.drools.owl.axioms.OPRA;
+import org.swrlapi.drools.owl.axioms.SCA;
+import org.swrlapi.drools.owl.axioms.SDPA;
+import org.swrlapi.drools.owl.axioms.SIA;
+import org.swrlapi.drools.owl.axioms.SOPA;
+import org.swrlapi.drools.owl.axioms.SPA;
+import org.swrlapi.drools.owl.axioms.TOPA;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.semanticweb.owlapi.model.*;
-import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.drools.owl.axioms.*;
 
 /**
  * This class defines methods for converting the Drools representation of OWL axioms to their OWLAPI representation.
@@ -114,7 +185,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLIndividual individual1 = sia.geti1().extract(getDroolsOWLIndividualExtractor());
 		OWLIndividual individual2 = sia.geti2().extract(getDroolsOWLIndividualExtractor());
-		Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+		Set<OWLIndividual> individuals = new HashSet<>();
 
 		individuals.add(individual1);
 		individuals.add(individual2);
@@ -127,7 +198,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLIndividual individual1 = dia.geti1().extract(getDroolsOWLIndividualExtractor());
 		OWLIndividual individual2 = dia.geti2().extract(getDroolsOWLIndividualExtractor());
-		Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+		Set<OWLIndividual> individuals = new HashSet<>();
 
 		individuals.add(individual1);
 		individuals.add(individual2);
@@ -149,7 +220,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLClassExpression class1 = getOWLClassExpressionResolver().resolve(dca.getc1id());
 		OWLClassExpression class2 = getOWLClassExpressionResolver().resolve(dca.getc2id());
-		Set<OWLClassExpression> classes = new HashSet<OWLClassExpression>();
+		Set<OWLClassExpression> classes = new HashSet<>();
 		classes.add(class1);
 		classes.add(class2);
 
@@ -161,7 +232,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLClassExpression class1 = getOWLClassExpressionResolver().resolve(eca.getc1id());
 		OWLClassExpression class2 = getOWLClassExpressionResolver().resolve(eca.getc2id());
-		Set<OWLClassExpression> classes = new HashSet<OWLClassExpression>();
+		Set<OWLClassExpression> classes = new HashSet<>();
 		classes.add(class1);
 		classes.add(class2);
 
@@ -208,8 +279,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	public OWLSubObjectPropertyOfAxiom extract(SOPA sopa)
 	{
 		OWLObjectPropertyExpression superProperty = getOWLObjectPropertyExpressionResolver().resolve(sopa.getsuperpid());
-		OWLObjectPropertyExpression subProperty = getOWLObjectPropertyExpressionResolver().resolve(
-				sopa.getsubpid());
+		OWLObjectPropertyExpression subProperty = getOWLObjectPropertyExpressionResolver().resolve(sopa.getsubpid());
 
 		return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty);
 	}
@@ -237,7 +307,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLObjectPropertyExpression property1 = getOWLObjectPropertyExpressionResolver().resolve(eopa.getp1id());
 		OWLObjectPropertyExpression property2 = getOWLObjectPropertyExpressionResolver().resolve(eopa.getp1id());
-		Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
+		Set<OWLObjectPropertyExpression> properties = new HashSet<>();
 		properties.add(property1);
 		properties.add(property2);
 
@@ -249,7 +319,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLDataPropertyExpression property1 = getOWLDataPropertyExpressionResolver().resolve(edpa.getp1id());
 		OWLDataPropertyExpression property2 = getOWLDataPropertyExpressionResolver().resolve(edpa.getp2id());
-		Set<OWLDataPropertyExpression> properties = new HashSet<OWLDataPropertyExpression>();
+		Set<OWLDataPropertyExpression> properties = new HashSet<>();
 		properties.add(property1);
 		properties.add(property2);
 
@@ -261,7 +331,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLObjectPropertyExpression property1 = getOWLObjectPropertyExpressionResolver().resolve(djopa.getp1id());
 		OWLObjectPropertyExpression property2 = getOWLObjectPropertyExpressionResolver().resolve(djopa.getp2id());
-		Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
+		Set<OWLObjectPropertyExpression> properties = new HashSet<>();
 		properties.add(property1);
 		properties.add(property2);
 
@@ -273,7 +343,7 @@ public class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implemen
 	{
 		OWLDataPropertyExpression property1 = getOWLDataPropertyExpressionResolver().resolve(djdpa.getp1id());
 		OWLDataPropertyExpression property2 = getOWLDataPropertyExpressionResolver().resolve(djdpa.getp2id());
-		Set<OWLDataPropertyExpression> properties = new HashSet<OWLDataPropertyExpression>();
+		Set<OWLDataPropertyExpression> properties = new HashSet<>();
 		properties.add(property1);
 		properties.add(property2);
 

@@ -2,8 +2,8 @@ package org.swrlapi.drools.owl.core;
 
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;

@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
  * @see org.swrlapi.drools.owl.properties.OPE
  */
 public class DroolsOPEResolver
@@ -18,7 +17,7 @@ public class DroolsOPEResolver
 
 	public DroolsOPEResolver()
 	{
-		this.pes = new HashMap<String, OPE>();
+		this.pes = new HashMap<>();
 		this.propertyExpressionIndex = 0;
 	}
 
@@ -32,7 +31,7 @@ public class DroolsOPEResolver
 
 	public void record(OPE pe) { this.pes.put(pe.getid(), pe); }
 
-	public Set<OPE> getPEs() { return new HashSet<OPE>(this.pes.values()); }
+	public Set<OPE> getPEs() { return new HashSet<>(this.pes.values()); }
 
 	public String generatePEID() { return "OPEID" + this.propertyExpressionIndex++; }
 }

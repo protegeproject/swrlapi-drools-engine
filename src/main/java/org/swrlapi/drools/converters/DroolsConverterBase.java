@@ -5,7 +5,7 @@ import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 
 /**
  * Base class providing functionality common to all Drools converters.
- *
+ * <p/>
  * Drools converters transform OWLAPI-based OWL entities to a Drools representation of those entities.
  */
 public class DroolsConverterBase extends TargetRuleEngineConverterBase

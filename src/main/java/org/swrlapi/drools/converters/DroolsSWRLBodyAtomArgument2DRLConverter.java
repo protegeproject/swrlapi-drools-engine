@@ -1,7 +1,5 @@
 package org.swrlapi.drools.converters;
 
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -20,14 +18,16 @@ import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
+import java.util.Set;
+
 /**
  * This class converts OWLAPI SWRL atom and built-in arguments to DRL clauses for use in rules.
  *
  * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see org.swrlapi.drools.converters.DroolsSWRLHeadAtomArgument2DRLConverter
  */
-public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase implements
-		TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter<String>
+public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
+		implements TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter<String>
 {
 	public DroolsSWRLBodyAtomArgument2DRLConverter(SWRLRuleEngineBridge bridge)
 	{

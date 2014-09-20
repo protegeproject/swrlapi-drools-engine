@@ -18,13 +18,14 @@ import org.swrlapi.drools.owl.properties.OP;
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyExpression
  * @see org.semanticweb.owlapi.model.OWLDataPropertyExpression
  */
-public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
-		TargetRuleEngineOWLPropertyExpressionConverter<String>
+public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase
+		implements TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
 	private final DroolsOPEResolver opeResolver;
 	private final DroolsDPEResolver dpeResolver;
 
-	public DroolsOWLPropertyExpressionConverter(SWRLRuleEngineBridge bridge, DroolsOPEResolver opeResolver, DroolsDPEResolver dpeResolver)
+	public DroolsOWLPropertyExpressionConverter(SWRLRuleEngineBridge bridge, DroolsOPEResolver opeResolver,
+			DroolsDPEResolver dpeResolver)
 	{
 		super(bridge);
 
@@ -47,24 +48,24 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase im
 	{
 		if (!getOWLObjectPropertyExpressionResolver().records(propertyExpression)) {
 
-		if (propertyExpression.isAnonymous()) {
-			String propertyExpressionID = this.opeResolver.generatePEID();
-			getOWLObjectPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
+			if (propertyExpression.isAnonymous()) {
+				String propertyExpressionID = this.opeResolver.generatePEID();
+				getOWLObjectPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
 
-			return propertyExpressionID;
-		} else {
-			OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
-			IRI propertyIRI = objectProperty.getIRI();
-			String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
-			OP op = new OP(prefixedName);
+				return propertyExpressionID;
+			} else {
+				OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
+				IRI propertyIRI = objectProperty.getIRI();
+				String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
+				OP op = new OP(prefixedName);
 
-			getOWLObjectPropertyExpressionResolver().record(prefixedName, propertyExpression);
-			this.opeResolver.record(op);
+				getOWLObjectPropertyExpressionResolver().record(prefixedName, propertyExpression);
+				this.opeResolver.record(op);
 
-			return prefixedName;
-		}
-	} else
-		return getOWLObjectPropertyExpressionResolver().resolve(propertyExpression);
+				return prefixedName;
+			}
+		} else
+			return getOWLObjectPropertyExpressionResolver().resolve(propertyExpression);
 	}
 
 	@Override

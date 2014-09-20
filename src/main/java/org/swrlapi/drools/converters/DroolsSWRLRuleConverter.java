@@ -1,12 +1,12 @@
 package org.swrlapi.drools.converters;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class converts SWRLAPI rules to their Drools representation.
@@ -38,14 +38,14 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 	{
 		String ruleName = rule.getRuleName();
 		String drlRule = getRulePreamble(ruleName);
-		Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<String>();
+		Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
 
 		getDroolsSWRLBodyAtomConverter().reset();
 		getDroolsSWRLHeadAtomConverter().reset();
 
 		for (SWRLAtom atom : rule.getBodyAtoms())
-			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariablePrefixedNames)
-					+ " ";
+			drlRule +=
+					"\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariablePrefixedNames) + " ";
 
 		drlRule = addRuleThenClause(drlRule);
 
@@ -61,7 +61,7 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
 
 		//System.out.println("---------------------------------------------------------------------------------------");
 		//System.out.println("DRL:\n" + drlRule);
-		getDroolsEngine().defineDRLRule(ruleName, drlRule);
+		getDroolsEngine().defineDRLRule(drlRule);
 	}
 
 	private String getRulePreamble(String ruleName)

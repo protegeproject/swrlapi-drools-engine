@@ -1,9 +1,9 @@
 package org.swrlapi.drools.swrl;
 
+import org.swrlapi.drools.core.DroolsNames;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.swrlapi.drools.core.DroolsNames;
 
 /**
  * Class representing the names of variables passed to built-ins. Non variable arguments positions are represented by
@@ -160,8 +160,8 @@ public class BAVNs
 		if ((obj == null) || (obj.getClass() != this.getClass()))
 			return false;
 		BAVNs avns = (BAVNs)obj;
-		return (getVariableNames() == avns.getVariableNames() || (getVariableNames() != null && getVariableNames().equals(
-				avns.getVariableNames())));
+		return (getVariableNames() == avns.getVariableNames() || (getVariableNames() != null && getVariableNames()
+				.equals(avns.getVariableNames())));
 	}
 
 	@Override

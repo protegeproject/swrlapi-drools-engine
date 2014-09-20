@@ -9,12 +9,12 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLEntityConverter;
-import org.swrlapi.drools.owl.properties.AP;
 import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.owl.core.D;
-import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.drools.owl.core.OE;
+import org.swrlapi.drools.owl.properties.AP;
+import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
 
 /**
@@ -22,8 +22,8 @@ import org.swrlapi.drools.owl.properties.OP;
  *
  * @see org.semanticweb.owlapi.model.OWLEntity
  */
-public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLEntityConverter<OE>
+public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase
+		implements TargetRuleEngineOWLEntityConverter<OE>
 {
 	public DroolsOWLEntity2OEConverter(SWRLRuleEngineBridge bridge)
 	{

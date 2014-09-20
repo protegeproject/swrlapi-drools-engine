@@ -26,8 +26,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see org.swrlapi.drools.converters.DroolsSWRLBodyAtomArgument2DRLConverter
  */
-public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase implements
-		TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
+public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
+		implements TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
 {
 	public DroolsSWRLHeadAtomArgument2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
@@ -113,9 +113,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(SWRLDatatypeBuiltInArgument datatypeArgument)
 	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
-
-		return prefixedName;
+		return getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
 	}
 
 	@Override

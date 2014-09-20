@@ -22,12 +22,12 @@ import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
-import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.drools.owl.properties.AP;
 import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.owl.core.D;
-import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.properties.AP;
+import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.drools.swrl.AA;
 import org.swrlapi.drools.swrl.BA;
@@ -42,8 +42,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see org.swrlapi.drools.swrl.AA
  */
-public class DroolsSWRLAtomArgument2AAConverter extends DroolsConverterBase implements
-		TargetRuleEngineSWRLAtomArgumentConverter<AA>
+public class DroolsSWRLAtomArgument2AAConverter extends DroolsConverterBase
+		implements TargetRuleEngineSWRLAtomArgumentConverter<AA>
 {
 	public DroolsSWRLAtomArgument2AAConverter(SWRLRuleEngineBridge bridge)
 	{

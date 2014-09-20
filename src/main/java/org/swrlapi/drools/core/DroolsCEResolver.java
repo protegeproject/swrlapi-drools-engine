@@ -1,11 +1,13 @@
 package org.swrlapi.drools.core;
 
-import org.swrlapi.drools.owl.classexpressions.*;
+import org.swrlapi.drools.owl.classexpressions.CE;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
- *
  * @see org.swrlapi.drools.owl.classexpressions.CE
  */
 public class DroolsCEResolver
@@ -15,7 +17,7 @@ public class DroolsCEResolver
 
 	public DroolsCEResolver()
 	{
-		this.ces = new HashMap<String, CE>();
+		this.ces = new HashMap<>();
 		this.classExpressionIndex = 0;
 	}
 
@@ -29,7 +31,7 @@ public class DroolsCEResolver
 
 	public void record(CE ce) { this.ces.put(ce.getceid(), ce); }
 
-	public Set<CE> getCEs() { return new HashSet<CE>(this.ces.values()); }
+	public Set<CE> getCEs() { return new HashSet<>(this.ces.values()); }
 
 	public String generateCEID() { return "CEID" + this.classExpressionIndex++; }
 }

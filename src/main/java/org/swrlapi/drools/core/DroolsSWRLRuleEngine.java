@@ -142,7 +142,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
 			// OWL 2 RL rules are not added to knowledge base until the runRuleEngine method is invoked
 			for (DroolsRuleDefinition ruleDefinition : this.owl2RLEngine.getEnabledRuleDefinitions())
-				defineDRLRule(ruleDefinition.getRuleName(), ruleDefinition.getRuleText());
+				defineDRLRule(ruleDefinition.getRuleText());
 
 			this.knowledgeBaseCreatedAtLeastOnce = true;
 			this.knowledgePackagesAdditionRequired = true;
@@ -235,10 +235,10 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	 * Define a Drools representation of a SWRL rule or a SQWRL query. This method will be called by Drools converters
 	 * after they have translated SWRL rules and SQWRL queries into their Drools equivalent.
 	 */
-	public void defineDRLRule(String ruleName, String ruleText)
+	public void defineDRLRule(String ruleText)
 	{
 		if (this.knowledgePackagesAdditionRequired)
-			resourceHandler.defineDRLRule(ruleName, ruleText);
+			resourceHandler.defineDRLRule(ruleText);
 	}
 
 	/**
@@ -252,7 +252,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
 
 		if (this.knowledgePackagesAdditionRequired)
-			defineDRLRule(ruleName, ruleText);
+			defineDRLRule(ruleText);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
 
 		if (this.knowledgePackagesAdditionRequired)
-			defineDRLRule(ruleName, ruleText);
+			defineDRLRule(ruleText);
 	}
 
 	/**

@@ -1,9 +1,27 @@
 package org.swrlapi.drools.converters;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
 import org.swrlapi.drools.core.DroolsCEResolver;
@@ -28,14 +46,17 @@ import org.swrlapi.drools.owl.classexpressions.OSVFCE;
 import org.swrlapi.drools.owl.classexpressions.OUOCE;
 import org.swrlapi.drools.owl.core.C;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * This class converts OWLAPI OWL class expressions to their Drools representation.
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
  * @see org.swrlapi.drools.owl.classexpressions.CE
  */
-public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
-		TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
+public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
+		implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
 	private final DroolsCEResolver droolsCeResolver;
@@ -81,7 +102,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
 			for (OWLIndividual individual1 : classExpression.getIndividuals()) {
-				Set<OWLIndividual> individuals = new HashSet<OWLIndividual>(classExpression.getIndividuals());
+				Set<OWLIndividual> individuals = new HashSet<>(classExpression.getIndividuals());
 				String individual1ID = getDroolsOWLIndividual2DRLConverter().convert(individual1);
 
 				individuals.remove(individual1);
@@ -99,7 +120,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectIntersectionOf classExpression) 
+	public String convert(OWLObjectIntersectionOf classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -116,7 +137,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectUnionOf classExpression) 
+	public String convert(OWLObjectUnionOf classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -133,7 +154,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectComplementOf classExpression) 
+	public String convert(OWLObjectComplementOf classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -149,7 +170,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectSomeValuesFrom classExpression) 
+	public String convert(OWLObjectSomeValuesFrom classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -166,7 +187,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataSomeValuesFrom classExpression) 
+	public String convert(OWLDataSomeValuesFrom classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -183,7 +204,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataExactCardinality classExpression) 
+	public String convert(OWLDataExactCardinality classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -200,7 +221,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectExactCardinality classExpression) 
+	public String convert(OWLObjectExactCardinality classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -217,7 +238,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataMinCardinality classExpression) 
+	public String convert(OWLDataMinCardinality classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -234,7 +255,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectMinCardinality classExpression) 
+	public String convert(OWLObjectMinCardinality classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -251,7 +272,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataMaxCardinality classExpression) 
+	public String convert(OWLDataMaxCardinality classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -276,7 +297,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectMaxCardinality classExpression) 
+	public String convert(OWLObjectMaxCardinality classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -301,7 +322,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataHasValue classExpression) 
+	public String convert(OWLDataHasValue classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -318,7 +339,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectHasValue classExpression) 
+	public String convert(OWLObjectHasValue classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -335,7 +356,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLObjectAllValuesFrom classExpression) 
+	public String convert(OWLObjectAllValuesFrom classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -352,7 +373,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 	}
 
 	@Override
-	public String convert(OWLDataAllValuesFrom classExpression) 
+	public String convert(OWLDataAllValuesFrom classExpression)
 	{
 		if (!getOWLClassExpressionResolver().records(classExpression)) {
 			String classExpressionID = getCEResolver().generateCEID();
@@ -403,7 +424,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		return convert(owlObjectAllValuesFrom);
 	}
 
-	@Override public String visit(OWLObjectHasValue owlObjectHasValue)	{ return convert(owlObjectHasValue);	}
+	@Override public String visit(OWLObjectHasValue owlObjectHasValue) { return convert(owlObjectHasValue); }
 
 	@Override public String visit(OWLObjectMinCardinality owlObjectMinCardinality)
 	{
@@ -450,7 +471,10 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase imple
 		return convert(owlDataMinCardinality);
 	}
 
-	@Override public String visit(OWLDataExactCardinality owlDataExactCardinality) { return convert(owlDataExactCardinality); }
+	@Override public String visit(OWLDataExactCardinality owlDataExactCardinality)
+	{
+		return convert(owlDataExactCardinality);
+	}
 
 	@Override public String visit(OWLDataMaxCardinality owlDataMaxCardinality)
 	{

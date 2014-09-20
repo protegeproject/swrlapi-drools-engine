@@ -1,12 +1,12 @@
 package org.swrlapi.drools.owl2rl;
 
+import org.swrlapi.drools.core.DroolsRuleDefinition;
+import org.swrlapi.owl2rl.OWL2RLNames;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.swrlapi.drools.core.DroolsRuleDefinition;
-import org.swrlapi.owl2rl.OWL2RLNames;
 
 /**
  * Class that defines Drools OWL 2 RL rules.
@@ -32,7 +32,7 @@ public class DroolsOWL2RLRules
 
 	public DroolsOWL2RLRules()
 	{
-		this.rules = new HashMap<OWL2RLNames.Rule, Set<DroolsRuleDefinition>>();
+		this.rules = new HashMap<>();
 	}
 
 	/**
@@ -129,8 +129,7 @@ public class DroolsOWL2RLRules
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_IRP, "prp_irp",
 				"rule prp_irp when IROPA($p:pid) OPAA($s:s, pid==$p, $x:o) then inferrer.inferFalse(\""
-						+ OWL2RLNames.Rule.PRP_IRP.toString()
-						+ "\", $x.id, $p); end");
+						+ OWL2RLNames.Rule.PRP_IRP.toString() + "\", $x.id, $p); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_SYMP, "prp_symp",
 				"rule prp_symp when SPA($p:pid) OPAA($x:s, pid==$p, $y:o) then OPAA opaa=new OPAA($y, $p, $x); inferrer.infer(opaa); end");
@@ -305,8 +304,7 @@ public class DroolsOWL2RLRules
 
 	private void defineOWL2RLTable9DroolsRules()
 	{
-		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_CLS, "scm_cls",
-				"rule scm_cls when CDA($c:cid) "
+		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_CLS, "scm_cls", "rule scm_cls when CDA($c:cid) "
 						+ "then SCA sca1=new SCA($c, $c); ECA eca=new ECA($c, $c); SCA sca2=new SCA($c, \"owl:Thing\"); "
 						+ "SCA sca3=new SCA(\"owl:Nothing\", $c); inferrer.infer(sca1, eca, sca2, sca3); end");
 
@@ -314,20 +312,17 @@ public class DroolsOWL2RLRules
 				"rule scm_sco when SCA($c1:subcid, $c2:supercid) SCA(subcid==$c2, $c3:supercid) "
 						+ "then SCA sca=new SCA($c1, $c3); inferrer.infer(sca); end");
 
-		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_EQC1, "scm_eqc1",
-				"rule scm_eqc1 when ECA($c1:c1id, $c2:c2id) "
+		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_EQC1, "scm_eqc1", "rule scm_eqc1 when ECA($c1:c1id, $c2:c2id) "
 						+ "then SCA sca1=new SCA($c1, $c2); SCA sca2=new SCA($c2, $c1); inferrer.infer(sca1, sca2); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_EQC2, "scm_eqc2",
 				"rule scm_eqc2 when SCA($c1:subcid, $c2:supercid) SCA(subcid==$c2, supercid==$c1) "
 						+ " then ECA eca=new ECA($c1, $c2); inferrer.infer(eca); end");
 
-		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_OP, "scm_op",
-				"rule scm_op when OPDA($p:pid) "
+		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_OP, "scm_op", "rule scm_op when OPDA($p:pid) "
 						+ "then SOPA sopa=new SOPA($p, $p); EOPA eopa=new EOPA($p, $p); inferrer.infer(sopa, eopa); end");
 
-		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_DP, "scm_dp",
-				"rule scm_dp when DPDA($p:pid) "
+		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_DP, "scm_dp", "rule scm_dp when DPDA($p:pid) "
 						+ "then SDPA sdpa=new SDPA($p, $p); EDPA edpa=new EDPA($p, $p); inferrer.infer(sdpa, edpa); end");
 
 		createOWL2RLRuleDefinition(OWL2RLNames.Rule.SCM_SPO, "scm_spo_op",
@@ -427,7 +422,7 @@ public class DroolsOWL2RLRules
 		if (this.rules.containsKey(rule))
 			this.rules.get(rule).add(newRuleDefinition);
 		else {
-			Set<DroolsRuleDefinition> newRuleDefinitions = new HashSet<DroolsRuleDefinition>();
+			Set<DroolsRuleDefinition> newRuleDefinitions = new HashSet<>();
 			newRuleDefinitions.add(newRuleDefinition);
 			this.rules.put(rule, newRuleDefinitions);
 		}

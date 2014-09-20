@@ -11,8 +11,8 @@ import org.swrlapi.drools.owl.core.I;
  * @see org.semanticweb.owlapi.model.OWLIndividual
  * @see org.swrlapi.drools.owl.core.I
  */
-public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtractorBase implements
-		DroolsOWLIndividualExtractor
+public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtractorBase
+		implements DroolsOWLIndividualExtractor
 {
 	public DefaultDroolsOWLIndividualExtractor(SWRLRuleEngineBridge bridge)
 	{

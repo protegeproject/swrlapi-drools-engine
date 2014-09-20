@@ -1,19 +1,101 @@
 package org.swrlapi.drools.converters;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.core.visitors.SWRLAPIOWLAxiomVisitor;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
-import org.swrlapi.drools.owl.axioms.*;
-import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.axioms.A;
+import org.swrlapi.drools.owl.axioms.AOPA;
+import org.swrlapi.drools.owl.axioms.APDA;
+import org.swrlapi.drools.owl.axioms.CAA;
+import org.swrlapi.drools.owl.axioms.CDA;
+import org.swrlapi.drools.owl.axioms.DCA;
+import org.swrlapi.drools.owl.axioms.DDPA;
+import org.swrlapi.drools.owl.axioms.DIA;
+import org.swrlapi.drools.owl.axioms.DOPA;
+import org.swrlapi.drools.owl.axioms.DPAA;
+import org.swrlapi.drools.owl.axioms.DPDA;
+import org.swrlapi.drools.owl.axioms.DPRA;
+import org.swrlapi.drools.owl.axioms.ECA;
+import org.swrlapi.drools.owl.axioms.EDPA;
+import org.swrlapi.drools.owl.axioms.EOPA;
+import org.swrlapi.drools.owl.axioms.FDPA;
+import org.swrlapi.drools.owl.axioms.FOPA;
+import org.swrlapi.drools.owl.axioms.IDA;
+import org.swrlapi.drools.owl.axioms.IFOPA;
+import org.swrlapi.drools.owl.axioms.IOPA;
+import org.swrlapi.drools.owl.axioms.IROPA;
+import org.swrlapi.drools.owl.axioms.NDPAA;
+import org.swrlapi.drools.owl.axioms.NOPAA;
+import org.swrlapi.drools.owl.axioms.OPAA;
+import org.swrlapi.drools.owl.axioms.OPDA;
+import org.swrlapi.drools.owl.axioms.OPRA;
+import org.swrlapi.drools.owl.axioms.SCA;
+import org.swrlapi.drools.owl.axioms.SDPA;
+import org.swrlapi.drools.owl.axioms.SIA;
+import org.swrlapi.drools.owl.axioms.SOPA;
+import org.swrlapi.drools.owl.axioms.SPA;
+import org.swrlapi.drools.owl.axioms.TOPA;
 import org.swrlapi.drools.owl.classexpressions.CE;
+import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class converts OWLAPI OWL axioms to their Drools representation.
@@ -24,8 +106,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  * @see org.swrlapi.drools.owl.axioms.A
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  */
-public class DroolsOWLAxiomConverter extends DroolsConverterBase implements TargetRuleEngineOWLAxiomConverter,
-		SWRLAPIOWLAxiomVisitor
+public class DroolsOWLAxiomConverter extends DroolsConverterBase
+		implements TargetRuleEngineOWLAxiomConverter, SWRLAPIOWLAxiomVisitor
 {
 	private final DroolsSWRLRuleConverter swrlRuleConverter;
 	private final DroolsOWLClassExpressionConverter classExpressionConverter;
@@ -44,7 +126,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 		this.classExpressionConverter = classExpressionConverter;
 		this.propertyExpressionConverter = propertyExpressionConverter;
 
-		this.assertedOWLAxioms = new HashSet<A>();
+		this.assertedOWLAxioms = new HashSet<>();
 	}
 
 	public void reset()
@@ -54,7 +136,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 
 	public Set<A> getAssertedOWLAxioms()
 	{
-		return new HashSet<A>(this.assertedOWLAxioms);
+		return new HashSet<>(this.assertedOWLAxioms);
 	}
 
 	public Set<CE> getOWLClassExpressions()
@@ -95,8 +177,8 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 			String propertyPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(property);
 			recordOWLAxiom(new APDA(propertyPrefixedName));
 		} else
-			throw new TargetSWRLRuleEngineInternalException("unknown entity type " + entity.getClass().getCanonicalName()
-					+ " in OWL declaration axiom");
+			throw new TargetSWRLRuleEngineInternalException(
+					"unknown entity type " + entity.getClass().getCanonicalName() + " in OWL declaration axiom");
 	}
 
 	@Override
@@ -144,7 +226,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getIndividuals().isEmpty()) {
 			for (OWLIndividual individual1 : axiom.getIndividuals()) {
-				Set<OWLIndividual> sameIndividuals = new HashSet<OWLIndividual>(axiom.getIndividuals());
+				Set<OWLIndividual> sameIndividuals = new HashSet<>(axiom.getIndividuals());
 				I i1 = getDroolsOWLIndividual2IConverter().convert(individual1);
 				SIA sia = new SIA(i1, i1);
 				sameIndividuals.remove(individual1);
@@ -164,7 +246,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getIndividuals().isEmpty()) {
 			for (OWLIndividual individual1 : axiom.getIndividuals()) {
-				Set<OWLIndividual> differentIndividuals = new HashSet<OWLIndividual>(axiom.getIndividuals());
+				Set<OWLIndividual> differentIndividuals = new HashSet<>(axiom.getIndividuals());
 				I i1 = getDroolsOWLIndividual2IConverter().convert(individual1);
 				differentIndividuals.remove(individual1);
 				for (OWLIndividual individual2 : differentIndividuals) {
@@ -214,8 +296,8 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		OWLClassExpression subClass = axiom.getSubClass();
 		OWLClassExpression superClass = axiom.getSuperClass();
-		SCA a = new SCA(getDroolsOWLClassExpressionConverter().convert(subClass), getDroolsOWLClassExpressionConverter()
-				.convert(superClass));
+		SCA a = new SCA(getDroolsOWLClassExpressionConverter().convert(subClass),
+				getDroolsOWLClassExpressionConverter().convert(superClass));
 
 		recordOWLAxiom(a);
 	}
@@ -225,7 +307,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getClassExpressions().isEmpty()) {
 			for (OWLClassExpression class1 : axiom.getClassExpressions()) {
-				Set<OWLClassExpression> disjointClasses = new HashSet<OWLClassExpression>(axiom.getClassExpressions());
+				Set<OWLClassExpression> disjointClasses = new HashSet<>(axiom.getClassExpressions());
 				String class1ID = getDroolsOWLClassExpressionConverter().convert(class1);
 				disjointClasses.remove(class1);
 				for (OWLClassExpression class2 : disjointClasses) {
@@ -244,7 +326,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getClassExpressions().isEmpty()) {
 			for (OWLClassExpression class1 : axiom.getClassExpressions()) {
-				Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(axiom.getClassExpressions());
+				Set<OWLClassExpression> equivalentClasses = new HashSet<>(axiom.getClassExpressions());
 				String class1ID = getDroolsOWLClassExpressionConverter().convert(class1);
 				equivalentClasses.remove(class1);
 				for (OWLClassExpression class2 : equivalentClasses) {
@@ -261,7 +343,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLObjectPropertyExpression> equivalentProperties = new HashSet<OWLObjectPropertyExpression>(
+				Set<OWLObjectPropertyExpression> equivalentProperties = new HashSet<>(
 						axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				equivalentProperties.remove(property1);
@@ -279,7 +361,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLDataPropertyExpression> equivalentProperties = new HashSet<OWLDataPropertyExpression>(
+				Set<OWLDataPropertyExpression> equivalentProperties = new HashSet<>(
 						axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				equivalentProperties.remove(property1);
@@ -297,7 +379,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLObjectPropertyExpression> disjointProperties = new HashSet<OWLObjectPropertyExpression>(
+				Set<OWLObjectPropertyExpression> disjointProperties = new HashSet<>(
 						axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				disjointProperties.remove(property1);
@@ -315,7 +397,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase implements Targ
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLDataPropertyExpression> disjointProperties = new HashSet<OWLDataPropertyExpression>(
+				Set<OWLDataPropertyExpression> disjointProperties = new HashSet<>(
 						axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				disjointProperties.remove(property1);

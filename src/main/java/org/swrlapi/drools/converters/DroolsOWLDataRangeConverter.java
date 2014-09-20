@@ -1,12 +1,23 @@
 package org.swrlapi.drools.converters;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLDataRangeConverter;
 import org.swrlapi.drools.owl.core.L;
-import org.swrlapi.drools.owl.dataranges.*;
-import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
+import org.swrlapi.drools.owl.dataranges.DCO;
+import org.swrlapi.drools.owl.dataranges.DIO;
+import org.swrlapi.drools.owl.dataranges.DOO;
+import org.swrlapi.drools.owl.dataranges.DR;
+import org.swrlapi.drools.owl.dataranges.DRR;
+import org.swrlapi.drools.owl.dataranges.DUO;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,8 +29,8 @@ import java.util.Set;
  *
  * @see org.semanticweb.owlapi.model.OWLDataRange
  */
-public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
+public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase
+		implements TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 {
 	private final Map<OWLDataRange, String> dataRange2IDMap;
 	private final Set<String> convertedDataRangeIDs;
@@ -30,9 +41,9 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 	{
 		super(bridge);
 
-		this.dataRanges = new HashSet<DR>();
-		this.dataRange2IDMap = new HashMap<OWLDataRange, String>();
-		this.convertedDataRangeIDs = new HashSet<String>();
+		this.dataRanges = new HashSet<>();
+		this.dataRange2IDMap = new HashMap<>();
+		this.convertedDataRangeIDs = new HashSet<>();
 		this.dataRangeIndex = 0;
 
 		getOWLDataRangeResolver().reset();
@@ -71,7 +82,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 		String dataRangeID = getOWLDataRangeID(dataRange);
 
 		if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-			Set<L> literals = new HashSet<L>();
+			Set<L> literals = new HashSet<>();
 			// TODO Pull out and convert the literals
 			DOO doo = new DOO(dataRangeID, literals);
 			addOWLDataRange(doo);
@@ -176,7 +187,7 @@ public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase i
 
 	private Set<String> getOWLDataRangeIDs(Set<OWLDataRange> dataRanges)
 	{
-		Set<String> dataRangeIDs = new HashSet<String>();
+		Set<String> dataRangeIDs = new HashSet<>();
 		for (OWLDataRange dataRange : dataRanges) {
 			String dataRangeID = getOWLDataRangeID(dataRange);
 			dataRangeIDs.add(dataRangeID);
