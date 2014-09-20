@@ -97,9 +97,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
 	public void reset(StatefulKnowledgeSession knowledgeSession)
 	{
+		this.knowledgeSession = knowledgeSession;
+
 		this.assertedOWLAxioms.clear();
 		this.inferredOWLAxioms.clear();
-		this.knowledgeSession = knowledgeSession;
 		this.isInconsistent = false;
 		this.inconsistentMessages.clear();
 		this.declaredClassIDs.clear();

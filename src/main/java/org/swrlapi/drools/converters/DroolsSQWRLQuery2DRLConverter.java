@@ -62,18 +62,15 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 			sqwrlCollectionQuery2DRL(query);
 	}
 
-	// System.err.println("-------------------------------------------------------------------------------------");
-	// System.err.println("SWRL: " + rule.getRuleText());
-	// System.err.println("DRL:\n" + drlRule);
 
 	private void sqwrlNonCollectionQuery2DRL(SQWRLQuery query) throws TargetSWRLRuleEngineException
 	{
-		Set<String> previouslyEncountertedVariablePrefixedNames = new HashSet<String>();
+		Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<String>();
 		String ruleName = query.getQueryName();
 		String drlRule = getQueryPreamble(ruleName);
 
 		for (SWRLAtom atom : query.getBodyAtoms())
-			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncountertedVariablePrefixedNames)
+			drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariablePrefixedNames)
 					+ " ";
 
 		drlRule = addQueryThenClause(drlRule);
@@ -82,6 +79,10 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
 			drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";
 
 		drlRule = addQueryEndClause(drlRule);
+
+//		System.err.println("----------------------------------");
+//		System.err.println("SQWRL: " + query.getQueryName());
+//		System.err.println("DRL:\n" + drlRule);
 
 		getDroolsEngine().defineDRLSQWRLPhase1Rule(query.getQueryName(), ruleName, drlRule);
 	}
