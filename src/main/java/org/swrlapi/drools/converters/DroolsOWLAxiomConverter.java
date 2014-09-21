@@ -164,6 +164,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase
 			OWLNamedIndividual individual = entity.asOWLNamedIndividual();
 			String individualPrefixedName = getDroolsOWLNamedObject2DRLConverter().convert(individual);
 			recordOWLAxiom(new IDA(individualPrefixedName));
+			recordOWLAxiom(new CAA("owl:Thing", individualPrefixedName));
 		} else if (entity.isOWLObjectProperty()) {
 			OWLObjectProperty property = entity.asOWLObjectProperty();
 			String propertyPrefixedName = getDroolsOWLPropertyExpressionConverter().convert(property);
@@ -343,8 +344,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLObjectPropertyExpression> equivalentProperties = new HashSet<>(
-						axiom.getProperties());
+				Set<OWLObjectPropertyExpression> equivalentProperties = new HashSet<>(axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				equivalentProperties.remove(property1);
 				for (OWLObjectPropertyExpression property2 : equivalentProperties) {
@@ -361,8 +361,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLDataPropertyExpression> equivalentProperties = new HashSet<>(
-						axiom.getProperties());
+				Set<OWLDataPropertyExpression> equivalentProperties = new HashSet<>(axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				equivalentProperties.remove(property1);
 				for (OWLDataPropertyExpression property2 : equivalentProperties) {
@@ -379,8 +378,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLObjectPropertyExpression> disjointProperties = new HashSet<>(
-						axiom.getProperties());
+				Set<OWLObjectPropertyExpression> disjointProperties = new HashSet<>(axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				disjointProperties.remove(property1);
 				for (OWLObjectPropertyExpression property2 : disjointProperties) {
@@ -397,8 +395,7 @@ public class DroolsOWLAxiomConverter extends DroolsConverterBase
 	{
 		if (!axiom.getProperties().isEmpty()) {
 			for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
-				Set<OWLDataPropertyExpression> disjointProperties = new HashSet<>(
-						axiom.getProperties());
+				Set<OWLDataPropertyExpression> disjointProperties = new HashSet<>(axiom.getProperties());
 				String property1ID = getDroolsOWLPropertyExpressionConverter().convert(property1);
 				disjointProperties.remove(property1);
 				for (OWLDataPropertyExpression property2 : disjointProperties) {
