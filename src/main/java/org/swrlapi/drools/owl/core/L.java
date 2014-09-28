@@ -47,9 +47,9 @@ public class L implements OO, BA, Serializable
 					+ ba.getClass().getCanonicalName());
 	}
 
-	public boolean isInteger()
+	public boolean isInt()
 	{
-		return this.datatypeName.equals(XSDVocabulary.INTEGER.getPrefixedName());
+		return this.datatypeName.equals(XSDVocabulary.INT.getPrefixedName());
 	}
 
 	public boolean isLong()

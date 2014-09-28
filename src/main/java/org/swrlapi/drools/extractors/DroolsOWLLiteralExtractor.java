@@ -44,7 +44,7 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase imp
 				return getOWLLiteralFactory().getOWLLiteral(new Byte(l.getValue()));
 			else if (l.isShort())
 				return getOWLLiteralFactory().getOWLLiteral(new Short(l.getValue()));
-			else if (l.isInteger())
+			else if (l.isInt()) // xsd:int
 				return getOWLLiteralFactory().getOWLLiteral(new Integer(l.getValue()));
 			else if (l.isLong())
 				return getOWLLiteralFactory().getOWLLiteral(new Long(l.getValue()));
