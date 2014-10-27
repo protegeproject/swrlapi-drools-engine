@@ -10,10 +10,12 @@
 
   <properties>
 
-    <owlapi.version>3.5.1</owlapi.version> 
+    <!-- <owlapi.version>3.5.1</owlapi.version>  -->
+    <owlapi.version>4.0.0</owlapi.version> 
     <swrlapi.version>1.0-SNAPSHOT</swrlapi.version>
     <drools.version>5.4.0.Final</drools.version> <!-- Tried 4.6.0.Final but got runtime errors -->
     <log4j.version>1.2.17</log4j.version>
+    <slf4j.version>1.6.1</slf4j.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -80,6 +82,18 @@
 			<artifactId>log4j</artifactId>
       <version>${log4j.version}</version>
     </dependency>    
+
+    <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    
+    <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
 
 	</dependencies>
 

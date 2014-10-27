@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNode;
 import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
+import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.Version;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -126,15 +127,15 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 			throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException,
 			AxiomNotInProfileException, FreshEntitiesException, InconsistentOntologyException
 	{
-		return getRootOntology().containsAxiomIgnoreAnnotations(owlAxiom, true);
+		return EntitySearcher.containsAxiomIgnoreAnnotations(owlAxiom, getRootOntology(), true);
 	}
 
 	@Override public boolean isEntailed(Set<? extends OWLAxiom> owlAxioms)
 			throws ReasonerInterruptedException, UnsupportedEntailmentTypeException, TimeOutException,
 			AxiomNotInProfileException, FreshEntitiesException, InconsistentOntologyException
 	{
-		for (OWLAxiom ax : owlAxioms) {
-			if (!getRootOntology().containsAxiomIgnoreAnnotations(ax, true)) {
+		for (OWLAxiom owlAxiom : owlAxioms) {
+			if (!EntitySearcher.containsAxiomIgnoreAnnotations(owlAxiom, getRootOntology(), true)) {
 				return false;
 			}
 		}
