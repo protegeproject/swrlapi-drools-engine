@@ -16,6 +16,9 @@
     <drools.version>5.6.0.Final</drools.version> <!-- Note versions 6+ are not backwards compatible -->
     <mvel2.version>2.1.8.Final</mvel2.version>
     <antlr.runtime.version>3.1.3</antlr.runtime.version>
+
+    <junit.version>4.11</junit.version>
+    <hamcrest.version>1.3</hamcrest.version>
     <log4j.version>1.2.17</log4j.version>
     <slf4j.version>1.6.1</slf4j.version>
 
@@ -54,7 +57,7 @@
 			<artifactId>antlr-runtime</artifactId>
 			<version>${antlr.runtime.version}</version>
 		</dependency>
-        
+    
 		<dependency>
 			<groupId>org.mvel</groupId>
 			<artifactId>mvel2</artifactId>
@@ -79,6 +82,20 @@
       <version>${slf4j.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+	    <groupId>org.hamcrest</groupId>
+	    <artifactId>hamcrest-core</artifactId>
+	    <version>${hamcrest.version}</version>
+      <scope>test</scope>
+    </dependency>
+
 	</dependencies>
 
   <build>
@@ -94,20 +111,44 @@
         </configuration>
       </plugin>
 
+      <plugin>   
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+				<version>2.4.0</version>
+				<extensions>true</extensions>
+
+				<configuration>
+
+          <instructions>
+					  <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+					  <Include-Resource>{maven-resources}</Include-Resource>
+					  <Import-Package>
+						  org.apache.log4j.*;version="[1.2,2)",
+						  *
+					  </Import-Package>
+            <Embed-Transitive>true</Embed-Transitive>
+				  </instructions>
+				</configuration>
+
+        <executions>
+          <execution>
+            <id>bundle-manifest</id>
+            <phase>process-classes</phase>
+            <goals>    
+              <goal>manifest</goal>
+            </goals>   
+          </execution>
+        </executions>
+
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
 				<version>2.4</version>
         <configuration>
 					<archive>
-            <manifest>
-              <mainClass>org.swrlapi.todo</mainClass>
-              <packageName>org.swrlapi</packageName>
-            </manifest>
-            <manifestEntries>
-              <mode>development</mode>
-              <url>${project.url}</url>
-            </manifestEntries>
+            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 					</archive>
         </configuration>
       </plugin>
