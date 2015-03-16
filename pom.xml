@@ -5,14 +5,14 @@
 
   <groupId>org.swrlapi</groupId>
   <artifactId>swrlapi-drools-engine</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <packaging>bundle</packaging>
   <name>Drools implementation of SWRLAPI SWRL rule engine</name>
 
   <properties>
 
-    <owlapi.version>4.0.0</owlapi.version> 
-    <swrlapi.version>1.0.5</swrlapi.version>
+    <owlapi.version>4.0.2-SNAPSHOT</owlapi.version> 
+    <swrlapi.version>1.0.6</swrlapi.version>
     <drools.version>5.6.0.Final</drools.version> <!-- Note versions 6+ are not backwards compatible -->
 
     <junit.version>4.11</junit.version>
