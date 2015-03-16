@@ -1,4 +1,4 @@
-== SWRLAPI Drools Engine ==
+## SWRLAPI Drools Engine
 
 [Drools](http://www.drools.org/) implementation of a [SWRLAPI](https://github.com/protegeproject/swrlapi/wiki)-based [OWL 2 RL](http://www.w3.org/TR/owl2-profiles/#OWL_2_RL) reasoner and SWRL rule engine. 
 
@@ -23,7 +23,7 @@ Change into the swrlapi-drools-engine directory:
 
 Build it with Maven:
 
-    mvn clean instal 
+    mvn clean install
 
 On build completion, your local Maven repository will contain the generated swrlapi-drools-engine-${version}.jar file.
 
