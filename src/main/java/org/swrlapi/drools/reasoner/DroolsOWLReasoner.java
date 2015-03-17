@@ -1,5 +1,8 @@
 package org.swrlapi.drools.reasoner;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -43,9 +46,6 @@ import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.DPE;
 import org.swrlapi.drools.owl.properties.OPE;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A Drools-based reasoner interface implementing the OWLAPI {@link org.semanticweb.owlapi.reasoner.OWLReasoner} interface.
@@ -462,14 +462,14 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	@Override public NodeSet<OWLClass> getTypes(OWLNamedIndividual owlNamedIndividual, boolean direct)
 			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
 	{
-		return null; // See StructuralReasoner - find all CAAs and follow
+		return new OWLClassNodeSet(); // TODO See StructuralReasoner - find all CAAs and follow
 	}
 
 	@Override public NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression owlClassExpression, boolean b)
 			throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException,
 			ReasonerInterruptedException, TimeOutException
 	{
-		return null; // See StructuralReasoner - find all CAAs and follow
+		return new OWLNamedIndividualNodeSet(); // TODO See StructuralReasoner - find all CAAs and follow
 	}
 
 	@Override public NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual owlNamedIndividual,
