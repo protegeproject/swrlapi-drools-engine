@@ -1,7 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
-import org.swrlapi.drools.owl.properties.OP;
 
 /**
  * This class represents an OWL object some values from of class expression in Drools.

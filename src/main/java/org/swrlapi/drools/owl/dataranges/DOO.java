@@ -11,8 +11,8 @@ import java.util.Set;
  */
 public class DOO implements DR
 {
-	private final String rid;
-	private final Set<L> literals;
+	public final String rid;
+	public final Set<L> literals;
 
 	public DOO(String rid, Set<L> literals)
 	{

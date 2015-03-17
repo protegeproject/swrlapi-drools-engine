@@ -1,7 +1,5 @@
 package org.swrlapi.drools.owl.dataranges;
 
-import java.util.Set;
-
 // TODO Facets are not represented
 
 /**

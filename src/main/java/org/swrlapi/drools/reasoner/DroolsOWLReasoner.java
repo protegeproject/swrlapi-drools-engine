@@ -477,7 +477,6 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
 	{
 		OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
-		Set<OWLNamedIndividual> individuals = new HashSet<>();
 		I i = resolveI(owlNamedIndividual);
 		OPE ope = resolveOPE(owlObjectPropertyExpression);
 
@@ -500,6 +499,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
 		for (L l : this.droolsOWLAxiomHandler.getDataPropertyValuesForIndividual(i.getid(), dp.getid())) {
 			OWLLiteral literal = l2OWLLiteral(l);
+			values.add(literal);
 		}
 		return values;
 	}
@@ -521,7 +521,6 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 			throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
 	{
 		OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
-		Set<OWLNamedIndividual> individuals = new HashSet<>();
 		I i = resolveI(owlNamedIndividual);
 
 		for (String sameIndividualID : this.droolsOWLAxiomHandler.getDifferentIndividuals(i.getid())) {

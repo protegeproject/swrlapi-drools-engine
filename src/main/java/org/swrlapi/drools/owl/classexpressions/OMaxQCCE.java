@@ -1,7 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
 import org.swrlapi.drools.owl.core.DroolsQuadObject;
-import org.swrlapi.drools.owl.properties.DP;
 
 /**
  * This class represents an OWL data maximum qualified cardinality class expression in Drools.
