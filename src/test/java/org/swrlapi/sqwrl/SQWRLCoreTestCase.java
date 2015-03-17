@@ -32,29 +32,6 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestClassAtomInAntecedentWithNamedIndividual() throws SWRLParseException, SQWRLException
-	{
-		declareOWLClassAssertion("Male", "p1");
-
-		SQWRLResult result = executeSQWRLQuery("q1", "Male(p1) -> sqwrl:select(p1)");
-
-		Assert.assertTrue(result.next());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
-	}
-
-	@Test
-	public void TestClassAtomInAntecedentWithVariable() throws SWRLParseException, SQWRLException
-	{
-		declareOWLClassAssertion("Male", "p1");
-
-		SQWRLResult result = executeSQWRLQuery("q1", "Male(?m) -> sqwrl:select(?m)");
-
-		Assert.assertTrue(result.next());
-
-		Assert.assertEquals(result.getIndividual("m").getShortName(), "p1");
-	}
-
-	@Test
 	public void TestSQWRLCount() throws SWRLParseException, SQWRLException
 	{
 		declareOWLClassAssertion("Male", "p1");
@@ -66,20 +43,6 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isInt());
 		Assert.assertEquals(literal.getInt(), 2);
-	}
-
-	@Test
-	public void TestSameAs() throws SWRLParseException, SQWRLException
-	{
-		//		declareOWLNamedIndividual("p1");
-		declareOWLClassAssertion("Male", "p1");
-
-		SQWRLResult result = executeSQWRLQuery("q1", "sameAs(p1, p1) -> sqwrl:select(\"Yes\")");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral(0);
-		Assert.assertTrue(literal.isString());
-		Assert.assertEquals(literal.getString(), "Yes");
 	}
 
 	@Test
@@ -239,75 +202,6 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
 		Assert.assertTrue(result.getLiteral("name").isString());
 		Assert.assertEquals(result.getLiteral("name").getString(), "Ann");
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithQualifiedLongLiterals() throws SWRLParseException, SQWRLException
-	{
-		String query = "swrlb:add(\"4\"^^\"xsd:long\", \"2\"^^\"xsd:long\", \"2\"^^\"xsd:long\") -> sqwrl:select(\"Yes\")";
-		SQWRLResult result = executeSQWRLQuery("q1", query);
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral(0);
-		Assert.assertTrue(literal.isString());
-		Assert.assertEquals(literal.getString(), "Yes");
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithRawIntLiterals() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:add(4, 2, 2) -> sqwrl:select(\"Yes\")");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral(0);
-		Assert.assertTrue(literal.isString());
-		Assert.assertEquals(literal.getString(), "Yes");
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithRawIntLiteralsAndVariableResult() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:add(?r, 2, 2) -> sqwrl:select(?r)");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isInt());
-		Assert.assertEquals(literal.getInt(), 4);
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithQualifiedDoubleLiterals() throws SWRLParseException, SQWRLException
-	{
-		String query = "swrlb:add(\"4.0\"^^\"xsd:double\", \"2.0\"^^\"xsd:double\", \"2.0\"^^\"xsd:double\")"
-				+ " -> sqwrl:select(\"Yes\")";
-		SQWRLResult result = executeSQWRLQuery("q1", query);
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral(0);
-		Assert.assertTrue(literal.isString());
-		Assert.assertEquals(literal.getString(), "Yes");
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithRawDoubleLiterals() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:add(4.1, 2.1, 2.0) -> sqwrl:select(\"Yes\")");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral(0);
-		Assert.assertTrue(literal.isString());
-		Assert.assertEquals(literal.getString(), "Yes");
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithRawFloatLiteralsAndVariableResult() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:add(?r, 2.1, 2.0) -> sqwrl:select(?r)");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isFloat());
-		Assert.assertEquals(literal.getFloat(), 4.1, DELTA);
 	}
 
 	private SQWRLResult executeSQWRLQuery(String queryName) throws SQWRLException
