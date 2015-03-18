@@ -15,7 +15,7 @@ import org.swrlapi.test.SWRLAPITestBase;
 
 public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 {
-	String Namespace = "http://swrlapi.org/ontologies/SQWRLCollectionsTestCase.owl#";
+	final String Namespace = "http://swrlapi.org/ontologies/SQWRLCollectionsTestCase.owl#";
 
 	SQWRLQueryEngine sqwrlQueryEngine;
 

@@ -15,7 +15,7 @@ import org.swrlapi.sqwrl.exceptions.SQWRLException;
 import org.swrlapi.sqwrl.values.SQWRLLiteralResultValue;
 import org.swrlapi.test.SWRLAPITestBase;
 
-public class SWRLCoreBuiltsInTestCase extends SWRLAPITestBase
+public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 {
 	final String Namespace = "http://swrlapi.org/ontologies/SWRLCoreBuiltInsTestCase.owl#";
 	final double DELTA = 1e-6;
