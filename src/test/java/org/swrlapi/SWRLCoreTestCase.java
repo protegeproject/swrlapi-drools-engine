@@ -10,6 +10,7 @@ import org.swrlapi.core.SWRLRuleEngineFactory;
 import org.swrlapi.core.xsd.XSDDate;
 import org.swrlapi.core.xsd.XSDDateTime;
 import org.swrlapi.core.xsd.XSDDuration;
+import org.swrlapi.core.xsd.XSDTime;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
@@ -406,6 +407,43 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 		Assert.assertTrue(result.getLiteral("age").isDuration());
 		Assert.assertEquals(result.getLiteral("age").getDuration(), new XSDDuration("P42Y"));
+	}
+
+	@Test
+	public void TestSWRLXSDTimeLiteralMatch() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasBirthTime", "10:10:10.33", "xsd:time");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasBirthTime(p1, \"10:10:10.33\"^^\"xsd:time\") -> sqwrl:select(p1)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual(0).isIndividual());
+		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
+	}
+
+	@Test
+	public void TestSWRLXSDTimeLiteralBind() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasBirthTime", "10:10:10.33", "xsd:time");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasBirthTime(p1, ?bt) -> sqwrl:select(p1, ?bt)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual(0).isIndividual());
+		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
+		Assert.assertTrue(result.getLiteral("bt").isTime());
+		Assert.assertEquals(result.getLiteral("bt").getTime(), new XSDTime("10:10:10.33"));
+	}
+
+	@Test
+	public void TestSWRLCoreCascadingIntVariable() throws SWRLParseException, SQWRLException
+	{
+		String query = "swrlb:add(?x, 2, 2) ^ swrlb:multiply(?y, ?x, 2) -> sqwrl:select(?y)";
+		SQWRLResult result = executeSQWRLQuery("q1", query);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("y").isInt());
+		Assert.assertEquals(result.getLiteral("y").getInt(), 8);
 	}
 
 	private SQWRLResult executeSQWRLQuery(String queryName) throws SQWRLException
