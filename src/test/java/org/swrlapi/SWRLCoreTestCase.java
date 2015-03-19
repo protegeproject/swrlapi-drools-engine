@@ -121,6 +121,15 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertEquals(result.getIndividual("uncle").getShortName(), "p2");
 	}
 
+	@Test
+	public void TestSWRLInvalidShortLiteral() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
+
+		executeSQWRLQuery("q1", "hasAge(p1, \"42x\"^^\"xsd:short\") -> sqwrl:select(p1)");
+	}
+
+	@Test
 	public void TestSWRLShortLiteralMatch() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
