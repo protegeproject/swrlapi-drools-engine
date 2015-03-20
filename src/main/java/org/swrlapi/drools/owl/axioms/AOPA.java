@@ -12,12 +12,17 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class AOPA extends DroolsUnaryObject<String> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public AOPA(String propertyID)
 	{
 		super(propertyID);
 	}
 
-	public String getpid() { return getT1(); }
+	public String getpid()
+	{
+		return getT1();
+	}
 
 	@Override
 	public String toString()
@@ -26,12 +31,15 @@ public class AOPA extends DroolsUnaryObject<String> implements A
 	}
 
 	@Override
-	public OWLAsymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws
-			TargetSWRLRuleEngineException
+	public OWLAsymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor)
+			throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 }

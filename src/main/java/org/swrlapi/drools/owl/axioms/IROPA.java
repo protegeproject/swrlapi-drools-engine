@@ -11,6 +11,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class IROPA extends DroolsUnaryPropertyAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public IROPA(String propertyID)
 	{
 		super(propertyID);
@@ -24,7 +26,10 @@ public class IROPA extends DroolsUnaryPropertyAxiom
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

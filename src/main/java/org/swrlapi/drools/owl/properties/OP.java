@@ -3,8 +3,8 @@ package org.swrlapi.drools.owl.properties;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -17,6 +17,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  */
 public class OP extends OE implements P, OPE
 {
+	private static final long serialVersionUID = 1L;
+
 	public OP(String propertyName)
 	{
 		super(propertyName);
@@ -33,8 +35,8 @@ public class OP extends OE implements P, OPE
 			OP p = (OP)ba;
 			setId(p.getName());
 		} else
-			throw new TargetSWRLRuleEngineInternalException("expecting OWL object property from bound built-in argument, got "
-					+ ba.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException(
+					"expecting OWL object property from bound built-in argument, got " + ba.getClass().getCanonicalName());
 	}
 
 	@Override

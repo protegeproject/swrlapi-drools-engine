@@ -10,6 +10,8 @@ import org.swrlapi.drools.owl.properties.OP;
  */
 public class OCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public OCCE(String ceid, OP p, Integer card)
 	{
 		super(ceid, p, card);

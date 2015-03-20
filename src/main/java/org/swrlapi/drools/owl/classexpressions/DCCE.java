@@ -9,6 +9,8 @@ import org.swrlapi.drools.owl.core.DroolsTernaryObject;
  */
 public class DCCE extends DroolsTernaryObject<String, String, Integer> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public DCCE(String ceid, String propertyID, Integer card)
 	{
 		super(ceid, propertyID, card);

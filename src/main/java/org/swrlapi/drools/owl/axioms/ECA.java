@@ -11,6 +11,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class ECA extends DroolsBinaryClassesAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public ECA(String class1ID, String class2ID)
 	{
 		super(class1ID, class2ID);
@@ -23,7 +25,10 @@ public class ECA extends DroolsBinaryClassesAxiom
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

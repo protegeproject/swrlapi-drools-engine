@@ -7,15 +7,17 @@ import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
- * This class represents an OWL negative object property assertion axiom.
+ * This class represents an OWL negative object property assertion axiom in Drools.
  * <p/>
- * We have 4 possible constructors for the different argument combinations. This approach provides
- * more flexibility when generating Drools rules and makes the generated rules more readable.
+ * We have 4 possible constructors for the different argument combinations. This approach provides more flexibility when
+ * generating Drools rules and makes the generated rules more readable.
  *
  * @see org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom
  */
 public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public NOPAA(I subject, String propertyID, I object)
 	{
 		super(subject, propertyID, object);
@@ -59,7 +61,10 @@ public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

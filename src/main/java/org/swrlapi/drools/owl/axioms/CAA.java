@@ -13,6 +13,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class CAA extends DroolsBinaryObject<String, I> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public CAA(String classID, I individual)
 	{
 		super(classID, individual);
@@ -28,9 +30,15 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 		return getT1();
 	}
 
-	public I getI() { return getT2(); }
+	public I getI()
+	{
+		return getT2();
+	}
 
-	public String getiid() { return getT2().getid(); }
+	public String getiid()
+	{
+		return getT2().getid();
+	}
 
 	@Override
 	public OWLClassAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
@@ -39,7 +47,10 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

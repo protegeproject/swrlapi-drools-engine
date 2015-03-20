@@ -12,6 +12,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DDPA extends DroolsBinaryObject<String, String> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public DDPA(String propertyID, String domainID)
 	{
 		super(propertyID, domainID);
@@ -34,7 +36,10 @@ public class DDPA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

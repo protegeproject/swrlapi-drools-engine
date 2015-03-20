@@ -3,9 +3,9 @@ package org.swrlapi.drools.owl.core;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
@@ -19,6 +19,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  */
 public class I extends OE
 {
+	private static final long serialVersionUID = 1L;
+
 	public I(String id)
 	{
 		super(id);

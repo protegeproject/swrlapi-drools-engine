@@ -11,6 +11,8 @@ import org.swrlapi.drools.owl.core.I;
  */
 public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public OOOCE(String ceid, I i1, I i2)
 	{
 		super(ceid, i1, i2);

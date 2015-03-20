@@ -11,6 +11,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class EOPA extends DroolsBinaryPropertiesAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public EOPA(String property1ID, String property2ID)
 	{
 		super(property1ID, property2ID);
@@ -24,7 +26,10 @@ public class EOPA extends DroolsBinaryPropertiesAxiom
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

@@ -12,6 +12,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class OPRA extends DroolsBinaryObject<String, String> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public OPRA(String propertyID, String rangeClassID)
 	{
 		super(propertyID, rangeClassID);
@@ -34,7 +36,10 @@ public class OPRA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

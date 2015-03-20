@@ -12,6 +12,8 @@ import org.swrlapi.drools.owl.core.DroolsBinaryObject;
  */
 public class OUOCE extends DroolsBinaryObject<String, String> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public OUOCE(String ceid, String c1)
 	{
 		super(ceid, c1);

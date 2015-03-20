@@ -14,6 +14,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DPAA extends DroolsTernaryObject<I, String, L> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public DPAA(String subjectName, String propertyID, L object)
 	{
 		super(new I(subjectName), propertyID, object);
@@ -51,7 +53,10 @@ public class DPAA extends DroolsTernaryObject<I, String, L> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

@@ -11,20 +11,25 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class FOPA extends DroolsUnaryPropertyAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public FOPA(String propertyID)
 	{
 		super(propertyID);
 	}
 
 	@Override
-	public OWLFunctionalObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor) throws
-			TargetSWRLRuleEngineException
+	public OWLFunctionalObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor)
+			throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

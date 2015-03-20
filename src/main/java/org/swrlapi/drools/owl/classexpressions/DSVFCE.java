@@ -10,6 +10,8 @@ import org.swrlapi.drools.owl.core.DroolsTernaryObject;
  */
 public class DSVFCE extends DroolsTernaryObject<String, String, D> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public DSVFCE(String ceid, String propertyID, String objectID)
 	{
 		super(ceid, propertyID, new D(objectID));

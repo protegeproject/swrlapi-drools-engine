@@ -12,6 +12,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class IDA extends DA<I>
 {
+	private static final long serialVersionUID = 1L;
+
 	public IDA(String individualID)
 	{
 		super(new I(individualID));
@@ -40,5 +42,8 @@ public class IDA extends DA<I>
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 }

@@ -12,6 +12,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DOPA extends DroolsBinaryObject<String, String> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public DOPA(String propertyID, String domainClassID)
 	{
 		super(propertyID, domainClassID);
@@ -34,7 +36,10 @@ public class DOPA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

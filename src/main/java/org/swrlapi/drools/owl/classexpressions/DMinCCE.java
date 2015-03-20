@@ -10,6 +10,8 @@ import org.swrlapi.drools.owl.properties.DP;
  */
 public class DMinCCE extends DroolsTernaryObject<String, DP, Integer> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public DMinCCE(String ceid, DP p, Integer card)
 	{
 		super(ceid, p, card);

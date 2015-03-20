@@ -18,6 +18,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DIA extends DroolsBinaryIndividualsAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public DIA(I individual1, I individual2)
 	{
 		super(individual1, individual2);
@@ -45,7 +47,10 @@ public class DIA extends DroolsBinaryIndividualsAxiom
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

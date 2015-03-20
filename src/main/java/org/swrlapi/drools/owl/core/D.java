@@ -3,8 +3,8 @@ package org.swrlapi.drools.owl.core;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.dataranges.DR;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -17,6 +17,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  */
 public class D extends OE implements DR
 {
+	private static final long serialVersionUID = 1L;
+
 	public D(String datatypeID)
 	{
 		super(datatypeID);
@@ -37,6 +39,7 @@ public class D extends OE implements DR
 					+ ba.getClass().getCanonicalName());
 	}
 
+	@Override
 	public String getrid()
 	{
 		return getName();

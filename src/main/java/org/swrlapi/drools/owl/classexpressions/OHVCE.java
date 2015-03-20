@@ -10,6 +10,8 @@ import org.swrlapi.drools.owl.core.I;
  */
 public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public OHVCE(String ceid, String propertyID, String individualID)
 	{
 		super(ceid, propertyID, new I(individualID));

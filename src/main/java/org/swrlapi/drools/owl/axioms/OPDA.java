@@ -11,6 +11,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class OPDA extends DroolsUnaryPropertyAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public OPDA(String propertyID)
 	{
 		super(propertyID);
@@ -29,5 +31,8 @@ public class OPDA extends DroolsUnaryPropertyAxiom
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 }

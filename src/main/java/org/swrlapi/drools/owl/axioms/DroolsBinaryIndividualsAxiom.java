@@ -5,6 +5,8 @@ import org.swrlapi.drools.owl.core.I;
 
 public abstract class DroolsBinaryIndividualsAxiom extends DroolsBinaryObject<I, I> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public DroolsBinaryIndividualsAxiom(I individual1, I individual2)
 	{
 		super(individual1, individual2);

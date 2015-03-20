@@ -9,6 +9,8 @@ import java.util.Set;
  */
 public class DIO implements DR
 {
+	private static final long serialVersionUID = 1L;
+
 	private final String rid;
 	private final Set<String> dataRangeIDs;
 
@@ -18,10 +20,14 @@ public class DIO implements DR
 		this.dataRangeIDs = dataRangeIDs;
 	}
 
+	@Override
 	public String getrid()
 	{
 		return this.rid;
 	}
 
-	public Set<String> getDataRangeIDs() { return this.dataRangeIDs; }
+	public Set<String> getDataRangeIDs()
+	{
+		return this.dataRangeIDs;
+	}
 }

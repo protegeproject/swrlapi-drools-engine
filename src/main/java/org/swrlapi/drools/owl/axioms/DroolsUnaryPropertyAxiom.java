@@ -4,6 +4,8 @@ import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 
 public abstract class DroolsUnaryPropertyAxiom extends DroolsUnaryObject<String> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public DroolsUnaryPropertyAxiom(String propertyID)
 	{
 		super(propertyID);

@@ -12,6 +12,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SDPA extends DroolsBinaryObject<String, String> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public SDPA(String property1ID, String property2ID)
 	{
 		super(property1ID, property2ID);
@@ -40,6 +42,9 @@ public class SDPA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 }

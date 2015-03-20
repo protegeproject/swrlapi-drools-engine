@@ -6,7 +6,7 @@ import org.swrlapi.drools.owl.core.I;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
- * This class represents an OWL same individual axiom.
+ * This class represents an OWL same individual axiom in Drools.
  * <p>
  * Rather than holding an arbitrary number of individuals, we hold only pairs and expect that the axiom translator
  * generates all possible pairs from an original OWL axiom.
@@ -18,6 +18,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SIA extends DroolsBinaryIndividualsAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public SIA(I individual1, I individual2)
 	{
 		super(individual1, individual2);
@@ -45,7 +47,10 @@ public class SIA extends DroolsBinaryIndividualsAxiom
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

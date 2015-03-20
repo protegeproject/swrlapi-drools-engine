@@ -9,13 +9,15 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 /**
  * This class represents an OWL object property assertion axiom.
  * <p>
- * We have 4 possible constructors for the different argument combinations. This approach provides
- * more flexibility when generating Drools rules and makes the generated rules more readable.
+ * We have 4 possible constructors for the different argument combinations. This approach provides more flexibility when
+ * generating Drools rules and makes the generated rules more readable.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom
  */
 public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public OPAA(I subject, String propertyID, I object)
 	{
 		super(subject, propertyID, object);
@@ -41,7 +43,10 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 		return getT1();
 	}
 
-	public String getsid() { return getT1().getid(); }
+	public String getsid()
+	{
+		return getT1().getid();
+	}
 
 	public String getpid()
 	{
@@ -53,16 +58,23 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 		return getT3();
 	}
 
-	public String getoid() { return getT3().getid(); }
+	public String getoid()
+	{
+		return getT3().getid();
+	}
 
 	@Override
-	public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+	public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
+			throws TargetSWRLRuleEngineException
 	{
 		return extractor.extract(this);
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()

@@ -9,6 +9,8 @@ import org.swrlapi.drools.owl.core.DroolsTernaryObject;
  */
 public class OMaxCCE extends DroolsTernaryObject<String, String, Integer> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public OMaxCCE(String ceid, String propertyID, Integer card)
 	{
 		super(ceid, propertyID, card);

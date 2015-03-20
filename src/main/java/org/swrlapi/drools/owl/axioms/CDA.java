@@ -11,6 +11,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class CDA extends DroolsUnaryClassAxiom
 {
+	private static final long serialVersionUID = 1L;
+
 	public CDA(String classID)
 	{
 		super(classID);
@@ -29,5 +31,8 @@ public class CDA extends DroolsUnaryClassAxiom
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 }

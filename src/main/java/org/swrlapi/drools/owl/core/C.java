@@ -3,8 +3,8 @@ package org.swrlapi.drools.owl.core;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -17,6 +17,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  */
 public class C extends OE implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public C(String classID)
 	{
 		super(classID);

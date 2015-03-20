@@ -9,6 +9,8 @@ import org.swrlapi.drools.owl.core.DroolsQuadObject;
  */
 public class DMaxQCCE extends DroolsQuadObject<String, String, String, Integer> implements CE
 {
+	private static final long serialVersionUID = 1L;
+
 	public DMaxQCCE(String ceid, String propertyID, String fillerID, Integer card)
 	{
 		super(ceid, propertyID, fillerID, card);

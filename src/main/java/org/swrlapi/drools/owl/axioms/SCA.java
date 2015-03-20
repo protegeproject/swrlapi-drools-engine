@@ -12,6 +12,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SCA extends DroolsBinaryObject<String, String> implements A
 {
+	private static final long serialVersionUID = 1L;
+
 	public SCA(String class1ID, String class2ID)
 	{
 		super(class1ID, class2ID);
@@ -34,7 +36,10 @@ public class SCA extends DroolsBinaryObject<String, String> implements A
 	}
 
 	@Override
-	public void visit(AVisitor visitor) { visitor.visit(this); }
+	public void visit(AVisitor visitor)
+	{
+		visitor.visit(this);
+	}
 
 	@Override
 	public String toString()
