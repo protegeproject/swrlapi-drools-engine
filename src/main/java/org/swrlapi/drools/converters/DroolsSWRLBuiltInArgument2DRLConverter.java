@@ -21,8 +21,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  *
  * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
-public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase
-		implements TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
+public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase implements
+		TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
 	public DroolsSWRLBuiltInArgument2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
@@ -99,7 +99,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase
 
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument)
-	{ // TODO This is not true?
+	{ // TODO This is not true!
 		throw new TargetSWRLRuleEngineNotImplementedFeatureException(
 				"SQWRL collection built-in arguments not yet implemented");
 	}
@@ -109,52 +109,62 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase
 		return "\"" + s + "\"";
 	}
 
-	@Override public String visit(SWRLClassBuiltInArgument argument)
+	@Override
+	public String visit(SWRLClassBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLNamedIndividualBuiltInArgument argument)
+	@Override
+	public String visit(SWRLNamedIndividualBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLObjectPropertyBuiltInArgument argument)
+	@Override
+	public String visit(SWRLObjectPropertyBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLDataPropertyBuiltInArgument argument)
+	@Override
+	public String visit(SWRLDataPropertyBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLAnnotationPropertyBuiltInArgument argument)
+	@Override
+	public String visit(SWRLAnnotationPropertyBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLDatatypeBuiltInArgument argument)
+	@Override
+	public String visit(SWRLDatatypeBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLLiteralBuiltInArgument argument)
+	@Override
+	public String visit(SWRLLiteralBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLVariableBuiltInArgument argument)
+	@Override
+	public String visit(SWRLVariableBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SWRLMultiValueVariableBuiltInArgument argument)
+	@Override
+	public String visit(SWRLMultiValueVariableBuiltInArgument argument)
 	{
 		return convert(argument);
 	}
 
-	@Override public String visit(SQWRLCollectionVariableBuiltInArgument argument)
+	@Override
+	public String visit(SQWRLCollectionVariableBuiltInArgument argument)
 	{
 		return convert(argument);
 	}

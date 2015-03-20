@@ -1,9 +1,9 @@
 package org.swrlapi.drools.swrl;
 
-import org.swrlapi.drools.core.DroolsNames;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.swrlapi.drools.core.DroolsNames;
 
 /**
  * Class representing the names of variables passed to built-ins. Non variable arguments positions are represented by
@@ -16,8 +16,10 @@ public class BAVNs
 	private final List<String> variableNames = new ArrayList<String>();
 
 	/*
-	 * TODO this does not seem to work in Drools public BAVNs(String... variableNames) { for (String variableName :
-	 * variableNames) { this.variableNames.add(variableName); } }
+	 * TODO The following vararg constructor does not seem to work in this version of Drools
+	 * 
+	 * public BAVNs(String... variableNames) { for (String variableName : variableNames) {
+	 * this.variableNames.add(variableName); } }
 	 */
 
 	public BAVNs()
@@ -160,8 +162,8 @@ public class BAVNs
 		if ((obj == null) || (obj.getClass() != this.getClass()))
 			return false;
 		BAVNs avns = (BAVNs)obj;
-		return (getVariableNames() == avns.getVariableNames() || (getVariableNames() != null && getVariableNames()
-				.equals(avns.getVariableNames())));
+		return (getVariableNames() == avns.getVariableNames() || (getVariableNames() != null && getVariableNames().equals(
+				avns.getVariableNames())));
 	}
 
 	@Override

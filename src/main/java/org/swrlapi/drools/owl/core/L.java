@@ -135,7 +135,7 @@ public class L implements OO, BA, Serializable
 	}
 
 	// We consider literals to be equal if they have the same type name and value.
-	// TODO This is a very simpleminded implementation of equals. Think about using the SWRLAPI OWLLiteralComparator
+	// TODO This is a very simpleminded implementation of equals. Think about using the SWRLAPI's OWLLiteralComparator
 
 	@Override
 	public boolean equals(Object obj)

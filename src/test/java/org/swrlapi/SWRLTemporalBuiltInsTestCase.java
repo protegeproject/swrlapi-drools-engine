@@ -35,8 +35,7 @@ public class SWRLTemporalBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLTemporalBeforeBuiltIn() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1",
-				"temporal:before(\"01-01-10\", \"01-01-13\") -> sqwrl:select(\"Yes!\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "temporal:before(\"01-01-10\", \"01-01-13\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -44,7 +43,7 @@ public class SWRLTemporalBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLTemporalAfterBuiltIn() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "temporal:after(\"01-01-13\", \"01-01-10\") -> sqwrl:select(\"Yes!\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "temporal:after(\"01-01-13\", \"01-01-10\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}

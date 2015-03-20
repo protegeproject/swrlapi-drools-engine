@@ -26,8 +26,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see org.swrlapi.drools.converters.DroolsSWRLBodyAtomArgument2DRLConverter
  */
-public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
-		implements TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
+public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase implements
+		TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
 {
 	public DroolsSWRLHeadAtomArgument2DRLConverter(SWRLRuleEngineBridge bridge)
 	{
@@ -53,9 +53,8 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 			String id = individual.asOWLAnonymousIndividual().toStringID();
 			return addQuotes(id);
 		} else
-			throw new TargetSWRLRuleEngineInternalException(
-					"unknown OWL individual type " + individual.getClass().getCanonicalName() + " passed as a "
-							+ SWRLIndividualArgument.class.getName());
+			throw new TargetSWRLRuleEngineInternalException("unknown OWL individual type "
+					+ individual.getClass().getCanonicalName() + " passed as a " + SWRLIndividualArgument.class.getName());
 	}
 
 	@Override
@@ -124,12 +123,14 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 
 	@Override
 	public String convert(SQWRLCollectionVariableBuiltInArgument argument)
-	{ // TODO This is not true so why is this here?
-		throw new TargetSWRLRuleEngineNotImplementedFeatureException("SQWRL collections not yet supported in Drools");
+	{
+		throw new TargetSWRLRuleEngineNotImplementedFeatureException(
+				"SQWRL collections can not be referenced in a rule head");
 	}
 
 	public String convert(SWRLArgument argument)
-	{ // TODO Use visitor to replace instanceof: define SWRLArgumentVisitorEx in OWLAPI and then SWRLBuiltInArgumentVisitorEx
+	{ // TODO Use visitor to replace instanceof: define SWRLArgumentVisitorEx in OWLAPI and then
+		// SWRLBuiltInArgumentVisitorEx
 		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
 			return convert((SQWRLCollectionVariableBuiltInArgument)argument);
 		} else if (argument instanceof SWRLVariableBuiltInArgument) {
@@ -155,8 +156,8 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 		} else if (argument instanceof SWRLIndividualArgument) {
 			return convert((SWRLIndividualArgument)argument);
 		} else
-			throw new TargetSWRLRuleEngineInternalException(
-					"unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
+			throw new TargetSWRLRuleEngineInternalException("unknown SWRL atom argument type "
+					+ argument.getClass().getCanonicalName());
 	}
 
 	private String addQuotes(String s)

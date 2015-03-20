@@ -18,7 +18,6 @@ import org.swrlapi.test.SWRLAPITestBase;
 public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 {
 	final String Namespace = "http://swrlapi.org/ontologies/SWRLCoreBuiltInsTestCase.owl#";
-	final double DELTA = 1e-6;
 
 	SQWRLQueryEngine sqwrlQueryEngine;
 

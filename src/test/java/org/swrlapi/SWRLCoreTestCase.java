@@ -21,7 +21,6 @@ import org.swrlapi.test.SWRLAPITestBase;
 public class SWRLCoreTestCase extends SWRLAPITestBase
 {
 	final String Namespace = "http://swrlapi.org/ontologies/SWRLCoreTestCase.owl#";
-	final double DELTA = 1e-6;
 
 	SQWRLQueryEngine sqwrlQueryEngine;
 
@@ -64,7 +63,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLSameAsAssertion("p1", "p2");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "sameAs(p1, p2) -> sqwrl:select(\"Yes\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "sameAs(p1, p2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -72,9 +71,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLDifferentFrom() throws SWRLParseException, SQWRLException
 	{
-		declareOWLDifferentFrom("p1", "p2");
+		declareOWLDifferentFromAssertion("p1", "p2");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "differentFrom(p1, p2) -> sqwrl:select(\"Yes\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "differentFrom(p1, p2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -126,11 +125,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:short\") -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:short\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -138,11 +135,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:short");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:short\") -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:short\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -178,11 +173,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:int");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, 42) -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, 42) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -190,11 +183,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:int");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, -42) -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, -42) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -202,11 +193,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:int");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:int\") -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:int\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -214,11 +203,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:int");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:int\") -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:int\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -254,11 +241,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:long");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:long\") -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:long\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -266,11 +251,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:long");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:long\") -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:long\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -306,11 +289,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasHeightInCM", "180.0", "xsd:float");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, 180.0) -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, 180.0) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -318,11 +299,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "heightOffsetInCM", "-180.0", "xsd:float");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "heightOffsetInCM(p1, -180.0) -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "heightOffsetInCM(p1, -180.0) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
@@ -330,11 +309,9 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasHeightInCM", "177.0", "xsd:float");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, \"177.0\"^^\"xsd:float\") -> sqwrl:select(p1)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, \"177.0\"^^\"xsd:float\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual(0).isIndividual());
-		Assert.assertEquals(result.getIndividual(0).getShortName(), "p1");
 	}
 
 	@Test
