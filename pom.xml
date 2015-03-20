@@ -13,7 +13,7 @@
 
     <owlapi.version>4.0.2-SNAPSHOT</owlapi.version> 
     <swrlapi.version>1.0.6</swrlapi.version>
-    <drools.version>6.2.0.Final</drools.version> <!-- Note versions 6+ are not backwards compatible -->
+    <drools.version>6.2.0.Final</drools.version> 
 
     <junit.version>4.11</junit.version>
     <hamcrest.version>1.3</hamcrest.version>
@@ -39,7 +39,7 @@
       <version>${swrlapi.version}</version>
     </dependency>
 
-    <!-- Drools dependencies -->
+    <!-- Start of Drools dependencies -->
 
 		<dependency>
 			<groupId>org.drools</groupId>
@@ -53,8 +53,8 @@
 			<version>${drools.version}</version>
 		</dependency>
 
-
-                <!-- Provides an adapter from Drools 5 API to Drools 6 KIE implementation -->
+    <!-- The Drools 5 APIs used internally by the SWRLAPI Drools Engine -->
+    <!-- The knowledge-api provides an adapter from Drools 5 API to the Drools 6 KIE implementation. -->
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>knowledge-api</artifactId>
