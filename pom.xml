@@ -41,18 +41,12 @@
 
     <!-- Start of Drools dependencies -->
 
-		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>drools-compiler</artifactId>
+    <dependency>
+	<groupId>org.drools</groupId>
+	<artifactId>drools-osgi-integration</artifactId>
 			<version>${drools.version}</version>
-		</dependency>
+    </dependency>
     
-		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>drools-core</artifactId>
-			<version>${drools.version}</version>
-		</dependency>
-
     <!-- The Drools 5 APIs used internally by the SWRLAPI Drools Engine -->
     <!-- The knowledge-api provides an adapter from Drools 5 API to the Drools 6 KIE implementation. -->
 		<dependency>
