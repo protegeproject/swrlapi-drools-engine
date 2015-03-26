@@ -33,6 +33,39 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
+	public void TestSWRLCoreLessThanBuiltInWithByte() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^\"xsd:byte\") -> sqwrl:select(0)");
+
+		Assert.assertTrue(result.next());
+	}
+
+	@Test
+	public void TestSWRLCoreGreaterThanBuiltInWithByte() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^\"xsd:byte\") -> sqwrl:select(0)");
+
+		Assert.assertTrue(result.next());
+	}
+
+	@Test
+	public void TestSWRLCoreEqualBuiltInWithByte() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"42\"^^\"xsd:byte\") -> sqwrl:select(0)");
+
+		Assert.assertTrue(result.next());
+	}
+
+	@Test
 	public void TestSWRLCoreLessThanBuiltInWithShort() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
@@ -299,34 +332,11 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSWRLCoreAddBuiltInWithShortAndBoundResult() throws SWRLParseException, SQWRLException
-	{
-		String query = "swrlb:add(?r, \"2\"^^\"xsd:short\", \"2\"^^\"xsd:short\") -> sqwrl:select(?r)";
-		SQWRLResult result = executeSQWRLQuery("q1", query);
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isShort());
-		Assert.assertEquals(literal.getShort(), 4);
-	}
-
-	@Test
 	public void TestSWRLCoreAddBuiltInWithInt() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:add(4, 2, 2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithIntAndBoundResult() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:add(?r, 2, 2) -> sqwrl:select(?r)");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isInt());
-		Assert.assertEquals(literal.getInt(), 4);
 	}
 
 	@Test
@@ -338,35 +348,12 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSWRLCoreAddBuiltInWithFloatAndBoundResult() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:add(?r, 2.1, 2.0) -> sqwrl:select(?r)");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isFloat());
-		Assert.assertEquals(literal.getFloat(), 4.1, DELTA);
-	}
-
-	@Test
 	public void TestSWRLCoreAddBuiltInWithLong() throws SWRLParseException, SQWRLException
 	{
 		String query = "swrlb:add(\"4\"^^\"xsd:long\", \"2\"^^\"xsd:long\", \"2\"^^\"xsd:long\") -> sqwrl:select(\"Yes\")";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
-	}
-
-	@Test
-	public void TestSWRLCoreAddBuiltInWithLongAndBoundResult() throws SWRLParseException, SQWRLException
-	{
-		String query = "swrlb:add(?r, \"2\"^^\"xsd:long\", \"2\"^^\"xsd:long\") -> sqwrl:select(?r)";
-		SQWRLResult result = executeSQWRLQuery("q1", query);
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isLong());
-		Assert.assertEquals(literal.getLong(), 4);
 	}
 
 	@Test
@@ -380,45 +367,11 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSWRLCoreAddBuiltInWithDoubleAndBoundResult() throws SWRLParseException, SQWRLException
-	{
-		String query = "swrlb:add(?r, \"2.0\"^^\"xsd:double\", \"2.0\"^^\"xsd:double\") -> sqwrl:select(?r)";
-		SQWRLResult result = executeSQWRLQuery("q1", query);
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isDouble());
-		Assert.assertEquals(literal.getDouble(), 4.0, DELTA);
-	}
-
-	@Test
 	public void TestSWRLCoreBooleanNotBuiltIn() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:booleanNot(true, false) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
-	}
-
-	@Test
-	public void TestSWRLCoreBooleanNotBuiltInAndBoundTrueResult() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:booleanNot(?r, false) -> sqwrl:select(?r)");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isBoolean());
-		Assert.assertEquals(literal.getBoolean(), true);
-	}
-
-	@Test
-	public void TestSWRLCoreBooleanNotBuiltInAndBoundFalseResult() throws SWRLParseException, SQWRLException
-	{
-		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:booleanNot(?r, true) -> sqwrl:select(?r)");
-
-		Assert.assertTrue(result.next());
-		SQWRLLiteralResultValue literal = result.getLiteral("r");
-		Assert.assertTrue(literal.isBoolean());
-		Assert.assertEquals(literal.getBoolean(), false);
 	}
 
 	@Test
