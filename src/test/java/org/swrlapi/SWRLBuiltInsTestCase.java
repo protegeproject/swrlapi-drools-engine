@@ -7,6 +7,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngineFactory;
+import org.swrlapi.core.xsd.XSDDateTime;
+import org.swrlapi.core.xsd.XSDDuration;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
@@ -130,6 +132,28 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 		SQWRLLiteralResultValue literal = result.getLiteral("r");
 		Assert.assertTrue(literal.isBoolean());
 		Assert.assertEquals(literal.getBoolean(), false);
+	}
+
+	@Test
+	public void TestSWRLBuiltInsDateTimeBoundResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"temporal:add(?r, \"1999-11-01T10:00:01.0\"^^\"xsd:dateTime\", 0, \"Years\") -> sqwrl:select(?r)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("r").isDateTime());
+		Assert.assertEquals(result.getLiteral("r").getDateTime(), new XSDDateTime("1999-11-01T10:00:01.0"));
+	}
+
+	@Test
+	public void TestSWRLBuiltInsDurationBoundResult() throws SWRLParseException, SQWRLException
+	{
+		String query = "swrlb:yearMonthDuration(?x, 3, 4) -> sqwrl:select(?x)";
+		SQWRLResult result = executeSQWRLQuery("q1", query);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("x").isDuration());
+		Assert.assertEquals(result.getLiteral("x").getDuration(), new XSDDuration("P3Y4M"));
 	}
 
 	@Test

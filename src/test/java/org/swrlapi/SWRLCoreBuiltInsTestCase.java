@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.core.SWRLRuleEngineFactory;
+import org.swrlapi.core.xsd.XSDDuration;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
@@ -504,9 +505,40 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSWRLNormalizeSpaceBuiltIn() throws SWRLParseException, SQWRLException
+	public void TestSWRLCoreNormalizeSpaceBuiltIn() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1", "swrlb:normalizeSpace(\"fred\", \"  fred  \") -> sqwrl:select(0)");
+
+		Assert.assertTrue(result.next());
+	}
+
+	@Test
+	public void TestSWRLCoreYearMonthDurationBuiltIn() throws SWRLParseException, SQWRLException
+	{
+		String query = "swrlb:yearMonthDuration(?x, 3, 4) -> sqwrl:select(?x)";
+		SQWRLResult result = executeSQWRLQuery("q1", query);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("x").isDuration());
+		Assert.assertEquals(result.getLiteral("x").getDuration(), new XSDDuration("P3Y4M"));
+	}
+
+	@Test
+	public void TestSWRLCoreDayTimeDurationBuiltIn() throws SWRLParseException, SQWRLException
+	{
+		String query = "swrlb:dayTimeDuration(?x, 2, 3, 4, 5) -> sqwrl:select(?x)";
+		SQWRLResult result = executeSQWRLQuery("q1", query);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("x").isDuration());
+		Assert.assertEquals(result.getLiteral("x").getDuration(), new XSDDuration("P2DT3H4M5S"));
+	}
+
+	@Test
+	public void TestSWRLCoreTimeBuiltIn() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"swrlb:time(\"10:11:12\"^^\"xsd:time\", 10, 11, 12, \"\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
