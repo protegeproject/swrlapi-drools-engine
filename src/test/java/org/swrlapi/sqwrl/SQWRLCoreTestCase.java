@@ -1,5 +1,8 @@
 package org.swrlapi.sqwrl;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +38,226 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLCount() throws SWRLParseException, SQWRLException
+	public void TestSQWRLCoreColumnName() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(3, 4) ^ sqwrl:columnNames(\"col1\", \"col2\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal1 = result.getLiteral("col1");
+		Assert.assertTrue(literal1.isInt());
+		Assert.assertEquals(literal1.getInt(), 3);
+		SQWRLLiteralResultValue literal2 = result.getLiteral("col2");
+		Assert.assertTrue(literal2.isInt());
+		Assert.assertEquals(literal2.getInt(), 4);
+	}
+
+	@Test
+	public void TestSQWRLCoreByteResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:byte\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isByte());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:byte");
+		Assert.assertEquals(literal.getByte(), 34);
+	}
+
+	@Test
+	public void TestSQWRLCoreShortResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:short\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isShort());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:short");
+		Assert.assertEquals(literal.getShort(), 34);
+	}
+
+	@Test
+	public void TestSQWRLCoreQualifiedIntResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:int\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:int");
+		Assert.assertEquals(literal.getInt(), 34);
+	}
+
+	@Test
+	public void TestSQWRLCoreRawIntResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(34)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:int");
+		Assert.assertEquals(literal.getInt(), 34);
+	}
+
+	@Test
+	public void TestSQWRLCoreLongResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:long\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isLong());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:long");
+		Assert.assertEquals(literal.getLong(), 34L);
+	}
+
+	@Test
+	public void TestSQWRLCoreRawFloatResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(34.0)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:float");
+		Assert.assertEquals(literal.getFloat(), 34.0, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreQualifiedFloatResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34.0\"^^\"xsd:float\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:float");
+		Assert.assertEquals(literal.getFloat(), 34.0, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreDoubleResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34.0\"^^\"xsd:double\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDouble());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:double");
+		Assert.assertEquals(literal.getDouble(), 34.0, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreQualifiedBooleanResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"true\"^^\"xsd:boolean\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isBoolean());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:boolean");
+		Assert.assertEquals(literal.getBoolean(), true);
+	}
+
+	@Test
+	public void TestSQWRLCoreRawBooleanResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(true)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isBoolean());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:boolean");
+		Assert.assertEquals(literal.getBoolean(), true);
+	}
+
+	@Test
+	public void TestSQWRLCoreQualifiedStringResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"Cat\"^^\"xsd:string\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isString());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:string");
+		Assert.assertEquals(literal.getString(), "Cat");
+	}
+
+	@Test
+	public void TestSQWRLCoreRawStringResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"Cat\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isString());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:string");
+		Assert.assertEquals(literal.getString(), "Cat");
+	}
+
+	@Test
+	public void TestSQWRLCoreURIResult() throws SWRLParseException, SQWRLException, URISyntaxException
+	{
+		String homepage = "http://stanford.edu/~fred";
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"" + homepage + "\"^^\"xsd:anyURI\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isAnyURI());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:anyURI");
+		Assert.assertEquals(literal.getAnyURI(), new URI(homepage));
+	}
+
+	@Test
+	public void TestSQWRLCoreTimeResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"10:10:11\"^^\"xsd:time\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isTime());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:time");
+		Assert.assertEquals(literal.getTime(), new XSDTime("10:10:11"));
+	}
+
+	@Test
+	public void TestSQWRLCoreDateResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"1999-01-01\"^^\"xsd:date\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDate());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:date");
+		Assert.assertEquals(literal.getDate(), new XSDDate("1999-01-01"));
+	}
+
+	@Test
+	public void TestSQWRLCoreDateTimeResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"1999-01-01T10:10:11\"^^\"xsd:dateTime\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDateTime());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:dateTime");
+		Assert.assertEquals(literal.getDateTime(), new XSDDateTime("1999-01-01T10:10:11"));
+	}
+
+	@Test
+	public void TestSQWRLCoreDurationResult() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"P24Y\"^^\"xsd:duration\")");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDuration());
+		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:duration");
+		Assert.assertEquals(literal.getDuration(), new XSDDuration("P24Y"));
+	}
+
+	@Test
+	public void TestSQWRLCoreCount() throws SWRLParseException, SQWRLException
 	{
 		declareOWLClassAssertion("Male", "p1");
 		declareOWLClassAssertion("Male", "p2");
@@ -49,7 +271,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLAvg() throws SWRLParseException, SQWRLException
+	public void TestSQWRLCoreAvg() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:int");
 		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:int");
@@ -64,7 +286,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLMin() throws SWRLParseException, SQWRLException
+	public void TestSQWRLCoreMin() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:int");
 		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:int");
@@ -79,7 +301,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLMax() throws SWRLParseException, SQWRLException
+	public void TestSQWRLCoreMax() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:int");
 		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:int");
@@ -94,7 +316,35 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLOrderByShort() throws SWRLParseException, SQWRLException
+	public void TestSQWRLCoreOrderByByte() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "20", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:select(?p, ?age) ^ sqwrl:orderBy(?age)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
+		Assert.assertTrue(result.getLiteral("age").isByte());
+		Assert.assertEquals(result.getLiteral("age").getByte(), 10);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
+		Assert.assertTrue(result.getLiteral("age").isByte());
+		Assert.assertEquals(result.getLiteral("age").getByte(), 20);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
+		Assert.assertTrue(result.getLiteral("age").isByte());
+		Assert.assertEquals(result.getLiteral("age").getByte(), 30);
+	}
+
+	@Test
+	public void TestSQWRLCoreOrderByShort() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "20", "xsd:short");
 		declareOWLDataPropertyAssertion("p2", "hasAge", "10", "xsd:short");
@@ -236,6 +486,67 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
+	public void TestSQWRLCoreOrderByString() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasName", "Fred", "xsd:string");
+		declareOWLDataPropertyAssertion("p2", "hasName", "Bob", "xsd:string");
+		declareOWLDataPropertyAssertion("p3", "hasName", "Ann", "xsd:string");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasName(?p, ?name)-> sqwrl:select(?p, ?name) ^ sqwrl:orderBy(?name)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
+		Assert.assertTrue(result.getLiteral("name").isString());
+		Assert.assertEquals(result.getLiteral("name").getString(), "Ann");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
+		Assert.assertTrue(result.getLiteral("name").isString());
+		Assert.assertEquals(result.getLiteral("name").getString(), "Bob");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
+		Assert.assertTrue(result.getLiteral("name").isString());
+		Assert.assertEquals(result.getLiteral("name").getString(), "Fred");
+	}
+
+	@Test
+	public void TestSQWRLCoreOrderByURI() throws SWRLParseException, SQWRLException, URISyntaxException
+	{
+		String p1HomePage = "http://stanford.edu/~joe";
+		String p2HomePage = "http://stanford.edu/~fred";
+		String p3HomePage = "http://stanford.edu/~bob";
+
+		declareOWLDataPropertyAssertion("p1", "hasHomePage", p1HomePage, "xsd:anyURI");
+		declareOWLDataPropertyAssertion("p2", "hasHomePage", p2HomePage, "xsd:anyURI");
+		declareOWLDataPropertyAssertion("p3", "hasHomePage", p3HomePage, "xsd:anyURI");
+
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"hasHomePage(?p, ?homepage)-> sqwrl:select(?p, ?homepage) ^ sqwrl:orderBy(?homepage)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
+		Assert.assertTrue(result.getLiteral("homepage").isAnyURI());
+		Assert.assertEquals(result.getLiteral("homepage").getAnyURI(), new URI(p3HomePage));
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
+		Assert.assertTrue(result.getLiteral("homepage").isAnyURI());
+		Assert.assertEquals(result.getLiteral("homepage").getAnyURI(), new URI(p2HomePage));
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
+		Assert.assertTrue(result.getLiteral("homepage").isAnyURI());
+		Assert.assertEquals(result.getLiteral("homepage").getAnyURI(), new URI(p1HomePage));
+	}
+
+	@Test
 	public void TestSQWRLOrderByDate() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasDOB", "1990-01-02", "xsd:date");
@@ -348,6 +659,64 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
+	public void TestSQWRLOrderByDescendingByte() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "20", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"hasAge(?p, ?age)-> sqwrl:select(?p, ?age) ^ sqwrl:orderByDescending(?age)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
+		Assert.assertTrue(result.getLiteral("age").isByte());
+		Assert.assertEquals(result.getLiteral("age").getByte(), 30);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
+		Assert.assertTrue(result.getLiteral("age").isByte());
+		Assert.assertEquals(result.getLiteral("age").getByte(), 20);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
+		Assert.assertTrue(result.getLiteral("age").isByte());
+		Assert.assertEquals(result.getLiteral("age").getByte(), 10);
+	}
+
+	@Test
+	public void TestSQWRLOrderByDescendingShort() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:short");
+
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"hasAge(?p, ?age)-> sqwrl:select(?p, ?age) ^ sqwrl:orderByDescending(?age)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
+		Assert.assertTrue(result.getLiteral("age").isShort());
+		Assert.assertEquals(result.getLiteral("age").getShort(), 30);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
+		Assert.assertTrue(result.getLiteral("age").isShort());
+		Assert.assertEquals(result.getLiteral("age").getShort(), 20);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
+		Assert.assertTrue(result.getLiteral("age").isShort());
+		Assert.assertEquals(result.getLiteral("age").getShort(), 10);
+	}
+
+	@Test
 	public void TestSQWRLOrderByDescendingInt() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "20", "xsd:int");
@@ -377,31 +746,32 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLOrderByString() throws SWRLParseException, SQWRLException
+	public void TestSQWRLOrderByDescendingLong() throws SWRLParseException, SQWRLException
 	{
-		declareOWLDataPropertyAssertion("p1", "hasName", "Fred", "xsd:string");
-		declareOWLDataPropertyAssertion("p2", "hasName", "Bob", "xsd:string");
-		declareOWLDataPropertyAssertion("p3", "hasName", "Ann", "xsd:string");
+		declareOWLDataPropertyAssertion("p1", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "10", "xsd:long");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:long");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasName(?p, ?name)-> sqwrl:select(?p, ?name) ^ sqwrl:orderBy(?name)");
+		SQWRLResult result = executeSQWRLQuery("q1",
+				"hasAge(?p, ?age)-> sqwrl:select(?p, ?age) ^ sqwrl:orderByDescending(?age)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
-		Assert.assertTrue(result.getLiteral("name").isString());
-		Assert.assertEquals(result.getLiteral("name").getString(), "Ann");
-
-		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getIndividual("p").isIndividual());
-		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
-		Assert.assertTrue(result.getLiteral("name").isString());
-		Assert.assertEquals(result.getLiteral("name").getString(), "Bob");
+		Assert.assertTrue(result.getLiteral("age").isLong());
+		Assert.assertEquals(result.getLiteral("age").getLong(), 30L);
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
-		Assert.assertTrue(result.getLiteral("name").isString());
-		Assert.assertEquals(result.getLiteral("name").getString(), "Fred");
+		Assert.assertTrue(result.getLiteral("age").isLong());
+		Assert.assertEquals(result.getLiteral("age").getLong(), 20L);
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getIndividual("p").isIndividual());
+		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
+		Assert.assertTrue(result.getLiteral("age").isLong());
+		Assert.assertEquals(result.getLiteral("age").getLong(), 10L);
 	}
 
 	@Test
