@@ -41,7 +41,7 @@ public class SWRLMathematicalBuiltInsTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("r").isDouble());
-		Assert.assertEquals(result.getLiteral("r").getDouble(), 43.0, DELTA);
+		Assert.assertEquals(result.getLiteral("r").getDouble(), 43.0d, DELTA);
 	}
 
 	private SQWRLResult executeSQWRLQuery(String queryName) throws SQWRLException

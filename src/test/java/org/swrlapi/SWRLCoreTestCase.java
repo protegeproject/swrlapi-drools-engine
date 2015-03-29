@@ -356,7 +356,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("height").isFloat());
-		Assert.assertEquals(result.getLiteral("height").getFloat(), 177.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getFloat(), 177.0f, DELTA);
 	}
 
 	@Test
@@ -368,7 +368,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("offset").isFloat());
-		Assert.assertEquals(result.getLiteral("offset").getFloat(), -177.0, DELTA);
+		Assert.assertEquals(result.getLiteral("offset").getFloat(), -177.0f, DELTA);
 	}
 
 	@Test
@@ -682,7 +682,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("height").isFloat());
-		Assert.assertEquals(result.getLiteral("height").getFloat(), 122.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getFloat(), 122.0f, DELTA);
 	}
 
 	@Test
@@ -695,7 +695,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("age").isDouble());
-		Assert.assertEquals(result.getLiteral("age").getDouble(), 122.0, DELTA);
+		Assert.assertEquals(result.getLiteral("age").getDouble(), 122.0d, DELTA);
 	}
 
 	@Test

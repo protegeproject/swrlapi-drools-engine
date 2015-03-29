@@ -85,7 +85,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral("r");
 		Assert.assertTrue(literal.isFloat());
-		Assert.assertEquals(literal.getFloat(), 4.1, DELTA);
+		Assert.assertEquals(literal.getFloat(), 4.1f, DELTA);
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral("r");
 		Assert.assertTrue(literal.isDouble());
-		Assert.assertEquals(literal.getDouble(), 4.0, DELTA);
+		Assert.assertEquals(literal.getDouble(), 4.0d, DELTA);
 	}
 
 	@Test
@@ -199,7 +199,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("y").isFloat());
-		Assert.assertEquals(result.getLiteral("y").getFloat(), 8.0, DELTA);
+		Assert.assertEquals(result.getLiteral("y").getFloat(), 8.0f, DELTA);
 	}
 
 	@Test

@@ -120,7 +120,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isFloat());
 		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:float");
-		Assert.assertEquals(literal.getFloat(), 34.0, DELTA);
+		Assert.assertEquals(literal.getFloat(), 34.0f, DELTA);
 	}
 
 	@Test
@@ -132,7 +132,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isFloat());
 		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:float");
-		Assert.assertEquals(literal.getFloat(), 34.0, DELTA);
+		Assert.assertEquals(literal.getFloat(), 34.0f, DELTA);
 	}
 
 	@Test
@@ -144,7 +144,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isDouble());
 		Assert.assertEquals(literal.getDatatypePrefixedName(), "xsd:double");
-		Assert.assertEquals(literal.getDouble(), 34.0, DELTA);
+		Assert.assertEquals(literal.getDouble(), 34.0d, DELTA);
 	}
 
 	@Test
@@ -282,7 +282,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isDouble());
-		Assert.assertEquals(literal.getDouble(), 20.0, DELTA);
+		Assert.assertEquals(literal.getDouble(), 20.0d, DELTA);
 	}
 
 	@Test
@@ -357,7 +357,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isFloat());
-		Assert.assertEquals(literal.getFloat(), 101.0, DELTA);
+		Assert.assertEquals(literal.getFloat(), 101.0f, DELTA);
 	}
 
 	@Test
@@ -372,7 +372,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isDouble());
-		Assert.assertEquals(literal.getDouble(), 101.0, DELTA);
+		Assert.assertEquals(literal.getDouble(), 101.0d, DELTA);
 	}
 
 	@Test
@@ -445,21 +445,20 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertEquals(literal.getInt(), 30);
 	}
 
-	// TODO Failing
-	// @Test
-	// public void TestSQWRLCoreFloatMax() throws SWRLParseException, SQWRLException
-	// {
-	// declareOWLDataPropertyAssertion("p1", "hasHeight", "101.0", "xsd:float");
-	// declareOWLDataPropertyAssertion("p2", "hasHeight", "102.3", "xsd:float");
-	// declareOWLDataPropertyAssertion("p3", "hasHeight", "104.1", "xsd:float");
-	//
-	// SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:max(?height)");
-	//
-	// Assert.assertTrue(result.next());
-	// SQWRLLiteralResultValue literal = result.getLiteral(0);
-	// Assert.assertTrue(literal.isFloat());
-	// Assert.assertEquals(literal.getFloat(), 104.1, DELTA);
-	// }
+	@Test
+	public void TestSQWRLCoreFloatMax() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasHeight", "101.0", "xsd:float");
+		declareOWLDataPropertyAssertion("p2", "hasHeight", "102.3", "xsd:float");
+		declareOWLDataPropertyAssertion("p3", "hasHeight", "104.1", "xsd:float");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:max(?height)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getFloat(), 104.1f, DELTA);
+	}
 
 	@Test
 	public void TestSQWRLCoreDoubleMax() throws SWRLParseException, SQWRLException
@@ -473,7 +472,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isDouble());
-		Assert.assertEquals(literal.getDouble(), 104.1, DELTA);
+		Assert.assertEquals(literal.getDouble(), 104.1d, DELTA);
 	}
 
 	@Test
@@ -617,19 +616,19 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
 		Assert.assertTrue(result.getLiteral("height").isFloat());
-		Assert.assertEquals(result.getLiteral("height").getFloat(), 100.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getFloat(), 100.0f, DELTA);
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
 		Assert.assertTrue(result.getLiteral("height").isFloat());
-		Assert.assertEquals(result.getLiteral("height").getFloat(), 200.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getFloat(), 200.0f, DELTA);
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
 		Assert.assertTrue(result.getLiteral("height").isFloat());
-		Assert.assertEquals(result.getLiteral("height").getFloat(), 300.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getFloat(), 300.0f, DELTA);
 	}
 
 	@Test
@@ -646,19 +645,19 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p2");
 		Assert.assertTrue(result.getLiteral("height").isDouble());
-		Assert.assertEquals(result.getLiteral("height").getDouble(), 100.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getDouble(), 100.0d, DELTA);
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p1");
 		Assert.assertTrue(result.getLiteral("height").isDouble());
-		Assert.assertEquals(result.getLiteral("height").getDouble(), 200.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getDouble(), 200.0d, DELTA);
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual("p").isIndividual());
 		Assert.assertEquals(result.getIndividual("p").getShortName(), "p3");
 		Assert.assertTrue(result.getLiteral("height").isDouble());
-		Assert.assertEquals(result.getLiteral("height").getDouble(), 300.0, DELTA);
+		Assert.assertEquals(result.getLiteral("height").getDouble(), 300.0d, DELTA);
 	}
 
 	@Test
