@@ -321,7 +321,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLClassBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLClassedBagFirst() throws SWRLParseException, SQWRLException
 	{
 		declareOWLClasses("DDI", "AZT");
 
@@ -333,7 +333,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLIndividualBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLIndividualsBagFirst() throws SWRLParseException, SQWRLException
 	{
 		declareOWLNamedIndividuals("DDI", "AZT");
 
@@ -345,80 +345,80 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLByteBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLByteBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"77\"^^\"xsd:byte\") "
-						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
+				". sqwrl:makeBag(?s1, \"77\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") "
+						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getLiteral("first").isByte());
-		Assert.assertEquals(result.getLiteral("first").getByte(), 23);
+		Assert.assertTrue(result.getLiteral("min").isByte());
+		Assert.assertEquals(result.getLiteral("min").getByte(), 23);
 	}
 
 	@Test
-	public void TestSQWRLShortBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLShortBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\") ^ sqwrl:makeBag(?s1, \"77\"^^\"xsd:short\") "
-						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
+				". sqwrl:makeBag(?s1, \"77\"^^\"xsd:short\") ^ sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\") "
+						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getLiteral("first").isShort());
-		Assert.assertEquals(result.getLiteral("first").getShort(), 23);
+		Assert.assertTrue(result.getLiteral("min").isShort());
+		Assert.assertEquals(result.getLiteral("min").getShort(), 23);
 	}
 
 	@Test
-	public void TestSQWRLIntBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLIntBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, 23) ^ sqwrl:makeBag(?s1, 77) . sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
+				". sqwrl:makeBag(?s1, 77) ^ sqwrl:makeBag(?s1, 23) . sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getLiteral("first").isInt());
-		Assert.assertEquals(result.getLiteral("first").getInt(), 23);
+		Assert.assertTrue(result.getLiteral("min").isInt());
+		Assert.assertEquals(result.getLiteral("min").getInt(), 23);
 	}
 
 	@Test
-	public void TestSQWRLLongBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLLongBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"23\"^^\"xsd:long\") ^ sqwrl:makeBag(?s1, \"77\"^^\"xsd:long\") "
-						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
+				". sqwrl:makeBag(?s1, \"77\"^^\"xsd:long\") ^ sqwrl:makeBag(?s1, \"23\"^^\"xsd:long\") "
+						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getLiteral("first").isLong());
-		Assert.assertEquals(result.getLiteral("first").getLong(), 23L);
+		Assert.assertTrue(result.getLiteral("min").isLong());
+		Assert.assertEquals(result.getLiteral("min").getLong(), 23L);
 	}
 
 	@Test
-	public void TestSQWRLFloatBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLFloatBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, 23.3) ^ sqwrl:makeBag(?s1, 77.4) . sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
+				". sqwrl:makeBag(?s1, 77.4) ^ sqwrl:makeBag(?s1, 23.3) . sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getLiteral("first").isFloat());
-		Assert.assertEquals(result.getLiteral("first").getFloat(), 23.3f, DELTA);
+		Assert.assertTrue(result.getLiteral("min").isFloat());
+		Assert.assertEquals(result.getLiteral("min").getFloat(), 23.3f, DELTA);
 	}
 
 	@Test
-	public void TestSQWRLDoubleBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLDoubleBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"23.3\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"77.32\"^^\"xsd:double\") "
-						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
+				". sqwrl:makeBag(?s1, \"77.32\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"23.3\"^^\"xsd:double\") "
+						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
-		Assert.assertTrue(result.getLiteral("first").isDouble());
-		Assert.assertEquals(result.getLiteral("first").getDouble(), 23.3d, DELTA);
+		Assert.assertTrue(result.getLiteral("min").isDouble());
+		Assert.assertEquals(result.getLiteral("min").getDouble(), 23.3d, DELTA);
 	}
 
 	@Test
-	public void TestSQWRLStringBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLStringBagFirsr() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"Bob\"^^\"xsd:string\") ^ sqwrl:makeBag(?s1, \"Fred\"^^\"xsd:string\") "
+				". sqwrl:makeBag(?s1, \"Fred\"^^\"xsd:string\") ^ sqwrl:makeBag(?s1, \"Bob\"^^\"xsd:string\") "
 						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
 
 		Assert.assertTrue(result.next());
@@ -430,12 +430,12 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLStringSetFirst() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeSet(?s1, \"Bob\"^^\"xsd:string\") ^ sqwrl:makeSet(?s1, \"Fred\"^^\"xsd:string\") "
+				". sqwrl:makeSet(?s1, \"Fred\"^^\"xsd:string\") ^ sqwrl:makeSet(?s1, \"Bob\"^^\"xsd:string\") "
 						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("first").isString());
-		Assert.assertEquals(result.getLiteral("first").getString(), "Bob");
+		Assert.assertEquals(result.getLiteral("firts").getString(), "Bob");
 	}
 
 	@Test
@@ -584,19 +584,19 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 		declareOWLClasses("DDI", "AZT");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, AZT) ^ sqwrl:makeBag(?s1, DDI) . sqwrl:last(?last, ?s1) -> sqwrl:select(?last)");
+				". sqwrl:makeBag(?s1, DDI) ^ sqwrl:makeBag(?s1, AZT) . sqwrl:last(?last, ?s1) -> sqwrl:select(?last)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertEquals(result.getClass("last").getShortName(), "DDI");
 	}
 
 	@Test
-	public void TestSQWRLIndividualLast() throws SWRLParseException, SQWRLException
+	public void TestSQWRLBagIndividualLast() throws SWRLParseException, SQWRLException
 	{
 		declareOWLNamedIndividuals("DDI", "AZT");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, DDI) ^ sqwrl:makeBag(?s1, AZT) . sqwrl:last(?last, ?s1) -> sqwrl:select(?last)");
+				". sqwrl:makeBag(?s1, AZT) ^ sqwrl:makeBag(?s1, DDI) . sqwrl:last(?last, ?s1) -> sqwrl:select(?last)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertEquals(result.getIndividual("last").getShortName(), "DDI");
