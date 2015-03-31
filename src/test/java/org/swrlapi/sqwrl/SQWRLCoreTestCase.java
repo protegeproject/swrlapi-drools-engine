@@ -7,9 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
-import org.swrlapi.core.SWRLRuleEngineFactory;
 import org.swrlapi.core.xsd.XSDDate;
 import org.swrlapi.core.xsd.XSDDateTime;
 import org.swrlapi.core.xsd.XSDDuration;
@@ -29,12 +27,9 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Before
 	public void setUp() throws OWLOntologyCreationException
 	{
-		SWRLAPIOWLOntology swrlapiOWLOntology = createEmptyOntology(Namespace);
+		SWRLAPIOWLOntology swrlapiOWLOntology = createEmptySWRLAPIOWLOntology(Namespace);
 
-		SWRLRuleEngineFactory swrlRuleEngineFactory = SWRLAPIFactory.createSWRLRuleEngineFactory();
-		swrlRuleEngineFactory.registerRuleEngine(new DroolsSWRLRuleEngineCreator());
-
-		sqwrlQueryEngine = swrlRuleEngineFactory.createSQWRLQueryEngine(swrlapiOWLOntology);
+		sqwrlQueryEngine = swrlapiOWLOntology.createSQWRLQueryEngine(new DroolsSWRLRuleEngineCreator());
 	}
 
 	@Test

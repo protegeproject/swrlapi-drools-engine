@@ -4,9 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.swrlapi.core.SWRLAPIFactory;
 import org.swrlapi.core.SWRLAPIOWLOntology;
-import org.swrlapi.core.SWRLRuleEngineFactory;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
@@ -18,17 +16,14 @@ public class SWRLMathematicalBuiltInsTestCase extends SWRLAPITestBase
 {
 	final String Namespace = "http://swrlapi.org/ontologies/SWRLMathematicalBuiltInsTestCase.owl#";
 
-	SQWRLQueryEngine sqwrlQueryEngine;
+	private SQWRLQueryEngine sqwrlQueryEngine;
 
 	@Before
 	public void setUp() throws OWLOntologyCreationException
 	{
-		SWRLAPIOWLOntology swrlapiOWLOntology = createEmptyOntology(Namespace);
+		SWRLAPIOWLOntology swrlapiOWLOntology = createEmptySWRLAPIOWLOntology(Namespace);
 
-		SWRLRuleEngineFactory swrlRuleEngineFactory = SWRLAPIFactory.createSWRLRuleEngineFactory();
-		swrlRuleEngineFactory.registerRuleEngine(new DroolsSWRLRuleEngineCreator());
-
-		sqwrlQueryEngine = swrlRuleEngineFactory.createSQWRLQueryEngine(swrlapiOWLOntology);
+		sqwrlQueryEngine = swrlapiOWLOntology.createSQWRLQueryEngine(new DroolsSWRLRuleEngineCreator());
 	}
 
 	@Test
