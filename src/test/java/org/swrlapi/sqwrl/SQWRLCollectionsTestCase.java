@@ -79,8 +79,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	{
 		SQWRLResult result = executeSQWRLQuery(
 				"q1",
-				". sqwrl:makeBag(?s1, \"32\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s2, \"39\"^^\"xsd:byte\")"
-						+ " ^ sqwrl:makeBag(?s1, \"32\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"39\"^^\"xsd:byte\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeBag(?s1, \"32\"^^xsd:byte) ^ sqwrl:makeBag(?s2, \"39\"^^xsd:byte)"
+						+ " ^ sqwrl:makeBag(?s1, \"32\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"39\"^^xsd:byte) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -90,8 +90,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	{
 		SQWRLResult result = executeSQWRLQuery(
 				"q1",
-				". sqwrl:makeSet(?s1, \"32\"^^\"xsd:byte\") ^ sqwrl:makeSet(?s2, \"39\"^^\"xsd:byte\")"
-						+ " ^ sqwrl:makeSet(?s1, \"32\"^^\"xsd:byte\") ^ sqwrl:makeSet(?s1, \"39\"^^\"xsd:byte\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeSet(?s1, \"32\"^^xsd:byte) ^ sqwrl:makeSet(?s2, \"39\"^^xsd:byte)"
+						+ " ^ sqwrl:makeSet(?s1, \"32\"^^xsd:byte) ^ sqwrl:makeSet(?s1, \"39\"^^xsd:byte) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -101,8 +101,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	{
 		SQWRLResult result = executeSQWRLQuery(
 				"q1",
-				". sqwrl:makeBag(?s1, \"32\"^^\"xsd:short\") ^ sqwrl:makeBag(?s2, \"39\"^^\"xsd:short\")"
-						+ " ^ sqwrl:makeBag(?s1, \"32\"^^\"xsd:short\") ^ sqwrl:makeBag(?s1, \"39\"^^\"xsd:short\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeBag(?s1, \"32\"^^xsd:short) ^ sqwrl:makeBag(?s2, \"39\"^^xsd:short)"
+						+ " ^ sqwrl:makeBag(?s1, \"32\"^^xsd:short) ^ sqwrl:makeBag(?s1, \"39\"^^xsd:short) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -112,8 +112,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	{
 		SQWRLResult result = executeSQWRLQuery(
 				"q1",
-				". sqwrl:makeSet(?s1, \"32\"^^\"xsd:short\") ^ sqwrl:makeSet(?s2, \"39\"^^\"xsd:short\")"
-						+ " ^ sqwrl:makeSet(?s1, \"32\"^^\"xsd:short\") ^ sqwrl:makeSet(?s1, \"39\"^^\"xsd:short\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeSet(?s1, \"32\"^^xsd:short) ^ sqwrl:makeSet(?s2, \"39\"^^xsd:short)"
+						+ " ^ sqwrl:makeSet(?s1, \"32\"^^xsd:short) ^ sqwrl:makeSet(?s1, \"39\"^^xsd:short) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -141,8 +141,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	{
 		SQWRLResult result = executeSQWRLQuery(
 				"q1",
-				". sqwrl:makeBag(?s1, \"32\"^^\"xsd:long\") ^ sqwrl:makeBag(?s2, \"39\"^^\"xsd:long\")"
-						+ " ^ sqwrl:makeBag(?s1, \"32\"^^\"xsd:long\") ^ sqwrl:makeBag(?s1, \"39\"^^\"xsd:long\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeBag(?s1, \"32\"^^xsd:long) ^ sqwrl:makeBag(?s2, \"39\"^^xsd:long)"
+						+ " ^ sqwrl:makeBag(?s1, \"32\"^^xsd:long) ^ sqwrl:makeBag(?s1, \"39\"^^xsd:long) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -151,9 +151,9 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLLongSetsEqual() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeSet(?s1, \"32\"^^\"xsd:long\") ^ sqwrl:makeSet(?s1, \"39\"^^\"xsd:long\")"
-						+ " ^ sqwrl:makeSet(?s2, \"32\"^^\"xsd:long\") ^ sqwrl:makeSet(?s2, \"39\"^^\"xsd:long\") "
-						+ " ^ sqwrl:makeSet(?s2, \"39\"^^\"xsd:long\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeSet(?s1, \"32\"^^xsd:long) ^ sqwrl:makeSet(?s1, \"39\"^^xsd:long)"
+						+ " ^ sqwrl:makeSet(?s2, \"32\"^^xsd:long) ^ sqwrl:makeSet(?s2, \"39\"^^xsd:long) "
+						+ " ^ sqwrl:makeSet(?s2, \"39\"^^xsd:long) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -183,8 +183,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	{
 		SQWRLResult result = executeSQWRLQuery(
 				"q1",
-				". sqwrl:makeBag(?s1, \"32.1\"^^\"xsd:double\") ^ sqwrl:makeBag(?s2, \"39.3\"^^\"xsd:double\")"
-						+ " ^ sqwrl:makeBag(?s1, \"32.1\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"39.3\"^^\"xsd:double\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeBag(?s1, \"32.1\"^^xsd:double) ^ sqwrl:makeBag(?s2, \"39.3\"^^xsd:double)"
+						+ " ^ sqwrl:makeBag(?s1, \"32.1\"^^xsd:double) ^ sqwrl:makeBag(?s1, \"39.3\"^^xsd:double) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -193,9 +193,9 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLDoubleSetsEqual() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"32.1\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"39.3\"^^\"xsd:double\")"
-						+ " ^ sqwrl:makeBag(?s2, \"32.1\"^^\"xsd:double\") ^ sqwrl:makeBag(?s2, \"39.3\"^^\"xsd:double\") "
-						+ " sqwrl:makeBag(?s2, \"39.3\"^^\"xsd:double\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				". sqwrl:makeBag(?s1, \"32.1\"^^xsd:double) ^ sqwrl:makeBag(?s1, \"39.3\"^^xsd:double)"
+						+ " ^ sqwrl:makeBag(?s2, \"32.1\"^^xsd:double) ^ sqwrl:makeBag(?s2, \"39.3\"^^xsd:double) "
+						+ " sqwrl:makeBag(?s2, \"39.3\"^^xsd:double) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -245,9 +245,9 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 		String homePage2 = "http://stanford.edu/~bob";
 
 		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"" + homePage1
-				+ "\"^^\"xsd:anyURI\") ^ sqwrl:makeBag(?s2, \"" + homePage2 + "\"^^\"xsd:anyURI\")"
-				+ " ^ sqwrl:makeBag(?s1, \"" + homePage1 + "\"^^\"xsd:anyURI\") ^ sqwrl:makeBag(?s2, \"" + homePage2
-				+ "\"^^\"xsd:anyURI\") . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+				+ "\"^^xsd:anyURI) ^ sqwrl:makeBag(?s2, \"" + homePage2 + "\"^^xsd:anyURI)" + " ^ sqwrl:makeBag(?s1, \""
+				+ homePage1 + "\"^^xsd:anyURI) ^ sqwrl:makeBag(?s2, \"" + homePage2
+				+ "\"^^xsd:anyURI) . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -258,11 +258,10 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 		String homePage1 = "http://stanford.edu/~fred";
 		String homePage2 = "http://stanford.edu/~bob";
 
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"" + homePage1 + "\"^^\"xsd:anyURI\") "
-				+ " ^ sqwrl:makeSet(?s1, \"" + homePage2 + "\"^^\"xsd:anyURI\")" + " ^ sqwrl:makeSet(?s2, \"" + homePage1
-				+ "\"^^\"xsd:anyURI\") " + " ^ sqwrl:makeSet(?s2, \"" + homePage2 + "\"^^\"xsd:anyURI\") "
-				+ " ^ sqwrl:makeSet(?s2, \"" + homePage2 + "\"^^\"xsd:anyURI\") "
-				+ " . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"" + homePage1 + "\"^^xsd:anyURI) "
+				+ " ^ sqwrl:makeSet(?s1, \"" + homePage2 + "\"^^xsd:anyURI)" + " ^ sqwrl:makeSet(?s2, \"" + homePage1
+				+ "\"^^xsd:anyURI) " + " ^ sqwrl:makeSet(?s2, \"" + homePage2 + "\"^^xsd:anyURI) " + " ^ sqwrl:makeSet(?s2, \""
+				+ homePage2 + "\"^^xsd:anyURI) " + " . sqwrl:equal(?s1, ?s2) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -348,7 +347,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLByteBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"77\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") "
+				". sqwrl:makeBag(?s1, \"77\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"23\"^^xsd:byte) "
 						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
@@ -360,7 +359,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLShortBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"77\"^^\"xsd:short\") ^ sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\") "
+				". sqwrl:makeBag(?s1, \"77\"^^xsd:short) ^ sqwrl:makeBag(?s1, \"23\"^^xsd:short) "
 						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
@@ -383,7 +382,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLLongBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"77\"^^\"xsd:long\") ^ sqwrl:makeBag(?s1, \"23\"^^\"xsd:long\") "
+				". sqwrl:makeBag(?s1, \"77\"^^xsd:long) ^ sqwrl:makeBag(?s1, \"23\"^^xsd:long) "
 						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
@@ -406,7 +405,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLDoubleBagMin() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"77.32\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"23.3\"^^\"xsd:double\") "
+				". sqwrl:makeBag(?s1, \"77.32\"^^xsd:double) ^ sqwrl:makeBag(?s1, \"23.3\"^^xsd:double) "
 						+ ". sqwrl:min(?min, ?s1) -> sqwrl:select(?min)");
 
 		Assert.assertTrue(result.next());
@@ -418,7 +417,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLStringBagFirst() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeBag(?s1, \"Fred\"^^\"xsd:string\") ^ sqwrl:makeBag(?s1, \"Bob\"^^\"xsd:string\") "
+				". sqwrl:makeBag(?s1, \"Fred\"^^xsd:string) ^ sqwrl:makeBag(?s1, \"Bob\"^^xsd:string) "
 						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
 
 		Assert.assertTrue(result.next());
@@ -430,7 +429,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	public void TestSQWRLStringSetFirst() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				". sqwrl:makeSet(?s1, \"Fred\"^^\"xsd:string\") ^ sqwrl:makeSet(?s1, \"Bob\"^^\"xsd:string\") "
+				". sqwrl:makeSet(?s1, \"Fred\"^^xsd:string) ^ sqwrl:makeSet(?s1, \"Bob\"^^xsd:string) "
 						+ ". sqwrl:first(?first, ?s1) -> sqwrl:select(?first)");
 
 		Assert.assertTrue(result.next());
@@ -441,8 +440,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagSumShortBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:short) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -453,8 +452,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLSetSumShortBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeSet(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeSet(?s1, \"25\"^^\"xsd:short\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeSet(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeSet(?s1, \"25\"^^xsd:short) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -465,8 +464,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagSumIntBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:int\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:int) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -477,8 +476,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagSumLongBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:long\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:long) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -489,8 +488,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagSumFloatBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:float\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25.0\"^^xsd:float) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -501,8 +500,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLByteBagSumDoubleBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:double\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25.0\"^^xsd:double) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -513,8 +512,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLByteBagSum() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:byte\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:byte) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -525,8 +524,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLShortBagSum() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:short\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:short) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:short) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:short) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -537,8 +536,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLIntBagSum() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:int\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:int\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:int\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:int) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:int) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:int) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -549,8 +548,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLLongBagSum() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:long\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:long\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:long\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:long) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:long) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:long) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -561,8 +560,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLFloatBagSum() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.0\"^^\"xsd:float\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23.0\"^^\"xsd:float\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:float\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.0\"^^xsd:float) ^ "
+				+ "sqwrl:makeBag(?s1, \"23.0\"^^xsd:float) ^ sqwrl:makeBag(?s1, \"25.0\"^^xsd:float) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -573,8 +572,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLDoubleBagSum() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.0\"^^\"xsd:double\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23.0\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:double\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.0\"^^xsd:double) ^ "
+				+ "sqwrl:makeBag(?s1, \"23.0\"^^xsd:double) ^ sqwrl:makeBag(?s1, \"25.0\"^^xsd:double) "
 				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
 
 		Assert.assertTrue(result.next());
@@ -585,8 +584,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagAvgShortBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:short) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -597,8 +596,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagAvgIntBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:int\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:int) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -609,8 +608,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagAvgLongBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:long\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:long) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -621,8 +620,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagAvgFloatBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:float\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25.0\"^^xsd:float) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -633,8 +632,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLBagDoubleBroadest() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:double\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25.0\"^^xsd:double) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -645,8 +644,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLByteBagAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:byte\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeBag(?s1, \"25\"^^xsd:byte) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -657,9 +656,9 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLByteSetAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"24\"^^\"xsd:byte\") ^ "
-				+ "sqwrl:makeSet(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeSet(?s1, \"25\"^^\"xsd:byte\") "
-				+ "sqwrl:makeSet(?s1, \"25\"^^\"xsd:byte\") . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"24\"^^xsd:byte) ^ "
+				+ "sqwrl:makeSet(?s1, \"23\"^^xsd:byte) ^ sqwrl:makeSet(?s1, \"25\"^^xsd:byte) "
+				+ "sqwrl:makeSet(?s1, \"25\"^^xsd:byte) . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("avg").isByte());
@@ -669,8 +668,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLShortBagAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:short\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\")  ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:short) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:short)  ^ sqwrl:makeBag(?s1, \"25\"^^xsd:short) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -681,9 +680,9 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLShortSetAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:short\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\") ^ sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\")"
-				+ "sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:short) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:short) ^ sqwrl:makeBag(?s1, \"23\"^^xsd:short)"
+				+ "sqwrl:makeBag(?s1, \"25\"^^xsd:short) . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("avg").isShort());
@@ -715,8 +714,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLLongBagAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:long\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:long\") " + "sqwrl:makeBag(?s1, \"25\"^^\"xsd:long\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^xsd:long) ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^xsd:long) " + "sqwrl:makeBag(?s1, \"25\"^^xsd:long) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -727,9 +726,9 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLLongSetAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"24\"^^\"xsd:long\") ^ "
-				+ "sqwrl:makeSet(?s1, \"23\"^^\"xsd:long\") ^ sqwrl:makeSet(?s1, \"25\"^^\"xsd:long\") "
-				+ "sqwrl:makeSet(?s1, \"25\"^^\"xsd:long\") . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"24\"^^xsd:long) ^ "
+				+ "sqwrl:makeSet(?s1, \"23\"^^xsd:long) ^ sqwrl:makeSet(?s1, \"25\"^^xsd:long) "
+				+ "sqwrl:makeSet(?s1, \"25\"^^xsd:long) . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("avg").isLong());
@@ -761,8 +760,8 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLDoubleBagAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.2\"^^\"xsd:double\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23.2\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"25.2\"^^\"xsd:double\") "
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.2\"^^xsd:double) ^ "
+				+ "sqwrl:makeBag(?s1, \"23.2\"^^xsd:double) ^ sqwrl:makeBag(?s1, \"25.2\"^^xsd:double) "
 				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
@@ -773,9 +772,9 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLDoubleSetAvg() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.2\"^^\"xsd:double\") ^ "
-				+ "sqwrl:makeBag(?s1, \"23.2\"^^\"xsd:double\")  ^ sqwrl:makeBag(?s1, \"25.2\"^^\"xsd:double\") "
-				+ "sqwrl:makeBag(?s1, \"25.2\"^^\"xsd:double\") . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.2\"^^xsd:double) ^ "
+				+ "sqwrl:makeBag(?s1, \"23.2\"^^xsd:double)  ^ sqwrl:makeBag(?s1, \"25.2\"^^xsd:double) "
+				+ "sqwrl:makeBag(?s1, \"25.2\"^^xsd:double) . sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("avg").isDouble());

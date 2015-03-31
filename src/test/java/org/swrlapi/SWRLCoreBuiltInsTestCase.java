@@ -39,7 +39,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:byte");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^\"xsd:byte\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^xsd:byte) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -50,7 +50,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:byte");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^\"xsd:byte\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^xsd:byte) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -61,7 +61,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:byte");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"42\"^^\"xsd:byte\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"42\"^^xsd:byte) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -72,7 +72,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^\"xsd:short\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^xsd:short) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -83,7 +83,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^\"xsd:short\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^xsd:short) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -94,7 +94,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"42\"^^\"xsd:short\") -> sqwrl:select(p1)");
+				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"42\"^^xsd:short) -> sqwrl:select(p1)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual(0).isIndividual());
@@ -139,7 +139,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:long");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^\"xsd:long\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^xsd:long) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -150,7 +150,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:long");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^\"xsd:long\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^xsd:long) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -161,7 +161,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:long");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"42\"^^\"xsd:long\") -> sqwrl:select(p1)");
+				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"42\"^^xsd:long) -> sqwrl:select(p1)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getIndividual(0).isIndividual());
@@ -207,7 +207,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:double");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^\"xsd:double\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:lessThan(?age, \"43\"^^xsd:double) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -218,7 +218,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:double");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^\"xsd:double\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:greaterThan(?age, \"41\"^^xsd:double) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -229,7 +229,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasHeightInCM", "177.0", "xsd:double");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasHeightInCM(p1, ?height) ^ swrlb:equal(?height, \"177.0\"^^\"xsd:double\") -> sqwrl:select(0)");
+				"hasHeightInCM(p1, ?height) ^ swrlb:equal(?height, \"177.0\"^^xsd:double) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -285,7 +285,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasDOB", "2001-01-05", "xsd:date");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasDOB(p1, ?dob) ^ swrlb:equal(?dob, \"2001-01-05\"^^\"xsd:date\") -> sqwrl:select(0)");
+				"hasDOB(p1, ?dob) ^ swrlb:equal(?dob, \"2001-01-05\"^^xsd:date) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -296,7 +296,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasTOB", "2001-01-05T10:10:10", "xsd:dateTime");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasTOB(p1, ?tob) ^ swrlb:equal(?tob, \"2001-01-05T10:10:10\"^^\"xsd:dateTime\")-> sqwrl:select(0)");
+				"hasTOB(p1, ?tob) ^ swrlb:equal(?tob, \"2001-01-05T10:10:10\"^^xsd:dateTime)-> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -307,7 +307,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasAge", "P42Y", "xsd:duration");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"P42Y\"^^\"xsd:duration\") -> sqwrl:select(0)");
+				"hasAge(p1, ?age) ^ swrlb:equal(?age, \"P42Y\"^^xsd:duration) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -318,7 +318,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 		declareOWLDataPropertyAssertion("p1", "hasBirthTime", "10:10:10.33", "xsd:time");
 
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasBirthTime(p1, ?bt) ^ swrlb:equal(?bt, \"10:10:10.33\"^^\"xsd:time\") -> sqwrl:select(0)");
+				"hasBirthTime(p1, ?bt) ^ swrlb:equal(?bt, \"10:10:10.33\"^^xsd:time) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -326,7 +326,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLCoreAddBuiltInWithShort() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(\"4\"^^\"xsd:short\", \"2\"^^\"xsd:short\", \"2\"^^\"xsd:short\") -> sqwrl:select(0)";
+		String query = "swrlb:add(\"4\"^^xsd:short, \"2\"^^xsd:short, \"2\"^^xsd:short) -> sqwrl:select(0)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -351,7 +351,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLCoreAddBuiltInWithLong() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(\"4\"^^\"xsd:long\", \"2\"^^\"xsd:long\", \"2\"^^\"xsd:long\") -> sqwrl:select(\"Yes\")";
+		String query = "swrlb:add(\"4\"^^xsd:long, \"2\"^^xsd:long, \"2\"^^xsd:long) -> sqwrl:select(\"Yes\")";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -360,8 +360,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLCoreAddBuiltInWithDoubles() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(\"4.0\"^^\"xsd:double\", \"2.0\"^^\"xsd:double\", \"2.0\"^^\"xsd:double\")"
-				+ " -> sqwrl:select(0)";
+		String query = "swrlb:add(\"4.0\"^^xsd:double, \"2.0\"^^xsd:double, \"2.0\"^^xsd:double)" + " -> sqwrl:select(0)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -538,7 +537,7 @@ public class SWRLCoreBuiltInsTestCase extends SWRLAPITestBase
 	public void TestSWRLCoreTimeBuiltIn() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"swrlb:time(\"10:11:12\"^^\"xsd:time\", 10, 11, 12, \"\") -> sqwrl:select(0)");
+				"swrlb:time(\"10:11:12\"^^xsd:time, 10, 11, 12, \"\") -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}

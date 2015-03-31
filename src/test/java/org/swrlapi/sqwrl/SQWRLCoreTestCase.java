@@ -54,7 +54,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreByteResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:byte\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^xsd:byte)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -66,7 +66,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreShortResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:short\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^xsd:short)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -78,7 +78,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreQualifiedIntResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:int\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^xsd:int)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -102,7 +102,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreLongResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^\"xsd:long\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34\"^^xsd:long)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -126,7 +126,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreQualifiedFloatResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34.0\"^^\"xsd:float\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34.0\"^^xsd:float)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -138,7 +138,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreDoubleResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34.0\"^^\"xsd:double\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"34.0\"^^xsd:double)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -150,7 +150,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreQualifiedBooleanResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"true\"^^\"xsd:boolean\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"true\"^^xsd:boolean)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -174,7 +174,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreQualifiedStringResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"Cat\"^^\"xsd:string\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"Cat\"^^xsd:string)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -199,7 +199,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	public void TestSQWRLCoreURIResult() throws SWRLParseException, SQWRLException, URISyntaxException
 	{
 		String homepage = "http://stanford.edu/~fred";
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"" + homepage + "\"^^\"xsd:anyURI\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"" + homepage + "\"^^xsd:anyURI)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -211,7 +211,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreTimeResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"10:10:11\"^^\"xsd:time\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"10:10:11\"^^xsd:time)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -223,7 +223,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreDateResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"1999-01-01\"^^\"xsd:date\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"1999-01-01\"^^xsd:date\")");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -235,7 +235,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreDateTimeResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"1999-01-01T10:10:11\"^^\"xsd:dateTime\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"1999-01-01T10:10:11\"^^xsd:dateTime)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
@@ -247,7 +247,7 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSQWRLCoreDurationResult() throws SWRLParseException, SQWRLException
 	{
-		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"P24Y\"^^\"xsd:duration\")");
+		SQWRLResult result = executeSQWRLQuery("q1", "-> sqwrl:select(\"P24Y\"^^xsd:duration)");
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);

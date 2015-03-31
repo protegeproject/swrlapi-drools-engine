@@ -45,7 +45,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLBuiltInsByteBoundResult() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(?r, \"2\"^^\"xsd:byte\", \"2\"^^\"xsd:byte\") -> sqwrl:select(?r)";
+		String query = "swrlb:add(?r, \"2\"^^xsd:byte, \"2\"^^xsd:byte) -> sqwrl:select(?r)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -57,7 +57,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLBuiltInsShortBoundResult() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(?r, \"2\"^^\"xsd:short\", \"2\"^^\"xsd:short\") -> sqwrl:select(?r)";
+		String query = "swrlb:add(?r, \"2\"^^xsd:short, \"2\"^^xsd:short) -> sqwrl:select(?r)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -91,7 +91,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLBuiltInsLongBoundResult() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(?r, \"2\"^^\"xsd:long\", \"2\"^^\"xsd:long\") -> sqwrl:select(?r)";
+		String query = "swrlb:add(?r, \"2\"^^xsd:long, \"2\"^^xsd:long) -> sqwrl:select(?r)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -103,7 +103,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLBuiltInsDoubleBoundResult() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(?r, \"2.0\"^^\"xsd:double\", \"2.0\"^^\"xsd:double\") -> sqwrl:select(?r)";
+		String query = "swrlb:add(?r, \"2.0\"^^xsd:double, \"2.0\"^^xsd:double) -> sqwrl:select(?r)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -138,7 +138,7 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	public void TestSWRLBuiltInsDateTimeBoundResult() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
-				"temporal:add(?r, \"1999-11-01T10:00:01.0\"^^\"xsd:dateTime\", 0, \"Years\") -> sqwrl:select(?r)");
+				"temporal:add(?r, \"1999-11-01T10:00:01.0\"^^xsd:dateTime, 0, \"Years\") -> sqwrl:select(?r)");
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("r").isDateTime());
@@ -159,8 +159,8 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLBuiltInsCascadingShortVariable() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(?x, \"2\"^^\"xsd:short\", \"2\"^^\"xsd:short\") ^ "
-				+ "swrlb:multiply(?y, ?x, \"2\"^^\"xsd:short\") -> sqwrl:select(?y)";
+		String query = "swrlb:add(?x, \"2\"^^xsd:short, \"2\"^^xsd:short) ^ "
+				+ "swrlb:multiply(?y, ?x, \"2\"^^xsd:short) -> sqwrl:select(?y)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -182,8 +182,8 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLBuiltInsCascadingLongVariable() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(?x, \"2\"^^\"xsd:long\", \"2\"^^\"xsd:long\") ^ "
-				+ "swrlb:multiply(?y, ?x, \"2\"^^\"xsd:long\") -> sqwrl:select(?y)";
+		String query = "swrlb:add(?x, \"2\"^^xsd:long, \"2\"^^xsd:long) ^ "
+				+ "swrlb:multiply(?y, ?x, \"2\"^^xsd:long) -> sqwrl:select(?y)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());
@@ -205,8 +205,8 @@ public class SWRLBuiltInsTestCase extends SWRLAPITestBase
 	@Test
 	public void TestSWRLBuiltInsCascadingDoubleVariable() throws SWRLParseException, SQWRLException
 	{
-		String query = "swrlb:add(?x, \"2.0\"^^\"xsd:double\", \"2.0\"^^\"xsd:double\") ^ "
-				+ "swrlb:multiply(?y, ?x, \"2.0\"^^\"xsd:double\") -> sqwrl:select(?y)";
+		String query = "swrlb:add(?x, \"2.0\"^^xsd:double, \"2.0\"^^xsd:double) ^ "
+				+ "swrlb:multiply(?y, ?x, \"2.0\"^^xsd:double) -> sqwrl:select(?y)";
 		SQWRLResult result = executeSQWRLQuery("q1", query);
 
 		Assert.assertTrue(result.next());

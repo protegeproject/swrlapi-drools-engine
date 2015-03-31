@@ -126,7 +126,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:byte");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:byte\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^xsd:byte) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -136,7 +136,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:byte");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:byte\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^xsd:byte) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -158,7 +158,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:short");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:short\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^xsd:short) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -168,7 +168,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:short");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:short\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^xsd:short) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -222,7 +222,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:int");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:int\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^xsd:int) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -232,7 +232,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:int");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:int\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^xsd:int) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -266,7 +266,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "42", "xsd:long");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^\"xsd:long\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"42\"^^xsd:long) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -276,7 +276,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "yearOffsetToBirth", "-42", "xsd:long");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^\"xsd:long\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "yearOffsetToBirth(p1, \"-42\"^^xsd:long) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -332,7 +332,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasHeightInCM", "177.0", "xsd:float");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, \"177.0\"^^\"xsd:float\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, \"177.0\"^^xsd:float) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -342,7 +342,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "heightOffsetInCM", "-177.1", "xsd:float");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "heightOffsetInCM(p1, \"-177.1\"^^\"xsd:float\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "heightOffsetInCM(p1, \"-177.1\"^^xsd:float) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -376,7 +376,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasHeightInCM", "177.0", "xsd:double");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, \"177.0\"^^\"xsd:double\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeightInCM(p1, \"177.0\"^^xsd:double) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -386,7 +386,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "heightOffsetInCM", "-177.1", "xsd:double");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "heightOffsetInCM(p1, \"-177.1\"^^\"xsd:double\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "heightOffsetInCM(p1, \"-177.1\"^^xsd:double) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -432,7 +432,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "isFrench", "true", "xsd:boolean");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "isFrench(p1, \"true\"^^\"xsd:boolean\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "isFrench(p1, \"true\"^^xsd:boolean) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -452,7 +452,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "isFrench", "false", "xsd:boolean");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "isFrench(p1, \"false\"^^\"xsd:boolean\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "isFrench(p1, \"false\"^^xsd:boolean) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -496,7 +496,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasName", "Bob", "xsd:string");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasName(p1, \"Bob\"^^\"xsd:string\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasName(p1, \"Bob\"^^xsd:string) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -508,8 +508,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 
 		declareOWLDataPropertyAssertion("p1", "hasHomePage", homePage, "xsd:anyURI");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasHomePage(p1, \"" + homePage
-				+ "\"^^\"xsd:anyURI\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHomePage(p1, \"" + homePage + "\"^^xsd:anyURI) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -533,7 +532,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasDOB", "2001-01-05", "xsd:date");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasDOB(p1, \"2001-01-05\"^^\"xsd:date\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasDOB(p1, \"2001-01-05\"^^xsd:date) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -555,8 +554,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasTOB", "2001-01-05T10:10:10", "xsd:dateTime");
 
-		SQWRLResult result = executeSQWRLQuery("q1",
-				"hasTOB(p1, \"2001-01-05T10:10:10\"^^\"xsd:dateTime\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasTOB(p1, \"2001-01-05T10:10:10\"^^xsd:dateTime) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -578,7 +576,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "P42Y", "xsd:duration");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"P42Y\"^^\"xsd:duration\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(p1, \"P42Y\"^^xsd:duration) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
@@ -600,7 +598,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		declareOWLDataPropertyAssertion("p1", "hasBirthTime", "10:10:10.33", "xsd:time");
 
-		SQWRLResult result = executeSQWRLQuery("q1", "hasBirthTime(p1, \"10:10:10.33\"^^\"xsd:time\") -> sqwrl:select(0)");
+		SQWRLResult result = executeSQWRLQuery("q1", "hasBirthTime(p1, \"10:10:10.33\"^^xsd:time) -> sqwrl:select(0)");
 
 		Assert.assertTrue(result.next());
 	}
