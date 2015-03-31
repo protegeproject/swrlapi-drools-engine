@@ -271,7 +271,292 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLCoreAvg() throws SWRLParseException, SQWRLException
+	public void TestSQWRLCoreSumShortWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:short");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p6", "hasAge", "10", "xsd:short");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isShort());
+		Assert.assertEquals(literal.getInt(), 100);
+	}
+
+	@Test
+	public void TestSQWRLCoreSumIntWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:int");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "20", "xsd:int");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "10", "xsd:int");
+		declareOWLDataPropertyAssertion("p6", "hasAge", "10", "xsd:int");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getInt(), 100);
+	}
+
+	@Test
+	public void TestSQWRLCoreSumLongWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:int");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "10", "xsd:long");
+		declareOWLDataPropertyAssertion("p6", "hasAge", "10", "xsd:long");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isLong());
+		Assert.assertEquals(literal.getLong(), 100L);
+	}
+
+	@Test
+	public void TestSQWRLCoreSumFloatWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:int");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "10.0", "xsd:float");
+		declareOWLDataPropertyAssertion("p6", "hasAge", "10.0", "xsd:float");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getFloat(), 100.0f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreSumDoubleWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:int");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "10.0", "xsd:float");
+		declareOWLDataPropertyAssertion("p6", "hasAge", "10.0", "xsd:double");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDouble());
+		Assert.assertEquals(literal.getDouble(), 100.0d, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreByteSum() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:byte");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isByte());
+		Assert.assertEquals(literal.getByte(), 60);
+	}
+
+	@Test
+	public void TestSQWRLCoreShortSum() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:short");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isShort());
+		Assert.assertEquals(literal.getShort(), 60);
+	}
+
+	@Test
+	public void TestSQWRLCoreIntSum() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:int");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:int");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:int");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getInt(), 60);
+	}
+
+	@Test
+	public void TestSQWRLCoreLongSum() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:long");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:long");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:sum(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isLong());
+		Assert.assertEquals(literal.getLong(), 60L);
+	}
+
+	@Test
+	public void TestSQWRLCoreFloatSum() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasHeight", "100.1", "xsd:float");
+		declareOWLDataPropertyAssertion("p2", "hasHeight", "200.2", "xsd:float");
+		declareOWLDataPropertyAssertion("p3", "hasHeight", "300.2", "xsd:float");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:sum(?height)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getFloat(), 600.5f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreDoubleSum() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasHeight", "100.1", "xsd:double");
+		declareOWLDataPropertyAssertion("p2", "hasHeight", "200.2", "xsd:double");
+		declareOWLDataPropertyAssertion("p3", "hasHeight", "300.2", "xsd:double");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:sum(?height)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDouble());
+		Assert.assertEquals(literal.getDouble(), 600.5d, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreAvgShortBroadest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:short");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isShort());
+		Assert.assertEquals(literal.getShort(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreAvgIntBroadest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:int");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getInt(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreAvgLongBroadest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:int");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:long");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isLong());
+		Assert.assertEquals(literal.getLong(), 20L);
+	}
+
+	@Test
+	public void TestSQWRLCoreAvgFloatBroadest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:int");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30.0", "xsd:float");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getFloat(), 20.0f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreAvgDoubleBroadest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:long");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20.0", "xsd:float");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30.0", "xsd:double");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDouble());
+		Assert.assertEquals(literal.getDouble(), 20.0d, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreByteAvg() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:byte");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isByte());
+		Assert.assertEquals(literal.getByte(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreShortAvg() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:short");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isShort());
+		Assert.assertEquals(literal.getShort(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreIntAvg() throws SWRLParseException, SQWRLException
 	{
 		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:int");
 		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:int");
@@ -281,8 +566,240 @@ public class SQWRLCoreTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getInt(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreLongAvg() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:long");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "30", "xsd:long");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:avg(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isLong());
+		Assert.assertEquals(literal.getLong(), 20L);
+	}
+
+	@Test
+	public void TestSQWRLCoreFloatAvg() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasHeight", "10.3", "xsd:float");
+		declareOWLDataPropertyAssertion("p2", "hasHeight", "20.4", "xsd:float");
+		declareOWLDataPropertyAssertion("p3", "hasHeight", "30.5", "xsd:float");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:avg(?height)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getFloat(), 20.4f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreDoubleAvg() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasHeight", "10.3", "xsd:double");
+		declareOWLDataPropertyAssertion("p2", "hasHeight", "20.4", "xsd:double");
+		declareOWLDataPropertyAssertion("p3", "hasHeight", "30.5", "xsd:double");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:avg(?height)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
 		Assert.assertTrue(literal.isDouble());
-		Assert.assertEquals(literal.getDouble(), 20.0d, DELTA);
+		Assert.assertEquals(literal.getDouble(), 20.4d, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreMedianShortWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30", "xsd:short");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35", "xsd:short");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isShort());
+		Assert.assertEquals(literal.getShort(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreMedianIntWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:int");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:int");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30", "xsd:int");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35", "xsd:int");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getInt(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreMedianLongWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:int");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30", "xsd:long");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35", "xsd:long");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isLong());
+		Assert.assertEquals(literal.getLong(), 20L);
+	}
+
+	@Test
+	public void TestSQWRLCoreMedianFloatWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:int");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30.0", "xsd:float");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35.0", "xsd:float");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getFloat(), 20.0f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreMedianDoubleWidest() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:int");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30.0", "xsd:float");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35.0", "xsd:double");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDouble());
+		Assert.assertEquals(literal.getDouble(), 20.0f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreByteMedian() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:byte");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:byte");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:byte");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30", "xsd:byte");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35", "xsd:byte");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isByte());
+		Assert.assertEquals(literal.getByte(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreShortMedian() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:short");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:short");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:short");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30", "xsd:short");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35", "xsd:short");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isShort());
+		Assert.assertEquals(literal.getShort(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreIntMedian() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:int");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:int");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:int");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30", "xsd:int");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35", "xsd:int");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isInt());
+		Assert.assertEquals(literal.getInt(), 20);
+	}
+
+	@Test
+	public void TestSQWRLCoreLongMedian() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasAge", "10", "xsd:long");
+		declareOWLDataPropertyAssertion("p2", "hasAge", "15", "xsd:long");
+		declareOWLDataPropertyAssertion("p3", "hasAge", "20", "xsd:long");
+		declareOWLDataPropertyAssertion("p4", "hasAge", "30", "xsd:long");
+		declareOWLDataPropertyAssertion("p5", "hasAge", "35", "xsd:long");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasAge(?p, ?age)-> sqwrl:median(?age)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isLong());
+		Assert.assertEquals(literal.getLong(), 20L);
+	}
+
+	@Test
+	public void TestSQWRLCoreFloatMedian() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasHeight", "10.0", "xsd:float");
+		declareOWLDataPropertyAssertion("p2", "hasHeight", "15.3", "xsd:float");
+		declareOWLDataPropertyAssertion("p3", "hasHeight", "20.55", "xsd:float");
+		declareOWLDataPropertyAssertion("p4", "hasHeight", "30.32", "xsd:float");
+		declareOWLDataPropertyAssertion("p5", "hasHeight", "35.12", "xsd:float");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:median(?height)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isFloat());
+		Assert.assertEquals(literal.getFloat(), 20.55f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLCoreDoubleMedian() throws SWRLParseException, SQWRLException
+	{
+		declareOWLDataPropertyAssertion("p1", "hasHeight", "10.0", "xsd:double");
+		declareOWLDataPropertyAssertion("p2", "hasHeight", "15.3", "xsd:double");
+		declareOWLDataPropertyAssertion("p3", "hasHeight", "20.55", "xsd:double");
+		declareOWLDataPropertyAssertion("p4", "hasHeight", "30.32", "xsd:double");
+		declareOWLDataPropertyAssertion("p5", "hasHeight", "35.12", "xsd:double");
+
+		SQWRLResult result = executeSQWRLQuery("q1", "hasHeight(?p, ?height)-> sqwrl:median(?height)");
+
+		Assert.assertTrue(result.next());
+		SQWRLLiteralResultValue literal = result.getLiteral(0);
+		Assert.assertTrue(literal.isDouble());
+		Assert.assertEquals(literal.getDouble(), 20.55d, DELTA);
 	}
 
 	@Test

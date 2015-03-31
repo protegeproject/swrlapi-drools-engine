@@ -321,7 +321,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLClassedBagFirst() throws SWRLParseException, SQWRLException
+	public void TestSQWRLClassesBagFirst() throws SWRLParseException, SQWRLException
 	{
 		declareOWLClasses("DDI", "AZT");
 
@@ -415,7 +415,7 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 	}
 
 	@Test
-	public void TestSQWRLStringBagFirsr() throws SWRLParseException, SQWRLException
+	public void TestSQWRLStringBagFirst() throws SWRLParseException, SQWRLException
 	{
 		SQWRLResult result = executeSQWRLQuery("q1",
 				". sqwrl:makeBag(?s1, \"Fred\"^^\"xsd:string\") ^ sqwrl:makeBag(?s1, \"Bob\"^^\"xsd:string\") "
@@ -435,7 +435,211 @@ public class SQWRLCollectionsTestCase extends SWRLAPITestBase
 
 		Assert.assertTrue(result.next());
 		Assert.assertTrue(result.getLiteral("first").isString());
-		Assert.assertEquals(result.getLiteral("firts").getString(), "Bob");
+		Assert.assertEquals(result.getLiteral("first").getString(), "Bob");
+	}
+
+	@Test
+	public void TestSQWRLBagSumShortBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isShort());
+		Assert.assertEquals(result.getLiteral("sum").getShort(), 72);
+	}
+
+	@Test
+	public void TestSQWRLSetSumShortBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeSet(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeSet(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeSet(?s1, \"25\"^^\"xsd:short\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isShort());
+		Assert.assertEquals(result.getLiteral("sum").getShort(), 72);
+	}
+
+	@Test
+	public void TestSQWRLBagSumIntBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:int\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isInt());
+		Assert.assertEquals(result.getLiteral("sum").getInt(), 72);
+	}
+
+	@Test
+	public void TestSQWRLBagSumLongBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:long\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isLong());
+		Assert.assertEquals(result.getLiteral("sum").getLong(), 72L);
+	}
+
+	@Test
+	public void TestSQWRLBagSumFloatBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:float\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isFloat());
+		Assert.assertEquals(result.getLiteral("sum").getFloat(), 72f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLByteBagSumDoubleBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:double\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isDouble());
+		Assert.assertEquals(result.getLiteral("sum").getDouble(), 72d, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLByteBagSum() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:byte\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isByte());
+		Assert.assertEquals(result.getLiteral("sum").getByte(), 72);
+	}
+
+	@Test
+	public void TestSQWRLShortBagSum() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:short\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:short\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isShort());
+		Assert.assertEquals(result.getLiteral("sum").getShort(), 72);
+	}
+
+	@Test
+	public void TestSQWRLIntBagSum() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:int\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:int\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:int\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isInt());
+		Assert.assertEquals(result.getLiteral("sum").getInt(), 72);
+	}
+
+	@Test
+	public void TestSQWRLLongBagSum() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:long\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:long\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:long\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isLong());
+		Assert.assertEquals(result.getLiteral("sum").getLong(), 72L);
+	}
+
+	@Test
+	public void TestSQWRLFloatBagSum() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.0\"^^\"xsd:float\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23.0\"^^\"xsd:float\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:float\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isFloat());
+		Assert.assertEquals(result.getLiteral("sum").getFloat(), 72.0f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLDoubleBagSum() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24.0\"^^\"xsd:double\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23.0\"^^\"xsd:double\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:double\") "
+				+ ". sqwrl:sum(?sum, ?s1) -> sqwrl:select(?sum)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("sum").isDouble());
+		Assert.assertEquals(result.getLiteral("sum").getDouble(), 72.0d, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLBagAvgShortBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:short\") "
+				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("avg").isShort());
+		Assert.assertEquals(result.getLiteral("avg").getShort(), 24);
+	}
+
+	@Test
+	public void TestSQWRLBagAvgIntBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:int\") "
+				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("avg").isInt());
+		Assert.assertEquals(result.getLiteral("avg").getInt(), 24);
+	}
+
+	@Test
+	public void TestSQWRLBagAvgLongBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25\"^^\"xsd:long\") "
+				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("avg").isLong());
+		Assert.assertEquals(result.getLiteral("avg").getLong(), 24L);
+	}
+
+	@Test
+	public void TestSQWRLBagAvgFloatBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:float\") "
+				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("avg").isFloat());
+		Assert.assertEquals(result.getLiteral("avg").getFloat(), 24.0f, DELTA);
+	}
+
+	@Test
+	public void TestSQWRLBagDoubleBroadest() throws SWRLParseException, SQWRLException
+	{
+		SQWRLResult result = executeSQWRLQuery("q1", ". sqwrl:makeBag(?s1, \"24\"^^\"xsd:byte\") ^ "
+				+ "sqwrl:makeBag(?s1, \"23\"^^\"xsd:byte\") ^ sqwrl:makeBag(?s1, \"25.0\"^^\"xsd:double\") "
+				+ ". sqwrl:avg(?avg, ?s1) -> sqwrl:select(?avg)");
+
+		Assert.assertTrue(result.next());
+		Assert.assertTrue(result.getLiteral("avg").isDouble());
+		Assert.assertEquals(result.getLiteral("avg").getDouble(), 24.0d, DELTA);
 	}
 
 	@Test
