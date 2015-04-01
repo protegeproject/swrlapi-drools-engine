@@ -155,7 +155,7 @@ public class OWL2RLTestCase extends SWRLAPITestBase
 		return executeSQWRLQuery(queryName);
 	}
 
-	// TODO Generate tests as above for the following OWL 2 RL rules.
+	// TODO Generate OWL 2 RL tests as above for the following rules.
 	// // T(?x, ?p, ?y) T(?y, rdf:type, ?c) -> T(?p, rdfs:range, ?c)
 	// createOWL2RLRuleDefinition(OWL2RLNames.Rule.PRP_RNG, "prp_rng",
 	// "rule prp_rng when OPRA($p:pid, $r:rid) OPAA($x:s, pid==$p, $y:o) then CAA caa=new CAA($r, $y); inferrer.infer(caa); end");

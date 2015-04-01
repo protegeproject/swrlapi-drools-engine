@@ -16,7 +16,7 @@ public class BAVNs
 	private final List<String> variableNames = new ArrayList<String>();
 
 	/*
-	 * TODO The following vararg constructor does not seem to work in this version of Drools
+	 * The following vararg constructor does not seem to work in this version of Drools
 	 * 
 	 * public BAVNs(String... variableNames) { for (String variableName : variableNames) {
 	 * this.variableNames.add(variableName); } }
