@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.swrlapi.core.SWRLAPIOWLOntology;
-import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
+import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.sqwrl.SQWRLResult;
@@ -23,7 +23,7 @@ public class SWRLMathematicalBuiltInsTestCase extends SWRLAPITestBase
 	{
 		SWRLAPIOWLOntology swrlapiOWLOntology = createEmptySWRLAPIOWLOntology(Namespace);
 
-		sqwrlQueryEngine = swrlapiOWLOntology.createSQWRLQueryEngine(new DroolsSWRLRuleEngineCreator());
+		sqwrlQueryEngine = swrlapiOWLOntology.createSQWRLQueryEngine(DroolsFactory.getSWRLRuleEngineCreator());
 	}
 
 	@Test

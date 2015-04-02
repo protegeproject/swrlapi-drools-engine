@@ -12,7 +12,7 @@ import org.swrlapi.core.xsd.XSDDate;
 import org.swrlapi.core.xsd.XSDDateTime;
 import org.swrlapi.core.xsd.XSDDuration;
 import org.swrlapi.core.xsd.XSDTime;
-import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
+import org.swrlapi.drools.core.DroolsFactory;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.sqwrl.SQWRLResult;
@@ -30,7 +30,7 @@ public class SWRLCoreTestCase extends SWRLAPITestBase
 	{
 		SWRLAPIOWLOntology swrlapiOWLOntology = createEmptySWRLAPIOWLOntology(Namespace);
 
-		sqwrlQueryEngine = swrlapiOWLOntology.createSQWRLQueryEngine(new DroolsSWRLRuleEngineCreator());
+		sqwrlQueryEngine = swrlapiOWLOntology.createSQWRLQueryEngine(DroolsFactory.getSWRLRuleEngineCreator());
 	}
 
 	@Test
