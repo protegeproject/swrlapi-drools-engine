@@ -6,7 +6,7 @@ Documentation can be found at the [SWRLAPI Drools Engine Wiki](https://github.co
 
 #### Building Prerequisites
 
-To build and run this plugin, you must have the following items installed:
+To build and run this plugin you must have the following items installed:
 
 + Apache's [Maven](http://maven.apache.org/index.html).
 + A tool for checking out a [Git](http://git-scm.com/) repository.
@@ -21,9 +21,13 @@ Change into the swrlapi-drools-engine directory:
 
     cd swrlapi-drools-engine
 
-Build it with Maven:
+Then build it with Maven:
 
     mvn clean install
 
-On build completion, your local Maven repository will contain the generated swrlapi-drools-engine-${version}.jar file.
+On build completion your local Maven repository will contain the generated swrlapi-drools-engine-${version}.jar file.
 
+This JAR is used by the [Protégé](http://protege.stanford.edu/) [SWRLTab Plugin](https://github.com/protegeproject/swrltab-plugin)
+and by the standalone [SWRLTab](https://github.com/protegeproject/swrltab) tool.
+
+A [Build Project](https://github.com/protegeproject/swrltab-project) is provided to build core SWRLAPI-related components.
