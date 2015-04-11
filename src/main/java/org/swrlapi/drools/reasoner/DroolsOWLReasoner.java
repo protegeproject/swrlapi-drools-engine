@@ -55,6 +55,16 @@ import org.swrlapi.drools.owl.properties.OPE;
  */
 public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 {
+	private static final String OWLThingPrefixedName = OWLRDFVocabulary.OWL_NOTHING.getPrefixedName();
+	private static final String OWLNothingPrefixedName = OWLRDFVocabulary.OWL_NOTHING.getPrefixedName();
+	private static final String OWLTopObjectPropertyPrefixedName = OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY
+			.getPrefixedName();
+	private static final String OWLBottomObjectPropertyPrefixedName = OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY
+			.getPrefixedName();
+	private static final String OWLTopDataPropertyPrefixedName = OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getPrefixedName();
+	private static final String OWLBottomDataPropertyPrefixedName = OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY
+			.getPrefixedName();
+
 	private final DroolsOWLAxiomHandler droolsOWLAxiomHandler;
 
 	private boolean prepared = false;
@@ -109,7 +119,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	@Override
 	public boolean isConsistent() throws ReasonerInterruptedException, TimeOutException
 	{
-		return !this.droolsOWLAxiomHandler.isInconsistent();
+		return !getDroolsOWLAxiomHandler().isInconsistent();
 	}
 
 	@Override
@@ -118,8 +128,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		if (!owlClassExpression.isAnonymous()) {
 			CE ce = resolveCE(owlClassExpression);
-			return this.droolsOWLAxiomHandler.getEquivalentClasses(OWLRDFVocabulary.OWL_NOTHING.getShortForm()).contains(
-					ce.getceid());
+			return getDroolsOWLAxiomHandler().getEquivalentClasses(OWLNothingPrefixedName).contains(ce.getceid());
 		} else
 			return false;
 	}
@@ -162,7 +171,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		Set<OWLClass> classes = new HashSet<>();
 
-		for (String classID : this.droolsOWLAxiomHandler.getEquivalentClasses(OWLRDFVocabulary.OWL_THING.getShortForm())) {
+		for (String classID : getDroolsOWLAxiomHandler().getEquivalentClasses(OWLThingPrefixedName)) {
 			OWLClass c = resolveOWLClass(classID);
 			classes.add(c);
 		}
@@ -174,7 +183,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		Set<OWLClass> classes = new HashSet<>();
 
-		for (String classID : this.droolsOWLAxiomHandler.getEquivalentClasses(OWLRDFVocabulary.OWL_NOTHING.getShortForm())) {
+		for (String classID : getDroolsOWLAxiomHandler().getEquivalentClasses(OWLNothingPrefixedName)) {
 			OWLClass c = resolveOWLClass(classID);
 			classes.add(c);
 		}
@@ -191,7 +200,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		if (!owlClassExpression.isAnonymous()) {
 			ensurePrepared();
 			C c = resolveC(owlClassExpression.asOWLClass());
-			for (String subClassID : this.droolsOWLAxiomHandler.getSubClasses(c.getceid(), direct)) {
+			String classID = c.getceid();
+			for (String subClassID : getDroolsOWLAxiomHandler().getSubClasses(classID, direct)) {
 				OWLClassExpression subClassExpression = resolveOWLClassExpression(subClassID);
 				Node<OWLClass> cNode = getEquivalentClasses(subClassExpression);
 				ns.addNode(cNode);
@@ -210,7 +220,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		if (!owlClassExpression.isAnonymous()) {
 			ensurePrepared();
 			C c = resolveC(owlClassExpression.asOWLClass());
-			for (String superClassID : this.droolsOWLAxiomHandler.getSuperClasses(c.getceid(), direct)) {
+			String classID = c.getceid();
+			for (String superClassID : getDroolsOWLAxiomHandler().getSuperClasses(classID, direct)) {
 				OWLClassExpression subClassExpression = resolveOWLClassExpression(superClassID);
 				Node<OWLClass> cNode = getEquivalentClasses(subClassExpression);
 				ns.addNode(cNode);
@@ -227,8 +238,9 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		Set<OWLClass> classes = new HashSet<>();
 
 		CE ce = resolveCE(owlClassExpression);
-		for (String classID : this.droolsOWLAxiomHandler.getEquivalentClasses(ce.getceid())) {
-			OWLClass c = resolveOWLClass(classID);
+		String classID = ce.getceid();
+		for (String equivalentClassID : getDroolsOWLAxiomHandler().getEquivalentClasses(classID)) {
+			OWLClass c = resolveOWLClass(equivalentClassID);
 			classes.add(c);
 		}
 		return new OWLClassNode(classes);
@@ -243,7 +255,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		if (!owlClassExpression.isAnonymous()) {
 			ensurePrepared();
 			C c = resolveC(owlClassExpression.asOWLClass());
-			for (String disjointClassID : this.droolsOWLAxiomHandler.getDisjointClasses(c.getceid())) {
+			String classID = c.getceid();
+			for (String disjointClassID : getDroolsOWLAxiomHandler().getDisjointClasses(classID)) {
 				OWLClassExpression disjointClassExpression = resolveOWLClassExpression(disjointClassID);
 				Node<OWLClass> cNode = getEquivalentClasses(disjointClassExpression);
 				nodeSet.addNode(cNode);
@@ -257,8 +270,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		Set<OWLObjectPropertyExpression> properties = new HashSet<>();
 
-		for (String propertyID : this.droolsOWLAxiomHandler
-				.getEquivalentObjectProperties(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getShortForm())) {
+		for (String propertyID : getDroolsOWLAxiomHandler().getEquivalentObjectProperties(OWLTopObjectPropertyPrefixedName)) {
 			OWLObjectPropertyExpression property = resolveOWLObjectPropertyExpression(propertyID);
 			properties.add(property);
 		}
@@ -270,8 +282,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		Set<OWLObjectPropertyExpression> properties = new HashSet<>();
 
-		for (String propertyID : this.droolsOWLAxiomHandler
-				.getEquivalentObjectProperties(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getShortForm())) {
+		for (String propertyID : getDroolsOWLAxiomHandler().getEquivalentObjectProperties(
+				OWLBottomObjectPropertyPrefixedName)) {
 			OWLObjectPropertyExpression property = resolveOWLObjectPropertyExpression(propertyID);
 			properties.add(property);
 		}
@@ -287,7 +299,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
 		ensurePrepared();
 		OPE pe = resolveOPE(owlObjectPropertyExpression);
-		for (String subPropertyID : this.droolsOWLAxiomHandler.getSubObjectProperties(pe.getid(), direct)) {
+		String propertyID = pe.getid();
+		for (String subPropertyID : getDroolsOWLAxiomHandler().getSubObjectProperties(propertyID, direct)) {
 			OWLObjectPropertyExpression subPropertyExpression = resolveOWLObjectPropertyExpression(subPropertyID);
 			Node<OWLObjectPropertyExpression> opNode = getEquivalentObjectProperties(subPropertyExpression);
 			ns.addNode(opNode);
@@ -304,7 +317,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
 		ensurePrepared();
 		OPE pe = resolveOPE(owlObjectPropertyExpression);
-		for (String superPropertyID : this.droolsOWLAxiomHandler.getSuperObjectProperties(pe.getid(), direct)) {
+		String propertyID = pe.getid();
+		for (String superPropertyID : getDroolsOWLAxiomHandler().getSuperObjectProperties(propertyID, direct)) {
 			OWLObjectPropertyExpression superPropertyExpression = resolveOWLObjectPropertyExpression(superPropertyID);
 			Node<OWLObjectPropertyExpression> opNode = getEquivalentObjectProperties(superPropertyExpression);
 			ns.addNode(opNode);
@@ -320,7 +334,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		Set<OWLObjectPropertyExpression> properties = new HashSet<>();
 
 		OPE ope = resolveOPE(owlObjectPropertyExpression);
-		for (String equivalentPropertyID : this.droolsOWLAxiomHandler.getEquivalentObjectProperties(ope.getid())) {
+		String propertyID = ope.getid();
+		for (String equivalentPropertyID : getDroolsOWLAxiomHandler().getEquivalentObjectProperties(propertyID)) {
 			OWLObjectPropertyExpression p = resolveOWLObjectPropertyExpression(equivalentPropertyID);
 			properties.add(p);
 		}
@@ -336,7 +351,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
 		ensurePrepared();
 		OPE ope = resolveOPE(owlObjectPropertyExpression);
-		for (String disjointPropertyID : this.droolsOWLAxiomHandler.getDisjointObjectProperties(ope.getid())) {
+		String propertyID = ope.getid();
+		for (String disjointPropertyID : getDroolsOWLAxiomHandler().getDisjointObjectProperties(propertyID)) {
 			OWLObjectPropertyExpression disjointProperty = resolveOWLObjectPropertyExpression(disjointPropertyID);
 			Node<OWLObjectPropertyExpression> opNode = getEquivalentObjectProperties(disjointProperty);
 			nodeSet.addNode(opNode);
@@ -351,6 +367,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		ensurePrepared();
 		OWLObjectPropertyExpression inv = owlObjectPropertyExpression.getInverseProperty().getSimplified();
+
 		return getEquivalentObjectProperties(inv);
 	}
 
@@ -361,8 +378,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		OWLClassNodeSet ns = new OWLClassNodeSet();
 		OPE ope = resolveOPE(owlObjectPropertyExpression);
-
-		for (String classID : this.droolsOWLAxiomHandler.getObjectPropertyDomains(ope.getid(), direct)) {
+		String propertyID = ope.getid();
+		for (String classID : getDroolsOWLAxiomHandler().getObjectPropertyDomains(propertyID, direct)) {
 			OWLClass domainClass = resolveOWLClass(classID);
 			Node<OWLClass> cNode = getEquivalentClasses(domainClass);
 			ns.addNode(cNode);
@@ -377,8 +394,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		OWLClassNodeSet ns = new OWLClassNodeSet();
 		OPE ope = resolveOPE(owlObjectPropertyExpression);
-
-		for (String classID : this.droolsOWLAxiomHandler.getObjectPropertyRanges(ope.getid(), direct)) {
+		String propertyID = ope.getid();
+		for (String classID : getDroolsOWLAxiomHandler().getObjectPropertyRanges(propertyID, direct)) {
 			OWLClass rangeClass = resolveOWLClass(classID);
 			Node<OWLClass> cNode = getEquivalentClasses(rangeClass);
 			ns.addNode(cNode);
@@ -391,8 +408,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		Set<OWLDataProperty> properties = new HashSet<>();
 
-		for (String propertyID : this.droolsOWLAxiomHandler
-				.getEquivalentDataProperties(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getShortForm())) {
+		for (String propertyID : getDroolsOWLAxiomHandler().getEquivalentDataProperties(OWLTopDataPropertyPrefixedName)) {
 			OWLDataProperty property = resolveOWLDataProperty(propertyID);
 			properties.add(property);
 		}
@@ -404,8 +420,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		Set<OWLDataProperty> properties = new HashSet<>();
 
-		for (String propertyID : this.droolsOWLAxiomHandler
-				.getEquivalentDataProperties(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getShortForm())) {
+		for (String propertyID : getDroolsOWLAxiomHandler().getEquivalentDataProperties(OWLBottomDataPropertyPrefixedName)) {
 			OWLDataProperty property = resolveOWLDataProperty(propertyID);
 			properties.add(property);
 		}
@@ -420,7 +435,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
 		ensurePrepared();
 		DP dp = resolveDP(owlDataProperty);
-		for (String subPropertyID : this.droolsOWLAxiomHandler.getSubDataProperties(dp.getid(), direct)) {
+		String propertyID = dp.getid();
+		for (String subPropertyID : getDroolsOWLAxiomHandler().getSubDataProperties(propertyID, direct)) {
 			OWLDataProperty subProperty = resolveOWLDataProperty(subPropertyID);
 			Node<OWLDataProperty> opNode = getEquivalentDataProperties(subProperty);
 			ns.addNode(opNode);
@@ -436,7 +452,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
 		ensurePrepared();
 		DP dp = resolveDP(owlDataProperty);
-		for (String subPropertyID : this.droolsOWLAxiomHandler.getSuperDataProperties(dp.getid(), direct)) {
+		String propertyID = dp.getid();
+		for (String subPropertyID : getDroolsOWLAxiomHandler().getSuperDataProperties(propertyID, direct)) {
 			OWLDataProperty subProperty = resolveOWLDataProperty(subPropertyID);
 			Node<OWLDataProperty> opNode = getEquivalentDataProperties(subProperty);
 			ns.addNode(opNode);
@@ -451,7 +468,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		Set<OWLDataProperty> properties = new HashSet<>();
 
 		DP dp = resolveDP(owlDataProperty);
-		for (String equivalentPropertyID : this.droolsOWLAxiomHandler.getEquivalentDataProperties(dp.getid())) {
+		String propertyID = dp.getid();
+		for (String equivalentPropertyID : getDroolsOWLAxiomHandler().getEquivalentDataProperties(propertyID)) {
 			OWLDataProperty p = resolveOWLDataProperty(equivalentPropertyID);
 			properties.add(p);
 		}
@@ -466,7 +484,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
 		ensurePrepared();
 		DPE dpe = resolveDPE(owlDataPropertyExpression);
-		for (String disjointPropertyID : this.droolsOWLAxiomHandler.getDisjointDataProperties(dpe.getid())) {
+		String propertyID = dpe.getid();
+		for (String disjointPropertyID : getDroolsOWLAxiomHandler().getDisjointDataProperties(propertyID)) {
 			OWLDataProperty disjointProperty = resolveOWLDataProperty(disjointPropertyID);
 			Node<OWLDataProperty> dpNode = getEquivalentDataProperties(disjointProperty);
 			nodeSet.addNode(dpNode);
@@ -480,8 +499,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		OWLClassNodeSet ns = new OWLClassNodeSet();
 		DP dp = resolveDP(owlDataProperty);
-
-		for (String classID : this.droolsOWLAxiomHandler.getDataPropertyDomains(dp.getid(), direct)) {
+		String propertyID = dp.getid();
+		for (String classID : getDroolsOWLAxiomHandler().getDataPropertyDomains(propertyID, direct)) {
 			OWLClass domainClass = resolveOWLClass(classID);
 			Node<OWLClass> cNode = getEquivalentClasses(domainClass);
 			ns.addNode(cNode);
@@ -512,8 +531,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
 		I i = resolveI(owlNamedIndividual);
 		OPE ope = resolveOPE(owlObjectPropertyExpression);
-
-		for (String individualID : this.droolsOWLAxiomHandler.getObjectPropertyValuesForIndividual(i.getid(), ope.getid())) {
+		String propertyID = ope.getid();
+		for (String individualID : getDroolsOWLAxiomHandler().getObjectPropertyValuesForIndividual(i.getid(), propertyID)) {
 			OWLNamedIndividual valueIndividual = resolveOWLNamedIndividual(individualID);
 			Node<OWLNamedIndividual> valueIndividualsNode = getSameIndividuals(valueIndividual);
 			ns.addNode(valueIndividualsNode);
@@ -528,8 +547,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		Set<OWLLiteral> values = new HashSet<>();
 		I i = resolveI(owlNamedIndividual);
 		DP dp = resolveDP(owlDataProperty);
-
-		for (L l : this.droolsOWLAxiomHandler.getDataPropertyValuesForIndividual(i.getid(), dp.getid())) {
+		String propertyID = dp.getid();
+		for (L l : getDroolsOWLAxiomHandler().getDataPropertyValuesForIndividual(i.getid(), propertyID)) {
 			OWLLiteral literal = l2OWLLiteral(l);
 			values.add(literal);
 		}
@@ -542,8 +561,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		Set<OWLNamedIndividual> individuals = new HashSet<>();
 		I i = resolveI(owlNamedIndividual);
-
-		for (String sameIndividualID : this.droolsOWLAxiomHandler.getSameIndividual(i.getid())) {
+		String individualID = i.getid();
+		for (String sameIndividualID : getDroolsOWLAxiomHandler().getSameIndividual(individualID)) {
 			OWLNamedIndividual individual = resolveOWLNamedIndividual(sameIndividualID);
 			individuals.add(individual);
 		}
@@ -556,8 +575,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
 		I i = resolveI(owlNamedIndividual);
-
-		for (String sameIndividualID : this.droolsOWLAxiomHandler.getDifferentIndividuals(i.getid())) {
+		String individualID = i.getid();
+		for (String sameIndividualID : getDroolsOWLAxiomHandler().getDifferentIndividuals(individualID)) {
 			OWLNamedIndividual sameIndividual = resolveOWLNamedIndividual(sameIndividualID);
 			Node<OWLNamedIndividual> sameIndividualsNode = getSameIndividuals(sameIndividual);
 			ns.addNode(sameIndividualsNode);
@@ -650,5 +669,10 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	private OWLLiteral l2OWLLiteral(L l)
 	{
 		return null; // TODO implement l2OWLLiteral
+	}
+
+	private DroolsOWLAxiomHandler getDroolsOWLAxiomHandler()
+	{
+		return this.droolsOWLAxiomHandler;
 	}
 }

@@ -59,11 +59,11 @@ public class DP extends OE implements P, DPE
 
 	public static DP getOWLTopDataProperty()
 	{
-		return new DP(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getShortForm());
+		return new DP(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getPrefixedName());
 	}
 
 	public static DP getOWLBottomDataProperty()
 	{
-		return new DP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getShortForm());
+		return new DP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getPrefixedName());
 	}
 }

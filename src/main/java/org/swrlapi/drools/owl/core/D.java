@@ -65,6 +65,6 @@ public class D extends OE implements DR
 
 	public static D getTopDatatype()
 	{
-		return new D(OWLRDFVocabulary.RDFS_LITERAL.getShortForm());
+		return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
 	}
 }

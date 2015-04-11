@@ -59,11 +59,11 @@ public class OP extends OE implements P, OPE
 
 	public static OP getOWLTopObjectProperty()
 	{
-		return new OP(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getShortForm());
+		return new OP(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getPrefixedName());
 	}
 
 	public static OP getOWLBottomObjectProperty()
 	{
-		return new OP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getShortForm());
+		return new OP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getPrefixedName());
 	}
 }

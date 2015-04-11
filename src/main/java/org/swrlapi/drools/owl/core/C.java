@@ -65,11 +65,11 @@ public class C extends OE implements CE
 
 	public static C getOWLThing()
 	{
-		return new C(OWLRDFVocabulary.OWL_THING.getShortForm());
+		return new C(OWLRDFVocabulary.OWL_THING.getPrefixedName());
 	}
 
 	public static C getOWLNothing()
 	{
-		return new C(OWLRDFVocabulary.OWL_NOTHING.getShortForm());
+		return new C(OWLRDFVocabulary.OWL_NOTHING.getPrefixedName());
 	}
 }
