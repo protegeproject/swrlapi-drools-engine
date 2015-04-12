@@ -7,8 +7,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
-import org.swrlapi.drools.core.DroolsDPEResolver;
-import org.swrlapi.drools.core.DroolsOPEResolver;
+import org.swrlapi.drools.core.DroolsResolver;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
 
@@ -18,19 +17,16 @@ import org.swrlapi.drools.owl.properties.OP;
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyExpression
  * @see org.semanticweb.owlapi.model.OWLDataPropertyExpression
  */
-public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase
-		implements TargetRuleEngineOWLPropertyExpressionConverter<String>
+public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
+		TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
-	private final DroolsOPEResolver opeResolver;
-	private final DroolsDPEResolver dpeResolver;
+	private final DroolsResolver resolver;
 
-	public DroolsOWLPropertyExpressionConverter(SWRLRuleEngineBridge bridge, DroolsOPEResolver opeResolver,
-			DroolsDPEResolver dpeResolver)
+	public DroolsOWLPropertyExpressionConverter(SWRLRuleEngineBridge bridge, DroolsResolver resolver)
 	{
 		super(bridge);
 
-		this.opeResolver = opeResolver;
-		this.dpeResolver = dpeResolver;
+		this.resolver = resolver;
 
 		reset();
 	}
@@ -39,8 +35,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase
 	{
 		getOWLObjectPropertyExpressionResolver().reset();
 		getOWLDataPropertyExpressionResolver().reset();
-		this.opeResolver.reset();
-		this.dpeResolver.reset();
+		this.resolver.reset();
 	}
 
 	@Override
@@ -49,7 +44,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase
 		if (!getOWLObjectPropertyExpressionResolver().records(propertyExpression)) {
 
 			if (propertyExpression.isAnonymous()) {
-				String propertyExpressionID = this.opeResolver.generatePEID();
+				String propertyExpressionID = this.resolver.getDroolsOPEResolver().generatePEID();
 				getOWLObjectPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
 
 				return propertyExpressionID;
@@ -60,7 +55,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase
 				OP op = new OP(prefixedName);
 
 				getOWLObjectPropertyExpressionResolver().record(prefixedName, propertyExpression);
-				this.opeResolver.record(op);
+				this.resolver.getDroolsOPEResolver().record(op);
 
 				return prefixedName;
 			}
@@ -74,7 +69,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase
 		if (!getOWLDataPropertyExpressionResolver().records(propertyExpression)) {
 
 			if (propertyExpression.isAnonymous()) {
-				String propertyExpressionID = this.dpeResolver.generatePEID();
+				String propertyExpressionID = this.resolver.getDroolsDPEResolver().generatePEID();
 				getOWLDataPropertyExpressionResolver().record(propertyExpressionID, propertyExpression);
 
 				return propertyExpressionID;
@@ -85,7 +80,7 @@ public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase
 				DP dp = new DP(prefixedName);
 
 				getOWLDataPropertyExpressionResolver().record(prefixedName, propertyExpression);
-				this.dpeResolver.record(dp);
+				this.resolver.getDroolsDPEResolver().record(dp);
 
 				return prefixedName;
 			}

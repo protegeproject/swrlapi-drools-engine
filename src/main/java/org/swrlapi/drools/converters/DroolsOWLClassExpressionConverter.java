@@ -1,5 +1,8 @@
 package org.swrlapi.drools.converters;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
@@ -25,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
 import org.swrlapi.drools.core.DroolsCEResolver;
+import org.swrlapi.drools.core.DroolsResolver;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl.classexpressions.DAVFCE;
 import org.swrlapi.drools.owl.classexpressions.DCCE;
@@ -46,28 +50,25 @@ import org.swrlapi.drools.owl.classexpressions.OSVFCE;
 import org.swrlapi.drools.owl.classexpressions.OUOCE;
 import org.swrlapi.drools.owl.core.C;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * This class converts OWLAPI OWL class expressions to their Drools representation.
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
  * @see org.swrlapi.drools.owl.classexpressions.CE
  */
-public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
-		implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
+public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
+		TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
 	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-	private final DroolsCEResolver droolsCeResolver;
+	private final DroolsResolver resolver;
 
-	public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge, DroolsCEResolver droolsCeResolver,
+	public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge, DroolsResolver resolver,
 			DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
 		this.propertyExpressionConverter = propertyExpressionConverter;
-		this.droolsCeResolver = droolsCeResolver;
+		this.resolver = resolver;
 
 		reset();
 	}
@@ -394,89 +395,110 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
 		return getCEResolver().getCEs();
 	}
 
-	@Override public String visit(OWLClass owlClass)
+	@Override
+	public String visit(OWLClass owlClass)
 	{
 		return convert(owlClass);
 	}
 
-	@Override public String visit(OWLObjectIntersectionOf owlObjectIntersectionOf)
+	@Override
+	public String visit(OWLObjectIntersectionOf owlObjectIntersectionOf)
 	{
 		return convert(owlObjectIntersectionOf);
 	}
 
-	@Override public String visit(OWLObjectUnionOf owlObjectUnionOf)
+	@Override
+	public String visit(OWLObjectUnionOf owlObjectUnionOf)
 	{
 		return convert(owlObjectUnionOf);
 	}
 
-	@Override public String visit(OWLObjectComplementOf owlObjectComplementOf)
+	@Override
+	public String visit(OWLObjectComplementOf owlObjectComplementOf)
 	{
 		return convert(owlObjectComplementOf);
 	}
 
-	@Override public String visit(OWLObjectSomeValuesFrom owlObjectSomeValuesFrom)
+	@Override
+	public String visit(OWLObjectSomeValuesFrom owlObjectSomeValuesFrom)
 	{
 		return convert(owlObjectSomeValuesFrom);
 	}
 
-	@Override public String visit(OWLObjectAllValuesFrom owlObjectAllValuesFrom)
+	@Override
+	public String visit(OWLObjectAllValuesFrom owlObjectAllValuesFrom)
 	{
 		return convert(owlObjectAllValuesFrom);
 	}
 
-	@Override public String visit(OWLObjectHasValue owlObjectHasValue) { return convert(owlObjectHasValue); }
+	@Override
+	public String visit(OWLObjectHasValue owlObjectHasValue)
+	{
+		return convert(owlObjectHasValue);
+	}
 
-	@Override public String visit(OWLObjectMinCardinality owlObjectMinCardinality)
+	@Override
+	public String visit(OWLObjectMinCardinality owlObjectMinCardinality)
 	{
 		return convert(owlObjectMinCardinality);
 	}
 
-	@Override public String visit(OWLObjectExactCardinality owlObjectExactCardinality)
+	@Override
+	public String visit(OWLObjectExactCardinality owlObjectExactCardinality)
 	{
 		return convert(owlObjectExactCardinality);
 	}
 
-	@Override public String visit(OWLObjectMaxCardinality owlObjectMaxCardinality)
+	@Override
+	public String visit(OWLObjectMaxCardinality owlObjectMaxCardinality)
 	{
 		return convert(owlObjectMaxCardinality);
 	}
 
-	@Override public String visit(OWLObjectHasSelf owlObjectHasSelf)
+	@Override
+	public String visit(OWLObjectHasSelf owlObjectHasSelf)
 	{
 		return convert(owlObjectHasSelf);
 	}
 
-	@Override public String visit(OWLObjectOneOf owlObjectOneOf)
+	@Override
+	public String visit(OWLObjectOneOf owlObjectOneOf)
 	{
 		return convert(owlObjectOneOf);
 	}
 
-	@Override public String visit(OWLDataSomeValuesFrom owlDataSomeValuesFrom)
+	@Override
+	public String visit(OWLDataSomeValuesFrom owlDataSomeValuesFrom)
 	{
 		return convert(owlDataSomeValuesFrom);
 	}
 
-	@Override public String visit(OWLDataAllValuesFrom owlDataAllValuesFrom)
+	@Override
+	public String visit(OWLDataAllValuesFrom owlDataAllValuesFrom)
 	{
 		return convert(owlDataAllValuesFrom);
 	}
 
-	@Override public String visit(OWLDataHasValue owlDataHasValue)
+	@Override
+	public String visit(OWLDataHasValue owlDataHasValue)
 	{
 		return convert(owlDataHasValue);
 	}
 
-	@Override public String visit(OWLDataMinCardinality owlDataMinCardinality)
+	@Override
+	public String visit(OWLDataMinCardinality owlDataMinCardinality)
 	{
 		return convert(owlDataMinCardinality);
 	}
 
-	@Override public String visit(OWLDataExactCardinality owlDataExactCardinality)
+	@Override
+	public String visit(OWLDataExactCardinality owlDataExactCardinality)
 	{
 		return convert(owlDataExactCardinality);
 	}
 
-	@Override public String visit(OWLDataMaxCardinality owlDataMaxCardinality)
+	@Override
+	public String visit(OWLDataMaxCardinality owlDataMaxCardinality)
 	{
 		return convert(owlDataMaxCardinality);
 	}
@@ -486,5 +508,8 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
 		return this.propertyExpressionConverter;
 	}
 
-	private DroolsCEResolver getCEResolver() { return this.droolsCeResolver; }
+	private DroolsCEResolver getCEResolver()
+	{
+		return this.resolver.getDroolsCEResolver();
+	}
 }

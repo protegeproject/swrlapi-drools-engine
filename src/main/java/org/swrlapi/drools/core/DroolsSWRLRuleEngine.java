@@ -77,13 +77,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	{
 		this.bridge = bridge;
 
-		DroolsCEResolver ceResolver = new DroolsCEResolver();
-		DroolsOPEResolver opeResolver = new DroolsOPEResolver();
-		DroolsDPEResolver dpeResolver = new DroolsDPEResolver();
+		DroolsResolver resolver = new DroolsResolver();
 		DroolsOWLPropertyExpressionConverter propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge,
-				opeResolver, dpeResolver);
+				resolver);
 		DroolsOWLClassExpressionConverter classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge,
-				ceResolver, propertyExpressionConverter);
+				resolver, propertyExpressionConverter);
 		this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this, classExpressionConverter,
 				propertyExpressionConverter);
 		this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter,

@@ -531,9 +531,11 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
 		I i = resolveI(owlNamedIndividual);
 		OPE ope = resolveOPE(owlObjectPropertyExpression);
+		String individualID = i.getid();
 		String propertyID = ope.getid();
-		for (String individualID : getDroolsOWLAxiomHandler().getObjectPropertyValuesForIndividual(i.getid(), propertyID)) {
-			OWLNamedIndividual valueIndividual = resolveOWLNamedIndividual(individualID);
+		for (String valueIndividualID : getDroolsOWLAxiomHandler().getObjectPropertyValuesForIndividual(individualID,
+				propertyID)) {
+			OWLNamedIndividual valueIndividual = resolveOWLNamedIndividual(valueIndividualID);
 			Node<OWLNamedIndividual> valueIndividualsNode = getSameIndividuals(valueIndividual);
 			ns.addNode(valueIndividualsNode);
 		}
@@ -547,8 +549,9 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		Set<OWLLiteral> values = new HashSet<>();
 		I i = resolveI(owlNamedIndividual);
 		DP dp = resolveDP(owlDataProperty);
+		String individualID = i.getid();
 		String propertyID = dp.getid();
-		for (L l : getDroolsOWLAxiomHandler().getDataPropertyValuesForIndividual(i.getid(), propertyID)) {
+		for (L l : getDroolsOWLAxiomHandler().getDataPropertyValuesForIndividual(individualID, propertyID)) {
 			OWLLiteral literal = l2OWLLiteral(l);
 			values.add(literal);
 		}
@@ -621,6 +624,11 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 		return null;
 	} // TODO implement resolveOWLClassExpression
 
+	private OWLNamedIndividual resolveOWLNamedIndividual(String individualID)
+	{
+		return null; // TODO implement resolveOWLNamedIndividual
+	}
+
 	private OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(String propertyID)
 	{
 		return null;
@@ -660,11 +668,6 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 	{
 		return null;
 	} // TODO implement resolveI
-
-	private OWLNamedIndividual resolveOWLNamedIndividual(String individualID)
-	{
-		return null; // TODO implement resolveOWLNamedIndividual
-	}
 
 	private OWLLiteral l2OWLLiteral(L l)
 	{
