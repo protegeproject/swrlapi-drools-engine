@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.swrlapi</groupId>
   <artifactId>swrlapi-drools-engine</artifactId>
   <version>1.0.6</version>
   <packaging>bundle</packaging>
-  <name>Drools implementation of SWRLAPI SWRL rule engine</name>
+  <name>Drools implementation of SWRLAPI-based SWRL rule engine</name>
 
   <properties>
 
@@ -16,7 +16,6 @@
     <drools.version>6.2.0.Final</drools.version> 
     <commons.discovery.osgi.version>0.4_1</commons.discovery.osgi.version>
     <slf4j.version>1.6.1</slf4j.version>
-
     <junit.version>4.11</junit.version>
     
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,20 +39,29 @@
     <!-- Start of Drools dependencies -->
 
     <dependency>
-	    <groupId>org.drools</groupId>
-	    <artifactId>drools-osgi-integration</artifactId>
-			<version>${drools.version}</version>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-osgi-integration</artifactId>
+      <version>${drools.version}</version>
     </dependency>
-    
-    <!-- The Drools 5 APIs used internally by the SWRLAPI Drools Engine -->
-    <!-- The knowledge-api provides an adapter from Drools 5 API to the Drools 6 KIE implementation. -->
-		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>knowledge-api</artifactId>
-			<version>${drools.version}</version>
-		</dependency>
+
+    <!-- The SWRLAPI-based Drools engine uses the Drools 5 API.  -->
+    <!-- The knowledge-api provides an adapter from the Drools 5 -->
+    <!-- API to the Drools 6 KIE implementation.                 -->
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>knowledge-api</artifactId>
+      <version>${drools.version}</version>
+    </dependency>
 
     <!-- End of Drools dependencies -->
+
+    <!-- OSGi Bundle for Apache Commons Discovery 0.4  -->
+    <dependency>
+      <groupId>org.apache.geronimo.bundles</groupId>
+      <artifactId>commons-discovery</artifactId>
+      <version>${commons.discovery.osgi.version}</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
@@ -63,23 +71,13 @@
     </dependency>
 
     <dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
 
-
-    <!-- OSGi Bundle for Apache Commons Discovery 0.4  -->
-    <dependency>
-        <groupId>org.apache.geronimo.bundles</groupId>
-        <artifactId>commons-discovery</artifactId>
-            <version>${commons.discovery.osgi.version}</version>
-      <scope>test</scope>
-     </dependency>
-
-
-	</dependencies>
+  </dependencies>
 
   <build>
 
@@ -87,7 +85,7 @@
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+        <version>2.3.2</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -97,25 +95,25 @@
       <plugin>   
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-				<version>2.4.0</version>
-				<extensions>true</extensions>
+        <version>2.4.0</version>
+        <extensions>true</extensions>
 
-				<configuration>
+        <configuration>
 
           <instructions>
-					  <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-					  <Include-Resource>{maven-resources}</Include-Resource>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Include-Resource>{maven-resources}</Include-Resource>
             <Import-Package>
               org.drools.*;version="6.2.0.Final",
               org.semanticweb.owlapi.*;version="4.0.2.SNAPSHOT",
               org.swrlapi.*;version="1.0.6",
               *
             </Import-Package>
-					  <Export-Package>
+            <Export-Package>
               org.swrlapi.drools;version="1.0.6"
-					  </Export-Package>
-				  </instructions>
-				</configuration>
+            </Export-Package>
+          </instructions>
+        </configuration>
 
         <executions>
           <execution>
