@@ -1,19 +1,19 @@
 package org.swrlapi.drools.owl2rl;
 
-import org.swrlapi.drools.core.DroolsRuleDefinition;
-import org.swrlapi.owl2rl.AbstractOWL2RLEngine;
-import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
-
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.swrlapi.drools.core.DroolsRuleDefinition;
+import org.swrlapi.owl2rl.AbstractOWL2RLEngine;
+import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
+
 /**
  * Class providing a Drools implementation of an OWL 2 RL-based reasoner.
- * </p>
- * This engine is created by a {@link org.swrlapi.drools.core.DroolsSWRLRuleEngine}. The OWL 2 RL rules are defined
- * in the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} class. All axioms inferred by Drools rules are
- * handled by a {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
+ * <p>
+ * This engine is created by a {@link org.swrlapi.drools.core.DroolsSWRLRuleEngine}. The OWL 2 RL rules are defined in
+ * the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} class. All axioms inferred by Drools rules are handled by a
+ * {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
  *
  * @see org.swrlapi.owl2rl.AbstractOWL2RLEngine
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLRules
@@ -86,6 +86,6 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 		// TODO DT_NOT_TYPE - Basically verify that the raw value of each literal is valid for its datatype
 		// T(lt, rdf:type, dt) -> false
 		// "For each literal lt and each datatype dt supported in OWL 2 RL such that the data value of lt is not
-		// contained in the value space of dt."  L(l., dt) ^ notValid(l, dt) -> explode?
+		// contained in the value space of dt." L(l., dt) ^ notValid(l, dt) -> explode?
 	}
 }

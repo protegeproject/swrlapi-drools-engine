@@ -3,8 +3,8 @@ package org.swrlapi.drools.owl.classexpressions;
 /**
  * A visitor that can visit a Drools representation of OWL class expressions, represented by
  * {@link org.swrlapi.drools.owl.classexpressions.CE}s.
- * </p>
- * It is modelled on the OWLAPI's {@link org.semanticweb.owlapi.model.OWLClassExpressionVisitor}.
+ * <p>
+ * It is modeled on the OWLAPI's {@link org.semanticweb.owlapi.model.OWLClassExpressionVisitor}.
  *
  * @see org.swrlapi.drools.owl.classexpressions.CE
  * @see org.semanticweb.owlapi.model.OWLClassExpressionVisitor

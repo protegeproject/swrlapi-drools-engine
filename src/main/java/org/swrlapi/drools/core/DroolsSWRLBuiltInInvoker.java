@@ -1,5 +1,10 @@
 package org.swrlapi.drools.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.converters.DroolsSWRLBuiltInArgument2BAConverter;
@@ -14,14 +19,9 @@ import org.swrlapi.exceptions.SWRLBuiltInMethodRuntimeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * This class is used to invoke SWRL built-ins from within a Drools rule.
- * <p/>
+ * <p>
  * Varargs seem to work inconsistently in this version of Drools. Hence the need for the repetitions for the invoke()
  * methods with varying numbers of arguments. We really want to replace this with a single call with a varargs argument.
  */
@@ -81,8 +81,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -101,8 +101,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -123,8 +123,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4, BA ba5)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4, BA ba5)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -147,8 +147,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4, BA ba5, BA ba6)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4, BA ba5, BA ba6)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -173,8 +173,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4, BA ba5, BA ba6, BA ba7)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -201,8 +201,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -231,8 +231,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -263,8 +263,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9, BA ba10)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9, BA ba10)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -297,8 +297,8 @@ public class DroolsSWRLBuiltInInvoker
 		return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
 	}
 
-	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1, BA ba2,
-			BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9, BA ba10, BA ba11)
+	public List<BAP> invoke(String ruleName, String builtInName, int builtInIndex, boolean isInConsequent, BA ba1,
+			BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9, BA ba10, BA ba11)
 	{
 		List<BA> bas = new ArrayList<>();
 		bas.add(ba1);
@@ -368,8 +368,8 @@ public class DroolsSWRLBuiltInInvoker
 						invocationPattern);
 				return swrlBuiltInArgumentPatterns2BAPs(ruleName, builtInName, argumentPatterns);
 			} else {
-				List<List<SWRLBuiltInArgument>> argumentPatterns = getBridge()
-						.invokeSWRLBuiltIn(ruleName, builtInName, builtInIndex, isInConsequent, builtInArguments);
+				List<List<SWRLBuiltInArgument>> argumentPatterns = getBridge().invokeSWRLBuiltIn(ruleName, builtInName,
+						builtInIndex, isInConsequent, builtInArguments);
 
 				if (!isInConsequent)
 					addInvocationPattern(builtInName, invocationPattern, argumentPatterns);
@@ -380,17 +380,15 @@ public class DroolsSWRLBuiltInInvoker
 			if (e instanceof SWRLBuiltInMethodRuntimeException) {
 				Throwable cause = e.getCause();
 				cause.printStackTrace();
-				throw new SWRLAPIException(
-						"runtime exception thrown by built-in " + builtInName + " in rule " + ruleName + ": " + cause.toString(),
-						cause);
+				throw new SWRLAPIException("runtime exception thrown by built-in " + builtInName + " in rule " + ruleName
+						+ ": " + cause.toString(), cause);
 			} else if (e instanceof SWRLBuiltInException) {
-				throw new SWRLAPIException(
-						"built-in exception thrown by built-in " + builtInName + " in rule " + ruleName + ": " + e.getMessage(), e);
+				throw new SWRLAPIException("built-in exception thrown by built-in " + builtInName + " in rule " + ruleName
+						+ ": " + e.getMessage(), e);
 			} else {
 				e.printStackTrace();
-				throw new SWRLAPIException(
-						"unknown exception " + e.getClass().getCanonicalName() + " thrown by built-in " + builtInName + " in rule "
-								+ ruleName + ": " + e.getMessage(), e);
+				throw new SWRLAPIException("unknown exception " + e.getClass().getCanonicalName() + " thrown by built-in "
+						+ builtInName + " in rule " + ruleName + ": " + e.getMessage(), e);
 			}
 		}
 	}
@@ -401,8 +399,8 @@ public class DroolsSWRLBuiltInInvoker
 		List<SWRLBuiltInArgument> arguments = new ArrayList<>();
 
 		if (argumentVariableNames.hasVariableNames() && argumentVariableNames.getNumberOfArguments() != bas.size())
-			throw new TargetSWRLRuleEngineInternalException(
-					"inconsistent variable names passed to built-in " + builtInName + " in rule " + ruleName);
+			throw new TargetSWRLRuleEngineInternalException("inconsistent variable names passed to built-in " + builtInName
+					+ " in rule " + ruleName);
 
 		try {
 			int argumentNumber = 0;
@@ -418,9 +416,8 @@ public class DroolsSWRLBuiltInInvoker
 
 			}
 		} catch (TargetSWRLRuleEngineException e) {
-			throw new TargetSWRLRuleEngineInternalException(
-					"error extracting arguments from Drools when invoking built-in " + builtInName + " in rule " + ruleName + ": "
-							+ e.toString());
+			throw new TargetSWRLRuleEngineInternalException("error extracting arguments from Drools when invoking built-in "
+					+ builtInName + " in rule " + ruleName + ": " + e.toString());
 		}
 		return arguments;
 	}
@@ -460,9 +457,8 @@ public class DroolsSWRLBuiltInInvoker
 				baps.add(bap);
 			}
 		} catch (RuntimeException e) {
-			throw new TargetSWRLRuleEngineInternalException(
-					"error converting return arguments after invoking built-in " + builtInName + " in rule " + ruleName + ": " + e
-							.toString());
+			throw new TargetSWRLRuleEngineInternalException("error converting return arguments after invoking built-in "
+					+ builtInName + " in rule " + ruleName + ": " + e.toString());
 		}
 		return baps;
 	}
@@ -487,8 +483,8 @@ public class DroolsSWRLBuiltInInvoker
 		if (this.invocationPatternMap.containsKey(invocationPattern))
 			return this.invocationPatternMap.get(invocationPattern);
 		else
-			throw new TargetSWRLRuleEngineInternalException(
-					"unknown invocation pattern in " + builtInName + " in rule " + ruleName);
+			throw new TargetSWRLRuleEngineInternalException("unknown invocation pattern in " + builtInName + " in rule "
+					+ ruleName);
 	}
 
 	private DroolsSWRLBuiltInArgument2BAConverter getSWRLBuiltInArgumentConverter()

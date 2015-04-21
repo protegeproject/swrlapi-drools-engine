@@ -1,15 +1,15 @@
 package org.swrlapi.drools.sqwrl;
 
-import org.swrlapi.drools.swrl.BA;
-
 import java.util.HashSet;
 import java.util.Set;
 
+import org.swrlapi.drools.swrl.BA;
+
 /**
  * Keeps track of SQWRL collections during rule execution.
- * </p>
- * The {@link #infer(org.swrlapi.drools.swrl.BA)} method in this class is called to inform Drools of
- * inferred SQWRL collections.
+ * <p>
+ * The {@link #infer(org.swrlapi.drools.swrl.BA)} method in this class is called to inform Drools of inferred SQWRL
+ * collections.
  *
  * @see org.swrlapi.drools.sqwrl.SQWRLC
  */

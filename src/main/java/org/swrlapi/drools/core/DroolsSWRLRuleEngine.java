@@ -110,9 +110,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		resetRuleEngine();
 	}
 
-	/**
-	 * Reset the rule engine.
-	 */
 	@Override
 	public void resetRuleEngine() throws TargetSWRLRuleEngineException
 	{
@@ -149,9 +146,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		resetKnowledgeSession();
 	}
 
-	/**
-	 * Run the rule engine.
-	 */
 	@Override
 	public void runRuleEngine() throws TargetSWRLRuleEngineException
 	{
@@ -201,9 +195,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		writeInferredOWLAxiomsToBridge(); // Supply the inferred OWL axioms back to the bridge.
 	}
 
-	/**
-	 * Define a Drools representation of an OWL axiom. SWRL rules are a type of OWL axiom.
-	 */
 	@Override
 	public void defineOWLAxiom(OWLAxiom axiom) throws TargetSWRLRuleEngineException
 	{
@@ -213,9 +204,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		}
 	}
 
-	/**
-	 * Define a Drools representation of a SQWRL query.
-	 */
 	@Override
 	public void defineSQWRLQuery(SQWRLQuery query) throws TargetSWRLRuleEngineException, SWRLBuiltInException
 	{
@@ -230,6 +218,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	/**
 	 * Define a Drools representation of a SWRL rule or a SQWRL query. This method will be called by Drools converters
 	 * after they have translated SWRL rules and SQWRL queries into their Drools equivalent.
+	 * 
+	 * @param ruleText The rule
 	 */
 	public void defineDRLRule(String ruleText)
 	{
@@ -239,7 +229,12 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
 	/**
 	 * Define a Drools representation of a SWRL rule representing phase 2 of a SQWRL query. This method will be called by
-	 * the {@link DroolsSQWRLQuery2DRLConverter}.
+	 * the {@link DroolsSQWRLQuery2DRLConverter}. *
+	 * 
+	 * @param queryName The name of the query
+	 * @param ruleName The name of the rule
+	 * @param ruleText The rule text
+	 * @throws TargetSWRLRuleEngineException If an exception occurs during processing
 	 */
 	public void defineDRLSQWRLPhase1Rule(String queryName, String ruleName, String ruleText)
 			throws TargetSWRLRuleEngineException
@@ -254,6 +249,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	/**
 	 * Define a Drools representation of a SWRL rule representing phase 2 of a SQWRL query. This method will be called by
 	 * {@link DroolsSQWRLQuery2DRLConverter}.
+	 * 
+	 * @param queryName The name of the query
+	 * @param ruleName The name of the rule
+	 * @param ruleText The rule text
+	 * @throws TargetSWRLRuleEngineException If an exception occurs during processing
 	 */
 	public void defineDRLSQWRLPhase2Rule(String queryName, String ruleName, String ruleText)
 			throws TargetSWRLRuleEngineException
@@ -265,7 +265,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 			defineDRLRule(ruleText);
 	}
 
-	/**
+	/*
 	 * A target rule engine must also define an OWL reasoner implementation.
 	 */
 	@Override
@@ -274,9 +274,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		return null; // TODO Return Drools implementation of OWL reasoner here
 	}
 
-	/**
-	 * Get the OWL 2 RL inference controller associated with Drools.
-	 */
 	@Override
 	public OWL2RLEngine getOWL2RLEngine()
 	{

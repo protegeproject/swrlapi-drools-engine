@@ -30,7 +30,7 @@ public class C extends OE implements CE
 		return super.getName();
 	}
 
-	/**
+	/*
 	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
 	 */
 	public C(BA ba)

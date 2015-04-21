@@ -8,7 +8,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL negative object property assertion axiom in Drools.
- * <p/>
+ * <p>
  * We have 4 possible constructors for the different argument combinations. This approach provides more flexibility when
  * generating Drools rules and makes the generated rules more readable.
  *

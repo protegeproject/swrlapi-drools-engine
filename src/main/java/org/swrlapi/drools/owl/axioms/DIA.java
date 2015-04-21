@@ -7,12 +7,12 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL different individual axiom.
- * <p/>
+ * <p>
  * Rather than holding an arbitrary number of individuals, we hold only pairs and expect that the axiom translator
  * generates all possible pairs from an original OWL axiom.
- * <p/>
- * We need to have 4 possible constructors for the different argument combinations. This approach makes the rules more
- * readable.
+ * <p>
+ * We need to have 4 possible constructors for the different argument combinations. This approach makes the generated
+ * Drools rules more readable.
  *
  * @see org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom
  */

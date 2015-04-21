@@ -24,7 +24,7 @@ public class OP extends OE implements P, OPE
 		super(propertyName);
 	}
 
-	/**
+	/*
 	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
 	 */
 	public OP(BA ba)

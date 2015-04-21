@@ -99,7 +99,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 /**
  * This class converts OWLAPI OWL axioms to their Drools representation.
- * <p/>
+ * <p>
  * Note that SWRL rules are also a type of OWL axiom so are also converted here.
  *
  * @see org.semanticweb.owlapi.model.OWLAxiom

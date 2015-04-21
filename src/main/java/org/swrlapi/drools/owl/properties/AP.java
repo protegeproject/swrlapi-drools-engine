@@ -23,7 +23,7 @@ public class AP extends OE implements P
 		super(propertyName);
 	}
 
-	/**
+	/*
 	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
 	 */
 	public AP(BA ba)

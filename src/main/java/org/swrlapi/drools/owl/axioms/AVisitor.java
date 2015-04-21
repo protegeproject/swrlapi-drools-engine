@@ -3,8 +3,8 @@ package org.swrlapi.drools.owl.axioms;
 /**
  * A visitor that can visit a Drools representation of OWL axioms, represented by
  * {@link org.swrlapi.drools.owl.axioms.A}s.
- * </p>
- * It is modelled on the OWLAPI's {@link org.semanticweb.owlapi.model.OWLAxiomVisitor}.
+ * <p>
+ * It is modeled on the OWLAPI's {@link org.semanticweb.owlapi.model.OWLAxiomVisitor}.
  *
  * @see org.swrlapi.drools.owl.axioms.A
  * @see org.semanticweb.owlapi.model.OWLAxiomVisitor

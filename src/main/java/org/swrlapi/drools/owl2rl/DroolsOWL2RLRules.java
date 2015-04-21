@@ -9,12 +9,18 @@ import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.OWL2RLNames;
 
 /**
- * Class that defines Drools OWL 2 RL rules. </p> See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL
- * Specification</a> for a description of the rules. </p> All axioms inferred by these rules are handled by a
- * {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}. </p> Property chain and key axioms are not
- * currently handled (specified by the the pro-spo2 and prp-key rules in the Specification). The value space of literals
- * is also not validated (specified by rule dt-not-type). All other rules are implemented. </p> In its current state,
- * this is a fairly naive implementation of the rules in the OWL 2 RL Specification. Many optimizations are possible.
+ * Class that defines Drools OWL 2 RL rules.
+ * <p>
+ * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
+ * <p>
+ * All axioms inferred by these rules are handled by a {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
+ * <p>
+ * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in the
+ * Specification). The value space of literals is also not validated (specified by rule dt-not-type). All other rules
+ * are implemented.
+ * <p>
+ * In its current state, this is a fairly naive implementation of the rules in the OWL 2 RL Specification. Many
+ * optimizations are possible.
  *
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
  * @see org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler

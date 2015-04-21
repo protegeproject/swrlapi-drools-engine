@@ -24,7 +24,7 @@ public class D extends OE implements DR
 		super(datatypeID);
 	}
 
-	/**
+	/*
 	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
 	 */
 	public D(BA ba)
