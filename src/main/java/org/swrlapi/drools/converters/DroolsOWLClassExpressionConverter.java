@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
-import org.swrlapi.drools.core.DroolsCEResolver;
-import org.swrlapi.drools.core.DroolsResolver;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl.classexpressions.DAVFCE;
 import org.swrlapi.drools.owl.classexpressions.DCCE;
@@ -49,6 +47,8 @@ import org.swrlapi.drools.owl.classexpressions.OOOCE;
 import org.swrlapi.drools.owl.classexpressions.OSVFCE;
 import org.swrlapi.drools.owl.classexpressions.OUOCE;
 import org.swrlapi.drools.owl.core.C;
+import org.swrlapi.drools.resolvers.DroolsCEResolver;
+import org.swrlapi.drools.resolvers.DroolsResolver;
 
 /**
  * This class converts OWLAPI OWL class expressions to their Drools representation.

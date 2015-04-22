@@ -7,9 +7,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
-import org.swrlapi.drools.core.DroolsResolver;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
+import org.swrlapi.drools.resolvers.DroolsResolver;
 
 /**
  * This class converts OWLAPI OWL property expressions to their Drools representation.

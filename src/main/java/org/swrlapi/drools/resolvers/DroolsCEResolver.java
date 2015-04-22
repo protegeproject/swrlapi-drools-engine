@@ -1,4 +1,4 @@
-package org.swrlapi.drools.core;
+package org.swrlapi.drools.resolvers;
 
 import org.swrlapi.drools.owl.classexpressions.CE;
 

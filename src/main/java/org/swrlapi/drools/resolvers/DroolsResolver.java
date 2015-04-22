@@ -1,4 +1,5 @@
-package org.swrlapi.drools.core;
+package org.swrlapi.drools.resolvers;
+
 
 public class DroolsResolver
 {

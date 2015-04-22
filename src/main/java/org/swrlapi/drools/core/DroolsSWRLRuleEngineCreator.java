@@ -14,12 +14,10 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.TargetSWRLRuleEngineCreator
 {
-	private static final String RULE_ENGINE_NAME = "Drools";
-
 	@Override
 	public String getRuleEngineName()
 	{
-		return RULE_ENGINE_NAME;
+		return DroolsNames.RULE_ENGINE_NAME;
 	}
 
 	@Override

@@ -27,6 +27,7 @@ import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
+import org.swrlapi.drools.resolvers.DroolsResolver;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
 import org.swrlapi.drools.sqwrl.SQWRLC;
 import org.swrlapi.exceptions.SWRLBuiltInException;
@@ -215,56 +216,6 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		getDroolsSQWRLQueryConverter().convert(query); // Will call local defineSQWRLPhase{1,2}Rule.
 	}
 
-	/**
-	 * Define a Drools representation of a SWRL rule or a SQWRL query. This method will be called by Drools converters
-	 * after they have translated SWRL rules and SQWRL queries into their Drools equivalent.
-	 * 
-	 * @param ruleText The rule
-	 */
-	public void defineDRLRule(String ruleText)
-	{
-		if (this.knowledgePackagesAdditionRequired)
-			resourceHandler.defineDRLRule(ruleText);
-	}
-
-	/**
-	 * Define a Drools representation of a SWRL rule representing phase 2 of a SQWRL query. This method will be called by
-	 * the {@link DroolsSQWRLQuery2DRLConverter}. *
-	 * 
-	 * @param queryName The name of the query
-	 * @param ruleName The name of the rule
-	 * @param ruleText The rule text
-	 * @throws TargetSWRLRuleEngineException If an exception occurs during processing
-	 */
-	public void defineDRLSQWRLPhase1Rule(String queryName, String ruleName, String ruleText)
-			throws TargetSWRLRuleEngineException
-	{
-		this.phase1SQWRLRuleNames.add(ruleName);
-		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
-
-		if (this.knowledgePackagesAdditionRequired)
-			defineDRLRule(ruleText);
-	}
-
-	/**
-	 * Define a Drools representation of a SWRL rule representing phase 2 of a SQWRL query. This method will be called by
-	 * {@link DroolsSQWRLQuery2DRLConverter}.
-	 * 
-	 * @param queryName The name of the query
-	 * @param ruleName The name of the rule
-	 * @param ruleText The rule text
-	 * @throws TargetSWRLRuleEngineException If an exception occurs during processing
-	 */
-	public void defineDRLSQWRLPhase2Rule(String queryName, String ruleName, String ruleText)
-			throws TargetSWRLRuleEngineException
-	{
-		this.phase2SQWRLRuleNames.add(ruleName);
-		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
-
-		if (this.knowledgePackagesAdditionRequired)
-			defineDRLRule(ruleText);
-	}
-
 	/*
 	 * A target rule engine must also define an OWL reasoner implementation.
 	 */
@@ -290,6 +241,56 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 	public String getVersion()
 	{
 		return DroolsNames.VERSION_STRING;
+	}
+
+	/**
+	 * Define a Drools representation of a SWRL rule or a SQWRL query. This method will be called by Drools converters
+	 * after they have translated SWRL rules and SQWRL queries into their Drools equivalent.
+	 * 
+	 * @param ruleText The rule
+	 */
+	public void defineDRLRule(String ruleText)
+	{
+		if (this.knowledgePackagesAdditionRequired)
+			resourceHandler.defineDRLRule(ruleText);
+	}
+
+	/**
+	 * Define a Drools representation of a SWRL rule representing phase 2 of a SQWRL query. This method will be called by
+	 * the {@link DroolsSQWRLQuery2DRLConverter}.
+	 * 
+	 * @param queryName The name of the query
+	 * @param ruleName The name of the rule
+	 * @param ruleText The rule text
+	 * @throws TargetSWRLRuleEngineException If an exception occurs during rule creation
+	 */
+	public void defineDRLSQWRLPhase1Rule(String queryName, String ruleName, String ruleText)
+			throws TargetSWRLRuleEngineException
+	{
+		this.phase1SQWRLRuleNames.add(ruleName);
+		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
+
+		if (this.knowledgePackagesAdditionRequired)
+			defineDRLRule(ruleText);
+	}
+
+	/**
+	 * Define a Drools representation of a SWRL rule representing phase 2 of a SQWRL query. This method will be called by
+	 * {@link DroolsSQWRLQuery2DRLConverter}.
+	 * 
+	 * @param queryName The name of the query
+	 * @param ruleName The name of the rule
+	 * @param ruleText The rule text
+	 * @throws TargetSWRLRuleEngineException If an exception occurs during rule creation
+	 */
+	public void defineDRLSQWRLPhase2Rule(String queryName, String ruleName, String ruleText)
+			throws TargetSWRLRuleEngineException
+	{
+		this.phase2SQWRLRuleNames.add(ruleName);
+		this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
+
+		if (this.knowledgePackagesAdditionRequired)
+			defineDRLRule(ruleText);
 	}
 
 	private void resetKnowledgeSession()
