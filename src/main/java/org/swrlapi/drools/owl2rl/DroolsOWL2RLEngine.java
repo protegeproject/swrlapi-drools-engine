@@ -37,7 +37,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 	{
 		Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
-		for (Rule rule : getEnabledRules())
+		for (OWL2RLRule rule : getEnabledRules())
 			if (this.droolsOWL2RLRules.hasRule(rule))
 				enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule));
 
@@ -47,37 +47,37 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 	/**
 	 * These are rules that are always enabled and that cannot be disabled.
 	 */
-	private static Set<Rule> generatePermanentlyOnRules()
+	private static Set<OWL2RLRule> generatePermanentlyOnRules()
 	{
-		return EnumSet.of(Rule.CLS_THING, Rule.CLS_NOTHING1, Rule.CLS_NOTHING2, Rule.DT_TYPE1, Rule.DT_TYPE2, Rule.DT_EQ,
-				Rule.DT_DIFF);
+		return EnumSet.of(OWL2RLRule.CLS_THING, OWL2RLRule.CLS_NOTHING1, OWL2RLRule.CLS_NOTHING2, OWL2RLRule.DT_TYPE1,
+				OWL2RLRule.DT_TYPE2, OWL2RLRule.DT_EQ, OWL2RLRule.DT_DIFF);
 	}
 
 	/**
 	 * These are rules that must be enabled or disabled in groups.
 	 */
-	private static Set<Set<Rule>> generateGroupedRuleSets()
+	private static Set<Set<OWL2RLRule>> generateGroupedRuleSets()
 	{
-		Set<Set<Rule>> groupedRuleSets = new HashSet<>();
+		Set<Set<OWL2RLRule>> groupedRuleSets = new HashSet<>();
 
-		groupedRuleSets.add(EnumSet.of(Rule.EQ_DIFF1, Rule.EQ_DIFF2, Rule.EQ_DIFF3));
-		groupedRuleSets.add(EnumSet.of(Rule.PRP_EQP1, Rule.PRP_EQP2, Rule.EQ_REP_P));
-		groupedRuleSets.add(EnumSet.of(Rule.PRP_PDW, Rule.PRP_ADP));
-		groupedRuleSets.add(EnumSet.of(Rule.CAX_ADC, Rule.CAX_DW));
+		groupedRuleSets.add(EnumSet.of(OWL2RLRule.EQ_DIFF1, OWL2RLRule.EQ_DIFF2, OWL2RLRule.EQ_DIFF3));
+		groupedRuleSets.add(EnumSet.of(OWL2RLRule.PRP_EQP1, OWL2RLRule.PRP_EQP2, OWL2RLRule.EQ_REP_P));
+		groupedRuleSets.add(EnumSet.of(OWL2RLRule.PRP_PDW, OWL2RLRule.PRP_ADP));
+		groupedRuleSets.add(EnumSet.of(OWL2RLRule.CAX_ADC, OWL2RLRule.CAX_DW));
 
 		return groupedRuleSets;
 	}
 
-	private static Set<Rule> generateUnsupportedRules()
+	private static Set<OWL2RLRule> generateUnsupportedRules()
 	{
-		return EnumSet.of(Rule.PRP_SPO2, Rule.PRP_KEY, Rule.DT_NOT_TYPE);
+		return EnumSet.of(OWL2RLRule.PRP_SPO2, OWL2RLRule.PRP_KEY, OWL2RLRule.DT_NOT_TYPE);
 
-		// TODO Rule.PRP_SPO2 - Property chains
+		// TODO OWL2RLRule.PRP_SPO2 - Property chains
 		// See DroolsOWLClassExpressionConverter conversion of OWLObjectOnOf for pairwise extraction
 		// T(?p, owl:propertyChainAxiom, ?x) LIST[c?x, ?p1,...,?pn] T(?u1, ?p1, ?u2) T(?u2, ?p2, ?u3) ...
 		// T( ? un,?pn,?un + 1) -> T(?u1, ?p, ?un+1)
 
-		// TODO Rule.PRP_KEY - Keys
+		// TODO OWL2RLRule.PRP_KEY - Keys
 		// T(?c, owl:hasKey, ?u) LIST[?u, ?p1, ..., ?pn] T(?x, rdf:type, ?c) T(?x, ?p1, ?z1) ...
 		// T(?x, ?pn, ?zn) T(?y, rdf:type, ?c) T(?y, ?p1, ?z1) ...
 		// T(?y, ?pn, ?zn) -> T(?x, owl:sameAs, ?y)

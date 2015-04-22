@@ -46,7 +46,7 @@ import org.swrlapi.drools.owl.axioms.SPA;
 import org.swrlapi.drools.owl.axioms.TOPA;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
-import org.swrlapi.owl2rl.OWL2RLInconsistency;
+import org.swrlapi.owl2rl.OWL2RLInconsistencyDescription;
 
 /**
  * This class is used to accumulate inferred OWL axioms during reasoning and rule execution. Drools rules generated from
@@ -617,8 +617,8 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 				+ "Rule that detected an inconsistency: " + owl2RLRuleName;
 		Iterator<String> argumentsIterator = Arrays.asList(arguments).iterator();
 
-		if (OWL2RLInconsistency.hasInconsistencyRuleArgumentsDescription(owl2RLRuleName)) {
-			OWL2RLInconsistency.OWL2RLRuleArguments ruleArguments = OWL2RLInconsistency.getRuleArguments(owl2RLRuleName);
+		if (OWL2RLInconsistencyDescription.hasInconsistencyRuleArgumentsDescription(owl2RLRuleName)) {
+			OWL2RLInconsistencyDescription.OWL2RLRuleArguments ruleArguments = OWL2RLInconsistencyDescription.getRuleArguments(owl2RLRuleName);
 
 			if (ruleArguments.hasClassArguments()) {
 				inconsistentMessage += "\n Classes:";
