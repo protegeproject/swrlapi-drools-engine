@@ -25,7 +25,7 @@ public class BAP
 
   public BAP()
   {
-    this.arguments = new ArrayList<BA>();
+    this.arguments = new ArrayList<>();
   }
 
   public void addArgument(BA argument)

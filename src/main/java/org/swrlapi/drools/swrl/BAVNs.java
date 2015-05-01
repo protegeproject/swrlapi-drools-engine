@@ -1,9 +1,9 @@
 package org.swrlapi.drools.swrl;
 
+import org.swrlapi.drools.core.DroolsNames;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.swrlapi.drools.core.DroolsNames;
 
 /**
  * Class representing the names of variables passed to built-ins. Non variable arguments positions are represented by
@@ -13,7 +13,7 @@ public class BAVNs
 {
   public static final int MaxArguments = 10;
 
-  private final List<String> variableNames = new ArrayList<String>();
+  private final List<String> variableNames = new ArrayList<>();
 
   /*
    * The following vararg constructor does not seem to work in this version of Drools
