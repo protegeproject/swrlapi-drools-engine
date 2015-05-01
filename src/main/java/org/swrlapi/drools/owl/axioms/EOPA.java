@@ -11,29 +11,29 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class EOPA extends DroolsBinaryPropertiesAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public EOPA(String property1ID, String property2ID)
-	{
-		super(property1ID, property2ID);
-	}
+  public EOPA(String property1ID, String property2ID)
+  {
+    super(property1ID, property2ID);
+  }
 
-	@Override
-	public OWLEquivalentObjectPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor)
-			throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLEquivalentObjectPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor)
+      throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "EOPA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "EOPA" + super.toString();
+  }
 }

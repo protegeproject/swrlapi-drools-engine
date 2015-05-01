@@ -15,61 +15,61 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public abstract class OE implements OO, AA, BA
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public String id;
+  public String id;
 
-	public OE(String id)
-	{
-		this.id = id;
-	}
+  public OE(String id)
+  {
+    this.id = id;
+  }
 
-	public String getName()
-	{
-		return this.id;
-	}
+  public String getName()
+  {
+    return this.id;
+  }
 
-	public String getid()
-	{
-		return this.id;
-	}
+  public String getid()
+  {
+    return this.id;
+  }
 
-	protected void setId(String newId)
-	{
-		this.id = newId;
-	}
+  protected void setId(String newId)
+  {
+    this.id = newId;
+  }
 
-	@Override
-	public String toString()
-	{
-		// return "\"" + this.id + "\"";
-		return this.id;
-	}
+  @Override
+  public String toString()
+  {
+    // return "\"" + this.id + "\"";
+    return this.id;
+  }
 
-	public abstract OWLNamedObject extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException;
+  public abstract OWLNamedObject extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException;
 
-	@Override
-	public abstract SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor)
-			throws TargetSWRLRuleEngineException;
+  @Override
+  public abstract SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor)
+      throws TargetSWRLRuleEngineException;
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-			return true;
-		if ((obj == null) || (obj.getClass() != this.getClass()))
-			return false;
-		OE e = (OE)obj;
-		return (getid() == e.getid() || (getid() != null && getid().equals(e.getid())));
-	}
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+      return true;
+    if ((obj == null) || (obj.getClass() != this.getClass()))
+      return false;
+    OE e = (OE)obj;
+    return (getid() == e.getid() || (getid() != null && getid().equals(e.getid())));
+  }
 
-	@Override
-	public int hashCode()
-	{
-		int hash = 731;
+  @Override
+  public int hashCode()
+  {
+    int hash = 731;
 
-		hash = hash + (null == getid() ? 0 : getid().hashCode());
+    hash = hash + (null == getid() ? 0 : getid().hashCode());
 
-		return hash;
-	}
+    return hash;
+  }
 }

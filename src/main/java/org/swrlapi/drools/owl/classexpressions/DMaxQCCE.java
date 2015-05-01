@@ -9,37 +9,37 @@ import org.swrlapi.drools.owl.core.DroolsQuadObject;
  */
 public class DMaxQCCE extends DroolsQuadObject<String, String, String, Integer> implements CE
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DMaxQCCE(String ceid, String propertyID, String fillerID, Integer card)
-	{
-		super(ceid, propertyID, fillerID, card);
-	}
+  public DMaxQCCE(String ceid, String propertyID, String fillerID, Integer card)
+  {
+    super(ceid, propertyID, fillerID, card);
+  }
 
-	@Override
-	public String getceid()
-	{
-		return getT1();
-	}
+  @Override
+  public String getceid()
+  {
+    return getT1();
+  }
 
-	public String getpid()
-	{
-		return getT2();
-	}
+  public String getpid()
+  {
+    return getT2();
+  }
 
-	public String getf()
-	{
-		return getT3();
-	}
+  public String getf()
+  {
+    return getT3();
+  }
 
-	public Integer getcard()
-	{
-		return getT4();
-	}
+  public Integer getcard()
+  {
+    return getT4();
+  }
 
-	@Override
-	public String toString()
-	{
-		return "DMaxQCCE" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "DMaxQCCE" + super.toString();
+  }
 }

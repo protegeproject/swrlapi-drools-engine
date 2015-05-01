@@ -11,29 +11,29 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SPA extends DroolsUnaryPropertyAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public SPA(String propertyID)
-	{
-		super(propertyID);
-	}
+  public SPA(String propertyID)
+  {
+    super(propertyID);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "SPA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "SPA" + super.toString();
+  }
 
-	@Override
-	public OWLSymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor)
-			throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLSymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor)
+      throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 }

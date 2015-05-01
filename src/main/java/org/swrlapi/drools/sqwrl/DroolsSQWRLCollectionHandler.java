@@ -15,31 +15,31 @@ import org.swrlapi.drools.swrl.BA;
  */
 public class DroolsSQWRLCollectionHandler
 {
-	private final Set<SQWRLC> generatedSQWRLCollections;
+  private final Set<SQWRLC> generatedSQWRLCollections;
 
-	public DroolsSQWRLCollectionHandler()
-	{
-		this.generatedSQWRLCollections = new HashSet<>();
-	}
+  public DroolsSQWRLCollectionHandler()
+  {
+    this.generatedSQWRLCollections = new HashSet<>();
+  }
 
-	public void reset()
-	{
-		this.generatedSQWRLCollections.clear();
-	}
+  public void reset()
+  {
+    this.generatedSQWRLCollections.clear();
+  }
 
-	public void infer(BA ba)
-	{
-		if (ba instanceof SQWRLC)
-			this.generatedSQWRLCollections.add((SQWRLC)ba);
-	}
+  public void infer(BA ba)
+  {
+    if (ba instanceof SQWRLC)
+      this.generatedSQWRLCollections.add((SQWRLC)ba);
+  }
 
-	public boolean hasSQWRLCollections()
-	{
-		return !this.generatedSQWRLCollections.isEmpty();
-	}
+  public boolean hasSQWRLCollections()
+  {
+    return !this.generatedSQWRLCollections.isEmpty();
+  }
 
-	public Set<SQWRLC> getSQWRLCollections()
-	{
-		return this.generatedSQWRLCollections;
-	}
+  public Set<SQWRLC> getSQWRLCollections()
+  {
+    return this.generatedSQWRLCollections;
+  }
 }

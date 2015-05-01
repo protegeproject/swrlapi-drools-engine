@@ -11,20 +11,20 @@ import org.swrlapi.drools.owl.core.L;
  */
 public class DOO implements DR
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public final String rid;
-	public final Set<L> literals;
+  public final String rid;
+  public final Set<L> literals;
 
-	public DOO(String rid, Set<L> literals)
-	{
-		this.rid = rid;
-		this.literals = literals;
-	}
+  public DOO(String rid, Set<L> literals)
+  {
+    this.rid = rid;
+    this.literals = literals;
+  }
 
-	@Override
-	public String getrid()
-	{
-		return this.rid;
-	}
+  @Override
+  public String getrid()
+  {
+    return this.rid;
+  }
 }

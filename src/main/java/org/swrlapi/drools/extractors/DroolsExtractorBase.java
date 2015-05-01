@@ -8,38 +8,38 @@ import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
  */
 public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 {
-	private final DroolsOWLLiteralExtractor literalExtractor;
-	private final DroolsOWLEntityExtractor entityExtractor;
-	private final DroolsOWLIndividualExtractor individualExtractor;
-	private final DroolsSWRLVariableExtractor variableExtractor;
+  private final DroolsOWLLiteralExtractor literalExtractor;
+  private final DroolsOWLEntityExtractor entityExtractor;
+  private final DroolsOWLIndividualExtractor individualExtractor;
+  private final DroolsSWRLVariableExtractor variableExtractor;
 
-	public DroolsExtractorBase(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
+  public DroolsExtractorBase(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
 
-		this.literalExtractor = new DroolsOWLLiteralExtractor(bridge);
-		this.entityExtractor = new DefaultDroolsOWLEntityExtractor(bridge);
-		this.individualExtractor = new DefaultDroolsOWLIndividualExtractor(bridge);
-		this.variableExtractor = new DroolsSWRLVariableExtractor(bridge);
-	}
+    this.literalExtractor = new DroolsOWLLiteralExtractor(bridge);
+    this.entityExtractor = new DefaultDroolsOWLEntityExtractor(bridge);
+    this.individualExtractor = new DefaultDroolsOWLIndividualExtractor(bridge);
+    this.variableExtractor = new DroolsSWRLVariableExtractor(bridge);
+  }
 
-	protected DroolsOWLLiteralExtractor getDroolsOWLLiteralExtractor()
-	{
-		return this.literalExtractor;
-	}
+  protected DroolsOWLLiteralExtractor getDroolsOWLLiteralExtractor()
+  {
+    return this.literalExtractor;
+  }
 
-	protected DroolsOWLEntityExtractor getDroolsOWLEntityExtractor()
-	{
-		return this.entityExtractor;
-	}
+  protected DroolsOWLEntityExtractor getDroolsOWLEntityExtractor()
+  {
+    return this.entityExtractor;
+  }
 
-	protected DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor()
-	{
-		return this.individualExtractor;
-	}
+  protected DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor()
+  {
+    return this.individualExtractor;
+  }
 
-	protected DroolsSWRLVariableExtractor getDroolsSWRLVariableExtractor()
-	{
-		return this.variableExtractor;
-	}
+  protected DroolsSWRLVariableExtractor getDroolsSWRLVariableExtractor()
+  {
+    return this.variableExtractor;
+  }
 }

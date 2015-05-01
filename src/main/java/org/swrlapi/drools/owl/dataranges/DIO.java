@@ -9,25 +9,25 @@ import java.util.Set;
  */
 public class DIO implements DR
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private final String rid;
-	private final Set<String> dataRangeIDs;
+  private final String rid;
+  private final Set<String> dataRangeIDs;
 
-	public DIO(String rid, Set<String> dataRangeIDs)
-	{
-		this.rid = rid;
-		this.dataRangeIDs = dataRangeIDs;
-	}
+  public DIO(String rid, Set<String> dataRangeIDs)
+  {
+    this.rid = rid;
+    this.dataRangeIDs = dataRangeIDs;
+  }
 
-	@Override
-	public String getrid()
-	{
-		return this.rid;
-	}
+  @Override
+  public String getrid()
+  {
+    return this.rid;
+  }
 
-	public Set<String> getDataRangeIDs()
-	{
-		return this.dataRangeIDs;
-	}
+  public Set<String> getDataRangeIDs()
+  {
+    return this.dataRangeIDs;
+  }
 }

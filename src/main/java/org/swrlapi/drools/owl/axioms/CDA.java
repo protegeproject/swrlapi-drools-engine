@@ -11,28 +11,28 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class CDA extends DroolsUnaryClassAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public CDA(String classID)
-	{
-		super(classID);
-	}
+  public CDA(String classID)
+  {
+    super(classID);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "CDA(" + super.toString() + ")";
-	}
+  @Override
+  public String toString()
+  {
+    return "CDA(" + super.toString() + ")";
+  }
 
-	@Override
-	public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 }

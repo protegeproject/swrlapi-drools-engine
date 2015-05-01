@@ -12,38 +12,38 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class IDA extends DA<I>
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public IDA(String individualID)
-	{
-		super(new I(individualID));
-	}
+  public IDA(String individualID)
+  {
+    super(new I(individualID));
+  }
 
-	public IDA(I individual)
-	{
-		super(individual);
-	}
+  public IDA(I individual)
+  {
+    super(individual);
+  }
 
-	public I getI()
-	{
-		return getE();
-	}
+  public I getI()
+  {
+    return getE();
+  }
 
-	@Override
-	public String toString()
-	{
-		return "IDA(" + super.toString() + ")";
-	}
+  @Override
+  public String toString()
+  {
+    return "IDA(" + super.toString() + ")";
+  }
 
-	@Override
-	public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 }

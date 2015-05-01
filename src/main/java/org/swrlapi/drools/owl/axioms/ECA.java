@@ -11,28 +11,28 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class ECA extends DroolsBinaryClassesAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public ECA(String class1ID, String class2ID)
-	{
-		super(class1ID, class2ID);
-	}
+  public ECA(String class1ID, String class2ID)
+  {
+    super(class1ID, class2ID);
+  }
 
-	@Override
-	public OWLEquivalentClassesAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLEquivalentClassesAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "ECA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "ECA" + super.toString();
+  }
 }

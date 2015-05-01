@@ -12,38 +12,38 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DDPA extends DroolsBinaryObject<String, String> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DDPA(String propertyID, String domainID)
-	{
-		super(propertyID, domainID);
-	}
+  public DDPA(String propertyID, String domainID)
+  {
+    super(propertyID, domainID);
+  }
 
-	public String getpid()
-	{
-		return getT1();
-	}
+  public String getpid()
+  {
+    return getT1();
+  }
 
-	public String getdid()
-	{
-		return getT2();
-	}
+  public String getdid()
+  {
+    return getT2();
+  }
 
-	@Override
-	public OWLDataPropertyDomainAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLDataPropertyDomainAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "DDPA(" + getpid() + ", " + getdid() + ")";
-	}
+  @Override
+  public String toString()
+  {
+    return "DDPA(" + getpid() + ", " + getdid() + ")";
+  }
 }

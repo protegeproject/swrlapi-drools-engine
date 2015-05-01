@@ -4,20 +4,20 @@ import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 public abstract class DroolsBinaryClassesAxiom extends DroolsBinaryObject<String, String> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DroolsBinaryClassesAxiom(String class1ID, String class2ID)
-	{
-		super(class1ID, class2ID);
-	}
+  public DroolsBinaryClassesAxiom(String class1ID, String class2ID)
+  {
+    super(class1ID, class2ID);
+  }
 
-	public String getc1id()
-	{
-		return getT1();
-	}
+  public String getc1id()
+  {
+    return getT1();
+  }
 
-	public String getc2id()
-	{
-		return getT2();
-	}
+  public String getc2id()
+  {
+    return getT2();
+  }
 }

@@ -17,54 +17,54 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  */
 public class D extends OE implements DR
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public D(String datatypeID)
-	{
-		super(datatypeID);
-	}
+  public D(String datatypeID)
+  {
+    super(datatypeID);
+  }
 
-	/*
-	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
-	 */
-	public D(BA ba)
-	{
-		super("<InProcess>");
+  /*
+   * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
+   */
+  public D(BA ba)
+  {
+    super("<InProcess>");
 
-		if (ba instanceof D) {
-			D d = (D)ba;
-			setId(d.getName());
-		} else
-			throw new TargetSWRLRuleEngineInternalException("expecting OWL datatype from bound built-in argument, got "
-					+ ba.getClass().getCanonicalName());
-	}
+    if (ba instanceof D) {
+      D d = (D)ba;
+      setId(d.getName());
+    } else
+      throw new TargetSWRLRuleEngineInternalException("expecting OWL datatype from bound built-in argument, got "
+          + ba.getClass().getCanonicalName());
+  }
 
-	@Override
-	public String getrid()
-	{
-		return getName();
-	}
+  @Override
+  public String getrid()
+  {
+    return getName();
+  }
 
-	@Override
-	public OWLDatatype extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLDatatype extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return super.toString();
+  }
 
-	public static D getTopDatatype()
-	{
-		return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
-	}
+  public static D getTopDatatype()
+  {
+    return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
+  }
 }

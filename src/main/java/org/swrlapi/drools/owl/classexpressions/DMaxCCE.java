@@ -9,32 +9,32 @@ import org.swrlapi.drools.owl.core.DroolsTernaryObject;
  */
 public class DMaxCCE extends DroolsTernaryObject<String, String, Integer> implements CE
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DMaxCCE(String ceid, String propertyID, Integer card)
-	{
-		super(ceid, propertyID, card);
-	}
+  public DMaxCCE(String ceid, String propertyID, Integer card)
+  {
+    super(ceid, propertyID, card);
+  }
 
-	@Override
-	public String getceid()
-	{
-		return getT1();
-	}
+  @Override
+  public String getceid()
+  {
+    return getT1();
+  }
 
-	public String getpid()
-	{
-		return getT2();
-	}
+  public String getpid()
+  {
+    return getT2();
+  }
 
-	public Integer getCard()
-	{
-		return getT3();
-	}
+  public Integer getCard()
+  {
+    return getT3();
+  }
 
-	@Override
-	public String toString()
-	{
-		return "DMaxCCE" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "DMaxCCE" + super.toString();
+  }
 }

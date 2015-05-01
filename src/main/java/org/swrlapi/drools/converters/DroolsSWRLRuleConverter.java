@@ -15,82 +15,82 @@ import java.util.Set;
  */
 public class DroolsSWRLRuleConverter extends DroolsConverterBase
 {
-	private final DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
-	private final DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
+  private final DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
+  private final DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
 
-	private final DroolsSWRLRuleEngine droolsEngine;
+  private final DroolsSWRLRuleEngine droolsEngine;
 
-	public DroolsSWRLRuleConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine,
-			DroolsOWLClassExpressionConverter classExpressionConverter,
-			DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
-	{
-		super(bridge);
+  public DroolsSWRLRuleConverter(SWRLRuleEngineBridge bridge, DroolsSWRLRuleEngine droolsEngine,
+      DroolsOWLClassExpressionConverter classExpressionConverter,
+      DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
+  {
+    super(bridge);
 
-		this.bodyAtomConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpressionConverter,
-				propertyExpressionConverter);
-		this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
-				propertyExpressionConverter);
+    this.bodyAtomConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpressionConverter,
+        propertyExpressionConverter);
+    this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
+        propertyExpressionConverter);
 
-		this.droolsEngine = droolsEngine;
-	}
+    this.droolsEngine = droolsEngine;
+  }
 
-	public void convert(SWRLAPIRule rule)
-	{
-		String ruleName = rule.getRuleName();
-		String drlRule = getRulePreamble(ruleName);
-		Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
+  public void convert(SWRLAPIRule rule)
+  {
+    String ruleName = rule.getRuleName();
+    String drlRule = getRulePreamble(ruleName);
+    Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
 
-		getDroolsSWRLBodyAtomConverter().reset();
-		getDroolsSWRLHeadAtomConverter().reset();
+    getDroolsSWRLBodyAtomConverter().reset();
+    getDroolsSWRLHeadAtomConverter().reset();
 
-		for (SWRLAtom atom : rule.getBodyAtoms())
-			drlRule +=
-					"\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariablePrefixedNames) + " ";
+    for (SWRLAtom atom : rule.getBodyAtoms())
+      drlRule += "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariablePrefixedNames)
+      + " ";
 
-		drlRule = addRuleThenClause(drlRule);
+    drlRule = addRuleThenClause(drlRule);
 
-		// Old code to reference these variables before use or got null pointer error in Drools when invoking built-ins.
-		// Seems to be unnecessary now.
-		// for (String variablePrefixedName : variablePrefixedNames)
-		// drlRule += getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
+    // Old code to reference these variables before use or got null pointer error in Drools when invoking built-ins.
+    // Seems to be unnecessary now.
+    // for (String variablePrefixedName : variablePrefixedNames)
+    // drlRule += getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
 
-		for (SWRLAtom atom : rule.getHeadAtoms())
-			drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";
+    for (SWRLAtom atom : rule.getHeadAtoms())
+      drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";
 
-		drlRule = addRuleEndClause(drlRule);
+    drlRule = addRuleEndClause(drlRule);
 
-		//System.out.println("---------------------------------------------------------------------------------------");
-		//System.out.println("DRL:\n" + drlRule);
-		getDroolsEngine().defineDRLRule(drlRule);
-	}
+    // System.out.println("---------------------------------------------------------------------------------------");
+    // System.out.println("DRL:\n" + drlRule);
+    getDroolsEngine().defineDRLRule(drlRule);
+  }
 
-	private String getRulePreamble(String ruleName)
-	{
-		return "rule \"" + ruleName + "\" \nwhen ";
-	}
+  private String getRulePreamble(String ruleName)
+  {
+    return "rule \"" + ruleName + "\" \nwhen ";
+  }
 
-	private String addRuleEndClause(String ruleText)
-	{
-		return ruleText + "\nend";
-	}
+  private String addRuleEndClause(String ruleText)
+  {
+    return ruleText + "\nend";
+  }
 
-	private String addRuleThenClause(String ruleText)
-	{
-		return ruleText + "\nthen ";
-	}
+  private String addRuleThenClause(String ruleText)
+  {
+    return ruleText + "\nthen ";
+  }
 
-	private DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtomConverter()
-	{
-		return this.bodyAtomConverter;
-	}
+  private DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtomConverter()
+  {
+    return this.bodyAtomConverter;
+  }
 
-	private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtomConverter()
-	{
-		return this.headAtomConverter;
-	}
+  private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtomConverter()
+  {
+    return this.headAtomConverter;
+  }
 
-	private DroolsSWRLRuleEngine getDroolsEngine()
-	{
-		return this.droolsEngine;
-	}
+  private DroolsSWRLRuleEngine getDroolsEngine()
+  {
+    return this.droolsEngine;
+  }
 }

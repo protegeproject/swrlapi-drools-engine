@@ -11,9 +11,9 @@ package org.swrlapi.drools.owl.properties;
  */
 public interface PEVisitor
 {
-	void visit(AP pe);
+  void visit(AP pe);
 
-	void visit(DP pe);
+  void visit(DP pe);
 
-	void visit(OP pe);
+  void visit(OP pe);
 }

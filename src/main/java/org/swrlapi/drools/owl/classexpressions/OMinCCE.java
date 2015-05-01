@@ -10,37 +10,37 @@ import org.swrlapi.drools.owl.properties.OP;
  */
 public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public OMinCCE(String ceid, OP p, Integer card)
-	{
-		super(ceid, p, card);
-	}
+  public OMinCCE(String ceid, OP p, Integer card)
+  {
+    super(ceid, p, card);
+  }
 
-	public OMinCCE(String ceid, String propertyID, Integer card)
-	{
-		super(ceid, new OP(propertyID), card);
-	}
+  public OMinCCE(String ceid, String propertyID, Integer card)
+  {
+    super(ceid, new OP(propertyID), card);
+  }
 
-	@Override
-	public String getceid()
-	{
-		return getT1();
-	}
+  @Override
+  public String getceid()
+  {
+    return getT1();
+  }
 
-	public OP getP()
-	{
-		return getT2();
-	}
+  public OP getP()
+  {
+    return getT2();
+  }
 
-	public Integer getCard()
-	{
-		return getT3();
-	}
+  public Integer getCard()
+  {
+    return getT3();
+  }
 
-	@Override
-	public String toString()
-	{
-		return "OMinCE" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "OMinCE" + super.toString();
+  }
 }

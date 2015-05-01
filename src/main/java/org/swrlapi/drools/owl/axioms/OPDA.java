@@ -11,28 +11,28 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class OPDA extends DroolsUnaryPropertyAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public OPDA(String propertyID)
-	{
-		super(propertyID);
-	}
+  public OPDA(String propertyID)
+  {
+    super(propertyID);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "OPDA(" + super.toString() + ")";
-	}
+  @Override
+  public String toString()
+  {
+    return "OPDA(" + super.toString() + ")";
+  }
 
-	@Override
-	public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 }

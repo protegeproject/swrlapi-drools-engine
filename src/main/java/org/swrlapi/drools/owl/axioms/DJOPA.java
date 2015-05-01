@@ -11,29 +11,29 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DJOPA extends DroolsBinaryPropertiesAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DJOPA(String property1ID, String property2ID)
-	{
-		super(property1ID, property2ID);
-	}
+  public DJOPA(String property1ID, String property2ID)
+  {
+    super(property1ID, property2ID);
+  }
 
-	@Override
-	public OWLDisjointObjectPropertiesAxiom extract(DroolsOWLAxiomExtractor converter)
-			throws TargetSWRLRuleEngineException
-	{
-		return converter.extract(this);
-	}
+  @Override
+  public OWLDisjointObjectPropertiesAxiom extract(DroolsOWLAxiomExtractor converter)
+      throws TargetSWRLRuleEngineException
+  {
+    return converter.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "DJOPA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "DJOPA" + super.toString();
+  }
 }

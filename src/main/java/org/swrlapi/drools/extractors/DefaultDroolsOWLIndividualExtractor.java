@@ -11,20 +11,20 @@ import org.swrlapi.drools.owl.core.I;
  * @see org.semanticweb.owlapi.model.OWLIndividual
  * @see org.swrlapi.drools.owl.core.I
  */
-public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtractorBase
-		implements DroolsOWLIndividualExtractor
+public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtractorBase implements
+DroolsOWLIndividualExtractor
 {
-	public DefaultDroolsOWLIndividualExtractor(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
-	}
+  public DefaultDroolsOWLIndividualExtractor(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
+  }
 
-	@Override
-	public OWLIndividual extract(I i)
-	{
-		if (getIRIResolver().isOWLNamedIndividual(i.getName()))
-			return getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(i.getName()));
-		else
-			return getOWLDataFactory().getOWLAnonymousIndividual(i.getName());
-	}
+  @Override
+  public OWLIndividual extract(I i)
+  {
+    if (getIRIResolver().isOWLNamedIndividual(i.getName()))
+      return getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(i.getName()));
+    else
+      return getOWLDataFactory().getOWLAnonymousIndividual(i.getName());
+  }
 }

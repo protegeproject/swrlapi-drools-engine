@@ -12,38 +12,38 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SCA extends DroolsBinaryObject<String, String> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public SCA(String class1ID, String class2ID)
-	{
-		super(class1ID, class2ID);
-	}
+  public SCA(String class1ID, String class2ID)
+  {
+    super(class1ID, class2ID);
+  }
 
-	public String getsubcid()
-	{
-		return getT1();
-	}
+  public String getsubcid()
+  {
+    return getT1();
+  }
 
-	public String getsupercid()
-	{
-		return getT2();
-	}
+  public String getsupercid()
+  {
+    return getT2();
+  }
 
-	@Override
-	public OWLSubClassOfAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLSubClassOfAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "SCA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "SCA" + super.toString();
+  }
 }

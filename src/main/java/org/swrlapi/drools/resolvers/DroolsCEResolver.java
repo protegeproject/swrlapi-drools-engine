@@ -12,26 +12,38 @@ import java.util.Set;
  */
 public class DroolsCEResolver
 {
-	private final Map<String, CE> ces;
-	private int classExpressionIndex;
+  private final Map<String, CE> ces;
+  private int classExpressionIndex;
 
-	public DroolsCEResolver()
-	{
-		this.ces = new HashMap<>();
-		this.classExpressionIndex = 0;
-	}
+  public DroolsCEResolver()
+  {
+    this.ces = new HashMap<>();
+    this.classExpressionIndex = 0;
+  }
 
-	public void reset()
-	{
-		this.ces.clear();
-		this.classExpressionIndex = 0;
-	}
+  public void reset()
+  {
+    this.ces.clear();
+    this.classExpressionIndex = 0;
+  }
 
-	public boolean recordsCEID(String ceid) { return this.ces.containsKey(ceid); }
+  public boolean recordsCEID(String ceid)
+  {
+    return this.ces.containsKey(ceid);
+  }
 
-	public void record(CE ce) { this.ces.put(ce.getceid(), ce); }
+  public void record(CE ce)
+  {
+    this.ces.put(ce.getceid(), ce);
+  }
 
-	public Set<CE> getCEs() { return new HashSet<>(this.ces.values()); }
+  public Set<CE> getCEs()
+  {
+    return new HashSet<>(this.ces.values());
+  }
 
-	public String generateCEID() { return "CEID" + this.classExpressionIndex++; }
+  public String generateCEID()
+  {
+    return "CEID" + this.classExpressionIndex++;
+  }
 }

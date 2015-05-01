@@ -16,46 +16,46 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLEntityConverter;
  * @see org.semanticweb.owlapi.model.OWLEntity
  */
 public class DroolsOWLNamedObject2DRLConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLEntityConverter<String>
+TargetRuleEngineOWLEntityConverter<String>
 {
-	public DroolsOWLNamedObject2DRLConverter(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
-	}
+  public DroolsOWLNamedObject2DRLConverter(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
+  }
 
-	@Override
-	public String convert(OWLClass cls)
-	{
-		return getIRIResolver().iri2PrefixedName(cls.getIRI());
-	}
+  @Override
+  public String convert(OWLClass cls)
+  {
+    return getIRIResolver().iri2PrefixedName(cls.getIRI());
+  }
 
-	@Override
-	public String convert(OWLNamedIndividual individual)
-	{
-		return getIRIResolver().iri2PrefixedName(individual.getIRI());
-	}
+  @Override
+  public String convert(OWLNamedIndividual individual)
+  {
+    return getIRIResolver().iri2PrefixedName(individual.getIRI());
+  }
 
-	@Override
-	public String convert(OWLObjectProperty property)
-	{
-		return getIRIResolver().iri2PrefixedName(property.getIRI());
-	}
+  @Override
+  public String convert(OWLObjectProperty property)
+  {
+    return getIRIResolver().iri2PrefixedName(property.getIRI());
+  }
 
-	@Override
-	public String convert(OWLDataProperty property)
-	{
-		return getIRIResolver().iri2PrefixedName(property.getIRI());
-	}
+  @Override
+  public String convert(OWLDataProperty property)
+  {
+    return getIRIResolver().iri2PrefixedName(property.getIRI());
+  }
 
-	@Override
-	public String convert(OWLAnnotationProperty property)
-	{
-		return getIRIResolver().iri2PrefixedName(property.getIRI());
-	}
+  @Override
+  public String convert(OWLAnnotationProperty property)
+  {
+    return getIRIResolver().iri2PrefixedName(property.getIRI());
+  }
 
-	@Override
-	public String convert(OWLDatatype datatype)
-	{
-		return getIRIResolver().iri2PrefixedName(datatype.getIRI());
-	}
+  @Override
+  public String convert(OWLDatatype datatype)
+  {
+    return getIRIResolver().iri2PrefixedName(datatype.getIRI());
+  }
 }

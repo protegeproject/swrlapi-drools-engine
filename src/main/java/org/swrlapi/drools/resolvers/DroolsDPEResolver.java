@@ -13,26 +13,38 @@ import java.util.Set;
  */
 public class DroolsDPEResolver
 {
-	private final Map<String, DPE> pes;
-	private int propertyExpressionIndex;
+  private final Map<String, DPE> pes;
+  private int propertyExpressionIndex;
 
-	public DroolsDPEResolver()
-	{
-		this.pes = new HashMap<>();
-		this.propertyExpressionIndex = 0;
-	}
+  public DroolsDPEResolver()
+  {
+    this.pes = new HashMap<>();
+    this.propertyExpressionIndex = 0;
+  }
 
-	public void reset()
-	{
-		this.pes.clear();
-		this.propertyExpressionIndex = 0;
-	}
+  public void reset()
+  {
+    this.pes.clear();
+    this.propertyExpressionIndex = 0;
+  }
 
-	public boolean recordsPEID(String peid) { return this.pes.containsKey(peid); }
+  public boolean recordsPEID(String peid)
+  {
+    return this.pes.containsKey(peid);
+  }
 
-	public void record(DPE pe) { this.pes.put(pe.getid(), pe); }
+  public void record(DPE pe)
+  {
+    this.pes.put(pe.getid(), pe);
+  }
 
-	public Set<DPE> getPEs() { return new HashSet<>(this.pes.values()); }
+  public Set<DPE> getPEs()
+  {
+    return new HashSet<>(this.pes.values());
+  }
 
-	public String generatePEID() { return "DPEID" + this.propertyExpressionIndex++; }
+  public String generatePEID()
+  {
+    return "DPEID" + this.propertyExpressionIndex++;
+  }
 }

@@ -12,38 +12,38 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DPRA extends DroolsBinaryObject<String, String> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DPRA(String propertyID, String dataRangeID)
-	{
-		super(propertyID, dataRangeID);
-	}
+  public DPRA(String propertyID, String dataRangeID)
+  {
+    super(propertyID, dataRangeID);
+  }
 
-	public String getpid()
-	{
-		return getT1();
-	}
+  public String getpid()
+  {
+    return getT1();
+  }
 
-	public String getrid()
-	{
-		return getT2();
-	}
+  public String getrid()
+  {
+    return getT2();
+  }
 
-	@Override
-	public OWLDataPropertyRangeAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLDataPropertyRangeAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "DPRA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "DPRA" + super.toString();
+  }
 }

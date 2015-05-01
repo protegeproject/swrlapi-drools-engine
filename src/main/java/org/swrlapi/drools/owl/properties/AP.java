@@ -16,37 +16,37 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  */
 public class AP extends OE implements P
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public AP(String propertyName)
-	{
-		super(propertyName);
-	}
+  public AP(String propertyName)
+  {
+    super(propertyName);
+  }
 
-	/*
-	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
-	 */
-	public AP(BA ba)
-	{
-		super("<InProcess>");
+  /*
+   * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
+   */
+  public AP(BA ba)
+  {
+    super("<InProcess>");
 
-		if (ba instanceof AP) {
-			AP p = (AP)ba;
-			setId(p.getName());
-		} else
-			throw new TargetSWRLRuleEngineInternalException(
-					"expecting OWL annotation property for bound built-in argument, got " + ba.getClass().getCanonicalName());
-	}
+    if (ba instanceof AP) {
+      AP p = (AP)ba;
+      setId(p.getName());
+    } else
+      throw new TargetSWRLRuleEngineInternalException(
+          "expecting OWL annotation property for bound built-in argument, got " + ba.getClass().getCanonicalName());
+  }
 
-	@Override
-	public OWLAnnotationProperty extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLAnnotationProperty extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 }

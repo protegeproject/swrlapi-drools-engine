@@ -18,43 +18,43 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SIA extends DroolsBinaryIndividualsAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public SIA(I individual1, I individual2)
-	{
-		super(individual1, individual2);
-	}
+  public SIA(I individual1, I individual2)
+  {
+    super(individual1, individual2);
+  }
 
-	public SIA(String individual1ID, String individual2ID)
-	{
-		this(new I(individual1ID), new I(individual2ID));
-	}
+  public SIA(String individual1ID, String individual2ID)
+  {
+    this(new I(individual1ID), new I(individual2ID));
+  }
 
-	public SIA(I individual1, String individual2ID)
-	{
-		this(individual1, new I(individual2ID));
-	}
+  public SIA(I individual1, String individual2ID)
+  {
+    this(individual1, new I(individual2ID));
+  }
 
-	public SIA(String individual1ID, I individual2)
-	{
-		this(new I(individual1ID), individual2);
-	}
+  public SIA(String individual1ID, I individual2)
+  {
+    this(new I(individual1ID), individual2);
+  }
 
-	@Override
-	public OWLSameIndividualAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLSameIndividualAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "SIA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "SIA" + super.toString();
+  }
 }

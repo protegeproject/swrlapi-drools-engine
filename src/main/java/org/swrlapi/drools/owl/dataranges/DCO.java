@@ -7,25 +7,25 @@ package org.swrlapi.drools.owl.dataranges;
  */
 public class DCO implements DR
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private final String rid;
-	private final String complementRangeID;
+  private final String rid;
+  private final String complementRangeID;
 
-	public DCO(String rid, String complementRangeID)
-	{
-		this.rid = rid;
-		this.complementRangeID = complementRangeID;
-	}
+  public DCO(String rid, String complementRangeID)
+  {
+    this.rid = rid;
+    this.complementRangeID = complementRangeID;
+  }
 
-	@Override
-	public String getrid()
-	{
-		return this.rid;
-	}
+  @Override
+  public String getrid()
+  {
+    return this.rid;
+  }
 
-	public String getComplementRangeID()
-	{
-		return this.complementRangeID;
-	}
+  public String getComplementRangeID()
+  {
+    return this.complementRangeID;
+  }
 }

@@ -12,38 +12,38 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DOPA extends DroolsBinaryObject<String, String> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DOPA(String propertyID, String domainClassID)
-	{
-		super(propertyID, domainClassID);
-	}
+  public DOPA(String propertyID, String domainClassID)
+  {
+    super(propertyID, domainClassID);
+  }
 
-	public String getpid()
-	{
-		return getT1();
-	}
+  public String getpid()
+  {
+    return getT1();
+  }
 
-	public String getdid()
-	{
-		return getT2();
-	}
+  public String getdid()
+  {
+    return getT2();
+  }
 
-	@Override
-	public OWLObjectPropertyDomainAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
-	{
-		return converter.extract(this);
-	}
+  @Override
+  public OWLObjectPropertyDomainAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
+  {
+    return converter.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "DOPA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "DOPA" + super.toString();
+  }
 }

@@ -10,32 +10,32 @@ import org.swrlapi.drools.owl.core.L;
  */
 public class DHVCE extends DroolsTernaryObject<String, String, L> implements CE
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DHVCE(String ceid, String propertyID, L l)
-	{
-		super(ceid, propertyID, l);
-	}
+  public DHVCE(String ceid, String propertyID, L l)
+  {
+    super(ceid, propertyID, l);
+  }
 
-	@Override
-	public String getceid()
-	{
-		return getT1();
-	}
+  @Override
+  public String getceid()
+  {
+    return getT1();
+  }
 
-	public String getpid()
-	{
-		return getT2();
-	}
+  public String getpid()
+  {
+    return getT2();
+  }
 
-	public L getV()
-	{
-		return getT3();
-	}
+  public L getV()
+  {
+    return getT3();
+  }
 
-	@Override
-	public String toString()
-	{
-		return "DHVCE" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "DHVCE" + super.toString();
+  }
 }

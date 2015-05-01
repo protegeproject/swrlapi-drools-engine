@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Keeps track of OWL axioms that are inferred during by a Drools-based OWL reasoner. Also contains the initial
- * asserted OWL axioms.
+ * Keeps track of OWL axioms that are inferred during by a Drools-based OWL reasoner. Also contains the initial asserted
+ * OWL axioms.
  *
  * @see org.swrlapi.drools.reasoner.DroolsOWLReasoner
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
@@ -16,99 +16,99 @@ import java.util.Set;
  */
 public interface DroolsOWLAxiomHandler
 {
-	void infer(A... newInferredOWLAxioms);
+  void infer(A... newInferredOWLAxioms);
 
-	void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms);
+  void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms);
 
-	void inferFalse(String owl2RLRuleName, String... arguments);
+  void inferFalse(String owl2RLRuleName, String... arguments);
 
-	boolean isInconsistent();
+  boolean isInconsistent();
 
-	// Axioms
+  // Axioms
 
-	Set<A> getAssertedOWLAxioms();
+  Set<A> getAssertedOWLAxioms();
 
-	Set<A> getInferredOWLAxioms();
+  Set<A> getInferredOWLAxioms();
 
-	boolean isEntailed(A a);
+  boolean isEntailed(A a);
 
-	boolean isEntailed(Set<? extends A> axioms);
+  boolean isEntailed(Set<? extends A> axioms);
 
-	// Classes
+  // Classes
 
-	boolean isDeclaredClass(String classID);
+  boolean isDeclaredClass(String classID);
 
-	Set<String> getClassAssertions(String classID);
+  Set<String> getClassAssertions(String classID);
 
-	Set<String> getSubClasses(String classID, boolean direct);
+  Set<String> getSubClasses(String classID, boolean direct);
 
-	Set<String> getSuperClasses(String classID, boolean direct);
+  Set<String> getSuperClasses(String classID, boolean direct);
 
-	Set<String> getDisjointClasses(String classID);
+  Set<String> getDisjointClasses(String classID);
 
-	Set<String> getEquivalentClasses(String classID);
+  Set<String> getEquivalentClasses(String classID);
 
-	boolean strictSubClassOf(String classID1, String classID2);
+  boolean strictSubClassOf(String classID1, String classID2);
 
-	boolean directSubClassOf(String classID1, String classID2);
+  boolean directSubClassOf(String classID1, String classID2);
 
-	// Individuals
+  // Individuals
 
-	boolean isDeclaredIndividual(String individualID);
+  boolean isDeclaredIndividual(String individualID);
 
-	Set<String> getSameIndividual(String individualID);
+  Set<String> getSameIndividual(String individualID);
 
-	Set<String> getDifferentIndividuals(String individualID);
+  Set<String> getDifferentIndividuals(String individualID);
 
-	// Object properties
+  // Object properties
 
-	boolean isDeclaredObjectProperty(String propertyID);
+  boolean isDeclaredObjectProperty(String propertyID);
 
-	Set<String> getSubObjectProperties(String propertyID, boolean direct);
+  Set<String> getSubObjectProperties(String propertyID, boolean direct);
 
-	Set<String> getSuperObjectProperties(String propertyID, boolean direct);
+  Set<String> getSuperObjectProperties(String propertyID, boolean direct);
 
-	Set<String> getObjectPropertyRanges(String propertyID, boolean direct);
+  Set<String> getObjectPropertyRanges(String propertyID, boolean direct);
 
-	Set<String> getObjectPropertyDomains(String propertyID, boolean direct);
+  Set<String> getObjectPropertyDomains(String propertyID, boolean direct);
 
-	Set<String> getDisjointObjectProperties(String propertyID);
+  Set<String> getDisjointObjectProperties(String propertyID);
 
-	Set<String> getEquivalentObjectProperties(String propertyID);
+  Set<String> getEquivalentObjectProperties(String propertyID);
 
-	Set<String> getInverseObjectProperties(String propertyID);
+  Set<String> getInverseObjectProperties(String propertyID);
 
-	Map<String, Set<String>> getObjectPropertyAssertions(String propertyID); // individualID -> Set<individualID>
+  Map<String, Set<String>> getObjectPropertyAssertions(String propertyID); // individualID -> Set<individualID>
 
-	Set<String> getObjectPropertyValuesForIndividual(String individualID, String propertyID); // Set<individualID>
+  Set<String> getObjectPropertyValuesForIndividual(String individualID, String propertyID); // Set<individualID>
 
-	boolean strictSubObjectPropertyOf(String propertyID1, String propertyID2);
+  boolean strictSubObjectPropertyOf(String propertyID1, String propertyID2);
 
-	boolean directSubObjectPropertyOf(String propertyID1, String propertyID2);
+  boolean directSubObjectPropertyOf(String propertyID1, String propertyID2);
 
-	// Data properties
+  // Data properties
 
-	boolean isDeclaredDataProperty(String propertyID);
+  boolean isDeclaredDataProperty(String propertyID);
 
-	Set<String> getSubDataProperties(String propertyID, boolean direct);
+  Set<String> getSubDataProperties(String propertyID, boolean direct);
 
-	Set<String> getSuperDataProperties(String propertyID, boolean direct);
+  Set<String> getSuperDataProperties(String propertyID, boolean direct);
 
-	Set<String> getDataPropertyDomains(String propertyID, boolean direct);
+  Set<String> getDataPropertyDomains(String propertyID, boolean direct);
 
-	Set<String> getDisjointDataProperties(String propertyID);
+  Set<String> getDisjointDataProperties(String propertyID);
 
-	Set<String> getEquivalentDataProperties(String propertyID);
+  Set<String> getEquivalentDataProperties(String propertyID);
 
-	Map<String, Set<L>> getDataPropertyAssertions(String propertyID); // individualID -> Set<L>
+  Map<String, Set<L>> getDataPropertyAssertions(String propertyID); // individualID -> Set<L>
 
-	Set<L> getDataPropertyValuesForIndividual(String individualID, String propertyID);
+  Set<L> getDataPropertyValuesForIndividual(String individualID, String propertyID);
 
-	boolean strictSubDataPropertyOf(String propertyID1, String propertyID2);
+  boolean strictSubDataPropertyOf(String propertyID1, String propertyID2);
 
-	boolean directSubDataPropertyOf(String propertyID1, String propertyID2);
+  boolean directSubDataPropertyOf(String propertyID1, String propertyID2);
 
-	// Annotation properties
+  // Annotation properties
 
-	boolean isDeclaredAnnotation(String propertyID);
+  boolean isDeclaredAnnotation(String propertyID);
 }

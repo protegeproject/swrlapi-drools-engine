@@ -17,53 +17,53 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  */
 public class DP extends OE implements P, DPE
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public DP(String propertyName)
-	{
-		super(propertyName);
-	}
+  public DP(String propertyName)
+  {
+    super(propertyName);
+  }
 
-	/*
-	 * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
-	 */
-	public DP(BA ba)
-	{
-		super("<InProcess>");
+  /*
+   * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
+   */
+  public DP(BA ba)
+  {
+    super("<InProcess>");
 
-		if (ba instanceof DP) {
-			DP p = (DP)ba;
-			setId(p.getName());
-		} else
-			throw new TargetSWRLRuleEngineInternalException("expecting OWL data property from bound built-in argument, got "
-					+ ba.getClass().getCanonicalName());
-	}
+    if (ba instanceof DP) {
+      DP p = (DP)ba;
+      setId(p.getName());
+    } else
+      throw new TargetSWRLRuleEngineInternalException("expecting OWL data property from bound built-in argument, got "
+          + ba.getClass().getCanonicalName());
+  }
 
-	@Override
-	public OWLDataProperty extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLDataProperty extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return super.toString();
+  }
 
-	public static DP getOWLTopDataProperty()
-	{
-		return new DP(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getPrefixedName());
-	}
+  public static DP getOWLTopDataProperty()
+  {
+    return new DP(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getPrefixedName());
+  }
 
-	public static DP getOWLBottomDataProperty()
-	{
-		return new DP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getPrefixedName());
-	}
+  public static DP getOWLBottomDataProperty()
+  {
+    return new DP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getPrefixedName());
+  }
 }

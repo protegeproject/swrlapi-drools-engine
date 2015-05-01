@@ -73,69 +73,69 @@ import org.swrlapi.drools.owl.axioms.TOPA;
  */
 public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 {
-	OWLDeclarationAxiom extract(CDA da);
+  OWLDeclarationAxiom extract(CDA da);
 
-	OWLSubClassOfAxiom extract(SCA sca);
+  OWLSubClassOfAxiom extract(SCA sca);
 
-	OWLDisjointClassesAxiom extract(DCA dca);
+  OWLDisjointClassesAxiom extract(DCA dca);
 
-	OWLEquivalentClassesAxiom extract(ECA eca);
+  OWLEquivalentClassesAxiom extract(ECA eca);
 
-	OWLObjectPropertyDomainAxiom extract(DOPA dopa);
+  OWLObjectPropertyDomainAxiom extract(DOPA dopa);
 
-	OWLDataPropertyDomainAxiom extract(DDPA ddpa);
+  OWLDataPropertyDomainAxiom extract(DDPA ddpa);
 
-	OWLDeclarationAxiom extract(IDA da);
+  OWLDeclarationAxiom extract(IDA da);
 
-	OWLDataPropertyRangeAxiom extract(DPRA DPRA);
+  OWLDataPropertyRangeAxiom extract(DPRA DPRA);
 
-	OWLObjectPropertyRangeAxiom extract(OPRA OPRA);
+  OWLObjectPropertyRangeAxiom extract(OPRA OPRA);
 
-	OWLDeclarationAxiom extract(OPDA da);
+  OWLDeclarationAxiom extract(OPDA da);
 
-	OWLDeclarationAxiom extract(DPDA da);
+  OWLDeclarationAxiom extract(DPDA da);
 
-	OWLDeclarationAxiom extract(APDA da);
+  OWLDeclarationAxiom extract(APDA da);
 
-	OWLClassAssertionAxiom extract(CAA caa);
+  OWLClassAssertionAxiom extract(CAA caa);
 
-	OWLObjectPropertyAssertionAxiom extract(OPAA opaa);
+  OWLObjectPropertyAssertionAxiom extract(OPAA opaa);
 
-	OWLNegativeObjectPropertyAssertionAxiom extract(NOPAA opaa);
+  OWLNegativeObjectPropertyAssertionAxiom extract(NOPAA opaa);
 
-	OWLDataPropertyAssertionAxiom extract(DPAA dpaa);
+  OWLDataPropertyAssertionAxiom extract(DPAA dpaa);
 
-	OWLNegativeDataPropertyAssertionAxiom extract(NDPAA ndpaa);
+  OWLNegativeDataPropertyAssertionAxiom extract(NDPAA ndpaa);
 
-	OWLSameIndividualAxiom extract(SIA sia);
+  OWLSameIndividualAxiom extract(SIA sia);
 
-	OWLDifferentIndividualsAxiom extract(DIA dia);
+  OWLDifferentIndividualsAxiom extract(DIA dia);
 
-	OWLSubObjectPropertyOfAxiom extract(SOPA sopa);
+  OWLSubObjectPropertyOfAxiom extract(SOPA sopa);
 
-	OWLSubDataPropertyOfAxiom extract(SDPA sdpa);
+  OWLSubDataPropertyOfAxiom extract(SDPA sdpa);
 
-	OWLEquivalentObjectPropertiesAxiom extract(EOPA eopa);
+  OWLEquivalentObjectPropertiesAxiom extract(EOPA eopa);
 
-	OWLEquivalentDataPropertiesAxiom extract(EDPA edpa);
+  OWLEquivalentDataPropertiesAxiom extract(EDPA edpa);
 
-	OWLDisjointObjectPropertiesAxiom extract(DJOPA edpa);
+  OWLDisjointObjectPropertiesAxiom extract(DJOPA edpa);
 
-	OWLDisjointDataPropertiesAxiom extract(DJDPA edpa);
+  OWLDisjointDataPropertiesAxiom extract(DJDPA edpa);
 
-	OWLFunctionalObjectPropertyAxiom extract(FOPA fopa);
+  OWLFunctionalObjectPropertyAxiom extract(FOPA fopa);
 
-	OWLFunctionalDataPropertyAxiom extract(FDPA fopa);
+  OWLFunctionalDataPropertyAxiom extract(FDPA fopa);
 
-	OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA IFOPA);
+  OWLInverseFunctionalObjectPropertyAxiom extract(IFOPA IFOPA);
 
-	OWLIrreflexiveObjectPropertyAxiom extract(IROPA IROPA);
+  OWLIrreflexiveObjectPropertyAxiom extract(IROPA IROPA);
 
-	OWLAsymmetricObjectPropertyAxiom extract(AOPA AOPA);
+  OWLAsymmetricObjectPropertyAxiom extract(AOPA AOPA);
 
-	OWLSymmetricObjectPropertyAxiom extract(SPA spa);
+  OWLSymmetricObjectPropertyAxiom extract(SPA spa);
 
-	OWLTransitiveObjectPropertyAxiom extract(TOPA TOPA);
+  OWLTransitiveObjectPropertyAxiom extract(TOPA TOPA);
 
-	OWLInverseObjectPropertiesAxiom extract(IOPA iopa);
+  OWLInverseObjectPropertiesAxiom extract(IOPA iopa);
 }

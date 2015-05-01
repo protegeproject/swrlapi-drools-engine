@@ -12,7 +12,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public interface A extends OO
 {
-	OWLAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException;
+  OWLAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException;
 
-	void visit(AVisitor visitor);
+  void visit(AVisitor visitor);
 }

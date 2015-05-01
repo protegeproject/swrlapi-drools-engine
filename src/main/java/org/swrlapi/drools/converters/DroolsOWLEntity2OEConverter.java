@@ -22,53 +22,53 @@ import org.swrlapi.drools.owl.properties.OP;
  *
  * @see org.semanticweb.owlapi.model.OWLEntity
  */
-public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase
-		implements TargetRuleEngineOWLEntityConverter<OE>
+public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase implements
+TargetRuleEngineOWLEntityConverter<OE>
 {
-	public DroolsOWLEntity2OEConverter(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
-	}
+  public DroolsOWLEntity2OEConverter(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
+  }
 
-	@Override
-	public C convert(OWLClass cls)
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
-		return new C(prefixedName);
-	}
+  @Override
+  public C convert(OWLClass cls)
+  {
+    String prefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
+    return new C(prefixedName);
+  }
 
-	@Override
-	public I convert(OWLNamedIndividual individual)
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(individual.getIRI());
-		return new I(prefixedName);
-	}
+  @Override
+  public I convert(OWLNamedIndividual individual)
+  {
+    String prefixedName = getIRIResolver().iri2PrefixedName(individual.getIRI());
+    return new I(prefixedName);
+  }
 
-	@Override
-	public OP convert(OWLObjectProperty property)
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
-		return new OP(prefixedName);
-	}
+  @Override
+  public OP convert(OWLObjectProperty property)
+  {
+    String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
+    return new OP(prefixedName);
+  }
 
-	@Override
-	public DP convert(OWLDataProperty property)
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
-		return new DP(prefixedName);
-	}
+  @Override
+  public DP convert(OWLDataProperty property)
+  {
+    String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
+    return new DP(prefixedName);
+  }
 
-	@Override
-	public AP convert(OWLAnnotationProperty property)
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
-		return new AP(prefixedName);
-	}
+  @Override
+  public AP convert(OWLAnnotationProperty property)
+  {
+    String prefixedName = getIRIResolver().iri2PrefixedName(property.getIRI());
+    return new AP(prefixedName);
+  }
 
-	@Override
-	public D convert(OWLDatatype datatype)
-	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
-		return new D(prefixedName);
-	}
+  @Override
+  public D convert(OWLDatatype datatype)
+  {
+    String prefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
+    return new D(prefixedName);
+  }
 }

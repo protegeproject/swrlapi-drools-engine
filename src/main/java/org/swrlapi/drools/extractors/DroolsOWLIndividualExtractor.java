@@ -13,5 +13,5 @@ import org.swrlapi.drools.owl.core.I;
  */
 public interface DroolsOWLIndividualExtractor extends TargetRuleEngineExtractor
 {
-	OWLIndividual extract(I i);
+  OWLIndividual extract(I i);
 }

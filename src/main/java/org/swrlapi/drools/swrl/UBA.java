@@ -9,27 +9,27 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class UBA implements BA
 {
-	private final String variableName;
+  private final String variableName;
 
-	public UBA(String variableName)
-	{
-		this.variableName = variableName;
-	}
+  public UBA(String variableName)
+  {
+    this.variableName = variableName;
+  }
 
-	public String getVariableName()
-	{
-		return this.variableName;
-	}
+  public String getVariableName()
+  {
+    return this.variableName;
+  }
 
-	@Override
-	public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "UBA(?" + getVariableName() + ")";
-	}
+  @Override
+  public String toString()
+  {
+    return "UBA(?" + getVariableName() + ")";
+  }
 }

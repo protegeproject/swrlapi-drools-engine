@@ -13,5 +13,5 @@ import org.swrlapi.drools.owl.core.OO;
  */
 public interface DR extends OO
 {
-	String getrid();
+  String getrid();
 }

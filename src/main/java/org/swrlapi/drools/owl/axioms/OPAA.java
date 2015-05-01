@@ -16,69 +16,69 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public OPAA(I subject, String propertyID, I object)
-	{
-		super(subject, propertyID, object);
-	}
+  public OPAA(I subject, String propertyID, I object)
+  {
+    super(subject, propertyID, object);
+  }
 
-	public OPAA(I subject, String propertyID, String objectName)
-	{
-		super(subject, propertyID, new I(objectName));
-	}
+  public OPAA(I subject, String propertyID, String objectName)
+  {
+    super(subject, propertyID, new I(objectName));
+  }
 
-	public OPAA(String subjectName, String propertyID, I object)
-	{
-		super(new I(subjectName), propertyID, object);
-	}
+  public OPAA(String subjectName, String propertyID, I object)
+  {
+    super(new I(subjectName), propertyID, object);
+  }
 
-	public OPAA(String subjectName, String propertyID, String objectName)
-	{
-		super(new I(subjectName), propertyID, new I(objectName));
-	}
+  public OPAA(String subjectName, String propertyID, String objectName)
+  {
+    super(new I(subjectName), propertyID, new I(objectName));
+  }
 
-	public I gets()
-	{
-		return getT1();
-	}
+  public I gets()
+  {
+    return getT1();
+  }
 
-	public String getsid()
-	{
-		return getT1().getid();
-	}
+  public String getsid()
+  {
+    return getT1().getid();
+  }
 
-	public String getpid()
-	{
-		return getT2();
-	}
+  public String getpid()
+  {
+    return getT2();
+  }
 
-	public I geto()
-	{
-		return getT3();
-	}
+  public I geto()
+  {
+    return getT3();
+  }
 
-	public String getoid()
-	{
-		return getT3().getid();
-	}
+  public String getoid()
+  {
+    return getT3().getid();
+  }
 
-	@Override
-	public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
-			throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
+      throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "OPAA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "OPAA" + super.toString();
+  }
 }

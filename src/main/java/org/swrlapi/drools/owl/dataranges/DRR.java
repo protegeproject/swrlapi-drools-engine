@@ -9,18 +9,18 @@ package org.swrlapi.drools.owl.dataranges;
  */
 public class DRR implements DR
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private final String rid;
+  private final String rid;
 
-	public DRR(String rid)
-	{
-		this.rid = rid;
-	}
+  public DRR(String rid)
+  {
+    this.rid = rid;
+  }
 
-	@Override
-	public String getrid()
-	{
-		return this.rid;
-	}
+  @Override
+  public String getrid()
+  {
+    return this.rid;
+  }
 }

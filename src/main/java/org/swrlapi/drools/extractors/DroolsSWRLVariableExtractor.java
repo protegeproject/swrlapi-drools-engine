@@ -11,20 +11,20 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
 {
-	public DroolsSWRLVariableExtractor(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
-	}
+  public DroolsSWRLVariableExtractor(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
+  }
 
-	public String variableName2VariablePrefixedName(String variableName)
-	{
-		return ":" + variableName;
-	}
+  public String variableName2VariablePrefixedName(String variableName)
+  {
+    return ":" + variableName;
+  }
 
-	public IRI variableName2VariableIRI(String variableName) throws TargetSWRLRuleEngineException
-	{
-		String variablePrefixedName = variableName2VariablePrefixedName(variableName);
+  public IRI variableName2VariableIRI(String variableName) throws TargetSWRLRuleEngineException
+  {
+    String variablePrefixedName = variableName2VariablePrefixedName(variableName);
 
-		return prefixedName2IRI(variablePrefixedName);
-	}
+    return prefixedName2IRI(variablePrefixedName);
+  }
 }

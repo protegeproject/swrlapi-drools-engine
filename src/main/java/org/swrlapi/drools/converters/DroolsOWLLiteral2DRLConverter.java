@@ -13,20 +13,20 @@ import org.swrlapi.drools.core.DroolsNames;
  * @see org.semanticweb.owlapi.model.OWLLiteral
  */
 public class DroolsOWLLiteral2DRLConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLLiteralConverter<String>
+TargetRuleEngineOWLLiteralConverter<String>
 {
-	public DroolsOWLLiteral2DRLConverter(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
-	}
+  public DroolsOWLLiteral2DRLConverter(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
+  }
 
-	@Override
-	public String convert(OWLLiteral literal)
-	{
-		IRI datatypeIRI = literal.getDatatype().getIRI();
-		String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatypeIRI);
+  @Override
+  public String convert(OWLLiteral literal)
+  {
+    IRI datatypeIRI = literal.getDatatype().getIRI();
+    String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatypeIRI);
 
-		return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \"" + datatypePrefixedName
-				+ "\")";
-	}
+    return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \"" + datatypePrefixedName
+        + "\")";
+  }
 }

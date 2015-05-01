@@ -16,59 +16,59 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public NOPAA(I subject, String propertyID, I object)
-	{
-		super(subject, propertyID, object);
-	}
+  public NOPAA(I subject, String propertyID, I object)
+  {
+    super(subject, propertyID, object);
+  }
 
-	public NOPAA(I subject, String propertyID, String objectName)
-	{
-		this(subject, propertyID, new I(objectName));
-	}
+  public NOPAA(I subject, String propertyID, String objectName)
+  {
+    this(subject, propertyID, new I(objectName));
+  }
 
-	public NOPAA(String subjectName, String propertyID, I object)
-	{
-		this(new I(subjectName), propertyID, object);
-	}
+  public NOPAA(String subjectName, String propertyID, I object)
+  {
+    this(new I(subjectName), propertyID, object);
+  }
 
-	public NOPAA(String subjectName, String propertyID, String objectName)
-	{
-		this(new I(subjectName), propertyID, new I(objectName));
-	}
+  public NOPAA(String subjectName, String propertyID, String objectName)
+  {
+    this(new I(subjectName), propertyID, new I(objectName));
+  }
 
-	public I gets()
-	{
-		return getT1();
-	}
+  public I gets()
+  {
+    return getT1();
+  }
 
-	public String getpid()
-	{
-		return getT2();
-	}
+  public String getpid()
+  {
+    return getT2();
+  }
 
-	public I geto()
-	{
-		return getT3();
-	}
+  public I geto()
+  {
+    return getT3();
+  }
 
-	@Override
-	public OWLNegativeObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
-			throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLNegativeObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
+      throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "NOPAA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "NOPAA" + super.toString();
+  }
 }

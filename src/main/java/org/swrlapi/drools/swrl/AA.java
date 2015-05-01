@@ -11,5 +11,5 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public interface AA
 {
-	SWRLArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException;
+  SWRLArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException;
 }

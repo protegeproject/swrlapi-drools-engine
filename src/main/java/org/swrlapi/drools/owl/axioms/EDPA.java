@@ -11,29 +11,29 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class EDPA extends DroolsBinaryPropertiesAxiom
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public EDPA(String property1ID, String property2ID)
-	{
-		super(property1ID, property2ID);
-	}
+  public EDPA(String property1ID, String property2ID)
+  {
+    super(property1ID, property2ID);
+  }
 
-	@Override
-	public OWLEquivalentDataPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor)
-			throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLEquivalentDataPropertiesAxiom extract(DroolsOWLAxiomExtractor extractor)
+      throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
-	@Override
-	public String toString()
-	{
-		return "EDPA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "EDPA" + super.toString();
+  }
 }

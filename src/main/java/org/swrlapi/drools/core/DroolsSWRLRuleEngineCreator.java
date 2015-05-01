@@ -14,15 +14,15 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.TargetSWRLRuleEngineCreator
 {
-	@Override
-	public String getRuleEngineName()
-	{
-		return DroolsNames.RULE_ENGINE_NAME;
-	}
+  @Override
+  public String getRuleEngineName()
+  {
+    return DroolsNames.RULE_ENGINE_NAME;
+  }
 
-	@Override
-	public TargetSWRLRuleEngine create(SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
-	{
-		return new DroolsSWRLRuleEngine(bridge);
-	}
+  @Override
+  public TargetSWRLRuleEngine create(SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
+  {
+    return new DroolsSWRLRuleEngine(bridge);
+  }
 }

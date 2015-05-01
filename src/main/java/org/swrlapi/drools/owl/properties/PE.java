@@ -10,5 +10,5 @@ import org.swrlapi.drools.owl.core.OO;
  */
 public interface PE extends OO
 {
-	String getid();
+  String getid();
 }

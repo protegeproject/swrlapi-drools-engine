@@ -12,27 +12,27 @@ import org.swrlapi.drools.owl.core.DroolsBinaryObject;
  */
 public class OIOCE extends DroolsBinaryObject<String, String> implements CE
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public OIOCE(String ceid, String c1)
-	{
-		super(ceid, c1);
-	}
+  public OIOCE(String ceid, String c1)
+  {
+    super(ceid, c1);
+  }
 
-	@Override
-	public String getceid()
-	{
-		return getT1();
-	}
+  @Override
+  public String getceid()
+  {
+    return getT1();
+  }
 
-	public String getC1()
-	{
-		return getT2();
-	}
+  public String getC1()
+  {
+    return getT2();
+  }
 
-	@Override
-	public String toString()
-	{
-		return "OIOCE" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "OIOCE" + super.toString();
+  }
 }

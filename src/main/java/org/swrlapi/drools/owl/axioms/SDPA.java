@@ -12,39 +12,39 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SDPA extends DroolsBinaryObject<String, String> implements A
 {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public SDPA(String property1ID, String property2ID)
-	{
-		super(property1ID, property2ID);
-	}
+  public SDPA(String property1ID, String property2ID)
+  {
+    super(property1ID, property2ID);
+  }
 
-	public String getsubpid()
-	{
-		return getT1();
-	}
+  public String getsubpid()
+  {
+    return getT1();
+  }
 
-	public String getsuperpid()
-	{
-		return getT2();
-	}
+  public String getsuperpid()
+  {
+    return getT2();
+  }
 
-	@Override
-	public String toString()
-	{
-		return "SDPA" + super.toString();
-	}
+  @Override
+  public String toString()
+  {
+    return "SDPA" + super.toString();
+  }
 
-	@Override
-	public OWLSubDataPropertyOfAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
-	{
-		return extractor.extract(this);
-	}
+  @Override
+  public OWLSubDataPropertyOfAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
 
-	@Override
-	public void visit(AVisitor visitor)
-	{
-		visitor.visit(this);
-	}
+  @Override
+  public void visit(AVisitor visitor)
+  {
+    visitor.visit(this);
+  }
 
 }

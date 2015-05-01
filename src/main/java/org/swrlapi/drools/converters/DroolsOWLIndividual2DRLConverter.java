@@ -13,28 +13,28 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @see org.semanticweb.owlapi.model.OWLNamedIndividual
  */
-public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterBase
-		implements TargetRuleEngineOWLIndividualConverter<String>
+public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterBase implements
+TargetRuleEngineOWLIndividualConverter<String>
 {
-	public DroolsOWLIndividual2DRLConverter(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
-	}
+  public DroolsOWLIndividual2DRLConverter(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
+  }
 
-	@Override
-	public String convert(OWLIndividual individual)
-	{
-		if (individual.isNamed()) {
-			IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
-			String prefixedName = getIRIResolver().iri2PrefixedName(individualIRI);
-			//return addQuotes(prefixedName);
-			return "new I(\"" + prefixedName + "\")";
-		} else {
-			String individualID = individual.asOWLAnonymousIndividual().getID().getID();
-			//return addQuotes(individualID);
-			return "new I(\"" + individualID + "\")";
-		}
-	}
+  @Override
+  public String convert(OWLIndividual individual)
+  {
+    if (individual.isNamed()) {
+      IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
+      String prefixedName = getIRIResolver().iri2PrefixedName(individualIRI);
+      // return addQuotes(prefixedName);
+      return "new I(\"" + prefixedName + "\")";
+    } else {
+      String individualID = individual.asOWLAnonymousIndividual().getID().getID();
+      // return addQuotes(individualID);
+      return "new I(\"" + individualID + "\")";
+    }
+  }
 
-	//private String addQuotes(String s) { return "\"" + s + "\""; }
+  // private String addQuotes(String s) { return "\"" + s + "\""; }
 }

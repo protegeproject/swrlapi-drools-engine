@@ -8,7 +8,8 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
 import org.swrlapi.drools.owl.core.I;
 
 /**
- * Converts an OWLAPI OWL individual to a Drools individual represented by the class {@link org.swrlapi.drools.owl.core.I}.
+ * Converts an OWLAPI OWL individual to a Drools individual represented by the class
+ * {@link org.swrlapi.drools.owl.core.I}.
  * 
  * @see org.semanticweb.owlapi.model.OWLIndividual
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
@@ -16,21 +17,21 @@ import org.swrlapi.drools.owl.core.I;
  * @see org.swrlapi.drools.owl.core.I
  */
 public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBase implements
-		TargetRuleEngineOWLIndividualConverter<I>
+TargetRuleEngineOWLIndividualConverter<I>
 {
-	public DroolsOWLIndividual2IConverter(SWRLRuleEngineBridge bridge)
-	{
-		super(bridge);
-	}
+  public DroolsOWLIndividual2IConverter(SWRLRuleEngineBridge bridge)
+  {
+    super(bridge);
+  }
 
-	@Override
-	public I convert(OWLIndividual individual)
-	{
-		if (individual.isNamed()) {
-			IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
-			String individualPrefixedName = getIRIResolver().iri2PrefixedName(individualIRI);
-			return new I(individualPrefixedName);
-		} else
-			return new I(individual.asOWLAnonymousIndividual().getID().getID());
-	}
+  @Override
+  public I convert(OWLIndividual individual)
+  {
+    if (individual.isNamed()) {
+      IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
+      String individualPrefixedName = getIRIResolver().iri2PrefixedName(individualIRI);
+      return new I(individualPrefixedName);
+    } else
+      return new I(individual.asOWLAnonymousIndividual().getID().getID());
+  }
 }

@@ -11,6 +11,6 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public interface BA extends AA
 {
-	@Override
-	SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException;
+  @Override
+  SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException;
 }

@@ -25,15 +25,15 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public interface DroolsOWLEntityExtractor extends TargetRuleEngineExtractor
 {
-	OWLClass extract(C c) throws TargetSWRLRuleEngineException;
+  OWLClass extract(C c) throws TargetSWRLRuleEngineException;
 
-	OWLNamedIndividual extract(I i) throws TargetSWRLRuleEngineException;
+  OWLNamedIndividual extract(I i) throws TargetSWRLRuleEngineException;
 
-	OWLObjectProperty extract(OP p) throws TargetSWRLRuleEngineException;
+  OWLObjectProperty extract(OP p) throws TargetSWRLRuleEngineException;
 
-	OWLDataProperty extract(DP p) throws TargetSWRLRuleEngineException;
+  OWLDataProperty extract(DP p) throws TargetSWRLRuleEngineException;
 
-	OWLAnnotationProperty extract(AP p) throws TargetSWRLRuleEngineException;
+  OWLAnnotationProperty extract(AP p) throws TargetSWRLRuleEngineException;
 
-	OWLDatatype extract(D d) throws TargetSWRLRuleEngineException;
+  OWLDatatype extract(D d) throws TargetSWRLRuleEngineException;
 }

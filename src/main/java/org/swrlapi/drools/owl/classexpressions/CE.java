@@ -13,5 +13,5 @@ import org.swrlapi.drools.owl.core.OO;
  */
 public interface CE extends OO
 {
-	String getceid();
+  String getceid();
 }
