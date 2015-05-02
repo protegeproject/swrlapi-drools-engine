@@ -37,6 +37,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.owl2rl.OWL2RLEngine;
 import org.swrlapi.sqwrl.SQWRLQuery;
 
+import javax.swing.*;
+
 /**
  * This class provides a Drools implementation of a rule engine for SWRL using the SWRLAPI's Rule Engine Bridge
  * mechanism. The underlying reasoner is supplier by the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine}.
@@ -222,7 +224,13 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   @Override
   public OWLReasoner getOWLReasoner()
   {
-    return null; // TODO Return Drools implementation of OWL reasoner here
+    return null; // TODO Return Drools implementation of an OWL reasoner here
+  }
+
+  @Override
+  public Icon getSWRLRuleEngineIcon()
+  {
+    return DroolsFactory.getSWRLRuleEngineIcon();
   }
 
   @Override
