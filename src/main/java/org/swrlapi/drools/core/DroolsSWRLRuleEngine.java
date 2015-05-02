@@ -166,8 +166,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     }
 
     try { // Asserted OWL axioms and class expressions must be added after rules are added to knowledge base.
-      for (A axiom : getDroolsOWLAxiomConverter().getAssertedOWLAxioms())
-        this.knowledgeSession.insert(axiom);
+      getDroolsOWLAxiomConverter().getAssertedOWLAxioms().forEach(this.knowledgeSession::insert);
       for (CE classExpression : getDroolsOWLAxiomConverter().getOWLClassExpressions())
         this.knowledgeSession.insert(classExpression);
     } catch (Exception e) { // Note: SWRL built-ins can be called during this insertion process
@@ -184,8 +183,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     try { // Fire the rules
       this.knowledgeSession.fireAllRules(this.sqwrlPhase1AgendaFilter);
       if (!this.phase2SQWRLRuleNames.isEmpty() && this.sqwrlCollectionInferrer.hasSQWRLCollections()) {
-        for (SQWRLC sqwrlc : this.sqwrlCollectionInferrer.getSQWRLCollections())
-          this.knowledgeSession.insert(sqwrlc);
+        this.sqwrlCollectionInferrer.getSQWRLCollections().forEach(this.knowledgeSession::insert);
         this.knowledgeSession.fireAllRules(this.sqwrlPhase2AgendaFilter);
       }
     } catch (Exception e) {

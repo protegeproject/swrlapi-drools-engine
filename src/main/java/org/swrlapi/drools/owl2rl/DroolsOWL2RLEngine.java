@@ -1,12 +1,12 @@
 package org.swrlapi.drools.owl2rl;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.AbstractOWL2RLEngine;
 import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
+
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class providing a Drools implementation of an OWL 2 RL-based reasoner.
@@ -37,9 +37,8 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   {
     Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
-    for (OWL2RLRule rule : getEnabledRules())
-      if (this.droolsOWL2RLRules.hasRule(rule))
-        enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule));
+    getEnabledRules().stream().filter(rule -> this.droolsOWL2RLRules.hasRule(rule))
+        .forEach(rule -> enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule)));
 
     return enabledRuleDefinitions;
   }
