@@ -1,4 +1,4 @@
-package org.swrlapi.drools.extractors;
+package org.swrlapi.drools.factory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
+import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.owl.core.D;
 import org.swrlapi.drools.owl.core.I;
@@ -23,50 +24,44 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  * @see org.semanticweb.owlapi.model.OWLEntity
  * @see org.swrlapi.drools.owl.core.OE
  */
-public class DefaultDroolsOWLEntityExtractor extends TargetRuleEngineExtractorBase implements DroolsOWLEntityExtractor
+class DefaultDroolsOWLEntityExtractor extends TargetRuleEngineExtractorBase implements DroolsOWLEntityExtractor
 {
   public DefaultDroolsOWLEntityExtractor(SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @Override
-  public OWLClass extract(C cls) throws TargetSWRLRuleEngineException
+  @Override public OWLClass extract(C cls) throws TargetSWRLRuleEngineException
   {
     IRI classIRI = prefixedName2IRI(cls.getName());
     return getOWLDataFactory().getOWLClass(classIRI);
   }
 
-  @Override
-  public OWLNamedIndividual extract(I individual) throws TargetSWRLRuleEngineException
+  @Override public OWLNamedIndividual extract(I individual) throws TargetSWRLRuleEngineException
   {
     IRI individualIRI = prefixedName2IRI(individual.getName());
     return getOWLDataFactory().getOWLNamedIndividual(individualIRI);
   }
 
-  @Override
-  public OWLDataProperty extract(DP property) throws TargetSWRLRuleEngineException
+  @Override public OWLDataProperty extract(DP property) throws TargetSWRLRuleEngineException
   {
     IRI propertyIRI = prefixedName2IRI(property.getName());
     return getOWLDataFactory().getOWLDataProperty(propertyIRI);
   }
 
-  @Override
-  public OWLAnnotationProperty extract(AP property) throws TargetSWRLRuleEngineException
+  @Override public OWLAnnotationProperty extract(AP property) throws TargetSWRLRuleEngineException
   {
     IRI propertyIRI = prefixedName2IRI(property.getName());
     return getOWLDataFactory().getOWLAnnotationProperty(propertyIRI);
   }
 
-  @Override
-  public OWLObjectProperty extract(OP property) throws TargetSWRLRuleEngineException
+  @Override public OWLObjectProperty extract(OP property) throws TargetSWRLRuleEngineException
   {
     IRI propertyIRI = prefixedName2IRI(property.getName());
     return getOWLDataFactory().getOWLObjectProperty(propertyIRI);
   }
 
-  @Override
-  public OWLDatatype extract(D datatype) throws TargetSWRLRuleEngineException
+  @Override public OWLDatatype extract(D datatype) throws TargetSWRLRuleEngineException
   {
     IRI datatypeIRI = prefixedName2IRI(datatype.getName());
     return getOWLDataFactory().getOWLDatatype(datatypeIRI);

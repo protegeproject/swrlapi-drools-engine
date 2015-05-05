@@ -69,7 +69,6 @@ import org.swrlapi.drools.owl.axioms.TOPA;
  *
  * @see org.semanticweb.owlapi.model.OWLAxiom
  * @see org.swrlapi.drools.owl.axioms.A
- * @see org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor
  */
 public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 {

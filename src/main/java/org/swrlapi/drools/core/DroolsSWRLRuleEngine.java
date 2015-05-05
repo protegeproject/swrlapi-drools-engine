@@ -21,15 +21,14 @@ import org.swrlapi.drools.converters.DroolsOWLAxiomConverter;
 import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
 import org.swrlapi.drools.converters.DroolsOWLPropertyExpressionConverter;
 import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
-import org.swrlapi.drools.extractors.DefaultDroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
 import org.swrlapi.drools.resolvers.DroolsResolver;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
-import org.swrlapi.drools.sqwrl.SQWRLC;
 import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -90,7 +89,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter,
         propertyExpressionConverter);
 
-    this.axiomExtractor = new DefaultDroolsOWLAxiomExtractor(bridge);
+    this.axiomExtractor = DroolsFactory.getDroolsOWLAxiomExtractor(bridge);
     this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
     this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
     this.axiomInferrer = new DefaultDroolsOWLAxiomHandler();

@@ -2,6 +2,8 @@ package org.swrlapi.drools.extractors;
 
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
+import org.swrlapi.drools.factory.DefaultDroolsOWLIndividualExtractor;
+import org.swrlapi.drools.factory.DroolsFactory;
 
 /**
  * Base class providing methods used by all Drools extractors.
@@ -18,8 +20,8 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
     super(bridge);
 
     this.literalExtractor = new DroolsOWLLiteralExtractor(bridge);
-    this.entityExtractor = new DefaultDroolsOWLEntityExtractor(bridge);
-    this.individualExtractor = new DefaultDroolsOWLIndividualExtractor(bridge);
+    this.entityExtractor = DroolsFactory.getDroolsOWLEntityExtractor(bridge);
+    this.individualExtractor = DroolsFactory.getDroolsOWLIndividualExtractor(bridge);
     this.variableExtractor = new DroolsSWRLVariableExtractor(bridge);
   }
 

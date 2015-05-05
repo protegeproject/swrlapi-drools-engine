@@ -1,8 +1,9 @@
-package org.swrlapi.drools.extractors;
+package org.swrlapi.drools.factory;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
+import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
 import org.swrlapi.drools.owl.core.I;
 
 /**
@@ -12,7 +13,7 @@ import org.swrlapi.drools.owl.core.I;
  * @see org.swrlapi.drools.owl.core.I
  */
 public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtractorBase implements
-DroolsOWLIndividualExtractor
+  DroolsOWLIndividualExtractor
 {
   public DefaultDroolsOWLIndividualExtractor(SWRLRuleEngineBridge bridge)
   {
