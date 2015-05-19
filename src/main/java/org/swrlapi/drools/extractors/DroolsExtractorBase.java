@@ -2,7 +2,6 @@ package org.swrlapi.drools.extractors;
 
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
-import org.swrlapi.drools.factory.DefaultDroolsOWLIndividualExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
 
 /**

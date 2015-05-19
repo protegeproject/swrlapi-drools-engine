@@ -447,7 +447,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   /**
-   * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a strict subproperty of OPE2,
+   * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a strict sub-property of OPE2,
    * written StrictSubObjectPropertyOf(OPE1 OPE2) if O entails SubObjectPropertyOf(OPE1 OPE2) and O does not entail
    * SubObjectPropertyOf(OPE2 OPE1)
    */
@@ -460,7 +460,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   /**
-   * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a direct subproperty of OPE2,
+   * Given two object property expressions OPE1 and OPE2 and an ontology O, OPE1 is a direct sub-property of OPE2,
    * written DirectSubObjectPropertyOf(OPE1 OPE2), with respect to O if O entails StrictSubObjectPropertyOf(OPE1 OPE2)
    * and there is no object property name P in the signature of O such that O entails StrictSubObjectPropertyOf(OPE1 P)
    * and O entails StrictSubObjectPropertyOf(P OPE2).
@@ -559,7 +559,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   /**
-   * Given two data property expressions DPE1 and DPE2 and an ontology O, DPE1 is a strict subproperty of DPE2, written
+   * Given two data property expressions DPE1 and DPE2 and an ontology O, DPE1 is a strict sub-property of DPE2, written
    * StrictSubDataPropertyOf(DPE1 DPE2) if O entails SubDataPropertyOf(DPE1 DPE2) and O does not entail
    * SubDataPropertyOf(DPE2 DPE1)
    */
@@ -572,7 +572,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   /**
-   * Given two object property expressions DPE1 and DPE2 and an ontology O, DPE1 is a direct subproperty of DPE2,
+   * Given two object property expressions DPE1 and DPE2 and an ontology O, DPE1 is a direct sub-property of DPE2,
    * written DirectSubDataPropertyOf(DPE1 DPE2), with respect to O if O entails StrictSubDataPropertyOf(DPE1 DPE2) and
    * there is no data property name P in the signature of O such that O entails StrictSubDataPropertyOf(DPE1 P) and O
    * entails StrictSubDataPropertyOf(P DPE2).

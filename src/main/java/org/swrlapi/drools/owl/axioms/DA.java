@@ -8,11 +8,11 @@ import org.swrlapi.drools.owl.core.OE;
  *
  * @see org.semanticweb.owlapi.model.OWLDeclarationAxiom
  */
-public abstract class DA<T1 extends OE> extends DroolsUnaryObject<T1> implements A
+abstract class DA<T1 extends OE> extends DroolsUnaryObject<T1> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public DA(T1 entity)
+  DA(T1 entity)
   {
     super(entity);
   }
