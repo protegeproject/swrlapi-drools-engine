@@ -19,7 +19,7 @@ public abstract class OE implements OO, AA, BA
 
   public String id;
 
-  public OE(String id)
+  protected OE(String id)
   {
     this.id = id;
   }
