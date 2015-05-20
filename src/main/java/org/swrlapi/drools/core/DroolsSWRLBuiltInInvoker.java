@@ -338,16 +338,16 @@ public class DroolsSWRLBuiltInInvoker
   {
     StringBuilder sb = new StringBuilder();
 
-    sb.append(ruleName + ".");
-    sb.append(builtInName + ".");
-    sb.append("" + builtInIndex + ".");
-    sb.append("" + isInConsequent);
+    sb.append(ruleName).append(".");
+    sb.append(builtInName).append(".");
+    sb.append("").append(builtInIndex).append(".");
+    sb.append("").append(isInConsequent);
 
     for (SWRLBuiltInArgument vPathArgument : vPathArguments)
-      sb.append("." + vPathArgument.toString());
+      sb.append(".").append(vPathArgument.toString());
 
     for (SWRLBuiltInArgument builtInArgument : builtInrguments)
-      sb.append("." + builtInArgument.toString());
+      sb.append(".").append(builtInArgument.toString());
 
     return sb.toString();
   }

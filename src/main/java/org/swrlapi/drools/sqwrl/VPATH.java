@@ -136,7 +136,7 @@ public class VPATH
     StringBuilder sb = new StringBuilder();
 
     for (BA ba : this.arguments)
-      sb.append(ba.toString() + ":");
+      sb.append(ba.toString()).append(":");
 
     return sb.toString();
   }

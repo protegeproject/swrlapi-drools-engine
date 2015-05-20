@@ -24,7 +24,6 @@ import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
-import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
 import org.swrlapi.drools.resolvers.DroolsResolver;
@@ -202,7 +201,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 		}
 	}
 
-	@Override public void defineSQWRLQuery(SQWRLQuery query) throws TargetSWRLRuleEngineException, SWRLBuiltInException
+	@Override public void defineSQWRLQuery(SQWRLQuery query) throws TargetSWRLRuleEngineException
 	{
 		this.allSQWRLQueryNames.add(query.getQueryName());
 
