@@ -2,11 +2,11 @@ package org.swrlapi.drools.owl.axioms;
 
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 
-public abstract class DroolsUnaryClassAxiom extends DroolsUnaryObject<String> implements A
+abstract class DroolsUnaryClassAxiom extends DroolsUnaryObject<String> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public DroolsUnaryClassAxiom(String classID)
+  protected DroolsUnaryClassAxiom(String classID)
   {
     super(classID);
   }
