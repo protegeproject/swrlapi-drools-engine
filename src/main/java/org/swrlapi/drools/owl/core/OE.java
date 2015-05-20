@@ -60,7 +60,7 @@ public abstract class OE implements OO, AA, BA
     if ((obj == null) || (obj.getClass() != this.getClass()))
       return false;
     OE e = (OE)obj;
-    return (getid() == e.getid() || (getid() != null && getid().equals(e.getid())));
+    return (getid().equals(e.getid()) || (getid() != null && getid().equals(e.getid())));
   }
 
   @Override

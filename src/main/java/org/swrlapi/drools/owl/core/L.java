@@ -145,8 +145,8 @@ public class L implements OO, BA, Serializable
     if ((obj == null) || (obj.getClass() != this.getClass()))
       return false;
     L l = (L)obj;
-    return (getTypeName() == l.getTypeName() || (getTypeName() != null && getTypeName().equals(l.getTypeName())))
-        && (getValue() == l.getValue() || (getValue() != null && getValue().equals(l.getValue())));
+    return (getTypeName().equals(l.getTypeName()) || (getTypeName() != null && getTypeName().equals(l.getTypeName())))
+        && (getValue().equals(l.getValue()) || (getValue() != null && getValue().equals(l.getValue())));
   }
 
   @Override

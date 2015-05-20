@@ -63,11 +63,11 @@ public class SQWRLC implements BA
     if ((obj == null) || (obj.getClass() != this.getClass()))
       return false;
     SQWRLC sqwrlc = (SQWRLC)obj;
-    return (getQueryName() == sqwrlc.getQueryName() || (getQueryName() != null && getQueryName().equals(
+    return (getQueryName().equals(sqwrlc.getQueryName()) || (getQueryName() != null && getQueryName().equals(
         sqwrlc.getQueryName())))
-        && (getCollectionName() == sqwrlc.getCollectionName() || (getCollectionName() != null && getCollectionName()
+        && (getCollectionName().equals(sqwrlc.getCollectionName()) || (getCollectionName() != null && getCollectionName()
         .equals(sqwrlc.getCollectionName())))
-        && (getCollectionID() == sqwrlc.getCollectionID() || (getCollectionID() != null && getCollectionID().equals(
+        && (getCollectionID().equals(sqwrlc.getCollectionID()) || (getCollectionID() != null && getCollectionID().equals(
             sqwrlc.getCollectionID())));
   }
 
