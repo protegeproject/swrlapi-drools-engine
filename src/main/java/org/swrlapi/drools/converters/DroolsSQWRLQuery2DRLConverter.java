@@ -46,7 +46,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
   }
 
   @Override
-  public void convert(SQWRLQuery query) throws TargetSWRLRuleEngineException, SWRLBuiltInException
+  public void convert(SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     getDroolsSWRLBodyAtomConverter().reset();
     getDroolsSWRLHeadAtomConverter().reset();

@@ -37,7 +37,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   {
     Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
-    getEnabledRules().stream().filter(rule -> this.droolsOWL2RLRules.hasRule(rule))
+    getEnabledRules().stream().filter(this.droolsOWL2RLRules::hasRule)
         .forEach(rule -> enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule)));
 
     return enabledRuleDefinitions;
