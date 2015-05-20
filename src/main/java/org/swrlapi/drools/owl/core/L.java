@@ -137,26 +137,25 @@ public class L implements OO, BA, Serializable
   // We consider literals to be equal if they have the same type name and value.
   // TODO This is a very simpleminded implementation of equals. Think about using the SWRLAPI's OWLLiteralComparator
 
-  @Override
-  public boolean equals(Object obj)
+  @Override public boolean equals(Object o)
   {
-    if (this == obj)
+    if (this == o)
       return true;
-    if ((obj == null) || (obj.getClass() != this.getClass()))
+    if (o == null || getClass() != o.getClass())
       return false;
-    L l = (L)obj;
-    return (getTypeName().equals(l.getTypeName()) || (getTypeName() != null && getTypeName().equals(l.getTypeName())))
-        && (getValue().equals(l.getValue()) || (getValue() != null && getValue().equals(l.getValue())));
+
+    L l = (L)o;
+
+    if (value != null ? !value.equals(l.value) : l.value != null)
+      return false;
+    return !(datatypeName != null ? !datatypeName.equals(l.datatypeName) : l.datatypeName != null);
+
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
-    int hash = 66;
-
-    hash = hash + (null == getTypeName() ? 0 : getTypeName().hashCode());
-    hash = hash + (null == getValue() ? 0 : getValue().hashCode());
-
-    return hash;
+    int result = value != null ? value.hashCode() : 0;
+    result = 31 * result + (datatypeName != null ? datatypeName.hashCode() : 0);
+    return result;
   }
 }

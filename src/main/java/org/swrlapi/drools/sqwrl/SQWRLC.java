@@ -55,31 +55,31 @@ public class SQWRLC implements BA
     return "SQWRLC(" + getQueryName() + ", " + getCollectionName() + ", " + getCollectionID() + ")";
   }
 
-  @Override
-  public boolean equals(Object obj)
+  @Override public boolean equals(Object o)
   {
-    if (this == obj)
+    if (this == o)
       return true;
-    if ((obj == null) || (obj.getClass() != this.getClass()))
+    if (o == null || getClass() != o.getClass())
       return false;
-    SQWRLC sqwrlc = (SQWRLC)obj;
-    return (getQueryName().equals(sqwrlc.getQueryName()) || (getQueryName() != null && getQueryName().equals(
-        sqwrlc.getQueryName())))
-        && (getCollectionName().equals(sqwrlc.getCollectionName()) || (getCollectionName() != null && getCollectionName()
-        .equals(sqwrlc.getCollectionName())))
-        && (getCollectionID().equals(sqwrlc.getCollectionID()) || (getCollectionID() != null && getCollectionID().equals(
-            sqwrlc.getCollectionID())));
+
+    SQWRLC sqwrlc = (SQWRLC)o;
+
+    if (variableName != null ? !variableName.equals(sqwrlc.variableName) : sqwrlc.variableName != null)
+      return false;
+    if (queryName != null ? !queryName.equals(sqwrlc.queryName) : sqwrlc.queryName != null)
+      return false;
+    if (collectionName != null ? !collectionName.equals(sqwrlc.collectionName) : sqwrlc.collectionName != null)
+      return false;
+    return !(collectionID != null ? !collectionID.equals(sqwrlc.collectionID) : sqwrlc.collectionID != null);
+
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
-    int hash = 334;
-
-    hash = hash + (null == getQueryName() ? 0 : getQueryName().hashCode());
-    hash = hash + (null == getCollectionName() ? 0 : getCollectionName().hashCode());
-    hash = hash + (null == getCollectionID() ? 0 : getCollectionID().hashCode());
-
-    return hash;
+    int result = variableName != null ? variableName.hashCode() : 0;
+    result = 31 * result + (queryName != null ? queryName.hashCode() : 0);
+    result = 31 * result + (collectionName != null ? collectionName.hashCode() : 0);
+    result = 31 * result + (collectionID != null ? collectionID.hashCode() : 0);
+    return result;
   }
 }

@@ -28,7 +28,6 @@ import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
 import org.swrlapi.drools.resolvers.DroolsResolver;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
-import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;

@@ -5,7 +5,6 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
-import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.sqwrl.SQWRLNames;
 import org.swrlapi.sqwrl.SQWRLQuery;
