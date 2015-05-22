@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -20,9 +21,9 @@ import org.swrlapi.drools.resolvers.DroolsResolver;
 public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
 TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
-  private final DroolsResolver resolver;
+  @NonNull private final DroolsResolver resolver;
 
-  public DroolsOWLPropertyExpressionConverter(SWRLRuleEngineBridge bridge, DroolsResolver resolver)
+  public DroolsOWLPropertyExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsResolver resolver)
   {
     super(bridge);
 
@@ -38,8 +39,8 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
     this.resolver.reset();
   }
 
-  @Override
-  public String convert(OWLObjectPropertyExpression propertyExpression)
+  @NonNull @Override
+  public String convert(@NonNull OWLObjectPropertyExpression propertyExpression)
   {
     if (!getOWLObjectPropertyExpressionResolver().records(propertyExpression)) {
 
@@ -63,8 +64,8 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
       return getOWLObjectPropertyExpressionResolver().resolve(propertyExpression);
   }
 
-  @Override
-  public String convert(OWLDataPropertyExpression propertyExpression)
+  @NonNull @Override
+  public String convert(@NonNull OWLDataPropertyExpression propertyExpression)
   {
     if (!getOWLDataPropertyExpressionResolver().records(propertyExpression)) {
 

@@ -1,5 +1,7 @@
 package org.swrlapi.drools.swrl;
 
+import checkers.nullness.quals.NonNull;
+import checkers.nullness.quals.Nullable;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 import java.util.ArrayList;
@@ -15,26 +17,26 @@ public class BAP
 {
   public static final int MaxArguments = 11;
 
-  @SuppressWarnings("unused")
+  @Nullable @SuppressWarnings("unused")
   // This are used indirectly by Drools. The actual arguments are placed in this.arguments.
   // This approach is not great but it will do for the moment.
   private BA a1 = null, a2 = null, a3 = null, a4 = null, a5 = null, a6 = null, a7 = null, a8 = null, a9 = null,
   a10 = null, a11 = null;
 
-  private final List<BA> arguments;
+  @NonNull private final List<BA> arguments;
 
   public BAP()
   {
     this.arguments = new ArrayList<>();
   }
 
-  public void addArgument(BA argument)
+  public void addArgument(@NonNull BA argument)
   {
     this.arguments.add(argument);
     setArgument(this.arguments.size(), argument);
   }
 
-  private void setArgument(int argumentNumber, BA argument)
+  private void setArgument(int argumentNumber, @NonNull BA argument)
   {
     if (argumentNumber == 1)
       this.a1 = argument;
@@ -62,7 +64,7 @@ public class BAP
       throw new TargetSWRLRuleEngineInternalException("argument number " + argumentNumber + " out of bounds");
   }
 
-  public BA getArgument(int argumentNumber)
+  @NonNull public BA getArgument(int argumentNumber)
   {
     if (argumentNumber > 0 && this.arguments.size() > argumentNumber)
       return this.arguments.get(argumentNumber - 1);

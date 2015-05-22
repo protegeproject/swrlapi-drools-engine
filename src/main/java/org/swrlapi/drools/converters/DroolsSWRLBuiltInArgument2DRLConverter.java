@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -24,18 +25,18 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
 public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase implements
 TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
-  public DroolsSWRLBuiltInArgument2DRLConverter(SWRLRuleEngineBridge bridge)
+  public DroolsSWRLBuiltInArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  public String convert(SWRLBuiltInArgument argument)
+  public String convert(@NonNull SWRLBuiltInArgument argument)
   {
     return argument.accept(this);
   }
 
-  @Override
-  public String convert(SWRLVariableBuiltInArgument argument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
       return "new UBA(\"" + getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument) + "\")";
@@ -43,127 +44,127 @@ TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitor
       return getDroolsSWRLVariableConverter().swrlVariable2DRL(argument);
   }
 
-  @Override
-  public String convert(SWRLClassBuiltInArgument classArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLClassBuiltInArgument classArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(classArgument.getIRI());
 
     return "new C(" + addQuotes(prefixedName) + ")";
   }
 
-  @Override
-  public String convert(SWRLNamedIndividualBuiltInArgument individualArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLNamedIndividualBuiltInArgument individualArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(individualArgument.getIRI());
 
     return "new I(" + addQuotes(prefixedName) + ")";
   }
 
-  @Override
-  public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLObjectPropertyBuiltInArgument propertyArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
     return "new OP(" + addQuotes(prefixedName) + ")";
   }
 
-  @Override
-  public String convert(SWRLDataPropertyBuiltInArgument propertyArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLDataPropertyBuiltInArgument propertyArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
     return "new DP(" + addQuotes(prefixedName) + ")";
   }
 
-  @Override
-  public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument propertyArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
     return "new AP(" + addQuotes(prefixedName) + ")";
   }
 
-  @Override
-  public String convert(SWRLDatatypeBuiltInArgument datatypeArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLDatatypeBuiltInArgument datatypeArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
 
     return "new D(" + addQuotes(prefixedName) + ")";
   }
 
-  @Override
-  public String convert(SWRLLiteralBuiltInArgument argument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
   }
 
-  @Override
+  @NonNull @Override
   public String convert(SQWRLCollectionVariableBuiltInArgument argument)
   { // TODO This is not true!
     throw new TargetSWRLRuleEngineNotImplementedFeatureException(
         "SQWRL collection built-in arguments not yet implemented");
   }
 
-  private String addQuotes(String s)
+  @NonNull private String addQuotes(String s)
   {
     return "\"" + s + "\"";
   }
 
-  @Override
-  public String visit(SWRLClassBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLClassBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLNamedIndividualBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLObjectPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLDataPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLAnnotationPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLDatatypeBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLLiteralBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLVariableBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public String visit(SWRLMultiValueVariableBuiltInArgument argument)
+  @NonNull @Override
+  public String visit(@NonNull SWRLMultiValueVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
+  @NonNull @Override
   public String visit(SQWRLCollectionVariableBuiltInArgument argument)
   {
     return convert(argument);

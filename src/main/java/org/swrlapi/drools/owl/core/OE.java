@@ -1,5 +1,7 @@
 package org.swrlapi.drools.owl.core;
 
+import checkers.nullness.quals.NonNull;
+import checkers.nullness.quals.Nullable;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
@@ -17,43 +19,41 @@ public abstract class OE implements OO, AA, BA
 {
   private static final long serialVersionUID = 1L;
 
-  public String id;
+  @NonNull public String id;
 
-  protected OE(String id)
+  protected OE(@NonNull String id)
   {
     this.id = id;
   }
 
-  public String getName()
+  @NonNull public String getName()
   {
     return this.id;
   }
 
-  public String getid()
+  @NonNull public String getid()
   {
     return this.id;
   }
 
-  protected void setId(String newId)
+  protected void setId(@NonNull String newId)
   {
     this.id = newId;
   }
 
-  @Override
-  public String toString()
+  @Override public String toString()
   {
     // return "\"" + this.id + "\"";
     return this.id;
   }
 
-  public abstract OWLNamedObject extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException;
+  @NonNull public abstract OWLNamedObject extract(@NonNull DroolsOWLEntityExtractor extractor)
+    throws TargetSWRLRuleEngineException;
 
-  @Override
-  public abstract SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor)
-      throws TargetSWRLRuleEngineException;
+  @NonNull @Override public abstract SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException;
 
-  @Override
-  public boolean equals(Object obj)
+  @Override public boolean equals(@Nullable Object obj)
   {
     if (this == obj)
       return true;
@@ -63,8 +63,7 @@ public abstract class OE implements OO, AA, BA
     return (getid().equals(e.getid()) || (getid() != null && getid().equals(e.getid())));
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
     int hash = 731;
 

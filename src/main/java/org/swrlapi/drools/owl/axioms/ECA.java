@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -13,24 +14,24 @@ public class ECA extends DroolsBinaryClassesAxiom
 {
   private static final long serialVersionUID = 1L;
 
-  public ECA(String class1ID, String class2ID)
+  public ECA(@NonNull String class1ID, @NonNull String class2ID)
   {
     super(class1ID, class2ID);
   }
 
-  @Override
-  public OWLEquivalentClassesAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLEquivalentClassesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "ECA" + super.toString();

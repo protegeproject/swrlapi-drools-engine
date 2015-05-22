@@ -1,43 +1,45 @@
 package org.swrlapi.drools.owl.core;
 
+import checkers.nullness.quals.NonNull;
+import checkers.nullness.quals.Nullable;
+
 public abstract class DroolsTernaryObject<T1, T2, T3>
 {
-  private final T1 t1;
-  private final T2 t2;
-  private final T3 t3;
+  @NonNull private final T1 t1;
+  @NonNull private final T2 t2;
+  @NonNull private final T3 t3;
 
-  protected DroolsTernaryObject(T1 t1, T2 t2, T3 t3)
+  protected DroolsTernaryObject(@NonNull T1 t1, @NonNull T2 t2, @NonNull T3 t3)
   {
     this.t1 = t1;
     this.t2 = t2;
     this.t3 = t3;
   }
 
-  public T1 getT1()
+  @NonNull public T1 getT1()
   {
     return this.t1;
   }
 
-  public T2 getT2()
+  @NonNull public T2 getT2()
   {
     return this.t2;
   }
 
-  public T3 getT3()
+  @NonNull public T3 getT3()
   {
     return this.t3;
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ")";
   }
 
   @Override
-  public boolean equals(Object obj)
+  public boolean equals(@Nullable Object obj)
   {
-
     if (this == obj)
       return true;
     if ((obj == null) || (obj.getClass() != this.getClass()))

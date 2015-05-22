@@ -1,8 +1,6 @@
 package org.swrlapi.drools.extractors;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -15,6 +13,9 @@ import org.swrlapi.core.xsd.XSDDuration;
 import org.swrlapi.core.xsd.XSDTime;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * This class converts a Drools OWL literal representation to its OWLAPI representation.
@@ -30,8 +31,8 @@ TargetRuleEngineOWLLiteralExtractor<L>
     super(bridge);
   }
 
-  @Override
-  public OWLLiteral extract(L l)
+  @NonNull @Override
+  public OWLLiteral extract(@NonNull L l)
   { // TODO See if we can use visitor to get rid of instanceof
     try {
       if (l.isString())

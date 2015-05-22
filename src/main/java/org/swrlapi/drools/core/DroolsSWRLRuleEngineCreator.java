@@ -1,5 +1,6 @@
 package org.swrlapi.drools.core;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.core.SWRLRuleEngineManager;
@@ -14,14 +15,14 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.TargetSWRLRuleEngineCreator
 {
-  @Override
+  @NonNull @Override
   public String getRuleEngineName()
   {
     return DroolsNames.RULE_ENGINE_NAME;
   }
 
-  @Override
-  public TargetSWRLRuleEngine create(SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public TargetSWRLRuleEngine create(@NonNull SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
   {
     return new DroolsSWRLRuleEngine(bridge);
   }

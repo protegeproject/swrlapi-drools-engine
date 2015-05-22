@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -13,25 +14,25 @@ public class APDA extends DroolsUnaryPropertyAxiom
 {
   private static final long serialVersionUID = 1L;
 
-  public APDA(String propertyID)
+  public APDA(@NonNull String propertyID)
   {
     super(propertyID);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "APDA(" + super.toString() + ")";
   }
 
-  @Override
-  public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDeclarationAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }

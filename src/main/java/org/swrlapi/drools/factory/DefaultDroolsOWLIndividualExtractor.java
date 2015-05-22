@@ -1,5 +1,6 @@
 package org.swrlapi.drools.factory;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
@@ -15,13 +16,13 @@ import org.swrlapi.drools.owl.core.I;
 public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtractorBase implements
   DroolsOWLIndividualExtractor
 {
-  public DefaultDroolsOWLIndividualExtractor(SWRLRuleEngineBridge bridge)
+  public DefaultDroolsOWLIndividualExtractor(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @Override
-  public OWLIndividual extract(I i)
+  @NonNull @Override
+  public OWLIndividual extract(@NonNull I i)
   {
     if (getIRIResolver().isOWLNamedIndividual(i.getName()))
       return getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(i.getName()));

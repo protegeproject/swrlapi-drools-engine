@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
@@ -14,31 +15,31 @@ public class AOPA extends DroolsUnaryObject<String> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public AOPA(String propertyID)
+  public AOPA(@NonNull String propertyID)
   {
     super(propertyID);
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT1();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "AOPA" + super.toString();
   }
 
-  @Override
-  public OWLAsymmetricObjectPropertyAxiom extract(DroolsOWLAxiomExtractor extractor)
+  @NonNull @Override
+  public OWLAsymmetricObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
       throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }

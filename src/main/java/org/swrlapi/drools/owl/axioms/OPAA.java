@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
@@ -18,65 +19,65 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public OPAA(I subject, String propertyID, I object)
+  public OPAA(@NonNull I subject, @NonNull String propertyID, @NonNull I object)
   {
     super(subject, propertyID, object);
   }
 
-  public OPAA(I subject, String propertyID, String objectName)
+  public OPAA(@NonNull I subject, @NonNull String propertyID, @NonNull String objectName)
   {
     super(subject, propertyID, new I(objectName));
   }
 
-  public OPAA(String subjectName, String propertyID, I object)
+  public OPAA(@NonNull String subjectName, @NonNull String propertyID, @NonNull I object)
   {
     super(new I(subjectName), propertyID, object);
   }
 
-  public OPAA(String subjectName, String propertyID, String objectName)
+  public OPAA(@NonNull String subjectName, @NonNull String propertyID, String objectName)
   {
     super(new I(subjectName), propertyID, new I(objectName));
   }
 
-  public I gets()
+  @NonNull public I gets()
   {
     return getT1();
   }
 
-  public String getsid()
+  @NonNull public String getsid()
   {
     return getT1().getid();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public I geto()
+  @NonNull public I geto()
   {
     return getT3();
   }
 
-  public String getoid()
+  @NonNull public String getoid()
   {
     return getT3().getid();
   }
 
-  @Override
-  public OWLObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
+  @NonNull @Override
+  public OWLObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
       throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "OPAA" + super.toString();

@@ -1,5 +1,6 @@
 package org.swrlapi.drools.extractors;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.drools.factory.DroolsFactory;
@@ -9,12 +10,12 @@ import org.swrlapi.drools.factory.DroolsFactory;
  */
 public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 {
-  private final DroolsOWLLiteralExtractor literalExtractor;
-  private final DroolsOWLEntityExtractor entityExtractor;
-  private final DroolsOWLIndividualExtractor individualExtractor;
-  private final DroolsSWRLVariableExtractor variableExtractor;
+  @NonNull private final DroolsOWLLiteralExtractor literalExtractor;
+  @NonNull private final DroolsOWLEntityExtractor entityExtractor;
+  @NonNull private final DroolsOWLIndividualExtractor individualExtractor;
+  @NonNull private final DroolsSWRLVariableExtractor variableExtractor;
 
-  public DroolsExtractorBase(SWRLRuleEngineBridge bridge)
+  public DroolsExtractorBase(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
 
@@ -24,22 +25,22 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
     this.variableExtractor = new DroolsSWRLVariableExtractor(bridge);
   }
 
-  protected DroolsOWLLiteralExtractor getDroolsOWLLiteralExtractor()
+  @NonNull protected DroolsOWLLiteralExtractor getDroolsOWLLiteralExtractor()
   {
     return this.literalExtractor;
   }
 
-  protected DroolsOWLEntityExtractor getDroolsOWLEntityExtractor()
+  @NonNull protected DroolsOWLEntityExtractor getDroolsOWLEntityExtractor()
   {
     return this.entityExtractor;
   }
 
-  protected DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor()
+  @NonNull protected DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor()
   {
     return this.individualExtractor;
   }
 
-  protected DroolsSWRLVariableExtractor getDroolsSWRLVariableExtractor()
+  @NonNull protected DroolsSWRLVariableExtractor getDroolsSWRLVariableExtractor()
   {
     return this.variableExtractor;
   }

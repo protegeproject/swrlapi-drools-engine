@@ -1,10 +1,12 @@
 package org.swrlapi.drools.resolvers;
 
+import checkers.nullness.quals.NonNull;
+
 public class DroolsResolver
 {
-  private final DroolsCEResolver droolsCEResolver;
-  private final DroolsOPEResolver droolsOPEResolver;
-  private final DroolsDPEResolver droolsDPEResolver;
+  @NonNull private final DroolsCEResolver droolsCEResolver;
+  @NonNull private final DroolsOPEResolver droolsOPEResolver;
+  @NonNull private final DroolsDPEResolver droolsDPEResolver;
 
   public DroolsResolver()
   {
@@ -13,17 +15,17 @@ public class DroolsResolver
     this.droolsDPEResolver = new DroolsDPEResolver();
   }
 
-  public DroolsCEResolver getDroolsCEResolver()
+  @NonNull public DroolsCEResolver getDroolsCEResolver()
   {
     return this.droolsCEResolver;
   }
 
-  public DroolsOPEResolver getDroolsOPEResolver()
+  @NonNull public DroolsOPEResolver getDroolsOPEResolver()
   {
     return this.droolsOPEResolver;
   }
 
-  public DroolsDPEResolver getDroolsDPEResolver()
+  @NonNull public DroolsDPEResolver getDroolsDPEResolver()
   {
     return this.droolsDPEResolver;
   }

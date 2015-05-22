@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.core;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -19,7 +20,7 @@ public class C extends OE implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public C(String classID)
+  public C(@NonNull String classID)
   {
     super(classID);
   }
@@ -45,30 +46,30 @@ public class C extends OE implements CE
           + ba.getClass().getCanonicalName());
   }
 
-  @Override
-  public OWLClass extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLClass extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return super.toString();
   }
 
-  public static C getOWLThing()
+  @NonNull public static C getOWLThing()
   {
     return new C(OWLRDFVocabulary.OWL_THING.getPrefixedName());
   }
 
-  public static C getOWLNothing()
+  @NonNull public static C getOWLNothing()
   {
     return new C(OWLRDFVocabulary.OWL_NOTHING.getPrefixedName());
   }

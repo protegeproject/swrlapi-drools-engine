@@ -1,5 +1,6 @@
 package org.swrlapi.drools.swrl;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -9,26 +10,25 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class UBA implements BA
 {
-  private final String variableName;
+  @NonNull private final String variableName;
 
-  public UBA(String variableName)
+  public UBA(@NonNull String variableName)
   {
     this.variableName = variableName;
   }
 
-  public String getVariableName()
+  @NonNull public String getVariableName()
   {
     return this.variableName;
   }
 
-  @Override
-  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     return "UBA(?" + getVariableName() + ")";
   }

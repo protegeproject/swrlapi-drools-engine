@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.core;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -42,19 +43,19 @@ public class I extends OE
           + ba.getClass().getCanonicalName());
   }
 
-  public OWLIndividual extract(DroolsOWLIndividualExtractor extractor)
+  @NonNull public OWLIndividual extract(@NonNull DroolsOWLIndividualExtractor extractor)
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public OWLNamedIndividual extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLNamedIndividual extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }

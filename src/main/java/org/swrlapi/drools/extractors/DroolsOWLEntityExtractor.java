@@ -1,5 +1,6 @@
 package org.swrlapi.drools.extractors;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -24,15 +25,15 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public interface DroolsOWLEntityExtractor extends TargetRuleEngineExtractor
 {
-  OWLClass extract(C c) throws TargetSWRLRuleEngineException;
+  @NonNull OWLClass extract(@NonNull C c) throws TargetSWRLRuleEngineException;
 
-  OWLNamedIndividual extract(I i) throws TargetSWRLRuleEngineException;
+  @NonNull OWLNamedIndividual extract(@NonNull I i) throws TargetSWRLRuleEngineException;
 
-  OWLObjectProperty extract(OP p) throws TargetSWRLRuleEngineException;
+  @NonNull OWLObjectProperty extract(@NonNull OP p) throws TargetSWRLRuleEngineException;
 
-  OWLDataProperty extract(DP p) throws TargetSWRLRuleEngineException;
+  @NonNull OWLDataProperty extract(@NonNull DP p) throws TargetSWRLRuleEngineException;
 
-  OWLAnnotationProperty extract(AP p) throws TargetSWRLRuleEngineException;
+  @NonNull OWLAnnotationProperty extract(@NonNull AP p) throws TargetSWRLRuleEngineException;
 
-  OWLDatatype extract(D d) throws TargetSWRLRuleEngineException;
+  @NonNull OWLDatatype extract(@NonNull D d) throws TargetSWRLRuleEngineException;
 }

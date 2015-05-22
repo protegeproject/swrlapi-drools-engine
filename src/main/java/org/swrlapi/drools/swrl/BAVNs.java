@@ -1,5 +1,7 @@
 package org.swrlapi.drools.swrl;
 
+import checkers.nullness.quals.NonNull;
+import checkers.nullness.quals.Nullable;
 import org.swrlapi.drools.core.DroolsNames;
 
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class BAVNs
 {
   public static final int MaxArguments = 10;
 
-  private final List<String> variableNames = new ArrayList<>();
+  @NonNull private final List<String> variableNames = new ArrayList<>();
 
   /*
    * The following vararg constructor does not seem to work in this version of Drools
@@ -122,7 +124,7 @@ public class BAVNs
     this.variableNames.add(v10);
   }
 
-  public List<String> getVariableNames()
+  @NonNull public List<String> getVariableNames()
   {
     return this.variableNames;
   }
@@ -137,7 +139,7 @@ public class BAVNs
     return getNumberOfArguments() != 0;
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     String representation = DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
@@ -155,7 +157,7 @@ public class BAVNs
   }
 
   @Override
-  public boolean equals(Object obj)
+  public boolean equals(@Nullable Object obj)
   {
     if (this == obj)
       return true;

@@ -23,6 +23,8 @@
     <swrlapi.version>1.0.0-SNAPSHOT</swrlapi.version>
     <drools.version>6.2.0.Final</drools.version> 
     <commons.discovery.osgi.version>0.4_1</commons.discovery.osgi.version>
+
+    <checker.framework.version>1.7.5</checker.framework.version>
     <slf4j.version>1.6.1</slf4j.version>
     <junit.version>4.11</junit.version>
 
@@ -118,6 +120,12 @@
     </dependency>
 
     <dependency>
+      <groupId>edu.washington.cs.types.checker</groupId>
+      <artifactId>checker-framework</artifactId>
+      <version>${checker.framework.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
@@ -192,6 +200,28 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+      <plugin>
+	      <groupId>edu.washington.cs.types.checker</groupId>
+	      <artifactId>checker-maven-plugin</artifactId>
+        <version>${checker.framework.version}</version>
+
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <processors>
+            <processor>checkers.nullness.NullnessChecker</processor>
+            <processor>checkers.interning.InterningChecker</processor>
+          </processors>
+        </configuration>
+      </plugin>
 
     </plugins>
 

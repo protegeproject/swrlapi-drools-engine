@@ -1,7 +1,6 @@
 package org.swrlapi.drools.converters;
 
-import java.util.Set;
-
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -24,6 +23,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
+import java.util.Set;
+
 /**
  * This class converts OWLAPI SWRL body atoms to a their DRL representation for use in rules.
  * <p>
@@ -34,19 +35,19 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  *
  * @see org.semanticweb.owlapi.model.SWRLAtom
  */
-public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase implements
-TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
+public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase
+  implements TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
 {
-  private final DroolsSWRLBodyAtomArgument2DRLConverter bodyAtomArgumentConverter;
-  private final DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
-  private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-  private final DroolsOWLClassExpressionConverter classExpressionConverter;
+  @NonNull private final DroolsSWRLBodyAtomArgument2DRLConverter bodyAtomArgumentConverter;
+  @NonNull private final DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
+  @NonNull private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
+  @NonNull private final DroolsOWLClassExpressionConverter classExpressionConverter;
 
   private int builtInIndexInBody; // Each built-in atom in the body gets a unique index, starting at 0
 
-  public DroolsSWRLBodyAtom2DRLConverter(SWRLRuleEngineBridge bridge,
-      DroolsOWLClassExpressionConverter classExpressionConverter,
-      DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
+  public DroolsSWRLBodyAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionConverter classExpressionConverter,
+    @NonNull DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
   {
     super(bridge);
 
@@ -62,104 +63,105 @@ TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
     this.builtInIndexInBody = 0;
   }
 
-  @Override
-  public String convert(SWRLDataRangeAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull @Override public String convert(@NonNull SWRLDataRangeAtom atom,
+    Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule body");
   }
 
-  public String convert(SWRLDataRangeAtom atom)
+  @NonNull public String convert(@NonNull SWRLDataRangeAtom atom)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
   }
 
-  @Override
-  public String convert(SWRLClassAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull @Override public String convert(@NonNull SWRLClassAtom atom,
+    @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     String classID = getOWLClassExpressionConverter().convert(atom.getPredicate());
     SWRLIArgument argument = atom.getArgument();
-    String representation = DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + "(" + DroolsNames.CLASS_FIELD_NAME + "=="
-        + addQuotes(classID) + ", ";
+    String representation =
+      DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + "(" + DroolsNames.CLASS_FIELD_NAME + "==" + addQuotes(classID)
+        + ", ";
 
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument, DroolsNames.INDIVIDUAL_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument, DroolsNames.INDIVIDUAL_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ")";
 
     return representation;
   }
 
-  @Override
-  public String convert(SWRLObjectPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull @Override public String convert(@NonNull SWRLObjectPropertyAtom atom,
+    @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
     SWRLIArgument argument1 = atom.getFirstArgument();
     SWRLIArgument argument2 = atom.getSecondArgument();
     String representation = DroolsNames.OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.SUBJECT_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument1, DroolsNames.SUBJECT_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ", " + DroolsNames.PROPERTY_FIELD_NAME + "==" + addQuotes(propertyID) + ", ";
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.OBJECT_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument2, DroolsNames.OBJECT_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ")";
 
     return representation;
   }
 
-  @Override
-  public String convert(SWRLDataPropertyAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull @Override public String convert(@NonNull SWRLDataPropertyAtom atom,
+    @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
     SWRLIArgument argument1 = atom.getFirstArgument();
     SWRLDArgument argument2 = atom.getSecondArgument();
     String representation = DroolsNames.DATA_PROPERTY_ASSERTION_AXIOM_CLASS_NAME + "(";
 
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.SUBJECT_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument1, DroolsNames.SUBJECT_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ", " + DroolsNames.PROPERTY_FIELD_NAME + "==" + addQuotes(propertyID) + ", ";
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.OBJECT_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument2, DroolsNames.OBJECT_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ")";
 
     return representation;
   }
 
-  @Override
-  public String convert(SWRLSameIndividualAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull @Override public String convert(@NonNull SWRLSameIndividualAtom atom,
+    @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     SWRLIArgument argument1 = atom.getFirstArgument();
     SWRLIArgument argument2 = atom.getSecondArgument();
     String representation = DroolsNames.SAME_INDIVIDUAL_AXIOM_CLASS_NAME + "(";
 
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.INDIVIDUAL_1_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument1, DroolsNames.INDIVIDUAL_1_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ", ";
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.INDIVIDUAL_2_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument2, DroolsNames.INDIVIDUAL_2_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ")";
 
     return representation;
   }
 
-  @Override
-  public String convert(SWRLDifferentIndividualsAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull @Override public String convert(@NonNull SWRLDifferentIndividualsAtom atom,
+    @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     SWRLIArgument argument1 = atom.getFirstArgument();
     SWRLIArgument argument2 = atom.getSecondArgument();
     String representation = DroolsNames.DIFFERENT_INDIVIDUALS_AXIOM_CLASS_NAME + "(";
 
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument1, DroolsNames.INDIVIDUAL_1_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument1, DroolsNames.INDIVIDUAL_1_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ", ";
-    representation += getSWRLBodyAtomArgumentConverter().convert(argument2, DroolsNames.INDIVIDUAL_2_FIELD_NAME,
-        previouslyEncounteredVariablePrefixedNames);
+    representation += getSWRLBodyAtomArgumentConverter()
+      .convert(argument2, DroolsNames.INDIVIDUAL_2_FIELD_NAME, previouslyEncounteredVariablePrefixedNames);
     representation += ")";
 
     return representation;
   }
 
-  @Override
-  public String convert(SWRLAPIBuiltInAtom builtInAtom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @Override public String convert(@NonNull SWRLAPIBuiltInAtom builtInAtom,
+    @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     String builtInPrefixedName = builtInAtom.getBuiltInPrefixedName();
     String ruleName = builtInAtom.getRuleName();
@@ -170,23 +172,24 @@ TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
     int argumentNumber = 1;
     for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
       if (argument.isVariable()) {
-        String variablePrefixedName = getDroolsSWRLVariableConverter().swrlVariable2VariablePrefixedName(
-            argument.asVariable());
+        String variablePrefixedName = getDroolsSWRLVariableConverter()
+          .swrlVariable2VariablePrefixedName(argument.asVariable());
         if (variableArgumentEncountered)
           representation += ", ";
         representation += getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName,
-            DroolsNames.BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX + argumentNumber,
-            previouslyEncounteredVariablePrefixedNames);
+          DroolsNames.BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX + argumentNumber,
+          previouslyEncounteredVariablePrefixedNames);
         variableArgumentEncountered = true;
       }
       argumentNumber++;
       if (argumentNumber > BAP.MaxArguments)
-        throw new TargetSWRLRuleEngineException("at most " + BAP.MaxArguments
-            + " built-in arguments currently supported");
+        throw new TargetSWRLRuleEngineException(
+          "at most " + BAP.MaxArguments + " built-in arguments currently supported");
     }
 
-    representation += ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInPrefixedName + "\", "
-        + this.builtInIndexInBody + ", false, ";
+    representation +=
+      ") from invoker.invoke(\"" + ruleName + "\", \"" + builtInPrefixedName + "\", " + this.builtInIndexInBody
+        + ", false, ";
 
     if (builtInAtom.getPathVariablePrefixedNames().size() > VPATH.MaxArguments)
       throw new TargetSWRLRuleEngineException("at most " + VPATH.MaxArguments + " built-in arguments supported");
@@ -210,8 +213,8 @@ TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
       if (!isFirst)
         representation += ", ";
       if (argument.isVariable())
-        representation += "\"" + getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument.asVariable())
-        + "\"";
+        representation +=
+          "\"" + getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument.asVariable()) + "\"";
       else
         representation += "\"\"";
       isFirst = false;
@@ -236,7 +239,7 @@ TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
     return representation;
   }
 
-  public String convert(SWRLAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull public String convert(@NonNull SWRLAtom atom, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   { // TODO Visitor to replace instanceof: SWRLAtomVisitorExP
     if (atom instanceof SWRLDataRangeAtom) {
       return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariablePrefixedNames);
@@ -256,27 +259,27 @@ TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
       throw new TargetSWRLRuleEngineInternalException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
   }
 
-  private DroolsSWRLBodyAtomArgument2DRLConverter getSWRLBodyAtomArgumentConverter()
+  @NonNull private DroolsSWRLBodyAtomArgument2DRLConverter getSWRLBodyAtomArgumentConverter()
   {
     return this.bodyAtomArgumentConverter;
   }
 
-  private DroolsSWRLBuiltInArgument2DRLConverter getSWRLBuiltInArgumentConverter()
+  @NonNull private DroolsSWRLBuiltInArgument2DRLConverter getSWRLBuiltInArgumentConverter()
   {
     return this.builtInArgumentConverter;
   }
 
-  private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
+  @NonNull private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
   {
     return this.propertyExpressionConverter;
   }
 
-  private DroolsOWLClassExpressionConverter getOWLClassExpressionConverter()
+  @NonNull private DroolsOWLClassExpressionConverter getOWLClassExpressionConverter()
   {
     return this.classExpressionConverter;
   }
 
-  private String addQuotes(String s)
+  @NonNull private String addQuotes(String s)
   {
     return "\"" + s + "\"";
   }

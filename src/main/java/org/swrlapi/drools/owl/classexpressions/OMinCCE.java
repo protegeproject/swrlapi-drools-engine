@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.properties.OP;
 
@@ -12,33 +13,33 @@ public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements
 {
   private static final long serialVersionUID = 1L;
 
-  public OMinCCE(String ceid, OP p, Integer card)
+  public OMinCCE(@NonNull String ceid, @NonNull OP p, @NonNull Integer card)
   {
     super(ceid, p, card);
   }
 
-  public OMinCCE(String ceid, String propertyID, Integer card)
+  public OMinCCE(@NonNull String ceid, @NonNull String propertyID, @NonNull Integer card)
   {
     super(ceid, new OP(propertyID), card);
   }
 
-  @Override
+  @NonNull @Override
   public String getceid()
   {
     return getT1();
   }
 
-  public OP getP()
+  @NonNull public OP getP()
   {
     return getT2();
   }
 
-  public Integer getCard()
+  @NonNull public Integer getCard()
   {
     return getT3();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "OMinCE" + super.toString();

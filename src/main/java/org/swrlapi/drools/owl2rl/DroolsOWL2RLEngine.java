@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl2rl;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.AbstractOWL2RLEngine;
 import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
@@ -22,9 +23,9 @@ import java.util.Set;
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {
-  private final DroolsOWL2RLRules droolsOWL2RLRules;
+  @NonNull private final DroolsOWL2RLRules droolsOWL2RLRules;
 
-  public DroolsOWL2RLEngine(OWL2RLPersistenceLayer persistenceLayer)
+  public DroolsOWL2RLEngine(@NonNull OWL2RLPersistenceLayer persistenceLayer)
   {
     super(persistenceLayer, generateUnsupportedRules(), generatePermanentlyOnRules(), generateGroupedRuleSets());
 
@@ -33,7 +34,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     this.droolsOWL2RLRules.defineRules();
   }
 
-  public Set<DroolsRuleDefinition> getEnabledRuleDefinitions()
+  @NonNull public Set<DroolsRuleDefinition> getEnabledRuleDefinitions()
   {
     Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
@@ -46,7 +47,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that are always enabled and that cannot be disabled.
    */
-  private static Set<OWL2RLRule> generatePermanentlyOnRules()
+  @NonNull private static Set<OWL2RLRule> generatePermanentlyOnRules()
   {
     return EnumSet.of(OWL2RLRule.CLS_THING, OWL2RLRule.CLS_NOTHING1, OWL2RLRule.CLS_NOTHING2, OWL2RLRule.DT_TYPE1,
         OWL2RLRule.DT_TYPE2, OWL2RLRule.DT_EQ, OWL2RLRule.DT_DIFF);
@@ -55,7 +56,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that must be enabled or disabled in groups.
    */
-  private static Set<Set<OWL2RLRule>> generateGroupedRuleSets()
+  @NonNull private static Set<Set<OWL2RLRule>> generateGroupedRuleSets()
   {
     Set<Set<OWL2RLRule>> groupedRuleSets = new HashSet<>();
 
@@ -67,7 +68,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     return groupedRuleSets;
   }
 
-  private static Set<OWL2RLRule> generateUnsupportedRules()
+  @NonNull private static Set<OWL2RLRule> generateUnsupportedRules()
   {
     return EnumSet.of(OWL2RLRule.PRP_SPO2, OWL2RLRule.PRP_KEY, OWL2RLRule.DT_NOT_TYPE);
 

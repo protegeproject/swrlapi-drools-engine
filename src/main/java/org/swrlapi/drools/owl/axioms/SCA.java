@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
@@ -14,34 +15,34 @@ public class SCA extends DroolsBinaryObject<String, String> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public SCA(String class1ID, String class2ID)
+  public SCA(@NonNull String class1ID, @NonNull String class2ID)
   {
     super(class1ID, class2ID);
   }
 
-  public String getsubcid()
+  @NonNull public String getsubcid()
   {
     return getT1();
   }
 
-  public String getsupercid()
+  @NonNull public String getsupercid()
   {
     return getT2();
   }
 
-  @Override
-  public OWLSubClassOfAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLSubClassOfAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "SCA" + super.toString();

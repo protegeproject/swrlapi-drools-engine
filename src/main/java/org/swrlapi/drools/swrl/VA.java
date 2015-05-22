@@ -1,5 +1,6 @@
 package org.swrlapi.drools.swrl;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -23,13 +24,13 @@ public class VA implements AA
     return this.variableName;
   }
 
-  @Override
-  public SWRLVariable extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public SWRLVariable extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "VA(?" + getVariableName() + ")";

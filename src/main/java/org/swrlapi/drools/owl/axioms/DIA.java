@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.I;
@@ -20,17 +21,17 @@ public class DIA extends DroolsBinaryIndividualsAxiom
 {
   private static final long serialVersionUID = 1L;
 
-  public DIA(I individual1, I individual2)
+  public DIA(@NonNull I individual1, @NonNull I individual2)
   {
     super(individual1, individual2);
   }
 
-  public DIA(String individual1ID, String individual2ID)
+  public DIA(@NonNull String individual1ID, @NonNull String individual2ID)
   {
     this(new I(individual1ID), new I(individual2ID));
   }
 
-  public DIA(I individual1, String individual2ID)
+  public DIA(@NonNull I individual1, @NonNull String individual2ID)
   {
     this(individual1, new I(individual2ID));
   }
@@ -40,19 +41,19 @@ public class DIA extends DroolsBinaryIndividualsAxiom
     this(new I(individual1ID), individual2);
   }
 
-  @Override
-  public OWLDifferentIndividualsAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDifferentIndividualsAxiom extract(@NonNull DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DIA" + super.toString();

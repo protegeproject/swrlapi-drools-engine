@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
@@ -18,55 +19,55 @@ public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public NOPAA(I subject, String propertyID, I object)
+  public NOPAA(@NonNull I subject, @NonNull String propertyID, @NonNull I object)
   {
     super(subject, propertyID, object);
   }
 
-  public NOPAA(I subject, String propertyID, String objectName)
+  public NOPAA(@NonNull I subject, @NonNull String propertyID, @NonNull String objectName)
   {
     this(subject, propertyID, new I(objectName));
   }
 
-  public NOPAA(String subjectName, String propertyID, I object)
+  public NOPAA(@NonNull String subjectName, @NonNull String propertyID, @NonNull I object)
   {
     this(new I(subjectName), propertyID, object);
   }
 
-  public NOPAA(String subjectName, String propertyID, String objectName)
+  public NOPAA(@NonNull String subjectName, @NonNull String propertyID, @NonNull String objectName)
   {
     this(new I(subjectName), propertyID, new I(objectName));
   }
 
-  public I gets()
+  @NonNull public I gets()
   {
     return getT1();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public I geto()
+  @NonNull public I geto()
   {
     return getT3();
   }
 
-  @Override
-  public OWLNegativeObjectPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor extractor)
+  @NonNull @Override
+  public OWLNegativeObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
       throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "NOPAA" + super.toString();

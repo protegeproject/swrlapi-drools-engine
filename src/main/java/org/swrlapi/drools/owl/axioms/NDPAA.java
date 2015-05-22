@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
@@ -16,45 +17,45 @@ public class NDPAA extends DroolsTernaryObject<I, String, L> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public NDPAA(String subjectName, String propertyID, L object)
+  public NDPAA(@NonNull String subjectName, @NonNull String propertyID, @NonNull L object)
   {
     super(new I(subjectName), propertyID, object);
   }
 
-  public NDPAA(I subject, String propertyID, L object)
+  public NDPAA(@NonNull I subject, @NonNull String propertyID, @NonNull L object)
   {
     super(subject, propertyID, object);
   }
 
-  public I gets()
+  @NonNull public I gets()
   {
     return getT1();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public L geto()
+  @NonNull public L geto()
   {
     return getT3();
   }
 
-  @Override
-  public OWLNegativeDataPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor converter)
+  @NonNull @Override
+  public OWLNegativeDataPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
       throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "NDPAA" + super.toString();

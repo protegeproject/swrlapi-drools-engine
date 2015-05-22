@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
@@ -14,34 +15,34 @@ public class DPRA extends DroolsBinaryObject<String, String> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public DPRA(String propertyID, String dataRangeID)
+  public DPRA(@NonNull String propertyID, @NonNull String dataRangeID)
   {
     super(propertyID, dataRangeID);
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT1();
   }
 
-  public String getrid()
+  @NonNull public String getrid()
   {
     return getT2();
   }
 
-  @Override
-  public OWLDataPropertyRangeAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDataPropertyRangeAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DPRA" + super.toString();

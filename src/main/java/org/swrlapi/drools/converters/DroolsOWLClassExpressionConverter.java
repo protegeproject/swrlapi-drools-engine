@@ -1,8 +1,6 @@
 package org.swrlapi.drools.converters;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
@@ -50,20 +48,23 @@ import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.resolvers.DroolsCEResolver;
 import org.swrlapi.drools.resolvers.DroolsResolver;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * This class converts OWLAPI OWL class expressions to their Drools representation.
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
  * @see org.swrlapi.drools.owl.classexpressions.CE
  */
-public class DroolsOWLClassExpressionConverter extends DroolsConverterBase implements
-TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
+public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
+  implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
-  private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-  private final DroolsResolver resolver;
+  @NonNull private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
+  @NonNull private final DroolsResolver resolver;
 
-  public DroolsOWLClassExpressionConverter(SWRLRuleEngineBridge bridge, DroolsResolver resolver,
-      DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
+  public DroolsOWLClassExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsResolver resolver,
+    @NonNull DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
   {
     super(bridge);
 
@@ -79,13 +80,12 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
     getCEResolver().reset();
   }
 
-  public String convert(OWLClassExpression owlClassExpression)
+  @NonNull public String convert(@NonNull OWLClassExpression owlClassExpression)
   {
     return owlClassExpression.accept(this);
   }
 
-  @Override
-  public String convert(OWLClass cls)
+  @NonNull @Override public String convert(@NonNull OWLClass cls)
   {
     String classPrefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
 
@@ -97,8 +97,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
     return classPrefixedName;
   }
 
-  @Override
-  public String convert(OWLObjectOneOf classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectOneOf classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -120,8 +119,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectIntersectionOf classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectIntersectionOf classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -137,8 +135,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectUnionOf classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectUnionOf classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -154,8 +151,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectComplementOf classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectComplementOf classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -170,8 +166,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectSomeValuesFrom classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectSomeValuesFrom classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -187,8 +182,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLDataSomeValuesFrom classExpression)
+  @NonNull @Override public String convert(@NonNull OWLDataSomeValuesFrom classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -204,8 +198,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLDataExactCardinality classExpression)
+  @NonNull @Override public String convert(@NonNull OWLDataExactCardinality classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -221,8 +214,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectExactCardinality classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectExactCardinality classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -238,8 +230,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLDataMinCardinality classExpression)
+  @NonNull @Override public String convert(@NonNull OWLDataMinCardinality classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -255,8 +246,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectMinCardinality classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectMinCardinality classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -272,8 +262,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLDataMaxCardinality classExpression)
+  @NonNull @Override public String convert(@NonNull OWLDataMaxCardinality classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -297,8 +286,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectMaxCardinality classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectMaxCardinality classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -322,8 +310,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLDataHasValue classExpression)
+  @NonNull @Override public String convert(@NonNull OWLDataHasValue classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -339,8 +326,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectHasValue classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectHasValue classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -356,8 +342,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLObjectAllValuesFrom classExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectAllValuesFrom classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -373,8 +358,7 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  @Override
-  public String convert(OWLDataAllValuesFrom classExpression)
+  @NonNull @Override public String convert(@NonNull OWLDataAllValuesFrom classExpression)
   {
     if (!getOWLClassExpressionResolver().records(classExpression)) {
       String classExpressionID = getCEResolver().generateCEID();
@@ -390,125 +374,107 @@ TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx
       return getOWLClassExpressionResolver().resolve(classExpression);
   }
 
-  public Set<CE> getCEs()
+  @NonNull public Set<CE> getCEs()
   {
     return getCEResolver().getCEs();
   }
 
-  @Override
-  public String visit(OWLClass owlClass)
+  @NonNull @Override public String visit(@NonNull OWLClass owlClass)
   {
     return convert(owlClass);
   }
 
-  @Override
-  public String visit(OWLObjectIntersectionOf owlObjectIntersectionOf)
+  @NonNull @Override public String visit(@NonNull OWLObjectIntersectionOf owlObjectIntersectionOf)
   {
     return convert(owlObjectIntersectionOf);
   }
 
-  @Override
-  public String visit(OWLObjectUnionOf owlObjectUnionOf)
+  @NonNull @Override public String visit(@NonNull OWLObjectUnionOf owlObjectUnionOf)
   {
     return convert(owlObjectUnionOf);
   }
 
-  @Override
-  public String visit(OWLObjectComplementOf owlObjectComplementOf)
+  @NonNull @Override public String visit(@NonNull OWLObjectComplementOf owlObjectComplementOf)
   {
     return convert(owlObjectComplementOf);
   }
 
-  @Override
-  public String visit(OWLObjectSomeValuesFrom owlObjectSomeValuesFrom)
+  @NonNull @Override public String visit(@NonNull OWLObjectSomeValuesFrom owlObjectSomeValuesFrom)
   {
     return convert(owlObjectSomeValuesFrom);
   }
 
-  @Override
-  public String visit(OWLObjectAllValuesFrom owlObjectAllValuesFrom)
+  @NonNull @Override public String visit(@NonNull OWLObjectAllValuesFrom owlObjectAllValuesFrom)
   {
     return convert(owlObjectAllValuesFrom);
   }
 
-  @Override
-  public String visit(OWLObjectHasValue owlObjectHasValue)
+  @NonNull @Override public String visit(@NonNull OWLObjectHasValue owlObjectHasValue)
   {
     return convert(owlObjectHasValue);
   }
 
-  @Override
-  public String visit(OWLObjectMinCardinality owlObjectMinCardinality)
+  @NonNull @Override public String visit(@NonNull OWLObjectMinCardinality owlObjectMinCardinality)
   {
     return convert(owlObjectMinCardinality);
   }
 
-  @Override
-  public String visit(OWLObjectExactCardinality owlObjectExactCardinality)
+  @NonNull @Override public String visit(@NonNull OWLObjectExactCardinality owlObjectExactCardinality)
   {
     return convert(owlObjectExactCardinality);
   }
 
-  @Override
-  public String visit(OWLObjectMaxCardinality owlObjectMaxCardinality)
+  @NonNull @Override public String visit(@NonNull OWLObjectMaxCardinality owlObjectMaxCardinality)
   {
     return convert(owlObjectMaxCardinality);
   }
 
-  @Override
-  public String visit(OWLObjectHasSelf owlObjectHasSelf)
+  @NonNull @Override public String visit(@NonNull OWLObjectHasSelf owlObjectHasSelf)
   {
     return convert(owlObjectHasSelf);
   }
 
-  @Override
-  public String visit(OWLObjectOneOf owlObjectOneOf)
+  @NonNull @Override public String visit(@NonNull OWLObjectOneOf owlObjectOneOf)
   {
     return convert(owlObjectOneOf);
   }
 
-  @Override
-  public String visit(OWLDataSomeValuesFrom owlDataSomeValuesFrom)
+  @NonNull @Override public String visit(@NonNull OWLDataSomeValuesFrom owlDataSomeValuesFrom)
   {
     return convert(owlDataSomeValuesFrom);
   }
 
-  @Override
-  public String visit(OWLDataAllValuesFrom owlDataAllValuesFrom)
+  @NonNull @Override public String visit(@NonNull OWLDataAllValuesFrom owlDataAllValuesFrom)
   {
     return convert(owlDataAllValuesFrom);
   }
 
-  @Override
-  public String visit(OWLDataHasValue owlDataHasValue)
+  @NonNull @Override public String visit(@NonNull OWLDataHasValue owlDataHasValue)
   {
     return convert(owlDataHasValue);
   }
 
-  @Override
-  public String visit(OWLDataMinCardinality owlDataMinCardinality)
+  @NonNull @Override public String visit(@NonNull OWLDataMinCardinality owlDataMinCardinality)
   {
     return convert(owlDataMinCardinality);
   }
 
-  @Override
-  public String visit(OWLDataExactCardinality owlDataExactCardinality)
+  @NonNull @Override public String visit(@NonNull OWLDataExactCardinality owlDataExactCardinality)
   {
     return convert(owlDataExactCardinality);
   }
 
-  @Override
-  public String visit(OWLDataMaxCardinality owlDataMaxCardinality)
+  @NonNull @Override public String visit(@NonNull OWLDataMaxCardinality owlDataMaxCardinality)
   {
     return convert(owlDataMaxCardinality);
   }
 
-  private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
+  @NonNull private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
   {
     return this.propertyExpressionConverter;
   }
 
-  private DroolsCEResolver getCEResolver()
+  @NonNull private DroolsCEResolver getCEResolver()
   {
     return this.resolver.getDroolsCEResolver();
   }

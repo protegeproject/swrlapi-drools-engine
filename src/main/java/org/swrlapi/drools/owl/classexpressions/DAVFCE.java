@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.D;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 
@@ -12,28 +13,28 @@ public class DAVFCE extends DroolsTernaryObject<String, String, D> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public DAVFCE(String ceid, String propertyID, String datatypeID)
+  public DAVFCE(@NonNull String ceid, @NonNull String propertyID, @NonNull String datatypeID)
   {
     super(ceid, propertyID, new D(datatypeID));
   }
 
-  @Override
+  @NonNull @Override
   public String getceid()
   {
     return getT1();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public D getV()
+  @NonNull public D getV()
   {
     return getT3();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DAVFCE" + super.toString();

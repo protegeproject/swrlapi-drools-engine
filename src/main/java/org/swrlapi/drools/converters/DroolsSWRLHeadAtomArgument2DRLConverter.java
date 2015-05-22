@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
@@ -29,19 +30,19 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
 public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase implements
 TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
 {
-  public DroolsSWRLHeadAtomArgument2DRLConverter(SWRLRuleEngineBridge bridge)
+  public DroolsSWRLHeadAtomArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @Override
-  public String convert(SWRLVariable variableArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLVariable variableArgument)
   {
     return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
   }
 
-  @Override
-  public String convert(SWRLIndividualArgument individualArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLIndividualArgument individualArgument)
   {
     OWLIndividual individual = individualArgument.getIndividual();
 
@@ -57,78 +58,78 @@ TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
           + individual.getClass().getCanonicalName() + " passed as a " + SWRLIndividualArgument.class.getName());
   }
 
-  @Override
-  public String convert(SWRLLiteralArgument argument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLLiteralArgument argument)
   {
     return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
   }
 
-  @Override
-  public String convert(SWRLVariableBuiltInArgument variableArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLVariableBuiltInArgument variableArgument)
   {
     return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
   }
 
-  @Override
-  public String convert(SWRLClassBuiltInArgument classArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLClassBuiltInArgument classArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(classArgument.getIRI());
 
     return addQuotes(prefixedName);
   }
 
-  @Override
-  public String convert(SWRLNamedIndividualBuiltInArgument individualArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLNamedIndividualBuiltInArgument individualArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(individualArgument.getIRI());
 
     return addQuotes(prefixedName);
   }
 
-  @Override
-  public String convert(SWRLObjectPropertyBuiltInArgument propertyArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLObjectPropertyBuiltInArgument propertyArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
     return addQuotes(prefixedName);
   }
 
-  @Override
-  public String convert(SWRLDataPropertyBuiltInArgument propertyArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLDataPropertyBuiltInArgument propertyArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
     return addQuotes(prefixedName);
   }
 
-  @Override
-  public String convert(SWRLAnnotationPropertyBuiltInArgument propertyArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument propertyArgument)
   {
     String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
 
     return addQuotes(prefixedName);
   }
 
-  @Override
-  public String convert(SWRLDatatypeBuiltInArgument datatypeArgument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLDatatypeBuiltInArgument datatypeArgument)
   {
     return getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
   }
 
-  @Override
-  public String convert(SWRLLiteralBuiltInArgument argument)
+  @NonNull @Override
+  public String convert(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
   }
 
-  @Override
+  @NonNull @Override
   public String convert(SQWRLCollectionVariableBuiltInArgument argument)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException(
         "SQWRL collections can not be referenced in a rule head");
   }
 
-  public String convert(SWRLArgument argument)
+  @NonNull public String convert(SWRLArgument argument)
   { // TODO Use visitor to replace instanceof: define SWRLArgumentVisitorEx in OWLAPI and then
     // SWRLBuiltInArgumentVisitorEx
     if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
@@ -160,7 +161,7 @@ TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
           + argument.getClass().getCanonicalName());
   }
 
-  private String addQuotes(String s)
+  @NonNull private String addQuotes(String s)
   {
     return "\"" + s + "\"";
   }

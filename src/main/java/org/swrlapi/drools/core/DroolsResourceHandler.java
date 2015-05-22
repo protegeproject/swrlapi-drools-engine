@@ -1,5 +1,6 @@
 package org.swrlapi.drools.core;
 
+import checkers.nullness.quals.NonNull;
 import org.drools.builder.KnowledgeBuilder;
 import org.drools.builder.ResourceType;
 import org.drools.io.Resource;
@@ -10,9 +11,9 @@ import java.io.StringReader;
 
 public class DroolsResourceHandler
 {
-  private final KnowledgeBuilder knowledgeBuilder;
+  @NonNull private final KnowledgeBuilder knowledgeBuilder;
 
-  public DroolsResourceHandler(KnowledgeBuilder knowledgeBuilder)
+  public DroolsResourceHandler(@NonNull KnowledgeBuilder knowledgeBuilder)
   {
     this.knowledgeBuilder = knowledgeBuilder;
   }
@@ -23,7 +24,7 @@ public class DroolsResourceHandler
     importOWLAndSWRLJavaClasses();
   }
 
-  public void defineDRLRule(String ruleText)
+  public void defineDRLRule(@NonNull String ruleText)
   {
     try {
       // System.out.println("Rule " + ruleName + "\n" + ruleText);
@@ -162,12 +163,12 @@ public class DroolsResourceHandler
     defineDRLResource("import org.swrlapi.drools.owl.core.D");
   }
 
-  private void defineDRLResource(String resourceText)
+  private void defineDRLResource(@NonNull String resourceText)
   {
     this.knowledgeBuilder.add(createDRLResource(resourceText), ResourceType.DRL);
   }
 
-  private Resource createDRLResource(String resourceText)
+  private Resource createDRLResource(@NonNull String resourceText)
   {
     return ResourceFactory.newReaderResource(new StringReader(resourceText));
   }

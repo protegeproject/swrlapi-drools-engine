@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
@@ -9,12 +10,12 @@ import java.util.Set;
 
 public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
 {
-  public DroolsSWRLVariableConverter(SWRLRuleEngineBridge bridge)
+  public DroolsSWRLVariableConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  public String swrlVariable2DRL(SWRLVariable variable)
+  @NonNull public String swrlVariable2DRL(@NonNull SWRLVariable variable)
   {
     IRI variableIRI = variable.getIRI();
     String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
@@ -22,7 +23,7 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
     return variablePrefixedName2DRL(variablePrefixedName);
   }
 
-  public String swrlVariable2VariableName(SWRLVariable variable)
+  @NonNull public String swrlVariable2VariableName(@NonNull SWRLVariable variable)
   {
     IRI variableIRI = variable.getIRI();
     String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
@@ -30,34 +31,34 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
     return variablePrefixedName2VariableName(variablePrefixedName);
   }
 
-  public String swrlVariable2VariablePrefixedName(SWRLVariable variable)
+  @NonNull public String swrlVariable2VariablePrefixedName(@NonNull SWRLVariable variable)
   {
     IRI variableIRI = variable.getIRI();
 
     return getIRIResolver().iri2PrefixedName(variableIRI);
   }
 
-  public String variableIRI2DRL(IRI variableIRI)
+  @NonNull public String variableIRI2DRL(@NonNull IRI variableIRI)
   {
     String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
 
     return variablePrefixedName2DRL(variablePrefixedName);
   }
 
-  public String variablePrefixedName2DRL(String variablePrefixedName)
+  @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName)
   {
     String variableName = variablePrefixedName2VariableName(variablePrefixedName);
 
     return variableName2DRL(variableName);
   }
 
-  public String variableName2DRL(String variableName)
+  @NonNull public String variableName2DRL(@NonNull String variableName)
   {
     return "$" + variableName;
   }
 
-  public String variablePrefixedName2DRL(String variablePrefixedName, String fieldName,
-      Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName, String fieldName,
+      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
     if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
       return fieldName + "==" + variablePrefixedName2DRL(variablePrefixedName);
@@ -67,7 +68,7 @@ public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
     }
   }
 
-  public String variablePrefixedName2VariableName(String variablePrefixedName)
+  @NonNull public String variablePrefixedName2VariableName(@NonNull String variablePrefixedName)
   {
     return variablePrefixedName.startsWith(":") ? variablePrefixedName.substring(1) : variablePrefixedName;
   }

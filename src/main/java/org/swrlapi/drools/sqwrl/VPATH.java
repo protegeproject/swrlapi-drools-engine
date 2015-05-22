@@ -1,5 +1,6 @@
 package org.swrlapi.drools.sqwrl;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.swrl.BA;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class VPATH
 {
   public static final int MaxArguments = 10;
 
-  private final List<BA> arguments;
+  @NonNull private final List<BA> arguments;
 
   public VPATH()
   {
@@ -125,12 +126,12 @@ public class VPATH
     this.arguments.add(ba10);
   }
 
-  public List<BA> getArguments()
+  @NonNull public List<BA> getArguments()
   {
     return Collections.unmodifiableList(this.arguments);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     StringBuilder sb = new StringBuilder();

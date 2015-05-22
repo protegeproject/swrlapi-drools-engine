@@ -1,12 +1,13 @@
 package org.swrlapi.drools.owl2rl;
 
+import checkers.nullness.quals.NonNull;
+import org.swrlapi.drools.core.DroolsRuleDefinition;
+import org.swrlapi.owl2rl.OWL2RLNames;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.swrlapi.drools.core.DroolsRuleDefinition;
-import org.swrlapi.owl2rl.OWL2RLNames;
 
 /**
  * Class that defines Drools OWL 2 RL rules.
@@ -28,7 +29,7 @@ import org.swrlapi.owl2rl.OWL2RLNames;
  */
 public class DroolsOWL2RLRules
 {
-  private final Map<OWL2RLNames.OWL2RLRule, Set<DroolsRuleDefinition>> rules;
+  @NonNull private final Map<OWL2RLNames.OWL2RLRule, Set<DroolsRuleDefinition>> rules;
 
   public DroolsOWL2RLRules()
   {
@@ -57,7 +58,7 @@ public class DroolsOWL2RLRules
     return this.rules.containsKey(rule);
   }
 
-  public Set<DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
+  @NonNull public Set<DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
   {
     return this.rules.get(rule);
   }
@@ -495,7 +496,7 @@ public class DroolsOWL2RLRules
         "rule scm_uni when OUOCE($c:ceid, $c1:c1) then SCA sca1=new SCA($c1, $c); inferrer.infer(sca1); end");
   }
 
-  private void createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule rule, String ruleName, String ruleText)
+  private void createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule rule, @NonNull String ruleName, @NonNull String ruleText)
   {
     DroolsRuleDefinition newRuleDefinition = new DroolsRuleDefinition(ruleName, ruleText);
 

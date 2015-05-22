@@ -1,9 +1,10 @@
 package org.swrlapi.drools.sqwrl;
 
+import checkers.nullness.quals.NonNull;
+import org.swrlapi.drools.swrl.BA;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import org.swrlapi.drools.swrl.BA;
 
 /**
  * Keeps track of SQWRL collections during rule execution.
@@ -15,7 +16,7 @@ import org.swrlapi.drools.swrl.BA;
  */
 public class DroolsSQWRLCollectionHandler
 {
-  private final Set<SQWRLC> generatedSQWRLCollections;
+  @NonNull private final Set<SQWRLC> generatedSQWRLCollections;
 
   public DroolsSQWRLCollectionHandler()
   {
@@ -27,7 +28,7 @@ public class DroolsSQWRLCollectionHandler
     this.generatedSQWRLCollections.clear();
   }
 
-  public void infer(BA ba)
+  public void infer(@NonNull BA ba)
   {
     if (ba instanceof SQWRLC)
       this.generatedSQWRLCollections.add((SQWRLC)ba);
@@ -38,7 +39,7 @@ public class DroolsSQWRLCollectionHandler
     return !this.generatedSQWRLCollections.isEmpty();
   }
 
-  public Set<SQWRLC> getSQWRLCollections()
+  @NonNull public Set<SQWRLC> getSQWRLCollections()
   {
     return this.generatedSQWRLCollections;
   }

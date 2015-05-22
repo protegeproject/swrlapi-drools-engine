@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 
 /**
@@ -11,28 +12,28 @@ public class DMaxCCE extends DroolsTernaryObject<String, String, Integer> implem
 {
   private static final long serialVersionUID = 1L;
 
-  public DMaxCCE(String ceid, String propertyID, Integer card)
+  public DMaxCCE(@NonNull String ceid, @NonNull String propertyID, @NonNull Integer card)
   {
     super(ceid, propertyID, card);
   }
 
-  @Override
+  @NonNull @Override
   public String getceid()
   {
     return getT1();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public Integer getCard()
+  @NonNull public Integer getCard()
   {
     return getT3();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DMaxCCE" + super.toString();

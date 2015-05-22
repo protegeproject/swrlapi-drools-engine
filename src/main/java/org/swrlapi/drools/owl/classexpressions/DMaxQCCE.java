@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.DroolsQuadObject;
 
 /**
@@ -11,33 +12,33 @@ public class DMaxQCCE extends DroolsQuadObject<String, String, String, Integer> 
 {
   private static final long serialVersionUID = 1L;
 
-  public DMaxQCCE(String ceid, String propertyID, String fillerID, Integer card)
+  public DMaxQCCE(@NonNull String ceid, @NonNull String propertyID, @NonNull String fillerID, @NonNull Integer card)
   {
     super(ceid, propertyID, fillerID, card);
   }
 
-  @Override
+  @NonNull @Override
   public String getceid()
   {
     return getT1();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public String getf()
+  @NonNull public String getf()
   {
     return getT3();
   }
 
-  public Integer getcard()
+  @NonNull public Integer getcard()
   {
     return getT4();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DMaxQCCE" + super.toString();

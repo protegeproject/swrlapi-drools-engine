@@ -1,5 +1,6 @@
 package org.swrlapi.drools.factory;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
@@ -20,7 +21,7 @@ public class DroolsFactory
     return new DroolsSWRLRuleEngineCreator();
   }
 
-  public static Icon getSWRLRuleEngineIcon() throws SWRLAPIException
+  @NonNull public static Icon getSWRLRuleEngineIcon() throws SWRLAPIException
   {
     URL url = DroolsFactory.class.getResource(DROOLS_ICON_NAME);
 
@@ -30,17 +31,18 @@ public class DroolsFactory
       throw new SWRLAPIException("No Drools icon found!");
   }
 
-  public static DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(SWRLRuleEngineBridge bridge)
+  @NonNull public static DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(@NonNull SWRLRuleEngineBridge bridge)
   {
     return new DefaultDroolsOWLAxiomExtractor(bridge);
   }
 
-  public static DroolsOWLEntityExtractor getDroolsOWLEntityExtractor(SWRLRuleEngineBridge bridge)
+  @NonNull public static DroolsOWLEntityExtractor getDroolsOWLEntityExtractor(@NonNull SWRLRuleEngineBridge bridge)
   {
     return new DefaultDroolsOWLEntityExtractor(bridge);
   }
 
-  public static DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor(SWRLRuleEngineBridge bridge)
+  @NonNull public static DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor(
+    @NonNull SWRLRuleEngineBridge bridge)
   {
     return new DefaultDroolsOWLIndividualExtractor(bridge);
   }

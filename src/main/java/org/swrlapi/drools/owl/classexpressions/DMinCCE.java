@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.properties.DP;
 
@@ -12,33 +13,33 @@ public class DMinCCE extends DroolsTernaryObject<String, DP, Integer> implements
 {
   private static final long serialVersionUID = 1L;
 
-  public DMinCCE(String ceid, DP p, Integer card)
+  public DMinCCE(@NonNull String ceid, @NonNull DP p, @NonNull Integer card)
   {
     super(ceid, p, card);
   }
 
-  public DMinCCE(String ceid, String propertyID, Integer card)
+  public DMinCCE(@NonNull String ceid, @NonNull String propertyID, @NonNull Integer card)
   {
     super(ceid, new DP(propertyID), card);
   }
 
-  @Override
+  @NonNull @Override
   public String getceid()
   {
     return getT1();
   }
 
-  public DP getP()
+  @NonNull public DP getP()
   {
     return getT2();
   }
 
-  public Integer getCard()
+  @NonNull public Integer getCard()
   {
     return getT3();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DMinCCE" + super.toString();

@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
@@ -16,49 +17,49 @@ public class DPAA extends DroolsTernaryObject<I, String, L> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public DPAA(String subjectName, String propertyID, L object)
+  public DPAA(@NonNull String subjectName, @NonNull String propertyID, @NonNull L object)
   {
     super(new I(subjectName), propertyID, object);
   }
 
-  public DPAA(I subject, String propertyID, L object)
+  public DPAA(@NonNull I subject, @NonNull String propertyID, @NonNull L object)
   {
     super(subject, propertyID, object);
   }
 
-  public I gets()
+  @NonNull   public I gets()
   {
     return getT1();
   }
 
-  public String getsid()
+  @NonNull public String getsid()
   {
     return getT1().getid();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public L geto()
+  @NonNull public L geto()
   {
     return getT3();
   }
 
-  @Override
-  public OWLDataPropertyAssertionAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDataPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DPAA" + super.toString();

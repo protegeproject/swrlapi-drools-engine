@@ -1,13 +1,6 @@
 package org.swrlapi.drools.reasoner;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
+import checkers.nullness.quals.NonNull;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.AOPA;
@@ -48,6 +41,14 @@ import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.owl2rl.OWL2RLInconsistencyDescription;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * This class is used to accumulate inferred OWL axioms during reasoning and rule execution. Drools rules generated from
  * SWRL rules and a reasoner (e.g., the OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules})
@@ -61,41 +62,42 @@ import org.swrlapi.owl2rl.OWL2RLInconsistencyDescription;
  */
 public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVisitor
 {
-  private final Set<A> inferredOWLAxioms;
-  private final Set<A> assertedOWLAxioms;
+  @NonNull private final Set<A> inferredOWLAxioms;
+  @NonNull private final Set<A> assertedOWLAxioms;
 
-  private final Set<String> declaredClassIDs;
-  private final Set<String> declaredIndividualIDs;
-  private final Set<String> declaredObjectPropertyIDs;
-  private final Set<String> declaredDataPropertyIDs;
-  private final Set<String> declaredAnnotationPropertyIDs;
+  @NonNull private final Set<String> declaredClassIDs;
+  @NonNull private final Set<String> declaredIndividualIDs;
+  @NonNull private final Set<String> declaredObjectPropertyIDs;
+  @NonNull private final Set<String> declaredDataPropertyIDs;
+  @NonNull private final Set<String> declaredAnnotationPropertyIDs;
 
-  private final Map<String, Set<String>> classAssertions;
-  private final Map<String, Set<String>> subClasses;
-  private final Map<String, Set<String>> superClasses;
-  private final Map<String, Set<String>> disjointClasses;
-  private final Map<String, Set<String>> equivalentClasses;
+  @NonNull private final Map<String, Set<String>> classAssertions;
+  @NonNull private final Map<String, Set<String>> subClasses;
+  @NonNull private final Map<String, Set<String>> superClasses;
+  @NonNull private final Map<String, Set<String>> disjointClasses;
+  @NonNull private final Map<String, Set<String>> equivalentClasses;
 
-  private final Map<String, Set<String>> sameIndividual;
-  private final Map<String, Set<String>> differentIndividuals;
+  @NonNull private final Map<String, Set<String>> sameIndividual;
+  @NonNull private final Map<String, Set<String>> differentIndividuals;
 
-  private final Map<String, Set<String>> subObjectProperties;
-  private final Map<String, Set<String>> superObjectProperties;
-  private final Map<String, Set<String>> disjointObjectProperties;
-  private final Map<String, Set<String>> equivalentObjectProperties;
-  private final Map<String, Set<String>> inverseObjectProperties;
-  private final Map<String, Set<String>> objectPropertyRanges;
-  private final Map<String, Set<String>> objectPropertyDomains;
-  private final Map<String, Map<String, Set<String>>> objectPropertyAssertions;
+  @NonNull private final Map<String, Set<String>> subObjectProperties;
+  @NonNull private final Map<String, Set<String>> superObjectProperties;
+  @NonNull private final Map<String, Set<String>> disjointObjectProperties;
+  @NonNull private final Map<String, Set<String>> equivalentObjectProperties;
+  @NonNull private final Map<String, Set<String>> inverseObjectProperties;
+  @NonNull private final Map<String, Set<String>> objectPropertyRanges;
+  @NonNull private final Map<String, Set<String>> objectPropertyDomains;
+  @NonNull private final Map<String, Map<String, Set<String>>> objectPropertyAssertions;
 
-  private final Map<String, Set<String>> subDataProperties;
-  private final Map<String, Set<String>> superDataProperties;
-  private final Map<String, Set<String>> disjointDataProperties;
-  private final Map<String, Set<String>> equivalentDataProperties;
-  private final Map<String, Set<String>> dataPropertyDomains;
-  private final Map<String, Map<String, Set<L>>> dataPropertyAssertions;
+  @NonNull private final Map<String, Set<String>> subDataProperties;
+  @NonNull private final Map<String, Set<String>> superDataProperties;
+  @NonNull private final Map<String, Set<String>> disjointDataProperties;
+  @NonNull private final Map<String, Set<String>> equivalentDataProperties;
+  @NonNull private final Map<String, Set<String>> dataPropertyDomains;
+  @NonNull private final Map<String, Map<String, Set<L>>> dataPropertyAssertions;
 
-  private final Set<String> inconsistentMessages;
+  @NonNull private final Set<String> inconsistentMessages;
+
   private boolean isInconsistent;
 
   private StatefulKnowledgeSession knowledgeSession;
@@ -185,7 +187,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    * Supply the asserted OWL axioms.
    */
   @Override
-  public void addAssertOWLAxioms(Set<A> newAssertedOWLAxioms)
+  public void addAssertOWLAxioms(@NonNull Set<A> newAssertedOWLAxioms)
   {
     this.assertedOWLAxioms.addAll(newAssertedOWLAxioms);
 
@@ -197,7 +199,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    * This method is called by Drools rules at runtime.
    */
   @Override
-  public void infer(A... newInferredOWLAxioms)
+  public void infer(@NonNull A... newInferredOWLAxioms)
   {
     if (this.knowledgeSession == null)
       throw new TargetSWRLRuleEngineInternalException("knowledge session not initialized in axiom inferrer");
@@ -213,7 +215,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     }
   }
 
-  @Override
+  @NonNull @Override
   public Set<A> getAssertedOWLAxioms()
   {
     return Collections.unmodifiableSet(this.assertedOWLAxioms);
@@ -223,7 +225,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    * This method can be called after the rule engine has finished executing to get all the OWL axioms that have been
    * inferred.
    */
-  @Override
+  @NonNull @Override
   public Set<A> getInferredOWLAxioms()
   {
     return Collections.unmodifiableSet(this.inferredOWLAxioms);
@@ -236,7 +238,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public boolean isEntailed(Set<? extends A> axioms)
+  public boolean isEntailed(@NonNull Set<? extends A> axioms)
   {
     for (A a : axioms)
       if (isEntailed(a))
@@ -258,7 +260,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.classAssertions.get(classID);
   }
 
-  @Override
+  @NonNull @Override
   public Set<String> getSubClasses(String classID, boolean direct)
   {
     Set<String> subClasses = new HashSet<>();
@@ -275,7 +277,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subClasses;
   }
 
-  @Override
+  @NonNull @Override
   public Set<String> getSuperClasses(String classID, boolean direct)
   {
     Set<String> superClasses = new HashSet<>();
@@ -364,7 +366,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredObjectPropertyIDs.contains(propertyID);
   }
 
-  @Override
+  @NonNull @Override
   public Set<String> getSubObjectProperties(String propertyID, boolean direct)
   {
     Set<String> subProperties = new HashSet<>();
@@ -381,7 +383,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subProperties;
   }
 
-  @Override
+  @NonNull @Override
   public Set<String> getSuperObjectProperties(String propertyID, boolean direct)
   {
     Set<String> superProperties = new HashSet<>();
@@ -434,7 +436,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.objectPropertyAssertions.get(propertyID);
   }
 
-  @Override
+  @NonNull @Override
   public Set<String> getObjectPropertyValuesForIndividual(String individualID, String propertyID)
   {
     Set<String> individualIDs = new HashSet<>();
@@ -488,7 +490,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredDataPropertyIDs.contains(propertyID);
   }
 
-  @Override
+  @NonNull @Override
   public Set<String> getSubDataProperties(String propertyID, boolean direct)
   {
     Set<String> subProperties = new HashSet<>();
@@ -505,7 +507,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subProperties;
   }
 
-  @Override
+  @NonNull @Override
   public Set<String> getSuperDataProperties(String propertyID, boolean direct)
   {
     Set<String> superProperties = new HashSet<>();
@@ -546,7 +548,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.dataPropertyAssertions.get(propertyID);
   }
 
-  @Override
+  @NonNull @Override
   public Set<L> getDataPropertyValuesForIndividual(String individualID, String propertyID)
   {
     Set<L> literals = new HashSet<>();
@@ -600,7 +602,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredAnnotationPropertyIDs.contains(propertyID);
   }
 
-  public Set<String> getInconsistentMessages()
+  @NonNull public Set<String> getInconsistentMessages()
   {
     return Collections.unmodifiableSet(this.inconsistentMessages);
   }
@@ -658,37 +660,37 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(CDA cda)
+  public void visit(@NonNull CDA cda)
   {
     this.declaredClassIDs.add(cda.getcid());
   }
 
   @Override
-  public void visit(OPDA opda)
+  public void visit(@NonNull OPDA opda)
   {
     this.declaredObjectPropertyIDs.add(opda.getpid());
   }
 
   @Override
-  public void visit(DPDA dpda)
+  public void visit(@NonNull DPDA dpda)
   {
     this.declaredDataPropertyIDs.add(dpda.getpid());
   }
 
   @Override
-  public void visit(APDA apda)
+  public void visit(@NonNull APDA apda)
   {
     this.declaredAnnotationPropertyIDs.add(apda.getpid());
   }
 
   @Override
-  public void visit(IDA ida)
+  public void visit(@NonNull IDA ida)
   {
     this.declaredIndividualIDs.add(ida.getI().getid());
   }
 
   @Override
-  public void visit(SCA sca)
+  public void visit(@NonNull SCA sca)
   {
     String subClassID = sca.getsubcid();
     String superClassID = sca.getsupercid();
@@ -711,7 +713,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(DCA dca)
+  public void visit(@NonNull DCA dca)
   {
     String c1ID = dca.getc1id();
     String c2ID = dca.getc2id();
@@ -726,7 +728,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(DDPA ddpa)
+  public void visit(@NonNull DDPA ddpa)
   {
     String propertyID = ddpa.getpid();
     String domainID = ddpa.getdid();
@@ -741,7 +743,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(DOPA dopa)
+  public void visit(@NonNull DOPA dopa)
   {
     String propertyID = dopa.getpid();
     String domainID = dopa.getdid();
@@ -756,7 +758,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(EOPA eopa)
+  public void visit(@NonNull EOPA eopa)
   {
     String p1ID = eopa.getp1id();
     String p2ID = eopa.getp2id();
@@ -771,7 +773,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(DIA dia)
+  public void visit(@NonNull DIA dia)
   {
     String i1ID = dia.geti1id();
     String i2ID = dia.geti2id();
@@ -786,7 +788,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(DJDPA djdpa)
+  public void visit(@NonNull DJDPA djdpa)
   {
     String p1ID = djdpa.getp1id();
     String p2ID = djdpa.getp2id();
@@ -801,7 +803,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(DJOPA djopa)
+  public void visit(@NonNull DJOPA djopa)
   {
     String p1ID = djopa.getp1id();
     String p2ID = djopa.getp2id();
@@ -816,7 +818,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(OPRA opra)
+  public void visit(@NonNull OPRA opra)
   {
     String propertyID = opra.getpid();
     String rangeID = opra.getrid();
@@ -831,7 +833,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(OPAA opaa)
+  public void visit(@NonNull OPAA opaa)
   {
     String subjectID = opaa.getsid();
     String propertyID = opaa.getpid();
@@ -857,7 +859,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(SOPA sopa)
+  public void visit(@NonNull SOPA sopa)
   {
     String subPropertyID = sopa.getsubpid();
     String superPropertyID = sopa.getsuperpid();
@@ -880,7 +882,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(EDPA edpa)
+  public void visit(@NonNull EDPA edpa)
   {
     String p1ID = edpa.getp1id();
     String p2ID = edpa.getp2id();
@@ -895,7 +897,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(CAA caa)
+  public void visit(@NonNull CAA caa)
   {
     String classID = caa.getcid();
     String individualID = caa.getiid();
@@ -910,7 +912,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(ECA eca)
+  public void visit(@NonNull ECA eca)
   {
     String c1ID = eca.getc1id();
     String c2ID = eca.getc2id();
@@ -925,7 +927,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(DPAA dpaa)
+  public void visit(@NonNull DPAA dpaa)
   {
     String subjectID = dpaa.getsid();
     String propertyID = dpaa.getpid();
@@ -951,7 +953,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(SDPA sdpa)
+  public void visit(@NonNull SDPA sdpa)
   {
     String subPropertyID = sdpa.getsubpid();
     String superPropertyID = sdpa.getsuperpid();
@@ -974,7 +976,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(SIA sia)
+  public void visit(@NonNull SIA sia)
   {
     String i1ID = sia.geti1id();
     String i2ID = sia.geti2id();
@@ -989,7 +991,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   }
 
   @Override
-  public void visit(IOPA iopa)
+  public void visit(@NonNull IOPA iopa)
   {
     String p1ID = iopa.getp1id();
     String p2ID = iopa.getp2id();
@@ -1063,7 +1065,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     // An OWL 2 RL reasoner does not assert axioms of this type so we ignore.
   }
 
-  private void checkSubClassIDs(String... ceids)
+  private void checkSubClassIDs(@NonNull String... ceids)
   {
     for (String ceid : ceids) {
       if (!this.subClasses.containsKey(ceid)) {
@@ -1072,7 +1074,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     }
   }
 
-  private void checkSubObjectPropertyIDs(String... opids)
+  private void checkSubObjectPropertyIDs(@NonNull String... opids)
   {
     for (String opid : opids) {
       if (!this.subObjectProperties.containsKey(opid)) {
@@ -1081,7 +1083,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     }
   }
 
-  private void checkSubDataPropertyIDs(String... dpids)
+  private void checkSubDataPropertyIDs(@NonNull String... dpids)
   {
     for (String dpid : dpids) {
       if (!this.subDataProperties.containsKey(dpid)) {

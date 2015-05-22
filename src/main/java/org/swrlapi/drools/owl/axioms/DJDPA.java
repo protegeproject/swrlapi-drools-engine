@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -13,24 +14,24 @@ public class DJDPA extends DroolsBinaryPropertiesAxiom
 {
   private static final long serialVersionUID = 1L;
 
-  public DJDPA(String property1ID, String property2ID)
+  public DJDPA(@NonNull String property1ID, @NonNull String property2ID)
   {
     super(property1ID, property2ID);
   }
 
-  @Override
-  public OWLDisjointDataPropertiesAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDisjointDataPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DJDPA" + super.toString();

@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 
@@ -10,16 +11,16 @@ import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
  */
 class DroolsConverterBase extends TargetRuleEngineConverterBase
 {
-  private final DroolsOWLLiteral2DRLConverter literal2DRLConverter;
-  private final DroolsOWLLiteral2LConverter literal2LConverter;
-  private final DroolsOWLNamedObject2DRLConverter namedObject2DRLConverter;
-  private final DroolsOWLEntity2OEConverter entity2OEConverter;
-  private final DroolsOWLIndividual2DRLConverter individual2DRLConverter;
-  private final DroolsOWLIndividual2IConverter individual2IConverter;
-  private final DroolsOWLDataRangeConverter dataRangeConverter;
-  private final DroolsSWRLVariableConverter variableConverter;
+  @NonNull private final DroolsOWLLiteral2DRLConverter literal2DRLConverter;
+  @NonNull private final DroolsOWLLiteral2LConverter literal2LConverter;
+  @NonNull private final DroolsOWLNamedObject2DRLConverter namedObject2DRLConverter;
+  @NonNull private final DroolsOWLEntity2OEConverter entity2OEConverter;
+  @NonNull private final DroolsOWLIndividual2DRLConverter individual2DRLConverter;
+  @NonNull private final DroolsOWLIndividual2IConverter individual2IConverter;
+  @NonNull private final DroolsOWLDataRangeConverter dataRangeConverter;
+  @NonNull private final DroolsSWRLVariableConverter variableConverter;
 
-  public DroolsConverterBase(SWRLRuleEngineBridge bridge)
+  public DroolsConverterBase(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
 
@@ -33,42 +34,42 @@ class DroolsConverterBase extends TargetRuleEngineConverterBase
     this.variableConverter = new DroolsSWRLVariableConverter(bridge);
   }
 
-  protected DroolsOWLLiteral2DRLConverter getDroolsOWLLiteral2DRLConverter()
+  @NonNull protected DroolsOWLLiteral2DRLConverter getDroolsOWLLiteral2DRLConverter()
   {
     return this.literal2DRLConverter;
   }
 
-  protected DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
+  @NonNull protected DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
   {
     return this.literal2LConverter;
   }
 
-  protected DroolsOWLNamedObject2DRLConverter getDroolsOWLNamedObject2DRLConverter()
+  @NonNull protected DroolsOWLNamedObject2DRLConverter getDroolsOWLNamedObject2DRLConverter()
   {
     return this.namedObject2DRLConverter;
   }
 
-  protected DroolsOWLEntity2OEConverter getDroolsOWLEntity2OEConverter()
+  @NonNull protected DroolsOWLEntity2OEConverter getDroolsOWLEntity2OEConverter()
   {
     return this.entity2OEConverter;
   }
 
-  protected DroolsOWLIndividual2DRLConverter getDroolsOWLIndividual2DRLConverter()
+  @NonNull protected DroolsOWLIndividual2DRLConverter getDroolsOWLIndividual2DRLConverter()
   {
     return this.individual2DRLConverter;
   }
 
-  protected DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
+  @NonNull protected DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
   {
     return this.individual2IConverter;
   }
 
-  protected DroolsOWLDataRangeConverter getDroolsOWLDataRangeConverter()
+  @NonNull protected DroolsOWLDataRangeConverter getDroolsOWLDataRangeConverter()
   {
     return this.dataRangeConverter;
   }
 
-  protected DroolsSWRLVariableConverter getDroolsSWRLVariableConverter()
+  @NonNull protected DroolsSWRLVariableConverter getDroolsSWRLVariableConverter()
   {
     return this.variableConverter;
   }

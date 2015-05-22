@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -41,74 +42,74 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsConverterBase implements
 TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
 {
-  public DroolsSWRLBuiltInArgument2BAConverter(SWRLRuleEngineBridge bridge)
+  public DroolsSWRLBuiltInArgument2BAConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  public BA convert(SWRLBuiltInArgument argument)
+  public BA convert(@NonNull SWRLBuiltInArgument argument)
   {
     return argument.accept(this);
   }
 
-  @Override
-  public C convert(SWRLClassBuiltInArgument argument)
+  @NonNull @Override
+  public C convert(@NonNull SWRLClassBuiltInArgument argument)
   {
     OWLClass cls = argument.getOWLClass();
 
     return getDroolsOWLEntity2OEConverter().convert(cls);
   }
 
-  @Override
-  public I convert(SWRLNamedIndividualBuiltInArgument argument)
+  @NonNull @Override
+  public I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     OWLNamedIndividual individual = argument.getOWLNamedIndividual();
 
     return getDroolsOWLEntity2OEConverter().convert(individual);
   }
 
-  @Override
-  public OP convert(SWRLObjectPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public OP convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     OWLObjectProperty property = argument.getOWLObjectProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @Override
-  public DP convert(SWRLDataPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public DP convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     OWLDataProperty property = argument.getOWLDataProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @Override
-  public AP convert(SWRLAnnotationPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public AP convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     OWLAnnotationProperty property = argument.getOWLAnnotationProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @Override
-  public D convert(SWRLDatatypeBuiltInArgument argument)
+  @NonNull @Override
+  public D convert(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     OWLDatatype datatype = argument.getOWLDatatype();
 
     return getDroolsOWLEntity2OEConverter().convert(datatype);
   }
 
-  @Override
-  public L convert(SWRLLiteralBuiltInArgument argument)
+  @NonNull @Override
+  public L convert(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     OWLLiteral literal = argument.getLiteral();
 
     return getDroolsOWLLiteral2LConverter().convert(literal);
   }
 
-  @Override
-  public UBA convert(SWRLVariableBuiltInArgument argument)
+  @NonNull @Override
+  public UBA convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
       return new UBA(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument));
@@ -116,69 +117,69 @@ TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<B
       throw new TargetSWRLRuleEngineInternalException("expecting unbound argument, got bound argument " + argument);
   }
 
-  @Override
-  public BA convert(SQWRLCollectionVariableBuiltInArgument argument)
+  @NonNull @Override
+  public BA convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
     return new SQWRLC(getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument), argument.getQueryName(),
         argument.getCollectionName(), argument.getGroupID());
   }
 
-  @Override
-  public BA visit(SWRLClassBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLClassBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLNamedIndividualBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLObjectPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLDataPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLAnnotationPropertyBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLDatatypeBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLLiteralBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLVariableBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SWRLMultiValueVariableBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SWRLMultiValueVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @Override
-  public BA visit(SQWRLCollectionVariableBuiltInArgument argument)
+  @NonNull @Override
+  public BA visit(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
     return convert(argument);
   }

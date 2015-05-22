@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.I;
@@ -14,35 +15,35 @@ public class IDA extends DA<I>
 {
   private static final long serialVersionUID = 1L;
 
-  public IDA(String individualID)
+  public IDA(@NonNull String individualID)
   {
     super(new I(individualID));
   }
 
-  public IDA(I individual)
+  public IDA(@NonNull I individual)
   {
     super(individual);
   }
 
-  public I getI()
+  @NonNull public I getI()
   {
     return getE();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "IDA(" + super.toString() + ")";
   }
 
-  @Override
-  public OWLDeclarationAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDeclarationAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }

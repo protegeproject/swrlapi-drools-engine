@@ -1,13 +1,15 @@
 package org.swrlapi.drools.owl.core;
 
-import java.io.Serializable;
-
+import checkers.nullness.quals.NonNull;
+import checkers.nullness.quals.Nullable;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
+
+import java.io.Serializable;
 
 /**
  * Class representing an OWL literal in Drools
@@ -27,7 +29,7 @@ public class L implements OO, BA, Serializable
     this.datatypeName = datatypeName;
   }
 
-  public L(L l)
+  public L(@NonNull L l)
   {
     this.value = l.value;
     this.datatypeName = l.datatypeName;
@@ -112,13 +114,13 @@ public class L implements OO, BA, Serializable
     return this.datatypeName.equals(XSDVocabulary.STRING.getPrefixedName());
   }
 
-  @Override
-  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "L(\"" + this.value + "\", " + this.datatypeName + ")";
@@ -137,7 +139,7 @@ public class L implements OO, BA, Serializable
   // We consider literals to be equal if they have the same type name and value.
   // TODO This is a very simpleminded implementation of equals. Think about using the SWRLAPI's OWLLiteralComparator
 
-  @Override public boolean equals(Object o)
+  @Override public boolean equals(@Nullable Object o)
   {
     if (this == o)
       return true;

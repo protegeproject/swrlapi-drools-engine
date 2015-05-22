@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.core;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -45,14 +46,14 @@ public class D extends OE implements DR
     return getName();
   }
 
-  @Override
-  public OWLDatatype extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
@@ -63,7 +64,7 @@ public class D extends OE implements DR
     return super.toString();
   }
 
-  public static D getTopDatatype()
+  @NonNull public static D getTopDatatype()
   {
     return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
   }

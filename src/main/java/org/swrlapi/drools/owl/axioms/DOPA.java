@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
@@ -14,7 +15,7 @@ public class DOPA extends DroolsBinaryObject<String, String> implements A
 {
   private static final long serialVersionUID = 1L;
 
-  public DOPA(String propertyID, String domainClassID)
+  public DOPA(@NonNull String propertyID, @NonNull String domainClassID)
   {
     super(propertyID, domainClassID);
   }
@@ -29,19 +30,19 @@ public class DOPA extends DroolsBinaryObject<String, String> implements A
     return getT2();
   }
 
-  @Override
-  public OWLObjectPropertyDomainAxiom extract(DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLObjectPropertyDomainAxiom extract(@NonNull DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
   }
 
   @Override
-  public void visit(AVisitor visitor)
+  public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "DOPA" + super.toString();

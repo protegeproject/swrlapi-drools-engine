@@ -1,5 +1,6 @@
 package org.swrlapi.drools.resolvers;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.properties.DPE;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 public class DroolsDPEResolver
 {
-  private final Map<String, DPE> pes;
+  @NonNull private final Map<String, DPE> pes;
   private int propertyExpressionIndex;
 
   public DroolsDPEResolver()
@@ -28,22 +29,22 @@ public class DroolsDPEResolver
     this.propertyExpressionIndex = 0;
   }
 
-  public boolean recordsPEID(String peid)
+  public boolean recordsPEID(@NonNull String peid)
   {
     return this.pes.containsKey(peid);
   }
 
-  public void record(DPE pe)
+  public void record(@NonNull DPE pe)
   {
     this.pes.put(pe.getid(), pe);
   }
 
-  public Set<DPE> getPEs()
+  @NonNull public Set<DPE> getPEs()
   {
     return new HashSet<>(this.pes.values());
   }
 
-  public String generatePEID()
+  @NonNull public String generatePEID()
   {
     return "DPEID" + this.propertyExpressionIndex++;
   }

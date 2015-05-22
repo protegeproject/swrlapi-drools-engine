@@ -1,5 +1,6 @@
 package org.swrlapi.drools.extractors;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
@@ -11,17 +12,17 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
 {
-  public DroolsSWRLVariableExtractor(SWRLRuleEngineBridge bridge)
+  public DroolsSWRLVariableExtractor(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  public String variableName2VariablePrefixedName(String variableName)
+  @NonNull public String variableName2VariablePrefixedName(@NonNull String variableName)
   {
     return ":" + variableName;
   }
 
-  public IRI variableName2VariableIRI(String variableName) throws TargetSWRLRuleEngineException
+  @NonNull public IRI variableName2VariableIRI(@NonNull String variableName) throws TargetSWRLRuleEngineException
   {
     String variablePrefixedName = variableName2VariablePrefixedName(variableName);
 

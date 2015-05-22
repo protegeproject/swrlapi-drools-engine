@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
@@ -32,12 +33,12 @@ import java.util.Set;
 public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase implements
 TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 {
-  private final Map<OWLDataRange, String> dataRange2IDMap;
-  private final Set<String> convertedDataRangeIDs;
-  private final Set<DR> dataRanges;
+  @NonNull private final Map<OWLDataRange, String> dataRange2IDMap;
+  @NonNull private final Set<String> convertedDataRangeIDs;
+  @NonNull private final Set<DR> dataRanges;
   private int dataRangeIndex;
 
-  public DroolsOWLDataRangeConverter(SWRLRuleEngineBridge bridge)
+  public DroolsOWLDataRangeConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
 
@@ -46,7 +47,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     this.convertedDataRangeIDs = new HashSet<>();
     this.dataRangeIndex = 0;
 
-    getOWLDataRangeResolver().reset();
+    bridge.getOWLDataRangeResolver().reset();
   }
 
   public void reset()
@@ -59,13 +60,13 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     getOWLDataRangeResolver().reset();
   }
 
-  public String convert(OWLDataRange dataRange)
+  @NonNull public String convert(@NonNull OWLDataRange dataRange)
   {
     return dataRange.accept(this);
   }
 
-  @Override
-  public String convert(OWLDatatype datatype)
+  @NonNull @Override
+  public String convert(@NonNull OWLDatatype datatype)
   {
     String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
 
@@ -91,7 +92,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
   }
 
   @Override
-  public String convert(OWLDataComplementOf dataRange)
+  public String convert(@NonNull OWLDataComplementOf dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -104,7 +105,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
   }
 
   @Override
-  public String convert(OWLDataIntersectionOf dataRange)
+  public String convert(@NonNull OWLDataIntersectionOf dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -117,7 +118,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
   }
 
   @Override
-  public String convert(OWLDataUnionOf dataRange)
+  public String convert(@NonNull OWLDataUnionOf dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -142,37 +143,37 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return dataRangeID;
   }
 
-  @Override
-  public String visit(OWLDatatype owlDatatype)
+  @NonNull @Override
+  public String visit(@NonNull OWLDatatype owlDatatype)
   {
     return convert(owlDatatype);
   }
 
-  @Override
+  @NonNull @Override
   public String visit(OWLDataOneOf owlDataOneOf)
   {
     return convert(owlDataOneOf);
   }
 
-  @Override
-  public String visit(OWLDataComplementOf owlDataComplementOf)
+  @NonNull @Override
+  public String visit(@NonNull OWLDataComplementOf owlDataComplementOf)
   {
     return convert(owlDataComplementOf);
   }
 
-  @Override
-  public String visit(OWLDataIntersectionOf owlDataIntersectionOf)
+  @NonNull @Override
+  public String visit(@NonNull OWLDataIntersectionOf owlDataIntersectionOf)
   {
     return convert(owlDataIntersectionOf);
   }
 
-  @Override
-  public String visit(OWLDataUnionOf owlDataUnionOf)
+  @NonNull @Override
+  public String visit(@NonNull OWLDataUnionOf owlDataUnionOf)
   {
     return convert(owlDataUnionOf);
   }
 
-  @Override
+  @NonNull @Override
   public String visit(OWLDatatypeRestriction owlDatatypeRestriction)
   {
     return convert(owlDatatypeRestriction);
@@ -191,7 +192,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     }
   }
 
-  private Set<String> getOWLDataRangeIDs(Set<OWLDataRange> dataRanges)
+  @NonNull private Set<String> getOWLDataRangeIDs(@NonNull Set<OWLDataRange> dataRanges)
   {
     Set<String> dataRangeIDs = new HashSet<>();
     for (OWLDataRange dataRange : dataRanges) {

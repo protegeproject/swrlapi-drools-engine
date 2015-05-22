@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.properties;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -39,14 +40,14 @@ public class DP extends OE implements P, DPE
           + ba.getClass().getCanonicalName());
   }
 
-  @Override
-  public OWLDataProperty extract(DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public OWLDataProperty extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public SWRLBuiltInArgument extract(DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override
+  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
@@ -57,12 +58,12 @@ public class DP extends OE implements P, DPE
     return super.toString();
   }
 
-  public static DP getOWLTopDataProperty()
+  @NonNull public static DP getOWLTopDataProperty()
   {
     return new DP(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getPrefixedName());
   }
 
-  public static DP getOWLBottomDataProperty()
+  @NonNull public static DP getOWLBottomDataProperty()
   {
     return new DP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getPrefixedName());
   }

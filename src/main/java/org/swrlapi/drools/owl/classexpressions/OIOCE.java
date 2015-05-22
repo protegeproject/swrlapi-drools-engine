@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
@@ -14,23 +15,23 @@ public class OIOCE extends DroolsBinaryObject<String, String> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public OIOCE(String ceid, String c1)
+  public OIOCE(@NonNull String ceid, @NonNull String c1)
   {
     super(ceid, c1);
   }
 
-  @Override
+  @NonNull @Override
   public String getceid()
   {
     return getT1();
   }
 
-  public String getC1()
+  @NonNull public String getC1()
   {
     return getT2();
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return "OIOCE" + super.toString();

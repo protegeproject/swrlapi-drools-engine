@@ -1,5 +1,6 @@
 package org.swrlapi.drools.extractors;
 
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
 import org.swrlapi.drools.factory.DefaultDroolsOWLIndividualExtractor;
@@ -14,5 +15,5 @@ import org.swrlapi.drools.owl.core.I;
  */
 public interface DroolsOWLIndividualExtractor extends TargetRuleEngineExtractor
 {
-  OWLIndividual extract(I i);
+  @NonNull OWLIndividual extract(@NonNull I i);
 }

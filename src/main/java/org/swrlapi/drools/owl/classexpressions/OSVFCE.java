@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classexpressions;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 
 /**
@@ -11,29 +12,28 @@ public class OSVFCE extends DroolsTernaryObject<String, String, String> implemen
 {
   private static final long serialVersionUID = 1L;
 
-  public OSVFCE(String ceid, String propertyID, String valueClassID)
+  public OSVFCE(@NonNull String ceid, @NonNull String propertyID, @NonNull String valueClassID)
   {
     super(ceid, propertyID, valueClassID);
   }
 
-  @Override
+  @NonNull @Override
   public String getceid()
   {
     return getT1();
   }
 
-  public String getpid()
+  @NonNull public String getpid()
   {
     return getT2();
   }
 
-  public String getV()
+  @NonNull public String getV()
   {
     return getT3();
   }
 
-  @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     return "OSVFCE" + super.toString();
   }
