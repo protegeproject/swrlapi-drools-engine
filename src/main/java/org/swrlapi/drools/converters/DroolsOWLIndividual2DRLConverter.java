@@ -37,5 +37,5 @@ TargetRuleEngineOWLIndividualConverter<String>
     }
   }
 
-  // private String addQuotes(String s) { return "\"" + s + "\""; }
+  // private String addQuotes(@NonNull Strings) { return "\"" + s + "\""; }
 }

@@ -15,9 +15,10 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class SQWRLC implements BA
 {
-  private final String variableName, queryName, collectionName, collectionID;
+  @NonNull private final String variableName, queryName, collectionName, collectionID;
 
-  public SQWRLC(String variableName, String queryName, String collectionName, String collectionID)
+  public SQWRLC(@NonNull String variableName, @NonNull String queryName, @NonNull String collectionName,
+    @NonNull String collectionID)
   {
     this.variableName = variableName;
     this.queryName = queryName;
@@ -25,34 +26,33 @@ public class SQWRLC implements BA
     this.collectionID = collectionID;
   }
 
-  public String getVariableName()
+  @NonNull public String getVariableName()
   {
     return this.variableName;
   }
 
-  public String getQueryName()
+  @NonNull public String getQueryName()
   {
     return this.queryName;
   }
 
-  public String getCollectionName()
+  @NonNull public String getCollectionName()
   {
     return this.collectionName;
   }
 
-  public String getCollectionID()
+  @NonNull public String getCollectionID()
   {
     return this.collectionID;
   }
 
-  @NonNull @Override
-  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     return "SQWRLC(" + getQueryName() + ", " + getCollectionName() + ", " + getCollectionID() + ")";
   }

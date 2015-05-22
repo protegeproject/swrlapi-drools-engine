@@ -20,7 +20,7 @@ public class DP extends OE implements P, DPE
 {
   private static final long serialVersionUID = 1L;
 
-  public DP(String propertyName)
+  public DP(@NonNull String propertyName)
   {
     super(propertyName);
   }
@@ -28,7 +28,7 @@ public class DP extends OE implements P, DPE
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
-  public DP(BA ba)
+  public DP(@NonNull BA ba)
   {
     super("<InProcess>");
 
@@ -52,7 +52,7 @@ public class DP extends OE implements P, DPE
     return extractor.extract(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return super.toString();

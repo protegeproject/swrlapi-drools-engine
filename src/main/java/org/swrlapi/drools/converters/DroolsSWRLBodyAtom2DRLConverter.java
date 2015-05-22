@@ -1,6 +1,7 @@
 package org.swrlapi.drools.converters;
 
 import checkers.nullness.quals.NonNull;
+import com.google.common.base.Strings;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -239,7 +240,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase
     return representation;
   }
 
-  @NonNull public String convert(@NonNull SWRLAtom atom, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+  @NonNull public String convert(@NonNull SWRLAtom atom,
+    @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   { // TODO Visitor to replace instanceof: SWRLAtomVisitorExP
     if (atom instanceof SWRLDataRangeAtom) {
       return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariablePrefixedNames);
@@ -279,7 +281,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsConverterBase
     return this.classExpressionConverter;
   }
 
-  @NonNull private String addQuotes(String s)
+  @NonNull private String addQuotes(@NonNull String s)
   {
     return "\"" + s + "\"";
   }

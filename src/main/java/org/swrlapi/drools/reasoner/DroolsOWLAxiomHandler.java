@@ -41,73 +41,75 @@ public interface DroolsOWLAxiomHandler
 
   @NonNull Set<String> getClassAssertions(@NonNull String classID);
 
-  @NonNull Set<String> getSubClasses(String classID, boolean direct);
+  @NonNull Set<String> getSubClasses(@NonNull String classID, boolean direct);
 
-  @NonNull Set<String> getSuperClasses(String classID, boolean direct);
+  @NonNull Set<String> getSuperClasses(@NonNull String classID, boolean direct);
 
-  @NonNull Set<String> getDisjointClasses(String classID);
+  @NonNull Set<String> getDisjointClasses(@NonNull String classID);
 
-  @NonNull Set<String> getEquivalentClasses(String classID);
+  @NonNull Set<String> getEquivalentClasses(@NonNull String classID);
 
-  boolean strictSubClassOf(String classID1, String classID2);
+  boolean strictSubClassOf(@NonNull String classID1, @NonNull String classID2);
 
-  boolean directSubClassOf(String classID1, String classID2);
+  boolean directSubClassOf(@NonNull String classID1, @NonNull String classID2);
 
   // Individuals
 
-  boolean isDeclaredIndividual(String individualID);
+  boolean isDeclaredIndividual(@NonNull String individualID);
 
-  @NonNull Set<String> getSameIndividual(String individualID);
+  @NonNull Set<String> getSameIndividual(@NonNull String individualID);
 
-  @NonNull Set<String> getDifferentIndividuals(String individualID);
+  @NonNull Set<String> getDifferentIndividuals(@NonNull String individualID);
 
   // Object properties
 
-  boolean isDeclaredObjectProperty(String propertyID);
+  boolean isDeclaredObjectProperty(@NonNull String propertyID);
 
-  @NonNull Set<String> getSubObjectProperties(String propertyID, boolean direct);
+  @NonNull Set<String> getSubObjectProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getSuperObjectProperties(String propertyID, boolean direct);
+  @NonNull Set<String> getSuperObjectProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getObjectPropertyRanges(String propertyID, boolean direct);
+  @NonNull Set<String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getObjectPropertyDomains(String propertyID, boolean direct);
+  @NonNull Set<String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getDisjointObjectProperties(String propertyID);
+  @NonNull Set<String> getDisjointObjectProperties(@NonNull String propertyID);
 
-  @NonNull Set<String> getEquivalentObjectProperties(String propertyID);
+  @NonNull Set<String> getEquivalentObjectProperties(@NonNull String propertyID);
 
-  @NonNull Set<String> getInverseObjectProperties(String propertyID);
+  @NonNull Set<String> getInverseObjectProperties(@NonNull String propertyID);
 
-  @NonNull Map<String, Set<String>> getObjectPropertyAssertions(String propertyID); // individualID -> Set<individualID>
+  @NonNull Map<String, Set<String>> getObjectPropertyAssertions(
+    @NonNull String propertyID); // individualID -> Set<individualID>
 
-  @NonNull Set<String> getObjectPropertyValuesForIndividual(String individualID, String propertyID); // Set<individualID>
+  @NonNull Set<String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
+    @NonNull String propertyID); // Set<individualID>
 
-  boolean strictSubObjectPropertyOf(String propertyID1, String propertyID2);
+  boolean strictSubObjectPropertyOf(@NonNull String propertyID1, @NonNull String propertyID2);
 
-  boolean directSubObjectPropertyOf(String propertyID1, String propertyID2);
+  boolean directSubObjectPropertyOf(@NonNull String propertyID1, @NonNull String propertyID2);
 
   // Data properties
 
-  boolean isDeclaredDataProperty(String propertyID);
+  boolean isDeclaredDataProperty(@NonNull String propertyID);
 
-  @NonNull Set<String> getSubDataProperties(String propertyID, boolean direct);
+  @NonNull Set<String> getSubDataProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getSuperDataProperties(String propertyID, boolean direct);
+  @NonNull Set<String> getSuperDataProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getDataPropertyDomains(String propertyID, boolean direct);
+  @NonNull Set<String> getDataPropertyDomains(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getDisjointDataProperties(String propertyID);
+  @NonNull Set<String> getDisjointDataProperties(@NonNull String propertyID);
 
-  @NonNull Set<String> getEquivalentDataProperties(String propertyID);
+  @NonNull Set<String> getEquivalentDataProperties(@NonNull String propertyID);
 
-  @NonNull Map<String, Set<L>> getDataPropertyAssertions(String propertyID); // individualID -> Set<L>
+  @NonNull Map<String, Set<L>> getDataPropertyAssertions(@NonNull String propertyID); // individualID -> Set<L>
 
-  @NonNull Set<L> getDataPropertyValuesForIndividual(String individualID, String propertyID);
+  @NonNull Set<L> getDataPropertyValuesForIndividual(@NonNull String individualID, @NonNull String propertyID);
 
-  boolean strictSubDataPropertyOf(String propertyID1, String propertyID2);
+  boolean strictSubDataPropertyOf(@NonNull String propertyID1, @NonNull String propertyID2);
 
-  boolean directSubDataPropertyOf(String propertyID1, String propertyID2);
+  boolean directSubDataPropertyOf(@NonNull String propertyID1, @NonNull String propertyID2);
 
   // Annotation properties
 

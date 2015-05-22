@@ -1,6 +1,7 @@
 package org.swrlapi.drools.converters;
 
 import checkers.nullness.quals.NonNull;
+import com.google.common.base.Strings;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
@@ -123,13 +124,13 @@ TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
   }
 
   @NonNull @Override
-  public String convert(SQWRLCollectionVariableBuiltInArgument argument)
+  public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException(
         "SQWRL collections can not be referenced in a rule head");
   }
 
-  @NonNull public String convert(SWRLArgument argument)
+  @NonNull public String convert(@NonNull SWRLArgument argument)
   { // TODO Use visitor to replace instanceof: define SWRLArgumentVisitorEx in OWLAPI and then
     // SWRLBuiltInArgumentVisitorEx
     if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
@@ -161,7 +162,7 @@ TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
           + argument.getClass().getCanonicalName());
   }
 
-  @NonNull private String addQuotes(String s)
+  @NonNull private String addQuotes(@NonNull String s)
   {
     return "\"" + s + "\"";
   }

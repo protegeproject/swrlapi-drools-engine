@@ -20,10 +20,10 @@ public class L implements OO, BA, Serializable
 {
   private static final long serialVersionUID = 1L;
 
-  public final String value;
-  public final String datatypeName;
+  @NonNull public final String value;
+  @NonNull public final String datatypeName;
 
-  public L(String value, String datatypeName)
+  public L(@NonNull String value, @NonNull String datatypeName)
   {
     this.value = value;
     this.datatypeName = datatypeName;
@@ -38,15 +38,15 @@ public class L implements OO, BA, Serializable
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
-  public L(BA ba)
+  public L(@NonNull BA ba)
   {
     if (ba instanceof L) {
       L l = (L)ba;
       this.value = l.getValue();
       this.datatypeName = l.getTypeName();
     } else
-      throw new TargetSWRLRuleEngineInternalException("expecting OWL literal from bound built-in argument, got "
-          + ba.getClass().getCanonicalName());
+      throw new TargetSWRLRuleEngineInternalException(
+        "expecting OWL literal from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
   public boolean isInt()
@@ -114,24 +114,23 @@ public class L implements OO, BA, Serializable
     return this.datatypeName.equals(XSDVocabulary.STRING.getPrefixedName());
   }
 
-  @NonNull @Override
-  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     return "L(\"" + this.value + "\", " + this.datatypeName + ")";
   }
 
-  public String getTypeName()
+  @NonNull public String getTypeName()
   {
     return this.datatypeName;
   }
 
-  public String getValue()
+  @NonNull public String getValue()
   {
     return this.value;
   }

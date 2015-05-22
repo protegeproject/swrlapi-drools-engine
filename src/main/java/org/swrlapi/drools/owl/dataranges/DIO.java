@@ -1,5 +1,7 @@
 package org.swrlapi.drools.owl.dataranges;
 
+import checkers.nullness.quals.NonNull;
+
 import java.util.Set;
 
 /**
@@ -11,22 +13,22 @@ public class DIO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  private final String rid;
-  private final Set<String> dataRangeIDs;
+  @NonNull private final String rid;
+  @NonNull private final Set<String> dataRangeIDs;
 
-  public DIO(String rid, Set<String> dataRangeIDs)
+  public DIO(@NonNull String rid, @NonNull Set<String> dataRangeIDs)
   {
     this.rid = rid;
     this.dataRangeIDs = dataRangeIDs;
   }
 
-  @Override
+  @NonNull @Override
   public String getrid()
   {
     return this.rid;
   }
 
-  public Set<String> getDataRangeIDs()
+  @NonNull public Set<String> getDataRangeIDs()
   {
     return this.dataRangeIDs;
   }

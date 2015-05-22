@@ -1,8 +1,9 @@
 package org.swrlapi.drools.owl.dataranges;
 
-import java.util.Set;
-
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.L;
+
+import java.util.Set;
 
 /**
  * Class representing an OWL data one of data range
@@ -13,16 +14,16 @@ public class DOO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  public final String rid;
-  public final Set<L> literals;
+  @NonNull public final String rid;
+  @NonNull public final Set<L> literals;
 
-  public DOO(String rid, Set<L> literals)
+  public DOO(@NonNull String rid, @NonNull Set<L> literals)
   {
     this.rid = rid;
     this.literals = literals;
   }
 
-  @Override
+  @NonNull @Override
   public String getrid()
   {
     return this.rid;

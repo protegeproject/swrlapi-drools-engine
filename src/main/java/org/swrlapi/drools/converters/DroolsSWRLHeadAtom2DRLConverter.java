@@ -1,6 +1,7 @@
 package org.swrlapi.drools.converters;
 
 import checkers.nullness.quals.NonNull;
+import com.google.common.base.Strings;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -226,7 +227,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase
     return this.classExpressionConverter;
   }
 
-  @NonNull private String addQuotes(String s)
+  @NonNull private String addQuotes(@NonNull String s)
   {
     return "\"" + s + "\"";
   }

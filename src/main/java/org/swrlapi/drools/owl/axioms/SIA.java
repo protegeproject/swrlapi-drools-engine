@@ -26,7 +26,7 @@ public class SIA extends DroolsBinaryIndividualsAxiom
     super(individual1, individual2);
   }
 
-  public SIA(String individual1ID, @NonNull String individual2ID)
+  public SIA(@NonNull String individual1ID, @NonNull String individual2ID)
   {
     this(new I(individual1ID), new I(individual2ID));
   }
@@ -41,20 +41,18 @@ public class SIA extends DroolsBinaryIndividualsAxiom
     this(new I(individual1ID), individual2);
   }
 
-  @NonNull @Override
-  public OWLSameIndividualAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLSameIndividualAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public void visit(@NonNull AVisitor visitor)
+  @Override public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @NonNull @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     return "SIA" + super.toString();
   }

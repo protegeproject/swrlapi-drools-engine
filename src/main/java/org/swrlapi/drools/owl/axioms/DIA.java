@@ -36,25 +36,23 @@ public class DIA extends DroolsBinaryIndividualsAxiom
     this(individual1, new I(individual2ID));
   }
 
-  public DIA(String individual1ID, I individual2)
+  public DIA(@NonNull String individual1ID, @NonNull I individual2)
   {
     this(new I(individual1ID), individual2);
   }
 
-  @NonNull @Override
-  public OWLDifferentIndividualsAxiom extract(@NonNull DroolsOWLAxiomExtractor converter) throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLDifferentIndividualsAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
+    throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
   }
 
-  @Override
-  public void visit(@NonNull AVisitor visitor)
+  @Override public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @NonNull @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     return "DIA" + super.toString();
   }

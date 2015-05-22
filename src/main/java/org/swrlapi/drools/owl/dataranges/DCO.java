@@ -1,5 +1,7 @@
 package org.swrlapi.drools.owl.dataranges;
 
+import checkers.nullness.quals.NonNull;
+
 /**
  * Class representing an OWL data complement of data range
  *
@@ -9,22 +11,21 @@ public class DCO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  private final String rid;
-  private final String complementRangeID;
+  @NonNull private final String rid;
+  @NonNull private final String complementRangeID;
 
-  public DCO(String rid, String complementRangeID)
+  public DCO(@NonNull String rid, @NonNull String complementRangeID)
   {
     this.rid = rid;
     this.complementRangeID = complementRangeID;
   }
 
-  @Override
-  public String getrid()
+  @NonNull @Override public String getrid()
   {
     return this.rid;
   }
 
-  public String getComplementRangeID()
+  @NonNull public String getComplementRangeID()
   {
     return this.complementRangeID;
   }

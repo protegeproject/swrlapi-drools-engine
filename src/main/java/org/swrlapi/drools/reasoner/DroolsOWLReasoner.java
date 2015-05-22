@@ -584,27 +584,27 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     }
   }
 
-  @Nullable private OWLClass resolveOWLClass(String classID)
+  @Nullable private OWLClass resolveOWLClass(@NonNull String classID)
   {
     return null;
   } // TODO implement resolveOWLClass
 
-  @Nullable private OWLClassExpression resolveOWLClassExpression(String classID)
+  @Nullable private OWLClassExpression resolveOWLClassExpression(@NonNull String classID)
   {
     return null;
   } // TODO implement resolveOWLClassExpression
 
-  @Nullable private OWLNamedIndividual resolveOWLNamedIndividual(String individualID)
+  @Nullable private OWLNamedIndividual resolveOWLNamedIndividual(@NonNull String individualID)
   {
     return null; // TODO implement resolveOWLNamedIndividual
   }
 
-  @Nullable private OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(String propertyID)
+  @Nullable private OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(@NonNull String propertyID)
   {
     return null;
   } // TODO implement resolveOWLObjectPropertyExpression
 
-  @Nullable private OWLDataProperty resolveOWLDataProperty(String propertyID)
+  @Nullable private OWLDataProperty resolveOWLDataProperty(@NonNull String propertyID)
   {
     return null;
   } // TODO implement resolveOWLDataPropertyExpression

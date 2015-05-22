@@ -20,7 +20,7 @@ public class D extends OE implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  public D(String datatypeID)
+  public D(@NonNull String datatypeID)
   {
     super(datatypeID);
   }
@@ -28,7 +28,7 @@ public class D extends OE implements DR
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
-  public D(BA ba)
+  public D(@NonNull BA ba)
   {
     super("<InProcess>");
 
@@ -40,7 +40,7 @@ public class D extends OE implements DR
           + ba.getClass().getCanonicalName());
   }
 
-  @Override
+  @NonNull @Override
   public String getrid()
   {
     return getName();
@@ -58,7 +58,7 @@ public class D extends OE implements DR
     return extractor.extract(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return super.toString();

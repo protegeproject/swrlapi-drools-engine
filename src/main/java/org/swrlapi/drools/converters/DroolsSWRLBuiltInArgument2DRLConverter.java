@@ -1,6 +1,7 @@
 package org.swrlapi.drools.converters;
 
 import checkers.nullness.quals.NonNull;
+import com.google.common.base.Strings;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -30,7 +31,7 @@ TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitor
     super(bridge);
   }
 
-  public String convert(@NonNull SWRLBuiltInArgument argument)
+  @NonNull public String convert(@NonNull SWRLBuiltInArgument argument)
   {
     return argument.accept(this);
   }
@@ -99,13 +100,13 @@ TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitor
   }
 
   @NonNull @Override
-  public String convert(SQWRLCollectionVariableBuiltInArgument argument)
+  public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   { // TODO This is not true!
     throw new TargetSWRLRuleEngineNotImplementedFeatureException(
         "SQWRL collection built-in arguments not yet implemented");
   }
 
-  @NonNull private String addQuotes(String s)
+  @NonNull private String addQuotes(@NonNull String s)
   {
     return "\"" + s + "\"";
   }

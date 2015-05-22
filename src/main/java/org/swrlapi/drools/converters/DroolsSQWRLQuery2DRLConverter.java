@@ -148,17 +148,17 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
     getDroolsEngine().defineDRLSQWRLPhase2Rule(queryName, phase2RuleName, drlPhase2Rule);
   }
 
-  @NonNull private String getQueryPreamble(String queryName)
+  @NonNull private String getQueryPreamble(@NonNull String queryName)
   {
     return "rule \"" + queryName + "\" \nwhen ";
   }
 
-  @NonNull private String addQueryEndClause(String queryText)
+  @NonNull private String addQueryEndClause(@NonNull String queryText)
   {
     return queryText + "\nend";
   }
 
-  @NonNull private String addQueryThenClause(String queryText)
+  @NonNull private String addQueryThenClause(@NonNull String queryText)
   {
     return queryText + "\nthen ";
   }
@@ -173,7 +173,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
     return this.headAtom2DRLConverter;
   }
 
-  private DroolsSWRLRuleEngine getDroolsEngine()
+  @NonNull private DroolsSWRLRuleEngine getDroolsEngine()
   {
     return this.droolsEngine;
   }

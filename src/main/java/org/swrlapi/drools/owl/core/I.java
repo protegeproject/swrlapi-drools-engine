@@ -23,7 +23,7 @@ public class I extends OE
 {
   private static final long serialVersionUID = 1L;
 
-  public I(String id)
+  public I(@NonNull String id)
   {
     super(id);
   }
@@ -31,7 +31,7 @@ public class I extends OE
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
-  public I(BA ba)
+  public I(@NonNull BA ba)
   {
     super("<InProcess>");
 
@@ -60,7 +60,7 @@ public class I extends OE
     return extractor.extract(this);
   }
 
-  @Override
+  @NonNull @Override
   public String toString()
   {
     return super.toString();

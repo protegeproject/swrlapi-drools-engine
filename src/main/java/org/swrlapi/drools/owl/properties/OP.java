@@ -20,7 +20,7 @@ public class OP extends OE implements P, OPE
 {
   private static final long serialVersionUID = 1L;
 
-  public OP(String propertyName)
+  public OP(@NonNull String propertyName)
   {
     super(propertyName);
   }
@@ -28,7 +28,7 @@ public class OP extends OE implements P, OPE
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
-  public OP(BA ba)
+  public OP(@NonNull BA ba)
   {
     super("<InProcess>");
 
@@ -37,23 +37,22 @@ public class OP extends OE implements P, OPE
       setId(p.getName());
     } else
       throw new TargetSWRLRuleEngineInternalException(
-          "expecting OWL object property from bound built-in argument, got " + ba.getClass().getCanonicalName());
+        "expecting OWL object property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override
-  public OWLObjectProperty extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLObjectProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     return super.toString();
   }
