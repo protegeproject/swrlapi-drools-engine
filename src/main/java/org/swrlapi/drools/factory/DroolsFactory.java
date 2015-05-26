@@ -2,7 +2,7 @@ package org.swrlapi.drools.factory;
 
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.core.SWRLRuleEngineManager;
+import org.swrlapi.core.TargetSWRLRuleEngineCreator;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
@@ -16,7 +16,7 @@ public class DroolsFactory
 {
   private static final String DROOLS_ICON_NAME = "Drools.gif";
 
-  public static SWRLRuleEngineManager.TargetSWRLRuleEngineCreator getSWRLRuleEngineCreator()
+  public static @NonNull TargetSWRLRuleEngineCreator getSWRLRuleEngineCreator()
   {
     return new DroolsSWRLRuleEngineCreator();
   }

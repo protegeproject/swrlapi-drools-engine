@@ -3,7 +3,7 @@ package org.swrlapi.drools.core;
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
-import org.swrlapi.core.SWRLRuleEngineManager;
+import org.swrlapi.core.TargetSWRLRuleEngineCreator;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
@@ -13,7 +13,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  * @see org.swrlapi.core.SWRLRuleEngineManager
  * @see org.swrlapi.drools.core.DroolsSWRLRuleEngine
  */
-public class DroolsSWRLRuleEngineCreator implements SWRLRuleEngineManager.TargetSWRLRuleEngineCreator
+public class DroolsSWRLRuleEngineCreator implements TargetSWRLRuleEngineCreator
 {
   @NonNull @Override
   public String getRuleEngineName()
