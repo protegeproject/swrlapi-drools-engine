@@ -6,10 +6,10 @@ Documentation can be found at the [SWRLAPI Drools Engine Wiki](https://github.co
 
 #### Building Prerequisites
 
-To build and run this plugin you must have the following items installed:
+To build this project you must have the following items installed:
 
-+ Apache's [Maven](http://maven.apache.org/index.html).
 + A tool for checking out a [Git](http://git-scm.com/) repository.
++ Apache's [Maven](http://maven.apache.org/index.html).
 
 #### Building
 
