@@ -3,7 +3,7 @@ package org.swrlapi.drools.core;
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
-import org.swrlapi.core.TargetSWRLRuleEngineCreator;
+import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**

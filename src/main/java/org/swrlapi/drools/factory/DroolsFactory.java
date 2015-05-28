@@ -2,7 +2,7 @@ package org.swrlapi.drools.factory;
 
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.core.TargetSWRLRuleEngineCreator;
+import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;

@@ -7,10 +7,10 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.bridge.extractors.TargetRuleEngineOWLLiteralExtractor;
-import org.swrlapi.core.xsd.XSDDate;
-import org.swrlapi.core.xsd.XSDDateTime;
-import org.swrlapi.core.xsd.XSDDuration;
-import org.swrlapi.core.xsd.XSDTime;
+import org.swrlapi.literal.XSDDate;
+import org.swrlapi.literal.XSDDateTime;
+import org.swrlapi.literal.XSDDuration;
+import org.swrlapi.literal.XSDTime;
 import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 

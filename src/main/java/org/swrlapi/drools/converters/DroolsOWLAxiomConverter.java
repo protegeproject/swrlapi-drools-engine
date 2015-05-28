@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
-import org.swrlapi.core.visitors.SWRLAPIOWLAxiomVisitor;
+import org.swrlapi.visitors.SWRLAPIOWLAxiomVisitor;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.AOPA;

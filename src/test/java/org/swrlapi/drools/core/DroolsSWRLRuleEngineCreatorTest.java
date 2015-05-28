@@ -1,7 +1,7 @@
 package org.swrlapi.drools.core;
 
 import junit.framework.TestCase;
-import org.swrlapi.core.TargetSWRLRuleEngineCreator;
+import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.drools.factory.DroolsFactory;
 
 /**
