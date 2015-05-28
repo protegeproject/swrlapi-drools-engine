@@ -9,7 +9,7 @@ import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.sqwrl.SQWRLNames;
 import org.swrlapi.sqwrl.SQWRLQuery;
-import org.swrlapi.sqwrl.TargetRuleEngineSQWRLQueryConverter;
+import org.swrlapi.bridge.converters.TargetRuleEngineSQWRLQueryConverter;
 
 import java.util.HashSet;
 import java.util.Set;
