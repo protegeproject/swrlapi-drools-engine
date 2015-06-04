@@ -1069,7 +1069,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   {
     for (String ceid : ceids) {
       if (!this.subClasses.containsKey(ceid)) {
-        throw new TargetSWRLRuleEngineInternalException("No record of OWL class expression with ID " + ceid);
+        throw new TargetSWRLRuleEngineInternalException("No recordOWLClassExpression of OWL class expression with ID " + ceid);
       }
     }
   }
@@ -1078,7 +1078,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   {
     for (String opid : opids) {
       if (!this.subObjectProperties.containsKey(opid)) {
-        throw new TargetSWRLRuleEngineInternalException("No record of OWL object property expression with ID " + opid);
+        throw new TargetSWRLRuleEngineInternalException("No recordOWLClassExpression of OWL object property expression with ID " + opid);
       }
     }
   }
@@ -1087,7 +1087,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   {
     for (String dpid : dpids) {
       if (!this.subDataProperties.containsKey(dpid)) {
-        throw new TargetSWRLRuleEngineInternalException("No record of OWL data property expression with ID " + dpid);
+        throw new TargetSWRLRuleEngineInternalException("No recordOWLClassExpression of OWL data property expression with ID " + dpid);
       }
     }
   }

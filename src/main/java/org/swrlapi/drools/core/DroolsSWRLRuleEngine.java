@@ -204,7 +204,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     this.allSQWRLQueryNames.add(query.getQueryName());
 
-    if (query.isActive()) // If a query is not active, we convert it but record it as inactive.
+    if (query.isActive()) // If a query is not active, we convert it but recordOWLClassExpression it as inactive.
       this.activeSQWRLQueryNames.add(query.getQueryName());
 
     getDroolsSQWRLQueryConverter().convert(query); // Will call local defineSQWRLPhase{1,2}Rule.

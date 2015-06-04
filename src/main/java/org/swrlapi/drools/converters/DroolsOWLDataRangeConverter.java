@@ -47,7 +47,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     this.convertedDataRangeIDs = new HashSet<>();
     this.dataRangeIndex = 0;
 
-    bridge.getOWLDataRangeResolver().reset();
+    bridge.getOWLObjectResolver().getOWLDataRangeResolver().reset();
   }
 
   public void reset()

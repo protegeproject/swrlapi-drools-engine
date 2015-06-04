@@ -81,11 +81,11 @@ public interface AVisitor
 
   // An OWLDisjointUnionAxiom not dealt with by OWL 2 RL so we ignore
 
-  // An OWLSubPropertyChainOfAxiom not asserted by OWL 2 RL rules so we do not need to record it
+  // An OWLSubPropertyChainOfAxiom not asserted by OWL 2 RL rules so we do not need to recordOWLClassExpression it
 
-  // An OWLHasKeyAxiom not asserted by OWL 2 RL rules so we do not need to record it
+  // An OWLHasKeyAxiom not asserted by OWL 2 RL rules so we do not need to recordOWLClassExpression it
 
-  // An OWLDatatypeDefinitionAxiom not asserted by OWL 2 RL rules so we do not need to record it
+  // An OWLDatatypeDefinitionAxiom not asserted by OWL 2 RL rules so we do not need to recordOWLClassExpression it
 
-  // A SWRLRule is not asserted by OWL 2 RL rules so we do not need to record it
+  // A SWRLRule is not asserted by OWL 2 RL rules so we do not need to recordOWLClassExpression it
 }
