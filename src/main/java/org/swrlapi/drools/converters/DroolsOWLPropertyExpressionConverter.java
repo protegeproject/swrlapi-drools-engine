@@ -34,19 +34,17 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
 
   public void reset()
   {
-    getOWLObjectPropertyExpressionResolver().reset();
-    getOWLDataPropertyExpressionResolver().reset();
     this.resolver.reset();
   }
 
   @NonNull @Override
   public String convert(@NonNull OWLObjectPropertyExpression propertyExpression)
   {
-    if (!getOWLObjectPropertyExpressionResolver().recordsOWLObjectPropertyExpression(propertyExpression)) {
+    if (!getOWLObjectResolver().recordsOWLObjectPropertyExpression(propertyExpression)) {
 
       if (propertyExpression.isAnonymous()) {
         String propertyExpressionID = this.resolver.getDroolsOPEResolver().generatePEID();
-        getOWLObjectPropertyExpressionResolver().recordOWLObjectPropertyExpression(propertyExpressionID,
+        getOWLObjectResolver().recordOWLObjectPropertyExpression(propertyExpressionID,
             propertyExpression);
 
         return propertyExpressionID;
@@ -56,23 +54,23 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
         String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
         OP op = new OP(prefixedName);
 
-        getOWLObjectPropertyExpressionResolver().recordOWLObjectPropertyExpression(prefixedName, propertyExpression);
+        getOWLObjectResolver().recordOWLObjectPropertyExpression(prefixedName, propertyExpression);
         this.resolver.getDroolsOPEResolver().record(op);
 
         return prefixedName;
       }
     } else
-      return getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(propertyExpression);
+      return getOWLObjectResolver().resolveOWLObjectPropertyExpression(propertyExpression);
   }
 
   @NonNull @Override
   public String convert(@NonNull OWLDataPropertyExpression propertyExpression)
   {
-    if (!getOWLDataPropertyExpressionResolver().recordsOWLDataPropertyExpression(propertyExpression)) {
+    if (!getOWLObjectResolver().recordsOWLDataPropertyExpression(propertyExpression)) {
 
       if (propertyExpression.isAnonymous()) {
         String propertyExpressionID = this.resolver.getDroolsDPEResolver().generatePEID();
-        getOWLDataPropertyExpressionResolver().recordOWLDataPropertyExpression(propertyExpressionID, propertyExpression);
+        getOWLObjectResolver().recordOWLDataPropertyExpression(propertyExpressionID, propertyExpression);
 
         return propertyExpressionID;
       } else {
@@ -81,12 +79,12 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
         String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
         DP dp = new DP(prefixedName);
 
-        getOWLDataPropertyExpressionResolver().recordOWLDataPropertyExpression(prefixedName, propertyExpression);
+        getOWLObjectResolver().recordOWLDataPropertyExpression(prefixedName, propertyExpression);
         this.resolver.getDroolsDPEResolver().record(dp);
 
         return prefixedName;
       }
     } else
-      return getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(propertyExpression);
+      return getOWLObjectResolver().resolveOWLDataPropertyExpression(propertyExpression);
   }
 }

@@ -46,18 +46,6 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     this.dataRange2IDMap = new HashMap<>();
     this.convertedDataRangeIDs = new HashSet<>();
     this.dataRangeIndex = 0;
-
-    bridge.getOWLObjectResolver().getOWLDataRangeResolver().reset();
-  }
-
-  public void reset()
-  {
-    this.dataRanges.clear();
-    this.dataRange2IDMap.clear();
-    this.convertedDataRangeIDs.clear();
-    this.dataRangeIndex = 0;
-
-    getOWLDataRangeResolver().reset();
   }
 
   @NonNull public String convert(@NonNull OWLDataRange dataRange)
@@ -72,7 +60,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 
     if (!this.convertedDataRangeIDs.contains(datatypePrefixedName)) {
       this.convertedDataRangeIDs.add(datatypePrefixedName);
-      getOWLDataRangeResolver().recordOWLDataRange(datatypePrefixedName, datatype);
+      getOWLObjectResolver().recordOWLDataRange(datatypePrefixedName, datatype);
     }
     return datatypePrefixedName;
   }
@@ -187,7 +175,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
       String dataRangeID = "DRID" + this.dataRangeIndex++;
       this.dataRange2IDMap.put(dataRange, dataRangeID);
       this.convertedDataRangeIDs.add(dataRangeID);
-      getOWLDataRangeResolver().recordOWLDataRange(dataRangeID, dataRange);
+      getOWLObjectResolver().recordOWLDataRange(dataRangeID, dataRange);
       return dataRangeID;
     }
   }

@@ -62,7 +62,7 @@ TargetRuleEngineOWLLiteralExtractor<L>
       else if (l.isDuration())
         return getOWLLiteralFactory().getOWLLiteral(new XSDDuration(l.getValue()));
       else {
-        IRI IRI = prefixedName2IRI(l.datatypeName);
+        IRI IRI = getIRIResolver().prefixedName2IRI(l.datatypeName);
         OWLDatatype datatype = getOWLDatatypeFactory().getOWLDatatype(IRI);
         return getOWLLiteralFactory().getOWLLiteral(l.value, datatype);
       }

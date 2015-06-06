@@ -25,7 +25,7 @@ public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtract
   public OWLIndividual extract(@NonNull I i)
   {
     if (getIRIResolver().isOWLNamedIndividual(i.getName()))
-      return getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(i.getName()));
+      return getOWLDataFactory().getOWLNamedIndividual(getIRIResolver().prefixedName2IRI(i.getName()));
     else
       return getOWLDataFactory().getOWLAnonymousIndividual(i.getName());
   }

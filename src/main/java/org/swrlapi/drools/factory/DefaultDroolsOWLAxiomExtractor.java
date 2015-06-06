@@ -96,42 +96,43 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull CDA da)
   {
-    OWLClass cls = getOWLDataFactory().getOWLClass(prefixedName2IRI(da.getcid()));
+    OWLClass cls = getOWLDataFactory().getOWLClass(getIRIResolver().prefixedName2IRI(da.getcid()));
 
     return getSWRLAPIOWLDataFactory().getOWLClassDeclarationAxiom(cls);
   }
 
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull IDA da)
   {
-    OWLNamedIndividual individual = getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(da.getE().getName()));
+    OWLNamedIndividual individual = getOWLDataFactory().getOWLNamedIndividual(getIRIResolver().prefixedName2IRI(
+        da.getE().getName()));
 
     return getSWRLAPIOWLDataFactory().getOWLIndividualDeclarationAxiom(individual);
   }
 
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull OPDA da)
   {
-    OWLObjectProperty property = getOWLDataFactory().getOWLObjectProperty(prefixedName2IRI(da.getpid()));
+    OWLObjectProperty property = getOWLDataFactory().getOWLObjectProperty(getIRIResolver().prefixedName2IRI(da.getpid()));
 
     return getSWRLAPIOWLDataFactory().getOWLObjectPropertyDeclarationAxiom(property);
   }
 
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull DPDA da)
   {
-    OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(prefixedName2IRI(da.getpid()));
+    OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(getIRIResolver().prefixedName2IRI(da.getpid()));
 
     return getSWRLAPIOWLDataFactory().getOWLDataPropertyDeclarationAxiom(property);
   }
 
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull APDA da)
   {
-    OWLAnnotationProperty property = getOWLDataFactory().getOWLAnnotationProperty(prefixedName2IRI(da.getpid()));
+    OWLAnnotationProperty property = getOWLDataFactory().getOWLAnnotationProperty(getIRIResolver().prefixedName2IRI(da.getpid()));
 
     return getSWRLAPIOWLDataFactory().getOWLAnnotationPropertyDeclarationAxiom(property);
   }
 
   @NonNull @Override public OWLClassAssertionAxiom extract(@NonNull CAA caa)
   {
-    OWLClassExpression cls = getOWLClassExpressionResolver().resolveOWLClassExpression(caa.getcid());
+    OWLClassExpression cls = getOWLObjectResolver().resolveOWLClassExpression(caa.getcid());
     OWLIndividual individual = caa.getI().extract(getDroolsOWLIndividualExtractor());
 
     return getOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
@@ -140,7 +141,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLObjectPropertyAssertionAxiom extract(@NonNull OPAA opaa)
   {
     OWLIndividual subject = opaa.getT1().extract(getDroolsOWLIndividualExtractor());
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         opaa.getpid());
     OWLIndividual object = opaa.getT3().extract(getDroolsOWLIndividualExtractor());
 
@@ -150,7 +151,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLNegativeObjectPropertyAssertionAxiom extract(@NonNull NOPAA nopaa)
   {
     OWLIndividual subject = nopaa.gets().extract(getDroolsOWLIndividualExtractor());
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         nopaa.getpid());
     OWLIndividual object = nopaa.geto().extract(getDroolsOWLIndividualExtractor());
 
@@ -160,7 +161,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLDataPropertyAssertionAxiom extract(@NonNull DPAA dpaa)
   {
     OWLIndividual subject = dpaa.gets().extract(getDroolsOWLIndividualExtractor());
-    OWLDataPropertyExpression property = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         dpaa.getpid());
     OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(dpaa.geto());
 
@@ -170,7 +171,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLNegativeDataPropertyAssertionAxiom extract(@NonNull NDPAA ndpaa)
   {
     OWLIndividual subject = ndpaa.gets().extract(getDroolsOWLIndividualExtractor());
-    OWLDataPropertyExpression property = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         ndpaa.getpid());
     OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(ndpaa.geto());
 
@@ -203,16 +204,16 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLSubClassOfAxiom extract(@NonNull SCA sca)
   {
-    OWLClassExpression superClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getsupercid());
-    OWLClassExpression subClass = getOWLClassExpressionResolver().resolveOWLClassExpression(sca.getsubcid());
+    OWLClassExpression superClass = getOWLObjectResolver().resolveOWLClassExpression(sca.getsupercid());
+    OWLClassExpression subClass = getOWLObjectResolver().resolveOWLClassExpression(sca.getsubcid());
 
     return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, superClass);
   }
 
   @NonNull @Override public OWLDisjointClassesAxiom extract(@NonNull DCA dca)
   {
-    OWLClassExpression class1 = getOWLClassExpressionResolver().resolveOWLClassExpression(dca.getc1id());
-    OWLClassExpression class2 = getOWLClassExpressionResolver().resolveOWLClassExpression(dca.getc2id());
+    OWLClassExpression class1 = getOWLObjectResolver().resolveOWLClassExpression(dca.getc1id());
+    OWLClassExpression class2 = getOWLObjectResolver().resolveOWLClassExpression(dca.getc2id());
     Set<OWLClassExpression> classes = new HashSet<>();
     classes.add(class1);
     classes.add(class2);
@@ -222,8 +223,8 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLEquivalentClassesAxiom extract(@NonNull ECA eca)
   {
-    OWLClassExpression class1 = getOWLClassExpressionResolver().resolveOWLClassExpression(eca.getc1id());
-    OWLClassExpression class2 = getOWLClassExpressionResolver().resolveOWLClassExpression(eca.getc2id());
+    OWLClassExpression class1 = getOWLObjectResolver().resolveOWLClassExpression(eca.getc1id());
+    OWLClassExpression class2 = getOWLObjectResolver().resolveOWLClassExpression(eca.getc2id());
     Set<OWLClassExpression> classes = new HashSet<>();
     classes.add(class1);
     classes.add(class2);
@@ -233,45 +234,45 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLObjectPropertyDomainAxiom extract(@NonNull DOPA dopa)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         dopa.getpid());
-    OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(dopa.getdid());
+    OWLClassExpression domain = getOWLObjectResolver().resolveOWLClassExpression(dopa.getdid());
 
     return getOWLDataFactory().getOWLObjectPropertyDomainAxiom(property, domain);
   }
 
   @NonNull @Override public OWLDataPropertyDomainAxiom extract(@NonNull DDPA ddpa)
   {
-    OWLDataPropertyExpression property = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         ddpa.getpid());
-    OWLClassExpression domain = getOWLClassExpressionResolver().resolveOWLClassExpression(ddpa.getdid());
+    OWLClassExpression domain = getOWLObjectResolver().resolveOWLClassExpression(ddpa.getdid());
 
     return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain);
   }
 
   @NonNull @Override public OWLObjectPropertyRangeAxiom extract(@NonNull OPRA opra)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         opra.getpid());
-    OWLClassExpression range = getOWLClassExpressionResolver().resolveOWLClassExpression(opra.getrid());
+    OWLClassExpression range = getOWLObjectResolver().resolveOWLClassExpression(opra.getrid());
 
     return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range);
   }
 
   @NonNull @Override public OWLDataPropertyRangeAxiom extract(@NonNull DPRA dpra)
   {
-    OWLDataPropertyExpression property = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         dpra.getpid());
-    OWLDataRange range = getOWLDataRangeResolver().resolveOWLDataRange(dpra.getrid());
+    OWLDataRange range = getOWLObjectResolver().resolveOWLDataRange(dpra.getrid());
 
     return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range);
   }
 
   @NonNull @Override public OWLSubObjectPropertyOfAxiom extract(@NonNull SOPA sopa)
   {
-    OWLObjectPropertyExpression superProperty = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression superProperty = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         sopa.getsuperpid());
-    OWLObjectPropertyExpression subProperty = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression subProperty = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         sopa.getsubpid());
 
     return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty, superProperty);
@@ -279,9 +280,9 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLInverseObjectPropertiesAxiom extract(@NonNull IOPA iopa)
   {
-    OWLObjectPropertyExpression property1 = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property1 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         iopa.getp1id());
-    OWLObjectPropertyExpression property2 = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property2 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         iopa.getp2id());
 
     return getOWLDataFactory().getOWLInverseObjectPropertiesAxiom(property2, property1);
@@ -289,9 +290,9 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLSubDataPropertyOfAxiom extract(@NonNull SDPA sdpa)
   {
-    OWLDataPropertyExpression superProperty = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression superProperty = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         sdpa.getsuperpid());
-    OWLDataPropertyExpression subProperty = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression subProperty = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         sdpa.getsubpid());
 
     return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty, superProperty);
@@ -299,9 +300,9 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLEquivalentObjectPropertiesAxiom extract(@NonNull EOPA eopa)
   {
-    OWLObjectPropertyExpression property1 = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property1 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         eopa.getp1id());
-    OWLObjectPropertyExpression property2 = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property2 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         eopa.getp1id());
     Set<OWLObjectPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
@@ -312,9 +313,9 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLEquivalentDataPropertiesAxiom extract(@NonNull EDPA edpa)
   {
-    OWLDataPropertyExpression property1 = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property1 = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         edpa.getp1id());
-    OWLDataPropertyExpression property2 = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property2 = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         edpa.getp2id());
     Set<OWLDataPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
@@ -325,9 +326,9 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLDisjointObjectPropertiesAxiom extract(@NonNull DJOPA djopa)
   {
-    OWLObjectPropertyExpression property1 = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property1 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         djopa.getp1id());
-    OWLObjectPropertyExpression property2 = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property2 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         djopa.getp2id());
     Set<OWLObjectPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
@@ -338,9 +339,9 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLDisjointDataPropertiesAxiom extract(@NonNull DJDPA djdpa)
   {
-    OWLDataPropertyExpression property1 = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property1 = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         djdpa.getp1id());
-    OWLDataPropertyExpression property2 = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property2 = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         djdpa.getp2id());
     Set<OWLDataPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
@@ -351,7 +352,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLFunctionalObjectPropertyAxiom extract(@NonNull FOPA fopa)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         fopa.getpid());
 
     return getOWLDataFactory().getOWLFunctionalObjectPropertyAxiom(property);
@@ -359,7 +360,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLFunctionalDataPropertyAxiom extract(@NonNull FDPA fdpa)
   {
-    OWLDataPropertyExpression property = getOWLDataPropertyExpressionResolver().resolveOWLDataPropertyExpression(
+    OWLDataPropertyExpression property = getOWLObjectResolver().resolveOWLDataPropertyExpression(
         fdpa.getpid());
 
     return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(property);
@@ -367,7 +368,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLInverseFunctionalObjectPropertyAxiom extract(@NonNull IFOPA ifopa)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         ifopa.getpid());
 
     return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(property);
@@ -375,7 +376,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLIrreflexiveObjectPropertyAxiom extract(@NonNull IROPA iropa)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         iropa.getpid());
 
     return getOWLDataFactory().getOWLIrreflexiveObjectPropertyAxiom(property);
@@ -383,7 +384,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLAsymmetricObjectPropertyAxiom extract(@NonNull AOPA aopa)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         aopa.getpid());
 
     return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(property);
@@ -391,7 +392,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLSymmetricObjectPropertyAxiom extract(@NonNull SPA spa)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         spa.getpid());
 
     return getOWLDataFactory().getOWLSymmetricObjectPropertyAxiom(property);
@@ -399,7 +400,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLTransitiveObjectPropertyAxiom extract(@NonNull TOPA topa)
   {
-    OWLObjectPropertyExpression property = getOWLObjectPropertyExpressionResolver().resolveOWLObjectPropertyExpression(
+    OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         topa.getpid());
 
     return getOWLDataFactory().getOWLTransitiveObjectPropertyAxiom(property);
