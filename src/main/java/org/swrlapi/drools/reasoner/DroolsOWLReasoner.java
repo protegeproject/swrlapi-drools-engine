@@ -586,13 +586,13 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @Nullable private OWLClass resolveOWLClass(@NonNull String classID)
   {
-    return null;
-  } // TODO implement resolveOWLClass
+    return null; // TODO implement resolveOWLClass
+  }
 
   @Nullable private OWLClassExpression resolveOWLClassExpression(@NonNull String classID)
   {
-    return null;
-  } // TODO implement resolveOWLClassExpression
+    return null; // TODO implement resolveOWLClassExpression
+  }
 
   @Nullable private OWLNamedIndividual resolveOWLNamedIndividual(@NonNull String individualID)
   {
@@ -601,43 +601,43 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @Nullable private OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(@NonNull String propertyID)
   {
-    return null;
-  } // TODO implement resolveOWLObjectPropertyExpression
+    return null; // TODO implement resolveOWLObjectPropertyExpression
+  }
 
   @Nullable private OWLDataProperty resolveOWLDataProperty(@NonNull String propertyID)
   {
-    return null;
-  } // TODO implement resolveOWLDataPropertyExpression
+    return null; // TODO implement resolveOWLDataPropertyExpression
+  }
 
   @Nullable private CE resolveCE(OWLClassExpression owlClassExpression)
   {
-    return null;
-  } // TODO implement resolveCE
+    return null; // TODO implement resolveCE
+  }
 
   @Nullable private OPE resolveOPE(OWLObjectPropertyExpression owlObjectPropertyExpression)
   {
-    return null;
-  } // TODO implement resolveOPE
+    return null; // TODO implement resolveOPE
+  }
 
   @Nullable private DP resolveDP(OWLDataProperty owlDataProperty)
   {
-    return null;
-  } // TODO implement resolveDP
+    return null; // TODO implement resolveDP
+  }
 
   @Nullable private DPE resolveDPE(OWLDataPropertyExpression owlDataPropertyExpression)
   {
-    return null;
-  } // TODO implement resolveDPE
+    return null;  // TODO implement resolveDPE
+  }
 
   @Nullable private C resolveC(OWLClass owlClass)
   {
-    return null;
-  } // TODO implement resolveC
+    return null; // TODO implement resolveC
+  }
 
   @Nullable private I resolveI(OWLNamedIndividual owlNamedIndividual)
   {
-    return null;
-  } // TODO implement resolveI
+    return null; // TODO implement resolveI
+  }
 
   @Nullable private OWLLiteral l2OWLLiteral(L l)
   {
