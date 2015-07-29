@@ -45,8 +45,7 @@ import org.swrlapi.drools.owl.classexpressions.OOOCE;
 import org.swrlapi.drools.owl.classexpressions.OSVFCE;
 import org.swrlapi.drools.owl.classexpressions.OUOCE;
 import org.swrlapi.drools.owl.core.C;
-import org.swrlapi.drools.resolvers.DroolsCEResolver;
-import org.swrlapi.drools.resolvers.DroolsResolver;
+import org.swrlapi.drools.owl.resolvers.DroolsExpressionResolver;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -61,17 +60,18 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
   @NonNull private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-  @NonNull private final DroolsResolver resolver;
+  @NonNull private final DroolsExpressionResolver expressionResolver;
 
-  public DroolsOWLClassExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsResolver resolver,
+  public DroolsOWLClassExpressionConverter(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsExpressionResolver expressionResolver,
     @NonNull DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
   {
     super(bridge);
 
     this.propertyExpressionConverter = propertyExpressionConverter;
-    this.resolver = resolver;
+    this.expressionResolver = expressionResolver;
 
-    getCEResolver().reset();
+    this.expressionResolver.reset();
   }
 
   @NonNull public String convert(@NonNull OWLClassExpression owlClassExpression)
@@ -83,10 +83,10 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   {
     String classPrefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
 
-    if (!getCEResolver().recordsCEID(classPrefixedName)) {
+    if (!this.expressionResolver.recordsCEID(classPrefixedName)) {
       C c = new C(classPrefixedName);
       getOWLObjectResolver().recordOWLClassExpression(classPrefixedName, cls);
-      getCEResolver().record(c);
+      this.expressionResolver.recordCE(c);
     }
     return classPrefixedName;
   }
@@ -94,7 +94,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectOneOf classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       for (OWLIndividual individual1 : classExpression.getIndividuals()) {
         Set<OWLIndividual> individuals = new HashSet<>(classExpression.getIndividuals());
         String individual1ID = getDroolsOWLIndividual2DRLConverter().convert(individual1);
@@ -105,7 +105,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
           OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
 
           getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-          getCEResolver().record(oooce);
+          this.expressionResolver.recordCE(oooce);
         }
       }
       return classExpressionID;
@@ -116,13 +116,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectIntersectionOf classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       for (OWLClassExpression ce : classExpression.getOperands()) {
         String class1ID = convert(ce);
         OIOCE oioce = new OIOCE(classExpressionID, class1ID);
 
         getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-        getCEResolver().record(oioce);
+        this.expressionResolver.recordCE(oioce);
       }
       return classExpressionID;
     } else
@@ -132,13 +132,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectUnionOf classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       for (OWLClassExpression ce1 : classExpression.getOperands()) {
         String class1ID = convert(ce1);
         OUOCE ouoce = new OUOCE(classExpressionID, class1ID);
 
         getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-        getCEResolver().record(ouoce);
+        this.expressionResolver.recordCE(ouoce);
       }
       return classExpressionID;
     } else
@@ -148,12 +148,12 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectComplementOf classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String complementClassID = convert(classExpression.getOperand());
       OOCOCE oooce = new OOCOCE(classExpressionID, complementClassID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(oooce);
+      this.expressionResolver.recordCE(oooce);
 
       return classExpressionID;
     } else
@@ -163,13 +163,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectSomeValuesFrom classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String someValuesFromClassID = convert(classExpression.getFiller());
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       OSVFCE osvfce = new OSVFCE(classExpressionID, propertyID, someValuesFromClassID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(osvfce);
+      this.expressionResolver.recordCE(osvfce);
 
       return classExpressionID;
     } else
@@ -179,13 +179,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLDataSomeValuesFrom classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String someValuesFromDataRangeID = getDroolsOWLDataRangeConverter().convert(classExpression.getFiller());
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       DSVFCE dsvfce = new DSVFCE(classExpressionID, propertyID, someValuesFromDataRangeID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(dsvfce);
+      this.expressionResolver.recordCE(dsvfce);
 
       return classExpressionID;
     } else
@@ -195,13 +195,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLDataExactCardinality classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       int cardinality = classExpression.getCardinality();
       DCCE dcce = new DCCE(classExpressionID, propertyID, cardinality);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(dcce);
+      this.expressionResolver.recordCE(dcce);
 
       return classExpressionID;
     } else
@@ -211,13 +211,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectExactCardinality classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       int cardinality = classExpression.getCardinality();
       OCCE occe = new OCCE(classExpressionID, propertyID, cardinality);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(occe);
+      this.expressionResolver.recordCE(occe);
 
       return classExpressionID;
     } else
@@ -227,13 +227,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLDataMinCardinality classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       int cardinality = classExpression.getCardinality();
       DMinCCE dmincce = new DMinCCE(classExpressionID, propertyID, cardinality);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(dmincce);
+      this.expressionResolver.recordCE(dmincce);
 
       return classExpressionID;
     } else
@@ -243,13 +243,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectMinCardinality classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       int cardinality = classExpression.getCardinality();
       OMinCCE omincce = new OMinCCE(classExpressionID, propertyID, cardinality);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(omincce);
+      this.expressionResolver.recordCE(omincce);
 
       return classExpressionID;
     } else
@@ -259,7 +259,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLDataMaxCardinality classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       int cardinality = classExpression.getCardinality();
 
@@ -268,12 +268,12 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
         DMaxQCCE dmaxqcce = new DMaxQCCE(classExpressionID, propertyID, fillerID, cardinality);
 
         getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-        getCEResolver().record(dmaxqcce);
+        this.expressionResolver.recordCE(dmaxqcce);
       } else {
         DMaxCCE dmaxcce = new DMaxCCE(classExpressionID, propertyID, cardinality);
 
         getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-        getCEResolver().record(dmaxcce);
+        this.expressionResolver.recordCE(dmaxcce);
       }
       return classExpressionID;
     } else
@@ -283,7 +283,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectMaxCardinality classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       int cardinality = classExpression.getCardinality();
 
@@ -292,12 +292,12 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
         OMaxQCCE omaxqcce = new OMaxQCCE(classExpressionID, propertyID, fillerID, cardinality);
 
         getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-        getCEResolver().record(omaxqcce);
+        this.expressionResolver.recordCE(omaxqcce);
       } else {
         OMaxCCE omaxcce = new OMaxCCE(classExpressionID, propertyID, cardinality);
 
         getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-        getCEResolver().record(omaxcce);
+        this.expressionResolver.recordCE(omaxcce);
       }
       return classExpressionID;
     } else
@@ -307,13 +307,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLDataHasValue classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       OWLLiteral valueLiteral = classExpression.getFiller();
       DHVCE dhvce = new DHVCE(classExpressionID, propertyID, getDroolsOWLLiteral2LConverter().convert(valueLiteral));
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(dhvce);
+      this.expressionResolver.recordCE(dhvce);
 
       return classExpressionID;
     } else
@@ -323,13 +323,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectHasValue classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       String valueIndividualID = getDroolsOWLIndividual2DRLConverter().convert(classExpression.getFiller());
       OHVCE ohvce = new OHVCE(classExpressionID, propertyID, valueIndividualID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(ohvce);
+      this.expressionResolver.recordCE(ohvce);
 
       return classExpressionID;
     } else
@@ -339,13 +339,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLObjectAllValuesFrom classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       String allValuesFromClassID = convert(classExpression.getFiller());
       OAVFCE oavfce = new OAVFCE(classExpressionID, propertyID, allValuesFromClassID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(oavfce);
+      this.expressionResolver.recordCE(oavfce);
 
       return classExpressionID;
     } else
@@ -355,13 +355,13 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull OWLDataAllValuesFrom classExpression)
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
-      String classExpressionID = getCEResolver().generateCEID();
+      String classExpressionID = this.expressionResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       String allValuesFromDataRangeID = getDroolsOWLDataRangeConverter().convert(classExpression.getFiller());
       DAVFCE davfce = new DAVFCE(classExpressionID, propertyID, allValuesFromDataRangeID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
-      getCEResolver().record(davfce);
+      this.expressionResolver.recordCE(davfce);
 
       return classExpressionID;
     } else
@@ -370,7 +370,7 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
 
   @NonNull public Set<CE> getCEs()
   {
-    return getCEResolver().getCEs();
+    return this.expressionResolver.getCEs();
   }
 
   @NonNull @Override public String visit(@NonNull OWLClass owlClass)
@@ -466,10 +466,5 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   @NonNull private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
   {
     return this.propertyExpressionConverter;
-  }
-
-  @NonNull private DroolsCEResolver getCEResolver()
-  {
-    return this.resolver.getDroolsCEResolver();
   }
 }

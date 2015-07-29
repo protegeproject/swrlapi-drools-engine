@@ -13,7 +13,7 @@
   <artifactId>swrlapi-drools-engine</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>Drools SWRLAPI Rule Engine</name>
+  <name>Drools-based SWRL Rule Engine</name>
   <description>Drools implementation of SWRLAPI-based SWRL rule engine</description>
 
   <properties>
@@ -48,35 +48,35 @@
   </developers>
 
   <licenses>
-		<license>
-			<name>BSD 2-Clause License</name>
-			<url>http://opensource.org/licenses/BSD-2-Clause</url>
-		</license>
-	</licenses>  
+    <license>
+      <name>BSD 2-Clause License</name>
+      <url>http://opensource.org/licenses/BSD-2-Clause</url>
+    </license>
+  </licenses>  
 
   <!-- SWRLAPI libraries are hosted on Sonatype OSSRH (OSS Repository Hosting Service). -->
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 
   <scm>
-		<connection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</connection>
-		<developerConnection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</developerConnection>
-		<url>https://github.com/protegeproject/swrlapi</url>
-	  <tag>HEAD</tag>
-	</scm>
+    <connection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</connection>
+    <developerConnection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</developerConnection>
+    <url>https://github.com/protegeproject/swrlapi</url>
+    <tag>HEAD</tag>
+  </scm>
 
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/protegeproject/swrlapi-drools-engine/issues</url>
-	</issueManagement>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/protegeproject/swrlapi-drools-engine/issues</url>
+  </issueManagement>
 
   <dependencies>
 
@@ -190,20 +190,20 @@
       </plugin>
 
       <plugin>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.scm</groupId>
-						<artifactId>maven-scm-provider-gitexe</artifactId>
-						<version>1.9</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+	<artifactId>maven-release-plugin</artifactId>
+	<version>2.5</version>
+	<dependencies>
+	  <dependency>
+	    <groupId>org.apache.maven.scm</groupId>
+	    <artifactId>maven-scm-provider-gitexe</artifactId>
+	    <version>1.9</version>
+	  </dependency>
+	</dependencies>
+      </plugin>
 
       <plugin>
-	      <groupId>edu.washington.cs.types.checker</groupId>
-	      <artifactId>checker-maven-plugin</artifactId>
+	<groupId>edu.washington.cs.types.checker</groupId>
+	<artifactId>checker-maven-plugin</artifactId>
         <version>${checker.framework.version}</version>
 
         <executions>
@@ -228,62 +228,62 @@
   </build>
 
   <profiles>
-		<profile>
-			<id>prepare-release</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
+    <profile>
+      <id>prepare-release</id>
+      <activation>
+	<activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+	<plugins>
+	  <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-source-plugin</artifactId>
             <version>${maven.source.plugin.version}</version>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-		      
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>${maven.javadoc.plugin.version}</version>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<configuration>
-									<failOnError>false</failOnError>
-									<quiet>true</quiet>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-		      
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${maven.gpg.plugin.version}</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+	    <executions>
+	      <execution>
+		<id>attach-sources</id>
+		<goals>
+		  <goal>jar</goal>
+		</goals>
+	      </execution>
+	    </executions>
+	  </plugin>
+	  
+	  <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-javadoc-plugin</artifactId>
+	    <version>${maven.javadoc.plugin.version}</version>
+	    <executions>
+	      <execution>
+		<id>attach-javadocs</id>
+		<goals>
+		  <goal>jar</goal>
+		</goals>
+		<configuration>
+		  <failOnError>false</failOnError>
+		  <quiet>true</quiet>
+		</configuration>
+	      </execution>
+	    </executions>
+	  </plugin>
+	  
+	  <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-gpg-plugin</artifactId>
+	    <version>${maven.gpg.plugin.version}</version>
+	    <executions>
+	      <execution>
+		<id>sign-artifacts</id>
+		<phase>verify</phase>
+		<goals>
+		  <goal>sign</goal>
+		</goals>
+	      </execution>
+	    </executions>
+	  </plugin>
+	</plugins>
+      </build>
+    </profile>
   </profiles>
 
 </project>

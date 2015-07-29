@@ -11,7 +11,7 @@ import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
-// TODO This class represents both a named an anonymous individual 
+// TODO This class represents both named and anonymous OWL individuals
 // - but an anonymous individual should not be a subclass of an OWL entity.
 
 /**

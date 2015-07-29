@@ -1,4 +1,4 @@
-package org.swrlapi.drools.resolvers;
+package org.swrlapi.drools.owl.resolvers;
 
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.classexpressions.CE;
@@ -11,9 +11,10 @@ import java.util.Set;
 /**
  * @see org.swrlapi.drools.owl.classexpressions.CE
  */
-public class DroolsCEResolver
+class DroolsCEResolver
 {
   @NonNull private final Map<String, CE> ces;
+
   private int classExpressionIndex;
 
   public DroolsCEResolver()
@@ -33,7 +34,7 @@ public class DroolsCEResolver
     return this.ces.containsKey(ceid);
   }
 
-  public void record(@NonNull CE ce)
+  public void recordCE(@NonNull CE ce)
   {
     this.ces.put(ce.getceid(), ce);
   }

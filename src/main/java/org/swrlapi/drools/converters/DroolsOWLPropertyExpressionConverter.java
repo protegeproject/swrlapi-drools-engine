@@ -10,7 +10,7 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
-import org.swrlapi.drools.resolvers.DroolsResolver;
+import org.swrlapi.drools.owl.resolvers.DroolsExpressionResolver;
 
 /**
  * This class converts OWLAPI OWL property expressions to their Drools representation.
@@ -21,9 +21,9 @@ import org.swrlapi.drools.resolvers.DroolsResolver;
 public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
 TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
-  @NonNull private final DroolsResolver resolver;
+  private final @NonNull DroolsExpressionResolver resolver;
 
-  public DroolsOWLPropertyExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsResolver resolver)
+  public DroolsOWLPropertyExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsExpressionResolver resolver)
   {
     super(bridge);
 
@@ -43,7 +43,7 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
     if (!getOWLObjectResolver().recordsOWLObjectPropertyExpression(propertyExpression)) {
 
       if (propertyExpression.isAnonymous()) {
-        String propertyExpressionID = this.resolver.getDroolsOPEResolver().generatePEID();
+        String propertyExpressionID = this.resolver.generateOPEID();
         getOWLObjectResolver().recordOWLObjectPropertyExpression(propertyExpressionID,
             propertyExpression);
 
@@ -55,7 +55,7 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
         OP op = new OP(prefixedName);
 
         getOWLObjectResolver().recordOWLObjectPropertyExpression(prefixedName, propertyExpression);
-        this.resolver.getDroolsOPEResolver().record(op);
+        this.resolver.recordOPE(op);
 
         return prefixedName;
       }
@@ -69,7 +69,7 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
     if (!getOWLObjectResolver().recordsOWLDataPropertyExpression(propertyExpression)) {
 
       if (propertyExpression.isAnonymous()) {
-        String propertyExpressionID = this.resolver.getDroolsDPEResolver().generatePEID();
+        String propertyExpressionID = this.resolver.generateDPEID();
         getOWLObjectResolver().recordOWLDataPropertyExpression(propertyExpressionID, propertyExpression);
 
         return propertyExpressionID;
@@ -80,7 +80,7 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
         DP dp = new DP(prefixedName);
 
         getOWLObjectResolver().recordOWLDataPropertyExpression(prefixedName, propertyExpression);
-        this.resolver.getDroolsDPEResolver().record(dp);
+        this.resolver.recordDPE(dp);
 
         return prefixedName;
       }

@@ -22,7 +22,7 @@ import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
-import org.swrlapi.drools.resolvers.DroolsResolver;
+import org.swrlapi.drools.owl.resolvers.DroolsExpressionResolver;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -77,7 +77,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     this.bridge = bridge;
 
-    DroolsResolver resolver = new DroolsResolver();
+    DroolsExpressionResolver resolver = new DroolsExpressionResolver();
     DroolsOWLPropertyExpressionConverter propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge,
       resolver);
     DroolsOWLClassExpressionConverter classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge, resolver,
