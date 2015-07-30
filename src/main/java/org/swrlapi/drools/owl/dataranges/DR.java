@@ -1,13 +1,14 @@
 package org.swrlapi.drools.owl.dataranges;
 
 import org.swrlapi.drools.owl.core.OO;
+import org.swrlapi.factory.resolvers.OWLDataRangeResolver;
 
 /**
  * This interface represents an OWL data range in a Drools knowledge base.
  * <p>
  * We do not have an extractor associated with class expressions because our OWL 2 RL reasoner does not create new data
  * ranges during reasoning. Hence, we can simply keep track of the originally supplied data range using its ID, which we
- * keep track of using the {@link org.swrlapi.bridge.resolvers.OWLDataRangeResolver} class.
+ * keep track of using the {@link OWLDataRangeResolver} class.
  *
  * @see org.semanticweb.owlapi.model.OWLDataRange
  */

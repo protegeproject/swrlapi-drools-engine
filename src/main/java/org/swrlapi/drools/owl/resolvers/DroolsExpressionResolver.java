@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.resolvers;
 
 import checkers.nullness.quals.NonNull;
+import org.swrlapi.core.OWLObjectResolver;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl.properties.DPE;
 import org.swrlapi.drools.owl.properties.OPE;
@@ -12,7 +13,7 @@ import java.util.Set;
  * allows Drools to record and resolve class and property expressions using a unique identifier, obviating the need
  * to recreate new expressions.
  *
- * @see org.swrlapi.bridge.resolvers.OWLObjectResolver
+ * @see OWLObjectResolver
  */
 public class DroolsExpressionResolver
 {
