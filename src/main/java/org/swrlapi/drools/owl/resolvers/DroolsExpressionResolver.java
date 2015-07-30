@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * Drools does not create class or property expressions but does generate OWL axioms that use them. This class
- * allows Drools to record and resolve class and property expressions using a unique identifier obviating the need
+ * allows Drools to record and resolve class and property expressions using a unique identifier, obviating the need
  * to recreate new expressions.
  *
  * @see org.swrlapi.bridge.resolvers.OWLObjectResolver
