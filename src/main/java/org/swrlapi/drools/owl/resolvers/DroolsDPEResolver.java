@@ -30,6 +30,14 @@ class DroolsDPEResolver
     this.propertyExpressionIndex = 0;
   }
 
+  public @NonNull DPE resolveDPE(@NonNull String pid)
+  {
+    if (this.pes.containsKey(pid))
+      return pes.get(pid);
+    else
+      throw new IllegalArgumentException("unknown data property expression ID " + pid);
+  }
+
   public boolean recordsDPEID(@NonNull String peid)
   {
     return this.pes.containsKey(peid);

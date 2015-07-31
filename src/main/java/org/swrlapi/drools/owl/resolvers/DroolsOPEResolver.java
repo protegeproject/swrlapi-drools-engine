@@ -29,6 +29,14 @@ class DroolsOPEResolver
     this.propertyExpressionIndex = 0;
   }
 
+  public @NonNull OPE resolveOPE(@NonNull String pid)
+  {
+    if (this.pes.containsKey(pid))
+      return pes.get(pid);
+    else
+      throw new IllegalArgumentException("unknown object property expression ID " + pid);
+  }
+
   public boolean recordsOPEID(@NonNull String peid)
   {
     return this.pes.containsKey(peid);

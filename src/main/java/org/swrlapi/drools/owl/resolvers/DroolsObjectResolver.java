@@ -3,6 +3,7 @@ package org.swrlapi.drools.owl.resolvers;
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.core.OWLObjectResolver;
 import org.swrlapi.drools.owl.classexpressions.CE;
+import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.owl.properties.DPE;
 import org.swrlapi.drools.owl.properties.OPE;
 
@@ -15,14 +16,16 @@ import java.util.Set;
  *
  * @see OWLObjectResolver
  */
-public class DroolsExpressionResolver
+public class DroolsObjectResolver
 {
+  @NonNull private final DroolsCResolver droolsCResolver;
   @NonNull private final DroolsCEResolver droolsCEResolver;
   @NonNull private final DroolsOPEResolver droolsOPEResolver;
   @NonNull private final DroolsDPEResolver droolsDPEResolver;
 
-  public DroolsExpressionResolver()
+  public DroolsObjectResolver()
   {
+    this.droolsCResolver = new DroolsCResolver();
     this.droolsCEResolver = new DroolsCEResolver();
     this.droolsOPEResolver = new DroolsOPEResolver();
     this.droolsDPEResolver = new DroolsDPEResolver();
@@ -30,9 +33,27 @@ public class DroolsExpressionResolver
 
   public void reset()
   {
+    this.droolsCResolver.reset();
     this.droolsCEResolver.reset();
     this.droolsOPEResolver.reset();
     this.droolsDPEResolver.reset();
+  }
+
+  public boolean recordsCID(@NonNull String cid)
+  {
+    return this.droolsCResolver.recordsCID(cid);
+  }
+
+  public void recordC(@NonNull C c)
+  {
+    this.droolsCResolver.recordC(c);
+  }
+
+  @NonNull public C resolveC(@NonNull String cid) { return this.droolsCResolver.resolveC(cid); }
+
+  @NonNull public Set<C> getCs()
+  {
+    return this.droolsCResolver.getCs();
   }
 
   public boolean recordsCEID(@NonNull String ceid)
@@ -45,7 +66,9 @@ public class DroolsExpressionResolver
     this.droolsCEResolver.recordCE(ce);
   }
 
-  public @NonNull Set<CE> getCEs()
+  @NonNull public CE resolveCE(@NonNull String ceid) { return this.droolsCEResolver.resolveCE(ceid); }
+
+  @NonNull public Set<CE> getCEs()
   {
     return this.droolsCEResolver.getCEs();
   }
@@ -79,6 +102,8 @@ public class DroolsExpressionResolver
   {
     return this.droolsDPEResolver.recordsDPEID(peid);
   }
+
+  @NonNull public DPE resolveDPE(@NonNull String pid) { return this.droolsDPEResolver.resolveDPE(pid); }
 
   public void recordDPE(@NonNull DPE pe)
   {

@@ -10,7 +10,7 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
-import org.swrlapi.drools.owl.resolvers.DroolsExpressionResolver;
+import org.swrlapi.drools.owl.resolvers.DroolsObjectResolver;
 
 /**
  * This class converts OWLAPI OWL property expressions to their Drools representation.
@@ -21,9 +21,9 @@ import org.swrlapi.drools.owl.resolvers.DroolsExpressionResolver;
 public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
 TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
-  private final @NonNull DroolsExpressionResolver resolver;
+  private final @NonNull DroolsObjectResolver resolver;
 
-  public DroolsOWLPropertyExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsExpressionResolver resolver)
+  public DroolsOWLPropertyExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsObjectResolver resolver)
   {
     super(bridge);
 

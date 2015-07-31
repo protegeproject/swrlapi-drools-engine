@@ -34,6 +34,14 @@ class DroolsCEResolver
     return this.ces.containsKey(ceid);
   }
 
+  public @NonNull CE resolveCE(@NonNull String ceid)
+  {
+    if (this.ces.containsKey(ceid))
+      return ces.get(ceid);
+    else
+      throw new IllegalArgumentException("unknown class expression ID " + ceid);
+  }
+
   public void recordCE(@NonNull CE ce)
   {
     this.ces.put(ce.getceid(), ce);

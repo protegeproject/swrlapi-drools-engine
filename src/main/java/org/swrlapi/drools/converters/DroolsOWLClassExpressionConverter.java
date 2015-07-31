@@ -45,7 +45,7 @@ import org.swrlapi.drools.owl.classexpressions.OOOCE;
 import org.swrlapi.drools.owl.classexpressions.OSVFCE;
 import org.swrlapi.drools.owl.classexpressions.OUOCE;
 import org.swrlapi.drools.owl.core.C;
-import org.swrlapi.drools.owl.resolvers.DroolsExpressionResolver;
+import org.swrlapi.drools.owl.resolvers.DroolsObjectResolver;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,10 +60,10 @@ public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
   @NonNull private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-  @NonNull private final DroolsExpressionResolver expressionResolver;
+  private final @NonNull DroolsObjectResolver expressionResolver;
 
   public DroolsOWLClassExpressionConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsExpressionResolver expressionResolver,
+    @NonNull DroolsObjectResolver expressionResolver,
     @NonNull DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
   {
     super(bridge);

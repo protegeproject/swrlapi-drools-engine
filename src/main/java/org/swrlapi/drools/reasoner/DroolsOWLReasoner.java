@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.Version;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.swrlapi.core.OWLObjectResolver;
 import org.swrlapi.drools.owl.classexpressions.CE;
 import org.swrlapi.drools.owl.core.C;
 import org.swrlapi.drools.owl.core.I;
@@ -45,6 +46,7 @@ import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.DPE;
 import org.swrlapi.drools.owl.properties.OPE;
+import org.swrlapi.drools.owl.resolvers.DroolsObjectResolver;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -71,16 +73,21 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     .getPrefixedName();
 
   @NonNull private final DroolsOWLAxiomHandler droolsOWLAxiomHandler;
+  private final @NonNull DroolsObjectResolver droolsObjectResolver;
+  @NonNull private final OWLObjectResolver owlObjectResolver;
 
   private boolean prepared = false;
   private boolean interrupted = false;
 
   public DroolsOWLReasoner(@NonNull OWLOntology rootOntology, @NonNull OWLReasonerConfiguration configuration,
-    @NonNull BufferingMode bufferingMode, @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler)
+    @NonNull BufferingMode bufferingMode, @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler,
+    @NonNull OWLObjectResolver owlObjectResolver, DroolsObjectResolver droolsObjectResolver)
   {
     super(rootOntology, configuration, bufferingMode);
 
     this.droolsOWLAxiomHandler = droolsOWLAxiomHandler;
+    this.droolsObjectResolver = droolsObjectResolver;
+    this.owlObjectResolver = owlObjectResolver;
   }
 
   @NonNull @Override public String getReasonerName()
@@ -589,30 +596,30 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @NonNull private OWLClass resolveOWLClass(@NonNull String classID)
   {
-    throw new IllegalArgumentException(); // TODO implement resolveOWLClass
+    return this.owlObjectResolver.resolveOWLClass(classID);
   }
 
   @NonNull private OWLClassExpression resolveOWLClassExpression(@NonNull String classID)
   {
-    throw new IllegalArgumentException(); // TODO implement resolveOWLClassExpression
+    return this.owlObjectResolver.resolveOWLClassExpression(classID);
   }
 
   @NonNull private OWLNamedIndividual resolveOWLNamedIndividual(@NonNull String individualID)
   {
-    throw new IllegalArgumentException(); // TODO implement resolveOWLNamedIndividual
+    return this.owlObjectResolver.resolveOWLNamedIndividual(individualID);
   }
 
   @NonNull private OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(@NonNull String propertyID)
   {
-    throw new IllegalArgumentException(); // TODO implement resolveOWLObjectPropertyExpression
+    return this.owlObjectResolver.resolveOWLObjectPropertyExpression(propertyID);
   }
 
   @NonNull private OWLDataProperty resolveOWLDataProperty(@NonNull String propertyID)
   {
-    throw new IllegalArgumentException(); // TODO implement resolveOWLDataPropertyExpression
+    throw new IllegalArgumentException(); // TODO implement resolveOWLDataProperty
   }
 
-  @NonNull private CE resolveCE(OWLClassExpression owlClassExpression)
+  @NonNull private CE resolveCE(OWLClassExpression classExpression)
   {
     throw new IllegalArgumentException(); // TODO implement resolveCE
   }
