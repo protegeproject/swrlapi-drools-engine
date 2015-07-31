@@ -25,7 +25,7 @@ public class C extends OE implements CE
     super(classID);
   }
 
-  @Override
+  @Override @NonNull
   public String getceid()
   {
     return super.getName();

@@ -1,7 +1,6 @@
 package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
-import checkers.nullness.quals.Nullable;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
@@ -138,7 +137,7 @@ public class L implements OO, BA, Serializable
   // We consider literals to be equal if they have the same type name and value.
   // TODO This is a very simpleminded implementation of equals. Think about using the SWRLAPI's OWLLiteralComparator
 
-  @Override public boolean equals(@Nullable Object o)
+  @Override public boolean equals(Object o)
   {
     if (this == o)
       return true;

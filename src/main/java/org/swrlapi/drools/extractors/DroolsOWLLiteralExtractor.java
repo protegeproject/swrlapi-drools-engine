@@ -40,7 +40,7 @@ TargetRuleEngineOWLLiteralExtractor<L>
       else if (l.isAnyURI()) {
         return getOWLLiteralFactory().getOWLLiteral(new URI(l.getValue()));
       } else if (l.isBoolean())
-        return getOWLLiteralFactory().getOWLLiteral(new Boolean(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Boolean.valueOf(l.getValue()));
       else if (l.isByte())
         return getOWLLiteralFactory().getOWLLiteral(new Byte(l.getValue()));
       else if (l.isShort())
