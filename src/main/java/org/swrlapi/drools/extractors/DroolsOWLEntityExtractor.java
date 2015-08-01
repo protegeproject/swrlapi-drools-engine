@@ -8,9 +8,10 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
-import org.swrlapi.drools.owl.core.C;
-import org.swrlapi.drools.owl.core.D;
-import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.classes.C;
+import org.swrlapi.drools.owl.dataranges.D;
+import org.swrlapi.drools.owl.individuals.I;
+import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.owl.properties.AP;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
@@ -21,7 +22,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  * representation.
  *
  * @see org.semanticweb.owlapi.model.OWLEntity
- * @see org.swrlapi.drools.owl.core.OE
+ * @see OE
  */
 public interface DroolsOWLEntityExtractor extends TargetRuleEngineExtractor
 {

@@ -4,8 +4,8 @@ import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
-import org.swrlapi.drools.owl.core.I;
-import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.individuals.I;
+import org.swrlapi.drools.owl.literals.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**

@@ -22,7 +22,7 @@ import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
-import org.swrlapi.drools.owl.resolvers.DroolsObjectResolver;
+import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;

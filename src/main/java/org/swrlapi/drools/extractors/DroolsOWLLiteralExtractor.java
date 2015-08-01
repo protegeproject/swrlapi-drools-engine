@@ -7,11 +7,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.bridge.extractors.TargetRuleEngineOWLLiteralExtractor;
+import org.swrlapi.drools.owl.literals.L;
 import org.swrlapi.literal.XSDDate;
 import org.swrlapi.literal.XSDDateTime;
 import org.swrlapi.literal.XSDDuration;
 import org.swrlapi.literal.XSDTime;
-import org.swrlapi.drools.owl.core.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 import java.net.URI;
@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
  * This class converts a Drools OWL literal representation to its OWLAPI representation.
  *
  * @see org.semanticweb.owlapi.model.OWLLiteral
- * @see org.swrlapi.drools.owl.core.L
+ * @see L
  */
 public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase implements
 TargetRuleEngineOWLLiteralExtractor<L>

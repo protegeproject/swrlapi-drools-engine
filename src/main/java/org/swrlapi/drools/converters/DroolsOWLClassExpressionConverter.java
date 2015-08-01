@@ -25,27 +25,27 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
-import org.swrlapi.drools.owl.classexpressions.CE;
-import org.swrlapi.drools.owl.classexpressions.DAVFCE;
-import org.swrlapi.drools.owl.classexpressions.DCCE;
-import org.swrlapi.drools.owl.classexpressions.DHVCE;
-import org.swrlapi.drools.owl.classexpressions.DMaxCCE;
-import org.swrlapi.drools.owl.classexpressions.DMaxQCCE;
-import org.swrlapi.drools.owl.classexpressions.DMinCCE;
-import org.swrlapi.drools.owl.classexpressions.DSVFCE;
-import org.swrlapi.drools.owl.classexpressions.OAVFCE;
-import org.swrlapi.drools.owl.classexpressions.OCCE;
-import org.swrlapi.drools.owl.classexpressions.OHVCE;
-import org.swrlapi.drools.owl.classexpressions.OIOCE;
-import org.swrlapi.drools.owl.classexpressions.OMaxCCE;
-import org.swrlapi.drools.owl.classexpressions.OMaxQCCE;
-import org.swrlapi.drools.owl.classexpressions.OMinCCE;
-import org.swrlapi.drools.owl.classexpressions.OOCOCE;
-import org.swrlapi.drools.owl.classexpressions.OOOCE;
-import org.swrlapi.drools.owl.classexpressions.OSVFCE;
-import org.swrlapi.drools.owl.classexpressions.OUOCE;
-import org.swrlapi.drools.owl.core.C;
-import org.swrlapi.drools.owl.resolvers.DroolsObjectResolver;
+import org.swrlapi.drools.owl.classes.CE;
+import org.swrlapi.drools.owl.classes.DAVFCE;
+import org.swrlapi.drools.owl.classes.DCCE;
+import org.swrlapi.drools.owl.classes.DHVCE;
+import org.swrlapi.drools.owl.classes.DMaxCCE;
+import org.swrlapi.drools.owl.classes.DMaxQCCE;
+import org.swrlapi.drools.owl.classes.DMinCCE;
+import org.swrlapi.drools.owl.classes.DSVFCE;
+import org.swrlapi.drools.owl.classes.OAVFCE;
+import org.swrlapi.drools.owl.classes.OCCE;
+import org.swrlapi.drools.owl.classes.OHVCE;
+import org.swrlapi.drools.owl.classes.OIOCE;
+import org.swrlapi.drools.owl.classes.OMaxCCE;
+import org.swrlapi.drools.owl.classes.OMaxQCCE;
+import org.swrlapi.drools.owl.classes.OMinCCE;
+import org.swrlapi.drools.owl.classes.OOCOCE;
+import org.swrlapi.drools.owl.classes.OOOCE;
+import org.swrlapi.drools.owl.classes.OSVFCE;
+import org.swrlapi.drools.owl.classes.OUOCE;
+import org.swrlapi.drools.owl.classes.C;
+import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -54,7 +54,7 @@ import java.util.Set;
  * This class converts OWLAPI OWL class expressions to their Drools representation.
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
- * @see org.swrlapi.drools.owl.classexpressions.CE
+ * @see org.swrlapi.drools.owl.classes.CE
  */
 public class DroolsOWLClassExpressionConverter extends DroolsConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>

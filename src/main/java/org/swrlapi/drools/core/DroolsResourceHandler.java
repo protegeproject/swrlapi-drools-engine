@@ -128,39 +128,39 @@ public class DroolsResourceHandler
   private void importOWLClassExpressionJavaClasses()
   {
     // Drools classes representing OWL class expressions
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.CE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OOCOCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OIOCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OOOCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OUOCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OHVCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.DHVCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OSVFCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.DSVFCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OAVFCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.DAVFCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.DMaxCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OMaxCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OMaxQCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.DMaxQCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.DMinCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.OCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classexpressions.DCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.CE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OOCOCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OIOCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OOOCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OUOCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OHVCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DHVCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OSVFCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DSVFCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OAVFCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DAVFCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OMaxCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DMaxCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OMaxCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OMaxQCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DMaxQCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DMinCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DCCE");
   }
 
   private void importCoreOWLJavaClasses()
   {
     // Drools class representing an OWL literal
-    defineDRLResource("import org.swrlapi.drools.owl.core.L");
+    defineDRLResource("import org.swrlapi.drools.owl.literals.L");
 
     // Drools classes representing OWL named entities
-    defineDRLResource("import org.swrlapi.drools.owl.core.C");
-    defineDRLResource("import org.swrlapi.drools.owl.core.I");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.C");
+    defineDRLResource("import org.swrlapi.drools.owl.individuals.I");
     defineDRLResource("import org.swrlapi.drools.owl.properties.OP");
     defineDRLResource("import org.swrlapi.drools.owl.properties.DP");
     defineDRLResource("import org.swrlapi.drools.owl.properties.AP");
-    defineDRLResource("import org.swrlapi.drools.owl.core.D");
+    defineDRLResource("import org.swrlapi.drools.owl.dataranges.D");
   }
 
   private void defineDRLResource(@NonNull String resourceText)

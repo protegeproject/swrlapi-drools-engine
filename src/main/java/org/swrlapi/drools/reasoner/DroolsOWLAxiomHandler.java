@@ -2,7 +2,7 @@ package org.swrlapi.drools.reasoner;
 
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.axioms.A;
-import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.literals.L;
 
 import java.util.Map;
 import java.util.Set;

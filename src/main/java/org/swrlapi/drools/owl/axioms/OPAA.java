@@ -4,7 +4,7 @@ import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
-import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.individuals.I;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**

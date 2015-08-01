@@ -37,7 +37,7 @@ import org.swrlapi.drools.owl.axioms.SIA;
 import org.swrlapi.drools.owl.axioms.SOPA;
 import org.swrlapi.drools.owl.axioms.SPA;
 import org.swrlapi.drools.owl.axioms.TOPA;
-import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.literals.L;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.owl2rl.OWL2RLInconsistencyDescription;
 

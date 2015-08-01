@@ -6,14 +6,14 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLLiteralConverter;
-import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.literals.L;
 
 /**
- * Class to convert an OWLAPI OWL literal to instances of the {@link org.swrlapi.drools.owl.core.L} class, which
+ * Class to convert an OWLAPI OWL literal to instances of the {@link L} class, which
  * represents literals in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLLiteral
- * @see org.swrlapi.drools.owl.core.L
+ * @see L
  */
 public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase implements
 TargetRuleEngineOWLLiteralConverter<L>

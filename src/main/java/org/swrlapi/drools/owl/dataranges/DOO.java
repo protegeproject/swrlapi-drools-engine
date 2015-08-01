@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.dataranges;
 
 import checkers.nullness.quals.NonNull;
-import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.literals.L;
 
 import java.util.Set;
 

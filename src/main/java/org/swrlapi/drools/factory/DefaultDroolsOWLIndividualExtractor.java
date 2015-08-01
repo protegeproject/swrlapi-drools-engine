@@ -5,13 +5,13 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
-import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.individuals.I;
 
 /**
  * Converts a Drools OWL individual representation to an OWLAPI OWL individual.
  *
  * @see org.semanticweb.owlapi.model.OWLIndividual
- * @see org.swrlapi.drools.owl.core.I
+ * @see I
  */
 public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtractorBase implements
   DroolsOWLIndividualExtractor

@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLDataRangeConverter;
-import org.swrlapi.drools.owl.core.L;
+import org.swrlapi.drools.owl.literals.L;
 import org.swrlapi.drools.owl.dataranges.DCO;
 import org.swrlapi.drools.owl.dataranges.DIO;
 import org.swrlapi.drools.owl.dataranges.DOO;

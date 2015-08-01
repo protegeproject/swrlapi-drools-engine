@@ -6,16 +6,16 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
-import org.swrlapi.drools.owl.core.I;
+import org.swrlapi.drools.owl.individuals.I;
 
 /**
  * Converts an OWLAPI OWL individual to a Drools individual represented by the class
- * {@link org.swrlapi.drools.owl.core.I}.
+ * {@link I}.
  * 
  * @see org.semanticweb.owlapi.model.OWLIndividual
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @see org.semanticweb.owlapi.model.OWLNamedIndividual
- * @see org.swrlapi.drools.owl.core.I
+ * @see I
  */
 public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBase implements
 TargetRuleEngineOWLIndividualConverter<I>
