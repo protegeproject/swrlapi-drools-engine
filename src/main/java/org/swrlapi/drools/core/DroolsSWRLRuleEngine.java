@@ -218,7 +218,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     return null; // TODO Return Drools implementation of an OWL reasoner here
   }
 
-  @NonNull @Override public Icon getSWRLRuleEngineIcon()
+  @NonNull @Override public Icon getTargetRuleEngineIcon()
   {
     return DroolsFactory.getSWRLRuleEngineIcon();
   }
@@ -228,12 +228,12 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     return this.owl2RLEngine;
   }
 
-  @NonNull @Override public String getName()
+  @NonNull @Override public String getTargetRuleEngineName()
   {
     return DroolsNames.RULE_ENGINE_NAME;
   }
 
-  @NonNull @Override public String getVersion()
+  @NonNull @Override public String getTargetRuleEngineVersion()
   {
     return DroolsNames.VERSION_STRING;
   }
