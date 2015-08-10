@@ -22,7 +22,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import java.util.Set;
 
 /**
- * This class converts OWLAPI SWRL atom and built-in arguments to DRL clauses for use in rules.
+ * This class converts OWLAPI SWRL atom and built-in arguments to DRL clauses for use in Drools rules.
  *
  * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see org.swrlapi.drools.converters.DroolsSWRLHeadAtomArgument2DRLConverter
@@ -208,10 +208,10 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
       return convert((SWRLIndividualArgument)argument);
     } else if (argument instanceof SWRLLiteralArgument) {
       return convert((SWRLLiteralArgument)argument);
-    } else if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
-      return convert((SQWRLCollectionVariableBuiltInArgument)argument);
     } else if (argument instanceof SWRLVariableBuiltInArgument) {
       return convert((SWRLVariableBuiltInArgument)argument);
+    } else if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
+      return convert((SQWRLCollectionVariableBuiltInArgument)argument);
     } else if (argument instanceof SWRLClassBuiltInArgument) {
       return convert((SWRLClassBuiltInArgument)argument);
     } else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {

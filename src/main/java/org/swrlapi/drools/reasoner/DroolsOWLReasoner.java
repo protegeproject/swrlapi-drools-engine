@@ -73,7 +73,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     .getPrefixedName();
 
   @NonNull private final DroolsOWLAxiomHandler droolsOWLAxiomHandler;
-  private final @NonNull DroolsObjectResolver droolsObjectResolver;
+  @NonNull private final DroolsObjectResolver droolsObjectResolver;
   @NonNull private final OWLObjectResolver owlObjectResolver;
 
   private boolean prepared = false;
