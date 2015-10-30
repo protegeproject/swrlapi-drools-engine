@@ -15,12 +15,14 @@
   <packaging>bundle</packaging>
   <name>Drools-based SWRL Rule Engine</name>
   <description>Drools implementation of SWRLAPI-based SWRL rule engine</description>
+  <url>https://github.com/protegeproject/swrlapi-drools-engine/wiki/SWRLAPI-Drools-Engine</url>
 
   <properties>
 
     <java.version>1.8</java.version>
-    <owlapi.version>4.1.0-RC2</owlapi.version> 
+
     <swrlapi.version>1.0.0</swrlapi.version>
+    <owlapi.version>4.1.1</owlapi.version> 
     <drools.version>6.2.0.Final</drools.version> 
     <commons.discovery.osgi.version>0.4_1</commons.discovery.osgi.version>
 
