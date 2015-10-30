@@ -357,7 +357,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     ensurePrepared();
-    OWLObjectPropertyExpression inv = objectPropertyExpression.getInverseProperty().getSimplified();
+    OWLObjectPropertyExpression inv = objectPropertyExpression.getInverseProperty();
 
     return getEquivalentObjectProperties(inv);
   }
