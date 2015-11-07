@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
@@ -19,15 +19,15 @@ import java.util.Set;
  *
  * @see org.swrlapi.sqwrl.SQWRLQuery
  */
-public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implements TargetRuleEngineSQWRLQueryConverter
+public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implements TargetRuleEngineSQWRLQueryConverter
 {
-  @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
-  @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
+  private final @NonNull DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
+  private final @NonNull DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
   @NonNull private final DroolsSWRLRuleEngine droolsEngine;
 
   public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
-    @NonNull DroolsOWLClassExpressionConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
+    @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
+    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
   {
     super(bridge);
 
@@ -105,7 +105,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
       try {
         for (SWRLAPIBuiltInAtom atom : query.getBuiltInAtomsFromBody(SQWRLNames.getCollectionMakeBuiltInNames())) {
           String collectionVariablePrefixedName = atom.getArgumentVariablePrefixedName(0);
-          drlPhase1Rule += "\n  sqwrlInferrer.infer(" + getDroolsSWRLVariableConverter()
+          drlPhase1Rule += "\n  sqwrlInferrer.infer(" + getDroolsSWRLVariable2NameConverter()
             .variablePrefixedName2DRL(collectionVariablePrefixedName) + "); ";
         }
       } catch (RuntimeException e) {
@@ -123,7 +123,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsConverterBase implement
         for (SWRLAPIBuiltInAtom atom : query.getBuiltInAtomsFromBody(SQWRLNames.getCollectionMakeBuiltInNames())) {
           String collectionVariablePrefixedName = atom.getArgumentVariablePrefixedName(0);
           if (!previouslyEncounteredVariablePrefixedNames.contains(collectionVariablePrefixedName)) {
-            String collection = getDroolsSWRLVariableConverter()
+            String collection = getDroolsSWRLVariable2NameConverter()
               .variablePrefixedName2DRL(collectionVariablePrefixedName);
             drlPhase2Rule += "\n " + collection + ":" + DroolsNames.SQWRL_COLLECTION_CLASS_NAME + "("
               + DroolsNames.QUERY_NAME_FIELD_NAME + "==\"" + queryName + "\", " + DroolsNames.COLLECTION_NAME_FIELD_NAME

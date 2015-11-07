@@ -11,6 +11,8 @@ package org.swrlapi.drools.owl.dataranges;
  */
 public interface DRVisitor
 {
+  void visit(D dr);
+
   void visit(DCO dr);
 
   void visit(DIO dr);
@@ -20,4 +22,6 @@ public interface DRVisitor
   void visit(DUO dr);
 
   void visit(DRR drr);
+
+  void visit(DTR dtr);
 }

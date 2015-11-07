@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.oo;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
@@ -6,28 +6,30 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLLiteralConverter;
-import org.swrlapi.drools.core.DroolsNames;
+import org.swrlapi.drools.owl.literals.L;
 
 /**
- * This class converts OWLAPI OWL literals to their Drools DRL representation.
+ * Class to convert an OWLAPI OWL literal to instances of the {@link L} class, which
+ * represents literals in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLLiteral
+ * @see L
  */
-public class DroolsOWLLiteral2DRLConverter extends TargetRuleEngineConverterBase implements
-TargetRuleEngineOWLLiteralConverter<String>
+public class DroolsOWLLiteral2LConverter extends DroolsOOConverterBase implements
+TargetRuleEngineOWLLiteralConverter<L>
 {
-  public DroolsOWLLiteral2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
+  public DroolsOWLLiteral2LConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
   @NonNull @Override
-  public String convert(@NonNull OWLLiteral literal)
+  public L convert(@NonNull OWLLiteral literal)
   {
+    String literalValue = literal.getLiteral();
     IRI datatypeIRI = literal.getDatatype().getIRI();
     String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatypeIRI);
 
-    return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \"" + datatypePrefixedName
-        + "\")";
+    return new L(literalValue, datatypePrefixedName);
   }
 }

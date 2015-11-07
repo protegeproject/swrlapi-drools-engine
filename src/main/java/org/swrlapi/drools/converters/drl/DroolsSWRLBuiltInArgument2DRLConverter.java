@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
@@ -23,7 +23,7 @@ import checkers.nullness.quals.NonNull;
  *
  * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
-public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase implements
+public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBase implements
 		TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
 	public DroolsSWRLBuiltInArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
@@ -42,9 +42,9 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsConverterBase 
 	public String convert(@NonNull SWRLVariableBuiltInArgument argument)
 	{
 		if (argument.isUnbound())
-			return "new UBA(\"" + getDroolsSWRLVariableConverter().swrlVariable2VariableName(argument) + "\")";
+			return "new UBA(\"" + getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument) + "\")";
 		else
-			return getDroolsSWRLVariableConverter().swrlVariable2DRL(argument);
+			return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(argument);
 	}
 
 	@NonNull

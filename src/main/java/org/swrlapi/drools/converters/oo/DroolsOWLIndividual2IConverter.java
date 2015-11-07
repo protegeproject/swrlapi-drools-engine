@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.oo;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
@@ -11,22 +11,21 @@ import org.swrlapi.drools.owl.individuals.I;
 /**
  * Converts an OWLAPI OWL individual to a Drools individual represented by the class
  * {@link I}.
- * 
+ *
  * @see org.semanticweb.owlapi.model.OWLIndividual
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @see org.semanticweb.owlapi.model.OWLNamedIndividual
  * @see I
  */
-public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBase implements
-TargetRuleEngineOWLIndividualConverter<I>
+public class DroolsOWLIndividual2IConverter extends DroolsOOConverterBase
+    implements TargetRuleEngineOWLIndividualConverter<I>
 {
   public DroolsOWLIndividual2IConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @NonNull @Override
-  public I convert(@NonNull OWLIndividual individual)
+  @NonNull @Override public I convert(@NonNull OWLIndividual individual)
   {
     if (individual.isNamed()) {
       IRI individualIRI = individual.asOWLNamedIndividual().getIRI();

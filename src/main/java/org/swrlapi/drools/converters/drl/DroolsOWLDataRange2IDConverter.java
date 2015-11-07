@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
@@ -30,15 +30,15 @@ import java.util.Set;
  *
  * @see org.semanticweb.owlapi.model.OWLDataRange
  */
-public class DroolsOWLDataRangeConverter extends TargetRuleEngineConverterBase implements
-TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
+public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBase
+    implements TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 {
   @NonNull private final Map<OWLDataRange, String> dataRange2IDMap;
   @NonNull private final Set<String> convertedDataRangeIDs;
   @NonNull private final Set<DR> dataRanges;
   private int dataRangeIndex;
 
-  public DroolsOWLDataRangeConverter(@NonNull SWRLRuleEngineBridge bridge)
+  public DroolsOWLDataRange2IDConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
 
@@ -53,8 +53,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return dataRange.accept(this);
   }
 
-  @NonNull @Override
-  public String convert(@NonNull OWLDatatype datatype)
+  @NonNull @Override public String convert(@NonNull OWLDatatype datatype)
   {
     String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
 
@@ -65,8 +64,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return datatypePrefixedName;
   }
 
-  @Override
-  public String convert(OWLDataOneOf dataRange)
+  @Override public String convert(OWLDataOneOf dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -79,8 +77,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return dataRangeID;
   }
 
-  @Override
-  public String convert(@NonNull OWLDataComplementOf dataRange)
+  @Override public String convert(@NonNull OWLDataComplementOf dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -92,8 +89,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return dataRangeID;
   }
 
-  @Override
-  public String convert(@NonNull OWLDataIntersectionOf dataRange)
+  @Override public String convert(@NonNull OWLDataIntersectionOf dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -105,8 +101,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return dataRangeID;
   }
 
-  @Override
-  public String convert(@NonNull OWLDataUnionOf dataRange)
+  @Override public String convert(@NonNull OWLDataUnionOf dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -118,8 +113,7 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return dataRangeID;
   }
 
-  @Override
-  public String convert(OWLDatatypeRestriction dataRange)
+  @Override public String convert(OWLDatatypeRestriction dataRange)
   {
     String dataRangeID = getOWLDataRangeID(dataRange);
 
@@ -131,38 +125,32 @@ TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
     return dataRangeID;
   }
 
-  @NonNull @Override
-  public String visit(@NonNull OWLDatatype owlDatatype)
+  @NonNull @Override public String visit(@NonNull OWLDatatype owlDatatype)
   {
     return convert(owlDatatype);
   }
 
-  @NonNull @Override
-  public String visit(OWLDataOneOf owlDataOneOf)
+  @NonNull @Override public String visit(OWLDataOneOf owlDataOneOf)
   {
     return convert(owlDataOneOf);
   }
 
-  @NonNull @Override
-  public String visit(@NonNull OWLDataComplementOf owlDataComplementOf)
+  @NonNull @Override public String visit(@NonNull OWLDataComplementOf owlDataComplementOf)
   {
     return convert(owlDataComplementOf);
   }
 
-  @NonNull @Override
-  public String visit(@NonNull OWLDataIntersectionOf owlDataIntersectionOf)
+  @NonNull @Override public String visit(@NonNull OWLDataIntersectionOf owlDataIntersectionOf)
   {
     return convert(owlDataIntersectionOf);
   }
 
-  @NonNull @Override
-  public String visit(@NonNull OWLDataUnionOf owlDataUnionOf)
+  @NonNull @Override public String visit(@NonNull OWLDataUnionOf owlDataUnionOf)
   {
     return convert(owlDataUnionOf);
   }
 
-  @NonNull @Override
-  public String visit(OWLDatatypeRestriction owlDatatypeRestriction)
+  @NonNull @Override public String visit(OWLDatatypeRestriction owlDatatypeRestriction)
   {
     return convert(owlDatatypeRestriction);
   }

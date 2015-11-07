@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
@@ -14,16 +14,15 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @see org.semanticweb.owlapi.model.OWLNamedIndividual
  */
-public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterBase implements
-TargetRuleEngineOWLIndividualConverter<String>
+public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterBase
+    implements TargetRuleEngineOWLIndividualConverter<String>
 {
   public DroolsOWLIndividual2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @NonNull @Override
-  public String convert(@NonNull OWLIndividual individual)
+  @NonNull @Override public String convert(@NonNull OWLIndividual individual)
   {
     if (individual.isNamed()) {
       IRI individualIRI = individual.asOWLNamedIndividual().getIRI();

@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -25,9 +25,9 @@ import java.util.Set;
  * This class converts OWLAPI SWRL atom and built-in arguments to DRL clauses for use in Drools rules.
  *
  * @see org.semanticweb.owlapi.model.SWRLArgument
- * @see org.swrlapi.drools.converters.DroolsSWRLHeadAtomArgument2DRLConverter
+ * @see DroolsSWRLHeadAtomArgument2DRLConverter
  */
-public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
+public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter<String>
 {
   public DroolsSWRLBodyAtomArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
@@ -37,7 +37,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 
   @NonNull @Override public String convert(@NonNull SWRLVariable variableArgument)
   {
-    return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
+    return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLLiteralArgument argument)
@@ -54,7 +54,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
 
   @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument variableArgument)
   {
-    return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
+    return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLClassBuiltInArgument classArgument)
@@ -118,26 +118,26 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsConverterBase
   @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument, String fieldName,
     @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
-    String variablePrefixedName = getDroolsSWRLVariableConverter().swrlVariable2VariablePrefixedName(argument);
+    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariablePrefixedName(argument);
 
     if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
-      return fieldName + "==" + getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
+      return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);
     } else {
       previouslyEncounteredVariablePrefixedNames.add(variablePrefixedName);
-      return getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
+      return getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
     }
   }
 
   @NonNull @Override public String convert(@NonNull SWRLVariable argument, String fieldName,
     @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
-    String variablePrefixedName = getDroolsSWRLVariableConverter().swrlVariable2VariablePrefixedName(argument);
+    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariablePrefixedName(argument);
 
     if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
-      return fieldName + "==" + getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
+      return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);
     } else {
       previouslyEncounteredVariablePrefixedNames.add(variablePrefixedName);
-      return getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
+      return getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
     }
   }
 

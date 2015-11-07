@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -26,9 +26,9 @@ import checkers.nullness.quals.NonNull;
  * This class converts OWLAPI SWRL head atom argument to DRL clauses for use in rules.
  *
  * @see org.semanticweb.owlapi.model.SWRLArgument
- * @see org.swrlapi.drools.converters.DroolsSWRLBodyAtomArgument2DRLConverter
+ * @see DroolsSWRLBodyAtomArgument2DRLConverter
  */
-public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase implements
+public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterBase implements
 		TargetRuleEngineSWRLHeadAtomArgumentConverter<String>
 {
 	public DroolsSWRLHeadAtomArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
@@ -40,7 +40,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(@NonNull SWRLVariable variableArgument)
 	{
-		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
+		return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
 	}
 
 	@NonNull
@@ -72,7 +72,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsConverterBase
 	@Override
 	public String convert(@NonNull SWRLVariableBuiltInArgument variableArgument)
 	{
-		return getDroolsSWRLVariableConverter().swrlVariable2DRL(variableArgument);
+		return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
 	}
 
 	@NonNull

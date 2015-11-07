@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.IRI;
@@ -18,12 +18,13 @@ import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyExpression
  * @see org.semanticweb.owlapi.model.OWLDataPropertyExpression
  */
-public class DroolsOWLPropertyExpressionConverter extends DroolsConverterBase implements
-TargetRuleEngineOWLPropertyExpressionConverter<String>
+public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverterBase
+    implements TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
   private final @NonNull DroolsObjectResolver resolver;
 
-  public DroolsOWLPropertyExpressionConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsObjectResolver resolver)
+  public DroolsOWLPropertyExpression2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+      @NonNull DroolsObjectResolver resolver)
   {
     super(bridge);
 
@@ -37,15 +38,13 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
     this.resolver.reset();
   }
 
-  @NonNull @Override
-  public String convert(@NonNull OWLObjectPropertyExpression propertyExpression)
+  @NonNull @Override public String convert(@NonNull OWLObjectPropertyExpression propertyExpression)
   {
     if (!getOWLObjectResolver().recordsOWLObjectPropertyExpression(propertyExpression)) {
 
       if (propertyExpression.isAnonymous()) {
         String propertyExpressionID = this.resolver.generateOPEID();
-        getOWLObjectResolver().recordOWLObjectPropertyExpression(propertyExpressionID,
-            propertyExpression);
+        getOWLObjectResolver().recordOWLObjectPropertyExpression(propertyExpressionID, propertyExpression);
 
         return propertyExpressionID;
       } else {
@@ -63,8 +62,7 @@ TargetRuleEngineOWLPropertyExpressionConverter<String>
       return getOWLObjectResolver().resolveOWLObjectPropertyExpression(propertyExpression);
   }
 
-  @NonNull @Override
-  public String convert(@NonNull OWLDataPropertyExpression propertyExpression)
+  @NonNull @Override public String convert(@NonNull OWLDataPropertyExpression propertyExpression)
   {
     if (!getOWLObjectResolver().recordsOWLDataPropertyExpression(propertyExpression)) {
 

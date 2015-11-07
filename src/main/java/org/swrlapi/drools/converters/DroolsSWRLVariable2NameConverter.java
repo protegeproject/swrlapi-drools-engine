@@ -8,9 +8,9 @@ import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 
 import java.util.Set;
 
-public class DroolsSWRLVariableConverter extends TargetRuleEngineConverterBase
+public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterBase
 {
-  public DroolsSWRLVariableConverter(@NonNull SWRLRuleEngineBridge bridge)
+  public DroolsSWRLVariable2NameConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }

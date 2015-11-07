@@ -13,10 +13,10 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
-import org.swrlapi.drools.converters.DroolsOWLAxiomConverter;
-import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
-import org.swrlapi.drools.converters.DroolsOWLPropertyExpressionConverter;
-import org.swrlapi.drools.converters.DroolsSQWRLQuery2DRLConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLAxiom2AConverter;
+import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
+import org.swrlapi.drools.converters.drl.DroolsOWLPropertyExpression2DRLConverter;
+import org.swrlapi.drools.converters.drl.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
@@ -47,7 +47,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 {
   @NonNull private final SWRLRuleEngineBridge bridge;
 
-  @NonNull private final DroolsOWLAxiomConverter axiomConverter;
+  private final @NonNull DroolsOWLAxiom2AConverter axiomConverter;
   @NonNull private final DroolsSQWRLQuery2DRLConverter queryConverter;
   @NonNull private final DroolsOWLAxiomExtractor axiomExtractor;
   @NonNull private final DroolsSWRLBuiltInInvoker builtInInvoker;
@@ -78,11 +78,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.bridge = bridge;
 
     DroolsObjectResolver resolver = new DroolsObjectResolver();
-    DroolsOWLPropertyExpressionConverter propertyExpressionConverter = new DroolsOWLPropertyExpressionConverter(bridge,
+    DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter = new DroolsOWLPropertyExpression2DRLConverter(bridge,
       resolver);
-    DroolsOWLClassExpressionConverter classExpressionConverter = new DroolsOWLClassExpressionConverter(bridge, resolver,
+    DroolsOWLClassExpression2DRLConverter classExpressionConverter = new DroolsOWLClassExpression2DRLConverter(bridge, resolver,
       propertyExpressionConverter);
-    this.axiomConverter = new DroolsOWLAxiomConverter(bridge, this, classExpressionConverter,
+    this.axiomConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpressionConverter,
       propertyExpressionConverter);
     this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter,
       propertyExpressionConverter);
@@ -391,7 +391,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     return this.bridge;
   }
 
-  @NonNull private DroolsOWLAxiomConverter getDroolsOWLAxiomConverter()
+  private @NonNull DroolsOWLAxiom2AConverter getDroolsOWLAxiomConverter()
   {
     return this.axiomConverter;
   }

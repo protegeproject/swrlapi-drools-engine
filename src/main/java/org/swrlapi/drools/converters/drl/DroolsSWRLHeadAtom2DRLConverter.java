@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
@@ -30,25 +30,21 @@ import checkers.nullness.quals.NonNull;
  * declared because SWRL demands this.
  *
  * @see org.semanticweb.owlapi.model.SWRLAtom
- * @see org.swrlapi.drools.converters.DroolsSWRLBodyAtom2DRLConverter
+ * @see DroolsSWRLBodyAtom2DRLConverter
  */
-public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase implements
+public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase implements
 		TargetRuleEngineSWRLHeadAtomConverter<String>
 {
-	@NonNull
-	private final DroolsSWRLHeadAtomArgument2DRLConverter headAtomArgumentConverter;
-	@NonNull
-	private final DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
-	@NonNull
-	private final DroolsOWLPropertyExpressionConverter propertyExpressionConverter;
-	@NonNull
-	private final DroolsOWLClassExpressionConverter classExpressionConverter;
+	private final @NonNull DroolsSWRLHeadAtomArgument2DRLConverter headAtomArgumentConverter;
+	private final @NonNull DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
+	private final @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter;
+	private final @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter;
 
 	private int inferredAxiomVariableIndex, builtInIndexInHead;
 
 	public DroolsSWRLHeadAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-			@NonNull DroolsOWLClassExpressionConverter classExpressionConverter,
-			@NonNull DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
+			@NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
+			@NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
 	{
 		super(bridge);
 
@@ -238,14 +234,12 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsConverterBase impleme
 		return this.builtInArgumentConverter;
 	}
 
-	@NonNull
-	private DroolsOWLPropertyExpressionConverter getOWLPropertyExpressionConverter()
+	private @NonNull DroolsOWLPropertyExpression2DRLConverter getOWLPropertyExpressionConverter()
 	{
 		return this.propertyExpressionConverter;
 	}
 
-	@NonNull
-	private DroolsOWLClassExpressionConverter getOWLClassExpressionConverter()
+	private @NonNull DroolsOWLClassExpression2DRLConverter getOWLClassExpressionConverter()
 	{
 		return this.classExpressionConverter;
 	}

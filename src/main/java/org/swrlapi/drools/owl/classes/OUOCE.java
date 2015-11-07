@@ -1,12 +1,12 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
-import org.swrlapi.drools.converters.DroolsOWLClassExpressionConverter;
+import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 /**
  * This class represents an OWL object union of class expression in Drools. Each element of the union class list is
- * broken up by the {@link DroolsOWLClassExpressionConverter} class. These are linked together in the Drools OWL 2 RL
+ * broken up by the {@link DroolsOWLClassExpression2DRLConverter} class. These are linked together in the Drools OWL 2 RL
  * rules using the class expression ID.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectUnionOf

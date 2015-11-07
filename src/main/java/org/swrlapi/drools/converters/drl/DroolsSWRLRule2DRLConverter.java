@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.drl;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
@@ -14,16 +14,16 @@ import java.util.Set;
  *
  * @see org.swrlapi.core.SWRLAPIRule
  */
-public class DroolsSWRLRuleConverter extends DroolsConverterBase
+public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 {
-  @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
-  @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
+  private final @NonNull DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
+  private final @NonNull DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
 
-  private final DroolsSWRLRuleEngine droolsEngine;
+  @NonNull private final DroolsSWRLRuleEngine droolsEngine;
 
-  public DroolsSWRLRuleConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
-    @NonNull DroolsOWLClassExpressionConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpressionConverter propertyExpressionConverter)
+  public DroolsSWRLRule2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
+      @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
+      @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
   {
     super(bridge);
 
@@ -53,7 +53,7 @@ public class DroolsSWRLRuleConverter extends DroolsConverterBase
     // Old code to reference these variables before use or got null pointer error in Drools when invoking built-ins.
     // Seems to be unnecessary now.
     // for (String variablePrefixedName : variablePrefixedNames)
-    // drlRule += getDroolsSWRLVariableConverter().variablePrefixedName2DRL(variablePrefixedName);
+    // drlRule += getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);
 
     for (SWRLAtom atom : rule.getHeadAtoms())
       drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";

@@ -3,7 +3,7 @@ package org.swrlapi.drools.core;
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
-import org.swrlapi.drools.converters.DroolsSWRLBuiltInArgument2BAConverter;
+import org.swrlapi.drools.converters.oo.DroolsSWRLBuiltInArgument2BAConverter;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.sqwrl.VPATH;
 import org.swrlapi.drools.swrl.BA;
