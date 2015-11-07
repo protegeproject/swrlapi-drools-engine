@@ -17,7 +17,7 @@ import org.swrlapi.drools.owl.individuals.I;
  * @see org.semanticweb.owlapi.model.OWLNamedIndividual
  * @see I
  */
-public class DroolsOWLIndividual2IConverter extends DroolsOOConverterBase
+public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBase
     implements TargetRuleEngineOWLIndividualConverter<I>
 {
   public DroolsOWLIndividual2IConverter(@NonNull SWRLRuleEngineBridge bridge)

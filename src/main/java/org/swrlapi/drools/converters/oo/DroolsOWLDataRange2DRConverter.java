@@ -27,7 +27,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  * @see org.semanticweb.owlapi.model.OWLDataRange
  * @see DR
  */
-public class DroolsOWLDataRange2DRConverter extends DroolsOOConverterBase
+public class DroolsOWLDataRange2DRConverter extends TargetRuleEngineConverterBase
     implements TargetRuleEngineOWLDataRangeConverter<DR>, OWLDataRangeVisitorEx<DR>
 {
   public DroolsOWLDataRange2DRConverter(@NonNull SWRLRuleEngineBridge bridge)

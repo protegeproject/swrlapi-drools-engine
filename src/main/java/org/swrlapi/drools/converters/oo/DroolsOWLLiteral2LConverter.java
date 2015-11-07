@@ -15,16 +15,15 @@ import org.swrlapi.drools.owl.literals.L;
  * @see org.semanticweb.owlapi.model.OWLLiteral
  * @see L
  */
-public class DroolsOWLLiteral2LConverter extends DroolsOOConverterBase implements
-TargetRuleEngineOWLLiteralConverter<L>
+public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase
+    implements TargetRuleEngineOWLLiteralConverter<L>
 {
   public DroolsOWLLiteral2LConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @NonNull @Override
-  public L convert(@NonNull OWLLiteral literal)
+  @NonNull @Override public L convert(@NonNull OWLLiteral literal)
   {
     String literalValue = literal.getLiteral();
     IRI datatypeIRI = literal.getDatatype().getIRI();

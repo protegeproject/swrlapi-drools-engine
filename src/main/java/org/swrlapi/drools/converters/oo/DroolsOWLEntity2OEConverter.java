@@ -24,7 +24,8 @@ import org.swrlapi.drools.owl.properties.OP;
  * @see org.semanticweb.owlapi.model.OWLEntity
  * @see OE
  */
-public class DroolsOWLEntity2OEConverter extends DroolsOOConverterBase implements TargetRuleEngineOWLEntityConverter<OE>
+public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase
+    implements TargetRuleEngineOWLEntityConverter<OE>
 {
   public DroolsOWLEntity2OEConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
