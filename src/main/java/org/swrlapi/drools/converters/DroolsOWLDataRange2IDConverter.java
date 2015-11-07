@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters.drl;
+package org.swrlapi.drools.converters;
 
 import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;

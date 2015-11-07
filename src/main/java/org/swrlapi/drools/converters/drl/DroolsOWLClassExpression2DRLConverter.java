@@ -57,7 +57,7 @@ import java.util.Set;
  * @see org.swrlapi.drools.owl.classes.CE
  */
 public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBase
-  implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
+    implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
   private final @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter;
   private final @NonNull DroolsObjectResolver droolsObjectResolver;
@@ -327,7 +327,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
       String fillerIndividualID = getIRIResolver() // TODO Temporary fix - this individual may not be named
-        .iri2PrefixedName(classExpression.getFiller().asOWLNamedIndividual().getIRI());
+          .iri2PrefixedName(classExpression.getFiller().asOWLNamedIndividual().getIRI());
       OHVCE ohvce = new OHVCE(classExpressionID, propertyID, fillerIndividualID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
@@ -465,7 +465,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     return convert(owlDataMaxCardinality);
   }
 
-  private @NonNull DroolsOWLPropertyExpression2DRLConverter getOWLPropertyExpressionConverter()
+  @NonNull private DroolsOWLPropertyExpression2DRLConverter getOWLPropertyExpressionConverter()
   {
     return this.propertyExpressionConverter;
   }
