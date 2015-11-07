@@ -53,7 +53,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends DroolsOOConverterBase
 
   @NonNull @Override public VA convert(@NonNull SWRLVariable argument)
   {
-    String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument);
+    String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument);
     return new VA(variableName);
   }
 
@@ -121,7 +121,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends DroolsOOConverterBase
   @NonNull @Override public UBA convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
-      return new UBA(getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument));
+      return new UBA(getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument));
     else
       throw new TargetSWRLRuleEngineInternalException("expecting unbound argument, got bound argument " + argument);
   }

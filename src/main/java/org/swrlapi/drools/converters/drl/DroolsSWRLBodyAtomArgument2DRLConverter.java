@@ -118,7 +118,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument, String fieldName,
     @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
-    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariablePrefixedName(argument);
+    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2PrefixedName(argument);
 
     if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
       return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);
@@ -131,7 +131,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   @NonNull @Override public String convert(@NonNull SWRLVariable argument, String fieldName,
     @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
   {
-    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariablePrefixedName(argument);
+    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2PrefixedName(argument);
 
     if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
       return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);

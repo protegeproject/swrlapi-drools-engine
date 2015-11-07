@@ -1,7 +1,6 @@
 package org.swrlapi.drools.converters.drl;
 
-import java.util.Set;
-
+import checkers.nullness.quals.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -24,7 +23,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
-import checkers.nullness.quals.NonNull;
+import java.util.Set;
 
 /**
  * This class converts OWLAPI SWRL body atoms to a their DRL representation for use in rules.
@@ -184,7 +183,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 		int argumentNumber = 1;
 		for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
 			if (argument.isVariable()) {
-				String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariablePrefixedName(
+				String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2PrefixedName(
 						argument.asVariable());
 				if (variableArgumentEncountered)
 					representation += ", ";
@@ -224,7 +223,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 			if (!isFirst)
 				representation += ", ";
 			if (argument.isVariable())
-				representation += "\"" + getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument.asVariable())
+				representation += "\"" + getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(
+						argument.asVariable())
 						+ "\"";
 			else
 				representation += "\"\"";

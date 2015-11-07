@@ -23,38 +23,18 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
     return variablePrefixedName2DRL(variablePrefixedName);
   }
 
-  @NonNull public String swrlVariable2VariableName(@NonNull SWRLVariable variable)
+  @NonNull public String swrlVariable2DRLVariableName(@NonNull SWRLVariable variable)
   {
     IRI variableIRI = variable.getIRI();
     String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
 
-    return variablePrefixedName2VariableName(variablePrefixedName);
+    return variablePrefixedName2DRLVariableName(variablePrefixedName);
   }
 
-  @NonNull public String swrlVariable2VariablePrefixedName(@NonNull SWRLVariable variable)
+  @NonNull public String swrlVariable2PrefixedName(@NonNull SWRLVariable variable)
   {
     IRI variableIRI = variable.getIRI();
-
     return getIRIResolver().iri2PrefixedName(variableIRI);
-  }
-
-  @NonNull public String variableIRI2DRL(@NonNull IRI variableIRI)
-  {
-    String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
-
-    return variablePrefixedName2DRL(variablePrefixedName);
-  }
-
-  @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName)
-  {
-    String variableName = variablePrefixedName2VariableName(variablePrefixedName);
-
-    return variableName2DRL(variableName);
-  }
-
-  @NonNull public String variableName2DRL(@NonNull String variableName)
-  {
-    return "$" + variableName;
   }
 
   @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName, String fieldName,
@@ -68,8 +48,20 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
     }
   }
 
-  @NonNull public String variablePrefixedName2VariableName(@NonNull String variablePrefixedName)
+  @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName)
+  {
+    String variableName = variablePrefixedName2DRLVariableName(variablePrefixedName);
+
+    return variableName2DRL(variableName);
+  }
+
+  @NonNull private String variablePrefixedName2DRLVariableName(@NonNull String variablePrefixedName)
   {
     return variablePrefixedName.startsWith(":") ? variablePrefixedName.substring(1) : variablePrefixedName;
+  }
+
+  @NonNull private String variableName2DRL(@NonNull String variableName)
+  {
+    return "$" + variableName;
   }
 }
