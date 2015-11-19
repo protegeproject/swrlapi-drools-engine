@@ -24,10 +24,8 @@
     <swrlapi.version>1.0.0</swrlapi.version>
     <owlapi.version>4.1.1</owlapi.version> 
     <drools.version>6.2.0.Final</drools.version> 
-    <commons.discovery.osgi.version>0.4_1</commons.discovery.osgi.version>
 
     <checker.framework.version>1.7.5</checker.framework.version>
-    <slf4j.version>1.6.1</slf4j.version>
     <junit.version>4.11</junit.version>
 
     <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
@@ -97,12 +95,6 @@
 
     <!-- Start of Drools dependencies -->
 
-    <dependency>
-      <groupId>org.drools</groupId>
-      <artifactId>drools-osgi-integration</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
     <!-- The SWRLAPI-based Drools engine uses the Drools 5 API.  -->
     <!-- The knowledge-api provides an adapter from the Drools 5 -->
     <!-- API to the Drools 6 KIE implementation.                 -->
@@ -114,14 +106,6 @@
 
     <!-- End of Drools dependencies -->
 
-    <!-- OSGi Bundle for Apache Commons Discovery 0.4  -->
-    <dependency>
-      <groupId>org.apache.geronimo.bundles</groupId>
-      <artifactId>commons-discovery</artifactId>
-      <version>${commons.discovery.osgi.version}</version>
-      <scope>test</scope>
-    </dependency>
-
     <dependency>
       <groupId>edu.washington.cs.types.checker</groupId>
       <artifactId>checker-framework</artifactId>
@@ -132,13 +116,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
 
