@@ -93,6 +93,8 @@ public class DroolsObjectResolver
     return this.droolsOPEResolver.getOPEs();
   }
 
+  @NonNull public OPE resolveOPE(@NonNull String pid) { return this.droolsOPEResolver.resolveOPE(pid); }
+
   @NonNull public String generateOPEID()
   {
     return this.droolsOPEResolver.generateOPEID();

@@ -28,7 +28,7 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
     IRI variableIRI = variable.getIRI();
     String variablePrefixedName = getIRIResolver().iri2PrefixedName(variableIRI);
 
-    return variablePrefixedName2DRLVariableName(variablePrefixedName);
+    return variablePrefixedName2VariableName(variablePrefixedName);
   }
 
   @NonNull public String swrlVariable2PrefixedName(@NonNull SWRLVariable variable)
@@ -50,12 +50,12 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
 
   @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName)
   {
-    String variableName = variablePrefixedName2DRLVariableName(variablePrefixedName);
+    String variableName = variablePrefixedName2VariableName(variablePrefixedName);
 
     return variableName2DRL(variableName);
   }
 
-  @NonNull private String variablePrefixedName2DRLVariableName(@NonNull String variablePrefixedName)
+  @NonNull private String variablePrefixedName2VariableName(@NonNull String variablePrefixedName)
   {
     return variablePrefixedName.startsWith(":") ? variablePrefixedName.substring(1) : variablePrefixedName;
   }
