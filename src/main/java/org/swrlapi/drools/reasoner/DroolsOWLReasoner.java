@@ -630,37 +630,40 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return this.owlObjectResolver.resolveOWLDataProperty(propertyID);
   }
 
+  @Nullable private C resolveC(OWLClass cls)
+  {
+    String classID = this.owlObjectResolver.resolveOWLClass2ID(cls);
+    return this.droolsObjectResolver.resolveC(classID);
+  }
+
   @NonNull private CE resolveCE(OWLClassExpression classExpression)
   {
-    String classExpressionID = this.owlObjectResolver.resolveOWLClassExpression(classExpression);
+    String classExpressionID = this.owlObjectResolver.resolveOWLClassExpression2ID(classExpression);
     return this.droolsObjectResolver.resolveCE(classExpressionID);
+  }
+
+  @Nullable private I resolveI(OWLNamedIndividual namedIndividual)
+  {
+    String indivdualID = this.owlObjectResolver.resolveOWLNamedIndividual2ID(namedIndividual);
+    return this.droolsObjectResolver.resolveI(indivdualID);
   }
 
   @NonNull private OPE resolveOPE(OWLObjectPropertyExpression objectPropertyExpression)
   {
-    String propertyID = this.owlObjectResolver.resolveOWLObjectPropertyExpression(objectPropertyExpression);
+    String propertyID = this.owlObjectResolver.resolveOWLObjectPropertyExpression2ID(objectPropertyExpression);
     return this.droolsObjectResolver.resolveOPE(propertyID);
   }
 
   @Nullable private DP resolveDP(OWLDataProperty dataProperty)
   {
-    return null; // TODO implement
+    String propertyID = this.owlObjectResolver.resolveOWLDataProperty2ID(dataProperty);
+    return this.droolsObjectResolver.resolveDP(propertyID);
   }
 
   @Nullable private DPE resolveDPE(OWLDataPropertyExpression dataPropertyExpression)
   {
-    String propertyID = this.owlObjectResolver.resolveOWLDataPropertyExpression(dataPropertyExpression);
+    String propertyID = this.owlObjectResolver.resolveOWLDataPropertyExpression2ID(dataPropertyExpression);
     return this.droolsObjectResolver.resolveDPE(propertyID);
-  }
-
-  @Nullable private C resolveC(OWLClass owlClass)
-  {
-    return null; // TODO implement resolveC
-  }
-
-  @Nullable private I resolveI(OWLNamedIndividual owlNamedIndividual)
-  {
-    return null; // TODO implement resolveI
   }
 
   @Nullable private OWLLiteral l2OWLLiteral(L l)

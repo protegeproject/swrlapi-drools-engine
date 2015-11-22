@@ -2,9 +2,11 @@ package org.swrlapi.drools.core.resolvers;
 
 import checkers.nullness.quals.NonNull;
 import org.swrlapi.core.OWLObjectResolver;
-import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.classes.C;
+import org.swrlapi.drools.owl.classes.CE;
+import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.DPE;
+import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.drools.owl.properties.OPE;
 
 import java.util.Set;
@@ -93,6 +95,8 @@ public class DroolsObjectResolver
     return this.droolsOPEResolver.getOPEs();
   }
 
+  @NonNull public  OP resolveOP(@NonNull String pid) { return this.droolsOPResolver.resolveOP(pid); }
+
   @NonNull public OPE resolveOPE(@NonNull String pid) { return this.droolsOPEResolver.resolveOPE(pid); }
 
   @NonNull public String generateOPEID()
@@ -104,6 +108,8 @@ public class DroolsObjectResolver
   {
     return this.droolsDPEResolver.recordsDPEID(peid);
   }
+
+  @NonNull public DP resolveDP(@NonNull String pid) { return this.droolsDPResolver.resolveDP(pid); }
 
   @NonNull public DPE resolveDPE(@NonNull String pid) { return this.droolsDPEResolver.resolveDPE(pid); }
 

@@ -59,7 +59,7 @@ public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverter
         return prefixedName;
       }
     } else
-      return getOWLObjectResolver().resolveOWLObjectPropertyExpression(propertyExpression);
+      return getOWLObjectResolver().resolveOWLObjectPropertyExpression2ID(propertyExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataPropertyExpression propertyExpression)
@@ -83,6 +83,6 @@ public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverter
         return prefixedName;
       }
     } else
-      return getOWLObjectResolver().resolveOWLDataPropertyExpression(propertyExpression);
+      return getOWLObjectResolver().resolveOWLDataPropertyExpression2ID(propertyExpression);
   }
 }

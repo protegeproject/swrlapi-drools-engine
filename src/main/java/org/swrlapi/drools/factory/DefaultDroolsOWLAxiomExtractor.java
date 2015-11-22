@@ -313,8 +313,10 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLDisjointObjectPropertiesAxiom extract(@NonNull DJOPA djopa)
   {
-    OWLObjectPropertyExpression property1 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(djopa.getp1id());
-    OWLObjectPropertyExpression property2 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(djopa.getp2id());
+    OWLObjectPropertyExpression property1 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
+        djopa.getp1id());
+    OWLObjectPropertyExpression property2 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
+        djopa.getp2id());
     Set<OWLObjectPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
     properties.add(property2);

@@ -85,7 +85,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
     if (!this.droolsObjectResolver.recordsCEID(classPrefixedName)) {
       C c = new C(classPrefixedName);
-      getOWLObjectResolver().recordOWLClassExpression(classPrefixedName, cls);
+      getOWLObjectResolver().recordOWLClass(classPrefixedName, cls);
       this.droolsObjectResolver.recordCE(c);
     }
     return classPrefixedName;
@@ -111,7 +111,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       }
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectIntersectionOf classExpression)
@@ -127,7 +127,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       }
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectUnionOf classExpression)
@@ -143,7 +143,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       }
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectComplementOf classExpression)
@@ -158,7 +158,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectSomeValuesFrom classExpression)
@@ -174,7 +174,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataSomeValuesFrom classExpression)
@@ -190,7 +190,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataExactCardinality classExpression)
@@ -206,7 +206,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectExactCardinality classExpression)
@@ -222,7 +222,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataMinCardinality classExpression)
@@ -238,7 +238,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectMinCardinality classExpression)
@@ -254,7 +254,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataMaxCardinality classExpression)
@@ -278,7 +278,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       }
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectMaxCardinality classExpression)
@@ -302,7 +302,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       }
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataHasValue classExpression)
@@ -318,7 +318,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectHasValue classExpression)
@@ -335,7 +335,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectAllValuesFrom classExpression)
@@ -351,7 +351,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataAllValuesFrom classExpression)
@@ -367,7 +367,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression(classExpression);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
   @NonNull public Set<CE> getCEs()
