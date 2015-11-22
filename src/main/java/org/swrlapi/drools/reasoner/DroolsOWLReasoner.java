@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -48,6 +49,7 @@ import org.swrlapi.drools.owl.literals.L;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.DPE;
 import org.swrlapi.drools.owl.properties.OPE;
+import org.swrlapi.factory.OWLLiteralFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -76,19 +78,22 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   @NonNull private final DroolsOWLAxiomHandler droolsOWLAxiomHandler;
   @NonNull private final DroolsObjectResolver droolsObjectResolver;
   @NonNull private final OWLObjectResolver owlObjectResolver;
+  @NonNull private final OWLLiteralFactory owlLiteralFactory;
 
   private boolean prepared = false;
   private boolean interrupted = false;
 
   public DroolsOWLReasoner(@NonNull OWLOntology rootOntology, @NonNull OWLReasonerConfiguration configuration,
-    @NonNull BufferingMode bufferingMode, @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler,
-    @NonNull OWLObjectResolver owlObjectResolver, @NonNull DroolsObjectResolver droolsObjectResolver)
+    @NonNull BufferingMode bufferingMode, @NonNull OWLObjectResolver owlObjectResolver,
+    @NonNull OWLLiteralFactory owlLiteralFactory, @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler,
+    @NonNull DroolsObjectResolver droolsObjectResolver)
   {
     super(rootOntology, configuration, bufferingMode);
 
     this.droolsOWLAxiomHandler = droolsOWLAxiomHandler;
     this.droolsObjectResolver = droolsObjectResolver;
     this.owlObjectResolver = owlObjectResolver;
+    this.owlLiteralFactory = owlLiteralFactory;
   }
 
   @NonNull @Override public String getReasonerName()
@@ -191,8 +196,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return new OWLClassNode(classes);
   }
 
-  @NonNull @Override public NodeSet<OWLClass> getSubClasses(@NonNull OWLClassExpression classExpression,
-    boolean direct)
+  @NonNull @Override public NodeSet<OWLClass> getSubClasses(@NonNull OWLClassExpression classExpression, boolean direct)
     throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException, InconsistentOntologyException,
     ClassExpressionNotInProfileException
   {
@@ -416,8 +420,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return new OWLDataPropertyNode(properties);
   }
 
-  @NonNull @Override public NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty dataProperty,
-    boolean direct)
+  @NonNull @Override public NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty dataProperty, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLDataPropertyNodeSet ns = new OWLDataPropertyNodeSet();
@@ -642,10 +645,10 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return this.droolsObjectResolver.resolveCE(classExpressionID);
   }
 
-  @Nullable private I resolveI(OWLNamedIndividual namedIndividual)
+  @NonNull private I resolveI(OWLNamedIndividual namedIndividual)
   {
-    String indivdualID = this.owlObjectResolver.resolveOWLNamedIndividual2ID(namedIndividual);
-    return this.droolsObjectResolver.resolveI(indivdualID);
+    String individualID = this.owlObjectResolver.resolveOWLNamedIndividual2ID(namedIndividual);
+    return this.droolsObjectResolver.resolveI(individualID);
   }
 
   @NonNull private OPE resolveOPE(OWLObjectPropertyExpression objectPropertyExpression)
@@ -654,22 +657,25 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return this.droolsObjectResolver.resolveOPE(propertyID);
   }
 
-  @Nullable private DP resolveDP(OWLDataProperty dataProperty)
+  @NonNull private DP resolveDP(OWLDataProperty dataProperty)
   {
     String propertyID = this.owlObjectResolver.resolveOWLDataProperty2ID(dataProperty);
     return this.droolsObjectResolver.resolveDP(propertyID);
   }
 
-  @Nullable private DPE resolveDPE(OWLDataPropertyExpression dataPropertyExpression)
+  @NonNull private DPE resolveDPE(OWLDataPropertyExpression dataPropertyExpression)
   {
     String propertyID = this.owlObjectResolver.resolveOWLDataPropertyExpression2ID(dataPropertyExpression);
     return this.droolsObjectResolver.resolveDPE(propertyID);
   }
 
-  @Nullable private OWLLiteral l2OWLLiteral(L l)
+  @NonNull private OWLLiteral l2OWLLiteral(L l)
   {
-    return null; // TODO implement l2OWLLiteral
+    OWLDatatype datatype = this.owlObjectResolver.resolveOWLDatatype(l.datatypeName);
+    return getOWLLiteralFactory().getOWLLiteral(l.getValue(), datatype);
   }
+
+  private OWLLiteralFactory getOWLLiteralFactory() { return this.owlLiteralFactory; }
 
   private DroolsOWLAxiomHandler getDroolsOWLAxiomHandler()
   {

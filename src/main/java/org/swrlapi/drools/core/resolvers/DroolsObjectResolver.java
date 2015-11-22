@@ -4,6 +4,8 @@ import checkers.nullness.quals.NonNull;
 import org.swrlapi.core.OWLObjectResolver;
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
+import org.swrlapi.drools.owl.dataranges.D;
+import org.swrlapi.drools.owl.individuals.I;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.DPE;
 import org.swrlapi.drools.owl.properties.OP;
@@ -12,9 +14,8 @@ import org.swrlapi.drools.owl.properties.OPE;
 import java.util.Set;
 
 /**
- * Drools does not create class or property expressions but does generate OWL axioms that use them. This class
- * allows Drools to record and resolve class and property expressions using a unique identifier, obviating the need
- * to recreate new expressions.
+ * This class allows Drools to record and its representations of OWLAPI objects using a unique identifier, obviating
+ * the need to recreate new objects.
  *
  * @see OWLObjectResolver
  */
@@ -22,23 +23,35 @@ public class DroolsObjectResolver
 {
   @NonNull private final DroolsCResolver droolsCResolver;
   @NonNull private final DroolsCEResolver droolsCEResolver;
+  @NonNull private final DroolsIResolver droolsIResolver;
   @NonNull private final DroolsOPEResolver droolsOPEResolver;
+  @NonNull private final DroolsOPResolver droolsOPResolver;
   @NonNull private final DroolsDPEResolver droolsDPEResolver;
+  @NonNull private final DroolsDPResolver droolsDPResolver;
+  @NonNull private final DroolsDResolver droolsDResolver;
 
   public DroolsObjectResolver()
   {
     this.droolsCResolver = new DroolsCResolver();
     this.droolsCEResolver = new DroolsCEResolver();
+    this.droolsIResolver = new DroolsIResolver();
     this.droolsOPEResolver = new DroolsOPEResolver();
+    this.droolsOPResolver = new DroolsOPResolver();
     this.droolsDPEResolver = new DroolsDPEResolver();
+    this.droolsDPResolver = new DroolsDPResolver();
+    this.droolsDResolver = new DroolsDResolver();
   }
 
   public void reset()
   {
     this.droolsCResolver.reset();
     this.droolsCEResolver.reset();
+    this.droolsIResolver.reset();
     this.droolsOPEResolver.reset();
+    this.droolsOPResolver.reset();
     this.droolsDPEResolver.reset();
+    this.droolsDPResolver.reset();
+    this.droolsDResolver.reset();
   }
 
   public boolean recordsCID(@NonNull String cid)
@@ -79,6 +92,8 @@ public class DroolsObjectResolver
   {
     return this.droolsCEResolver.generateCEID();
   }
+
+  public @NonNull I resolveI(@NonNull String id) { return this.droolsIResolver.resolveI(id); }
 
   public boolean recordsOPEID(@NonNull String peid)
   {
@@ -127,4 +142,6 @@ public class DroolsObjectResolver
   {
     return this.droolsDPEResolver.generateDPEID();
   }
+
+  @NonNull public D resolveD(@NonNull String did) { return this.droolsDResolver.resolveD(did); }
 }
