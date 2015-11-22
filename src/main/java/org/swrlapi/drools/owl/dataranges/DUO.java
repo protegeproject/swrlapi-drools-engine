@@ -4,6 +4,8 @@ import checkers.nullness.quals.NonNull;
 
 import java.util.Set;
 
+// TODO Data union of data range not implemented
+
 /**
  * Class representing an OWL data union of data range
  *

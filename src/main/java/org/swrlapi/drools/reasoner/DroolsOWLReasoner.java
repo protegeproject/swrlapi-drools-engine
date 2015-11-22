@@ -644,7 +644,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @Nullable private DP resolveDP(OWLDataProperty dataProperty)
   {
-    // TODO implement 
+    return null; // TODO implement
   }
 
   @Nullable private DPE resolveDPE(OWLDataPropertyExpression dataPropertyExpression)

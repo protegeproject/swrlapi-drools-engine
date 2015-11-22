@@ -403,13 +403,13 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   @NonNull @Override
   public Set<String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct)
   {
-    return this.objectPropertyRanges.get(propertyID); // TODO direct?
+    return this.objectPropertyRanges.get(propertyID); // TODO getObjectPropertyRanges direct argument?
   }
 
   @NonNull @Override
   public Set<String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct)
   {
-    return this.objectPropertyRanges.get(propertyID); // TODO direct?
+    return this.objectPropertyRanges.get(propertyID); // TODO getObjectPropertyDomains direct argument?
   }
 
   @NonNull @Override
@@ -527,7 +527,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   @NonNull @Override
   public Set<String> getDataPropertyDomains(@NonNull String propertyID, boolean direct)
   {
-    return this.dataPropertyDomains.get(propertyID); // TODO direct?
+    return this.dataPropertyDomains.get(propertyID); // TODO getDataPropertyDomains direct argument?
   }
 
   @NonNull @Override

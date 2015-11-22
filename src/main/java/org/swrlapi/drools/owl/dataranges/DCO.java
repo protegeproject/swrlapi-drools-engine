@@ -2,6 +2,8 @@ package org.swrlapi.drools.owl.dataranges;
 
 import checkers.nullness.quals.NonNull;
 
+// TODO Data complement of data range not implemented
+
 /**
  * Class representing an OWL data complement of data range
  *

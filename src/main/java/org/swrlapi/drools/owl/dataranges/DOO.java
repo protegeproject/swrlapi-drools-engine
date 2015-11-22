@@ -5,6 +5,8 @@ import org.swrlapi.drools.owl.literals.L;
 
 import java.util.Set;
 
+// TODO data one of data range are not implemented
+
 /**
  * Class representing an OWL data one of data range
  *

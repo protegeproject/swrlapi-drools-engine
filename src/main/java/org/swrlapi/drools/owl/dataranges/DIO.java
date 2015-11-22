@@ -4,6 +4,8 @@ import checkers.nullness.quals.NonNull;
 
 import java.util.Set;
 
+// TODO Data intersection of data range not implemented
+
 /**
  * Class representing an OWL data intersection of data range
  *
