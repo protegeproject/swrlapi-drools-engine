@@ -9,7 +9,7 @@ import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
 
 /**
  * Base class providing functionality common to all Drools converters.
- * <p/>
+ * <p>
  * Drools converters transform OWLAPI-based OWL entities to a Drools representation of those entities.
  */
 class DroolsDRLConverterBase extends TargetRuleEngineConverterBase
