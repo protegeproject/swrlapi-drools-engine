@@ -34,6 +34,7 @@
     <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
     <maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
     <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
+    <maven.scm.gitexe.version>1.9</maven.scm.gitexe.version>
     
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -176,7 +177,7 @@
 	  <dependency>
 	    <groupId>org.apache.maven.scm</groupId>
 	    <artifactId>maven-scm-provider-gitexe</artifactId>
-	    <version>1.9</version>
+	    <version>${maven.scm.gitexe.version}</version>
 	  </dependency>
 	</dependencies>
       </plugin>
@@ -185,7 +186,6 @@
 	<groupId>edu.washington.cs.types.checker</groupId>
 	<artifactId>checker-maven-plugin</artifactId>
         <version>${checker.framework.version}</version>
-
         <executions>
           <execution>
             <phase>deploy</phase>
@@ -194,7 +194,6 @@
             </goals>
           </execution>
         </executions>
-
         <configuration>
           <processors>
             <processor>checkers.nullness.NullnessChecker</processor>
