@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.individuals.I;
@@ -52,7 +53,7 @@ public class DIA extends DroolsBinaryIndividualsAxiom
     visitor.visit(this);
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "DIA" + super.toString();
   }

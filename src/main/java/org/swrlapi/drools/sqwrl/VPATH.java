@@ -1,6 +1,7 @@
 package org.swrlapi.drools.sqwrl;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.swrl.BA;
 
 import java.util.ArrayList;
@@ -131,8 +132,7 @@ public class VPATH
     return Collections.unmodifiableList(this.arguments);
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     StringBuilder sb = new StringBuilder();
 

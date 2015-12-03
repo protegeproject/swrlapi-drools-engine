@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.individuals.I;
 
@@ -18,8 +19,7 @@ public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
     super(ceid, propertyID, new I(individualID));
   }
 
-  @NonNull @Override
-  public String getceid()
+  @NonNull @Override public String getceid()
   {
     return getT1();
   }
@@ -34,8 +34,7 @@ public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
     return getT3();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "OHVCE" + super.toString();
   }

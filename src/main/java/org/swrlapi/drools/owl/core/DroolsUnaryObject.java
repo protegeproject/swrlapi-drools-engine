@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.SideEffectFree;
 
 public abstract class DroolsUnaryObject<T1>
 {
@@ -17,26 +18,22 @@ public abstract class DroolsUnaryObject<T1>
     return this.t1;
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "(" + this.t1 + ")";
   }
 
-  @Override
-  public boolean equals(@Nullable Object obj)
+  @Override public boolean equals(@Nullable Object obj)
   {
     if (this == obj)
       return true;
     if ((obj == null) || (obj.getClass() != this.getClass()))
       return false;
-    @SuppressWarnings("unchecked")
-    DroolsUnaryObject<T1> ua = (DroolsUnaryObject<T1>)obj;
+    @SuppressWarnings("unchecked") DroolsUnaryObject<T1> ua = (DroolsUnaryObject<T1>)obj;
     return (getT1() == ua.getT1() || (getT1() != null && getT1().equals(ua.getT1())));
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
     int hash = 44;
 

@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.dataranges;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -58,7 +59,7 @@ public class D extends OE implements DR
     return extractor.extract(this);
   }
 
-  @NonNull @Override
+  @SideEffectFree @NonNull @Override
   public String toString()
   {
     return super.toString();

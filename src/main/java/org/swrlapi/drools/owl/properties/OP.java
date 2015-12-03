@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.properties;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -52,7 +53,7 @@ public class OP extends OE implements P, OPE
     return extractor.extract(this);
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return super.toString();
   }

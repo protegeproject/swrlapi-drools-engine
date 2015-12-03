@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 /**
@@ -18,8 +19,7 @@ public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
     super(ceid, c);
   }
 
-  @NonNull @Override
-  public String getceid()
+  @NonNull @Override public String getceid()
   {
     return getT1();
   }
@@ -29,8 +29,7 @@ public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
     return getT2();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "OOCOCE" + super.toString();
   }

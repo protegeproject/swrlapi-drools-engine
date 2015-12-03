@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.properties;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -36,24 +37,23 @@ public class DP extends OE implements P, DPE
       DP p = (DP)ba;
       setId(p.getName());
     } else
-      throw new TargetSWRLRuleEngineInternalException("expecting OWL data property from bound built-in argument, got "
-          + ba.getClass().getCanonicalName());
+      throw new TargetSWRLRuleEngineInternalException(
+        "expecting OWL data property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override
-  public OWLDataProperty extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLDataProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return super.toString();
   }

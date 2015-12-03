@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 
 abstract class DroolsUnaryClassAxiom extends DroolsUnaryObject<String> implements A
@@ -17,7 +18,7 @@ abstract class DroolsUnaryClassAxiom extends DroolsUnaryObject<String> implement
     return getT1();
   }
 
-  @NonNull @Override
+  @SideEffectFree @NonNull @Override
   public String toString()
   {
     return super.toString();

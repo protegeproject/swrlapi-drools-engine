@@ -1,8 +1,9 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
-import org.swrlapi.drools.owl.dataranges.D;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.drools.owl.dataranges.D;
 
 /**
  * This class represents an OWL data some values from of class expression in Drools.
@@ -33,7 +34,7 @@ public class DSVFCE extends DroolsTernaryObject<String, String, D> implements CE
     return getT3();
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "OSVFCE" + super.toString();
   }

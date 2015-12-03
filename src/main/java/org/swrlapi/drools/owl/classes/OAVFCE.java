@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 
 /**
@@ -17,8 +18,7 @@ public class OAVFCE extends DroolsTernaryObject<String, String, String> implemen
     super(ceid, propertyID, valueClassID);
   }
 
-  @NonNull @Override
-  public String getceid()
+  @NonNull @Override public String getceid()
   {
     return getT1();
   }
@@ -33,8 +33,7 @@ public class OAVFCE extends DroolsTernaryObject<String, String, String> implemen
     return getT3();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "OAVFCE" + super.toString();
   }

@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.literals.L;
 
@@ -33,7 +34,7 @@ public class DHVCE extends DroolsTernaryObject<String, String, L> implements CE
     return getT3();
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "DHVCE" + super.toString();
   }

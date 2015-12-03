@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
@@ -41,7 +42,7 @@ public abstract class OE implements OO, AA, BA
     this.id = newId;
   }
 
-  @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     // return "\"" + this.id + "\"";
     return this.id;

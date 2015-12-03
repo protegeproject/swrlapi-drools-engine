@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.SideEffectFree;
 
 public abstract class DroolsTernaryObject<T1, T2, T3>
 {
@@ -31,28 +32,24 @@ public abstract class DroolsTernaryObject<T1, T2, T3>
     return this.t3;
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ")";
   }
 
-  @Override
-  public boolean equals(@Nullable Object obj)
+  @Override public boolean equals(@Nullable Object obj)
   {
     if (this == obj)
       return true;
     if ((obj == null) || (obj.getClass() != this.getClass()))
       return false;
-    @SuppressWarnings("unchecked")
-    DroolsTernaryObject<T1, T2, T3> ba = (DroolsTernaryObject<T1, T2, T3>)obj;
-    return (getT1() == ba.getT1() || (getT1() != null && getT1().equals(ba.getT1())))
-        && (getT2() == ba.getT2() || (getT2() != null && getT2().equals(ba.getT2())))
-        && (getT3() == ba.getT3() || (getT3() != null && getT3().equals(ba.getT3())));
+    @SuppressWarnings("unchecked") DroolsTernaryObject<T1, T2, T3> ba = (DroolsTernaryObject<T1, T2, T3>)obj;
+    return (getT1() == ba.getT1() || (getT1() != null && getT1().equals(ba.getT1()))) && (getT2() == ba.getT2() || (
+      getT2() != null && getT2().equals(ba.getT2()))) && (getT3() == ba.getT3() || (getT3() != null && getT3()
+      .equals(ba.getT3())));
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
     int hash = 64;
 

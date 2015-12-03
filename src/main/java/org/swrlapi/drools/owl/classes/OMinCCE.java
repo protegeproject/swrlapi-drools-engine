@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.properties.OP;
 
@@ -23,8 +24,7 @@ public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements
     super(ceid, new OP(propertyID), card);
   }
 
-  @NonNull @Override
-  public String getceid()
+  @NonNull @Override public String getceid()
   {
     return getT1();
   }
@@ -39,8 +39,7 @@ public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements
     return getT3();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "OMinCE" + super.toString();
   }

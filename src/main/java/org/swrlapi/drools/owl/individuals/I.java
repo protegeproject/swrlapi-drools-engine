@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.individuals;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -61,7 +62,7 @@ public class I extends OE
     return extractor.extract(this);
   }
 
-  @NonNull @Override
+  @SideEffectFree @NonNull @Override
   public String toString()
   {
     return super.toString();

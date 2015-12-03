@@ -1,6 +1,8 @@
 package org.swrlapi.drools.owl.literals;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.Deterministic;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
@@ -120,7 +122,7 @@ public class L implements OO, BA, Serializable
     return extractor.extract(this);
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "L(\"" + this.value + "\", " + this.datatypeName + ")";
   }
@@ -138,7 +140,7 @@ public class L implements OO, BA, Serializable
   // We consider literals to be equal if they have the same type name and value.
   // TODO This is a very simpleminded implementation of equals. Think about using the SWRLAPI's OWLLiteralComparator
 
-  @Override public boolean equals(Object o)
+  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
   {
     if (this == o)
       return true;
@@ -147,16 +149,38 @@ public class L implements OO, BA, Serializable
 
     L l = (L)o;
 
-    if (value != null ? !value.equals(l.value) : l.value != null)
+    if (!value.equals(l.value))
       return false;
-    return !(datatypeName != null ? !datatypeName.equals(l.datatypeName) : l.datatypeName != null);
+    return datatypeName.equals(l.datatypeName);
 
   }
 
-  @Override public int hashCode()
+  @SideEffectFree @Deterministic @Override public int hashCode()
   {
-    int result = value != null ? value.hashCode() : 0;
-    result = 31 * result + (datatypeName != null ? datatypeName.hashCode() : 0);
+    int result = value.hashCode();
+    result = 31 * result + datatypeName.hashCode();
     return result;
   }
+
+  //  @Override public boolean equals(Object o)
+  //  {
+  //    if (this == o)
+  //      return true;
+  //    if (o == null || getClass() != o.getClass())
+  //      return false;
+  //
+  //    L l = (L)o;
+  //
+  //    if (value != null ? !value.equals(l.value) : l.value != null)
+  //      return false;
+  //    return !(datatypeName != null ? !datatypeName.equals(l.datatypeName) : l.datatypeName != null);
+  //
+  //  }
+  //
+  //  @Override public int hashCode()
+  //  {
+  //    int result = value != null ? value.hashCode() : 0;
+  //    result = 31 * result + (datatypeName != null ? datatypeName.hashCode() : 0);
+  //    return result;
+  //  }
 }

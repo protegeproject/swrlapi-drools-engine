@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 import org.swrlapi.drools.owl.core.OE;
 
@@ -23,8 +24,7 @@ abstract class DA<T1 extends OE> extends DroolsUnaryObject<T1> implements A
     return getT1();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return getE().toString();
   }

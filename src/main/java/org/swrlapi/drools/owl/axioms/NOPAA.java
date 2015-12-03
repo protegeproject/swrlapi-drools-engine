@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
@@ -54,21 +55,18 @@ public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
     return getT3();
   }
 
-  @NonNull @Override
-  public OWLNegativeObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
-      throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLNegativeObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override
-  public void visit(@NonNull AVisitor visitor)
+  @Override public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "NOPAA" + super.toString();
   }

@@ -2,6 +2,7 @@ package org.swrlapi.drools.swrl;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.core.DroolsNames;
 
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ public class BAVNs
     return getNumberOfArguments() != 0;
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     String representation = DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
     boolean isFirst = true;

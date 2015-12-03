@@ -1,5 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
+import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.individuals.I;
 
@@ -32,8 +34,7 @@ abstract class DroolsBinaryIndividualsAxiom extends DroolsBinaryObject<I, I> imp
     return getT2().getid();
   }
 
-  @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return super.toString();
   }

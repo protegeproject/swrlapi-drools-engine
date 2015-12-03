@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 abstract class DroolsBinaryPropertiesAxiom extends DroolsBinaryObject<String, String> implements A
@@ -22,8 +23,7 @@ abstract class DroolsBinaryPropertiesAxiom extends DroolsBinaryObject<String, St
     return getT2();
   }
 
-  @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return super.toString();
   }

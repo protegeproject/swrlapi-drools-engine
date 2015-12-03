@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsQuadObject;
 
 /**
@@ -17,8 +18,7 @@ public class DMaxQCCE extends DroolsQuadObject<String, String, String, Integer> 
     super(ceid, propertyID, fillerID, card);
   }
 
-  @NonNull @Override
-  public String getceid()
+  @NonNull @Override public String getceid()
   {
     return getT1();
   }
@@ -38,8 +38,7 @@ public class DMaxQCCE extends DroolsQuadObject<String, String, String, Integer> 
     return getT4();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "DMaxQCCE" + super.toString();
   }

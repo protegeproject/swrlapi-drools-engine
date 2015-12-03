@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
@@ -20,8 +21,7 @@ public class OUOCE extends DroolsBinaryObject<String, String> implements CE
     super(ceid, c1);
   }
 
-  @Override
-  @NonNull public String getceid()
+  @Override @NonNull public String getceid()
   {
     return getT1();
   }
@@ -31,8 +31,7 @@ public class OUOCE extends DroolsBinaryObject<String, String> implements CE
     return getT2();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "OUOCE" + super.toString();
   }

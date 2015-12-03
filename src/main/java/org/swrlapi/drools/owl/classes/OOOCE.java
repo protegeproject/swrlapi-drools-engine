@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.individuals.I;
 
@@ -24,8 +25,7 @@ public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
     super(ceid, new I(individual1ID), new I(individual2ID));
   }
 
-  @NonNull @Override
-  public String getceid()
+  @NonNull @Override public String getceid()
   {
     return getT1();
   }
@@ -40,8 +40,7 @@ public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
     return getT3();
   }
 
-  @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "OOOCE" + super.toString();
   }

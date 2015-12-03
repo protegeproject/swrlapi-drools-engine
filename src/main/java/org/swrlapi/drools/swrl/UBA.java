@@ -1,6 +1,7 @@
 package org.swrlapi.drools.swrl;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -28,7 +29,7 @@ public class UBA implements BA
     return extractor.extract(this);
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "UBA(?" + getVariableName() + ")";
   }
