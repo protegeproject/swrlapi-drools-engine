@@ -17,3 +17,6 @@ target/*
 /target
 
 *.pyc
+
+pom.xml.releaseBackup
+release.properties
