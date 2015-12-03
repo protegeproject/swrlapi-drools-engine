@@ -22,7 +22,7 @@
     <java.version>1.8</java.version>
 
     <swrlapi.version>1.0.0</swrlapi.version>
-    <owlapi.version>4.1.1</owlapi.version> 
+    <owlapi.version>4.1.3</owlapi.version> 
     <drools.version>6.2.0.Final</drools.version> 
 
     <checker.framework.version>1.7.5</checker.framework.version>
