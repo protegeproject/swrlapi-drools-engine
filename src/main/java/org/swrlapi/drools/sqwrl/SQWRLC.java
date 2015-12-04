@@ -2,6 +2,7 @@ package org.swrlapi.drools.sqwrl;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
@@ -58,7 +59,7 @@ public class SQWRLC implements BA
     return "SQWRLC(" + getQueryName() + ", " + getCollectionName() + ", " + getCollectionID() + ")";
   }
 
-  @Override public boolean equals(@Nullable Object o)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
     if (this == o)
       return true;
@@ -77,7 +78,7 @@ public class SQWRLC implements BA
 
   }
 
-  @Override public int hashCode()
+  @SideEffectFree @Deterministic @Override public int hashCode()
   {
     int result = variableName != null ? variableName.hashCode() : 0;
     result = 31 * result + (queryName != null ? queryName.hashCode() : 0);

@@ -161,26 +161,4 @@ public class L implements OO, BA, Serializable
     result = 31 * result + datatypeName.hashCode();
     return result;
   }
-
-  //  @Override public boolean equals(Object o)
-  //  {
-  //    if (this == o)
-  //      return true;
-  //    if (o == null || getClass() != o.getClass())
-  //      return false;
-  //
-  //    L l = (L)o;
-  //
-  //    if (value != null ? !value.equals(l.value) : l.value != null)
-  //      return false;
-  //    return !(datatypeName != null ? !datatypeName.equals(l.datatypeName) : l.datatypeName != null);
-  //
-  //  }
-  //
-  //  @Override public int hashCode()
-  //  {
-  //    int result = value != null ? value.hashCode() : 0;
-  //    result = 31 * result + (datatypeName != null ? datatypeName.hashCode() : 0);
-  //    return result;
-  //  }
 }

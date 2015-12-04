@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -54,7 +55,7 @@ public abstract class OE implements OO, AA, BA
   @NonNull @Override public abstract SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException;
 
-  @Override public boolean equals(@Nullable Object obj)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
   {
     if (this == obj)
       return true;
@@ -64,7 +65,7 @@ public abstract class OE implements OO, AA, BA
     return (getid().equals(e.getid()) || (getid() != null && getid().equals(e.getid())));
   }
 
-  @Override public int hashCode()
+  @SideEffectFree @Deterministic @Override public int hashCode()
   {
     int hash = 731;
 

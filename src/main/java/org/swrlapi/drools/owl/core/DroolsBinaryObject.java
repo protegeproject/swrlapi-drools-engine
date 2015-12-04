@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
 
 public abstract class DroolsBinaryObject<T1, T2>
@@ -25,7 +26,7 @@ public abstract class DroolsBinaryObject<T1, T2>
     return this.t2;
   }
 
-  @Override public boolean equals(@Nullable Object obj)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
   {
 
     if (this == obj)
@@ -37,7 +38,7 @@ public abstract class DroolsBinaryObject<T1, T2>
       getT2() != null && getT2().equals(ba.getT2())));
   }
 
-  @Override public int hashCode()
+  @SideEffectFree @Deterministic @Override public int hashCode()
   {
     int hash = 61;
 

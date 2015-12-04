@@ -2,6 +2,7 @@ package org.swrlapi.drools.swrl;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
 import org.swrlapi.drools.core.DroolsNames;
 
@@ -160,7 +161,7 @@ public class BAVNs
     return representation;
   }
 
-  @Override public boolean equals(@Nullable Object obj)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
   {
     if (this == obj)
       return true;
@@ -171,7 +172,7 @@ public class BAVNs
       .equals(avns.getVariableNames())));
   }
 
-  @Override public int hashCode()
+  @SideEffectFree @Deterministic @Override public int hashCode()
   {
     int hash = 66;
 

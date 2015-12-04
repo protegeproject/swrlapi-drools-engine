@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
+import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
 
 public abstract class DroolsQuadObject<T1, T2, T3, T4>
@@ -44,7 +45,7 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ", " + this.t4 + ")";
   }
 
-  @Override public boolean equals(@Nullable Object obj)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
   {
 
     if (this == obj)
@@ -57,7 +58,7 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
       .equals(ba.getT3()))) && (getT4() == ba.getT4() || (getT4() != null && getT4().equals(ba.getT4())));
   }
 
-  @Override public int hashCode()
+  @SideEffectFree @Deterministic @Override public int hashCode()
   {
     int hash = 94;
 
