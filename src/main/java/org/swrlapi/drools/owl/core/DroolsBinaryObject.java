@@ -35,7 +35,7 @@ public abstract class DroolsBinaryObject<T1, T2>
       return false;
     @SuppressWarnings("unchecked") DroolsBinaryObject<T1, T2> ba = (DroolsBinaryObject<T1, T2>)obj;
     return (getT1() == ba.getT1() || (getT1() != null && getT1().equals(ba.getT1()))) && (getT2() == ba.getT2() || (
-      getT2() != null && getT2().equals(ba.getT2())));
+        getT2() != null && getT2().equals(ba.getT2())));
   }
 
   @SideEffectFree @Deterministic @Override public int hashCode()

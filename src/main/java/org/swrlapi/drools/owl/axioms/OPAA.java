@@ -35,7 +35,7 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
     super(new I(subjectName), propertyID, object);
   }
 
-  public OPAA(@NonNull String subjectName, @NonNull String propertyID, String objectName)
+  public OPAA(@NonNull String subjectName, @NonNull String propertyID, @NonNull String objectName)
   {
     super(new I(subjectName), propertyID, new I(objectName));
   }
