@@ -8,9 +8,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
+import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
-import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 
 /**
  * This class converts OWLAPI OWL property expressions to their Drools representation.
@@ -19,18 +19,18 @@ import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
  * @see org.semanticweb.owlapi.model.OWLDataPropertyExpression
  */
 public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverterBase
-    implements TargetRuleEngineOWLPropertyExpressionConverter<String>
+  implements TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
   private final @NonNull DroolsObjectResolver resolver;
 
   public DroolsOWLPropertyExpression2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-      @NonNull DroolsObjectResolver resolver)
+    @NonNull DroolsObjectResolver resolver)
   {
     super(bridge);
 
     this.resolver = resolver;
 
-    reset();
+    this.resolver.reset();
   }
 
   public void reset()

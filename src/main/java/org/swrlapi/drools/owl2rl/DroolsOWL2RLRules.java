@@ -4,6 +4,7 @@ import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.OWL2RLNames;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -60,7 +61,10 @@ public class DroolsOWL2RLRules
 
   @NonNull public Set<DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
   {
-    return this.rules.get(rule);
+    if (this.rules.containsKey(rule))
+      return this.rules.get(rule);
+    else
+      return Collections.emptySet();
   }
 
   private void defineOWL2RLTable4DroolsRules()
