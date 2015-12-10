@@ -31,13 +31,13 @@ public class DroolsResourceHandler
       defineDRLResource(ruleText);
     } catch (RuntimeException e) {
       e.printStackTrace();
-      throw new TargetSWRLRuleEngineInternalException("internal error generating Drools rule \n" + ruleText + "\n"
-          + e.getMessage(), e);
+      throw new TargetSWRLRuleEngineInternalException(
+          "internal error generating Drools rule \n" + ruleText + "\n" + (e.getMessage() != null ? e.getMessage() : ""), e);
     }
 
     if (this.knowledgeBuilder.hasErrors())
-      throw new TargetSWRLRuleEngineInternalException("internal error generating Drools rule\n" + ruleText + "\n"
-          + this.knowledgeBuilder.getErrors().toString());
+      throw new TargetSWRLRuleEngineInternalException(
+          "internal error generating Drools rule\n" + ruleText + "\n" + this.knowledgeBuilder.getErrors().toString());
   }
 
   private void defineGlobalJavaObjects()

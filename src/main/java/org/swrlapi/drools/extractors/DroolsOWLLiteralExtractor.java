@@ -8,11 +8,11 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.bridge.extractors.TargetRuleEngineOWLLiteralExtractor;
 import org.swrlapi.drools.owl.literals.L;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.literal.XSDDate;
 import org.swrlapi.literal.XSDDateTime;
 import org.swrlapi.literal.XSDDuration;
 import org.swrlapi.literal.XSDTime;
-import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,16 +23,15 @@ import java.net.URISyntaxException;
  * @see org.semanticweb.owlapi.model.OWLLiteral
  * @see L
  */
-public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase implements
-TargetRuleEngineOWLLiteralExtractor<L>
+public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase
+    implements TargetRuleEngineOWLLiteralExtractor<L>
 {
   public DroolsOWLLiteralExtractor(SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @NonNull @Override
-  public OWLLiteral extract(@NonNull L l)
+  @NonNull @Override public OWLLiteral extract(@NonNull L l)
   { // TODO See if we can use visitor to get rid of instanceof
     try {
       if (l.isString())
@@ -67,14 +66,16 @@ TargetRuleEngineOWLLiteralExtractor<L>
         return getOWLLiteralFactory().getOWLLiteral(l.value, datatype);
       }
     } catch (NumberFormatException e) {
-      throw new TargetSWRLRuleEngineInternalException("number format exception extracting OWL literal " + l
-          + " with type " + l.getTypeName() + " from Drools: ", e);
+      throw new TargetSWRLRuleEngineInternalException(
+          "number format exception extracting OWL literal " + l + " with type " + l.getTypeName() + " from Drools: ",
+          e);
     } catch (URISyntaxException e) {
-      throw new TargetSWRLRuleEngineInternalException("IRI exception extracting OWL URI literal " + l
-          + " from Drools: ", e);
+      throw new TargetSWRLRuleEngineInternalException(
+          "IRI exception extracting OWL URI literal " + l + " from Drools: ", e);
     } catch (IllegalArgumentException e) {
-      throw new TargetSWRLRuleEngineInternalException("exception extracting OWL literal " + l + " with type "
-          + l.getTypeName() + " from Drools: " + e.getMessage(), e);
+      throw new TargetSWRLRuleEngineInternalException(
+          "exception extracting OWL literal " + l + " with type " + l.getTypeName() + " from Drools: " + (
+              e.getMessage() != null ? e.getMessage() : ""), e);
     }
   }
 }
