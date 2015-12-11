@@ -39,15 +39,15 @@ public interface DroolsOWLAxiomHandler
 
   boolean isDeclaredClass(@NonNull String classID);
 
-  @NonNull Set<String> getClassAssertions(@NonNull String classID);
+  @NonNull Set<@NonNull String> getClassAssertions(@NonNull String classID);
 
-  @NonNull Set<String> getSubClasses(@NonNull String classID, boolean direct);
+  @NonNull Set<@NonNull String> getSubClasses(@NonNull String classID, boolean direct);
 
-  @NonNull Set<String> getSuperClasses(@NonNull String classID, boolean direct);
+  @NonNull Set<@NonNull String> getSuperClasses(@NonNull String classID, boolean direct);
 
-  @NonNull Set<String> getDisjointClasses(@NonNull String classID);
+  @NonNull Set<@NonNull String> getDisjointClasses(@NonNull String classID);
 
-  @NonNull Set<String> getEquivalentClasses(@NonNull String classID);
+  @NonNull Set<@NonNull String> getEquivalentClasses(@NonNull String classID);
 
   boolean strictSubClassOf(@NonNull String classID1, @NonNull String classID2);
 
@@ -57,32 +57,32 @@ public interface DroolsOWLAxiomHandler
 
   boolean isDeclaredIndividual(@NonNull String individualID);
 
-  @NonNull Set<String> getSameIndividual(@NonNull String individualID);
+  @NonNull Set<@NonNull String> getSameIndividual(@NonNull String individualID);
 
-  @NonNull Set<String> getDifferentIndividuals(@NonNull String individualID);
+  @NonNull Set<@NonNull String> getDifferentIndividuals(@NonNull String individualID);
 
   // Object properties
 
   boolean isDeclaredObjectProperty(@NonNull String propertyID);
 
-  @NonNull Set<String> getSubObjectProperties(@NonNull String propertyID, boolean direct);
+  @NonNull Set<@NonNull String> getSubObjectProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getSuperObjectProperties(@NonNull String propertyID, boolean direct);
+  @NonNull Set<@NonNull String> getSuperObjectProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct);
+  @NonNull Set<@NonNull String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct);
+  @NonNull Set<@NonNull String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getDisjointObjectProperties(@NonNull String propertyID);
+  @NonNull Set<@NonNull String> getDisjointObjectProperties(@NonNull String propertyID);
 
-  @NonNull Set<String> getEquivalentObjectProperties(@NonNull String propertyID);
+  @NonNull Set<@NonNull String> getEquivalentObjectProperties(@NonNull String propertyID);
 
-  @NonNull Set<String> getInverseObjectProperties(@NonNull String propertyID);
+  @NonNull Set<@NonNull String> getInverseObjectProperties(@NonNull String propertyID);
 
-  @NonNull Map<String, Set<String>> getObjectPropertyAssertions(
+  @NonNull Map<@NonNull String, Set<@NonNull String>> getObjectPropertyAssertions(
     @NonNull String propertyID); // individualID -> Set<individualID>
 
-  @NonNull Set<String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
+  @NonNull Set<@NonNull String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
     @NonNull String propertyID); // Set<individualID>
 
   boolean strictSubObjectPropertyOf(@NonNull String propertyID1, @NonNull String propertyID2);
@@ -93,17 +93,17 @@ public interface DroolsOWLAxiomHandler
 
   boolean isDeclaredDataProperty(@NonNull String propertyID);
 
-  @NonNull Set<String> getSubDataProperties(@NonNull String propertyID, boolean direct);
+  @NonNull Set<@NonNull String> getSubDataProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getSuperDataProperties(@NonNull String propertyID, boolean direct);
+  @NonNull Set<@NonNull String> getSuperDataProperties(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getDataPropertyDomains(@NonNull String propertyID, boolean direct);
+  @NonNull Set<@NonNull String> getDataPropertyDomains(@NonNull String propertyID, boolean direct);
 
-  @NonNull Set<String> getDisjointDataProperties(@NonNull String propertyID);
+  @NonNull Set<@NonNull String> getDisjointDataProperties(@NonNull String propertyID);
 
-  @NonNull Set<String> getEquivalentDataProperties(@NonNull String propertyID);
+  @NonNull Set<@NonNull String> getEquivalentDataProperties(@NonNull String propertyID);
 
-  @NonNull Map<String, Set<L>> getDataPropertyAssertions(@NonNull String propertyID); // individualID -> Set<L>
+  @NonNull Map<@NonNull String, Set<L>> getDataPropertyAssertions(@NonNull String propertyID); // individualID -> Set<L>
 
   @NonNull Set<L> getDataPropertyValuesForIndividual(@NonNull String individualID, @NonNull String propertyID);
 

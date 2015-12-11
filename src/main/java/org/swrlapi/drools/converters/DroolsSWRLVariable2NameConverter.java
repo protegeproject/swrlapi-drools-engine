@@ -38,7 +38,7 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
   }
 
   @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
       return fieldName + "==" + variablePrefixedName2DRL(variablePrefixedName);

@@ -65,7 +65,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 
 	@NonNull
 	@Override
-	public String convert(@NonNull SWRLDataRangeAtom atom, Set<String> previouslyEncounteredVariablePrefixedNames)
+	public String convert(@NonNull SWRLDataRangeAtom atom, Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{
 		throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule body");
 	}
@@ -78,7 +78,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 
 	@NonNull
 	@Override
-	public String convert(@NonNull SWRLClassAtom atom, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+	public String convert(@NonNull SWRLClassAtom atom, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{
 		String classID = getOWLClassExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument = atom.getArgument();
@@ -95,7 +95,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 	@NonNull
 	@Override
 	public String convert(@NonNull SWRLObjectPropertyAtom atom,
-			@NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+			@NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
@@ -115,7 +115,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 	@NonNull
 	@Override
 	public String convert(@NonNull SWRLDataPropertyAtom atom,
-			@NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+			@NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{
 		String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
 		SWRLIArgument argument1 = atom.getFirstArgument();
@@ -135,7 +135,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 	@NonNull
 	@Override
 	public String convert(@NonNull SWRLSameIndividualAtom atom,
-			@NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+			@NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
@@ -154,7 +154,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 	@NonNull
 	@Override
 	public String convert(@NonNull SWRLDifferentIndividualsAtom atom,
-			@NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+			@NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{
 		SWRLIArgument argument1 = atom.getFirstArgument();
 		SWRLIArgument argument2 = atom.getSecondArgument();
@@ -172,7 +172,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 
 	@Override
 	public String convert(@NonNull SWRLAPIBuiltInAtom builtInAtom,
-			@NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+			@NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{
 		String builtInPrefixedName = builtInAtom.getBuiltInPrefixedName();
 		String ruleName = builtInAtom.getRuleName();
@@ -251,7 +251,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase impl
 	}
 
 	@NonNull
-	public String convert(@NonNull SWRLAtom atom, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+	public String convert(@NonNull SWRLAtom atom, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
 	{ // TODO Visitor to replace instanceof: SWRLAtomVisitorExP
 		if (atom instanceof SWRLDataRangeAtom) {
 			return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariablePrefixedNames);

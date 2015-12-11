@@ -16,9 +16,9 @@ public class DIO implements DR
   private static final long serialVersionUID = 1L;
 
   @NonNull private final String rid;
-  @NonNull private final Set<String> dataRangeIDs;
+  @NonNull private final Set<@NonNull String> dataRangeIDs;
 
-  public DIO(@NonNull String rid, @NonNull Set<String> dataRangeIDs)
+  public DIO(@NonNull String rid, @NonNull Set<@NonNull String> dataRangeIDs)
   {
     this.rid = rid;
     this.dataRangeIDs = dataRangeIDs;
@@ -30,7 +30,7 @@ public class DIO implements DR
     return this.rid;
   }
 
-  @NonNull public Set<String> getDataRangeIDs()
+  @NonNull public Set<@NonNull String> getDataRangeIDs()
   {
     return this.dataRangeIDs;
   }

@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsCResolver
 {
-  @NonNull private final Map<String, C> cs;
+  @NonNull private final Map<@NonNull String, C> cs;
 
   private int classIndex;
 

@@ -66,38 +66,38 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   @NonNull private final Set<A> inferredOWLAxioms;
   @NonNull private final Set<A> assertedOWLAxioms;
 
-  @NonNull private final Set<String> declaredClassIDs;
-  @NonNull private final Set<String> declaredIndividualIDs;
-  @NonNull private final Set<String> declaredObjectPropertyIDs;
-  @NonNull private final Set<String> declaredDataPropertyIDs;
-  @NonNull private final Set<String> declaredAnnotationPropertyIDs;
+  @NonNull private final Set<@NonNull String> declaredClassIDs;
+  @NonNull private final Set<@NonNull String> declaredIndividualIDs;
+  @NonNull private final Set<@NonNull String> declaredObjectPropertyIDs;
+  @NonNull private final Set<@NonNull String> declaredDataPropertyIDs;
+  @NonNull private final Set<@NonNull String> declaredAnnotationPropertyIDs;
 
-  @NonNull private final Map<String, Set<String>> classAssertions;
-  @NonNull private final Map<String, Set<String>> subClasses;
-  @NonNull private final Map<String, Set<String>> superClasses;
-  @NonNull private final Map<String, Set<String>> disjointClasses;
-  @NonNull private final Map<String, Set<String>> equivalentClasses;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> classAssertions;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> subClasses;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> superClasses;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> disjointClasses;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> equivalentClasses;
 
-  @NonNull private final Map<String, Set<String>> sameIndividual;
-  @NonNull private final Map<String, Set<String>> differentIndividuals;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> sameIndividual;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> differentIndividuals;
 
-  @NonNull private final Map<String, Set<String>> subObjectProperties;
-  @NonNull private final Map<String, Set<String>> superObjectProperties;
-  @NonNull private final Map<String, Set<String>> disjointObjectProperties;
-  @NonNull private final Map<String, Set<String>> equivalentObjectProperties;
-  @NonNull private final Map<String, Set<String>> inverseObjectProperties;
-  @NonNull private final Map<String, Set<String>> objectPropertyRanges;
-  @NonNull private final Map<String, Set<String>> objectPropertyDomains;
-  @NonNull private final Map<String, Map<String, Set<String>>> objectPropertyAssertions;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> subObjectProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> superObjectProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> disjointObjectProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> equivalentObjectProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> inverseObjectProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> objectPropertyRanges;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> objectPropertyDomains;
+  @NonNull private final Map<@NonNull String, Map<@NonNull String, Set<@NonNull String>>> objectPropertyAssertions;
 
-  @NonNull private final Map<String, Set<String>> subDataProperties;
-  @NonNull private final Map<String, Set<String>> superDataProperties;
-  @NonNull private final Map<String, Set<String>> disjointDataProperties;
-  @NonNull private final Map<String, Set<String>> equivalentDataProperties;
-  @NonNull private final Map<String, Set<String>> dataPropertyDomains;
-  @NonNull private final Map<String, Map<String, Set<L>>> dataPropertyAssertions;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> subDataProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> superDataProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> disjointDataProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> equivalentDataProperties;
+  @NonNull private final Map<@NonNull String, Set<@NonNull String>> dataPropertyDomains;
+  @NonNull private final Map<@NonNull String, Map<@NonNull String, Set<L>>> dataPropertyAssertions;
 
-  @NonNull private final Set<String> inconsistentMessages;
+  @NonNull private final Set<@NonNull String> inconsistentMessages;
 
   private boolean isInconsistent;
 
@@ -247,14 +247,14 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredClassIDs.contains(classID);
   }
 
-  @NonNull @Override public Set<String> getClassAssertions(@NonNull String classID)
+  @NonNull @Override public Set<@NonNull String> getClassAssertions(@NonNull String classID)
   {
     return this.classAssertions.get(classID);
   }
 
-  @NonNull @Override public Set<String> getSubClasses(@NonNull String classID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getSubClasses(@NonNull String classID, boolean direct)
   {
-    Set<String> subClasses = new HashSet<>();
+    Set<@NonNull String> subClasses = new HashSet<>();
 
     for (String subClassID : this.subClasses.get(classID)) {
       if (direct) {
@@ -268,9 +268,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subClasses;
   }
 
-  @NonNull @Override public Set<String> getSuperClasses(@NonNull String classID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getSuperClasses(@NonNull String classID, boolean direct)
   {
-    Set<String> superClasses = new HashSet<>();
+    Set<@NonNull String> superClasses = new HashSet<>();
 
     for (String superClassID : this.superClasses.get(classID)) {
       if (direct) {
@@ -284,12 +284,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return superClasses;
   }
 
-  @NonNull @Override public Set<String> getDisjointClasses(@NonNull String classID)
+  @NonNull @Override public Set<@NonNull String> getDisjointClasses(@NonNull String classID)
   {
     return this.disjointClasses.get(classID);
   }
 
-  @NonNull @Override public Set<String> getEquivalentClasses(@NonNull String classID)
+  @NonNull @Override public Set<@NonNull String> getEquivalentClasses(@NonNull String classID)
   {
     return this.equivalentClasses.get(classID);
   }
@@ -331,12 +331,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredIndividualIDs.contains(individualID);
   }
 
-  @NonNull @Override public Set<String> getSameIndividual(@NonNull String individualID)
+  @NonNull @Override public Set<@NonNull String> getSameIndividual(@NonNull String individualID)
   {
     return this.sameIndividual.get(individualID);
   }
 
-  @NonNull @Override public Set<String> getDifferentIndividuals(@NonNull String individualID)
+  @NonNull @Override public Set<@NonNull String> getDifferentIndividuals(@NonNull String individualID)
   {
     return this.differentIndividuals.get(individualID);
   }
@@ -348,9 +348,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredObjectPropertyIDs.contains(propertyID);
   }
 
-  @NonNull @Override public Set<String> getSubObjectProperties(@NonNull String propertyID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getSubObjectProperties(@NonNull String propertyID, boolean direct)
   {
-    Set<String> subProperties = new HashSet<>();
+    Set<@NonNull String> subProperties = new HashSet<>();
 
     for (String subPropertyID : this.subObjectProperties.get(propertyID)) {
       if (direct) {
@@ -364,9 +364,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subProperties;
   }
 
-  @NonNull @Override public Set<String> getSuperObjectProperties(@NonNull String propertyID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getSuperObjectProperties(@NonNull String propertyID, boolean direct)
   {
-    Set<String> superProperties = new HashSet<>();
+    Set<@NonNull String> superProperties = new HashSet<>();
 
     for (String superPropertyID : this.superObjectProperties.get(propertyID)) {
       if (direct) {
@@ -380,41 +380,41 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return superProperties;
   }
 
-  @NonNull @Override public Set<String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct)
   {
     return this.objectPropertyRanges.get(propertyID); // TODO getObjectPropertyRanges direct argument?
   }
 
-  @NonNull @Override public Set<String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct)
   {
     return this.objectPropertyRanges.get(propertyID); // TODO getObjectPropertyDomains direct argument?
   }
 
-  @NonNull @Override public Set<String> getDisjointObjectProperties(@NonNull String propertyID)
+  @NonNull @Override public Set<@NonNull String> getDisjointObjectProperties(@NonNull String propertyID)
   {
     return this.disjointObjectProperties.get(propertyID);
   }
 
-  @NonNull @Override public Set<String> getEquivalentObjectProperties(@NonNull String propertyID)
+  @NonNull @Override public Set<@NonNull String> getEquivalentObjectProperties(@NonNull String propertyID)
   {
     return this.equivalentObjectProperties.get(propertyID);
   }
 
-  @NonNull @Override public Set<String> getInverseObjectProperties(@NonNull String propertyID)
+  @NonNull @Override public Set<@NonNull String> getInverseObjectProperties(@NonNull String propertyID)
   {
     return this.inverseObjectProperties.get(propertyID);
   }
 
-  @NonNull @Override public Map<String, Set<String>> getObjectPropertyAssertions(@NonNull String propertyID)
+  @NonNull @Override public Map<@NonNull String, Set<@NonNull String>> getObjectPropertyAssertions(@NonNull String propertyID)
   {
     return this.objectPropertyAssertions.get(propertyID);
   }
 
-  @NonNull @Override public Set<String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
+  @NonNull @Override public Set<@NonNull String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
       @NonNull String propertyID)
   {
-    Set<String> individualIDs = new HashSet<>();
-    Map<String, Set<String>> values = this.objectPropertyAssertions.get(propertyID);
+    Set<@NonNull String> individualIDs = new HashSet<>();
+    Map<@NonNull String, Set<@NonNull String>> values = this.objectPropertyAssertions.get(propertyID);
 
     if (values.containsKey(individualID))
       individualIDs.addAll(values.get(individualID));
@@ -461,9 +461,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredDataPropertyIDs.contains(propertyID);
   }
 
-  @NonNull @Override public Set<String> getSubDataProperties(@NonNull String propertyID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getSubDataProperties(@NonNull String propertyID, boolean direct)
   {
-    Set<String> subProperties = new HashSet<>();
+    Set<@NonNull String> subProperties = new HashSet<>();
 
     for (String subPropertyID : this.subDataProperties.get(propertyID)) {
       if (direct) {
@@ -477,9 +477,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subProperties;
   }
 
-  @NonNull @Override public Set<String> getSuperDataProperties(@NonNull String propertyID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getSuperDataProperties(@NonNull String propertyID, boolean direct)
   {
-    Set<String> superProperties = new HashSet<>();
+    Set<@NonNull String> superProperties = new HashSet<>();
 
     for (String superPropertyID : this.superDataProperties.get(propertyID)) {
       if (direct) {
@@ -493,22 +493,22 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return superProperties;
   }
 
-  @NonNull @Override public Set<String> getDataPropertyDomains(@NonNull String propertyID, boolean direct)
+  @NonNull @Override public Set<@NonNull String> getDataPropertyDomains(@NonNull String propertyID, boolean direct)
   {
     return this.dataPropertyDomains.get(propertyID); // TODO getDataPropertyDomains direct argument?
   }
 
-  @NonNull @Override public Set<String> getDisjointDataProperties(@NonNull String propertyID)
+  @NonNull @Override public Set<@NonNull String> getDisjointDataProperties(@NonNull String propertyID)
   {
     return this.disjointDataProperties.get(propertyID);
   }
 
-  @NonNull @Override public Set<String> getEquivalentDataProperties(@NonNull String propertyID)
+  @NonNull @Override public Set<@NonNull String> getEquivalentDataProperties(@NonNull String propertyID)
   {
     return this.equivalentDataProperties.get(propertyID);
   }
 
-  @NonNull @Override public Map<String, Set<L>> getDataPropertyAssertions(@NonNull String propertyID)
+  @NonNull @Override public Map<@NonNull String, Set<L>> getDataPropertyAssertions(@NonNull String propertyID)
   {
     return this.dataPropertyAssertions.get(propertyID);
   }
@@ -517,7 +517,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       @NonNull String propertyID)
   {
     Set<L> literals = new HashSet<>();
-    Map<String, Set<L>> values = this.dataPropertyAssertions.get(propertyID);
+    Map<@NonNull String, Set<L>> values = this.dataPropertyAssertions.get(propertyID);
 
     if (values.containsKey(individualID))
       literals.addAll(values.get(individualID));
@@ -564,7 +564,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredAnnotationPropertyIDs.contains(propertyID);
   }
 
-  @NonNull public Set<String> getInconsistentMessages()
+  @NonNull public Set<@NonNull String> getInconsistentMessages()
   {
     return Collections.unmodifiableSet(this.inconsistentMessages);
   }
@@ -659,7 +659,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.subClasses.containsKey(superClassID)) {
       this.subClasses.get(superClassID).add(subClassID);
     } else {
-      Set<String> subClasses = new HashSet<>();
+      Set<@NonNull String> subClasses = new HashSet<>();
       subClasses.add(subClassID);
       this.subClasses.put(superClassID, subClasses);
     }
@@ -667,7 +667,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.superClasses.containsKey(subClassID)) {
       this.superClasses.get(subClassID).add(superClassID);
     } else {
-      Set<String> superClasses = new HashSet<>();
+      Set<@NonNull String> superClasses = new HashSet<>();
       superClasses.add(superClassID);
       this.superClasses.put(subClassID, superClasses);
     }
@@ -681,7 +681,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.disjointClasses.containsKey(c1ID)) {
       this.disjointClasses.get(c1ID).add(c2ID);
     } else {
-      Set<String> classIDs = new HashSet<>();
+      Set<@NonNull String> classIDs = new HashSet<>();
       classIDs.add(c2ID);
       this.disjointClasses.put(c1ID, classIDs);
     }
@@ -695,7 +695,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.dataPropertyDomains.containsKey(propertyID)) {
       this.dataPropertyDomains.get(propertyID).add(domainID);
     } else {
-      Set<String> classIDs = new HashSet<>();
+      Set<@NonNull String> classIDs = new HashSet<>();
       classIDs.add(domainID);
       this.dataPropertyDomains.put(propertyID, classIDs);
     }
@@ -709,7 +709,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.objectPropertyDomains.containsKey(propertyID)) {
       this.objectPropertyDomains.get(propertyID).add(domainID);
     } else {
-      Set<String> classIDs = new HashSet<>();
+      Set<@NonNull String> classIDs = new HashSet<>();
       classIDs.add(domainID);
       this.objectPropertyDomains.put(propertyID, classIDs);
     }
@@ -723,7 +723,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.equivalentObjectProperties.containsKey(p1ID)) {
       this.equivalentObjectProperties.get(p1ID).add(p2ID);
     } else {
-      Set<String> properties = new HashSet<>();
+      Set<@NonNull String> properties = new HashSet<>();
       properties.add(p2ID);
       this.equivalentObjectProperties.put(p1ID, properties);
     }
@@ -737,7 +737,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.differentIndividuals.containsKey(i1ID)) {
       this.differentIndividuals.get(i1ID).add(i2ID);
     } else {
-      Set<String> individuals = new HashSet<>();
+      Set<@NonNull String> individuals = new HashSet<>();
       individuals.add(i2ID);
       this.differentIndividuals.put(i1ID, individuals);
     }
@@ -751,7 +751,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.disjointDataProperties.containsKey(p1ID)) {
       this.disjointDataProperties.get(p1ID).add(p2ID);
     } else {
-      Set<String> properties = new HashSet<>();
+      Set<@NonNull String> properties = new HashSet<>();
       properties.add(p2ID);
       this.disjointDataProperties.put(p1ID, properties);
     }
@@ -765,7 +765,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.disjointObjectProperties.containsKey(p1ID)) {
       this.disjointObjectProperties.get(p1ID).add(p2ID);
     } else {
-      Set<String> properties = new HashSet<>();
+      Set<@NonNull String> properties = new HashSet<>();
       properties.add(p2ID);
       this.disjointObjectProperties.put(p1ID, properties);
     }
@@ -779,7 +779,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.objectPropertyRanges.containsKey(propertyID)) {
       this.objectPropertyRanges.get(propertyID).add(rangeID);
     } else {
-      Set<String> classIDs = new HashSet<>();
+      Set<@NonNull String> classIDs = new HashSet<>();
       classIDs.add(rangeID);
       this.objectPropertyRanges.put(propertyID, classIDs);
     }
@@ -792,18 +792,18 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     String objectID = opaa.getoid();
 
     if (this.objectPropertyAssertions.containsKey(subjectID)) {
-      Map<String, Set<String>> property2Values = this.objectPropertyAssertions.get(subjectID);
+      Map<@NonNull String, Set<@NonNull String>> property2Values = this.objectPropertyAssertions.get(subjectID);
       if (property2Values.containsKey(propertyID)) {
-        Set<String> values = property2Values.get(propertyID);
+        Set<@NonNull String> values = property2Values.get(propertyID);
         values.add(objectID);
       } else {
-        Set<String> values = new HashSet<>();
+        Set<@NonNull String> values = new HashSet<>();
         values.add(objectID);
         property2Values.put(propertyID, values);
       }
     } else {
-      Map<String, Set<String>> property2Values = new HashMap<>();
-      Set<String> values = new HashSet<>();
+      Map<@NonNull String, Set<@NonNull String>> property2Values = new HashMap<>();
+      Set<@NonNull String> values = new HashSet<>();
       values.add(objectID);
       property2Values.put(propertyID, values);
       this.objectPropertyAssertions.put(subjectID, property2Values);
@@ -818,7 +818,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.subObjectProperties.containsKey(superPropertyID)) {
       this.subObjectProperties.get(superPropertyID).add(subPropertyID);
     } else {
-      Set<String> subProperties = new HashSet<>();
+      Set<@NonNull String> subProperties = new HashSet<>();
       subProperties.add(subPropertyID);
       this.subObjectProperties.put(superPropertyID, subProperties);
     }
@@ -826,7 +826,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.superObjectProperties.containsKey(subPropertyID)) {
       this.superObjectProperties.get(subPropertyID).add(superPropertyID);
     } else {
-      Set<String> superProperties = new HashSet<>();
+      Set<@NonNull String> superProperties = new HashSet<>();
       superProperties.add(superPropertyID);
       this.superObjectProperties.put(subPropertyID, superProperties);
     }
@@ -840,7 +840,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.equivalentDataProperties.containsKey(p1ID)) {
       this.equivalentDataProperties.get(p1ID).add(p2ID);
     } else {
-      Set<String> properties = new HashSet<>();
+      Set<@NonNull String> properties = new HashSet<>();
       properties.add(p2ID);
       this.equivalentDataProperties.put(p1ID, properties);
     }
@@ -854,7 +854,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.classAssertions.containsKey(classID)) {
       this.classAssertions.get(classID).add(individualID);
     } else {
-      Set<String> individuals = new HashSet<>();
+      Set<@NonNull String> individuals = new HashSet<>();
       individuals.add(individualID);
       this.classAssertions.put(classID, individuals);
     }
@@ -868,7 +868,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.equivalentClasses.containsKey(c1ID)) {
       this.equivalentClasses.get(c1ID).add(c2ID);
     } else {
-      Set<String> classIDs = new HashSet<>();
+      Set<@NonNull String> classIDs = new HashSet<>();
       classIDs.add(c2ID);
       this.equivalentClasses.put(c1ID, classIDs);
     }
@@ -881,7 +881,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     L object = dpaa.geto();
 
     if (this.dataPropertyAssertions.containsKey(subjectID)) {
-      Map<String, Set<L>> property2Values = this.dataPropertyAssertions.get(subjectID);
+      Map<@NonNull String, Set<L>> property2Values = this.dataPropertyAssertions.get(subjectID);
       if (property2Values.containsKey(propertyID)) {
         Set<L> values = property2Values.get(propertyID);
         values.add(object);
@@ -891,7 +891,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
         property2Values.put(propertyID, values);
       }
     } else {
-      Map<String, Set<L>> property2Values = new HashMap<>();
+      Map<@NonNull String, Set<L>> property2Values = new HashMap<>();
       Set<L> values = new HashSet<>();
       values.add(object);
       property2Values.put(propertyID, values);
@@ -907,7 +907,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.subDataProperties.containsKey(superPropertyID)) {
       this.subDataProperties.get(superPropertyID).add(subPropertyID);
     } else {
-      Set<String> subProperties = new HashSet<>();
+      Set<@NonNull String> subProperties = new HashSet<>();
       subProperties.add(subPropertyID);
       this.subDataProperties.put(superPropertyID, subProperties);
     }
@@ -915,7 +915,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.superDataProperties.containsKey(subPropertyID)) {
       this.superDataProperties.get(subPropertyID).add(superPropertyID);
     } else {
-      Set<String> superProperties = new HashSet<>();
+      Set<@NonNull String> superProperties = new HashSet<>();
       superProperties.add(superPropertyID);
       this.superDataProperties.put(subPropertyID, superProperties);
     }
@@ -929,7 +929,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.sameIndividual.containsKey(i1ID)) {
       this.sameIndividual.get(i1ID).add(i2ID);
     } else {
-      Set<String> individuals = new HashSet<>();
+      Set<@NonNull String> individuals = new HashSet<>();
       individuals.add(i2ID);
       this.sameIndividual.put(i1ID, individuals);
     }
@@ -943,7 +943,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.inverseObjectProperties.containsKey(p1ID)) {
       this.inverseObjectProperties.get(p1ID).add(p2ID);
     } else {
-      Set<String> properties = new HashSet<>();
+      Set<@NonNull String> properties = new HashSet<>();
       properties.add(p2ID);
       this.inverseObjectProperties.put(p1ID, properties);
     }

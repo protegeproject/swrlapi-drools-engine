@@ -14,7 +14,7 @@ import java.util.Set;
  */
 class DroolsDPEResolver
 {
-  @NonNull private final Map<String, DPE> pes;
+  @NonNull private final Map<@NonNull String, DPE> pes;
 
   private int propertyExpressionIndex;
 

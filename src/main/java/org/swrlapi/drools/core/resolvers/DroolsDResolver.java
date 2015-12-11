@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsDResolver
 {
-  private final @NonNull Map<String, D> ds;
+  private final @NonNull Map<@NonNull String, D> ds;
 
   private int datatypeIndex;
 

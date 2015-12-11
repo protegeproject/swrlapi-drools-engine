@@ -110,13 +110,13 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   }
 
   @NonNull @Override public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     throw new TargetSWRLRuleEngineInternalException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
   }
 
   @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2PrefixedName(argument);
 
@@ -129,7 +129,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   }
 
   @NonNull @Override public String convert(@NonNull SWRLVariable argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2PrefixedName(argument);
 
@@ -142,55 +142,55 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   }
 
   @NonNull @Override public String convert(@NonNull SWRLIndividualArgument argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLLiteralArgument argument, @NonNull String fieldName,
-      Set<String> previouslyEncounteredVariablePrefixedNames)
+      Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLClassBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDataPropertyBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLLiteralBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDatatypeBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     return fieldName + "==" + convert(argument);
   }
@@ -232,7 +232,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   }
 
   @NonNull public String convert(@NonNull SWRLArgument argument, @NonNull String fieldName,
-      @NonNull Set<String> previouslyEncounteredVariablePrefixedNames)
+      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   { // TODO Visitor to replace instanceof
     if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
       return convert((SQWRLCollectionVariableBuiltInArgument)argument, fieldName,

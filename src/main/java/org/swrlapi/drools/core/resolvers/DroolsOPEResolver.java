@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsOPEResolver
 {
-  @NonNull private final Map<String, OPE> pes;
+  @NonNull private final Map<@NonNull String, OPE> pes;
 
   private int propertyExpressionIndex;
 

@@ -34,7 +34,7 @@ public class DroolsSWRLBuiltInInvoker
 
   public static final int MAX_BUILTIN_ARGUMENTS = 11;
 
-  @NonNull private final Map<String, List<List<SWRLBuiltInArgument>>> invocationPatternMap;
+  @NonNull private final Map<@NonNull String, List<List<SWRLBuiltInArgument>>> invocationPatternMap;
 
   public DroolsSWRLBuiltInInvoker(@NonNull SWRLRuleEngineBridge bridge)
   {

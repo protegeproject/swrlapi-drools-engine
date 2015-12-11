@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsDPResolver
 {
-  private final @NonNull Map<String, DP> dps;
+  private final @NonNull Map<@NonNull String, DP> dps;
 
   private int propertyIndex;
 

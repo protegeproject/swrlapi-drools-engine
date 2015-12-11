@@ -39,7 +39,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
   {
     String ruleName = rule.getRuleName();
     String drlRule = getRulePreamble(ruleName);
-    Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
+    Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
 
     getDroolsSWRLBodyAtomConverter().reset();
     getDroolsSWRLHeadAtomConverter().reset();

@@ -34,7 +34,7 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
     implements TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 {
   @NonNull private final Map<OWLDataRange, String> dataRange2IDMap;
-  @NonNull private final Set<String> convertedDataRangeIDs;
+  @NonNull private final Set<@NonNull String> convertedDataRangeIDs;
   @NonNull private final Set<DR> dataRanges;
   private int dataRangeIndex;
 
@@ -94,7 +94,7 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
     String dataRangeID = getOWLDataRangeID(dataRange);
 
     if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-      Set<String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
+      Set<@NonNull String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
       DIO dio = new DIO(dataRangeID, dataRangeIDs);
       addOWLDataRange(dio);
     }
@@ -106,7 +106,7 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
     String dataRangeID = getOWLDataRangeID(dataRange);
 
     if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-      Set<String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
+      Set<@NonNull String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
       DUO duo = new DUO(dataRangeID, dataRangeIDs);
       addOWLDataRange(duo);
     }
@@ -168,9 +168,9 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
     }
   }
 
-  @NonNull private Set<String> getOWLDataRangeIDs(@NonNull Set<OWLDataRange> dataRanges)
+  @NonNull private Set<@NonNull String> getOWLDataRangeIDs(@NonNull Set<OWLDataRange> dataRanges)
   {
-    Set<String> dataRangeIDs = new HashSet<>();
+    Set<@NonNull String> dataRangeIDs = new HashSet<>();
     for (OWLDataRange dataRange : dataRanges) {
       String dataRangeID = getOWLDataRangeID(dataRange);
       dataRangeIDs.add(dataRangeID);

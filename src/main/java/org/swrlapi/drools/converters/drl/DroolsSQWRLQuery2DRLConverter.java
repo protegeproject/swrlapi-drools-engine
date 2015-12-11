@@ -62,7 +62,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
 
   private void sqwrlNonCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
-    Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
+    Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
     String ruleName = query.getQueryName();
     String drlRule = getQueryPreamble(ruleName);
 
@@ -86,7 +86,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
 
   private void sqwrlCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
-    Set<String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
+    Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
     String queryName = query.getQueryName();
     String phase1RuleName = queryName + "-makeCollection";
     String phase2RuleName = queryName + "-operateCollection";
