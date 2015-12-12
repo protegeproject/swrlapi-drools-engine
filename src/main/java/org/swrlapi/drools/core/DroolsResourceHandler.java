@@ -32,7 +32,8 @@ public class DroolsResourceHandler
     } catch (RuntimeException e) {
       e.printStackTrace();
       throw new TargetSWRLRuleEngineInternalException(
-          "internal error generating Drools rule \n" + ruleText + "\n" + (e.getMessage() != null ? e.getMessage() : ""), e);
+          "internal error generating Drools rule \n" + ruleText + "\n" + (e.getMessage() != null ? e.getMessage() : ""),
+          e);
     }
 
     if (this.knowledgeBuilder.hasErrors())
@@ -168,8 +169,12 @@ public class DroolsResourceHandler
     this.knowledgeBuilder.add(createDRLResource(resourceText), ResourceType.DRL);
   }
 
-  private Resource createDRLResource(@NonNull String resourceText)
+  @NonNull private Resource createDRLResource(@NonNull String resourceText)
   {
-    return ResourceFactory.newReaderResource(new StringReader(resourceText));
+    Resource resource = ResourceFactory.newReaderResource(new StringReader(resourceText));
+    if (resource != null)
+      return resource;
+    else
+      throw new TargetSWRLRuleEngineInternalException("internal error generating Drools resource: " + resourceText);
   }
 }
