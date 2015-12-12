@@ -21,7 +21,7 @@ import org.swrlapi.drools.owl.properties.OP;
 public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
-  private final @NonNull DroolsObjectResolver resolver;
+  @NonNull private final DroolsObjectResolver resolver;
 
   public DroolsOWLPropertyExpression2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsObjectResolver resolver)
