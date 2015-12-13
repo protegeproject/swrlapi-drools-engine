@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsOPEResolver
 {
-  @NonNull private final Map<@NonNull String, OPE> pes;
+  @NonNull private final Map<@NonNull String, @NonNull OPE> pes;
 
   private int propertyExpressionIndex;
 
@@ -47,7 +47,7 @@ class DroolsOPEResolver
     this.pes.put(pe.getid(), pe);
   }
 
-  @NonNull public Set<OPE> getOPEs()
+  @NonNull public Set<@NonNull OPE> getOPEs()
   {
     return new HashSet<>(this.pes.values());
   }

@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsCEResolver
 {
-  @NonNull private final Map<@NonNull String, CE> ces;
+  @NonNull private final Map<@NonNull String, @NonNull CE> ces;
 
   private int classExpressionIndex;
 
@@ -47,7 +47,7 @@ class DroolsCEResolver
     this.ces.put(ce.getceid(), ce);
   }
 
-  @NonNull public Set<CE> getCEs()
+  @NonNull public Set<@NonNull CE> getCEs()
   {
     return new HashSet<>(this.ces.values());
   }

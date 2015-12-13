@@ -14,7 +14,7 @@ import java.util.Set;
  */
 class DroolsDPEResolver
 {
-  @NonNull private final Map<@NonNull String, DPE> pes;
+  @NonNull private final Map<@NonNull String, @NonNull DPE> pes;
 
   private int propertyExpressionIndex;
 
@@ -48,7 +48,7 @@ class DroolsDPEResolver
     this.pes.put(pe.getid(), pe);
   }
 
-  @NonNull public Set<DPE> getDPEs()
+  @NonNull public Set<@NonNull DPE> getDPEs()
   {
     return new HashSet<>(this.pes.values());
   }

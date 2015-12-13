@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classes;
 
+import checkers.nullness.quals.NonNull;
 import org.swrlapi.drools.owl.core.OO;
 
 /**
@@ -13,5 +14,5 @@ import org.swrlapi.drools.owl.core.OO;
  */
 public interface CE extends OO
 {
-  String getceid();
+  @NonNull String getceid();
 }

@@ -19,7 +19,7 @@ public interface DroolsOWLAxiomHandler
 {
   void infer(@NonNull A... newInferredOWLAxioms);
 
-  void addAssertOWLAxioms(@NonNull Set<A> newAssertedOWLAxioms);
+  void addAssertOWLAxioms(@NonNull Set<@NonNull A> newAssertedOWLAxioms);
 
   void inferFalse(@NonNull String owl2RLRuleName, @NonNull String... arguments);
 
@@ -27,13 +27,13 @@ public interface DroolsOWLAxiomHandler
 
   // Axioms
 
-  @NonNull Set<A> getAssertedOWLAxioms();
+  @NonNull Set<@NonNull A> getAssertedOWLAxioms();
 
-  @NonNull Set<A> getInferredOWLAxioms();
+  @NonNull Set<@NonNull A> getInferredOWLAxioms();
 
   boolean isEntailed(A a);
 
-  boolean isEntailed(Set<? extends A> axioms);
+  boolean isEntailed(Set<? extends @NonNull A> axioms);
 
   // Classes
 
@@ -79,7 +79,7 @@ public interface DroolsOWLAxiomHandler
 
   @NonNull Set<@NonNull String> getInverseObjectProperties(@NonNull String propertyID);
 
-  @NonNull Map<@NonNull String, Set<@NonNull String>> getObjectPropertyAssertions(
+  @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> getObjectPropertyAssertions(
     @NonNull String propertyID); // individualID -> Set<individualID>
 
   @NonNull Set<@NonNull String> getObjectPropertyValuesForIndividual(@NonNull String individualID,

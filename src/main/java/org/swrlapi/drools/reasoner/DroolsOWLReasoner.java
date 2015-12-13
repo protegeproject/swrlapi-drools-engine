@@ -633,7 +633,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return this.owlObjectResolver.resolveOWLDataProperty(propertyID);
   }
 
-  @Nullable private C resolveC(OWLClass cls)
+  @NonNull private C resolveC(OWLClass cls)
   {
     String classID = this.owlObjectResolver.resolveOWLClass2ID(cls);
     return this.droolsObjectResolver.resolveC(classID);

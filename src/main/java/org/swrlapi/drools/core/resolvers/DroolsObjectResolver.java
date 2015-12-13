@@ -83,7 +83,7 @@ public class DroolsObjectResolver
 
   @NonNull public CE resolveCE(@NonNull String ceid) { return this.droolsCEResolver.resolveCE(ceid); }
 
-  @NonNull public Set<CE> getCEs()
+  @NonNull public Set<@NonNull CE> getCEs()
   {
     return this.droolsCEResolver.getCEs();
   }
@@ -105,7 +105,7 @@ public class DroolsObjectResolver
     this.droolsOPEResolver.recordOPE(pe);
   }
 
-  @NonNull public Set<OPE> getOPEs()
+  @NonNull public Set<@NonNull OPE> getOPEs()
   {
     return this.droolsOPEResolver.getOPEs();
   }
@@ -133,7 +133,7 @@ public class DroolsObjectResolver
     this.droolsDPEResolver.recordDPE(pe);
   }
 
-  @NonNull public Set<DPE> getDPEs()
+  @NonNull public Set<@NonNull DPE> getDPEs()
   {
     return this.droolsDPEResolver.getDPEs();
   }

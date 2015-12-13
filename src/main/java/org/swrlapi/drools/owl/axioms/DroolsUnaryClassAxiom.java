@@ -18,8 +18,7 @@ abstract class DroolsUnaryClassAxiom extends DroolsUnaryObject<String> implement
     return getT1();
   }
 
-  @SideEffectFree @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return super.toString();
   }

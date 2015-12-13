@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsIResolver
 {
-  private final @NonNull Map<@NonNull String, I> is;
+  private final @NonNull Map<@NonNull String, @NonNull I> is;
 
   private int individualIndex;
 
@@ -47,7 +47,7 @@ class DroolsIResolver
     this.is.put(i.getid(), i);
   }
 
-  public @NonNull Set<I> getIs()
+  public @NonNull Set<@NonNull I> getIs()
   {
     return new HashSet<>(this.is.values());
   }

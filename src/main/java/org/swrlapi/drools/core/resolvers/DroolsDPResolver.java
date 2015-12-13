@@ -13,7 +13,7 @@ import java.util.Set;
  */
 class DroolsDPResolver
 {
-  private final @NonNull Map<@NonNull String, DP> dps;
+  private final @NonNull Map<@NonNull String, @NonNull DP> dps;
 
   private int propertyIndex;
 
@@ -47,7 +47,7 @@ class DroolsDPResolver
     this.dps.put(p.getid(), p);
   }
 
-  public @NonNull Set<DP> getDPs()
+  @NonNull public Set<@NonNull DP> getDPs()
   {
     return new HashSet<>(this.dps.values());
   }

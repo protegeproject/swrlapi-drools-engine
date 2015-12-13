@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
 import checkers.nullness.quals.NonNull;
+import dataflow.quals.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
@@ -19,7 +20,7 @@ public class DPDA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @NonNull @Override public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return "DPDA(" + super.toString() + ")";
   }
