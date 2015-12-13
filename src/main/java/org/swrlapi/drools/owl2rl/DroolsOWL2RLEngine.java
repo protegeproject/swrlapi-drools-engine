@@ -56,7 +56,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that must be enabled or disabled in groups.
    */
-  @NonNull private static Set<@NonNull Set<@NonNull OWL2RLRule>> generateGroupedRuleSets()
+  @NonNull private static Set<@NonNull Set<OWL2RLRule>> generateGroupedRuleSets()
   {
     Set<@NonNull Set<@NonNull OWL2RLRule>> groupedRuleSets = new HashSet<>();
 
@@ -68,7 +68,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     return groupedRuleSets;
   }
 
-  @NonNull private static Set<@NonNull OWL2RLRule> generateUnsupportedRules()
+  @NonNull private static Set<OWL2RLRule> generateUnsupportedRules()
   {
     return EnumSet.of(OWL2RLRule.PRP_SPO2, OWL2RLRule.PRP_KEY, OWL2RLRule.DT_NOT_TYPE);
 
