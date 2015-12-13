@@ -47,7 +47,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
     super(bridge);
   }
 
-  public BA convert(@NonNull SWRLBuiltInArgument argument)
+  @NonNull public BA convert(@NonNull SWRLBuiltInArgument argument)
   {
     return argument.accept(this);
   }

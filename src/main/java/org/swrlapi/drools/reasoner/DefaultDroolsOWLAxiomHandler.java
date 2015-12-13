@@ -1,6 +1,7 @@
 package org.swrlapi.drools.reasoner;
 
 import checkers.nullness.quals.NonNull;
+import checkers.nullness.quals.Nullable;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.AOPA;
@@ -101,7 +102,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   private boolean isInconsistent;
 
-  private StatefulKnowledgeSession knowledgeSession;
+  @Nullable private StatefulKnowledgeSession knowledgeSession;
 
   public DefaultDroolsOWLAxiomHandler()
   {
@@ -207,14 +208,16 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       if (!this.inferredOWLAxioms.contains(newInferredOWLAxiom) && (!this.assertedOWLAxioms
         .contains(newInferredOWLAxiom))) {
         this.inferredOWLAxioms.add(newInferredOWLAxiom);
-        this.knowledgeSession.insert(newInferredOWLAxiom);
-
-        newInferredOWLAxiom.visit(this);
+        if (this.knowledgeSession != null) {
+          this.knowledgeSession.insert(newInferredOWLAxiom);
+          newInferredOWLAxiom.visit(this);
+        } else
+          throw new TargetSWRLRuleEngineInternalException("No knowledge session!");
       }
     }
   }
 
-  @NonNull @Override public Set<A> getAssertedOWLAxioms()
+  @NonNull @Override public Set<@NonNull A> getAssertedOWLAxioms()
   {
     return Collections.unmodifiableSet(this.assertedOWLAxioms);
   }
@@ -250,20 +253,25 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   @NonNull @Override public Set<@NonNull String> getClassAssertions(@NonNull String classID)
   {
-    return this.classAssertions.get(classID);
+    if (this.classAssertions.get(classID) != null)
+      return this.classAssertions.get(classID);
+    else
+      return Collections.emptySet();
   }
 
   @NonNull @Override public Set<@NonNull String> getSubClasses(@NonNull String classID, boolean direct)
   {
     Set<@NonNull String> subClasses = new HashSet<>();
 
-    for (String subClassID : this.subClasses.get(classID)) {
-      if (direct) {
-        if (directSubClassOf(classID, subClassID))
-          subClasses.add(subClassID);
-      } else {
-        if (strictSubClassOf(classID, subClassID))
-          subClasses.add(subClassID);
+    if (this.subClasses.get(classID) != null) {
+      for (String subClassID : this.subClasses.get(classID)) {
+        if (direct) {
+          if (directSubClassOf(classID, subClassID))
+            subClasses.add(subClassID);
+        } else {
+          if (strictSubClassOf(classID, subClassID))
+            subClasses.add(subClassID);
+        }
       }
     }
     return subClasses;
@@ -273,13 +281,15 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   {
     Set<@NonNull String> superClasses = new HashSet<>();
 
-    for (String superClassID : this.superClasses.get(classID)) {
-      if (direct) {
-        if (directSubClassOf(superClassID, classID))
-          superClasses.add(superClassID);
-      } else {
-        if (strictSubClassOf(superClassID, classID))
-          superClasses.add(superClassID);
+    if (this.superClasses.get(classID) != null) {
+      for (String superClassID : this.superClasses.get(classID)) {
+        if (direct) {
+          if (directSubClassOf(superClassID, classID))
+            superClasses.add(superClassID);
+        } else {
+          if (strictSubClassOf(superClassID, classID))
+            superClasses.add(superClassID);
+        }
       }
     }
     return superClasses;
@@ -287,12 +297,18 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   @NonNull @Override public Set<@NonNull String> getDisjointClasses(@NonNull String classID)
   {
-    return this.disjointClasses.get(classID);
+    if (this.disjointClasses.get(classID) != null)
+      return this.disjointClasses.get(classID);
+    else
+      return Collections.emptySet();
   }
 
   @NonNull @Override public Set<@NonNull String> getEquivalentClasses(@NonNull String classID)
   {
-    return this.equivalentClasses.get(classID);
+    if (this.equivalentClasses.get(classID) != null)
+      return this.equivalentClasses.get(classID);
+    else
+      return Collections.emptySet();
   }
 
   /**
@@ -447,10 +463,13 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     @NonNull String propertyID)
   {
     Set<@NonNull String> individualIDs = new HashSet<>();
-    Map<@NonNull String, @NonNull Set<@NonNull String>> values = this.objectPropertyAssertions.get(propertyID);
 
-    if (values.get(individualID) != null)
-      individualIDs.addAll(values.get(individualID));
+    if (this.objectPropertyAssertions.get(propertyID) != null) {
+      Map<@NonNull String, @NonNull Set<@NonNull String>> values = this.objectPropertyAssertions.get(propertyID);
+
+      if (values.get(individualID) != null)
+        individualIDs.addAll(values.get(individualID));
+    }
 
     return individualIDs;
   }
@@ -554,7 +573,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.equivalentDataProperties.get(propertyID) != null)
       return this.equivalentDataProperties.get(propertyID);
     else
-      Collections.emptySet();
+      return Collections.emptySet();
   }
 
   @NonNull @Override public Map<@NonNull String, @NonNull Set<@NonNull L>> getDataPropertyAssertions(
@@ -569,12 +588,14 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   @NonNull @Override public Set<@NonNull L> getDataPropertyValuesForIndividual(@NonNull String individualID,
     @NonNull String propertyID)
   {
-    Set<L> literals = new HashSet<>();
-    Map<@NonNull String, Set<L>> values = this.dataPropertyAssertions.get(propertyID);
+    Set<@NonNull L> literals = new HashSet<>();
 
-    if (values.get(individualID) != null)
-      literals.addAll(values.get(individualID));
+    if (this.dataPropertyAssertions.get(propertyID) != null) {
+      Map<@NonNull String, Set<L>> values = this.dataPropertyAssertions.get(propertyID);
 
+      if (values.get(individualID) != null)
+        literals.addAll(values.get(individualID));
+    }
     return literals;
   }
 
