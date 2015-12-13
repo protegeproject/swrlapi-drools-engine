@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class DroolsSQWRLCollectionHandler
 {
-  @NonNull private final Set<SQWRLC> generatedSQWRLCollections;
+  @NonNull private final Set<@NonNull SQWRLC> generatedSQWRLCollections;
 
   public DroolsSQWRLCollectionHandler()
   {
@@ -39,7 +39,7 @@ public class DroolsSQWRLCollectionHandler
     return !this.generatedSQWRLCollections.isEmpty();
   }
 
-  @NonNull public Set<SQWRLC> getSQWRLCollections()
+  @NonNull public Set<@NonNull SQWRLC> getSQWRLCollections()
   {
     return this.generatedSQWRLCollections;
   }

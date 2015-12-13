@@ -17,16 +17,15 @@ public class DOO implements DR
   private static final long serialVersionUID = 1L;
 
   @NonNull public final String rid;
-  @NonNull public final Set<L> literals;
+  @NonNull public final Set<@NonNull L> literals;
 
-  public DOO(@NonNull String rid, @NonNull Set<L> literals)
+  public DOO(@NonNull String rid, @NonNull Set<@NonNull L> literals)
   {
     this.rid = rid;
     this.literals = literals;
   }
 
-  @NonNull @Override
-  public String getrid()
+  @NonNull @Override public String getrid()
   {
     return this.rid;
   }

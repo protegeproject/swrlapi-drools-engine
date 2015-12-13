@@ -499,7 +499,7 @@ public class DroolsSWRLBuiltInInvoker
   }
 
   private void addInvocationPattern(@NonNull String builtInName, @NonNull String invocationPattern,
-    List<List<@NonNull SWRLBuiltInArgument>> argumentPatterns)
+    List<@NonNull List<@NonNull SWRLBuiltInArgument>> argumentPatterns)
   {
     if (!this.invocationPatternMap.containsKey(invocationPattern))
       this.invocationPatternMap.put(invocationPattern, argumentPatterns);
@@ -507,7 +507,7 @@ public class DroolsSWRLBuiltInInvoker
       throw new TargetSWRLRuleEngineInternalException("inconsistent invocation pattern in " + builtInName + " in rule");
   }
 
-  private List<List<@NonNull SWRLBuiltInArgument>> getInvocationPatternArguments(@NonNull String ruleName,
+  private List<@NonNull List<@NonNull SWRLBuiltInArgument>> getInvocationPatternArguments(@NonNull String ruleName,
     @NonNull String builtInName, @NonNull String invocationPattern)
   {
     if (this.invocationPatternMap.containsKey(invocationPattern))

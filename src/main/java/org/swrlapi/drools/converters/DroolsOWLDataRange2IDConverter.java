@@ -33,9 +33,9 @@ import java.util.Set;
 public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBase
     implements TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 {
-  @NonNull private final Map<OWLDataRange, String> dataRange2IDMap;
+  @NonNull private final Map<@NonNull OWLDataRange, @NonNull String> dataRange2IDMap;
   @NonNull private final Set<@NonNull String> convertedDataRangeIDs;
-  @NonNull private final Set<DR> dataRanges;
+  @NonNull private final Set<@NonNull DR> dataRanges;
   private int dataRangeIndex;
 
   public DroolsOWLDataRange2IDConverter(@NonNull SWRLRuleEngineBridge bridge)
@@ -69,7 +69,7 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
     String dataRangeID = getOWLDataRangeID(dataRange);
 
     if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-      Set<L> literals = new HashSet<>();
+      Set<@NonNull L> literals = new HashSet<>();
       // TODO Pull out and convert the literals
       DOO doo = new DOO(dataRangeID, literals);
       addOWLDataRange(doo);
@@ -168,7 +168,7 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
     }
   }
 
-  @NonNull private Set<@NonNull String> getOWLDataRangeIDs(@NonNull Set<OWLDataRange> dataRanges)
+  @NonNull private Set<@NonNull String> getOWLDataRangeIDs(@NonNull Set<@NonNull OWLDataRange> dataRanges)
   {
     Set<@NonNull String> dataRangeIDs = new HashSet<>();
     for (OWLDataRange dataRange : dataRanges) {

@@ -188,7 +188,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   /**
    * Supply the asserted OWL axioms.
    */
-  @Override public void addAssertOWLAxioms(@NonNull Set<A> newAssertedOWLAxioms)
+  @Override public void addAssertOWLAxioms(@NonNull Set<@NonNull A> newAssertedOWLAxioms)
   {
     this.assertedOWLAxioms.addAll(newAssertedOWLAxioms);
 
@@ -591,7 +591,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     Set<@NonNull L> literals = new HashSet<>();
 
     if (this.dataPropertyAssertions.get(propertyID) != null) {
-      Map<@NonNull String, Set<L>> values = this.dataPropertyAssertions.get(propertyID);
+      Map<@NonNull String, @NonNull Set<@NonNull L>> values = this.dataPropertyAssertions.get(propertyID);
 
       if (values.get(individualID) != null)
         literals.addAll(values.get(individualID));
@@ -958,18 +958,18 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     L object = dpaa.geto();
 
     if (this.dataPropertyAssertions.containsKey(subjectID)) {
-      Map<@NonNull String, Set<L>> property2Values = this.dataPropertyAssertions.get(subjectID);
+      Map<@NonNull String, @NonNull Set<@NonNull L>> property2Values = this.dataPropertyAssertions.get(subjectID);
       if (property2Values.containsKey(propertyID)) {
-        Set<L> values = property2Values.get(propertyID);
+        Set<@NonNull L> values = property2Values.get(propertyID);
         values.add(object);
       } else {
-        Set<L> values = new HashSet<>();
+        Set<@NonNull L> values = new HashSet<>();
         values.add(object);
         property2Values.put(propertyID, values);
       }
     } else {
-      Map<@NonNull String, Set<L>> property2Values = new HashMap<>();
-      Set<L> values = new HashSet<>();
+      Map<@NonNull String, @NonNull Set<@NonNull L>> property2Values = new HashMap<>();
+      Set<@NonNull L> values = new HashSet<>();
       values.add(object);
       property2Values.put(propertyID, values);
       this.dataPropertyAssertions.put(subjectID, property2Values);

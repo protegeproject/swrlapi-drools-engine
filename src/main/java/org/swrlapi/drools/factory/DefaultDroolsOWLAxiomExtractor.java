@@ -180,7 +180,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   {
     OWLIndividual individual1 = sia.geti1().extract(getDroolsOWLIndividualExtractor());
     OWLIndividual individual2 = sia.geti2().extract(getDroolsOWLIndividualExtractor());
-    Set<OWLIndividual> individuals = new HashSet<>();
+    Set<@NonNull OWLIndividual> individuals = new HashSet<>();
 
     individuals.add(individual1);
     individuals.add(individual2);
@@ -192,7 +192,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   {
     OWLIndividual individual1 = dia.geti1().extract(getDroolsOWLIndividualExtractor());
     OWLIndividual individual2 = dia.geti2().extract(getDroolsOWLIndividualExtractor());
-    Set<OWLIndividual> individuals = new HashSet<>();
+    Set<@NonNull OWLIndividual> individuals = new HashSet<>();
 
     individuals.add(individual1);
     individuals.add(individual2);
@@ -212,7 +212,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   {
     OWLClassExpression class1 = getOWLObjectResolver().resolveOWLClassExpression(dca.getc1id());
     OWLClassExpression class2 = getOWLObjectResolver().resolveOWLClassExpression(dca.getc2id());
-    Set<OWLClassExpression> classes = new HashSet<>();
+    Set<@NonNull OWLClassExpression> classes = new HashSet<>();
     classes.add(class1);
     classes.add(class2);
 
@@ -223,7 +223,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   {
     OWLClassExpression class1 = getOWLObjectResolver().resolveOWLClassExpression(eca.getc1id());
     OWLClassExpression class2 = getOWLObjectResolver().resolveOWLClassExpression(eca.getc2id());
-    Set<OWLClassExpression> classes = new HashSet<>();
+    Set<@NonNull OWLClassExpression> classes = new HashSet<>();
     classes.add(class1);
     classes.add(class2);
 
@@ -293,7 +293,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   {
     OWLObjectPropertyExpression property1 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(eopa.getp1id());
     OWLObjectPropertyExpression property2 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(eopa.getp1id());
-    Set<OWLObjectPropertyExpression> properties = new HashSet<>();
+    Set<@NonNull OWLObjectPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
     properties.add(property2);
 
@@ -304,7 +304,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   {
     OWLDataPropertyExpression property1 = getOWLObjectResolver().resolveOWLDataPropertyExpression(edpa.getp1id());
     OWLDataPropertyExpression property2 = getOWLObjectResolver().resolveOWLDataPropertyExpression(edpa.getp2id());
-    Set<OWLDataPropertyExpression> properties = new HashSet<>();
+    Set<@NonNull OWLDataPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
     properties.add(property2);
 
@@ -317,7 +317,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
         djopa.getp1id());
     OWLObjectPropertyExpression property2 = getOWLObjectResolver().resolveOWLObjectPropertyExpression(
         djopa.getp2id());
-    Set<OWLObjectPropertyExpression> properties = new HashSet<>();
+    Set<@NonNull OWLObjectPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
     properties.add(property2);
 
@@ -328,7 +328,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   {
     OWLDataPropertyExpression property1 = getOWLObjectResolver().resolveOWLDataPropertyExpression(djdpa.getp1id());
     OWLDataPropertyExpression property2 = getOWLObjectResolver().resolveOWLDataPropertyExpression(djdpa.getp2id());
-    Set<OWLDataPropertyExpression> properties = new HashSet<>();
+    Set<@NonNull OWLDataPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
     properties.add(property2);
 

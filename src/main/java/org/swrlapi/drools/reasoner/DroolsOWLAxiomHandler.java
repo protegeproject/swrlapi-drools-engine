@@ -80,10 +80,10 @@ public interface DroolsOWLAxiomHandler
   @NonNull Set<@NonNull String> getInverseObjectProperties(@NonNull String propertyID);
 
   @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> getObjectPropertyAssertions(
-    @NonNull String propertyID); // individualID -> Set<individualID>
+      @NonNull String propertyID); // individualID -> Set<individualID>
 
   @NonNull Set<@NonNull String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
-    @NonNull String propertyID); // Set<individualID>
+      @NonNull String propertyID); // Set<individualID>
 
   boolean strictSubObjectPropertyOf(@NonNull String propertyID1, @NonNull String propertyID2);
 
@@ -103,9 +103,10 @@ public interface DroolsOWLAxiomHandler
 
   @NonNull Set<@NonNull String> getEquivalentDataProperties(@NonNull String propertyID);
 
-  @NonNull Map<@NonNull String, Set<L>> getDataPropertyAssertions(@NonNull String propertyID); // individualID -> Set<L>
+  @NonNull Map<@NonNull String, @NonNull Set<@NonNull L>> getDataPropertyAssertions(
+      @NonNull String propertyID); // individualID -> Set<L>
 
-  @NonNull Set<L> getDataPropertyValuesForIndividual(@NonNull String individualID, @NonNull String propertyID);
+  @NonNull Set<@NonNull L> getDataPropertyValuesForIndividual(@NonNull String individualID, @NonNull String propertyID);
 
   boolean strictSubDataPropertyOf(@NonNull String propertyID1, @NonNull String propertyID2);
 

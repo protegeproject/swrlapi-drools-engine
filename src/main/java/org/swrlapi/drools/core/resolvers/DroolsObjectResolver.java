@@ -66,7 +66,7 @@ public class DroolsObjectResolver
 
   @NonNull public C resolveC(@NonNull String cid) { return this.droolsCResolver.resolveC(cid); }
 
-  @NonNull public Set<C> getCs()
+  @NonNull public Set<@NonNull C> getCs()
   {
     return this.droolsCResolver.getCs();
   }

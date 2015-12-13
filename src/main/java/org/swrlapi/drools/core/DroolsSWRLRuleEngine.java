@@ -63,7 +63,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   private DroolsResourceHandler resourceHandler;
 
   // We keep track of axioms supplied to and inferred by Drools so that we do not redundantly assert them.
-  @NonNull private final Set<OWLAxiom> assertedAndInferredOWLAxioms;
+  @NonNull private final Set<@NonNull OWLAxiom> assertedAndInferredOWLAxioms;
   @NonNull private final Set<@NonNull String> allSQWRLQueryNames; // Drools is supplied with all currently enabled SQWRL queries.
   // Typically, only one query is active so we use an agenda filter to ignore the ones that are not active.
   @NonNull private final Set<@NonNull String> activeSQWRLQueryNames;

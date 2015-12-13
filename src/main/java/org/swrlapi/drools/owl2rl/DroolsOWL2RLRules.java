@@ -30,7 +30,7 @@ import java.util.Set;
  */
 public class DroolsOWL2RLRules
 {
-  @NonNull private final Map<OWL2RLNames.OWL2RLRule, Set<DroolsRuleDefinition>> rules;
+  @NonNull private final Map<OWL2RLNames.OWL2RLRule, @NonNull Set<@NonNull DroolsRuleDefinition>> rules;
 
   public DroolsOWL2RLRules()
   {
@@ -59,7 +59,7 @@ public class DroolsOWL2RLRules
     return this.rules.containsKey(rule);
   }
 
-  @NonNull public Set<DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
+  @NonNull public Set<@NonNull DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
   {
     if (this.rules.containsKey(rule))
       return this.rules.get(rule);
@@ -507,7 +507,7 @@ public class DroolsOWL2RLRules
     if (this.rules.containsKey(rule))
       this.rules.get(rule).add(newRuleDefinition);
     else {
-      Set<DroolsRuleDefinition> newRuleDefinitions = new HashSet<>();
+      Set<@NonNull DroolsRuleDefinition> newRuleDefinitions = new HashSet<>();
       newRuleDefinitions.add(newRuleDefinition);
       this.rules.put(rule, newRuleDefinitions);
     }

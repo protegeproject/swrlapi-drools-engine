@@ -97,7 +97,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       for (OWLIndividual individual1 : classExpression.getIndividuals()) {
-        Set<OWLIndividual> individuals = new HashSet<>(classExpression.getIndividuals());
+        Set<@NonNull OWLIndividual> individuals = new HashSet<>(classExpression.getIndividuals());
         String individual1ID = getIRIResolver().iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
 
         individuals.remove(individual1);
@@ -370,7 +370,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
   }
 
-  @NonNull public Set<CE> getCEs()
+  @NonNull public Set<@NonNull CE> getCEs()
   {
     return this.droolsObjectResolver.getCEs();
   }

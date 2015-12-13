@@ -34,9 +34,9 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     this.droolsOWL2RLRules.defineRules();
   }
 
-  @NonNull public Set<DroolsRuleDefinition> getEnabledRuleDefinitions()
+  @NonNull public Set<@NonNull DroolsRuleDefinition> getEnabledRuleDefinitions()
   {
-    Set<DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
+    Set<@NonNull DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
     getEnabledRules().stream().filter(this.droolsOWL2RLRules::hasRule)
         .forEach(rule -> enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule)));
@@ -47,7 +47,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that are always enabled and that cannot be disabled.
    */
-  @NonNull private static Set<OWL2RLRule> generatePermanentlyOnRules()
+  @NonNull private static Set<@NonNull OWL2RLRule> generatePermanentlyOnRules()
   {
     return EnumSet.of(OWL2RLRule.CLS_THING, OWL2RLRule.CLS_NOTHING1, OWL2RLRule.CLS_NOTHING2, OWL2RLRule.DT_TYPE1,
         OWL2RLRule.DT_TYPE2, OWL2RLRule.DT_EQ, OWL2RLRule.DT_DIFF);
@@ -56,9 +56,9 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that must be enabled or disabled in groups.
    */
-  @NonNull private static Set<Set<OWL2RLRule>> generateGroupedRuleSets()
+  @NonNull private static Set<@NonNull Set<@NonNull OWL2RLRule>> generateGroupedRuleSets()
   {
-    Set<Set<OWL2RLRule>> groupedRuleSets = new HashSet<>();
+    Set<@NonNull Set<@NonNull OWL2RLRule>> groupedRuleSets = new HashSet<>();
 
     groupedRuleSets.add(EnumSet.of(OWL2RLRule.EQ_DIFF1, OWL2RLRule.EQ_DIFF2, OWL2RLRule.EQ_DIFF3));
     groupedRuleSets.add(EnumSet.of(OWL2RLRule.PRP_EQP1, OWL2RLRule.PRP_EQP2, OWL2RLRule.EQ_REP_P));
@@ -68,7 +68,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     return groupedRuleSets;
   }
 
-  @NonNull private static Set<OWL2RLRule> generateUnsupportedRules()
+  @NonNull private static Set<@NonNull OWL2RLRule> generateUnsupportedRules()
   {
     return EnumSet.of(OWL2RLRule.PRP_SPO2, OWL2RLRule.PRP_KEY, OWL2RLRule.DT_NOT_TYPE);
 

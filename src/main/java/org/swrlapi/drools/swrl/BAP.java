@@ -23,7 +23,7 @@ public class BAP
   @SuppressWarnings("unused")
   @Nullable private BA a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11;
 
-  @NonNull private final List<BA> arguments;
+  @NonNull private final List<@NonNull BA> arguments;
 
   public BAP()
   {

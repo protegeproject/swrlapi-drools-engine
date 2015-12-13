@@ -15,7 +15,7 @@ public class VPATH
 {
   public static final int MaxArguments = 10;
 
-  @NonNull private final List<BA> arguments;
+  @NonNull private final List<@NonNull BA> arguments;
 
   public VPATH()
   {
@@ -127,7 +127,7 @@ public class VPATH
     this.arguments.add(ba10);
   }
 
-  @NonNull public List<BA> getArguments()
+  @NonNull public List<@NonNull BA> getArguments()
   {
     return Collections.unmodifiableList(this.arguments);
   }
