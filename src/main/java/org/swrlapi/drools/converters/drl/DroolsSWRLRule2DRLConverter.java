@@ -21,9 +21,10 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 
   @NonNull private final DroolsSWRLRuleEngine droolsEngine;
 
-  public DroolsSWRLRule2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
-      @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
-      @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
+  public DroolsSWRLRule2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
+    @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
+    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
   {
     super(bridge);
 
@@ -32,7 +33,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
       propertyExpressionConverter);
 
-    this.droolsEngine = droolsEngine;
+    this.droolsEngine = droolsSWRLRuleEngine;
   }
 
   public void convert(@NonNull SWRLAPIRule rule)
@@ -90,7 +91,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     return this.headAtomConverter;
   }
 
-  @NonNull   private DroolsSWRLRuleEngine getDroolsEngine()
+  @NonNull private DroolsSWRLRuleEngine getDroolsEngine()
   {
     return this.droolsEngine;
   }

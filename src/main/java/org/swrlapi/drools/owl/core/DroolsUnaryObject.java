@@ -31,7 +31,7 @@ public abstract class DroolsUnaryObject<T1>
     if (o == null || getClass() != o.getClass())
       return false;
 
-    DroolsUnaryObject<?> that = (DroolsUnaryObject<?>)o;
+    DroolsUnaryObject<? extends @NonNull Object> that = (DroolsUnaryObject<? extends @NonNull Object>)o;
 
     return !(t1 != null ? !t1.equals(that.t1) : that.t1 != null);
 

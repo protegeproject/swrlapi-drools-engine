@@ -35,7 +35,7 @@ public class DP extends OE implements P, DPE
 
     if (ba instanceof DP) {
       DP p = (DP)ba;
-      setId(p.getName());
+      this.id = p.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL data property from bound built-in argument, got " + ba.getClass().getCanonicalName());

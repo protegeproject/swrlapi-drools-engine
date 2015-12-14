@@ -1,7 +1,7 @@
 package org.swrlapi.drools.reasoner;
 
+import checkers.nullness.quals.MonotonicNonNull;
 import checkers.nullness.quals.NonNull;
-import checkers.nullness.quals.Nullable;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.AOPA;
@@ -102,7 +102,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   private boolean isInconsistent;
 
-  @Nullable private StatefulKnowledgeSession knowledgeSession;
+  @MonotonicNonNull private StatefulKnowledgeSession knowledgeSession;
 
   public DefaultDroolsOWLAxiomHandler()
   {

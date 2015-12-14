@@ -52,7 +52,7 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
     if (o == null || getClass() != o.getClass())
       return false;
 
-    DroolsQuadObject<?, ?, ?, ?> that = (DroolsQuadObject<?, ?, ?, ?>)o;
+    DroolsQuadObject<? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object> that = (DroolsQuadObject<? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object>)o;
 
     if (t1 != null ? !t1.equals(that.t1) : that.t1 != null)
       return false;

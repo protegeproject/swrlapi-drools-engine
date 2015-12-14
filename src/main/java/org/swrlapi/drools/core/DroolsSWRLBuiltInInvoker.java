@@ -476,7 +476,7 @@ public class DroolsSWRLBuiltInInvoker
         BAP bap = new BAP();
         for (SWRLBuiltInArgument argument : argumentPattern) {
           if (argument.isVariable() && argument.asVariable().hasBuiltInResult()) {
-            Optional<SWRLBuiltInArgument> builtInResult = argument.asVariable().getBuiltInResult();
+            Optional<@NonNull SWRLBuiltInArgument> builtInResult = argument.asVariable().getBuiltInResult();
             if (builtInResult.isPresent())
               argument = builtInResult.get();
           }
