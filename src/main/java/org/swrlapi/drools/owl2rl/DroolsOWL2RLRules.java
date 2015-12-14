@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl2rl;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.drools.core.DroolsRuleDefinition;
 import org.swrlapi.owl2rl.OWL2RLNames;
 

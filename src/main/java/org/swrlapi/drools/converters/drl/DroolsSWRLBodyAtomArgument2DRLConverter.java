@@ -1,6 +1,6 @@
 package org.swrlapi.drools.converters.drl;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;

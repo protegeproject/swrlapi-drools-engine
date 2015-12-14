@@ -1,6 +1,6 @@
 package org.swrlapi.drools.core;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class DroolsRuleDefinition
 {

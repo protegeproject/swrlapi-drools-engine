@@ -1,6 +1,6 @@
 package org.swrlapi.drools.converters;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;

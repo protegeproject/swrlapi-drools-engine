@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 
 abstract class DroolsBinaryClassesAxiom extends DroolsBinaryObject<String, String> implements A

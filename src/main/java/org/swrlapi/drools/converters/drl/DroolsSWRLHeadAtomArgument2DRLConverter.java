@@ -20,7 +20,7 @@ import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * This class converts OWLAPI SWRL head atom argument to DRL clauses for use in rules.

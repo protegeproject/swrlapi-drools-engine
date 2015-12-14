@@ -1,7 +1,7 @@
 package org.swrlapi.drools.swrl;
 
-import checkers.nullness.quals.NonNull;
-import dataflow.quals.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;

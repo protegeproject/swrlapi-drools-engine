@@ -1,6 +1,6 @@
 package org.swrlapi.drools.core;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.drools.builder.KnowledgeBuilder;
 import org.drools.builder.ResourceType;
 import org.drools.io.Resource;

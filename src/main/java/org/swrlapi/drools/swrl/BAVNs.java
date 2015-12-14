@@ -1,9 +1,9 @@
 package org.swrlapi.drools.swrl;
 
-import checkers.nullness.quals.NonNull;
-import checkers.nullness.quals.Nullable;
-import dataflow.quals.Deterministic;
-import dataflow.quals.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.swrlapi.drools.core.DroolsNames;
 
 import java.util.ArrayList;

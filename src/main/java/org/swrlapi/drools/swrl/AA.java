@@ -1,6 +1,6 @@
 package org.swrlapi.drools.swrl;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;

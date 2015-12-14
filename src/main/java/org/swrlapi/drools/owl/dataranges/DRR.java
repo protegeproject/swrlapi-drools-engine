@@ -2,7 +2,7 @@ package org.swrlapi.drools.owl.dataranges;
 
 // TODO Datatype restriction data range are not implemented
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Class representing an OWL datatype restriction data range

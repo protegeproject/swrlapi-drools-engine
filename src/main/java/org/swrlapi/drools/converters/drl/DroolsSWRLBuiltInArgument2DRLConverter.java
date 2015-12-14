@@ -16,7 +16,7 @@ import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * This class converts SWRLAPI SWRL built-in arguments to DRL clauses for use in rules.

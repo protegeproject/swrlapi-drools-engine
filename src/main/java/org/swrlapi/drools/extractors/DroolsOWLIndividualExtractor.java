@@ -1,6 +1,6 @@
 package org.swrlapi.drools.extractors;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
 import org.swrlapi.drools.factory.DefaultDroolsOWLIndividualExtractor;

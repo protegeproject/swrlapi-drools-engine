@@ -1,7 +1,7 @@
 package org.swrlapi.drools.core;
 
-import checkers.nullness.quals.NonNull;
-import checkers.nullness.quals.Nullable;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.drools.KnowledgeBase;
 import org.drools.KnowledgeBaseConfiguration;
 import org.drools.KnowledgeBaseFactory;

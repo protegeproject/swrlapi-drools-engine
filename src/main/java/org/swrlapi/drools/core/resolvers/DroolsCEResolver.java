@@ -1,6 +1,6 @@
 package org.swrlapi.drools.core.resolvers;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.drools.owl.classes.CE;
 
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package org.swrlapi.drools.sqwrl;
 
-import checkers.nullness.quals.NonNull;
-import dataflow.quals.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.swrlapi.drools.swrl.BA;
 
 import java.util.ArrayList;

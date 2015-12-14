@@ -30,6 +30,7 @@
     <junit.version>4.11</junit.version>
 
     <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
+    <maven.dependency.plugin.version>2.3</maven.dependency.plugin.version>
     <maven.bundle.plugin.version>2.5.3</maven.bundle.plugin.version>
     <maven.release.plugin.version>2.5</maven.release.plugin.version>
     <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
@@ -108,6 +109,8 @@
 
     <!-- End of Drools dependencies -->
 
+    <!-- Start of Checker Framework Dependencies -->
+    
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker</artifactId>
@@ -126,6 +129,8 @@
       <version>${checker.framework.version}</version>
     </dependency>
 
+    <!-- End of Checker Framework Dependencies -->
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -145,17 +150,13 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-
           <fork>true</fork>
           <annotationProcessors>
-            <!-- Add all the checkers you want to enable here -->
             <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
           </annotationProcessors>
           <compilerArgs>
             <!-- Location of the annotated JDK, which comes from a Maven dependency -->
             <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
-            <!-- Uncomment the following line if using Java 7. -->
-            <!-- <arg>-J-Xbootclasspath/p:${typeAnnotationsJavac}</arg> -->
           </compilerArgs>
         </configuration>
       </plugin>
@@ -164,7 +165,7 @@
         <!-- This plugin will set properties values using dependency information -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.3</version>
+        <version>${maven.dependency.plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -219,26 +220,6 @@
 	    <version>${maven.scm.gitexe.version}</version>
 	  </dependency>
         </dependencies>
-      </plugin>
-
-       <plugin>
-        <groupId>org.checkerframework</groupId>
-        <artifactId>checkerframework-maven-plugin</artifactId>
-        <version>${checker.framework.version}</version>
-        <executions>
-          <execution>
-            <phase>deploy</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <processors>
-            <processor>checkers.nullness.NullnessChecker</processor>
-            <processor>checkers.interning.InterningChecker</processor>
-          </processors>
-        </configuration>
       </plugin>
 
     </plugins>

@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
-import checkers.nullness.quals.NonNull;
-import dataflow.quals.SideEffectFree;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.swrlapi.drools.owl.core.DroolsUnaryObject;
 import org.swrlapi.drools.owl.core.OE;
 

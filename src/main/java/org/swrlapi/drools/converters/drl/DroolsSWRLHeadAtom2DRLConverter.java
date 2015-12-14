@@ -19,7 +19,7 @@ import org.swrlapi.exceptions.SWRLAPIException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * This class converts OWLAPI SWRL head atoms to a their DRL representation for use in rules.

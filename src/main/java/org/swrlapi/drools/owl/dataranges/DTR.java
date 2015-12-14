@@ -1,6 +1,6 @@
 package org.swrlapi.drools.owl.dataranges;
 
-import checkers.nullness.quals.NonNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 // TODO Datatype restriction data range not implemented
 
