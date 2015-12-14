@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Class providing a Drools implementation of an OWL 2 RL-based reasoner.
- * <p>
+ * <p/>
  * This engine is created by a {@link org.swrlapi.drools.core.DroolsSWRLRuleEngine}. The OWL 2 RL rules are defined in
  * the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} class. All axioms inferred by Drools rules are handled by a
  * {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
@@ -39,7 +39,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     Set<@NonNull DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
     getEnabledRules().stream().filter(this.droolsOWL2RLRules::hasRule)
-        .forEach(rule -> enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule)));
+      .forEach(rule -> enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule)));
 
     return enabledRuleDefinitions;
   }
@@ -47,10 +47,10 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that are always enabled and that cannot be disabled.
    */
-  @NonNull private static Set<@NonNull OWL2RLRule> generatePermanentlyOnRules()
+  @NonNull private static Set<OWL2RLRule> generatePermanentlyOnRules()
   {
     return EnumSet.of(OWL2RLRule.CLS_THING, OWL2RLRule.CLS_NOTHING1, OWL2RLRule.CLS_NOTHING2, OWL2RLRule.DT_TYPE1,
-        OWL2RLRule.DT_TYPE2, OWL2RLRule.DT_EQ, OWL2RLRule.DT_DIFF);
+      OWL2RLRule.DT_TYPE2, OWL2RLRule.DT_EQ, OWL2RLRule.DT_DIFF);
   }
 
   /**
@@ -58,7 +58,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
    */
   @NonNull private static Set<@NonNull Set<OWL2RLRule>> generateGroupedRuleSets()
   {
-    Set<@NonNull Set<@NonNull OWL2RLRule>> groupedRuleSets = new HashSet<>();
+    Set<@NonNull Set<OWL2RLRule>> groupedRuleSets = new HashSet<>();
 
     groupedRuleSets.add(EnumSet.of(OWL2RLRule.EQ_DIFF1, OWL2RLRule.EQ_DIFF2, OWL2RLRule.EQ_DIFF3));
     groupedRuleSets.add(EnumSet.of(OWL2RLRule.PRP_EQP1, OWL2RLRule.PRP_EQP2, OWL2RLRule.EQ_REP_P));
