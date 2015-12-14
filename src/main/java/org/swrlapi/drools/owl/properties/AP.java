@@ -33,7 +33,7 @@ public class AP extends OE implements P
 
     if (ba instanceof AP) {
       AP p = (AP)ba;
-      setId(p.getName());
+      this.id = p.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL annotation property for bound built-in argument, got " + ba.getClass().getCanonicalName());

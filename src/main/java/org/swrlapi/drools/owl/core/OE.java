@@ -21,7 +21,7 @@ public abstract class OE implements OO, AA, BA
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull public String id;
+  @NonNull protected String id;
 
   protected OE(@NonNull String id)
   {
@@ -38,14 +38,8 @@ public abstract class OE implements OO, AA, BA
     return this.id;
   }
 
-  protected void setId(@NonNull String newId)
-  {
-    this.id = newId;
-  }
-
   @SideEffectFree @NonNull @Override public String toString()
   {
-    // return "\"" + this.id + "\"";
     return this.id;
   }
 

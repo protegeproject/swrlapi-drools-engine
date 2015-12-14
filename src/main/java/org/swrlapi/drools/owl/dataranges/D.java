@@ -35,7 +35,7 @@ public class D extends OE implements DR
 
     if (ba instanceof D) {
       D d = (D)ba;
-      setId(d.getName());
+      this.id = d.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException("expecting OWL datatype from bound built-in argument, got "
           + ba.getClass().getCanonicalName());

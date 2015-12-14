@@ -2,8 +2,8 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
-import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
+import org.checkerframework.dataflow.qual.Deterministic;
 
 public abstract class DroolsUnaryObject<T1>
 {
@@ -24,22 +24,21 @@ public abstract class DroolsUnaryObject<T1>
     return "(" + this.t1 + ")";
   }
 
-  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
-    if (this == obj)
+    if (this == o)
       return true;
-    if ((obj == null) || (obj.getClass() != this.getClass()))
+    if (o == null || getClass() != o.getClass())
       return false;
-    @SuppressWarnings("unchecked") DroolsUnaryObject<T1> ua = (DroolsUnaryObject<T1>)obj;
-    return (getT1() == ua.getT1() || (getT1() != null && getT1().equals(ua.getT1())));
+
+    DroolsUnaryObject<?> that = (DroolsUnaryObject<?>)o;
+
+    return !(t1 != null ? !t1.equals(that.t1) : that.t1 != null);
+
   }
 
   @SideEffectFree @Deterministic @Override public int hashCode()
   {
-    int hash = 44;
-
-    hash = hash + (null == getT1() ? 0 : getT1().hashCode());
-
-    return hash;
+    return t1 != null ? t1.hashCode() : 0;
   }
 }

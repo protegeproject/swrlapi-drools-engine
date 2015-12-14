@@ -2,8 +2,8 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
-import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
+import org.checkerframework.dataflow.qual.Deterministic;
 
 public abstract class DroolsBinaryObject<T1, T2>
 {
@@ -26,26 +26,26 @@ public abstract class DroolsBinaryObject<T1, T2>
     return this.t2;
   }
 
-  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
-
-    if (this == obj)
+    if (this == o)
       return true;
-    if ((obj == null) || (obj.getClass() != this.getClass()))
+    if (o == null || getClass() != o.getClass())
       return false;
-    @SuppressWarnings("unchecked") DroolsBinaryObject<T1, T2> ba = (DroolsBinaryObject<T1, T2>)obj;
-    return (getT1() == ba.getT1() || (getT1() != null && getT1().equals(ba.getT1()))) && (getT2() == ba.getT2() || (
-        getT2() != null && getT2().equals(ba.getT2())));
+
+    DroolsBinaryObject<? extends @NonNull Object, ? extends @NonNull Object> that = (DroolsBinaryObject<? extends @NonNull Object, ? extends @NonNull Object>)o;
+
+    if (t1 != null ? !t1.equals(that.t1) : that.t1 != null)
+      return false;
+    return !(t2 != null ? !t2.equals(that.t2) : that.t2 != null);
+
   }
 
   @SideEffectFree @Deterministic @Override public int hashCode()
   {
-    int hash = 61;
-
-    hash = hash + (null == getT1() ? 0 : getT1().hashCode());
-    hash = hash + (null == getT2() ? 0 : getT2().hashCode());
-
-    return hash;
+    int result = t1 != null ? t1.hashCode() : 0;
+    result = 31 * result + (t2 != null ? t2.hashCode() : 0);
+    return result;
   }
 
   @SideEffectFree @NonNull @Override public String toString()

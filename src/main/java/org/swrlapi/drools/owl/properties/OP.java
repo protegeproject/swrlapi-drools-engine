@@ -35,7 +35,7 @@ public class OP extends OE implements P, OPE
 
     if (ba instanceof OP) {
       OP p = (OP)ba;
-      setId(p.getName());
+      this.id = p.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL object property from bound built-in argument, got " + ba.getClass().getCanonicalName());

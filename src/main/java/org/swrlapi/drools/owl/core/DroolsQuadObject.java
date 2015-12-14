@@ -2,8 +2,8 @@ package org.swrlapi.drools.owl.core;
 
 import checkers.nullness.quals.NonNull;
 import checkers.nullness.quals.Nullable;
-import dataflow.quals.Deterministic;
 import dataflow.quals.SideEffectFree;
+import org.checkerframework.dataflow.qual.Deterministic;
 
 public abstract class DroolsQuadObject<T1, T2, T3, T4>
 {
@@ -45,28 +45,31 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ", " + this.t4 + ")";
   }
 
-  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
-
-    if (this == obj)
+    if (this == o)
       return true;
-    if ((obj == null) || (obj.getClass() != this.getClass()))
+    if (o == null || getClass() != o.getClass())
       return false;
-    @SuppressWarnings("unchecked") DroolsQuadObject<T1, T2, T3, T4> ba = (DroolsQuadObject<T1, T2, T3, T4>)obj;
-    return (getT1() == ba.getT1() || (getT1() != null && getT1().equals(ba.getT1()))) && (getT2() == ba.getT2() || (
-      getT2() != null && getT2().equals(ba.getT2()))) && (getT3() == ba.getT3() || (getT3() != null && getT3()
-      .equals(ba.getT3()))) && (getT4() == ba.getT4() || (getT4() != null && getT4().equals(ba.getT4())));
+
+    DroolsQuadObject<?, ?, ?, ?> that = (DroolsQuadObject<?, ?, ?, ?>)o;
+
+    if (t1 != null ? !t1.equals(that.t1) : that.t1 != null)
+      return false;
+    if (t2 != null ? !t2.equals(that.t2) : that.t2 != null)
+      return false;
+    if (t3 != null ? !t3.equals(that.t3) : that.t3 != null)
+      return false;
+    return !(t4 != null ? !t4.equals(that.t4) : that.t4 != null);
+
   }
 
   @SideEffectFree @Deterministic @Override public int hashCode()
   {
-    int hash = 94;
-
-    hash = hash + (null == getT1() ? 0 : getT1().hashCode());
-    hash = hash + (null == getT2() ? 0 : getT2().hashCode());
-    hash = hash + (null == getT3() ? 0 : getT3().hashCode());
-    hash = hash + (null == getT4() ? 0 : getT4().hashCode());
-
-    return hash;
+    int result = t1 != null ? t1.hashCode() : 0;
+    result = 31 * result + (t2 != null ? t2.hashCode() : 0);
+    result = 31 * result + (t3 != null ? t3.hashCode() : 0);
+    result = 31 * result + (t4 != null ? t4.hashCode() : 0);
+    return result;
   }
 }

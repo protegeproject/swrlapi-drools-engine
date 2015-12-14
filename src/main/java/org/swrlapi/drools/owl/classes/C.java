@@ -40,7 +40,7 @@ public class C extends OE implements CE
 
     if (ba instanceof C) {
       C c = (C)ba;
-      setId(c.getName());
+      this.id = c.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL class from bound built-in argument, got " + ba.getClass().getCanonicalName());

@@ -39,7 +39,7 @@ public class I extends OE
 
     if (ba instanceof I) {
       I i = (I)ba;
-      setId(i.getName());
+      this.id = i.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException("expecting OWL individual from bound built-in argument, got "
           + ba.getClass().getCanonicalName());
