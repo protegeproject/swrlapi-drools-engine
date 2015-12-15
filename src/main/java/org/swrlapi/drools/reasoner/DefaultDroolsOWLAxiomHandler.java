@@ -1,6 +1,6 @@
 package org.swrlapi.drools.reasoner;
 
-import org.checkerframework.checker.nullness.qual.NonNull.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;

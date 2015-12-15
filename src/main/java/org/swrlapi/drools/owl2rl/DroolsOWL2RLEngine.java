@@ -38,8 +38,14 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   {
     Set<@NonNull DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
-    getEnabledRules().stream().filter(this.droolsOWL2RLRules::hasRule)
-      .forEach(rule -> enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule)));
+    // TODO Checker does not like streams
+//    getEnabledRules().stream().filter(this.droolsOWL2RLRules::hasRule)
+//      .forEach(rule -> enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule)));
+
+    for (OWL2RLRule rule : getEnabledRules()) {
+      if (this.droolsOWL2RLRules.hasRule(rule))
+        enabledRuleDefinitions.addAll(this.droolsOWL2RLRules.getRules(rule));
+    }
 
     return enabledRuleDefinitions;
   }
