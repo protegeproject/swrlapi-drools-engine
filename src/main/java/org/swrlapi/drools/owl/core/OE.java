@@ -21,7 +21,7 @@ public abstract class OE implements OO, AA, BA
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull protected String id;
+  @NonNull public String id;
 
   protected OE(@NonNull String id)
   {
