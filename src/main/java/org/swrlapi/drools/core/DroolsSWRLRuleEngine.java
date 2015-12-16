@@ -81,7 +81,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       bridge, resolver);
     DroolsOWLClassExpression2DRLConverter classExpressionConverter = new DroolsOWLClassExpression2DRLConverter(bridge,
       resolver, propertyExpressionConverter);
-    this.axiomConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpressionConverter,
+    this.axiomConverter = new DroolsOWLAxiom2AConverter(bridge, classExpressionConverter,
       propertyExpressionConverter);
     this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter,
       propertyExpressionConverter);

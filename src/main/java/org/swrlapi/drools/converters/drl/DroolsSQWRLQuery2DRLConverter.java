@@ -23,15 +23,13 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
 {
   @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
   @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
-  @NonNull private final DroolsSWRLRuleEngine droolsEngine;
 
-  public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
+  public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
     @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
   {
     super(bridge);
 
-    this.droolsEngine = droolsEngine;
     this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpressionConverter,
       propertyExpressionConverter);
     this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
@@ -44,23 +42,23 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
     this.headAtom2DRLConverter.reset();
   }
 
-  @Override public void convert(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  @NonNull @Override public String convert(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     getDroolsSWRLBodyAtomConverter().reset();
     getDroolsSWRLHeadAtomConverter().reset();
 
-    sqwrlQuery2DRL(query);
+    return sqwrlQuery2DRL(query);
   }
 
-  private void sqwrlQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  @NonNull private String sqwrlQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     if (!query.hasSQWRLCollections())
-      sqwrlNonCollectionQuery2DRL(query);
+      return sqwrlNonCollectionQuery2DRL(query);
     else
-      sqwrlCollectionQuery2DRL(query);
+      return sqwrlCollectionQuery2DRL(query);
   }
 
-  private void sqwrlNonCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  @NonNull private String sqwrlNonCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
     String ruleName = query.getQueryName();
@@ -81,10 +79,11 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
     // System.err.println("SQWRL: " + query.getQueryName());
     // System.err.println("DRL:\n" + drlRule);
 
-    getDroolsEngine().defineDRLSQWRLPhase1Rule(query.getQueryName(), ruleName, drlRule);
+    //getDroolsEngine().defineDRLSQWRLPhase1Rule(query.getQueryName(), ruleName, drlRule);
+    return drlRule;
   }
 
-  private void sqwrlCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  @NonNull private String sqwrlCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
     String queryName = query.getQueryName();
