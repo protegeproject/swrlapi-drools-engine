@@ -1,7 +1,6 @@
 package org.swrlapi.drools.core;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.drools.KnowledgeBase;
 import org.drools.KnowledgeBaseConfiguration;
 import org.drools.KnowledgeBaseFactory;
@@ -39,7 +38,7 @@ import java.util.Set;
 
 /**
  * This class provides a Drools implementation of a rule engine for SWRL using the SWRLAPI's Rule Engine Bridge
- * mechanism. The underlying reasoner is supplier by the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine}.
+ * mechanism. The underlying reasoner is supplied by the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine}.
  *
  * @see org.swrlapi.bridge.TargetSWRLRuleEngine
  * @see org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine
