@@ -136,7 +136,6 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     this.dataPropertyDomains = new HashMap<>();
     this.objectPropertyAssertions = new HashMap<>();
     this.dataPropertyAssertions = new HashMap<>();
-    this.knowledgeSession = null;
   }
 
   public void reset(StatefulKnowledgeSession knowledgeSession)
