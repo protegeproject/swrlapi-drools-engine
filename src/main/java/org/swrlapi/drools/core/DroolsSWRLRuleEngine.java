@@ -33,6 +33,7 @@ import org.swrlapi.sqwrl.SQWRLQuery;
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -81,9 +82,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       bridge, resolver);
     DroolsOWLClassExpression2DRLConverter classExpressionConverter = new DroolsOWLClassExpression2DRLConverter(bridge,
       resolver, propertyExpressionConverter);
-    this.axiomConverter = new DroolsOWLAxiom2AConverter(bridge, classExpressionConverter,
-      propertyExpressionConverter);
-    this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionConverter,
+    this.axiomConverter = new DroolsOWLAxiom2AConverter(bridge, classExpressionConverter, propertyExpressionConverter);
+    this.queryConverter = new DroolsSQWRLQuery2DRLConverter(bridge, classExpressionConverter,
       propertyExpressionConverter);
 
     this.axiomExtractor = DroolsFactory.getDroolsOWLAxiomExtractor(bridge);
@@ -221,7 +221,18 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     if (query.isActive()) // If a query is not active, we convert it but recordOWLClassExpression it as inactive.
       this.activeSQWRLQueryNames.add(query.getQueryName());
 
-    getDroolsSQWRLQueryConverter().convert(query); // Will call local defineSQWRLPhase{1,2}Rule.
+    List<@NonNull String> drlRules = getDroolsSQWRLQueryConverter().convert(query);
+
+    if (drlRules.size() == 1)
+      defineDRLSQWRLPhase1Rule(query.getQueryName(), query.getQueryName(), drlRules.get(0));
+    else if (drlRules.size() == 2) {
+      defineDRLSQWRLPhase1Rule(query.getQueryName(), query.getQueryName() + DroolsNames.PHASE1_RULE_NAME_POSTFIX,
+        drlRules.get(0));
+      defineDRLSQWRLPhase2Rule(query.getQueryName(), query.getQueryName() + DroolsNames.PHASE2_RULE_NAME_POSTFIX,
+        drlRules.get(1));
+    } else
+      throw new TargetSWRLRuleEngineException(
+        "internal error: unexpected Drools representation for SQWRL query " + query.getQueryName());
   }
 
   /*
