@@ -16,24 +16,23 @@ import java.util.Set;
  */
 public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 {
-  private final @NonNull DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
-  private final @NonNull DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
-
-  @NonNull private final DroolsSWRLRuleEngine droolsEngine;
+  @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
+  @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
+  @NonNull private final DroolsSWRLRuleEngine droolsSWRLRuleEngine;
 
   public DroolsSWRLRule2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
-    @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
+    @NonNull DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter,
+    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter)
   {
     super(bridge);
 
-    this.bodyAtomConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpressionConverter,
-      propertyExpressionConverter);
-    this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
-      propertyExpressionConverter);
+    this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpression2DRLConverter,
+      propertyExpression2DRLConverter);
+    this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpression2DRLConverter,
+      propertyExpression2DRLConverter);
 
-    this.droolsEngine = droolsSWRLRuleEngine;
+    this.droolsSWRLRuleEngine = droolsSWRLRuleEngine;
   }
 
   public void convert(@NonNull SWRLAPIRule rule)
@@ -42,12 +41,12 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     String drlRule = getRulePreamble(ruleName);
     Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
 
-    getDroolsSWRLBodyAtomConverter().reset();
-    getDroolsSWRLHeadAtomConverter().reset();
+    getDroolsSWRLBodyAtom2DRLConverter().reset();
+    getDroolsSWRLHeadAtom2DRLConverter().reset();
 
     for (SWRLAtom atom : rule.getBodyAtoms())
       drlRule +=
-        "\n   " + getDroolsSWRLBodyAtomConverter().convert(atom, previouslyEncounteredVariablePrefixedNames) + " ";
+        "\n   " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariablePrefixedNames) + " ";
 
     drlRule = addRuleThenClause(drlRule);
 
@@ -57,13 +56,13 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     // drlRule += getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);
 
     for (SWRLAtom atom : rule.getHeadAtoms())
-      drlRule += "\n   " + getDroolsSWRLHeadAtomConverter().convert(atom) + " ";
+      drlRule += "\n   " + getDroolsSWRLHeadAtom2DRLConverter().convert(atom) + " ";
 
     drlRule = addRuleEndClause(drlRule);
 
     // System.out.println("---------------------------------------------------------------------------------------");
     // System.out.println("DRL:\n" + drlRule);
-    getDroolsEngine().defineDRLRule(drlRule);
+    getDroolsSWRLRuleEngine().defineDRLRule(drlRule);
   }
 
   @NonNull private String getRulePreamble(@NonNull String ruleName)
@@ -81,18 +80,18 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     return ruleText + "\nthen ";
   }
 
-  @NonNull private DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtomConverter()
+  @NonNull private DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtom2DRLConverter()
   {
-    return this.bodyAtomConverter;
+    return this.bodyAtom2DRLConverter;
   }
 
-  @NonNull private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtomConverter()
+  @NonNull private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtom2DRLConverter()
   {
-    return this.headAtomConverter;
+    return this.headAtom2DRLConverter;
   }
 
-  @NonNull private DroolsSWRLRuleEngine getDroolsEngine()
+  @NonNull private DroolsSWRLRuleEngine getDroolsSWRLRuleEngine()
   {
-    return this.droolsEngine;
+    return this.droolsSWRLRuleEngine;
   }
 }

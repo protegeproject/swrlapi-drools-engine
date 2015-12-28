@@ -150,7 +150,7 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-<!--
+<!-- Checker Framework. Disable for the moment. 
           <fork>true</fork>
           <annotationProcessors>
             <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
