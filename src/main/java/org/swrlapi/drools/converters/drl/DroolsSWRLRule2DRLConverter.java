@@ -4,6 +4,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIRule;
+import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +16,13 @@ import java.util.Set;
  */
 public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 {
-  @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
-  @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
+  private final @NonNull DroolsSWRLBodyAtom2DRLConverter bodyAtomConverter;
+  private final @NonNull DroolsSWRLHeadAtom2DRLConverter headAtomConverter;
+
+  @NonNull private final DroolsSWRLRuleEngine droolsEngine;
 
   public DroolsSWRLRule2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
     @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
     @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
   {
@@ -28,9 +32,11 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
       propertyExpressionConverter);
     this.headAtomConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
       propertyExpressionConverter);
+
+    this.droolsEngine = droolsSWRLRuleEngine;
   }
 
-  public String convert(@NonNull SWRLAPIRule rule)
+  public void convert(@NonNull SWRLAPIRule rule)
   {
     String ruleName = rule.getRuleName();
     String drlRule = getRulePreamble(ruleName);
@@ -57,7 +63,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 
     // System.out.println("---------------------------------------------------------------------------------------");
     // System.out.println("DRL:\n" + drlRule);
-    return drlRule;
+    getDroolsEngine().defineDRLRule(drlRule);
   }
 
   @NonNull private String getRulePreamble(@NonNull String ruleName)
@@ -83,5 +89,10 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
   @NonNull private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtomConverter()
   {
     return this.headAtomConverter;
+  }
+
+  @NonNull private DroolsSWRLRuleEngine getDroolsEngine()
+  {
+    return this.droolsEngine;
   }
 }

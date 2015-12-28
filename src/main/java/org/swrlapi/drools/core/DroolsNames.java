@@ -34,9 +34,4 @@ public class DroolsNames
   public static final String INDIVIDUAL_1_FIELD_NAME = "i1";
   public static final String INDIVIDUAL_2_FIELD_NAME = "i2";
   public static final String BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX = "a";
-
-  public static final String PHASE1_RULE_NAME_POSTFIX = "-makeCollection";
-  public static final String PHASE2_RULE_NAME_POSTFIX = "-operateCollection";
-
-
 }

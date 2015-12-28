@@ -3,17 +3,15 @@ package org.swrlapi.drools.converters.drl;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
-import org.swrlapi.bridge.converters.TargetRuleEngineSQWRLQueryConverterEx;
+import org.swrlapi.bridge.converters.TargetRuleEngineSQWRLQueryConverter;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.drools.core.DroolsNames;
+import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.sqwrl.SQWRLNames;
 import org.swrlapi.sqwrl.SQWRLQuery;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,18 +19,19 @@ import java.util.Set;
  *
  * @see org.swrlapi.sqwrl.SQWRLQuery
  */
-public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase
-  implements TargetRuleEngineSQWRLQueryConverterEx<List<@NonNull String>>
+public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implements TargetRuleEngineSQWRLQueryConverter
 {
   @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
   @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
+  @NonNull private final DroolsSWRLRuleEngine droolsEngine;
 
-  public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+  public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
     @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
     @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
   {
     super(bridge);
 
+    this.droolsEngine = droolsEngine;
     this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpressionConverter,
       propertyExpressionConverter);
     this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpressionConverter,
@@ -45,24 +44,23 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase
     this.headAtom2DRLConverter.reset();
   }
 
-  @Override public @NonNull List<String> convert(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  @Override public void convert(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     getDroolsSWRLBodyAtomConverter().reset();
     getDroolsSWRLHeadAtomConverter().reset();
 
-    return sqwrlQuery2DRL(query);
+    sqwrlQuery2DRL(query);
   }
 
-  @NonNull private List<@NonNull String> sqwrlQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  private void sqwrlQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     if (!query.hasSQWRLCollections())
-      return sqwrlNonCollectionQuery2DRL(query);
+      sqwrlNonCollectionQuery2DRL(query);
     else
-      return sqwrlCollectionQuery2DRL(query);
+      sqwrlCollectionQuery2DRL(query);
   }
 
-  @NonNull private List<@NonNull String> sqwrlNonCollectionQuery2DRL(@NonNull SQWRLQuery query)
-    throws TargetSWRLRuleEngineException
+  private void sqwrlNonCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
     String ruleName = query.getQueryName();
@@ -83,19 +81,17 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase
     // System.err.println("SQWRL: " + query.getQueryName());
     // System.err.println("DRL:\n" + drlRule);
 
-    return Collections.singletonList(drlRule);
+    getDroolsEngine().defineDRLSQWRLPhase1Rule(query.getQueryName(), ruleName, drlRule);
   }
 
-  @NonNull private List<@NonNull String> sqwrlCollectionQuery2DRL(@NonNull SQWRLQuery query)
-    throws TargetSWRLRuleEngineException
+  private void sqwrlCollectionQuery2DRL(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
   {
     Set<@NonNull String> previouslyEncounteredVariablePrefixedNames = new HashSet<>();
     String queryName = query.getQueryName();
-    String phase1RuleName = queryName + DroolsNames.PHASE1_RULE_NAME_POSTFIX;
-    String phase2RuleName = queryName + DroolsNames.PHASE2_RULE_NAME_POSTFIX;
+    String phase1RuleName = queryName + "-makeCollection";
+    String phase2RuleName = queryName + "-operateCollection";
     String drlPhase1Rule = getQueryPreamble(phase1RuleName);
     String drlPhase2Rule = getQueryPreamble(phase2RuleName);
-    List<@NonNull String> drlRules = new ArrayList<>();
 
     for (SWRLAtom atom : query.getSQWRLPhase1BodyAtoms())
       drlPhase1Rule +=
@@ -103,8 +99,9 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase
 
     drlPhase1Rule = addQueryThenClause(drlPhase1Rule);
 
-    if (query.hasSQWRLCollections()) {
-      // Assert existence of all relevant collections returned from collection construction built-ins
+    if (query.hasSQWRLCollections()) { // Assert existence of all relevant collections returned from collection
+      // construction
+      // built-ins
       try {
         for (SWRLAPIBuiltInAtom atom : query.getBuiltInAtomsFromBody(SQWRLNames.getCollectionMakeBuiltInNames())) {
           String collectionVariablePrefixedName = atom.getArgumentVariablePrefixedName(0);
@@ -119,7 +116,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase
       }
     }
     drlPhase1Rule = addQueryEndClause(drlPhase1Rule);
-    drlRules.add(drlPhase1Rule);
+    getDroolsEngine().defineDRLSQWRLPhase1Rule(queryName, phase1RuleName, drlPhase1Rule);
 
     previouslyEncounteredVariablePrefixedNames.clear();
 
@@ -152,9 +149,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase
       drlPhase2Rule += "\n  " + getDroolsSWRLHeadAtomConverter().convert(atom);
 
     drlPhase2Rule = addQueryEndClause(drlPhase2Rule);
-    drlRules.add(drlPhase2Rule);
-
-    return drlRules;
+    getDroolsEngine().defineDRLSQWRLPhase2Rule(queryName, phase2RuleName, drlPhase2Rule);
   }
 
   @NonNull private String getQueryPreamble(@NonNull String queryName)
@@ -180,5 +175,10 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase
   @NonNull private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtomConverter()
   {
     return this.headAtom2DRLConverter;
+  }
+
+  @NonNull private DroolsSWRLRuleEngine getDroolsEngine()
+  {
+    return this.droolsEngine;
   }
 }
