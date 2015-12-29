@@ -28,6 +28,7 @@
     <checker.framework.version>1.9.9</checker.framework.version>
     <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
     <junit.version>4.11</junit.version>
+    <slf4j.version>1.7.13</slf4j.version>
 
     <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
     <maven.dependency.plugin.version>2.3</maven.dependency.plugin.version>
@@ -141,6 +142,19 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
 
