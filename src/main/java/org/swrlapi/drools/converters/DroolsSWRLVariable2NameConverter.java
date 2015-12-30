@@ -38,7 +38,7 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
   }
 
   @NonNull public String variablePrefixedName2DRL(@NonNull String variablePrefixedName, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
   {
     if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
       return fieldName + "==" + variablePrefixedName2DRL(variablePrefixedName);
@@ -57,7 +57,10 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
 
   @NonNull private String variablePrefixedName2VariableName(@NonNull String variablePrefixedName)
   {
-    return variablePrefixedName.startsWith(":") ? variablePrefixedName.substring(1) : variablePrefixedName;
+    if (variablePrefixedName.startsWith(":"))
+      return variablePrefixedName.substring(1).replace(":", "_");
+    else
+      return variablePrefixedName.replace(":", "_");
   }
 
   @NonNull private String variableName2DRL(@NonNull String variableName)
