@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Class providing a Drools implementation of an OWL 2 RL-based reasoner.
- * <p/>
+ * <p>
  * This engine is created by a {@link org.swrlapi.drools.core.DroolsSWRLRuleEngine}. The OWL 2 RL rules are defined in
  * the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules} class. All axioms inferred by Drools rules are handled by a
  * {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.

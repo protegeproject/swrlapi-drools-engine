@@ -55,7 +55,7 @@ import java.util.Set;
  * This class is used to accumulate inferred OWL axioms during reasoning and rule execution. Drools rules generated from
  * SWRL rules and a reasoner (e.g., the OWL 2 RL rules defined in {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLRules})
  * use a single instance of this class.
- * <p/>
+ * <p>
  * This {@link #infer(org.swrlapi.drools.owl.axioms.A...)} method in this class is called during reasoning and rule
  * execution. It keeps track of the inferred axioms and associated knowledge and also inserts the axioms in to a Drools
  * knowledge session.
