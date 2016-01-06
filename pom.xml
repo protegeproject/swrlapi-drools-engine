@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -11,7 +10,7 @@
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrlapi-drools-engine</artifactId>
-  <version>1.0.0-beta-1-SNAPSHOT</version>
+  <version>1.0.0-beta-1</version>
   <packaging>bundle</packaging>
   <name>Drools-based SWRL Rule Engine</name>
   <description>Drools implementation of SWRLAPI-based SWRL rule engine</description>
@@ -75,7 +74,7 @@
     <connection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</developerConnection>
     <url>https://github.com/protegeproject/swrlapi</url>
-    <tag>HEAD</tag>
+    <tag>swrlapi-drools-engine-1.0.0-beta-1</tag>
   </scm>
 
   <issueManagement>
