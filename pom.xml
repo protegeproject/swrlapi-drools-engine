@@ -308,7 +308,7 @@
             <version>${maven.nexus-staging.plugin.version}</version>
             <extensions>true</extensions>
             <configuration>
-              <serverId>oss.sonatype.org</serverId>
+              <serverId>sonatype-nexus-staging</serverId>
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
               <description>${project.version}</description>
             </configuration>
