@@ -34,7 +34,7 @@
     <maven.bundle.plugin.version>2.5.4</maven.bundle.plugin.version>
     <maven.release.plugin.version>2.5</maven.release.plugin.version>
     <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
-    <maven.nexus-staging.plugin.version>1.6</maven.nexus-staging.plugin.version>
+    <maven.nexus-staging.plugin.version>1.6.3</maven.nexus-staging.plugin.version>
     <maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
     <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
     <maven.scm.gitexe.version>1.9</maven.scm.gitexe.version>
@@ -302,6 +302,7 @@
 	    </executions>
 	  </plugin>
 
+          <!-- See http://central.sonatype.org/pages/apache-maven.html -->
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -311,6 +312,7 @@
               <serverId>ossrh</serverId>
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
               <description>${project.version}</description>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
             <executions>
               <execution>
