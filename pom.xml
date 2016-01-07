@@ -314,16 +314,6 @@
               <description>${project.version}</description>
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
-            <executions>
-              <execution>
-                <id>deploy-to-sonatype</id>
-                <phase>deploy</phase>
-                <goals>
-                  <goal>deploy</goal>
-                  <goal>release</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
 
         </plugins>
