@@ -34,6 +34,7 @@
     <maven.bundle.plugin.version>2.5.4</maven.bundle.plugin.version>
     <maven.release.plugin.version>2.5</maven.release.plugin.version>
     <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
+    <maven.nexus-staging.plugin.version>1.6</maven.nexus-staging.plugin.version>
     <maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
     <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
     <maven.scm.gitexe.version>1.9</maven.scm.gitexe.version>
@@ -169,15 +170,15 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-<!-- Checker Framework. Disable for the moment. 
-          <fork>true</fork>
-          <annotationProcessors>
-            <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
-          </annotationProcessors>
-          <compilerArgs>
-            <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
-          </compilerArgs>
--->
+          <!-- Checker Framework. Disable for the moment. 
+               <fork>true</fork>
+               <annotationProcessors>
+               <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+               </annotationProcessors>
+               <compilerArgs>
+               <arg>-Xbootclasspath/p:${annotatedJdk}</arg>
+               </compilerArgs>
+          -->
         </configuration>
       </plugin>
 
@@ -300,6 +301,29 @@
 	      </execution>
 	    </executions>
 	  </plugin>
+
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>${maven.nexus-staging.plugin.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>oss.sonatype.org</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <description>${project.version}</description>
+            </configuration>
+            <executions>
+              <execution>
+                <id>deploy-to-sonatype</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>deploy</goal>
+                  <goal>release</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
       </build>
     </profile>
