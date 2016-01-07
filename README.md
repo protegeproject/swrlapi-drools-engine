@@ -44,6 +44,7 @@ This JAR is used by the [Protégé](http://protege.stanford.edu/) [SWRLTab Plugi
 and by the standalone [SWRLTab](https://github.com/protegeproject/swrltab) tool.
 
 A [Build Project](https://github.com/protegeproject/swrltab-project) is provided to build core SWRLAPI-related components.
+A project containing a [library of integration tests](https://github.com/protegeproject/swrlapi-integration-tests) is also proviced.
 
 #### Questions
 

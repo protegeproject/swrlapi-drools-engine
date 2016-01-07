@@ -18,9 +18,7 @@
 
   <properties>
 
-    <java.version>1.8</java.version>
-
-    <swrlapi.version>1.0.0-beta-4</swrlapi.version>
+    <swrlapi.version>1.0.0-beta-5-SNAPSHOT</swrlapi.version>
     <owlapi.version>4.1.3</owlapi.version> 
     <drools.version>6.2.0.Final</drools.version> 
 
@@ -39,6 +37,7 @@
     <maven.gpg.plugin.version>1.5</maven.gpg.plugin.version>
     <maven.scm.gitexe.version>1.9</maven.scm.gitexe.version>
     
+    <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
   </properties>
@@ -59,7 +58,6 @@
     </license>
   </licenses>  
 
-  <!-- SWRLAPI libraries are hosted on Sonatype OSSRH (OSS Repository Hosting Service). -->
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -170,7 +168,7 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-          <!-- Checker Framework. Disable for the moment. 
+          <!-- Checker Framework. Disabled for the moment. A few Checker-identified issues remain.
                <fork>true</fork>
                <annotationProcessors>
                <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
@@ -183,7 +181,6 @@
       </plugin>
 
       <plugin>
-        <!-- This plugin will set properties values using dependency information -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>${maven.dependency.plugin.version}</version>
@@ -302,7 +299,6 @@
 	    </executions>
 	  </plugin>
 
-          <!-- See http://central.sonatype.org/pages/apache-maven.html -->
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
