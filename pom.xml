@@ -20,7 +20,7 @@
 
     <java.version>1.8</java.version>
 
-    <swrlapi.version>1.0.0-beta-3</swrlapi.version>
+    <swrlapi.version>1.0.0-beta-4</swrlapi.version>
     <owlapi.version>4.1.3</owlapi.version> 
     <drools.version>6.2.0.Final</drools.version> 
 
@@ -249,7 +249,7 @@
 
   <profiles>
     <profile>
-      <id>prepare-release</id>
+      <id>release</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
