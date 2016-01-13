@@ -1,5 +1,7 @@
 ## SWRLAPI Drools Engine
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine)
+
 [Drools](http://www.drools.org/) implementation of a [SWRLAPI](https://github.com/protegeproject/swrlapi/wiki)-based [OWL 2 RL](http://www.w3.org/TR/owl2-profiles/#OWL_2_RL) reasoner and SWRL rule engine. 
 
 Documentation can be found at the [SWRLAPI Drools Engine Wiki](https://github.com/protegeproject/swrlapi-drools-engine/wiki/SWRLAPI-Drools-Engine).
@@ -45,6 +47,10 @@ and by the standalone [SWRLTab](https://github.com/protegeproject/swrltab) tool.
 
 A [Build Project](https://github.com/protegeproject/swrltab-project) is provided to build core SWRLAPI-related components.
 A project containing a [library of integration tests](https://github.com/protegeproject/swrlapi-integration-tests) is also proviced.
+
+#### License
+
+The software is licensed under the [BSD 2-clause License](https://github.com/protegeproject/swrlapi-drools-engine/blob/master/license.txt).
 
 #### Questions
 
