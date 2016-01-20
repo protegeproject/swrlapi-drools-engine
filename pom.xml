@@ -10,7 +10,7 @@
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrlapi-drools-engine</artifactId>
-  <version>1.0.0-beta-8-SNAPSHOT</version>
+  <version>1.0.0-beta-9-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>Drools-based SWRL Rule Engine</name>
   <description>Drools implementation of SWRLAPI-based SWRL rule engine</description>
@@ -18,7 +18,7 @@
 
   <properties>
 
-    <swrlapi.version>1.0.0-beta-7-SNAPSHOT</swrlapi.version>
+    <swrlapi.version>1.0.0-beta-8-SNAPSHOT</swrlapi.version>
     <owlapi.version>4.1.3</owlapi.version> 
     <drools.version>6.2.0.Final</drools.version> 
 
