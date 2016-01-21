@@ -1,11 +1,13 @@
 language: java
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 notifications:
   email:
     recipients:
-      - martin.oconnor@stanford.edu
+    - martin.oconnor@stanford.edu
     on_success: never
     on_failure: always
+env:
+  global:
+  - secure: A10o26kPNwxhegmDKWWLPjQB2pRglQqKZeRZASBCTnQ1yeT8zSH5wpPDs6AEnb5b6/MfmUf2DRFnUfGTw499KlNjMQEmJfzxD6f4Hd08zzI4paanPXzF6NlQH6PI/tlOXOIP2+L+bAtf0YgJ2fQFfsnd0YUEPR8vZPPvCORyF3I=
+  - secure: AQXi+x0CjM/J8g6G+o8to3K8xhLjs3aiTtddQ1kIzuFL/KgCdB78zyCroF+4tfHc9xzRQh2/WEfXgIzUWzTjaXsJSgnBMPdDTBhJ3S/bK5AzUe9X6qm+kzVdSfjM6iq9qUZzEDs8A6jR0qurGjIfjCe4/krVZ9Ywn4911gQe4Ps=
