@@ -4,7 +4,7 @@ public class DroolsNames
 {
   public static final String PLUGIN_NAME = "SWRLDroolsTab";
   public static final String RULE_ENGINE_NAME = "Drools";
-  public static final String VERSION_STRING = "version 6.2.0.Final"; // TODO Pull this version from Drools itself.
+  public static final String VERSION_STRING = "version 6.3.0.Final"; // TODO Pull this version from Drools itself.
 
   public static final String CLASS_ASSERTION_AXIOM_CLASS_NAME = "CAA";
   public static final String OBJECT_PROPERTY_ASSERTION_AXIOM_CLASS_NAME = "OPAA";
