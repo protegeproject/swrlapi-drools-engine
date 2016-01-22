@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/protegeproject/swrlapi-drools-engine.svg?branch=master)](https://travis-ci.org/protegeproject/swrlapi-drools-engine)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine)
+[![Dependency Status](https://www.versioneye.com/user/projects/56a24a4a9b5998003d00004c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56a24a4a9b5998003d00004c)
 
 [Drools](http://www.drools.org/) implementation of a [SWRLAPI](https://github.com/protegeproject/swrlapi/wiki)-based [OWL 2 RL](http://www.w3.org/TR/owl2-profiles/#OWL_2_RL) reasoner and SWRL rule engine. 
 
