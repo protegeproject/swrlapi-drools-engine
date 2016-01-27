@@ -18,7 +18,7 @@ If you want to include this library in a project, either download the latest JAR
   <dependency>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-drools-engine</artifactId>
-    <version>1.0.0-beta-8</version>
+    <version>1.0.0-beta-9</version>
   </dependency>
 ```
 
