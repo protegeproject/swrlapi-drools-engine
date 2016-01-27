@@ -25,7 +25,7 @@
     <checker.framework.version>1.9.10</checker.framework.version>
     <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
     <junit.version>4.12</junit.version>
-    <slf4j.version>1.7.13</slf4j.version>
+    <slf4j.version>1.7.14</slf4j.version>
 
     <maven.compiler.plugin.version>3.5</maven.compiler.plugin.version>
     <maven.dependency.plugin.version>2.10</maven.dependency.plugin.version>
