@@ -9,6 +9,7 @@ import org.drools.builder.KnowledgeBuilderFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.rule.Activation;
 import org.drools.runtime.rule.AgendaFilter;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
@@ -70,7 +71,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   private KnowledgeBuilder knowledgeBuilder;
   private StatefulKnowledgeSession knowledgeSession;
   private DroolsResourceHandler resourceHandler;
-  private boolean knowledgePackagesAdditionRequired;
+  private boolean ruleLoadRequired;
 
   public DroolsSWRLRuleEngine(@NonNull SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
   {
@@ -117,7 +118,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     for (DroolsRuleDefinition ruleDefinition : this.owl2RLEngine.getEnabledRuleDefinitions())
       this.resourceHandler.defineDRLRule(ruleDefinition.getRuleText());
 
-    this.knowledgePackagesAdditionRequired = true;
+    this.ruleLoadRequired = true;
     this.builtInInvoker.reset();
 
     this.knowledgeSession = this.knowledgeBase.newStatefulKnowledgeSession();
@@ -153,7 +154,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       for (DroolsRuleDefinition ruleDefinition : this.owl2RLEngine.getEnabledRuleDefinitions())
         this.resourceHandler.defineDRLRule(ruleDefinition.getRuleText());
 
-      this.knowledgePackagesAdditionRequired = true;
+      this.ruleLoadRequired = true;
     }
     this.builtInInvoker.reset();
     resetKnowledgeSession();
@@ -164,7 +165,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     ClassLoader oldClassLoader = Thread.currentThread().getContextClassLoader();
     Thread.currentThread().setContextClassLoader(DroolsSWRLRuleEngine.class.getClassLoader());
 
-    if (this.knowledgePackagesAdditionRequired) {
+    if (this.ruleLoadRequired) {
       try { // Add the (OWL 2 RL and SWRL-translated) rules to the knowledge base.
         this.knowledgeBase.addKnowledgePackages(this.knowledgeBuilder.getKnowledgePackages());
       } catch (Exception e) {
@@ -172,7 +173,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
         throw new TargetSWRLRuleEngineException("error transferring rules to Drools rule engine:\n" + e.getMessage(),
             e);
       }
-      this.knowledgePackagesAdditionRequired = false;
+      this.ruleLoadRequired = false;
     }
 
     try { // Asserted OWL axioms and class expressions must be added after rules are added to knowledge base.
@@ -211,6 +212,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     if (!this.assertedAndInferredOWLAxioms.contains(axiom)) {
       getDroolsOWLAxiom2AConverter().convert(axiom); // Put the axiom into the Drools knowledge base.
       this.assertedAndInferredOWLAxioms.add(axiom);
+      if (axiom.isOfType(AxiomType.SWRL_RULE))
+        this.ruleLoadRequired = true;
     }
   }
 
@@ -218,9 +221,10 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     this.allSQWRLQueryNames.add(query.getQueryName());
 
-    if (query.isActive()) // If a query is not active, we convert it but recordOWLClassExpression it as inactive.
+    if (query.isActive()) { // If a query is not active, we convert it but recordOWLClassExpression it as inactive.
       this.activeSQWRLQueryNames.add(query.getQueryName());
-
+      this.ruleLoadRequired = true;
+    }
     getDroolsSQWRLQuery2DRLConverter().convert(query); // Will call local defineSQWRLPhase{1,2}Rule.
   }
 
@@ -260,7 +264,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
    */
   public void defineDRLRule(@NonNull String ruleText)
   {
-    if (this.knowledgePackagesAdditionRequired)
+    if (this.ruleLoadRequired)
       this.resourceHandler.defineDRLRule(ruleText);
   }
 
@@ -279,7 +283,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.phase1SQWRLRuleNames.add(ruleName);
     this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
 
-    if (this.knowledgePackagesAdditionRequired)
+    if (this.ruleLoadRequired)
       defineDRLRule(ruleText);
   }
 
@@ -298,7 +302,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.phase2SQWRLRuleNames.add(ruleName);
     this.ruleName2SQWRLQueryNameMap.put(ruleName, queryName);
 
-    if (this.knowledgePackagesAdditionRequired)
+    if (this.ruleLoadRequired)
       defineDRLRule(ruleText);
   }
 
