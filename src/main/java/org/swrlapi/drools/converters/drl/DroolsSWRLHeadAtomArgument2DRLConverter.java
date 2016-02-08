@@ -51,7 +51,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 
 		if (individual.isNamed()) {
 			IRI iri = individual.asOWLNamedIndividual().getIRI();
-			String prefixedName = getIRIResolver().iri2PrefixedName(iri);
+			String prefixedName = iri2PrefixedName(iri);
 			return addQuotes(prefixedName);
 		} else if (individual.isAnonymous()) {
 			String id = individual.asOWLAnonymousIndividual().toStringID();
@@ -79,7 +79,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 	@Override
 	public String convert(@NonNull SWRLClassBuiltInArgument classArgument)
 	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(classArgument.getIRI());
+		String prefixedName = iri2PrefixedName(classArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -88,7 +88,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 	@Override
 	public String convert(@NonNull SWRLNamedIndividualBuiltInArgument individualArgument)
 	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(individualArgument.getIRI());
+		String prefixedName = iri2PrefixedName(individualArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -97,7 +97,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 	@Override
 	public String convert(@NonNull SWRLObjectPropertyBuiltInArgument propertyArgument)
 	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -106,7 +106,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 	@Override
 	public String convert(@NonNull SWRLDataPropertyBuiltInArgument propertyArgument)
 	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -115,7 +115,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 	@Override
 	public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument propertyArgument)
 	{
-		String prefixedName = getIRIResolver().iri2PrefixedName(propertyArgument.getIRI());
+		String prefixedName = iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
@@ -124,7 +124,7 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 	@Override
 	public String convert(@NonNull SWRLDatatypeBuiltInArgument datatypeArgument)
 	{
-		return getIRIResolver().iri2PrefixedName(datatypeArgument.getIRI());
+		return iri2PrefixedName(datatypeArgument.getIRI());
 	}
 
 	@NonNull

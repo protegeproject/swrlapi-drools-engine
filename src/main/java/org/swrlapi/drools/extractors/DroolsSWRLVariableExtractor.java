@@ -20,6 +20,6 @@ public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
   {
     String variablePrefixedName = variableName;
 
-    return getIRIResolver().prefixedName2IRI(variablePrefixedName);
+    return prefixedName2IRI(variablePrefixedName);
   }
 }

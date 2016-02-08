@@ -25,7 +25,7 @@ TargetRuleEngineOWLLiteralConverter<String>
   public String convert(@NonNull OWLLiteral literal)
   {
     IRI datatypeIRI = literal.getDatatype().getIRI();
-    String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatypeIRI);
+    String datatypePrefixedName = iri2PrefixedName(datatypeIRI);
 
     return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \"" + datatypePrefixedName
         + "\")";

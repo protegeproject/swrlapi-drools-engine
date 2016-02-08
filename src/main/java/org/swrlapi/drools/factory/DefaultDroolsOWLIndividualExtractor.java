@@ -23,6 +23,6 @@ public class DefaultDroolsOWLIndividualExtractor extends TargetRuleEngineExtract
 
   @NonNull @Override public OWLIndividual extract(@NonNull I i)
   { // TODO Does not deal with anonymous individuals
-    return getOWLDataFactory().getOWLNamedIndividual(getIRIResolver().prefixedName2IRI(i.getName()));
+    return getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(i.getName()));
   }
 }

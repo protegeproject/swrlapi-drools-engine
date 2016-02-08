@@ -57,14 +57,14 @@ import java.util.Set;
  * @see org.swrlapi.drools.owl.classes.CE
  */
 public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBase
-    implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
+  implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
   private final @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter;
   private final @NonNull DroolsObjectResolver droolsObjectResolver;
 
   public DroolsOWLClassExpression2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-      @NonNull DroolsObjectResolver droolsObjectResolver,
-      @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
+    @NonNull DroolsObjectResolver droolsObjectResolver,
+    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
   {
     super(bridge);
 
@@ -81,7 +81,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
   @NonNull @Override public String convert(@NonNull OWLClass cls)
   {
-    String classPrefixedName = getIRIResolver().iri2PrefixedName(cls.getIRI());
+    String classPrefixedName = iri2PrefixedName(cls.getIRI());
 
     if (!this.droolsObjectResolver.recordsCEID(classPrefixedName)) {
       C c = new C(classPrefixedName);
@@ -98,11 +98,11 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       for (OWLIndividual individual1 : classExpression.getIndividuals()) {
         Set<@NonNull OWLIndividual> individuals = new HashSet<>(classExpression.getIndividuals());
-        String individual1ID = getIRIResolver().iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
+        String individual1ID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
 
         individuals.remove(individual1);
         for (OWLIndividual individual2 : individuals) {
-          String individual2ID = getIRIResolver().iri2PrefixedName(individual2.asOWLNamedIndividual().getIRI());
+          String individual2ID = iri2PrefixedName(individual2.asOWLNamedIndividual().getIRI());
           OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
 
           getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
@@ -326,8 +326,9 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
-      String fillerIndividualID = getIRIResolver() // TODO Temporary fix - this individual may not be named
-          .iri2PrefixedName(classExpression.getFiller().asOWLNamedIndividual().getIRI());
+      String fillerIndividualID = iri2PrefixedName(classExpression.getFiller().asOWLNamedIndividual()
+        .getIRI()); // TODO Temporary fix - this individual may not be named
+
       OHVCE ohvce = new OHVCE(classExpressionID, propertyID, fillerIndividualID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);

@@ -96,7 +96,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull CDA da)
   {
-    OWLClass cls = getOWLDataFactory().getOWLClass(getIRIResolver().prefixedName2IRI(da.getcid()));
+    OWLClass cls = getOWLDataFactory().getOWLClass(prefixedName2IRI(da.getcid()));
 
     return getSWRLAPIOWLDataFactory().getOWLClassDeclarationAxiom(cls);
   }
@@ -104,7 +104,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull IDA da)
   {
     OWLNamedIndividual individual = getOWLDataFactory()
-        .getOWLNamedIndividual(getIRIResolver().prefixedName2IRI(da.getE().getName()));
+        .getOWLNamedIndividual(prefixedName2IRI(da.getE().getName()));
 
     return getSWRLAPIOWLDataFactory().getOWLIndividualDeclarationAxiom(individual);
   }
@@ -112,14 +112,14 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull OPDA da)
   {
     OWLObjectProperty property = getOWLDataFactory()
-        .getOWLObjectProperty(getIRIResolver().prefixedName2IRI(da.getpid()));
+        .getOWLObjectProperty(prefixedName2IRI(da.getpid()));
 
     return getSWRLAPIOWLDataFactory().getOWLObjectPropertyDeclarationAxiom(property);
   }
 
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull DPDA da)
   {
-    OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(getIRIResolver().prefixedName2IRI(da.getpid()));
+    OWLDataProperty property = getOWLDataFactory().getOWLDataProperty(prefixedName2IRI(da.getpid()));
 
     return getSWRLAPIOWLDataFactory().getOWLDataPropertyDeclarationAxiom(property);
   }
@@ -127,7 +127,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull APDA da)
   {
     OWLAnnotationProperty property = getOWLDataFactory()
-        .getOWLAnnotationProperty(getIRIResolver().prefixedName2IRI(da.getpid()));
+        .getOWLAnnotationProperty(prefixedName2IRI(da.getpid()));
 
     return getSWRLAPIOWLDataFactory().getOWLAnnotationPropertyDeclarationAxiom(property);
   }

@@ -55,7 +55,7 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
 
   @NonNull @Override public String convert(@NonNull OWLDatatype datatype)
   {
-    String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatype.getIRI());
+    String datatypePrefixedName = iri2PrefixedName(datatype.getIRI());
 
     if (!this.convertedDataRangeIDs.contains(datatypePrefixedName)) {
       this.convertedDataRangeIDs.add(datatypePrefixedName);

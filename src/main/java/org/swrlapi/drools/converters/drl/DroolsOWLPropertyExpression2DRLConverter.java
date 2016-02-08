@@ -50,7 +50,7 @@ public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverter
       } else {
         OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
         IRI propertyIRI = objectProperty.getIRI();
-        String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
+        String prefixedName = iri2PrefixedName(propertyIRI);
         OP op = new OP(prefixedName);
 
         getOWLObjectResolver().recordOWLObjectPropertyExpression(prefixedName, propertyExpression);
@@ -74,7 +74,7 @@ public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverter
       } else {
         OWLDataProperty objectProperty = propertyExpression.asOWLDataProperty();
         IRI propertyIRI = objectProperty.getIRI();
-        String prefixedName = getIRIResolver().iri2PrefixedName(propertyIRI);
+        String prefixedName = iri2PrefixedName(propertyIRI);
         DP dp = new DP(prefixedName);
 
         getOWLObjectResolver().recordOWLDataPropertyExpression(prefixedName, propertyExpression);

@@ -24,7 +24,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */
 public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBase
-    implements TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
+  implements TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
   public DroolsSWRLBuiltInArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -46,42 +46,42 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
 
   @NonNull @Override public String convert(@NonNull SWRLClassBuiltInArgument argument)
   {
-    String prefixedName = getIRIResolver().iri2PrefixedName(argument.getIRI());
+    String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new C(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
-    String prefixedName = getIRIResolver().iri2PrefixedName(argument.getIRI());
+    String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new I(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
-    String prefixedName = getIRIResolver().iri2PrefixedName(argument.getIRI());
+    String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new OP(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
-    String prefixedName = getIRIResolver().iri2PrefixedName(argument.getIRI());
+    String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new DP(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
-    String prefixedName = getIRIResolver().iri2PrefixedName(argument.getIRI());
+    String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new AP(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
-    String prefixedName = getIRIResolver().iri2PrefixedName(argument.getIRI());
+    String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new D(" + addQuotes(prefixedName) + ")";
   }
@@ -94,7 +94,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
   @NonNull @Override public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   { // TODO This is not true!
     throw new TargetSWRLRuleEngineNotImplementedFeatureException(
-        "SQWRL collection built-in arguments not yet implemented");
+      "SQWRL collection built-in arguments not yet implemented");
   }
 
   @NonNull private String addQuotes(@NonNull String s)

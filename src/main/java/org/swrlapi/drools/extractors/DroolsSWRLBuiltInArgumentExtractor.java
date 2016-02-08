@@ -40,7 +40,7 @@ public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase
 
   @NonNull public SWRLVariable extract(@NonNull VA va) throws TargetSWRLRuleEngineException
   {
-    IRI iri = getIRIResolver().prefixedName2IRI(va.getVariableName());
+    IRI iri = prefixedName2IRI(va.getVariableName());
     return getOWLDataFactory().getSWRLVariable(iri);
   }
 

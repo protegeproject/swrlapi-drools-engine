@@ -35,37 +35,37 @@ class DefaultDroolsOWLEntityExtractor extends TargetRuleEngineExtractorBase impl
 
   @NonNull @Override public OWLClass extract(@NonNull C cls) throws TargetSWRLRuleEngineException
   {
-    IRI classIRI = getIRIResolver().prefixedName2IRI(cls.getName());
+    IRI classIRI = prefixedName2IRI(cls.getName());
     return getOWLDataFactory().getOWLClass(classIRI);
   }
 
   @NonNull @Override public OWLNamedIndividual extract(@NonNull I individual) throws TargetSWRLRuleEngineException
   {
-    IRI individualIRI = getIRIResolver().prefixedName2IRI(individual.getName());
+    IRI individualIRI = prefixedName2IRI(individual.getName());
     return getOWLDataFactory().getOWLNamedIndividual(individualIRI);
   }
 
   @NonNull @Override public OWLDataProperty extract(@NonNull DP property) throws TargetSWRLRuleEngineException
   {
-    IRI propertyIRI = getIRIResolver().prefixedName2IRI(property.getName());
+    IRI propertyIRI = prefixedName2IRI(property.getName());
     return getOWLDataFactory().getOWLDataProperty(propertyIRI);
   }
 
   @NonNull @Override public OWLAnnotationProperty extract(@NonNull AP property) throws TargetSWRLRuleEngineException
   {
-    IRI propertyIRI = getIRIResolver().prefixedName2IRI(property.getName());
+    IRI propertyIRI = prefixedName2IRI(property.getName());
     return getOWLDataFactory().getOWLAnnotationProperty(propertyIRI);
   }
 
   @NonNull @Override public OWLObjectProperty extract(@NonNull OP property) throws TargetSWRLRuleEngineException
   {
-    IRI propertyIRI = getIRIResolver().prefixedName2IRI(property.getName());
+    IRI propertyIRI = prefixedName2IRI(property.getName());
     return getOWLDataFactory().getOWLObjectProperty(propertyIRI);
   }
 
   @NonNull @Override public OWLDatatype extract(@NonNull D datatype) throws TargetSWRLRuleEngineException
   {
-    IRI datatypeIRI = getIRIResolver().prefixedName2IRI(datatype.getName());
+    IRI datatypeIRI = prefixedName2IRI(datatype.getName());
     return getOWLDataFactory().getOWLDatatype(datatypeIRI);
   }
 }

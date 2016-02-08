@@ -26,7 +26,7 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
   {
     if (individual.isNamed()) {
       IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
-      String prefixedName = getIRIResolver().iri2PrefixedName(individualIRI);
+      String prefixedName = iri2PrefixedName(individualIRI);
       // return addQuotes(prefixedName);
       return "new I(\"" + prefixedName + "\")";
     } else {

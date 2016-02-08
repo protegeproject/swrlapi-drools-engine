@@ -16,7 +16,7 @@ import org.swrlapi.drools.owl.literals.L;
  * @see L
  */
 public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase
-    implements TargetRuleEngineOWLLiteralConverter<L>
+  implements TargetRuleEngineOWLLiteralConverter<L>
 {
   public DroolsOWLLiteral2LConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -27,7 +27,7 @@ public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase
   {
     String literalValue = literal.getLiteral();
     IRI datatypeIRI = literal.getDatatype().getIRI();
-    String datatypePrefixedName = getIRIResolver().iri2PrefixedName(datatypeIRI);
+    String datatypePrefixedName = iri2PrefixedName(datatypeIRI);
 
     return new L(literalValue, datatypePrefixedName);
   }
