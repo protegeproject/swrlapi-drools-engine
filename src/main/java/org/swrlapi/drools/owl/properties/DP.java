@@ -1,7 +1,6 @@
 package org.swrlapi.drools.owl.properties;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -51,11 +50,6 @@ public class DP extends OE implements P, DPE
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
-  }
-
-  @SideEffectFree @NonNull @Override public String toString()
-  {
-    return super.toString();
   }
 
   @NonNull public static DP getOWLTopDataProperty()

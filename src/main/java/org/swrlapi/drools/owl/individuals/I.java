@@ -1,7 +1,6 @@
 package org.swrlapi.drools.owl.individuals;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -41,8 +40,8 @@ public class I extends OE
       I i = (I)ba;
       this.id = i.getName();
     } else
-      throw new TargetSWRLRuleEngineInternalException("expecting OWL individual from bound built-in argument, got "
-          + ba.getClass().getCanonicalName());
+      throw new TargetSWRLRuleEngineInternalException(
+        "expecting OWL individual from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
   @NonNull public OWLIndividual extract(@NonNull DroolsOWLIndividualExtractor extractor)
@@ -50,21 +49,15 @@ public class I extends OE
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public OWLNamedIndividual extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLNamedIndividual extract(@NonNull DroolsOWLEntityExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
-  }
-
-  @SideEffectFree @NonNull @Override
-  public String toString()
-  {
-    return super.toString();
   }
 }
