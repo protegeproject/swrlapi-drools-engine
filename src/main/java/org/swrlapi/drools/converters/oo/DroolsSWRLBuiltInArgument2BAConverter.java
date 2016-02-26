@@ -104,7 +104,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   @NonNull @Override public UBA convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
-      return new UBA(getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument));
+      return new UBA(getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument));
     else
       throw new TargetSWRLRuleEngineInternalException("expecting unbound argument, got bound argument " + argument);
   }

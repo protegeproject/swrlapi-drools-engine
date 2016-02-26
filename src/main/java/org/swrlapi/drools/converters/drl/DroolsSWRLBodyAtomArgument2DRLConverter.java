@@ -28,7 +28,7 @@ import java.util.Set;
  * @see DroolsSWRLHeadAtomArgument2DRLConverter
  */
 public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterBase
-    implements TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter<String>
+  implements TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter<String>
 {
   public DroolsSWRLBodyAtomArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -110,87 +110,87 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   }
 
   @NonNull @Override public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     throw new TargetSWRLRuleEngineInternalException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
   }
 
   @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
-    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2PrefixedName(argument);
+    String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument);
 
-    if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
-      return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);
+    if (previouslyEncounteredVariableNames.contains(variableName)) {
+      return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variableName2DRL(variableName);
     } else {
-      previouslyEncounteredVariablePrefixedNames.add(variablePrefixedName);
-      return getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
+      previouslyEncounteredVariableNames.add(variableName);
+      return getDroolsSWRLVariable2NameConverter().variableName2DRL(variableName) + ":" + fieldName;
     }
   }
 
   @NonNull @Override public String convert(@NonNull SWRLVariable argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
-    String variablePrefixedName = getDroolsSWRLVariable2NameConverter().swrlVariable2PrefixedName(argument);
+    String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument);
 
-    if (previouslyEncounteredVariablePrefixedNames.contains(variablePrefixedName)) {
-      return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName);
+    if (previouslyEncounteredVariableNames.contains(variableName)) {
+      return fieldName + "==" + getDroolsSWRLVariable2NameConverter().variableName2DRL(variableName);
     } else {
-      previouslyEncounteredVariablePrefixedNames.add(variablePrefixedName);
-      return getDroolsSWRLVariable2NameConverter().variablePrefixedName2DRL(variablePrefixedName) + ":" + fieldName;
+      previouslyEncounteredVariableNames.add(variableName);
+      return getDroolsSWRLVariable2NameConverter().variableName2DRL(variableName) + ":" + fieldName;
     }
   }
 
   @NonNull @Override public String convert(@NonNull SWRLIndividualArgument argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLLiteralArgument argument, @NonNull String fieldName,
-      Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLClassBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDataPropertyBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument,
-      @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLLiteralBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDatatypeBuiltInArgument argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
@@ -228,42 +228,38 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
       return convert((SWRLDatatypeBuiltInArgument)argument);
     } else
       throw new TargetSWRLRuleEngineInternalException(
-          "unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
+        "unknown SWRL atom argument type " + argument.getClass().getCanonicalName());
   }
 
   @NonNull public String convert(@NonNull SWRLArgument argument, @NonNull String fieldName,
-      @NonNull Set<@NonNull String> previouslyEncounteredVariablePrefixedNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   { // TODO Visitor to replace instanceof
     if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
-      return convert((SQWRLCollectionVariableBuiltInArgument)argument, fieldName,
-          previouslyEncounteredVariablePrefixedNames);
+      return convert((SQWRLCollectionVariableBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLVariableBuiltInArgument) {
-      return convert((SWRLVariableBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLVariableBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLClassBuiltInArgument) {
-      return convert((SWRLClassBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLClassBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLNamedIndividualBuiltInArgument) {
-      return convert((SWRLNamedIndividualBuiltInArgument)argument, fieldName,
-          previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLNamedIndividualBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLIndividualArgument) {
-      return convert((SWRLIndividualArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLIndividualArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLLiteralBuiltInArgument) {
-      return convert((SWRLLiteralBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLLiteralBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLObjectPropertyBuiltInArgument) {
-      return convert((SWRLObjectPropertyBuiltInArgument)argument, fieldName,
-          previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLObjectPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLDataPropertyBuiltInArgument) {
-      return convert((SWRLDataPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLDataPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLAnnotationPropertyBuiltInArgument) {
-      return convert((SWRLAnnotationPropertyBuiltInArgument)argument, fieldName,
-          previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLAnnotationPropertyBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLDatatypeBuiltInArgument) {
-      return convert((SWRLDatatypeBuiltInArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLDatatypeBuiltInArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLVariable) {
-      return convert((SWRLVariable)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLVariable)argument, fieldName, previouslyEncounteredVariableNames);
     } else if (argument instanceof SWRLLiteralArgument) {
-      return convert((SWRLLiteralArgument)argument, fieldName, previouslyEncounteredVariablePrefixedNames);
+      return convert((SWRLLiteralArgument)argument, fieldName, previouslyEncounteredVariableNames);
     } else
       throw new TargetSWRLRuleEngineInternalException(
-          "unknown SWRL argument type " + argument.getClass().getCanonicalName());
+        "unknown SWRL argument type " + argument.getClass().getCanonicalName());
   }
 }
