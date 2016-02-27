@@ -10,13 +10,13 @@ Documentation can be found at the [SWRLAPI Drools Engine Wiki](https://github.co
 
 #### Getting Started
 
-This library provides SWRL rule and SQWRL engine implementations for the [SWRLAPI library](https://github.com/protegeproject/swrlapi). See the README for the SWRLAPI library for usage instructions.
+This library provides SWRL rule and SQWRL engine implementations for the [SWRLAPI library](https://github.com/protegeproject/swrlapi). See the [SWRLAPI README](https://github.com/protegeproject/swrlapi) for usage instructions.
 
-If you want to include this library in a project, either download the latest JAR from the [project's GitHub Release area](https://github.com/protegeproject/swrlapi-drools-engine/releases) or use your favourite dependency management tool to download it from Maven Central.  Its dependency information can be found here:
+The engine's dependency information can be found here:
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine)
 
-#### Building
+#### Building from Source
 
 To build this project you must have the following items installed:
 
