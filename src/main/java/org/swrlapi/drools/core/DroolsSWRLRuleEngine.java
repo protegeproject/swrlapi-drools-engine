@@ -253,7 +253,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
   @NonNull @Override public String getTargetRuleEngineVersion()
   {
-    return DroolsNames.VERSION_STRING;
+    return getClass().getPackage().getImplementationVersion();
   }
 
   /**
