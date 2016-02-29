@@ -18,7 +18,7 @@
 
   <properties>
 
-    <swrlapi.version>1.0.0-beta-15</swrlapi.version>
+    <swrlapi.version>1.0.0-beta-16-SNAPSHOT</swrlapi.version>
     <owlapi.version>4.1.3</owlapi.version> 
     <drools.version>6.3.0.Final</drools.version> 
 
@@ -265,8 +265,11 @@
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
+
       <build>
+
         <plugins>
+
 	  <plugin>
 	    <groupId>org.apache.maven.plugins</groupId>
 	    <artifactId>maven-source-plugin</artifactId>
@@ -299,6 +302,20 @@
 	    </executions>
 	  </plugin>
 	  
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>${maven.jar.plugin.version}</version>
+            <configuration>
+              <archive>                   
+                <manifest>
+                  <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                  <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                </manifest>
+              </archive>
+            </configuration>
+          </plugin>
+
 	  <plugin>
 	    <groupId>org.apache.maven.plugins</groupId>
 	    <artifactId>maven-gpg-plugin</artifactId>
