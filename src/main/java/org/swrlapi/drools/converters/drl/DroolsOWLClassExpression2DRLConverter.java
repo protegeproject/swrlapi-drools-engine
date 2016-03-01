@@ -43,6 +43,7 @@ import org.swrlapi.drools.owl.classes.OMaxCCE;
 import org.swrlapi.drools.owl.classes.OMaxQCCE;
 import org.swrlapi.drools.owl.classes.OMinCCE;
 import org.swrlapi.drools.owl.classes.OOCOCE;
+import org.swrlapi.drools.owl.classes.OOHS;
 import org.swrlapi.drools.owl.classes.OOOCE;
 import org.swrlapi.drools.owl.classes.OSVFCE;
 import org.swrlapi.drools.owl.classes.OUOCE;
@@ -366,6 +367,20 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
       this.droolsObjectResolver.recordCE(davfce);
 
+      return classExpressionID;
+    } else
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
+  }
+
+  @NonNull @Override public String convert(@NonNull OWLObjectHasSelf classExpression)
+  {
+    if (!getOWLObjectResolver().recordsOWLClassExpression(classExpression)) {
+      String classExpressionID = this.droolsObjectResolver.generateCEID();
+      String propertyID = getOWLPropertyExpressionConverter().convert(classExpression.getProperty());
+      OOHS oohs = new OOHS(classExpressionID, propertyID);
+
+      getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
+      this.droolsObjectResolver.recordCE(oohs);
       return classExpressionID;
     } else
       return getOWLObjectResolver().resolveOWLClassExpression2ID(classExpression);
