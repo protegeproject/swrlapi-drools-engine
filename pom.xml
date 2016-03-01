@@ -18,7 +18,7 @@
 
   <properties>
 
-    <swrlapi.version>1.0.0-beta-16</swrlapi.version>
+    <swrlapi.version>1.0.0-beta-17-SNAPSHOT</swrlapi.version>
     <owlapi.version>4.1.3</owlapi.version> 
     <drools.version>6.3.0.Final</drools.version> 
 
