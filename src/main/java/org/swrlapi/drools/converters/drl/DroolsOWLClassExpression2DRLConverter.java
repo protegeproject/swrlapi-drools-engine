@@ -101,10 +101,14 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
         Set<@NonNull OWLIndividual> individuals = new HashSet<>(classExpression.getIndividuals());
         String individual1ID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
 
+        OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual1ID);
+        getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
+        this.droolsObjectResolver.recordCE(oooce);
+
         individuals.remove(individual1);
         for (OWLIndividual individual2 : individuals) {
           String individual2ID = iri2PrefixedName(individual2.asOWLNamedIndividual().getIRI());
-          OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
+          oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
 
           getOWLObjectResolver().recordOWLClassExpression(classExpressionID, classExpression);
           this.droolsObjectResolver.recordCE(oooce);
