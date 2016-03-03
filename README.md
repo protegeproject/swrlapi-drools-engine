@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/protegeproject/swrlapi-drools-engine.svg?branch=master)](https://travis-ci.org/protegeproject/swrlapi-drools-engine)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.stanford.swrl/swrlapi-drools-engine)
-[![Dependency Status](https://www.versioneye.com/user/projects/56a24a4a9b5998003d00004c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56a24a4a9b5998003d00004c)
 
 [Drools](http://www.drools.org/) implementation of a [SWRLAPI](https://github.com/protegeproject/swrlapi/wiki)-based [OWL 2 RL](http://www.w3.org/TR/owl2-profiles/#OWL_2_RL) reasoner and SWRL rule engine. 
 
@@ -42,7 +41,8 @@ This JAR is used by the [Protégé](http://protege.stanford.edu/) [SWRLTab Plugi
 and by the standalone [SWRLTab](https://github.com/protegeproject/swrltab) tool.
 
 A [Build Project](https://github.com/protegeproject/swrltab-project) is provided to build core SWRLAPI-related components.
-A project containing a [library of integration tests](https://github.com/protegeproject/swrlapi-integration-tests) is also proviced.
+A project containing a [library of integration tests](https://github.com/protegeproject/swrlapi-integration-tests) is also provided.
+A sample project that used this rule engine can be found [here](https://github.com/protegeproject/swrlapi-example).
 
 #### License
 
