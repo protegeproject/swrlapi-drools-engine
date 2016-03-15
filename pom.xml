@@ -22,7 +22,7 @@
     <owlapi.version>4.2.1</owlapi.version> 
     <drools.version>6.3.0.Final</drools.version> 
 
-    <checker.framework.version>1.9.11</checker.framework.version>
+    <checker.framework.version>1.9.12</checker.framework.version>
     <annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
     <junit.version>4.12</junit.version>
     <slf4j.version>1.7.18</slf4j.version>
@@ -33,7 +33,7 @@
     <maven.bundle.plugin.version>3.0.1</maven.bundle.plugin.version>
     <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
     <maven.source.plugin.version>3.0.0</maven.source.plugin.version>
-    <maven.nexus-staging.plugin.version>1.6.6</maven.nexus-staging.plugin.version>
+    <maven.nexus-staging.plugin.version>1.6.7</maven.nexus-staging.plugin.version>
     <maven.javadoc.plugin.version>2.10.3</maven.javadoc.plugin.version>
     <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
     <maven.scm.gitexe.version>1.9.4</maven.scm.gitexe.version>
