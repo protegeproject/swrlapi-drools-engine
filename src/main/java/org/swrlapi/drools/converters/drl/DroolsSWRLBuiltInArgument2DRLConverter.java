@@ -39,7 +39,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
   @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
-      return "new UBA(" + addQuotes(getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument)) + ")";
+      return "new UBA(" + addQuotes(getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument)) + ")";
     else
       return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(argument);
   }

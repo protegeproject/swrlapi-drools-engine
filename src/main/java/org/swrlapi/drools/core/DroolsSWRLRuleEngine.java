@@ -52,7 +52,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   @NonNull private final DroolsSQWRLQuery2DRLConverter sqwrlQuery2DRLConverter;
   @NonNull private final DroolsOWLAxiomExtractor axiomExtractor;
   @NonNull private final DroolsSWRLBuiltInInvoker builtInInvoker;
-  @NonNull private final DroolsSQWRLCollectionHandler sqwrlCollectionInferrer;
+  @NonNull private final DroolsSQWRLCollectionHandler sqwrlCollectionHandler;
   @NonNull private final DroolsOWL2RLEngine owl2RLEngine;
   @NonNull private final DefaultDroolsOWLAxiomHandler axiomInferrer;
 
@@ -91,7 +91,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
     this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
     this.axiomInferrer = new DefaultDroolsOWLAxiomHandler();
-    this.sqwrlCollectionInferrer = new DroolsSQWRLCollectionHandler();
+    this.sqwrlCollectionHandler = new DroolsSQWRLCollectionHandler();
 
     this.assertedAndInferredOWLAxioms = new HashSet<>();
 
@@ -124,7 +124,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.knowledgeSession = this.knowledgeBase.newStatefulKnowledgeSession();
     this.knowledgeSession.setGlobal("invoker", this.builtInInvoker);
     this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
-    this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionInferrer);
+    this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionHandler);
 
     // Supply the inferrer with the knowledge session is so that it can insert new facts as inference is performed.
     this.axiomInferrer.reset(this.knowledgeSession);
@@ -166,7 +166,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     Thread.currentThread().setContextClassLoader(DroolsSWRLRuleEngine.class.getClassLoader());
 
     if (this.ruleLoadRequired) {
-      try { // Add the (OWL 2 RL and SWRL-translated) rules to the knowledge base.
+      try { // Add the OWL 2 RL and SWRL rules to the knowledge base.
         this.knowledgeBase.addKnowledgePackages(this.knowledgeBuilder.getKnowledgePackages());
       } catch (Exception e) {
         Thread.currentThread().setContextClassLoader(oldClassLoader);
@@ -192,9 +192,13 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.axiomInferrer.addAssertOWLAxioms(getDroolsOWLAxiom2AConverter().getAssertedOWLAxioms());
 
     try { // Fire the rules
+      // Phase1 rules with SQWRL collection operators will generate SQWRLC objects, which
+      // are collected by a DroolsSQWRLCollectionHandler. Any generated SQWRLC objects are
+      // inserted into the knowledge session after then phase 1 rules run to be picked up
+      // by phase 2 rules.
       this.knowledgeSession.fireAllRules(this.sqwrlPhase1AgendaFilter);
-      if (!this.phase2SQWRLRuleNames.isEmpty() && this.sqwrlCollectionInferrer.hasSQWRLCollections()) {
-        this.sqwrlCollectionInferrer.getSQWRLCollections().forEach(this.knowledgeSession::insert);
+      if (!this.phase2SQWRLRuleNames.isEmpty() && this.sqwrlCollectionHandler.hasSQWRLCollections()) {
+        this.sqwrlCollectionHandler.getSQWRLCollections().forEach(this.knowledgeSession::insert);
         this.knowledgeSession.fireAllRules(this.sqwrlPhase2AgendaFilter);
       }
     } catch (Exception e) {
@@ -314,12 +318,12 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.knowledgeSession = this.knowledgeBase.newStatefulKnowledgeSession();
     this.knowledgeSession.setGlobal("invoker", this.builtInInvoker);
     this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
-    this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionInferrer);
+    this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionHandler);
 
     // Supply the inferrer with the knowledge session is so that it can insert new facts as inference is performed.
     this.axiomInferrer.reset(this.knowledgeSession);
 
-    this.sqwrlCollectionInferrer.reset();
+    this.sqwrlCollectionHandler.reset();
     this.assertedAndInferredOWLAxioms.clear();
     this.allSQWRLQueryNames.clear();
     this.activeSQWRLQueryNames.clear();

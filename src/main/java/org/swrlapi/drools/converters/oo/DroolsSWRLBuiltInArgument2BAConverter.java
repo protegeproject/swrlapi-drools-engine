@@ -40,7 +40,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  * @see org.swrlapi.drools.swrl.BA
  */
 public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
-    implements TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
+  implements TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
 {
   public DroolsSWRLBuiltInArgument2BAConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -111,8 +111,8 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
 
   @NonNull @Override public BA convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
-    return new SQWRLC(getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument), argument.getQueryName(),
-        argument.getCollectionName(), argument.getGroupID());
+    return new SQWRLC(getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument),
+      argument.getQueryName(), argument.getCollectionName(), argument.getGroupID());
   }
 
   @NonNull @Override public BA visit(@NonNull SWRLClassBuiltInArgument argument)

@@ -163,8 +163,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   @Override public String convert(@NonNull SWRLAPIBuiltInAtom builtInAtom,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
-    String builtInPrefixedName = builtInAtom.getBuiltInPrefixedName();
     String ruleName = builtInAtom.getRuleName();
+    String builtInPrefixedName = builtInAtom.getBuiltInPrefixedName();
     boolean variableArgumentEncountered = false;
     String representation = DroolsNames.BUILT_IN_ARGUMENTS_PATTERN_CLASS_NAME + "(";
     boolean isFirst;
@@ -175,8 +175,9 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
         String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument.asVariable());
         if (variableArgumentEncountered)
           representation += ", ";
-        representation += getDroolsSWRLVariable2NameConverter().variableName2DRL(variableName,
-          DroolsNames.BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX + argumentNumber, previouslyEncounteredVariableNames);
+        representation += getDroolsSWRLVariable2NameConverter()
+          .variableName2DRL(variableName, DroolsNames.BUILT_IN_ARGUMENT_PATTERN_FIELD_NAME_PREFIX + argumentNumber,
+            previouslyEncounteredVariableNames);
         variableArgumentEncountered = true;
       }
       argumentNumber++;

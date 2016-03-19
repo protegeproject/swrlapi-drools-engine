@@ -62,7 +62,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 
     // System.out.println("---------------------------------------------------------------------------------------");
     // System.out.println("DRL:\n" + drlRule);
-    getDroolsSWRLRuleEngine().defineDRLRule(drlRule);
+               getDroolsSWRLRuleEngine().defineDRLRule(drlRule);
   }
 
   @NonNull private String getRulePreamble(@NonNull String ruleName)
