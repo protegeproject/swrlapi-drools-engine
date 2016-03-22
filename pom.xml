@@ -16,6 +16,12 @@
   <description>Drools implementation of SWRLAPI-based SWRL rule engine</description>
   <url>https://github.com/protegeproject/swrlapi-drools-engine/wiki/SWRLAPI-Drools-Engine</url>
 
+  <properties>
+
+    <swrlapi.version>1.0.0-beta-31</swrlapi.version>
+
+  </properties>
+
   <scm>
     <connection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</developerConnection>
@@ -33,7 +39,7 @@
     <dependency>
       <groupId>edu.stanford.swrl</groupId>
       <artifactId>swrlapi</artifactId>
-      <version>1.0.0-beta-30</version>
+      <version>${swrlapi.version}</version>
     </dependency>
 
     <dependency>
