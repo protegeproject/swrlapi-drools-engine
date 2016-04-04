@@ -1,21 +1,17 @@
 language: java
-
 jdk:
 - oraclejdk8
-
 branches:
   only:
-    - development
-
+  - development
 notifications:
   email:
     recipients:
     - martin.oconnor@stanford.edu
     on_success: never
     on_failure: always
-
-
 script: '[ ${TRAVIS_PULL_REQUEST} = ''false'' ] && mvn clean deploy --settings .m2/travis-settings.xml'
-
 env:
   global:
+  - secure: BDC7WUgpnYTrOeMst9VF5l2Qs2P314sZvWh6Zf5S9btmt9Mtjlhcsf3dZM+hG1X8xgzm8wWH2voBBKlt3ngmhnUv0ekD91E586hzEAA1njn6CAw7DoXGs6W6n3D3vrodvRNoIyJ8RG1tv1gfMxo5QeBRjNWR3wvlMnVRpcMtcCU=
+  - secure: dVYS9en5HcdorRsFL69DkXDZ93SoPjWeqAkpK1iskrsUIuKiDIT+RLlgjj3Xv85ZzDZ+P8BwtT4rl78H1mdrIi8bZrROEacdrEZPFc5IyCSvB8o52cRZQjObcjWJ2S2q2leYI8lt5Vy+LJpXRlKRUYXA6h+IvAfwC4jgoJC0OI8=
