@@ -25,7 +25,7 @@ public class DIO implements DR
   }
 
   @NonNull @Override
-  public String getrid()
+  public String getdrid()
   {
     return this.rid;
   }

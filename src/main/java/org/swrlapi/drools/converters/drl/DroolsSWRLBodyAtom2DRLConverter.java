@@ -27,7 +27,7 @@ import java.util.Set;
 
 /**
  * This class converts OWLAPI SWRL body atoms to a their DRL representation for use in rules.
- * <p>
+ * <p/>
  * Head and body atoms are converted differently - hence the need for two converters. Body atom converters must also
  * know the variables defined by previous atoms because a different syntax is required in DRL for declaring a variable
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
@@ -66,11 +66,17 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   @NonNull @Override public String convert(@NonNull SWRLDataRangeAtom atom,
     Set<@NonNull String> previouslyEncounteredVariableNames)
   {
-    throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule body");
+    String dataRangeID = getDroolsOWLDataRange2IDConverter().convert(atom.getPredicate());
+    SWRLDArgument argument = atom.getArgument();
+
+    throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
   }
 
   @NonNull public String convert(@NonNull SWRLDataRangeAtom atom)
   {
+    String dataRangeID = getDroolsOWLDataRange2IDConverter().convert(atom.getPredicate());
+    SWRLDArgument argument = atom.getArgument();
+
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
   }
 

@@ -21,7 +21,7 @@ public class DRR implements DR
   }
 
   @NonNull @Override
-  public String getrid()
+  public String getdrid()
   {
     return this.rid;
   }

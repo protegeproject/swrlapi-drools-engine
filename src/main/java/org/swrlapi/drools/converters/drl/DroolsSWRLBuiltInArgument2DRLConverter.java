@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters.drl;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -14,9 +15,8 @@ import org.swrlapi.builtins.arguments.SWRLMultiValueVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
+import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * This class converts SWRLAPI SWRL built-in arguments to DRL clauses for use in rules.
@@ -39,7 +39,8 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
   @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
-      return "new UBA(" + addQuotes(getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument)) + ")";
+      return "new " + DroolsNames.UNBOUND_ARGUMENT_CLASS_NAME + "(" + addQuotes(
+        getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument)) + ")";
     else
       return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(argument);
   }
@@ -48,42 +49,42 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
-    return "new C(" + addQuotes(prefixedName) + ")";
+    return "new " + DroolsNames.CLASS_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
-    return "new I(" + addQuotes(prefixedName) + ")";
+    return "new " + DroolsNames.INDIVIDUAL_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
-    return "new OP(" + addQuotes(prefixedName) + ")";
+    return "new " + DroolsNames.OBJECT_PROPERTY_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
-    return "new DP(" + addQuotes(prefixedName) + ")";
+    return "new " + DroolsNames.DATA_PROPERTY_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
-    return "new AP(" + addQuotes(prefixedName) + ")";
+    return "new " + DroolsNames.ANNOTATION_PROPERTY_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
-    return "new D(" + addQuotes(prefixedName) + ")";
+    return "new " + DroolsNames.DATATYPE_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLLiteralBuiltInArgument argument)

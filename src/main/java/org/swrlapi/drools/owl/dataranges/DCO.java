@@ -22,7 +22,7 @@ public class DCO implements DR
     this.complementRangeID = complementRangeID;
   }
 
-  @NonNull @Override public String getrid()
+  @NonNull @Override public String getdrid()
   {
     return this.rid;
   }

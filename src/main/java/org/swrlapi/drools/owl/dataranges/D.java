@@ -37,30 +37,28 @@ public class D extends OE implements DR
       D d = (D)ba;
       this.id = d.getName();
     } else
-      throw new TargetSWRLRuleEngineInternalException("expecting OWL datatype from bound built-in argument, got "
-          + ba.getClass().getCanonicalName());
+      throw new TargetSWRLRuleEngineInternalException(
+        "expecting OWL datatype from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override
-  public String getrid()
+  @NonNull @Override public String getdrid()
   {
     return getName();
   }
 
-  @NonNull @Override
-  public OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override
-  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @SideEffectFree @NonNull @Override
-  public String toString()
+  @SideEffectFree @NonNull @Override public String toString()
   {
     return super.toString();
   }

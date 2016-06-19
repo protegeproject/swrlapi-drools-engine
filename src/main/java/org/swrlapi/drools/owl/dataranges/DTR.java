@@ -20,7 +20,7 @@ public class DTR implements DR
     this.rid = rid;
   }
 
-  @NonNull @Override public String getrid()
+  @NonNull @Override public String getdrid()
   {
     return this.rid;
   }

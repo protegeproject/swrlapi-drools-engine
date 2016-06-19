@@ -25,7 +25,7 @@ public class DOO implements DR
     this.literals = literals;
   }
 
-  @NonNull @Override public String getrid()
+  @NonNull @Override public String getdrid()
   {
     return this.rid;
   }
