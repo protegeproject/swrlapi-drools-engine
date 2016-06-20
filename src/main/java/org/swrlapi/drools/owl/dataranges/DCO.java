@@ -13,22 +13,22 @@ public class DCO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String rid;
-  @NonNull private final String complementRangeID;
+  @NonNull private final String drid;
+  @NonNull private final String complementDataRangeID;
 
-  public DCO(@NonNull String rid, @NonNull String complementRangeID)
+  public DCO(@NonNull String drid, @NonNull String complementDataRangeID)
   {
-    this.rid = rid;
-    this.complementRangeID = complementRangeID;
+    this.drid = drid;
+    this.complementDataRangeID = complementDataRangeID;
   }
 
   @NonNull @Override public String getdrid()
   {
-    return this.rid;
+    return this.drid;
   }
 
-  @NonNull public String getComplementRangeID()
+  @NonNull public String getComplementDataRangeID()
   {
-    return this.complementRangeID;
+    return this.complementDataRangeID;
   }
 }

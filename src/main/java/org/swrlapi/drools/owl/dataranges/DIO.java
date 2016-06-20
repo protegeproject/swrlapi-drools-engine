@@ -15,23 +15,22 @@ public class DIO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String rid;
-  @NonNull private final Set<@NonNull String> dataRangeIDs;
+  @NonNull private final String drid;
+  @NonNull private final Set<@NonNull String> intersectionOfDataRangeIDs;
 
-  public DIO(@NonNull String rid, @NonNull Set<@NonNull String> dataRangeIDs)
+  public DIO(@NonNull String drid, @NonNull Set<@NonNull String> intersectionOfDataRangeIDs)
   {
-    this.rid = rid;
-    this.dataRangeIDs = dataRangeIDs;
+    this.drid = drid;
+    this.intersectionOfDataRangeIDs = intersectionOfDataRangeIDs;
   }
 
-  @NonNull @Override
-  public String getdrid()
+  @NonNull @Override public String getdrid()
   {
-    return this.rid;
+    return this.drid;
   }
 
-  @NonNull public Set<@NonNull String> getDataRangeIDs()
+  @NonNull public Set<@NonNull String> getIntersectionOfDataRangeIDs()
   {
-    return this.dataRangeIDs;
+    return this.intersectionOfDataRangeIDs;
   }
 }

@@ -201,7 +201,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterB
   }
 
   @NonNull public String convert(@NonNull SWRLArgument argument)
-  { // TODO Use visitor to get rid of instanceof SWRLArgumentVisitorEx, SWRLBuiltInArgumentVisitorEx
+  { // TODO Use visitor to get drid of instanceof SWRLArgumentVisitorEx, SWRLBuiltInArgumentVisitorEx
     if (argument instanceof SWRLVariable) {
       return convert((SWRLVariable)argument);
     } else if (argument instanceof SWRLIndividualArgument) {
