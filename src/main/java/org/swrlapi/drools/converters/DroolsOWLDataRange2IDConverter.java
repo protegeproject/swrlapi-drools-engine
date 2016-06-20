@@ -130,7 +130,7 @@ public class DroolsOWLDataRange2IDConverter extends TargetRuleEngineConverterBas
     return convert(owlDatatype);
   }
 
-  @NonNull @Override public String visit(OWLDataOneOf owlDataOneOf)
+  @NonNull @Override public String visit(@NonNull OWLDataOneOf owlDataOneOf)
   {
     return convert(owlDataOneOf);
   }
