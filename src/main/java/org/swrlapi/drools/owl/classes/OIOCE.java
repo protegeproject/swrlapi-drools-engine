@@ -2,8 +2,11 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
 import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL object intersection of class expression in Drools. Each element of the intersection
@@ -34,5 +37,11 @@ public class OIOCE extends DroolsBinaryObject<String, String> implements CE
   @SideEffectFree @NonNull @Override public String toString()
   {
     return "OIOCE" + super.toString();
+  }
+
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
   }
 }

@@ -1,6 +1,9 @@
 package org.swrlapi.drools.converters.drl;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBuiltInArgumentConverter;
 import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
@@ -8,12 +11,15 @@ import org.swrlapi.builtins.arguments.SWRLAnnotationPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentVisitorEx;
 import org.swrlapi.builtins.arguments.SWRLClassBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLDataPropertyBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLDataPropertyExpressionBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLDatatypeBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLLiteralBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLMultiValueVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLObjectPropertyExpressionBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
@@ -52,11 +58,27 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return "new " + DroolsNames.CLASS_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
+  @NonNull @Override public String convert(@NonNull SWRLClassExpressionBuiltInArgument argument)
+  {
+    OWLClassExpression ce = argument.getOWLClassExpression();
+    String ceid = getOWLObjectResolver().resolveOWLClassExpression2ID(ce);
+
+    return "new " + DroolsNames.CLASS_EXPRESSION_CLASS_NAME + "(" + addQuotes(ceid) + ")";
+  }
+
   @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.INDIVIDUAL_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
+  }
+
+  @NonNull @Override public String convert(@NonNull SWRLObjectPropertyExpressionBuiltInArgument argument)
+  {
+    OWLObjectPropertyExpression pe = argument.getOWLObjectPropertyExpression();
+    String peid = getOWLObjectResolver().resolveOWLObjectPropertyExpression2ID(pe);
+
+    return "new " + DroolsNames.OBJECT_PROPERTY_EXPRESSION_CLASS_NAME + "(" + addQuotes(peid) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
@@ -71,6 +93,14 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.DATA_PROPERTY_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
+  }
+
+  @NonNull @Override public String convert(@NonNull SWRLDataPropertyExpressionBuiltInArgument argument)
+  {
+    OWLDataPropertyExpression pe = argument.getOWLDataPropertyExpression();
+    String peid = getOWLObjectResolver().resolveOWLDataPropertyExpression2ID(pe);
+
+    return "new " + DroolsNames.DATA_PROPERTY_EXPRESSION_CLASS_NAME + "(" + addQuotes(peid) + ")";
   }
 
   @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
@@ -108,6 +138,11 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return convert(argument);
   }
 
+  @Override public String visit(SWRLClassExpressionBuiltInArgument argument)
+  {
+    return convert(argument);
+  }
+
   @NonNull @Override public String visit(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     return convert(argument);
@@ -118,7 +153,17 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return convert(argument);
   }
 
+  @Override public String visit(SWRLObjectPropertyExpressionBuiltInArgument argument)
+  {
+    return convert(argument);
+  }
+
   @NonNull @Override public String visit(@NonNull SWRLDataPropertyBuiltInArgument argument)
+  {
+    return convert(argument);
+  }
+
+  @Override public String visit(SWRLDataPropertyExpressionBuiltInArgument argument)
   {
     return convert(argument);
   }

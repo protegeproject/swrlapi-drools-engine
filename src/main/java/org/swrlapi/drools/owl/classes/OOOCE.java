@@ -2,8 +2,11 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.individuals.I;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise
@@ -43,5 +46,11 @@ public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
   @SideEffectFree @NonNull @Override public String toString()
   {
     return "OOOCE" + super.toString();
+  }
+
+  @Override public SWRLClassExpressionBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
   }
 }

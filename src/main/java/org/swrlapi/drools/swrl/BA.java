@@ -6,7 +6,7 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
- * This interface represents a SWRLAPI SWRL built-in argument in Drools.
+ * This interface represents a SWRLAPI-based SWRL built-in argument in Drools.
  *
  * @see org.swrlapi.builtins.arguments.SWRLBuiltInArgument
  */

@@ -16,9 +16,12 @@ public class DroolsNames
   public static final String UNBOUND_ARGUMENT_CLASS_NAME = "UBA";
 
   public static final String CLASS_CLASS_NAME = "C";
+  public static final String CLASS_EXPRESSION_CLASS_NAME = "CE";
   public static final String INDIVIDUAL_CLASS_NAME = "I";
   public static final String OBJECT_PROPERTY_CLASS_NAME = "OP";
+  public static final String OBJECT_PROPERTY_EXPRESSION_CLASS_NAME = "OPE";
   public static final String DATA_PROPERTY_CLASS_NAME = "DP";
+  public static final String DATA_PROPERTY_EXPRESSION_CLASS_NAME = "DPE";
   public static final String ANNOTATION_PROPERTY_CLASS_NAME = "AP";
   public static final String DATATYPE_CLASS_NAME = "D";
   public static final String DATA_RANGE_CLASS_NAME = "DR";

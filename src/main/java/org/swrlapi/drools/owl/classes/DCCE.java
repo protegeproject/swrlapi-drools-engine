@@ -2,7 +2,10 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL data exact cardinality class expression in Drools.
@@ -36,5 +39,11 @@ public class DCCE extends DroolsTernaryObject<String, String, Integer> implement
   @SideEffectFree @NonNull @Override public String toString()
   {
     return "DCCE" + super.toString();
+  }
+
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
   }
 }
