@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIRule;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     this.droolsSWRLRuleEngine = droolsSWRLRuleEngine;
   }
 
-  public void convert(@NonNull SWRLAPIRule rule)
+  public void convert(@NonNull SWRLAPIRule rule) throws SWRLBuiltInException
   {
     String ruleName = rule.getRuleName();
     String drlRule = getRulePreamble(ruleName);

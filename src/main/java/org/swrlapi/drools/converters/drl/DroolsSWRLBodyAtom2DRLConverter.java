@@ -19,6 +19,7 @@ import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
 import org.swrlapi.drools.sqwrl.VPATH;
 import org.swrlapi.drools.swrl.BAP;
 import org.swrlapi.drools.swrl.BAVNs;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
@@ -167,7 +168,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   }
 
   @Override public String convert(@NonNull SWRLAPIBuiltInAtom builtInAtom,
-    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames) throws SWRLBuiltInException
   {
     String ruleName = builtInAtom.getRuleName();
     String builtInPrefixedName = builtInAtom.getBuiltInPrefixedName();
@@ -245,7 +246,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   }
 
   @NonNull public String convert(@NonNull SWRLAtom atom,
-    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
+    @NonNull Set<@NonNull String> previouslyEncounteredVariableNames) throws SWRLBuiltInException
   { // TODO Visitor to replace instanceof: SWRLAtomVisitorExP
     if (atom instanceof SWRLDataRangeAtom) {
       return convert((SWRLDataRangeAtom)atom, previouslyEncounteredVariableNames);

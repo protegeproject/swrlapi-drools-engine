@@ -95,6 +95,7 @@ import org.swrlapi.drools.owl.axioms.TOPA;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.individuals.I;
 import org.swrlapi.drools.owl.literals.L;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.visitors.SWRLAPIOWLAxiomVisitor;
 
@@ -103,7 +104,7 @@ import java.util.Set;
 
 /**
  * This class converts OWLAPI OWL axioms to their Drools representation.
- * <p>
+ * <p/>
  * Note that SWRL rules are also a type of OWL axiom so are also converted here.
  *
  * @see org.semanticweb.owlapi.model.OWLAxiom
@@ -149,7 +150,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     return this.classExpression2DRLConverter.getCEs();
   }
 
-  @Override public void convert(@NonNull SWRLAPIRule rule)
+  @Override public void convert(@NonNull SWRLAPIRule rule) throws SWRLBuiltInException
   { // TODO The current implementation of the DroolsSWRLRule2DRL convert creates the rule in the Drools rule engine
     // immediately. However, this approach is not in line with the approach of this class. Should instead create an R
     // axiom object holding rule text that gets converted to Drools later with other Drools axioms. Note, however,
@@ -575,12 +576,17 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     if (swrlRule instanceof SWRLAPIRule) {
       SWRLAPIRule swrlapiRule = (SWRLAPIRule)swrlRule;
       if (!swrlapiRule.isSQWRLQuery())
-        convert(swrlapiRule);
+        try {
+          convert(swrlapiRule);
+        } catch (SWRLBuiltInException e) {
+          throw new TargetSWRLRuleEngineInternalException(
+            "Error converting SWRL rule " + swrlRule + ": " + e.getMessage());
+        }
     } else
       throw new TargetSWRLRuleEngineInternalException("Unexpected SWRL rule " + swrlRule + " - expecting SWRLAPIRule");
   }
 
-  @Override public void visit(@NonNull SWRLAPIRule swrlapiRule)
+  @Override public void visit(@NonNull SWRLAPIRule swrlapiRule) throws SWRLBuiltInException
   {
     convert(swrlapiRule);
   }

@@ -23,7 +23,7 @@ import java.util.Optional;
 
 /**
  * This class is used to invoke SWRL built-ins from within a Drools rule.
- * <p>
+ * <p/>
  * Varargs seem to work inconsistently in this version of Drools. Hence the need for the repetitions for the invoke()
  * methods with varying numbers of arguments. We really want to replace this with a single call with a varargs argument.
  */
@@ -468,6 +468,7 @@ public class DroolsSWRLBuiltInInvoker
 
   @NonNull private List<@NonNull BAP> swrlBuiltInArgumentPatterns2BAPs(@NonNull String ruleName,
     @NonNull String builtInName, @NonNull List<@NonNull List<@NonNull SWRLBuiltInArgument>> argumentPatterns)
+    throws SWRLBuiltInException
   {
     List<@NonNull BAP> baps = new ArrayList<>();
 

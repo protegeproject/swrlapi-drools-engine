@@ -25,6 +25,7 @@ import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
@@ -222,7 +223,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     }
   }
 
-  @Override public void defineSQWRLQuery(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  @Override public void defineSQWRLQuery(@NonNull SQWRLQuery query)
+    throws TargetSWRLRuleEngineException, SWRLBuiltInException
   {
     this.allSQWRLQueryNames.add(query.getQueryName());
 
