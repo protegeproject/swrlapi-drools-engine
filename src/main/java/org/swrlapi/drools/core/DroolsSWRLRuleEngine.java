@@ -216,7 +216,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   @Override public void defineOWLAxiom(@NonNull OWLAxiom axiom) throws TargetSWRLRuleEngineException
   {
     if (!this.assertedAndInferredOWLAxioms.contains(axiom)) {
-      getDroolsOWLAxiom2AConverter().convert(axiom); // Put the axiom into the Drools knowledge base.
+      getDroolsOWLAxiom2AConverter().convert(axiom); // Put the axiom into the Drools knowledge base
       this.assertedAndInferredOWLAxioms.add(axiom);
       if (axiom.isOfType(AxiomType.SWRL_RULE))
         this.ruleLoadRequired = true;
@@ -228,7 +228,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     this.allSQWRLQueryNames.add(query.getQueryName());
 
-    if (query.isActive()) { // If a query is not active, we convert it but recordOWLClassExpression it as inactive.
+    if (query.isActive()) { // If a query is not active, we convert it but record it as inactive.
       this.activeSQWRLQueryNames.add(query.getQueryName());
       this.ruleLoadRequired = true;
     }

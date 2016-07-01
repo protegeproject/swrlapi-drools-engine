@@ -575,7 +575,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     if (swrlRule instanceof SWRLAPIRule) {
       SWRLAPIRule swrlapiRule = (SWRLAPIRule)swrlRule;
-      if (!swrlapiRule.isSQWRLQuery())
+      if (swrlapiRule.isActive() && !swrlapiRule.isSQWRLQuery())
         try {
           convert(swrlapiRule);
         } catch (SWRLBuiltInException e) {
