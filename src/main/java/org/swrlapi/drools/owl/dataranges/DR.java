@@ -10,8 +10,7 @@ import org.swrlapi.drools.owl.core.OO;
  * ranges during reasoning. Hence, we can simply keep track of the originally supplied data range using its ID,
  * a task performed by the {@link org.swrlapi.core.OWLObjectResolver} class.
  * <p>
- * TODO Note that SWRL can deal with data ranges. When we implement data range atoms we will need to complete the
- * implementation of the data range implementation classes.
+ * TODO Note that the implementation of data ranges in Drools is incomplete.
  *
  * @see org.semanticweb.owlapi.model.OWLDataRange
  */
