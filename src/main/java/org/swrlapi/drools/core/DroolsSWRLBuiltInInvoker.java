@@ -482,16 +482,19 @@ public class DroolsSWRLBuiltInInvoker
               argument = builtInResult.get();
           }
           BA ba = getSWRLBuiltInArgumentConverter().convert(argument);
+          if (ba == null)
+            throw new TargetSWRLRuleEngineInternalException(
+              "error converting return argument " + argument + " after invoking built-in " + builtInName + " in rule "
+                + ruleName);
+
           bap.addArgument(ba);
-        }
-        baps.add(bap);
+        } baps.add(bap);
       }
     } catch (RuntimeException e) {
       throw new TargetSWRLRuleEngineInternalException(
         "error converting return arguments after invoking built-in " + builtInName + " in rule " + ruleName + ": " + e
           .toString());
-    }
-    return baps;
+    } return baps;
   }
 
   private boolean hasInvocationPattern(@NonNull String invocationPattern)
