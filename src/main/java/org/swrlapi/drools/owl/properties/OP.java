@@ -1,8 +1,10 @@
 package org.swrlapi.drools.owl.properties;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
+import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.swrl.BA;
@@ -40,7 +42,13 @@ public class OP extends OPE implements OE
         "expecting OWL object property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLObjectPropertyBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
+  }
+
+  @Override public @NonNull OWLNamedObject extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

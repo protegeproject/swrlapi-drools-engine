@@ -6,7 +6,7 @@ import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
-import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLNamedIndividualExtractor;
 import org.swrlapi.exceptions.SWRLAPIException;
 
 import javax.swing.*;
@@ -41,9 +41,9 @@ public class DroolsFactory
     return new DefaultDroolsOWLEntityExtractor(bridge);
   }
 
-  @NonNull public static DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor(
+  public static @NonNull DroolsOWLNamedIndividualExtractor getDroolsOWLIndividualExtractor(
     @NonNull SWRLRuleEngineBridge bridge)
   {
-    return new DefaultDroolsOWLIndividualExtractor(bridge);
+    return new DefaultDroolsOWLNamedIndividualExtractor(bridge);
   }
 }

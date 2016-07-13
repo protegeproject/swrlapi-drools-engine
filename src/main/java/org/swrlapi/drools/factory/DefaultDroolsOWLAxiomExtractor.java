@@ -135,32 +135,32 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLClassAssertionAxiom extract(@NonNull CAA caa)
   {
     OWLClassExpression cls = getOWLObjectResolver().resolveOWLClassExpression(caa.getcid());
-    OWLIndividual individual = caa.getI().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual individual = caa.getI().extract(getDroolsOWLEntityExtractor());
 
     return getOWLDataFactory().getOWLClassAssertionAxiom(cls, individual);
   }
 
   @NonNull @Override public OWLObjectPropertyAssertionAxiom extract(@NonNull OPAA opaa)
   {
-    OWLIndividual subject = opaa.getT1().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual subject = opaa.getT1().extract(getDroolsOWLEntityExtractor());
     OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(opaa.getpid());
-    OWLIndividual object = opaa.getT3().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual object = opaa.getT3().extract(getDroolsOWLEntityExtractor());
 
     return getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(property, subject, object);
   }
 
   @NonNull @Override public OWLNegativeObjectPropertyAssertionAxiom extract(@NonNull NOPAA nopaa)
   {
-    OWLIndividual subject = nopaa.gets().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual subject = nopaa.gets().extract(getDroolsOWLEntityExtractor());
     OWLObjectPropertyExpression property = getOWLObjectResolver().resolveOWLObjectPropertyExpression(nopaa.getpid());
-    OWLIndividual object = nopaa.geto().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual object = nopaa.geto().extract(getDroolsOWLEntityExtractor());
 
     return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object);
   }
 
   @NonNull @Override public OWLDataPropertyAssertionAxiom extract(@NonNull DPAA dpaa)
   {
-    OWLIndividual subject = dpaa.gets().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual subject = dpaa.gets().extract(getDroolsOWLEntityExtractor());
     OWLDataPropertyExpression property = getOWLObjectResolver().resolveOWLDataPropertyExpression(dpaa.getpid());
     OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(dpaa.geto());
 
@@ -169,7 +169,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLNegativeDataPropertyAssertionAxiom extract(@NonNull NDPAA ndpaa)
   {
-    OWLIndividual subject = ndpaa.gets().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual subject = ndpaa.gets().extract(getDroolsOWLEntityExtractor());
     OWLDataPropertyExpression property = getOWLObjectResolver().resolveOWLDataPropertyExpression(ndpaa.getpid());
     OWLLiteral literal = getDroolsOWLLiteralExtractor().extract(ndpaa.geto());
 
@@ -178,8 +178,8 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLSameIndividualAxiom extract(@NonNull SIA sia)
   {
-    OWLIndividual individual1 = sia.geti1().extract(getDroolsOWLIndividualExtractor());
-    OWLIndividual individual2 = sia.geti2().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual individual1 = sia.geti1().extract(getDroolsOWLEntityExtractor());
+    OWLIndividual individual2 = sia.geti2().extract(getDroolsOWLEntityExtractor());
     Set<@NonNull OWLIndividual> individuals = new HashSet<>();
 
     individuals.add(individual1);
@@ -190,8 +190,8 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
 
   @NonNull @Override public OWLDifferentIndividualsAxiom extract(@NonNull DIA dia)
   {
-    OWLIndividual individual1 = dia.geti1().extract(getDroolsOWLIndividualExtractor());
-    OWLIndividual individual2 = dia.geti2().extract(getDroolsOWLIndividualExtractor());
+    OWLIndividual individual1 = dia.geti1().extract(getDroolsOWLEntityExtractor());
+    OWLIndividual individual2 = dia.geti2().extract(getDroolsOWLEntityExtractor());
     Set<@NonNull OWLIndividual> individuals = new HashSet<>();
 
     individuals.add(individual1);

@@ -44,7 +44,7 @@ class DroolsIResolver
 
   public void recordI(@NonNull I i)
   {
-    this.is.put(i.getid(), i);
+    this.is.put(i.getName(), i);
   }
 
   public @NonNull Set<@NonNull I> getIs()

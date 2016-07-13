@@ -18,7 +18,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom
  */
-public class DIA extends DroolsBinaryIndividualsAxiom
+public class DIA extends DroolsBinaryNamedIndividualsAxiom
 {
   private static final long serialVersionUID = 1L;
 

@@ -10,7 +10,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL object property assertion axiom.
- * <p>
+ * <p/>
  * We have 4 possible constructors for the different argument combinations. This approach provides more flexibility when
  * generating Drools rules and makes the generated rules more readable.
  *
@@ -47,7 +47,7 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 
   @NonNull public String getsid()
   {
-    return getT1().getid();
+    return getT1().getName();
   }
 
   @NonNull public String getpid()
@@ -62,7 +62,7 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 
   @NonNull public String getoid()
   {
-    return getT3().getid();
+    return getT3().getName();
   }
 
   @NonNull @Override public OWLObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)

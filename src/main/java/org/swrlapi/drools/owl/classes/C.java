@@ -17,18 +17,25 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.semanticweb.owlapi.model.OWLClass
  */
-public class C extends OE implements CE
+public class C implements CE, OE
 {
   private static final long serialVersionUID = 1L;
 
-  public C(@NonNull String classID)
+  private final String name;
+
+  public C(@NonNull String name)
   {
-    super(classID);
+    this.name = name;
   }
 
-  @NonNull @Override public String getceid()
+  @NonNull @Override public String getName()
   {
-    return super.getName();
+    return this.name;
+  }
+
+  @Override public @NonNull String getceid()
+  {
+    return this.name;
   }
 
   /*
@@ -36,11 +43,9 @@ public class C extends OE implements CE
    */
   public C(BA ba)
   {
-    super("<InProcess>");
-
     if (ba instanceof C) {
       C c = (C)ba;
-      this.id = c.getName();
+      this.name = c.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL class from bound built-in argument, got " + ba.getClass().getCanonicalName());

@@ -44,7 +44,7 @@ class DroolsDResolver
 
   public void recordD(@NonNull D p)
   {
-    this.ds.put(p.getid(), p);
+    this.ds.put(p.getName(), p);
   }
 
   public @NonNull Set<@NonNull D> getDs()

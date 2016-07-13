@@ -724,7 +724,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   @Override public void visit(@NonNull IDA ida)
   {
-    this.declaredIndividualIDs.add(ida.getI().getid());
+    this.declaredIndividualIDs.add(ida.getI().getName());
   }
 
   @Override public void visit(@NonNull SCA sca)

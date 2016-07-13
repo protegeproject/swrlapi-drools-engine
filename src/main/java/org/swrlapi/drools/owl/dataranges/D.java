@@ -4,7 +4,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLDatatypeBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.OE;
@@ -17,13 +17,20 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.semanticweb.owlapi.model.OWLDatatype
  */
-public class D extends OE implements DR
+public class D implements DR, OE
 {
   private static final long serialVersionUID = 1L;
 
-  public D(@NonNull String datatypeID)
+  private final String name;
+
+  public D(@NonNull String name)
   {
-    super(datatypeID);
+    this.name = name;
+  }
+
+  @NonNull @Override public String getName()
+  {
+    return this.name;
   }
 
   /*
@@ -31,11 +38,9 @@ public class D extends OE implements DR
    */
   public D(@NonNull BA ba)
   {
-    super("<InProcess>");
-
     if (ba instanceof D) {
       D d = (D)ba;
-      this.id = d.getName();
+      this.name = d.getName();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL datatype from bound built-in argument, got " + ba.getClass().getCanonicalName());
@@ -52,19 +57,19 @@ public class D extends OE implements DR
     return extractor.extract(this);
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLDatatypeBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
-  {
-    return super.toString();
-  }
-
   @NonNull public static D getTopDatatype()
   {
     return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
+  }
+
+  @SideEffectFree @NonNull @Override public String toString()
+  {
+    return super.toString();
   }
 }
