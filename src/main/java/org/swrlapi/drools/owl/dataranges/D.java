@@ -21,16 +21,16 @@ public class D implements DR, OE
 {
   private static final long serialVersionUID = 1L;
 
-  private final String name;
+  private final String id;
 
   public D(@NonNull String name)
   {
-    this.name = name;
+    this.id = name;
   }
 
-  @NonNull @Override public String getName()
+  @NonNull public String getid()
   {
-    return this.name;
+    return this.id;
   }
 
   /*
@@ -40,7 +40,7 @@ public class D implements DR, OE
   {
     if (ba instanceof D) {
       D d = (D)ba;
-      this.name = d.getName();
+      this.id = d.getid();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL datatype from bound built-in argument, got " + ba.getClass().getCanonicalName());
@@ -48,7 +48,7 @@ public class D implements DR, OE
 
   @NonNull @Override public String getdrid()
   {
-    return getName();
+    return getid();
   }
 
   @NonNull @Override public OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor)

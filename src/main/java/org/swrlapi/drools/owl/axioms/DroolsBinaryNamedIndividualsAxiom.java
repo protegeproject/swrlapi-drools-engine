@@ -24,11 +24,11 @@ abstract class DroolsBinaryNamedIndividualsAxiom extends DroolsBinaryObject<I, I
 
   public String geti1id()
   {
-    return getT1().getName();
+    return getT1().getid();
   }
 
   public String geti2id()
   {
-    return getT2().getName();
+    return getT2().getid();
   }
 }

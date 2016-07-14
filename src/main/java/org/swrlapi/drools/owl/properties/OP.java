@@ -1,7 +1,7 @@
 package org.swrlapi.drools.owl.properties;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.semanticweb.owlapi.model.OWLNamedObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
@@ -25,8 +25,6 @@ public class OP extends OPE implements OE
     super(propertyName);
   }
 
-  public String getName() { return getid(); }
-
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
@@ -36,7 +34,7 @@ public class OP extends OPE implements OE
 
     if (ba instanceof OP) {
       OP p = (OP)ba;
-      this.setPEID(p.getName());
+      this.setPEID(p.getid());
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL object property from bound built-in argument, got " + ba.getClass().getCanonicalName());
@@ -48,7 +46,7 @@ public class OP extends OPE implements OE
     return extractor.extract(this);
   }
 
-  @Override public @NonNull OWLNamedObject extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @Override public @NonNull OWLObjectProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

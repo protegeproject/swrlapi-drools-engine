@@ -26,11 +26,6 @@ public class I implements OE
     this.id = name;
   }
 
-  @NonNull @Override public String getName()
-  {
-    return this.id;
-  }
-
   @NonNull public String getid() { return this.id; }
 
   /*
@@ -40,7 +35,7 @@ public class I implements OE
   {
     if (ba instanceof I) {
       I i = (I)ba;
-      this.id = i.getName();
+      this.id = i.getid();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL named individual from bound built-in argument, got " + ba.getClass().getCanonicalName());

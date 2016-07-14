@@ -21,21 +21,21 @@ public class C implements CE, OE
 {
   private static final long serialVersionUID = 1L;
 
-  private final String name;
+  @NonNull public final String id;
 
-  public C(@NonNull String name)
+  public C(@NonNull String id)
   {
-    this.name = name;
+    this.id = id;
   }
 
-  @NonNull @Override public String getName()
+  @NonNull public String getid()
   {
-    return this.name;
+    return this.id;
   }
 
   @Override public @NonNull String getceid()
   {
-    return this.name;
+    return this.id;
   }
 
   /*
@@ -45,10 +45,10 @@ public class C implements CE, OE
   {
     if (ba instanceof C) {
       C c = (C)ba;
-      this.name = c.getName();
+      this.id = c.getid();
     } else
       throw new TargetSWRLRuleEngineInternalException(
-        "expecting OWL class from bound built-in argument, got " + ba.getClass().getCanonicalName());
+        "expecting OWL named class from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
   @NonNull @Override public OWLClass extract(@NonNull DroolsOWLEntityExtractor extractor)

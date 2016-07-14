@@ -29,7 +29,7 @@ public class AP implements P, OE
     this.name = name;
   }
 
-  public String getName() { return this.name; }
+  public String getid() { return this.name; }
 
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
@@ -38,7 +38,7 @@ public class AP implements P, OE
   {
     if (ba instanceof DP) {
       DP p = (DP)ba;
-      this.name = p.getName();
+      this.name = p.getid();
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL annotation property from bound built-in argument, got " + ba.getClass().getCanonicalName());
@@ -63,14 +63,14 @@ public class AP implements P, OE
     if ((obj == null) || (obj.getClass() != this.getClass()))
       return false;
     AP e = (AP)obj;
-    return (getName().equals(e.getName()) || (getName() != null && getName().equals(e.getName())));
+    return (getid().equals(e.getid()) || (getid() != null && getid().equals(e.getid())));
   }
 
   @SideEffectFree @Deterministic @Override public int hashCode()
   {
     int hash = 731;
 
-    hash = hash + (null == getName() ? 0 : getName().hashCode());
+    hash = hash + (null == getid() ? 0 : getid().hashCode());
 
     return hash;
   }

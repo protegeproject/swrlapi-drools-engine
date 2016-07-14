@@ -47,7 +47,7 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 
   @NonNull public String getsid()
   {
-    return getT1().getName();
+    return getT1().getid();
   }
 
   @NonNull public String getpid()
@@ -62,7 +62,7 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
 
   @NonNull public String getoid()
   {
-    return getT3().getName();
+    return getT3().getid();
   }
 
   @NonNull @Override public OWLObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)

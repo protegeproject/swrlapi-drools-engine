@@ -39,7 +39,7 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
 
   @NonNull public String getiid()
   {
-    return getT2().getName();
+    return getT2().getid();
   }
 
   @NonNull @Override public OWLClassAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)

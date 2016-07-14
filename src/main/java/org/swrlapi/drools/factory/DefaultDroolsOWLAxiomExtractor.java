@@ -104,7 +104,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
   @NonNull @Override public OWLDeclarationAxiom extract(@NonNull IDA da)
   {
     OWLNamedIndividual individual = getOWLDataFactory()
-        .getOWLNamedIndividual(prefixedName2IRI(da.getE().getName()));
+        .getOWLNamedIndividual(prefixedName2IRI(da.getE().getid()));
 
     return getSWRLAPIOWLDataFactory().getOWLIndividualDeclarationAxiom(individual);
   }

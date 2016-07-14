@@ -517,7 +517,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
     I i = resolveI(namedIndividual);
     OPE ope = resolveOPE(owlObjectPropertyExpression);
-    String individualID = i.getName();
+    String individualID = i.getid();
     String propertyID = ope.getid();
     for (String valueIndividualID : getDroolsOWLAxiomHandler()
       .getObjectPropertyValuesForIndividual(individualID, propertyID)) {
@@ -535,7 +535,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     Set<@NonNull OWLLiteral> values = new HashSet<>();
     I i = resolveI(namedIndividual);
     DP dp = resolveDP(owlDataProperty);
-    String individualID = i.getName();
+    String individualID = i.getid();
     String propertyID = dp.getid();
     for (L l : getDroolsOWLAxiomHandler().getDataPropertyValuesForIndividual(individualID, propertyID)) {
       OWLLiteral literal = l2OWLLiteral(l);
@@ -549,7 +549,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   {
     Set<@NonNull OWLNamedIndividual> individuals = new HashSet<>();
     I i = resolveI(namedIndividual);
-    String individualID = i.getName();
+    String individualID = i.getid();
     for (String sameIndividualID : getDroolsOWLAxiomHandler().getSameIndividual(individualID)) {
       OWLNamedIndividual individual = resolveOWLNamedIndividual(sameIndividualID);
       individuals.add(individual);
@@ -562,7 +562,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   {
     OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
     I i = resolveI(namedIndividual);
-    String individualID = i.getName();
+    String individualID = i.getid();
     for (String sameIndividualID : getDroolsOWLAxiomHandler().getDifferentIndividuals(individualID)) {
       OWLNamedIndividual sameIndividual = resolveOWLNamedIndividual(sameIndividualID);
       Node<OWLNamedIndividual> sameIndividualsNode = getSameIndividuals(sameIndividual);

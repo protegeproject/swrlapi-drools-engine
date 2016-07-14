@@ -17,7 +17,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public interface OE extends OO, AA, BA
 {
-  @NonNull String getName();
+  @NonNull String getid();
 
   @NonNull OWLNamedObject extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException;
 
