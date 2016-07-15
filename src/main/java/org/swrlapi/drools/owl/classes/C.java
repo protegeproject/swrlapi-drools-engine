@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -33,7 +34,7 @@ public class C implements CE, OE
     return this.id;
   }
 
-  @Override public @NonNull String getceid()
+  @NonNull @Override public String getceid()
   {
     return this.id;
   }
@@ -76,5 +77,23 @@ public class C implements CE, OE
   @NonNull public static C getOWLNothing()
   {
     return new C(OWLRDFVocabulary.OWL_NOTHING.getPrefixedName());
+  }
+
+  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    C c = (C)o;
+
+    return id != null ? id.equals(c.id) : c.id == null;
+
+  }
+
+  @SideEffectFree @Deterministic @Override public int hashCode()
+  {
+    return id != null ? id.hashCode() : 0;
   }
 }

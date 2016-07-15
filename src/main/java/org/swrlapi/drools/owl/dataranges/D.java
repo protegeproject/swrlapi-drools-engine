@@ -1,6 +1,7 @@
 package org.swrlapi.drools.owl.dataranges;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -71,5 +72,23 @@ public class D implements DR, OE
   @SideEffectFree @NonNull @Override public String toString()
   {
     return super.toString();
+  }
+
+  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    D d = (D)o;
+
+    return id != null ? id.equals(d.id) : d.id == null;
+
+  }
+
+  @SideEffectFree @Deterministic @Override public int hashCode()
+  {
+    return id != null ? id.hashCode() : 0;
   }
 }
