@@ -240,7 +240,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
    */
   @NonNull @Override public OWLReasoner getOWLReasoner()
   {
-    return null; // TODO Return Drools implementation of an OWL reasoner here
+    throw new RuntimeException("reasoner not yet wired up"); // TODO Return Drools implementation of an OWL reasoner here
   }
 
   @NonNull @Override public Icon getTargetRuleEngineIcon()

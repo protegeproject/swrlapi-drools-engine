@@ -73,7 +73,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
     OWLClassExpression ce = argument.getOWLClassExpression();
     String ceid = getOWLObjectResolver().resolveOWLClassExpression2ID(ce);
 
-    return null; // TODO
+    throw new RuntimeException("create CE from class expression built-in argument"); // TODO
   }
 
   @NonNull @Override public I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
@@ -94,7 +94,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   {
     OWLObjectPropertyExpression pe = argument.getOWLObjectPropertyExpression();
 
-    return null; // TODO
+    throw new RuntimeException("create OPE from object property expression built-in argument");  // TODO
   }
 
   @NonNull @Override public DP convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
@@ -107,7 +107,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   @NonNull @Override public DPE convert(SWRLDataPropertyExpressionBuiltInArgument argument)
   {
     OWLDataPropertyExpression pe = argument.getOWLDataPropertyExpression();
-    return null; // TODO
+    throw new RuntimeException("create OPE from object property expression built-in argument");  // TODO
   }
 
   @NonNull @Override public AP convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
@@ -165,7 +165,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
     return convert(argument);
   }
 
-  @NonNull @Override public OPE visit(SWRLObjectPropertyExpressionBuiltInArgument argument)
+  @NonNull @Override public OPE visit(@NonNull SWRLObjectPropertyExpressionBuiltInArgument argument)
   {
     return convert(argument);
   }
@@ -177,7 +177,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
 
   @NonNull @Override public DPE visit(SWRLDataPropertyExpressionBuiltInArgument argument)
   {
-    return null;
+    return convert(argument);
   }
 
   @NonNull @Override public AP visit(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)

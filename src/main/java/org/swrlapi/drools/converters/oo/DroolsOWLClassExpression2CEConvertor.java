@@ -23,9 +23,23 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
+import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
-
-import javax.annotation.Nonnull;
+import org.swrlapi.drools.owl.classes.DAVFCE;
+import org.swrlapi.drools.owl.classes.DCCE;
+import org.swrlapi.drools.owl.classes.DHVCE;
+import org.swrlapi.drools.owl.classes.DMaxCCE;
+import org.swrlapi.drools.owl.classes.DMinCCE;
+import org.swrlapi.drools.owl.classes.DSVFCE;
+import org.swrlapi.drools.owl.classes.OAVFCE;
+import org.swrlapi.drools.owl.classes.OCCE;
+import org.swrlapi.drools.owl.classes.OHVCE;
+import org.swrlapi.drools.owl.classes.OIOCE;
+import org.swrlapi.drools.owl.classes.OMaxCCE;
+import org.swrlapi.drools.owl.classes.OMinCCE;
+import org.swrlapi.drools.owl.classes.OOOCE;
+import org.swrlapi.drools.owl.classes.OSVFCE;
+import org.swrlapi.drools.owl.classes.OUOCE;
 
 class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>
@@ -36,183 +50,183 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     super(bridge);
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLClass owlClass)
+  @NonNull @Override public C visit(@NonNull OWLClass owlClass)
   {
-    return null;
+    throw new RuntimeException("create C");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectIntersectionOf owlObjectIntersectionOf)
+  @NonNull @Override public OIOCE visit(@NonNull OWLObjectIntersectionOf owlObjectIntersectionOf)
   {
-    return null;
+    throw new RuntimeException("create OIOCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectUnionOf owlObjectUnionOf)
+  @NonNull @Override public OUOCE visit(@NonNull OWLObjectUnionOf owlObjectUnionOf)
   {
-    return null;
+    throw new RuntimeException("create OUOCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectComplementOf owlObjectComplementOf)
+  @NonNull @Override public OCCE visit(@NonNull OWLObjectComplementOf owlObjectComplementOf)
   {
-    return null;
+    throw new RuntimeException("create OCCO");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectSomeValuesFrom owlObjectSomeValuesFrom)
+  @NonNull @Override public OSVFCE visit(@NonNull OWLObjectSomeValuesFrom owlObjectSomeValuesFrom)
   {
-    return null;
+    throw new RuntimeException("create OSVFCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectAllValuesFrom owlObjectAllValuesFrom)
+  @NonNull @Override public OAVFCE visit(@NonNull OWLObjectAllValuesFrom owlObjectAllValuesFrom)
   {
-    return null;
+    throw new RuntimeException("create OAFVCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectHasValue owlObjectHasValue)
+  @NonNull @Override public OHVCE visit(@NonNull OWLObjectHasValue owlObjectHasValue)
   {
-    return null;
+    throw new RuntimeException("create OHVCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectMinCardinality owlObjectMinCardinality)
+  @NonNull @Override public OMinCCE visit(@NonNull OWLObjectMinCardinality owlObjectMinCardinality)
   {
-    return null;
+    throw new RuntimeException("create OMinCCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectExactCardinality owlObjectExactCardinality)
+  @NonNull @Override public OCCE visit(@NonNull OWLObjectExactCardinality owlObjectExactCardinality)
   {
-    return null;
+    throw new RuntimeException("create OCCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectMaxCardinality owlObjectMaxCardinality)
+  @NonNull @Override public OMaxCCE visit(@NonNull OWLObjectMaxCardinality owlObjectMaxCardinality)
   {
-    return null;
+    throw new RuntimeException("create OMaxCCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectHasSelf owlObjectHasSelf)
+  @NonNull @Override public CE visit(@NonNull OWLObjectHasSelf owlObjectHasSelf)
   {
-    return null;
+    throw new RuntimeException("create CE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLObjectOneOf owlObjectOneOf)
+  @NonNull @Override public OOOCE visit(@NonNull OWLObjectOneOf owlObjectOneOf)
   {
-    return null;
+    throw new RuntimeException("create OOOCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLDataSomeValuesFrom owlDataSomeValuesFrom)
+  @NonNull @Override public DSVFCE visit(@NonNull OWLDataSomeValuesFrom owlDataSomeValuesFrom)
   {
-    return null;
+    throw new RuntimeException("create DSVFCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLDataAllValuesFrom owlDataAllValuesFrom)
+  @NonNull @Override public DAVFCE visit(@NonNull OWLDataAllValuesFrom owlDataAllValuesFrom)
   {
-    return null;
+    throw new RuntimeException("create DAVFCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLDataHasValue owlDataHasValue)
+  @NonNull @Override public DHVCE visit(@NonNull OWLDataHasValue owlDataHasValue)
   {
-    return null;
+    throw new RuntimeException("create DHVCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLDataMinCardinality owlDataMinCardinality)
+  @NonNull @Override public DMinCCE visit(@NonNull OWLDataMinCardinality owlDataMinCardinality)
   {
-    return null;
+    throw new RuntimeException("create DMinCCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLDataExactCardinality owlDataExactCardinality)
+  @NonNull @Override public DCCE visit(@NonNull OWLDataExactCardinality owlDataExactCardinality)
   {
-    return null;
+    throw new RuntimeException("create DCCE");
   }
 
-  @Nonnull @Override public CE visit(@Nonnull OWLDataMaxCardinality owlDataMaxCardinality)
+  @NonNull @Override public DMaxCCE visit(@NonNull OWLDataMaxCardinality owlDataMaxCardinality)
   {
-    return null;
+    throw new RuntimeException("create DMaxCCE");
   }
 
-  @Override public CE convert(OWLClass cls)
+  @NonNull @Override public C convert(OWLClass cls)
   {
-    return null;
+    return visit(cls);
   }
 
-  @Override public CE convert(OWLObjectOneOf objectOneOf)
+  @NonNull @Override public OOOCE convert(OWLObjectOneOf objectOneOf)
   {
-    return null;
+    return visit(objectOneOf);
   }
 
-  @Override public CE convert(OWLObjectIntersectionOf objectIntersectionOf)
+  @NonNull @Override public OIOCE convert(OWLObjectIntersectionOf objectIntersectionOf)
   {
-    return null;
+    return visit(objectIntersectionOf);
   }
 
-  @Override public CE convert(OWLObjectUnionOf objectUnionOf)
+  @NonNull @Override public OUOCE convert(OWLObjectUnionOf objectUnionOf)
   {
-    return null;
+    return visit(objectUnionOf);
   }
 
-  @Override public CE convert(OWLObjectSomeValuesFrom objectSomeValuesFrom)
+  @NonNull @Override public OSVFCE convert(OWLObjectSomeValuesFrom objectSomeValuesFrom)
   {
-    return null;
+    return visit(objectSomeValuesFrom);
   }
 
-  @Override public CE convert(OWLObjectComplementOf objectComplementOf)
+  @NonNull @Override public OCCE convert(OWLObjectComplementOf objectComplementOf)
   {
-    return null;
+    return visit(objectComplementOf);
   }
 
-  @Override public CE convert(OWLDataSomeValuesFrom dataSomeValuesFrom)
+  @NonNull @Override public DSVFCE convert(OWLDataSomeValuesFrom dataSomeValuesFrom)
   {
-    return null;
+    return visit(dataSomeValuesFrom);
   }
 
-  @Override public CE convert(OWLDataExactCardinality dataExactCardinality)
+  @NonNull @Override public DCCE convert(OWLDataExactCardinality dataExactCardinality)
   {
-    return null;
+    return visit(dataExactCardinality);
   }
 
-  @Override public CE convert(OWLObjectExactCardinality objectExactCardinality)
+  @NonNull @Override public OCCE convert(OWLObjectExactCardinality objectExactCardinality)
   {
-    return null;
+    return visit(objectExactCardinality);
   }
 
-  @Override public CE convert(OWLDataMinCardinality dataMinCardinality)
+  @NonNull @Override public DMinCCE convert(OWLDataMinCardinality dataMinCardinality)
   {
-    return null;
+    return visit(dataMinCardinality);
   }
 
-  @Override public CE convert(OWLObjectMinCardinality objectMinCardinality)
+  @NonNull @Override public OMinCCE convert(OWLObjectMinCardinality objectMinCardinality)
   {
-    return null;
+    return visit(objectMinCardinality);
   }
 
-  @Override public CE convert(OWLDataMaxCardinality dataMaxCardinality)
+  @NonNull @Override public DMaxCCE convert(OWLDataMaxCardinality dataMaxCardinality)
   {
-    return null;
+    return visit(dataMaxCardinality);
   }
 
-  @Override public CE convert(OWLObjectMaxCardinality objectMaxCardinality)
+  @NonNull @Override public OMaxCCE convert(OWLObjectMaxCardinality objectMaxCardinality)
   {
-    return null;
+    return visit(objectMaxCardinality);
   }
 
-  @Override public CE convert(OWLDataHasValue dataHasValue)
+  @NonNull @Override public DHVCE convert(OWLDataHasValue dataHasValue)
   {
-    return null;
+    return visit(dataHasValue);
   }
 
-  @Override public CE convert(OWLObjectHasValue objectHasValue)
+  @NonNull @Override public OHVCE convert(OWLObjectHasValue objectHasValue)
   {
-    return null;
+    return visit(objectHasValue);
   }
 
-  @Override public CE convert(OWLObjectAllValuesFrom objectAllValuesFrom)
+  @NonNull @Override public OAVFCE convert(OWLObjectAllValuesFrom objectAllValuesFrom)
   {
-    return null;
+    return visit(objectAllValuesFrom);
   }
 
-  @Override public CE convert(OWLDataAllValuesFrom dataAllValuesFrom)
+  @NonNull @Override public DAVFCE convert(OWLDataAllValuesFrom dataAllValuesFrom)
   {
-    return null;
+    return visit(dataAllValuesFrom);
   }
 
-  @Override public CE convert(OWLObjectHasSelf owbjectHasSelf)
+  @NonNull @Override public CE convert(OWLObjectHasSelf objectHasSelf)
   {
-    return null;
+    return visit(objectHasSelf);
   }
 }
