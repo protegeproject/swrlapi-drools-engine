@@ -11,6 +11,7 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
 {
   private final @NonNull DroolsOWLLiteral2LConverter literal2LConverter;
   private final @NonNull DroolsOWLEntity2OEConverter entity2OEConverter;
+  private final @NonNull DroolsOWLClassExpression2CEConverter classExpression2CEConverter;
   private final @NonNull DroolsOWLIndividual2IConverter individual2IConverter;
   private final @NonNull DroolsOWLDataRange2DRConverter dataRange2DRConverter;
   private final @NonNull DroolsOWLEntity2NameConverter entity2NameConverter;
@@ -23,6 +24,7 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
 
     this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge);
     this.entity2OEConverter = new DroolsOWLEntity2OEConverter(bridge);
+    this.classExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(bridge);
     this.individual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
     this.dataRange2DRConverter = new DroolsOWLDataRange2DRConverter(bridge);
 
@@ -39,6 +41,11 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
   @NonNull protected DroolsOWLEntity2OEConverter getDroolsOWLEntity2OEConverter()
   {
     return this.entity2OEConverter;
+  }
+
+  @NonNull protected DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
+  {
+    return this.classExpression2CEConverter;
   }
 
   @NonNull protected DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()

@@ -70,10 +70,9 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
 
   @NonNull @Override public CE convert(SWRLClassExpressionBuiltInArgument argument)
   {
-    OWLClassExpression ce = argument.getOWLClassExpression();
-    String ceid = getOWLObjectResolver().resolveOWLClassExpression2ID(ce);
+    OWLClassExpression classExpression = argument.getOWLClassExpression();
 
-    throw new RuntimeException("create CE from class expression built-in argument"); // TODO
+    getDroolsOWLClassExpression2CEConverter().convert(classExpression);
   }
 
   @NonNull @Override public I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)

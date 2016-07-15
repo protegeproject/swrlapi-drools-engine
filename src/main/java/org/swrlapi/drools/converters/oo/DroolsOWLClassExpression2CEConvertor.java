@@ -2,6 +2,7 @@ package org.swrlapi.drools.converters.oo;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -48,6 +49,11 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   public DroolsOWLClassExpression2CEConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
+  }
+
+  @NonNull @Override public CE convert(OWLClassExpression classExpression)
+  {
+    return classExpression.accept(this);
   }
 
   @NonNull @Override public C visit(@NonNull OWLClass owlClass)
