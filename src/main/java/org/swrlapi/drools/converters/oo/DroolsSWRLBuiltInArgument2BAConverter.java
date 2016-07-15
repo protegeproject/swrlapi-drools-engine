@@ -72,7 +72,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   {
     OWLClassExpression classExpression = argument.getOWLClassExpression();
 
-    getDroolsOWLClassExpression2CEConverter().convert(classExpression);
+    return getDroolsOWLClassExpression2CEConverter().convert(classExpression);
   }
 
   @NonNull @Override public I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
