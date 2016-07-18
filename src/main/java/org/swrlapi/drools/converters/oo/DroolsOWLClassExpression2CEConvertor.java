@@ -167,18 +167,12 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     //      return oooces.get(objectOneOf);
     //    else {
     //      String classExpressionID = generateCEID();
-    //      for (OWLIndividual individual1 : objectOneOf.getIndividuals()) {
+    //      for (OWLIndividual individual : objectOneOf.getIndividuals()) {
     //        Set<@NonNull OWLIndividual> individuals = new HashSet<>(objectOneOf.getIndividuals());
-    //        String individual1ID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
+    //        String individualID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
     //
-    //        OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual1ID);
+    //        OOOCE oooce = new OOOCE(classExpressionID, individual1ID);
     //
-    //        individuals.remove(individual1);
-    //        for (OWLIndividual individual2 : individuals) {
-    //          String individual2ID = iri2PrefixedName(individual2.asOWLNamedIndividual().getIRI());
-    //          oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
-    //
-    //        }
     //      }
     //    }
   }

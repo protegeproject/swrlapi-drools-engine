@@ -4,28 +4,27 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
-import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.drools.owl.individuals.I;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
- * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise
- * set of individuals from the list in an OWL one of class expression.
+ * This class represents an OWL object one of class expression in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectOneOf
  */
-public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
+public class OOOCE extends DroolsBinaryObject<String, I> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public OOOCE(@NonNull String ceid, @NonNull I i1, @NonNull I i2)
+  public OOOCE(@NonNull String ceid, @NonNull I i1)
   {
-    super(ceid, i1, i2);
+    super(ceid, i1);
   }
 
-  public OOOCE(@NonNull String ceid, @NonNull String individual1ID, @NonNull String individual2ID)
+  public OOOCE(@NonNull String ceid, @NonNull String individual1ID)
   {
-    super(ceid, new I(individual1ID), new I(individual2ID));
+    super(ceid, new I(individual1ID));
   }
 
   @NonNull @Override public String getceid()
@@ -33,14 +32,9 @@ public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
     return getT1();
   }
 
-  @NonNull public I getI1()
+  @NonNull public I getI()
   {
     return getT2();
-  }
-
-  @NonNull public I getI2()
-  {
-    return getT3();
   }
 
   @SideEffectFree @NonNull @Override public String toString()

@@ -98,41 +98,32 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectOneOf)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       for (OWLIndividual individual1 : objectOneOf.getIndividuals()) {
-        Set<@NonNull OWLIndividual> individuals = new HashSet<>(objectOneOf.getIndividuals());
-        String individual1ID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
+        Set<@NonNull OWLIndividual> individual = new HashSet<>(objectOneOf.getIndividuals());
+        String individualID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
 
-        OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual1ID);
+        OOOCE oooce = new OOOCE(classExpressionID, individualID);
         getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectOneOf);
         this.droolsObjectResolver.recordCE(oooce);
-
-        individuals.remove(individual1);
-        for (OWLIndividual individual2 : individuals) {
-          String individual2ID = iri2PrefixedName(individual2.asOWLNamedIndividual().getIRI());
-          oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
-
-          getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectOneOf);
-          this.droolsObjectResolver.recordCE(oooce);
-        }
       }
       return classExpressionID;
     } else
       return getOWLObjectResolver().resolveOWLClassExpression2ID(objectOneOf);
   }
 
-  @NonNull @Override public String convert(@NonNull OWLObjectIntersectionOf owlObjectIntersectionOf)
+  @NonNull @Override public String convert(@NonNull OWLObjectIntersectionOf objectIntersectionOf)
   {
-    if (!getOWLObjectResolver().recordsOWLClassExpression(owlObjectIntersectionOf)) {
+    if (!getOWLObjectResolver().recordsOWLClassExpression(objectIntersectionOf)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      for (OWLClassExpression ce : owlObjectIntersectionOf.getOperands()) {
+      for (OWLClassExpression ce : objectIntersectionOf.getOperands()) {
         String class1ID = convert(ce);
         OIOCE oioce = new OIOCE(classExpressionID, class1ID);
 
-        getOWLObjectResolver().recordOWLClassExpression(classExpressionID, owlObjectIntersectionOf);
+        getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectIntersectionOf);
         this.droolsObjectResolver.recordCE(oioce);
       }
       return classExpressionID;
     } else
-      return getOWLObjectResolver().resolveOWLClassExpression2ID(owlObjectIntersectionOf);
+      return getOWLObjectResolver().resolveOWLClassExpression2ID(objectIntersectionOf);
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectUnionOf objectUnionOf)
@@ -381,10 +372,10 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     if (!getOWLObjectResolver().recordsOWLClassExpression(owbjectHasSelf)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       String propertyID = getOWLPropertyExpressionConverter().convert(owbjectHasSelf.getProperty());
-      OOHSCE OOHSCE = new OOHSCE(classExpressionID, propertyID);
+      OOHSCE oohsce = new OOHSCE(classExpressionID, propertyID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, owbjectHasSelf);
-      this.droolsObjectResolver.recordCE(OOHSCE);
+      this.droolsObjectResolver.recordCE(oohsce);
       return classExpressionID;
     } else
       return getOWLObjectResolver().resolveOWLClassExpression2ID(owbjectHasSelf);
