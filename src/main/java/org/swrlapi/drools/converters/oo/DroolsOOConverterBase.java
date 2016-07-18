@@ -6,6 +6,7 @@ import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.drools.converters.DroolsOWLDataRange2IDConverter;
 import org.swrlapi.drools.converters.DroolsOWLEntity2NameConverter;
 import org.swrlapi.drools.converters.DroolsSWRLVariable2NameConverter;
+import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 
 class DroolsOOConverterBase extends TargetRuleEngineConverterBase
 {
@@ -18,6 +19,8 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
   private final @NonNull DroolsOWLDataRange2IDConverter dataRange2IDConverter;
   private final @NonNull DroolsSWRLVariable2NameConverter swrlVariable2NameConverter;
 
+  private final DroolsObjectResolver droolsObjectResolver;
+
   public DroolsOOConverterBase(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
@@ -27,10 +30,11 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
     this.classExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(bridge);
     this.individual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
     this.dataRange2DRConverter = new DroolsOWLDataRange2DRConverter(bridge);
-
     this.entity2NameConverter = new DroolsOWLEntity2NameConverter(bridge);
     this.dataRange2IDConverter = new DroolsOWLDataRange2IDConverter(bridge);
     this.swrlVariable2NameConverter = new DroolsSWRLVariable2NameConverter(bridge);
+
+    this.droolsObjectResolver = new DroolsObjectResolver();
   }
 
   @NonNull protected DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
@@ -58,18 +62,23 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
     return this.dataRange2DRConverter;
   }
 
-  protected @NonNull DroolsOWLDataRange2IDConverter getDroolsOWLDataRange2IDConverter()
+  @NonNull protected DroolsOWLDataRange2IDConverter getDroolsOWLDataRange2IDConverter()
   {
     return dataRange2IDConverter;
   }
 
-  protected @NonNull DroolsOWLEntity2NameConverter getDroolsOWLEntity2NameConverter()
+  @NonNull protected DroolsOWLEntity2NameConverter getDroolsOWLEntity2NameConverter()
   {
     return this.entity2NameConverter;
   }
 
-  protected @NonNull DroolsSWRLVariable2NameConverter getDroolsSWRLVariable2NameConverter()
+  @NonNull protected DroolsSWRLVariable2NameConverter getDroolsSWRLVariable2NameConverter()
   {
     return this.swrlVariable2NameConverter;
+  }
+
+  @NonNull protected DroolsObjectResolver getDroolsObjectResolver()
+  {
+    return this.droolsObjectResolver;
   }
 }

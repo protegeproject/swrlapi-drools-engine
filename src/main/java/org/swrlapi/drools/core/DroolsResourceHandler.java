@@ -146,8 +146,9 @@ public class DroolsResourceHandler
     defineDRLResource("import org.swrlapi.drools.owl.classes.OMaxQCCE");
     defineDRLResource("import org.swrlapi.drools.owl.classes.DMaxQCCE");
     defineDRLResource("import org.swrlapi.drools.owl.classes.DMinCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classes.OCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classes.DCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OECCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DECCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OOHSCE");
   }
 
   private void importCoreOWLJavaClasses()

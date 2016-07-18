@@ -5,20 +5,26 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.drools.owl.properties.OP;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
- * This class represents an OWL data exact cardinality class expression in Drools.
+ * This class represents an OWL object exact cardinality class expression in Drools.
  *
- * @see org.semanticweb.owlapi.model.OWLDataExactCardinality
+ * @see org.semanticweb.owlapi.model.OWLObjectExactCardinality
  */
-public class DCCE extends DroolsTernaryObject<String, String, Integer> implements CE
+public class OECCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public DCCE(@NonNull String ceid, @NonNull String propertyID, @NonNull Integer card)
+  public OECCE(@NonNull String ceid, @NonNull OP p, @NonNull Integer card)
   {
-    super(ceid, propertyID, card);
+    super(ceid, p, card);
+  }
+
+  public OECCE(@NonNull String ceid, @NonNull String propertyID, @NonNull Integer card)
+  {
+    super(ceid, new OP(propertyID), card);
   }
 
   @NonNull @Override public String getceid()
@@ -26,19 +32,19 @@ public class DCCE extends DroolsTernaryObject<String, String, Integer> implement
     return getT1();
   }
 
-  @NonNull public String getpid()
+  @NonNull public OP getP()
   {
     return getT2();
   }
 
-  @NonNull public Integer getcard()
+  @NonNull public Integer getCard()
   {
     return getT3();
   }
 
   @SideEffectFree @NonNull @Override public String toString()
   {
-    return "DCCE" + super.toString();
+    return "OECECE" + super.toString();
   }
 
   @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(

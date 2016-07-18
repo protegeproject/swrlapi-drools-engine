@@ -27,121 +27,188 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.classes.DAVFCE;
-import org.swrlapi.drools.owl.classes.DCCE;
+import org.swrlapi.drools.owl.classes.DECCE;
 import org.swrlapi.drools.owl.classes.DHVCE;
 import org.swrlapi.drools.owl.classes.DMaxCCE;
 import org.swrlapi.drools.owl.classes.DMinCCE;
 import org.swrlapi.drools.owl.classes.DSVFCE;
 import org.swrlapi.drools.owl.classes.OAVFCE;
-import org.swrlapi.drools.owl.classes.OCCE;
+import org.swrlapi.drools.owl.classes.OECCE;
 import org.swrlapi.drools.owl.classes.OHVCE;
 import org.swrlapi.drools.owl.classes.OIOCE;
 import org.swrlapi.drools.owl.classes.OMaxCCE;
 import org.swrlapi.drools.owl.classes.OMinCCE;
+import org.swrlapi.drools.owl.classes.OOCOCE;
+import org.swrlapi.drools.owl.classes.OOHSCE;
 import org.swrlapi.drools.owl.classes.OOOCE;
 import org.swrlapi.drools.owl.classes.OSVFCE;
 import org.swrlapi.drools.owl.classes.OUOCE;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>
 {
+  private final Map<OWLObjectIntersectionOf, OIOCE> oioces = new HashMap<>();
+  private final Map<OWLObjectUnionOf, OUOCE> ouoces = new HashMap<>();
+  private final Map<OWLObjectComplementOf, OOCOCE> occoces = new HashMap<>();
+  private final Map<OWLObjectSomeValuesFrom, OSVFCE> osvfces = new HashMap<>();
+  private final Map<OWLObjectAllValuesFrom, OAVFCE> oavfces = new HashMap<>();
+  private final Map<OWLObjectHasValue, OHVCE> ohvces = new HashMap<>();
+  private final Map<OWLObjectExactCardinality, OECCE> occes = new HashMap<>();
+  private final Map<OWLObjectMinCardinality, OMinCCE> omincces = new HashMap<>();
+  private final Map<OWLObjectMaxCardinality, OMaxCCE> omaxcces = new HashMap<>();
+  private final Map<OWLObjectHasSelf, OOHSCE> oohsces = new HashMap<>();
+  private final Map<OWLObjectOneOf, OOOCE> oooces = new HashMap<>();
+  private final Map<OWLDataSomeValuesFrom, DSVFCE> dsvfces = new HashMap<>();
+  private final Map<OWLDataAllValuesFrom, DAVFCE> davfces = new HashMap<>();
+  private final Map<OWLDataHasValue, DHVCE> dhvces = new HashMap<>();
+  private final Map<OWLDataExactCardinality, DECCE> decces = new HashMap<>();
+  private final Map<OWLDataMinCardinality, DMinCCE> dmincces = new HashMap<>();
+  private final Map<OWLDataMaxCardinality, DMaxCCE> dmaxcces = new HashMap<>();
+
+  private int classExpressionIndex = 0;
 
   public DroolsOWLClassExpression2CEConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @NonNull @Override public CE convert(OWLClassExpression classExpression)
+  @NonNull @Override public CE convert(@NonNull OWLClassExpression classExpression)
   {
     return classExpression.accept(this);
   }
 
-  @NonNull @Override public C visit(@NonNull OWLClass owlClass)
+  public void reset()
   {
-    throw new RuntimeException("create C");
+    this.classExpressionIndex = 0;
+
+    this.oioces.clear();
+    this.ouoces.clear();
+    this.occoces.clear();
+    this.osvfces.clear();
+    this.oavfces.clear();
+    this.ohvces.clear();
+    this.occes.clear();
+    this.omincces.clear();
+    this.omaxcces.clear();
+    this.oohsces.clear();
+    this.oooces.clear();
+    this.dsvfces.clear();
+    this.davfces.clear();
+    this.dhvces.clear();
+    this.decces.clear();
+    this.dmincces.clear();
+    this.dmaxcces.clear();
   }
 
-  @NonNull @Override public OIOCE visit(@NonNull OWLObjectIntersectionOf owlObjectIntersectionOf)
+  @NonNull @Override public C visit(@NonNull OWLClass cls)
+  {
+    String classPrefixedName = iri2PrefixedName(cls.getIRI());
+
+    return new C(classPrefixedName);
+  }
+
+  @NonNull @Override public OIOCE visit(@NonNull OWLObjectIntersectionOf objectIntersectionOf)
   {
     throw new RuntimeException("create OIOCE");
   }
 
-  @NonNull @Override public OUOCE visit(@NonNull OWLObjectUnionOf owlObjectUnionOf)
+  @NonNull @Override public OUOCE visit(@NonNull OWLObjectUnionOf objectUnionOf)
   {
     throw new RuntimeException("create OUOCE");
   }
 
-  @NonNull @Override public OCCE visit(@NonNull OWLObjectComplementOf owlObjectComplementOf)
+  @Override public @NonNull OOCOCE visit(@NonNull OWLObjectComplementOf objectComplementOf)
   {
     throw new RuntimeException("create OCCO");
   }
 
-  @NonNull @Override public OSVFCE visit(@NonNull OWLObjectSomeValuesFrom owlObjectSomeValuesFrom)
+  @NonNull @Override public OSVFCE visit(@NonNull OWLObjectSomeValuesFrom objectSomeValuesFrom)
   {
     throw new RuntimeException("create OSVFCE");
   }
 
-  @NonNull @Override public OAVFCE visit(@NonNull OWLObjectAllValuesFrom owlObjectAllValuesFrom)
+  @NonNull @Override public OAVFCE visit(@NonNull OWLObjectAllValuesFrom objectAllValuesFrom)
   {
     throw new RuntimeException("create OAFVCE");
   }
 
-  @NonNull @Override public OHVCE visit(@NonNull OWLObjectHasValue owlObjectHasValue)
+  @NonNull @Override public OHVCE visit(@NonNull OWLObjectHasValue objectHasValue)
   {
     throw new RuntimeException("create OHVCE");
   }
 
-  @NonNull @Override public OMinCCE visit(@NonNull OWLObjectMinCardinality owlObjectMinCardinality)
+  @Override public @NonNull OECCE visit(@NonNull OWLObjectExactCardinality objectExactCardinality)
+  {
+    throw new RuntimeException("create OECCE");
+  }
+
+  @NonNull @Override public OMinCCE visit(@NonNull OWLObjectMinCardinality objectMinCardinality)
   {
     throw new RuntimeException("create OMinCCE");
   }
 
-  @NonNull @Override public OCCE visit(@NonNull OWLObjectExactCardinality owlObjectExactCardinality)
-  {
-    throw new RuntimeException("create OCCE");
-  }
-
-  @NonNull @Override public OMaxCCE visit(@NonNull OWLObjectMaxCardinality owlObjectMaxCardinality)
+  @NonNull @Override public OMaxCCE visit(@NonNull OWLObjectMaxCardinality objectMaxCardinality)
   {
     throw new RuntimeException("create OMaxCCE");
   }
 
-  @NonNull @Override public CE visit(@NonNull OWLObjectHasSelf owlObjectHasSelf)
+  @Override public @NonNull OOHSCE visit(@NonNull OWLObjectHasSelf objectHasSelf)
   {
-    throw new RuntimeException("create CE");
+    throw new RuntimeException("create OOHSCE");
   }
 
-  @NonNull @Override public OOOCE visit(@NonNull OWLObjectOneOf owlObjectOneOf)
+  @NonNull @Override public OOOCE visit(@NonNull OWLObjectOneOf objectOneOf)
   {
     throw new RuntimeException("create OOOCE");
+    //    if (oooces.containsKey(objectOneOf))
+    //      return oooces.get(objectOneOf);
+    //    else {
+    //      String classExpressionID = generateCEID();
+    //      for (OWLIndividual individual1 : objectOneOf.getIndividuals()) {
+    //        Set<@NonNull OWLIndividual> individuals = new HashSet<>(objectOneOf.getIndividuals());
+    //        String individual1ID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
+    //
+    //        OOOCE oooce = new OOOCE(classExpressionID, individual1ID, individual1ID);
+    //
+    //        individuals.remove(individual1);
+    //        for (OWLIndividual individual2 : individuals) {
+    //          String individual2ID = iri2PrefixedName(individual2.asOWLNamedIndividual().getIRI());
+    //          oooce = new OOOCE(classExpressionID, individual1ID, individual2ID);
+    //
+    //        }
+    //      }
+    //    }
   }
 
-  @NonNull @Override public DSVFCE visit(@NonNull OWLDataSomeValuesFrom owlDataSomeValuesFrom)
+  @NonNull @Override public DSVFCE visit(@NonNull OWLDataSomeValuesFrom dataSomeValuesFrom)
   {
     throw new RuntimeException("create DSVFCE");
   }
 
-  @NonNull @Override public DAVFCE visit(@NonNull OWLDataAllValuesFrom owlDataAllValuesFrom)
+  @NonNull @Override public DAVFCE visit(@NonNull OWLDataAllValuesFrom dataAllValuesFrom)
   {
     throw new RuntimeException("create DAVFCE");
   }
 
-  @NonNull @Override public DHVCE visit(@NonNull OWLDataHasValue owlDataHasValue)
+  @NonNull @Override public DHVCE visit(@NonNull OWLDataHasValue dataHasValue)
   {
     throw new RuntimeException("create DHVCE");
   }
 
-  @NonNull @Override public DMinCCE visit(@NonNull OWLDataMinCardinality owlDataMinCardinality)
+  @NonNull @Override public DMinCCE visit(@NonNull OWLDataMinCardinality dataMinCardinality)
   {
     throw new RuntimeException("create DMinCCE");
   }
 
-  @NonNull @Override public DCCE visit(@NonNull OWLDataExactCardinality owlDataExactCardinality)
+  @Override public @NonNull DECCE visit(@NonNull OWLDataExactCardinality dataExactCardinality)
   {
     throw new RuntimeException("create DCCE");
   }
 
-  @NonNull @Override public DMaxCCE visit(@NonNull OWLDataMaxCardinality owlDataMaxCardinality)
+  @NonNull @Override public DMaxCCE visit(@NonNull OWLDataMaxCardinality dataMaxCardinality)
   {
     throw new RuntimeException("create DMaxCCE");
   }
@@ -171,7 +238,7 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     return visit(objectSomeValuesFrom);
   }
 
-  @NonNull @Override public OCCE convert(OWLObjectComplementOf objectComplementOf)
+  @Override public @NonNull OOCOCE convert(OWLObjectComplementOf objectComplementOf)
   {
     return visit(objectComplementOf);
   }
@@ -181,12 +248,12 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     return visit(dataSomeValuesFrom);
   }
 
-  @NonNull @Override public DCCE convert(OWLDataExactCardinality dataExactCardinality)
+  @Override public @NonNull DECCE convert(OWLDataExactCardinality dataExactCardinality)
   {
     return visit(dataExactCardinality);
   }
 
-  @NonNull @Override public OCCE convert(OWLObjectExactCardinality objectExactCardinality)
+  @Override public @NonNull OECCE convert(OWLObjectExactCardinality objectExactCardinality)
   {
     return visit(objectExactCardinality);
   }
@@ -231,8 +298,14 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     return visit(dataAllValuesFrom);
   }
 
-  @NonNull @Override public CE convert(OWLObjectHasSelf objectHasSelf)
+  @Override public @NonNull OOHSCE convert(OWLObjectHasSelf objectHasSelf)
   {
     return visit(objectHasSelf);
   }
+
+  @NonNull private String generateCEID()
+  {
+    return "CEID" + this.classExpressionIndex++;
+  }
+
 }

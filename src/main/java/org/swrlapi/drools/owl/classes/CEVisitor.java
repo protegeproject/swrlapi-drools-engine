@@ -13,7 +13,7 @@ public interface CEVisitor
 {
   void visit(DAVFCE ce);
 
-  void visit(DCCE ce);
+  void visit(DECCE ce);
 
   void visit(DHVCE ce);
 
@@ -27,7 +27,7 @@ public interface CEVisitor
 
   void visit(OAVFCE ce);
 
-  void visit(OCCE ce);
+  void visit(OECCE ce);
 
   void visit(OHVCE ce);
 

@@ -12,11 +12,11 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLObjectHasSelf
  */
-public class OOHS extends DroolsBinaryObject<String, String> implements CE
+public class OOHSCE extends DroolsBinaryObject<String, String> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public OOHS(@NonNull String ceid, @NonNull String p)
+  public OOHSCE(@NonNull String ceid, @NonNull String p)
   {
     super(ceid, p);
   }
@@ -33,10 +33,10 @@ public class OOHS extends DroolsBinaryObject<String, String> implements CE
 
   @SideEffectFree @NonNull @Override public String toString()
   {
-    return "OOHS" + super.toString();
+    return "OOHSCE" + super.toString();
   }
 
-  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
