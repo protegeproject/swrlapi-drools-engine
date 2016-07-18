@@ -8,8 +8,7 @@ import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
- * This class represents an OWL object complement of class expression in Drools. Drools is supplied with an exhaustive
- * pairwise set of classes from the list in an OWL one of class expression.
+ * This class represents an OWL object complement of class expression in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectComplementOf
  */
@@ -27,7 +26,7 @@ public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
     return getT1();
   }
 
-  @NonNull public String getC()
+  @NonNull public String getcomplement()
   {
     return getT2();
   }
@@ -37,7 +36,7 @@ public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
     return "OOCOCE" + super.toString();
   }
 
-  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

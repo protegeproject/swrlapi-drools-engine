@@ -41,7 +41,7 @@ public class OMaxCCE extends DroolsTernaryObject<String, String, Integer> implem
     return "OMaxCE" + super.toString();
   }
 
-  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

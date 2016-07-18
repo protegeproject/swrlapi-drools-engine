@@ -41,7 +41,7 @@ public class OAVFCE extends DroolsTernaryObject<String, String, String> implemen
     return "OAVFCE" + super.toString();
   }
 
-  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

@@ -245,7 +245,7 @@ public class DroolsOWL2RLRules
         "rule cls_uni when OUOCE($c:ceid, $c1:c1) CAA(cid==$c1, $y:i) then CAA caa=new CAA($c, $y); inferrer.infer(caa); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_COM, "cls_com",
-        "rule cls_com when OOCOCE($c1:ceid, $c2:c) CAA(cid==$c1, $x:i) CAA(cid==$c2, i==$x) then inferrer.inferFalse(\""
+        "rule cls_com when OOCOCE($c1:ceid, $c2:complement) CAA(cid==$c1, $x:i) CAA(cid==$c2, i==$x) then inferrer.inferFalse(\""
             + OWL2RLNames.OWL2RLRule.CLS_COM.toString() + "\", $c1, $c2); end");
 
     // T(?x, owl:someValuesFrom, ?y) T(?x, owl:onProperty, ?p) T(?u, ?p, ?v) T(?v, rdf:type, ?y) -> T(?u, rdf:type, ?x)

@@ -42,8 +42,8 @@ public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
     return "OHVCE" + super.toString();
   }
 
-  @Override public SWRLClassExpressionBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
-    throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }

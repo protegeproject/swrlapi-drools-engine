@@ -42,7 +42,7 @@ public class DSVFCE extends DroolsTernaryObject<String, String, D> implements CE
     return "OSVFCE" + super.toString();
   }
 
-  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

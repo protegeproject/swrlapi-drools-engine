@@ -42,8 +42,8 @@ public class OOOCE extends DroolsBinaryObject<String, I> implements CE
     return "OOOCE" + super.toString();
   }
 
-  @Override public SWRLClassExpressionBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
-    throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }

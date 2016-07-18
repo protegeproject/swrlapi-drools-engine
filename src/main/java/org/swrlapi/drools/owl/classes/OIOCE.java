@@ -3,15 +3,12 @@ package org.swrlapi.drools.owl.classes;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
-import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsBinaryObject;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
- * This class represents an OWL object intersection of class expression in Drools. Each element of the intersection
- * class list is broken up by the {@link DroolsOWLClassExpression2DRLConverter} class. These are linked together in the
- * Drools OWL 2 RL rules using the class expression ID.
+ * This class represents an OWL object intersection of class expression in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectIntersectionOf
  */
@@ -39,7 +36,7 @@ public class OIOCE extends DroolsBinaryObject<String, String> implements CE
     return "OIOCE" + super.toString();
   }
 
-  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
