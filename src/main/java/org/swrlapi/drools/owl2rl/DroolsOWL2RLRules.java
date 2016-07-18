@@ -282,7 +282,7 @@ public class DroolsOWL2RLRules
         + "then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_OO, "cls_oo",
-      "rule cls_oo when OOOCE($c:ceid, $i:i) then CAA caa1=new CAA($c, $i); inferrer.infer(caa1); end");
+      "rule cls_oo when OOOCE($x:ceid, $is:is) $i:String() from $is then CAA caa1=new CAA($x, $i); inferrer.infer(caa1); end");
   }
 
   private void defineOWL2RLTable7DroolsRules()

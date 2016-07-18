@@ -97,14 +97,17 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectOneOf)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
+      Set<String> individualIDs = new HashSet<>();
       for (OWLIndividual individual1 : objectOneOf.getIndividuals()) {
         Set<@NonNull OWLIndividual> individual = new HashSet<>(objectOneOf.getIndividuals());
         String individualID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
-
-        OOOCE oooce = new OOOCE(classExpressionID, individualID);
-        getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectOneOf);
-        this.droolsObjectResolver.recordCE(oooce);
+        individualIDs.add(individualID);
       }
+
+      OOOCE oooce = new OOOCE(classExpressionID, individualIDs);
+      getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectOneOf);
+      this.droolsObjectResolver.recordCE(oooce);
+
       return classExpressionID;
     } else
       return getOWLObjectResolver().resolveOWLClassExpression2ID(objectOneOf);
