@@ -114,13 +114,15 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectIntersectionOf)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
+      Set<String> classIDs = new HashSet<>();
       for (OWLClassExpression ce : objectIntersectionOf.getOperands()) {
-        String class1ID = convert(ce);
-        OIOCE oioce = new OIOCE(classExpressionID, class1ID);
-
-        getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectIntersectionOf);
-        this.droolsObjectResolver.recordCE(oioce);
+        String classID = convert(ce);
+        classIDs.add(classID);
       }
+      OIOCE oioce = new OIOCE(classExpressionID, classIDs);
+      getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectIntersectionOf);
+      this.droolsObjectResolver.recordCE(oioce);
+
       return classExpressionID;
     } else
       return getOWLObjectResolver().resolveOWLClassExpression2ID(objectIntersectionOf);
