@@ -28,7 +28,7 @@ public class OOOCE extends DroolsNarySet<String, String> implements CE
     return getID();
   }
 
-  @NonNull public Set<String> getis() { return getElements(); }
+  @NonNull public Set<String> getiids() { return getElements(); }
 
   @NonNull @SideEffectFree @Override public String toString()
   {

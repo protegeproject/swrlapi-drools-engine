@@ -202,15 +202,14 @@ public class DroolsOWL2RLRules
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_INT1, "cls_int1",
       "rule cls_int1 when OIOCE($x:ceid, $ceids:ceids) $c : String() from $ceids CAA(cid==$c, $i:i) "
-        + " forall ( CAA(cid==$c, i==$i) ) "
-        + "then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
+        + " forall ( CAA(cid==$c, i==$i) ) " + "then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_INT2, "cls_int2",
       "rule cls_int2 when OIOCE($x:ceid, $ceids:ceids) $c : String() from $ceids CAA(cid==$x, $i:i) "
         + " then CAA caa1=new CAA($x, $i); inferrer.infer(caa1); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_UNI, "cls_uni",
-      "rule cls_uni when OUOCE($x:ceid, $c:c1) CAA(cid==$x, $i:i) then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
+      "rule cls_uni when OUOCE($x:ceid, $ceids:ceids) CAA(cid==$x, $i:i) then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_COM, "cls_com",
       "rule cls_com when OOCOCE($x:ceid, $c:complement) CAA(cid==$x, $i:i) CAA(cid==$c, i==$i) then inferrer.inferFalse(\""
@@ -282,7 +281,7 @@ public class DroolsOWL2RLRules
         + "then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_OO, "cls_oo",
-      "rule cls_oo when OOOCE($x:ceid, $is:is) $i:String() from $is then CAA caa1=new CAA($x, $i); inferrer.infer(caa1); end");
+      "rule cls_oo when OOOCE($x:ceid, $iids:iids) $i:String() from $iids then CAA caa1=new CAA($x, $i); inferrer.infer(caa1); end");
   }
 
   private void defineOWL2RLTable7DroolsRules()
@@ -423,7 +422,8 @@ public class DroolsOWL2RLRules
         + "then SCA sca1=new SCA($x, $c); inferrer.infer(sca1); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_UNI, "scm_uni",
-      "rule scm_uni when OUOCE($c:ceid, $c1:c1) then SCA sca1=new SCA($c1, $c); inferrer.infer(sca1); end");
+      "rule scm_uni when OUOCE($x:ceid, $ceids:ceids) $c: String() from $ceids "
+        + "then SCA sca1=new SCA($c, $x); inferrer.infer(sca1); end");
   }
 
   private void createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule rule, @NonNull String ruleName,
