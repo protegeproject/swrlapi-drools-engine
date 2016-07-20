@@ -27,8 +27,8 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
 
     this.literal2LConverter = new DroolsOWLLiteral2LConverter(bridge);
     this.entity2OEConverter = new DroolsOWLEntity2OEConverter(bridge);
-    this.classExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(bridge);
     this.individual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
+    this.classExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(bridge, this.individual2IConverter);
     this.dataRange2DRConverter = new DroolsOWLDataRange2DRConverter(bridge);
     this.entity2NameConverter = new DroolsOWLEntity2NameConverter(bridge);
     this.dataRange2IDConverter = new DroolsOWLDataRange2IDConverter(bridge);

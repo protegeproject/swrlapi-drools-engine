@@ -10,6 +10,7 @@ import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -45,11 +46,15 @@ import org.swrlapi.drools.owl.classes.OSVFCE;
 import org.swrlapi.drools.owl.classes.OUOCE;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>
 {
+  @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
+
   private final Map<OWLObjectIntersectionOf, OIOCE> oioces = new HashMap<>();
   private final Map<OWLObjectUnionOf, OUOCE> ouoces = new HashMap<>();
   private final Map<OWLObjectComplementOf, OOCOCE> occoces = new HashMap<>();
@@ -70,9 +75,11 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   private int classExpressionIndex = 0;
 
-  public DroolsOWLClassExpression2CEConverter(@NonNull SWRLRuleEngineBridge bridge)
+  public DroolsOWLClassExpression2CEConverter(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter)
   {
     super(bridge);
+    this.droolsOWLIndividual2IConverter = droolsOWLIndividual2IConverter;
   }
 
   @NonNull @Override public CE convert(@NonNull OWLClassExpression classExpression)
@@ -117,7 +124,21 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   @NonNull @Override public OUOCE visit(@NonNull OWLObjectUnionOf objectUnionOf)
   {
-    throw new RuntimeException("create OUOCE");
+    if (ouoces.containsKey(objectUnionOf))
+      return ouoces.get(objectUnionOf);
+    else {
+      String classExpressionID = generateCEID();
+
+      Set<@NonNull String> classExpressionIDs = new HashSet<>();
+      for (OWLClassExpression ce : objectUnionOf.getOperands()) {
+        String cid = convert(ce).getceid();
+        classExpressionIDs.add(cid);
+      }
+      OUOCE ouoce = new OUOCE(classExpressionID, classExpressionIDs);
+      ouoces.put(objectUnionOf, ouoce);
+
+      return ouoce;
+    }
   }
 
   @Override public @NonNull OOCOCE visit(@NonNull OWLObjectComplementOf objectComplementOf)
@@ -162,19 +183,20 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   @NonNull @Override public OOOCE visit(@NonNull OWLObjectOneOf objectOneOf)
   {
-    throw new RuntimeException("create OOOCE");
-    //    if (oooces.containsKey(objectOneOf))
-    //      return oooces.get(objectOneOf);
-    //    else {
-    //      String classExpressionID = generateCEID();
-    //      for (OWLIndividual individual : objectOneOf.getIndividuals()) {
-    //        Set<@NonNull OWLIndividual> individuals = new HashSet<>(objectOneOf.getIndividuals());
-    //        String individualID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
-    //
-    //        OOOCE oooce = new OOOCE(classExpressionID, individual1ID);
-    //
-    //      }
-    //    }
+    if (oooces.containsKey(objectOneOf))
+      return oooces.get(objectOneOf);
+    else {
+      String classExpressionID = generateCEID();
+      Set<@NonNull String> individualIDs = new HashSet<>();
+      for (OWLIndividual individual : objectOneOf.getIndividuals()) {
+        String individualID = getDroolsOWLIndividual2IConverter().convert(individual).getid();
+        individualIDs.add(individualID);
+      }
+      OOOCE oooce = new OOOCE(classExpressionID, individualIDs);
+      oooces.put(objectOneOf, oooce);
+
+      return oooce;
+    }
   }
 
   @NonNull @Override public DSVFCE visit(@NonNull OWLDataSomeValuesFrom dataSomeValuesFrom)
@@ -197,7 +219,7 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     throw new RuntimeException("create DMinCCE");
   }
 
-  @Override public @NonNull DECCE visit(@NonNull OWLDataExactCardinality dataExactCardinality)
+  @NonNull @Override public DECCE visit(@NonNull OWLDataExactCardinality dataExactCardinality)
   {
     throw new RuntimeException("create DCCE");
   }
@@ -300,6 +322,11 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   @NonNull private String generateCEID()
   {
     return "CEID" + this.classExpressionIndex++;
+  }
+
+  @NonNull DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
+  {
+    return this.droolsOWLIndividual2IConverter;
   }
 
 }
