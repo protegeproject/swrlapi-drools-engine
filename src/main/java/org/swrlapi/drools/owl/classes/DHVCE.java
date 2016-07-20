@@ -37,7 +37,7 @@ public class DHVCE extends DroolsTernaryObject<String, String, L> implements CE
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "DHVCE" + super.toString();
   }

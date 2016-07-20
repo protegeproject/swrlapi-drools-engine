@@ -22,7 +22,7 @@ public class AP implements P, OE
 {
   private static final long serialVersionUID = 1L;
 
-  private final String name;
+  @NonNull private final String name;
 
   public AP(@NonNull String name)
   {
@@ -44,13 +44,13 @@ public class AP implements P, OE
         "expecting OWL annotation property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @Override public @NonNull OWLNamedObject extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @NonNull @Override public OWLNamedObject extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override public @NonNull SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

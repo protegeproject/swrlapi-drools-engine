@@ -18,7 +18,7 @@ public class OUOCE extends DroolsNarySet<String, String> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public OUOCE(@NonNull String ceid, @NonNull Set<String> elements)
+  public OUOCE(@NonNull String ceid, @NonNull Set<@NonNull String> elements)
   {
     super(ceid, elements);
   }

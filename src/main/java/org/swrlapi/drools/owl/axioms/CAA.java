@@ -53,7 +53,7 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
     visitor.visit(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "CAA(" + getcid() + ", " + getI() + ")";
   }

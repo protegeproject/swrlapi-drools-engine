@@ -12,9 +12,9 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  */
 public class OPE extends PE implements BA
 {
-  public OPE(String peid) { super(peid); }
+  public OPE(@NonNull String peid) { super(peid); }
 
-  @Override public SWRLObjectPropertyExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLObjectPropertyExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("OPE.extract");

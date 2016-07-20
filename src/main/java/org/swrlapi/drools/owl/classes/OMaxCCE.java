@@ -36,7 +36,7 @@ public class OMaxCCE extends DroolsTernaryObject<String, String, Integer> implem
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OMaxCE" + super.toString();
   }

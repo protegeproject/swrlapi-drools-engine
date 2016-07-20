@@ -42,7 +42,7 @@ public class DMinCCE extends DroolsTernaryObject<String, DP, Integer> implements
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "DMinCCE" + super.toString();
   }

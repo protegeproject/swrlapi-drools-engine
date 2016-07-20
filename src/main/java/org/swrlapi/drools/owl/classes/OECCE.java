@@ -42,7 +42,7 @@ public class OECCE extends DroolsTernaryObject<String, OP, Integer> implements C
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OECECE" + super.toString();
   }

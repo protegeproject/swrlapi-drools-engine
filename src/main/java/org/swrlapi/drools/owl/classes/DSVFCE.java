@@ -37,7 +37,7 @@ public class DSVFCE extends DroolsTernaryObject<String, String, D> implements CE
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OSVFCE" + super.toString();
   }

@@ -12,9 +12,9 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  */
 public class DPE extends PE implements BA
 {
-  public DPE(String peid) { super(peid); }
+  public DPE(@NonNull String peid) { super(peid); }
 
-  @Override public SWRLDataPropertyExpressionBuiltInArgument extract(
+  @NonNull @Override public SWRLDataPropertyExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("DPE.extract");

@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.dataranges;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.drools.owl.core.OO;
 
 /**
@@ -16,5 +17,5 @@ import org.swrlapi.drools.owl.core.OO;
  */
 public interface DR extends OO
 {
-  String getdrid();
+  @NonNull String getdrid();
 }

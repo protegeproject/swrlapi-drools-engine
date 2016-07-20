@@ -42,7 +42,7 @@ public class OMinCCE extends DroolsTernaryObject<String, OP, Integer> implements
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OMinCE" + super.toString();
   }

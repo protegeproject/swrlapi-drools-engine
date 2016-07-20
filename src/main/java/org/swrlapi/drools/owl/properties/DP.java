@@ -40,13 +40,13 @@ public class DP extends DPE implements OE
         "expecting OWL data property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @Override public @NonNull SWRLDataPropertyBuiltInArgument extract(
+  @NonNull @Override public SWRLDataPropertyBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @Override public @NonNull OWLDataProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @NonNull @Override public OWLDataProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

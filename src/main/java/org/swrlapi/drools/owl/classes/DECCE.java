@@ -36,7 +36,7 @@ public class DECCE extends DroolsTernaryObject<String, String, Integer> implemen
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "DECCE" + super.toString();
   }

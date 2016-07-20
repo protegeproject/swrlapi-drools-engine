@@ -21,7 +21,7 @@ public class I implements OE
 {
   private static final long serialVersionUID = 1L;
 
-  public final String id;
+  @NonNull public final String id;
 
   public I(@NonNull String name)
   {
@@ -49,7 +49,7 @@ public class I implements OE
     return extractor.extract(this);
   }
 
-  @Override public @NonNull SWRLNamedIndividualBuiltInArgument extract(
+  @NonNull @Override public SWRLNamedIndividualBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

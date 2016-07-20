@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.axioms;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.owl.core.OO;
@@ -12,7 +13,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public interface A extends OO
 {
-  OWLAxiom extract(DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException;
+  @NonNull OWLAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor) throws TargetSWRLRuleEngineException;
 
-  void visit(AVisitor visitor);
+  void visit(@NonNull AVisitor visitor);
 }

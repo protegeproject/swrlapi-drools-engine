@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.properties;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -12,16 +13,16 @@ import org.swrlapi.drools.owl.core.OO;
  */
 public abstract class PE implements OO
 {
-  private String id;
+  @NonNull private String id;
 
-  public PE(String id) { this.id = id; }
+  public PE(@NonNull String id) { this.id = id; }
 
-  public String getid()
+  @NonNull public String getid()
   {
     return id;
   }
 
-  protected void setPEID(String peid) { this.id = peid; }
+  protected void setPEID(@NonNull String peid) { this.id = peid; }
 
   @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
   {

@@ -31,7 +31,7 @@ public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
     return getT2();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OOCOCE" + super.toString();
   }

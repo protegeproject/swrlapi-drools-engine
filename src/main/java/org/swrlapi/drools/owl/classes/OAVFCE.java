@@ -36,7 +36,7 @@ public class OAVFCE extends DroolsTernaryObject<String, String, String> implemen
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OAVFCE" + super.toString();
   }

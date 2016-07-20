@@ -9,9 +9,9 @@ import java.util.Set;
 public abstract class DroolsNarySet<ID, E>
 {
   @NonNull private final ID id;
-  @NonNull private final Set<E> elements;
+  @NonNull private final Set<@NonNull E> elements;
 
-  protected DroolsNarySet(@NonNull ID id, @NonNull Set<E> elements)
+  protected DroolsNarySet(@NonNull ID id, @NonNull Set<@NonNull E> elements)
   {
     this.id = id;
     this.elements = elements;
@@ -22,7 +22,7 @@ public abstract class DroolsNarySet<ID, E>
     return this.id;
   }
 
-  @NonNull public Set<E> getElements()
+  @NonNull public Set<@NonNull E> getElements()
   {
     return this.elements;
   }
@@ -49,7 +49,7 @@ public abstract class DroolsNarySet<ID, E>
     return result;
   }
 
-  @SideEffectFree @Deterministic @Override public String toString()
+  @NonNull @SideEffectFree @Deterministic @Override public String toString()
   {
     return "(" + "id=" + id + ", elements=" + elements + ")";
   }

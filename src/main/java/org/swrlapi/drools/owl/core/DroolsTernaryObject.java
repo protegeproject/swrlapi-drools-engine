@@ -33,7 +33,7 @@ public abstract class DroolsTernaryObject<T1, T2, T3>
     return this.t3;
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ")";
   }

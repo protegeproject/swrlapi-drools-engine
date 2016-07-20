@@ -1,5 +1,7 @@
 package org.swrlapi.drools.owl.classes;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 /**
  * A visitor that can visit a Drools representation of OWL class expressions, represented by
  * {@link org.swrlapi.drools.owl.classes.CE}s.
@@ -11,37 +13,37 @@ package org.swrlapi.drools.owl.classes;
  */
 public interface CEVisitor
 {
-  void visit(DAVFCE ce);
+  void visit(@NonNull DAVFCE ce);
 
-  void visit(DECCE ce);
+  void visit(@NonNull DECCE ce);
 
-  void visit(DHVCE ce);
+  void visit(@NonNull DHVCE ce);
 
-  void visit(DMaxCCE ce);
+  void visit(@NonNull DMaxCCE ce);
 
-  void visit(DMaxQCCE ce);
+  void visit(@NonNull DMaxQCCE ce);
 
-  void visit(DMinCCE ce);
+  void visit(@NonNull DMinCCE ce);
 
-  void visit(DSVFCE ce);
+  void visit(@NonNull DSVFCE ce);
 
-  void visit(OAVFCE ce);
+  void visit(@NonNull OAVFCE ce);
 
-  void visit(OECCE ce);
+  void visit(@NonNull OECCE ce);
 
-  void visit(OHVCE ce);
+  void visit(@NonNull OHVCE ce);
 
-  void visit(OIOCE ce);
+  void visit(@NonNull OIOCE ce);
 
-  void visit(OMaxCCE ce);
+  void visit(@NonNull OMaxCCE ce);
 
-  void visit(OMaxQCCE ce);
+  void visit(@NonNull OMaxQCCE ce);
 
-  void visit(OMinCCE ce);
+  void visit(@NonNull OMinCCE ce);
 
-  void visit(OOCOCE ce);
+  void visit(@NonNull OOCOCE ce);
 
-  void visit(OSVFCE ce);
+  void visit(@NonNull OSVFCE ce);
 
-  void visit(OUOCE ce);
+  void visit(@NonNull OUOCE ce);
 }

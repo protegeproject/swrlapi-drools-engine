@@ -26,7 +26,7 @@ public class AOPA extends DroolsUnaryObject<String> implements A
     return getT1();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "AOPA" + super.toString();
   }

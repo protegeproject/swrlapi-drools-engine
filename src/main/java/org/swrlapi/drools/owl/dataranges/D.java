@@ -22,7 +22,7 @@ public class D implements DR, OE
 {
   private static final long serialVersionUID = 1L;
 
-  private final String id;
+  @NonNull private final String id;
 
   public D(@NonNull String name)
   {
@@ -58,7 +58,7 @@ public class D implements DR, OE
     return extractor.extract(this);
   }
 
-  @Override public @NonNull SWRLDatatypeBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @NonNull @Override public SWRLDatatypeBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -69,7 +69,7 @@ public class D implements DR, OE
     return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree  @Override public String toString()
   {
     return super.toString();
   }
