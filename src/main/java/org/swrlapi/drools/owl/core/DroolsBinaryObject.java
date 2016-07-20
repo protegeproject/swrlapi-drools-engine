@@ -48,7 +48,7 @@ public abstract class DroolsBinaryObject<T1, T2>
     return result;
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+   @NonNull @SideEffectFree @Override public String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ")";
   }

@@ -22,20 +22,20 @@ public class VPATH
     this.arguments = new ArrayList<>();
   }
 
-  public VPATH(BA ba1)
+  public VPATH(@NonNull BA ba1)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
   }
 
-  public VPATH(BA ba1, BA ba2)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
     this.arguments.add(ba2);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -43,7 +43,7 @@ public class VPATH
     this.arguments.add(ba3);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3, BA ba4)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -52,7 +52,7 @@ public class VPATH
     this.arguments.add(ba4);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -62,7 +62,7 @@ public class VPATH
     this.arguments.add(ba5);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -73,7 +73,8 @@ public class VPATH
     this.arguments.add(ba6);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6,
+    @NonNull BA ba7)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -85,7 +86,8 @@ public class VPATH
     this.arguments.add(ba7);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6,
+    @NonNull BA ba7, @NonNull BA ba8)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -98,7 +100,8 @@ public class VPATH
     this.arguments.add(ba8);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6,
+    @NonNull BA ba7, @NonNull BA ba8, @NonNull BA ba9)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -112,7 +115,8 @@ public class VPATH
     this.arguments.add(ba9);
   }
 
-  public VPATH(BA ba1, BA ba2, BA ba3, BA ba4, BA ba5, BA ba6, BA ba7, BA ba8, BA ba9, BA ba10)
+  public VPATH(@NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6,
+    @NonNull BA ba7, @NonNull BA ba8, @NonNull BA ba9, @NonNull BA ba10)
   {
     this.arguments = new ArrayList<>();
     this.arguments.add(ba1);
@@ -132,7 +136,7 @@ public class VPATH
     return Collections.unmodifiableList(this.arguments);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     StringBuilder sb = new StringBuilder();
 

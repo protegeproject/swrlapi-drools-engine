@@ -31,7 +31,7 @@ public class DJOPA extends DroolsBinaryPropertiesAxiom
     visitor.visit(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "DJOPA" + super.toString();
   }

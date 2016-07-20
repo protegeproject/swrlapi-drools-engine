@@ -20,11 +20,6 @@ public class SPA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
-  {
-    return "SPA" + super.toString();
-  }
-
   @NonNull @Override public OWLSymmetricObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
@@ -34,5 +29,10 @@ public class SPA extends DroolsUnaryPropertyAxiom
   @Override public void visit(@NonNull AVisitor visitor)
   {
     visitor.visit(this);
+  }
+
+  @NonNull @SideEffectFree @Override public String toString()
+  {
+    return "SPA" + super.toString();
   }
 }
