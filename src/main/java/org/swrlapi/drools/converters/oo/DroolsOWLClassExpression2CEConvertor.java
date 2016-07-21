@@ -34,12 +34,12 @@ import org.swrlapi.drools.owl.classes.DMaxCCE;
 import org.swrlapi.drools.owl.classes.DMinCCE;
 import org.swrlapi.drools.owl.classes.DSVFCE;
 import org.swrlapi.drools.owl.classes.OAVFCE;
+import org.swrlapi.drools.owl.classes.OCOCE;
 import org.swrlapi.drools.owl.classes.OECCE;
 import org.swrlapi.drools.owl.classes.OHVCE;
 import org.swrlapi.drools.owl.classes.OIOCE;
 import org.swrlapi.drools.owl.classes.OMaxCCE;
 import org.swrlapi.drools.owl.classes.OMinCCE;
-import org.swrlapi.drools.owl.classes.OOCOCE;
 import org.swrlapi.drools.owl.classes.OOHSCE;
 import org.swrlapi.drools.owl.classes.OOOCE;
 import org.swrlapi.drools.owl.classes.OSVFCE;
@@ -54,14 +54,15 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>
 {
   @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
+  @NonNull private final DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
 
   private final Map<OWLObjectIntersectionOf, OIOCE> oioces = new HashMap<>();
   private final Map<OWLObjectUnionOf, OUOCE> ouoces = new HashMap<>();
-  private final Map<OWLObjectComplementOf, OOCOCE> occoces = new HashMap<>();
+  private final Map<OWLObjectComplementOf, OCOCE> ococes = new HashMap<>();
   private final Map<OWLObjectSomeValuesFrom, OSVFCE> osvfces = new HashMap<>();
   private final Map<OWLObjectAllValuesFrom, OAVFCE> oavfces = new HashMap<>();
   private final Map<OWLObjectHasValue, OHVCE> ohvces = new HashMap<>();
-  private final Map<OWLObjectExactCardinality, OECCE> occes = new HashMap<>();
+  private final Map<OWLObjectExactCardinality, OECCE> oecces = new HashMap<>();
   private final Map<OWLObjectMinCardinality, OMinCCE> omincces = new HashMap<>();
   private final Map<OWLObjectMaxCardinality, OMaxCCE> omaxcces = new HashMap<>();
   private final Map<OWLObjectHasSelf, OOHSCE> oohsces = new HashMap<>();
@@ -76,10 +77,12 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   private int classExpressionIndex = 0;
 
   public DroolsOWLClassExpression2CEConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter)
+    @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter,
+    @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter)
   {
     super(bridge);
     this.droolsOWLIndividual2IConverter = droolsOWLIndividual2IConverter;
+    this.droolsOWLPropertyExpression2PEConverter = droolsOWLPropertyExpression2PEConverter;
   }
 
   @NonNull @Override public CE convert(@NonNull OWLClassExpression classExpression)
@@ -93,11 +96,11 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
     this.oioces.clear();
     this.ouoces.clear();
-    this.occoces.clear();
+    this.ococes.clear();
     this.osvfces.clear();
     this.oavfces.clear();
     this.ohvces.clear();
-    this.occes.clear();
+    this.oecces.clear();
     this.omincces.clear();
     this.omaxcces.clear();
     this.oohsces.clear();
@@ -141,39 +144,115 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     }
   }
 
-  @Override public @NonNull OOCOCE visit(@NonNull OWLObjectComplementOf objectComplementOf)
+  @Override public @NonNull OCOCE visit(@NonNull OWLObjectComplementOf objectComplementOf)
   {
-    throw new RuntimeException("create OCCO");
+    if (ococes.containsKey(objectComplementOf))
+      return ococes.get(objectComplementOf);
+    else {
+      String classExpressionID = generateCEID();
+
+      String complementClassID = convert(objectComplementOf.getOperand()).getceid();
+      OCOCE ococe = new OCOCE(classExpressionID, complementClassID);
+      ococes.put(objectComplementOf, ococe);
+
+      return ococe;
+    }
   }
 
   @NonNull @Override public OSVFCE visit(@NonNull OWLObjectSomeValuesFrom objectSomeValuesFrom)
   {
-    throw new RuntimeException("create OSVFCE");
+    if (osvfces.containsKey(objectSomeValuesFrom))
+      return osvfces.get(objectSomeValuesFrom);
+    else {
+      String classExpressionID = generateCEID();
+
+      String someValuesFromClassID = convert(objectSomeValuesFrom.getFiller()).getceid();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectSomeValuesFrom.getProperty())
+        .getid();
+      OSVFCE osvfce = new OSVFCE(classExpressionID, propertyID, someValuesFromClassID);
+      osvfces.put(objectSomeValuesFrom, osvfce);
+
+      return osvfce;
+    }
   }
 
   @NonNull @Override public OAVFCE visit(@NonNull OWLObjectAllValuesFrom objectAllValuesFrom)
   {
-    throw new RuntimeException("create OAFVCE");
+    if (oavfces.containsKey(objectAllValuesFrom))
+      return oavfces.get(objectAllValuesFrom);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectAllValuesFrom.getProperty())
+        .getid();
+      String allValuesFromClassID = convert(objectAllValuesFrom.getFiller()).getceid();
+      OAVFCE oavfce = new OAVFCE(classExpressionID, propertyID, allValuesFromClassID);
+      oavfces.put(objectAllValuesFrom, oavfce);
+
+      return oavfce;
+    }
   }
 
   @NonNull @Override public OHVCE visit(@NonNull OWLObjectHasValue objectHasValue)
   {
-    throw new RuntimeException("create OHVCE");
+    if (ohvces.containsKey(objectHasValue))
+      return ohvces.get(objectHasValue);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectHasValue.getProperty()).getid();
+      String fillerIndividualID = getDroolsOWLIndividual2IConverter().convert(objectHasValue.getFiller()).getid();
+      OHVCE ohvce = new OHVCE(classExpressionID, propertyID, fillerIndividualID);
+      ohvces.put(objectHasValue, ohvce);
+
+      return ohvce;
+    }
   }
 
   @Override public @NonNull OECCE visit(@NonNull OWLObjectExactCardinality objectExactCardinality)
   {
-    throw new RuntimeException("create OECCE");
+    if (oecces.containsKey(objectExactCardinality))
+      return oecces.get(objectExactCardinality);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectExactCardinality.getProperty())
+        .getid();
+      int cardinality = objectExactCardinality.getCardinality();
+      OECCE oecce = new OECCE(classExpressionID, propertyID, cardinality);
+      oecces.put(objectExactCardinality, oecce);
+
+      return oecce;
+    }
   }
 
   @NonNull @Override public OMinCCE visit(@NonNull OWLObjectMinCardinality objectMinCardinality)
   {
-    throw new RuntimeException("create OMinCCE");
+    if (omincces.containsKey(objectMinCardinality))
+      return omincces.get(objectMinCardinality);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectMinCardinality.getProperty())
+        .getid();
+      int cardinality = objectMinCardinality.getCardinality();
+      OMinCCE omincce = new OMinCCE(classExpressionID, propertyID, cardinality);
+      omincces.put(objectMinCardinality, omincce);
+
+      return omincce;
+    }
   }
 
   @NonNull @Override public OMaxCCE visit(@NonNull OWLObjectMaxCardinality objectMaxCardinality)
   {
-    throw new RuntimeException("create OMaxCCE");
+    if (omaxcces.containsKey(objectMaxCardinality))
+      return omaxcces.get(objectMaxCardinality);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectMaxCardinality.getProperty())
+        .getid();
+      int cardinality = objectMaxCardinality.getCardinality();
+      OMaxCCE omaxcce = new OMaxCCE(classExpressionID, propertyID, cardinality);
+      omaxcces.put(objectMaxCardinality, omaxcce);
+
+      return omaxcce;
+    }
   }
 
   @Override public @NonNull OOHSCE visit(@NonNull OWLObjectHasSelf objectHasSelf)
@@ -216,17 +295,50 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   @NonNull @Override public DMinCCE visit(@NonNull OWLDataMinCardinality dataMinCardinality)
   {
-    throw new RuntimeException("create DMinCCE");
+    if (dmincces.containsKey(dataMinCardinality))
+      return dmincces.get(dataMinCardinality);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataMinCardinality.getProperty())
+        .getid();
+      int cardinality = dataMinCardinality.getCardinality();
+      DMinCCE dmincce = new DMinCCE(classExpressionID, propertyID, cardinality);
+      dmincces.put(dataMinCardinality, dmincce);
+
+      return dmincce;
+    }
   }
 
   @NonNull @Override public DECCE visit(@NonNull OWLDataExactCardinality dataExactCardinality)
   {
-    throw new RuntimeException("create DCCE");
+    if (decces.containsKey(dataExactCardinality))
+      return decces.get(dataExactCardinality);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataExactCardinality.getProperty())
+        .getid();
+      int cardinality = dataExactCardinality.getCardinality();
+      DECCE decce = new DECCE(classExpressionID, propertyID, cardinality);
+      decces.put(dataExactCardinality, decce);
+
+      return decce;
+    }
   }
 
   @NonNull @Override public DMaxCCE visit(@NonNull OWLDataMaxCardinality dataMaxCardinality)
   {
-    throw new RuntimeException("create DMaxCCE");
+    if (dmaxcces.containsKey(dataMaxCardinality))
+      return dmaxcces.get(dataMaxCardinality);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataMaxCardinality.getProperty())
+        .getid();
+      int cardinality = dataMaxCardinality.getCardinality();
+      DMaxCCE dmaxcce = new DMaxCCE(classExpressionID, propertyID, cardinality);
+      dmaxcces.put(dataMaxCardinality, dmaxcce);
+
+      return dmaxcce;
+    }
   }
 
   @NonNull @Override public C convert(OWLClass cls)
@@ -254,7 +366,7 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     return visit(objectSomeValuesFrom);
   }
 
-  @Override public @NonNull OOCOCE convert(OWLObjectComplementOf objectComplementOf)
+  @Override public @NonNull OCOCE convert(OWLObjectComplementOf objectComplementOf)
   {
     return visit(objectComplementOf);
   }
@@ -329,4 +441,8 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     return this.droolsOWLIndividual2IConverter;
   }
 
+  @NonNull DroolsOWLPropertyExpression2PEConverter getDroolsOWLPropertyExpression2PEConverter()
+  {
+    return this.droolsOWLPropertyExpression2PEConverter;
+  }
 }

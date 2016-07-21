@@ -12,11 +12,11 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  *
  * @see org.semanticweb.owlapi.model.OWLObjectComplementOf
  */
-public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
+public class OCOCE extends DroolsBinaryObject<String, String> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public OOCOCE(@NonNull String ceid, @NonNull String c)
+  public OCOCE(@NonNull String ceid, @NonNull String c)
   {
     super(ceid, c);
   }
@@ -33,7 +33,7 @@ public class OOCOCE extends DroolsBinaryObject<String, String> implements CE
 
   @NonNull @SideEffectFree @Override public String toString()
   {
-    return "OOCOCE" + super.toString();
+    return "OCOCE" + super.toString();
   }
 
   @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(

@@ -41,7 +41,7 @@ public interface CEVisitor
 
   void visit(@NonNull OMinCCE ce);
 
-  void visit(@NonNull OOCOCE ce);
+  void visit(@NonNull OCOCE ce);
 
   void visit(@NonNull OSVFCE ce);
 
