@@ -122,7 +122,14 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   @NonNull @Override public OIOCE visit(@NonNull OWLObjectIntersectionOf objectIntersectionOf)
   {
-    throw new RuntimeException("create OIOCE");
+    if (oioces.containsKey(objectIntersectionOf))
+      return oioces.get(objectIntersectionOf);
+    else {
+      String classExpressionID = generateCEID();
+
+
+      throw new RuntimeException("create OIOCE");
+    }
   }
 
   @NonNull @Override public OUOCE visit(@NonNull OWLObjectUnionOf objectUnionOf)
@@ -257,7 +264,13 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   @Override public @NonNull OOHSCE visit(@NonNull OWLObjectHasSelf objectHasSelf)
   {
-    throw new RuntimeException("create OOHSCE");
+    if (oohsces.containsKey(objectHasSelf))
+      return oohsces.get(objectHasSelf);
+    else {
+      String classExpressionID = generateCEID();
+
+      throw new RuntimeException("create OOHSCE");
+    }
   }
 
   @NonNull @Override public OOOCE visit(@NonNull OWLObjectOneOf objectOneOf)
