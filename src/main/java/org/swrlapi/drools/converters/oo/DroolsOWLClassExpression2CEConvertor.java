@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -25,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
+import org.swrlapi.drools.converters.DroolsOWLDataRange2IDConverter;
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.classes.DAVFCE;
@@ -55,6 +57,8 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 {
   @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
   @NonNull private final DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
+  @NonNull private final DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter;
+  @NonNull private final DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter;
 
   private final Map<OWLObjectIntersectionOf, OIOCE> oioces = new HashMap<>();
   private final Map<OWLObjectUnionOf, OUOCE> ouoces = new HashMap<>();
@@ -78,11 +82,15 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   public DroolsOWLClassExpression2CEConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter,
-    @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter)
+    @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter,
+    @NonNull DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter,
+    @NonNull DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter)
   {
     super(bridge);
     this.droolsOWLIndividual2IConverter = droolsOWLIndividual2IConverter;
     this.droolsOWLPropertyExpression2PEConverter = droolsOWLPropertyExpression2PEConverter;
+    this.droolsOWLDataRange2IDConverter = droolsOWLDataRange2IDConverter;
+    this.droolsOWLLiteral2LConverter = droolsOWLLiteral2LConverter;
   }
 
   @NonNull @Override public CE convert(@NonNull OWLClassExpression classExpression)
@@ -126,9 +134,15 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
       return oioces.get(objectIntersectionOf);
     else {
       String classExpressionID = generateCEID();
+      Set<String> classIDs = new HashSet<>();
+      for (OWLClassExpression ce : objectIntersectionOf.getOperands()) {
+        String classID = convert(ce).getceid();
+        classIDs.add(classID);
+      }
+      OIOCE oioce = new OIOCE(classExpressionID, classIDs);
+      oioces.put(objectIntersectionOf, oioce);
 
-
-      throw new RuntimeException("create OIOCE");
+      return oioce;
     }
   }
 
@@ -268,8 +282,11 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
       return oohsces.get(objectHasSelf);
     else {
       String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectHasSelf.getProperty()).getid();
+      OOHSCE oohsce = new OOHSCE(classExpressionID, propertyID);
+      oohsces.put(objectHasSelf, oohsce);
 
-      throw new RuntimeException("create OOHSCE");
+      return oohsce;
     }
   }
 
@@ -293,17 +310,49 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
 
   @NonNull @Override public DSVFCE visit(@NonNull OWLDataSomeValuesFrom dataSomeValuesFrom)
   {
-    throw new RuntimeException("create DSVFCE");
+    if (dsvfces.containsKey(dataSomeValuesFrom))
+      return dsvfces.get(dataSomeValuesFrom);
+    else {
+      String classExpressionID = generateCEID();
+      String someValuesFromDataRangeID = getDroolsOWLDataRange2IDConverter().convert(dataSomeValuesFrom.getFiller());
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataSomeValuesFrom.getProperty()).getid();
+      DSVFCE dsvfce = new DSVFCE(classExpressionID, propertyID, someValuesFromDataRangeID);
+      dsvfces.put(dataSomeValuesFrom, dsvfce);
+
+      return dsvfce;
+    }
   }
 
   @NonNull @Override public DAVFCE visit(@NonNull OWLDataAllValuesFrom dataAllValuesFrom)
   {
-    throw new RuntimeException("create DAVFCE");
+    if (davfces.containsKey(dataAllValuesFrom))
+      return davfces.get(dataAllValuesFrom);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataAllValuesFrom.getProperty()).getid();
+      String allValuesFromDataRangeID = getDroolsOWLDataRange2IDConverter().convert(dataAllValuesFrom.getFiller());
+      DAVFCE davfce = new DAVFCE(classExpressionID, propertyID, allValuesFromDataRangeID);
+
+      davfces.put(dataAllValuesFrom, davfce);
+
+      return davfce;
+    }
   }
 
   @NonNull @Override public DHVCE visit(@NonNull OWLDataHasValue dataHasValue)
   {
-    throw new RuntimeException("create DHVCE");
+    if (dhvces.containsKey(dataHasValue))
+      return dhvces.get(dataHasValue);
+    else {
+      String classExpressionID = generateCEID();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataHasValue.getProperty()).getid();
+      OWLLiteral fillerLiteral = dataHasValue.getFiller();
+      DHVCE dhvce = new DHVCE(classExpressionID, propertyID, getDroolsOWLLiteral2LConverter().convert(fillerLiteral));
+
+      dhvces.put(dataHasValue, dhvce);
+
+      return dhvce;
+    }
   }
 
   @NonNull @Override public DMinCCE visit(@NonNull OWLDataMinCardinality dataMinCardinality)
@@ -449,13 +498,23 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     return "CEID" + this.classExpressionIndex++;
   }
 
-  @NonNull DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
+  @NonNull private DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
   {
     return this.droolsOWLIndividual2IConverter;
   }
 
-  @NonNull DroolsOWLPropertyExpression2PEConverter getDroolsOWLPropertyExpression2PEConverter()
+  @NonNull private DroolsOWLPropertyExpression2PEConverter getDroolsOWLPropertyExpression2PEConverter()
   {
     return this.droolsOWLPropertyExpression2PEConverter;
+  }
+
+  @NonNull private DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
+  {
+    return this.droolsOWLLiteral2LConverter;
+  }
+
+  @NonNull private DroolsOWLDataRange2IDConverter getDroolsOWLDataRange2IDConverter()
+  {
+    return this.droolsOWLDataRange2IDConverter;
   }
 }

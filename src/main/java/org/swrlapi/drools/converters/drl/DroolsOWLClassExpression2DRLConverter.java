@@ -169,7 +169,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectSomeValuesFrom)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       String someValuesFromClassID = convert(objectSomeValuesFrom.getFiller());
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(objectSomeValuesFrom.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(objectSomeValuesFrom.getProperty());
       OSVFCE osvfce = new OSVFCE(classExpressionID, propertyID, someValuesFromClassID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, objectSomeValuesFrom);
@@ -185,7 +185,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     if (!getOWLObjectResolver().recordsOWLClassExpression(dataSomeValuesFrom)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       String someValuesFromDataRangeID = getDroolsOWLDataRange2IDConverter().convert(dataSomeValuesFrom.getFiller());
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(dataSomeValuesFrom.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(dataSomeValuesFrom.getProperty());
       DSVFCE dsvfce = new DSVFCE(classExpressionID, propertyID, someValuesFromDataRangeID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, dataSomeValuesFrom);
@@ -200,7 +200,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(dataExactCardinality)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(dataExactCardinality.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(dataExactCardinality.getProperty());
       int cardinality = dataExactCardinality.getCardinality();
       DECCE DECCE = new DECCE(classExpressionID, propertyID, cardinality);
 
@@ -216,7 +216,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectExactCardinality)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(objectExactCardinality.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(objectExactCardinality.getProperty());
       int cardinality = objectExactCardinality.getCardinality();
       OECCE OECCE = new OECCE(classExpressionID, propertyID, cardinality);
 
@@ -232,7 +232,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(dataMinCardinality)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(dataMinCardinality.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(dataMinCardinality.getProperty());
       int cardinality = dataMinCardinality.getCardinality();
       DMinCCE dmincce = new DMinCCE(classExpressionID, propertyID, cardinality);
 
@@ -248,7 +248,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectMinCardinality)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(objectMinCardinality.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(objectMinCardinality.getProperty());
       int cardinality = objectMinCardinality.getCardinality();
       OMinCCE omincce = new OMinCCE(classExpressionID, propertyID, cardinality);
 
@@ -264,7 +264,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(dataMaxCardinality)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(dataMaxCardinality.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(dataMaxCardinality.getProperty());
       int cardinality = dataMaxCardinality.getCardinality();
 
       if (dataMaxCardinality.isQualified()) {
@@ -288,7 +288,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectMaxCardinality)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(objectMaxCardinality.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(objectMaxCardinality.getProperty());
       int cardinality = objectMaxCardinality.getCardinality();
 
       if (objectMaxCardinality.isQualified()) {
@@ -312,7 +312,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(dataHasValue)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(dataHasValue.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(dataHasValue.getProperty());
       OWLLiteral valueLiteral = dataHasValue.getFiller();
       DHVCE dhvce = new DHVCE(classExpressionID, propertyID, getDroolsOWLLiteral2LConverter().convert(valueLiteral));
 
@@ -328,7 +328,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectHasValue)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(objectHasValue.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(objectHasValue.getProperty());
       String fillerIndividualID = iri2PrefixedName(objectHasValue.getFiller().asOWLNamedIndividual()
         .getIRI()); // TODO Temporary fix - this individual may not be named
 
@@ -346,7 +346,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(objectAllValuesFrom)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(objectAllValuesFrom.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(objectAllValuesFrom.getProperty());
       String allValuesFromClassID = convert(objectAllValuesFrom.getFiller());
       OAVFCE oavfce = new OAVFCE(classExpressionID, propertyID, allValuesFromClassID);
 
@@ -362,7 +362,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(dataAllValuesFrom)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(dataAllValuesFrom.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(dataAllValuesFrom.getProperty());
       String allValuesFromDataRangeID = getDroolsOWLDataRange2IDConverter().convert(dataAllValuesFrom.getFiller());
       DAVFCE davfce = new DAVFCE(classExpressionID, propertyID, allValuesFromDataRangeID);
 
@@ -378,7 +378,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
   {
     if (!getOWLObjectResolver().recordsOWLClassExpression(owbjectHasSelf)) {
       String classExpressionID = this.droolsObjectResolver.generateCEID();
-      String propertyID = getOWLPropertyExpression2DRLConverter().convert(owbjectHasSelf.getProperty());
+      String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(owbjectHasSelf.getProperty());
       OOHSCE oohsce = new OOHSCE(classExpressionID, propertyID);
 
       getOWLObjectResolver().recordOWLClassExpression(classExpressionID, owbjectHasSelf);
@@ -483,7 +483,7 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
     return convert(dataMaxCardinality);
   }
 
-  @NonNull private DroolsOWLPropertyExpression2DRLConverter getOWLPropertyExpression2DRLConverter()
+  @NonNull private DroolsOWLPropertyExpression2DRLConverter getDroolsOWLPropertyExpression2DRLConverter()
   {
     return this.propertyExpressionConverter;
   }
