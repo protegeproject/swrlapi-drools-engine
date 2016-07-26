@@ -6,6 +6,7 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSQWRLQueryConverter;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.exceptions.SWRLBuiltInException;
@@ -29,7 +30,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
 
   public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
     @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
+    @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter)
   {
     super(bridge);
 

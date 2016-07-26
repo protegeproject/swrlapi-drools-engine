@@ -14,6 +14,7 @@ import org.swrlapi.bridge.converters.TargetRuleEngineSWRLHeadAtomConverter;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
 import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
 import org.swrlapi.exceptions.SWRLAPIException;
@@ -38,14 +39,14 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
 {
   private final @NonNull DroolsSWRLHeadAtomArgument2DRLConverter headAtomArgumentConverter;
   private final @NonNull DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
-  private final @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter;
+  private final @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter;
   private final @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter;
 
   private int inferredAxiomVariableIndex, builtInIndexInHead;
 
   public DroolsSWRLHeadAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
+    @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter)
   {
     super(bridge);
 
@@ -218,7 +219,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
     return this.builtInArgumentConverter;
   }
 
-  private @NonNull DroolsOWLPropertyExpression2DRLConverter getOWLPropertyExpressionConverter()
+  private @NonNull DroolsOWLPropertyExpression2IDConverter getOWLPropertyExpressionConverter()
   {
     return this.propertyExpressionConverter;
   }

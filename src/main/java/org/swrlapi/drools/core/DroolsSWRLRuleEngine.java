@@ -14,12 +14,15 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
-import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
-import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
-import org.swrlapi.drools.converters.drl.DroolsOWLPropertyExpression2DRLConverter;
 import org.swrlapi.drools.converters.drl.DroolsSQWRLQuery2DRLConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLAxiom2AConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpression2CEConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLIndividual2IConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpression2PEConverter;
 import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
@@ -82,12 +85,18 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.bridge = bridge;
 
     DroolsObjectResolver resolver = new DroolsObjectResolver();
-    DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter = new DroolsOWLPropertyExpression2DRLConverter(
+    DroolsOWLPropertyExpression2IDConverter propertyExpression2DRLConverter = new DroolsOWLPropertyExpression2IDConverter(
       bridge, resolver);
+    DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
+    DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter = new DroolsOWLPropertyExpression2PEConverter(
+      bridge);
     DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter = new DroolsOWLDataRange2IDConverter(bridge);
     DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter = new DroolsOWLLiteral2LConverter(bridge);
+    DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(
+      bridge, droolsOWLIndividual2IConverter, droolsOWLPropertyExpression2PEConverter, droolsOWLDataRange2IDConverter,
+      droolsOWLLiteral2LConverter);
     DroolsOWLClassExpression2IDConverter classExpression2IDConverter = new DroolsOWLClassExpression2IDConverter(bridge,
-      resolver, propertyExpression2DRLConverter, droolsOWLDataRange2IDConverter, droolsOWLLiteral2LConverter);
+      droolsOWLClassExpression2CEConverter);
     this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpression2IDConverter,
       propertyExpression2DRLConverter);
     this.sqwrlQuery2DRLConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpression2IDConverter,

@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters.drl;
+package org.swrlapi.drools.converters.id;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.IRI;
@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
 import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 import org.swrlapi.drools.owl.properties.DP;
@@ -18,12 +19,12 @@ import org.swrlapi.drools.owl.properties.OP;
  * @see org.semanticweb.owlapi.model.OWLObjectPropertyExpression
  * @see org.semanticweb.owlapi.model.OWLDataPropertyExpression
  */
-public class DroolsOWLPropertyExpression2DRLConverter extends DroolsDRLConverterBase
+public class DroolsOWLPropertyExpression2IDConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
   @NonNull private final DroolsObjectResolver resolver;
 
-  public DroolsOWLPropertyExpression2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+  public DroolsOWLPropertyExpression2IDConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsObjectResolver resolver)
   {
     super(bridge);

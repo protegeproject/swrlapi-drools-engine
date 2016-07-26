@@ -13,7 +13,7 @@ import org.swrlapi.drools.owl.properties.PE;
 public class DroolsOWLPropertyExpression2PEConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLPropertyExpressionConverter<PE>
 {
-  protected DroolsOWLPropertyExpression2PEConverter(@NonNull SWRLRuleEngineBridge bridge)
+  public DroolsOWLPropertyExpression2PEConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
