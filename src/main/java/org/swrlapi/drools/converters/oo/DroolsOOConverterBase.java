@@ -3,18 +3,18 @@ package org.swrlapi.drools.converters.oo;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.drools.converters.DroolsOWLDataRange2IDConverter;
-import org.swrlapi.drools.converters.DroolsOWLEntity2NameConverter;
-import org.swrlapi.drools.converters.DroolsSWRLVariable2NameConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLEntity2NameConverter;
+import org.swrlapi.drools.converters.id.DroolsSWRLVariable2NameConverter;
 import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 
 class DroolsOOConverterBase extends TargetRuleEngineConverterBase
 {
    @NonNull private final DroolsOWLLiteral2LConverter literal2LConverter;
    @NonNull private final DroolsOWLEntity2OEConverter entity2OEConverter;
-   @NonNull private final DroolsOWLClassExpression2CEConverter classExpression2CEConverter;
+   private final @NonNull DroolsOWLClassExpression2CEConverter classExpression2CEConverter;
    @NonNull private final DroolsOWLDataRange2IDConverter dataRange2IDConverter;
-   @NonNull private final DroolsOWLPropertyExpression2PEConverter propertyExpression2PEConverter;
+   private final @NonNull DroolsOWLPropertyExpression2PEConverter propertyExpression2PEConverter;
    @NonNull private final DroolsOWLIndividual2IConverter individual2IConverter;
    @NonNull private final DroolsOWLDataRange2DRConverter dataRange2DRConverter;
    @NonNull private final DroolsOWLEntity2NameConverter entity2NameConverter;
@@ -50,7 +50,7 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
     return this.entity2OEConverter;
   }
 
-  @NonNull protected DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
+  protected @NonNull DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
   {
     return this.classExpression2CEConverter;
   }

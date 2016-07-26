@@ -14,8 +14,7 @@ import org.swrlapi.drools.owl.properties.OPE;
 import java.util.Set;
 
 /**
- * This class allows Drools to record and its representations of OWLAPI objects using a unique identifier, obviating
- * the need to recreate new objects.
+ * This class allows Drools to record and its representations of OWLAPI objects using a unique identifier.
  *
  * @see OWLObjectResolver
  */

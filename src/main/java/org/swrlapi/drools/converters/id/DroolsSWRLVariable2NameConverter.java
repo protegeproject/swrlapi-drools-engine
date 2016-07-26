@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters;
+package org.swrlapi.drools.converters.id;
 
 import com.google.common.base.Optional;
 import org.checkerframework.checker.nullness.qual.NonNull;

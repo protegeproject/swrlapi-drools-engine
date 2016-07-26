@@ -10,23 +10,22 @@ import org.swrlapi.drools.owl.properties.DPE;
 import org.swrlapi.drools.owl.properties.OPE;
 import org.swrlapi.drools.owl.properties.PE;
 
-class DroolsOWLPropertyExpression2PEConverter extends TargetRuleEngineConverterBase
+public class DroolsOWLPropertyExpression2PEConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLPropertyExpressionConverter<PE>
 {
-
   protected DroolsOWLPropertyExpression2PEConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
     super(bridge);
   }
 
-  @Override public OPE convert(OWLObjectPropertyExpression propertyExpression)
+  @Override public OPE convert(@NonNull OWLObjectPropertyExpression propertyExpression)
   {
     String peid = getOWLObjectResolver().resolveOWLObjectPropertyExpression2ID(propertyExpression);
 
     return new OPE(peid);
   }
 
-  @Override public DPE convert(OWLDataPropertyExpression propertyExpression)
+  @Override public DPE convert(@NonNull OWLDataPropertyExpression propertyExpression)
   {
     String peid = getOWLObjectResolver().resolveOWLDataPropertyExpression2ID(propertyExpression);
 

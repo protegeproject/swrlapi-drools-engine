@@ -40,7 +40,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.Version;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.core.OWLObjectResolver;
-import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpression2CEConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLEntity2OEConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLIndividual2IConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpression2PEConverter;
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.individuals.I;
@@ -75,7 +78,10 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     .getPrefixedName();
 
   @NonNull private final DroolsOWLAxiomHandler droolsOWLAxiomHandler;
-  @NonNull private final DroolsObjectResolver droolsObjectResolver;
+  @NonNull private final DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter;
+  @NonNull private final DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
+  @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
+  @NonNull private final DroolsOWLEntity2OEConverter droolsOWLEntity2OEConverter;
   @NonNull private final OWLObjectResolver owlObjectResolver;
   @NonNull private final OWLLiteralFactory owlLiteralFactory;
 
@@ -85,12 +91,18 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   public DroolsOWLReasoner(@NonNull OWLOntology rootOntology, @NonNull OWLReasonerConfiguration configuration,
     @NonNull BufferingMode bufferingMode, @NonNull OWLObjectResolver owlObjectResolver,
     @NonNull OWLLiteralFactory owlLiteralFactory, @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler,
-    @NonNull DroolsObjectResolver droolsObjectResolver)
+    @NonNull DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter,
+    @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter,
+    @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter,
+    @NonNull DroolsOWLEntity2OEConverter droolsOWLEntity2OEConverter)
   {
     super(rootOntology, configuration, bufferingMode);
 
     this.droolsOWLAxiomHandler = droolsOWLAxiomHandler;
-    this.droolsObjectResolver = droolsObjectResolver;
+    this.droolsOWLClassExpression2CEConverter = droolsOWLClassExpression2CEConverter;
+    this.droolsOWLPropertyExpression2PEConverter = droolsOWLPropertyExpression2PEConverter;
+    this.droolsOWLIndividual2IConverter = droolsOWLIndividual2IConverter;
+    this.droolsOWLEntity2OEConverter = droolsOWLEntity2OEConverter;
     this.owlObjectResolver = owlObjectResolver;
     this.owlLiteralFactory = owlLiteralFactory;
   }
@@ -195,7 +207,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return new OWLClassNode(classes);
   }
 
-  @NonNull @Override public NodeSet<@NonNull OWLClass> getSubClasses(@NonNull OWLClassExpression classExpression, boolean direct)
+  @NonNull @Override public NodeSet<@NonNull OWLClass> getSubClasses(@NonNull OWLClassExpression classExpression,
+    boolean direct)
     throws ReasonerInterruptedException, TimeOutException, FreshEntitiesException, InconsistentOntologyException,
     ClassExpressionNotInProfileException
   {
@@ -291,7 +304,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   }
 
   @NonNull @Override public NodeSet<@NonNull OWLObjectPropertyExpression> getSubObjectProperties(
-      @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
+    @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLObjectPropertyNodeSet ns = new OWLObjectPropertyNodeSet();
@@ -308,7 +321,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   }
 
   @NonNull @Override public NodeSet<@NonNull OWLObjectPropertyExpression> getSuperObjectProperties(
-      @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
+    @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLObjectPropertyNodeSet ns = new OWLObjectPropertyNodeSet();
@@ -325,7 +338,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   }
 
   @NonNull @Override public Node<@NonNull OWLObjectPropertyExpression> getEquivalentObjectProperties(
-      @NonNull OWLObjectPropertyExpression objectPropertyExpression)
+    @NonNull OWLObjectPropertyExpression objectPropertyExpression)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     Set<@NonNull OWLObjectPropertyExpression> properties = new HashSet<>();
@@ -340,7 +353,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   }
 
   @NonNull @Override public NodeSet<@NonNull OWLObjectPropertyExpression> getDisjointObjectProperties(
-      @NonNull OWLObjectPropertyExpression objectPropertyExpression)
+    @NonNull OWLObjectPropertyExpression objectPropertyExpression)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLObjectPropertyNodeSet nodeSet = new OWLObjectPropertyNodeSet();
@@ -367,7 +380,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   }
 
   @NonNull @Override public NodeSet<@NonNull OWLClass> getObjectPropertyDomains(
-      @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
+    @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLClassNodeSet ns = new OWLClassNodeSet();
@@ -382,7 +395,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   }
 
   @NonNull @Override public NodeSet<@NonNull OWLClass> getObjectPropertyRanges(
-      @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
+    @NonNull OWLObjectPropertyExpression objectPropertyExpression, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLClassNodeSet ns = new OWLClassNodeSet();
@@ -419,7 +432,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return new OWLDataPropertyNode(properties);
   }
 
-  @NonNull @Override public NodeSet<@NonNull OWLDataProperty> getSubDataProperties(@NonNull OWLDataProperty dataProperty, boolean direct)
+  @NonNull @Override public NodeSet<@NonNull OWLDataProperty> getSubDataProperties(
+    @NonNull OWLDataProperty dataProperty, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLDataPropertyNodeSet ns = new OWLDataPropertyNodeSet();
@@ -435,8 +449,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return ns;
   }
 
-  @NonNull @Override public NodeSet<@NonNull OWLDataProperty> getSuperDataProperties(@NonNull OWLDataProperty dataProperty,
-    boolean direct)
+  @NonNull @Override public NodeSet<@NonNull OWLDataProperty> getSuperDataProperties(
+    @NonNull OWLDataProperty dataProperty, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLDataPropertyNodeSet ns = new OWLDataPropertyNodeSet();
@@ -452,7 +466,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return ns;
   }
 
-  @NonNull @Override public Node<@NonNull OWLDataProperty> getEquivalentDataProperties(@NonNull OWLDataProperty dataProperty)
+  @NonNull @Override public Node<@NonNull OWLDataProperty> getEquivalentDataProperties(
+    @NonNull OWLDataProperty dataProperty)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     Set<@NonNull OWLDataProperty> properties = new HashSet<>();
@@ -467,7 +482,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   }
 
   @NonNull @Override public NodeSet<@NonNull OWLDataProperty> getDisjointDataProperties(
-      @NonNull OWLDataPropertyExpression dataPropertyExpression)
+    @NonNull OWLDataPropertyExpression dataPropertyExpression)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLDataPropertyNodeSet nodeSet = new OWLDataPropertyNodeSet();
@@ -483,7 +498,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return nodeSet;
   }
 
-  @NonNull @Override public NodeSet<OWLClass> getDataPropertyDomains(@NonNull OWLDataProperty dataProperty, boolean direct)
+  @NonNull @Override public NodeSet<OWLClass> getDataPropertyDomains(@NonNull OWLDataProperty dataProperty,
+    boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLClassNodeSet ns = new OWLClassNodeSet();
@@ -503,15 +519,15 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return new OWLClassNodeSet(); // TODO See StructuralReasoner - find all CAAs and follow
   }
 
-  @NonNull @Override public NodeSet<OWLNamedIndividual> getInstances(@NonNull OWLClassExpression classExpression, boolean b)
-    throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException,
+  @NonNull @Override public NodeSet<OWLNamedIndividual> getInstances(@NonNull OWLClassExpression classExpression,
+    boolean b) throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException,
     ReasonerInterruptedException, TimeOutException
   {
     return new OWLNamedIndividualNodeSet(); // TODO See StructuralReasoner - find all CAAs and follow
   }
 
-  @NonNull @Override public NodeSet<OWLNamedIndividual> getObjectPropertyValues(@NonNull OWLNamedIndividual namedIndividual,
-      @NonNull OWLObjectPropertyExpression owlObjectPropertyExpression)
+  @NonNull @Override public NodeSet<OWLNamedIndividual> getObjectPropertyValues(
+    @NonNull OWLNamedIndividual namedIndividual, @NonNull OWLObjectPropertyExpression owlObjectPropertyExpression)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     OWLNamedIndividualNodeSet ns = new OWLNamedIndividualNodeSet();
@@ -544,7 +560,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return values;
   }
 
-  @NonNull @Override public Node<@NonNull OWLNamedIndividual> getSameIndividuals(@NonNull OWLNamedIndividual namedIndividual)
+  @NonNull @Override public Node<@NonNull OWLNamedIndividual> getSameIndividuals(
+    @NonNull OWLNamedIndividual namedIndividual)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
     Set<@NonNull OWLNamedIndividual> individuals = new HashSet<>();
@@ -634,38 +651,32 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @NonNull private C resolveC(@NonNull OWLClass cls)
   {
-    String classID = this.owlObjectResolver.resolveOWLClass2ID(cls);
-    return this.droolsObjectResolver.resolveC(classID);
+    return getDroolsOWLClassExpression2CEConverter().convert(cls);
   }
 
   @NonNull private CE resolveCE(@NonNull OWLClassExpression classExpression)
   {
-    String classExpressionID = this.owlObjectResolver.resolveOWLClassExpression2ID(classExpression);
-    return this.droolsObjectResolver.resolveCE(classExpressionID);
+    return getDroolsOWLClassExpression2CEConverter().convert(classExpression);
   }
 
   @NonNull private I resolveI(@NonNull OWLNamedIndividual namedIndividual)
   {
-    String individualID = this.owlObjectResolver.resolveOWLNamedIndividual2ID(namedIndividual);
-    return this.droolsObjectResolver.resolveI(individualID);
+    return getDroolsOWLIndividual2IConverter().convert(namedIndividual);
   }
 
   @NonNull private OPE resolveOPE(@NonNull OWLObjectPropertyExpression objectPropertyExpression)
   {
-    String propertyID = this.owlObjectResolver.resolveOWLObjectPropertyExpression2ID(objectPropertyExpression);
-    return this.droolsObjectResolver.resolveOPE(propertyID);
+    return getDroolsOWLPropertyExpression2PEConverter().convert(objectPropertyExpression);
   }
 
   @NonNull private DP resolveDP(@NonNull OWLDataProperty dataProperty)
   {
-    String propertyID = this.owlObjectResolver.resolveOWLDataProperty2ID(dataProperty);
-    return this.droolsObjectResolver.resolveDP(propertyID);
+    return getDroolsOWLEntity2OEConverter().convert(dataProperty);
   }
 
   @NonNull private DPE resolveDPE(@NonNull OWLDataPropertyExpression dataPropertyExpression)
   {
-    String propertyID = this.owlObjectResolver.resolveOWLDataPropertyExpression2ID(dataPropertyExpression);
-    return this.droolsObjectResolver.resolveDPE(propertyID);
+    return getDroolsOWLPropertyExpression2PEConverter().convert(dataPropertyExpression);
   }
 
   @NonNull private OWLLiteral l2OWLLiteral(@NonNull L l)
@@ -679,5 +690,25 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   @NonNull private DroolsOWLAxiomHandler getDroolsOWLAxiomHandler()
   {
     return this.droolsOWLAxiomHandler;
+  }
+
+  @NonNull DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
+  {
+    return this.droolsOWLClassExpression2CEConverter;
+  }
+
+  @NonNull DroolsOWLPropertyExpression2PEConverter getDroolsOWLPropertyExpression2PEConverter()
+  {
+    return this.droolsOWLPropertyExpression2PEConverter;
+  }
+
+  @NonNull DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
+  {
+    return this.droolsOWLIndividual2IConverter;
+  }
+
+  @NonNull DroolsOWLEntity2OEConverter getDroolsOWLEntity2OEConverter()
+  {
+    return this.droolsOWLEntity2OEConverter;
   }
 }

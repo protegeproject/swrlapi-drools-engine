@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
-import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
 import org.swrlapi.drools.converters.drl.DroolsOWLPropertyExpression2DRLConverter;
 import org.swrlapi.drools.converters.drl.DroolsSWRLRule2DRLConverter;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
@@ -115,14 +115,14 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   implements TargetRuleEngineOWLAxiomConverter, SWRLAPIOWLAxiomVisitor
 {
   @NonNull private final DroolsSWRLRule2DRLConverter swrlRule2DRLConverter;
-  @NonNull private final DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter;
+  private final @NonNull DroolsOWLClassExpression2IDConverter classExpression2DRLConverter;
   @NonNull private final DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter;
 
   @NonNull private final Set<@NonNull A> assertedOWLAxioms;
 
   public DroolsOWLAxiom2AConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
-    @NonNull DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter,
+    @NonNull DroolsOWLClassExpression2IDConverter classExpression2DRLConverter,
     @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter)
   {
     super(bridge);
@@ -789,7 +789,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     }
   }
 
-  private @NonNull DroolsOWLClassExpression2DRLConverter getDroolsOWLClassExpression2DRLConverter()
+  private @NonNull DroolsOWLClassExpression2IDConverter getDroolsOWLClassExpression2DRLConverter()
   {
     return this.classExpression2DRLConverter;
   }

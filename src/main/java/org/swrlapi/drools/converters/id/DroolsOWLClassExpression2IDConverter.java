@@ -1,4 +1,4 @@
-package org.swrlapi.drools.converters.drl;
+package org.swrlapi.drools.converters.id;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -24,7 +24,10 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
+import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
+import org.swrlapi.drools.converters.drl.DroolsOWLPropertyExpression2DRLConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
 import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
@@ -36,13 +39,13 @@ import org.swrlapi.drools.owl.classes.DMaxQCCE;
 import org.swrlapi.drools.owl.classes.DMinCCE;
 import org.swrlapi.drools.owl.classes.DSVFCE;
 import org.swrlapi.drools.owl.classes.OAVFCE;
+import org.swrlapi.drools.owl.classes.OCOCE;
 import org.swrlapi.drools.owl.classes.OECCE;
 import org.swrlapi.drools.owl.classes.OHVCE;
 import org.swrlapi.drools.owl.classes.OIOCE;
 import org.swrlapi.drools.owl.classes.OMaxCCE;
 import org.swrlapi.drools.owl.classes.OMaxQCCE;
 import org.swrlapi.drools.owl.classes.OMinCCE;
-import org.swrlapi.drools.owl.classes.OCOCE;
 import org.swrlapi.drools.owl.classes.OOHSCE;
 import org.swrlapi.drools.owl.classes.OOOCE;
 import org.swrlapi.drools.owl.classes.OSVFCE;
@@ -52,24 +55,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class converts OWLAPI OWL class expressions to their Drools representation.
+ * This class converts OWLAPI OWL class expressions to identifiers that can be used to resolve them.
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
  * @see org.swrlapi.drools.owl.classes.CE
  */
-public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBase
+public class DroolsOWLClassExpression2IDConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
-  private final @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter;
-  private final @NonNull DroolsObjectResolver droolsObjectResolver;
+  @NonNull private final DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter;
+  private final @NonNull DroolsOWLPropertyExpression2DRLConverter droolsOWLPropertyExpression2DRLConverter;
+  @NonNull private final DroolsObjectResolver droolsObjectResolver;
+  @NonNull private final DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter;
 
-  public DroolsOWLClassExpression2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+  public DroolsOWLClassExpression2IDConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsObjectResolver droolsObjectResolver,
-    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
+    @NonNull DroolsOWLPropertyExpression2DRLConverter droolsOWLPropertyExpression2DRLConverter,
+    @NonNull DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter,
+    @NonNull DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter)
   {
     super(bridge);
 
-    this.propertyExpressionConverter = propertyExpressionConverter;
+    this.droolsOWLPropertyExpression2DRLConverter = droolsOWLPropertyExpression2DRLConverter;
+    this.droolsOWLDataRange2IDConverter = droolsOWLDataRange2IDConverter;
+    this.droolsOWLLiteral2LConverter = droolsOWLLiteral2LConverter;
     this.droolsObjectResolver = droolsObjectResolver;
 
     this.droolsObjectResolver.reset();
@@ -99,7 +108,6 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
       String classExpressionID = this.droolsObjectResolver.generateCEID();
       Set<String> individualIDs = new HashSet<>();
       for (OWLIndividual individual1 : objectOneOf.getIndividuals()) {
-        Set<@NonNull OWLIndividual> individual = new HashSet<>(objectOneOf.getIndividuals());
         String individualID = iri2PrefixedName(individual1.asOWLNamedIndividual().getIRI());
         individualIDs.add(individualID);
       }
@@ -485,6 +493,16 @@ public class DroolsOWLClassExpression2DRLConverter extends DroolsDRLConverterBas
 
   @NonNull private DroolsOWLPropertyExpression2DRLConverter getDroolsOWLPropertyExpression2DRLConverter()
   {
-    return this.propertyExpressionConverter;
+    return this.droolsOWLPropertyExpression2DRLConverter;
+  }
+
+  @NonNull DroolsOWLDataRange2IDConverter getDroolsOWLDataRange2IDConverter()
+  {
+    return this.droolsOWLDataRange2IDConverter;
+  }
+
+  @NonNull DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
+  {
+    return this.droolsOWLLiteral2LConverter;
   }
 }

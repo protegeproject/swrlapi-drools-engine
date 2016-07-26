@@ -14,10 +14,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
-import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
 import org.swrlapi.drools.converters.drl.DroolsOWLPropertyExpression2DRLConverter;
 import org.swrlapi.drools.converters.drl.DroolsSQWRLQuery2DRLConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLAxiom2AConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
 import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
@@ -82,11 +84,13 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     DroolsObjectResolver resolver = new DroolsObjectResolver();
     DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter = new DroolsOWLPropertyExpression2DRLConverter(
       bridge, resolver);
-    DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter = new DroolsOWLClassExpression2DRLConverter(
-      bridge, resolver, propertyExpression2DRLConverter);
-    this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpression2DRLConverter,
+    DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter = new DroolsOWLDataRange2IDConverter(bridge);
+    DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter = new DroolsOWLLiteral2LConverter(bridge);
+    DroolsOWLClassExpression2IDConverter classExpression2IDConverter = new DroolsOWLClassExpression2IDConverter(bridge,
+      resolver, propertyExpression2DRLConverter, droolsOWLDataRange2IDConverter, droolsOWLLiteral2LConverter);
+    this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpression2IDConverter,
       propertyExpression2DRLConverter);
-    this.sqwrlQuery2DRLConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpression2DRLConverter,
+    this.sqwrlQuery2DRLConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpression2IDConverter,
       propertyExpression2DRLConverter);
 
     this.axiomExtractor = DroolsFactory.getDroolsOWLAxiomExtractor(bridge);
@@ -240,7 +244,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
    */
   @NonNull @Override public OWLReasoner getOWLReasoner()
   {
-    throw new RuntimeException("reasoner not yet wired up"); // TODO Return Drools implementation of an OWL reasoner here
+    throw new RuntimeException(
+      "reasoner not yet wired up"); // TODO Return Drools implementation of an OWL reasoner here
   }
 
   @NonNull @Override public Icon getTargetRuleEngineIcon()

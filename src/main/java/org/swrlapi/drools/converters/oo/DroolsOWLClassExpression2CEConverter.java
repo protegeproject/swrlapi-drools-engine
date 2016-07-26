@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
-import org.swrlapi.drools.converters.DroolsOWLDataRange2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.classes.DAVFCE;
@@ -52,11 +52,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
+public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>
 {
   @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
-  @NonNull private final DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
+  private final @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
   @NonNull private final DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter;
   @NonNull private final DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter;
 
@@ -503,7 +503,7 @@ class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConverterBase
     return this.droolsOWLIndividual2IConverter;
   }
 
-  @NonNull private DroolsOWLPropertyExpression2PEConverter getDroolsOWLPropertyExpression2PEConverter()
+  private @NonNull DroolsOWLPropertyExpression2PEConverter getDroolsOWLPropertyExpression2PEConverter()
   {
     return this.droolsOWLPropertyExpression2PEConverter;
   }

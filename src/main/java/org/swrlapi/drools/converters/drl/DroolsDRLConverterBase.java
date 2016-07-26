@@ -3,8 +3,8 @@ package org.swrlapi.drools.converters.drl;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
-import org.swrlapi.drools.converters.DroolsOWLDataRange2IDConverter;
-import org.swrlapi.drools.converters.DroolsSWRLVariable2NameConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsSWRLVariable2NameConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
 
 /**
