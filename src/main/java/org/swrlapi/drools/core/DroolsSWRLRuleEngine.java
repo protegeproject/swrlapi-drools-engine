@@ -23,7 +23,6 @@ import org.swrlapi.drools.converters.oo.DroolsOWLClassExpression2CEConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLIndividual2IConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpression2PEConverter;
-import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
@@ -84,12 +83,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     this.bridge = bridge;
 
-    DroolsObjectResolver resolver = new DroolsObjectResolver();
-    DroolsOWLPropertyExpression2IDConverter propertyExpression2DRLConverter = new DroolsOWLPropertyExpression2IDConverter(
-      bridge, resolver);
     DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
     DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter = new DroolsOWLPropertyExpression2PEConverter(
       bridge);
+    DroolsOWLPropertyExpression2IDConverter propertyExpression2DRLConverter = new DroolsOWLPropertyExpression2IDConverter(
+      bridge, droolsOWLPropertyExpression2PEConverter);
     DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter = new DroolsOWLDataRange2IDConverter(bridge);
     DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter = new DroolsOWLLiteral2LConverter(bridge);
     DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(

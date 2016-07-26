@@ -6,21 +6,18 @@ import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
 import org.swrlapi.drools.converters.id.DroolsOWLEntity2NameConverter;
 import org.swrlapi.drools.converters.id.DroolsSWRLVariable2NameConverter;
-import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
 
 class DroolsOOConverterBase extends TargetRuleEngineConverterBase
 {
-   @NonNull private final DroolsOWLLiteral2LConverter literal2LConverter;
-   @NonNull private final DroolsOWLEntity2OEConverter entity2OEConverter;
-   private final @NonNull DroolsOWLClassExpression2CEConverter classExpression2CEConverter;
-   @NonNull private final DroolsOWLDataRange2IDConverter dataRange2IDConverter;
-   private final @NonNull DroolsOWLPropertyExpression2PEConverter propertyExpression2PEConverter;
-   @NonNull private final DroolsOWLIndividual2IConverter individual2IConverter;
-   @NonNull private final DroolsOWLDataRange2DRConverter dataRange2DRConverter;
-   @NonNull private final DroolsOWLEntity2NameConverter entity2NameConverter;
-   @NonNull private final DroolsSWRLVariable2NameConverter swrlVariable2NameConverter;
-
-  private final DroolsObjectResolver droolsObjectResolver;
+  @NonNull private final DroolsOWLLiteral2LConverter literal2LConverter;
+  @NonNull private final DroolsOWLEntity2OEConverter entity2OEConverter;
+  @NonNull private final DroolsOWLClassExpression2CEConverter classExpression2CEConverter;
+  @NonNull private final DroolsOWLDataRange2IDConverter dataRange2IDConverter;
+  @NonNull private final DroolsOWLPropertyExpression2PEConverter propertyExpression2PEConverter;
+  @NonNull private final DroolsOWLIndividual2IConverter individual2IConverter;
+  @NonNull private final DroolsOWLDataRange2DRConverter dataRange2DRConverter;
+  @NonNull private final DroolsOWLEntity2NameConverter entity2NameConverter;
+  @NonNull private final DroolsSWRLVariable2NameConverter swrlVariable2NameConverter;
 
   public DroolsOOConverterBase(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -36,8 +33,6 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
     this.dataRange2DRConverter = new DroolsOWLDataRange2DRConverter(bridge);
     this.entity2NameConverter = new DroolsOWLEntity2NameConverter(bridge);
     this.swrlVariable2NameConverter = new DroolsSWRLVariable2NameConverter(bridge);
-
-    this.droolsObjectResolver = new DroolsObjectResolver();
   }
 
   @NonNull protected DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
@@ -50,7 +45,7 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
     return this.entity2OEConverter;
   }
 
-  protected @NonNull DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
+  @NonNull protected DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
   {
     return this.classExpression2CEConverter;
   }
@@ -78,10 +73,5 @@ class DroolsOOConverterBase extends TargetRuleEngineConverterBase
   @NonNull protected DroolsSWRLVariable2NameConverter getDroolsSWRLVariable2NameConverter()
   {
     return this.swrlVariable2NameConverter;
-  }
-
-  @NonNull protected DroolsObjectResolver getDroolsObjectResolver()
-  {
-    return this.droolsObjectResolver;
   }
 }

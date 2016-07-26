@@ -14,13 +14,13 @@ import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
  */
 class DroolsDRLConverterBase extends TargetRuleEngineConverterBase
 {
-  private final @NonNull DroolsOWLLiteral2DRLConverter literal2DRLConverter;
-  private final @NonNull DroolsOWLIndividual2DRLConverter individual2DRLConverter;
+  @NonNull private final DroolsOWLLiteral2DRLConverter literal2DRLConverter;
+  @NonNull private final DroolsOWLIndividual2DRLConverter individual2DRLConverter;
 
-  private final @NonNull DroolsSWRLVariable2NameConverter variable2NameConverter;
-  private final @NonNull DroolsOWLDataRange2IDConverter dataRange2IDConverter;
+  @NonNull private final DroolsSWRLVariable2NameConverter variable2NameConverter;
+  @NonNull private final DroolsOWLDataRange2IDConverter dataRange2IDConverter;
 
-  private final @NonNull DroolsOWLLiteral2LConverter literal2LConverter;
+  @NonNull private final DroolsOWLLiteral2LConverter literal2LConverter;
 
   public DroolsDRLConverterBase(@NonNull SWRLRuleEngineBridge bridge)
   {

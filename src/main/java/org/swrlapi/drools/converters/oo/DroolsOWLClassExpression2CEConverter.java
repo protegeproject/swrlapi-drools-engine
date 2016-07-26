@@ -56,7 +56,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>
 {
   @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
-  private final @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
+  @NonNull private final DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
   @NonNull private final DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter;
   @NonNull private final DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter;
 
@@ -491,6 +491,11 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
   @Override public @NonNull OOHSCE convert(OWLObjectHasSelf objectHasSelf)
   {
     return visit(objectHasSelf);
+  }
+
+  @NonNull public Set<@NonNull CE> getCEs()
+  {
+    throw new RuntimeException("DroolsOWLClassExpression2CEConverter.getCEs");
   }
 
   @NonNull private String generateCEID()

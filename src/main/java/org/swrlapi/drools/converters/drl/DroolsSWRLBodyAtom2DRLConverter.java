@@ -41,23 +41,23 @@ import java.util.Set;
 public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
 {
-  private final @NonNull DroolsSWRLBodyAtomArgument2DRLConverter bodyAtomArgumentConverter;
-  private final @NonNull DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
-  private final @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter;
-  private final @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter;
+  private final @NonNull DroolsSWRLBodyAtomArgument2DRLConverter bodyAtomArgument2DRLConverter;
+  private final @NonNull DroolsSWRLBuiltInArgument2DRLConverter builtInArgument2DRLConverter;
+  private final @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpression2IDConverter;
+  private final @NonNull DroolsOWLClassExpression2IDConverter classExpression2IDConverter;
 
   private int builtInIndexInBody; // Each built-in atom in the body gets a unique index, starting at 0
 
   public DroolsSWRLBodyAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter)
+    @NonNull DroolsOWLClassExpression2IDConverter classExpression2IDConverter,
+    @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpression2IDConverter)
   {
     super(bridge);
 
-    this.bodyAtomArgumentConverter = new DroolsSWRLBodyAtomArgument2DRLConverter(bridge);
-    this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
-    this.classExpressionConverter = classExpressionConverter;
-    this.propertyExpressionConverter = propertyExpressionConverter;
+    this.builtInArgument2DRLConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
+    this.classExpression2IDConverter = classExpression2IDConverter;
+    this.propertyExpression2IDConverter = propertyExpression2IDConverter;
+    this.bodyAtomArgument2DRLConverter = new DroolsSWRLBodyAtomArgument2DRLConverter(bridge);
     this.builtInIndexInBody = 0;
   }
 
@@ -270,22 +270,22 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
 
   @NonNull private DroolsSWRLBodyAtomArgument2DRLConverter getSWRLBodyAtomArgumentConverter()
   {
-    return this.bodyAtomArgumentConverter;
+    return this.bodyAtomArgument2DRLConverter;
   }
 
   @NonNull private DroolsSWRLBuiltInArgument2DRLConverter getSWRLBuiltInArgumentConverter()
   {
-    return this.builtInArgumentConverter;
+    return this.builtInArgument2DRLConverter;
   }
 
   private @NonNull DroolsOWLPropertyExpression2IDConverter getOWLPropertyExpressionConverter()
   {
-    return this.propertyExpressionConverter;
+    return this.propertyExpression2IDConverter;
   }
 
   private @NonNull DroolsOWLClassExpression2IDConverter getOWLClassExpressionConverter()
   {
-    return this.classExpressionConverter;
+    return this.classExpression2IDConverter;
   }
 
   @NonNull private String addQuotes(@NonNull String s)

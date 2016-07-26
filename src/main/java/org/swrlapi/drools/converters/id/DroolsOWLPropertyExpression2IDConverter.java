@@ -1,17 +1,12 @@
 package org.swrlapi.drools.converters.id;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLPropertyExpressionConverter;
-import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
-import org.swrlapi.drools.owl.properties.DP;
-import org.swrlapi.drools.owl.properties.OP;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpression2PEConverter;
 
 /**
  * This class converts OWLAPI OWL property expressions to their Drools representation.
@@ -22,68 +17,23 @@ import org.swrlapi.drools.owl.properties.OP;
 public class DroolsOWLPropertyExpression2IDConverter extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLPropertyExpressionConverter<String>
 {
-  @NonNull private final DroolsObjectResolver resolver;
+  @NonNull private final DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
 
   public DroolsOWLPropertyExpression2IDConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsObjectResolver resolver)
+    @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter)
   {
     super(bridge);
 
-    this.resolver = resolver;
-
-    this.resolver.reset();
-  }
-
-  public void reset()
-  {
-    this.resolver.reset();
+    this.droolsOWLPropertyExpression2PEConverter = droolsOWLPropertyExpression2PEConverter;
   }
 
   @NonNull @Override public String convert(@NonNull OWLObjectPropertyExpression propertyExpression)
   {
-    if (!getOWLObjectResolver().recordsOWLObjectPropertyExpression(propertyExpression)) {
-
-      if (propertyExpression.isAnonymous()) {
-        String propertyExpressionID = this.resolver.generateOPEID();
-        getOWLObjectResolver().recordOWLObjectPropertyExpression(propertyExpressionID, propertyExpression);
-
-        return propertyExpressionID;
-      } else {
-        OWLObjectProperty objectProperty = propertyExpression.asOWLObjectProperty();
-        IRI propertyIRI = objectProperty.getIRI();
-        String prefixedName = iri2PrefixedName(propertyIRI);
-        OP op = new OP(prefixedName);
-
-        getOWLObjectResolver().recordOWLObjectPropertyExpression(prefixedName, propertyExpression);
-        this.resolver.recordOPE(op);
-
-        return prefixedName;
-      }
-    } else
-      return getOWLObjectResolver().resolveOWLObjectPropertyExpression2ID(propertyExpression);
+    return this.droolsOWLPropertyExpression2PEConverter.convert(propertyExpression).getid();
   }
 
   @NonNull @Override public String convert(@NonNull OWLDataPropertyExpression propertyExpression)
   {
-    if (!getOWLObjectResolver().recordsOWLDataPropertyExpression(propertyExpression)) {
-
-      if (propertyExpression.isAnonymous()) {
-        String propertyExpressionID = this.resolver.generateDPEID();
-        getOWLObjectResolver().recordOWLDataPropertyExpression(propertyExpressionID, propertyExpression);
-
-        return propertyExpressionID;
-      } else {
-        OWLDataProperty objectProperty = propertyExpression.asOWLDataProperty();
-        IRI propertyIRI = objectProperty.getIRI();
-        String prefixedName = iri2PrefixedName(propertyIRI);
-        DP dp = new DP(prefixedName);
-
-        getOWLObjectResolver().recordOWLDataPropertyExpression(prefixedName, propertyExpression);
-        this.resolver.recordDPE(dp);
-
-        return prefixedName;
-      }
-    } else
-      return getOWLObjectResolver().resolveOWLDataPropertyExpression2ID(propertyExpression);
+    return this.droolsOWLPropertyExpression2PEConverter.convert(propertyExpression).getid();
   }
 }

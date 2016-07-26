@@ -146,7 +146,7 @@ public class DroolsOWLClassExpression2IDConverter extends TargetRuleEngineConver
 
   @NonNull public Set<@NonNull CE> getCEs()
   {
-    return this.droolsObjectResolver.getCEs();
+    return getDroolsOWLClassExpression2CEConverter().getCEs();
   }
 
   @NonNull @Override public String visit(@NonNull OWLClass owlClass)

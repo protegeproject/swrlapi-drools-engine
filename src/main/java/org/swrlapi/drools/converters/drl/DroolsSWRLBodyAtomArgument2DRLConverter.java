@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter;
+import org.swrlapi.bridge.extractors.TargetRuleEngineExtractorBase;
 import org.swrlapi.builtins.arguments.SQWRLCollectionVariableBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLAnnotationPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLClassBuiltInArgument;
@@ -27,7 +28,7 @@ import java.util.Set;
  * @see org.semanticweb.owlapi.model.SWRLArgument
  * @see DroolsSWRLHeadAtomArgument2DRLConverter
  */
-public class DroolsSWRLBodyAtomArgument2DRLConverter extends DroolsDRLConverterBase
+public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineExtractorBase
   implements TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter<String>
 {
   public DroolsSWRLBodyAtomArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
