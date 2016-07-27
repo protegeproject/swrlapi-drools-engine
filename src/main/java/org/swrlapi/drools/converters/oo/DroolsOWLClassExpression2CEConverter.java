@@ -509,7 +509,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
     return visit(dataAllValuesFrom);
   }
 
-  @Override public @NonNull OOHSCE convert(OWLObjectHasSelf objectHasSelf)
+  @NonNull @Override public OOHSCE convert(OWLObjectHasSelf objectHasSelf)
   {
     return visit(objectHasSelf);
   }
