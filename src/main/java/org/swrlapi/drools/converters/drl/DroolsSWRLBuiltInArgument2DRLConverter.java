@@ -138,7 +138,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return convert(argument);
   }
 
-  @Override public String visit(SWRLClassExpressionBuiltInArgument argument)
+  @NonNull @Override public String visit(SWRLClassExpressionBuiltInArgument argument)
   {
     return convert(argument);
   }
