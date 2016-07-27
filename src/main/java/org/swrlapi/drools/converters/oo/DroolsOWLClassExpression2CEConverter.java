@@ -47,6 +47,7 @@ import org.swrlapi.drools.owl.classes.OOOCE;
 import org.swrlapi.drools.owl.classes.OSVFCE;
 import org.swrlapi.drools.owl.classes.OUOCE;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -77,6 +78,8 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
   private final Map<OWLDataExactCardinality, DECCE> decces = new HashMap<>();
   private final Map<OWLDataMinCardinality, DMinCCE> dmincces = new HashMap<>();
   private final Map<OWLDataMaxCardinality, DMaxCCE> dmaxcces = new HashMap<>();
+
+  private final Set<CE> ces = new HashSet<>();
 
   private int classExpressionIndex = 0;
 
@@ -119,6 +122,8 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
     this.decces.clear();
     this.dmincces.clear();
     this.dmaxcces.clear();
+
+    this.ces.clear();
   }
 
   @NonNull @Override public C visit(@NonNull OWLClass cls)
@@ -141,6 +146,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       }
       OIOCE oioce = new OIOCE(classExpressionID, classIDs);
       oioces.put(objectIntersectionOf, oioce);
+      ces.add(oioce);
 
       return oioce;
     }
@@ -160,6 +166,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       }
       OUOCE ouoce = new OUOCE(classExpressionID, classExpressionIDs);
       ouoces.put(objectUnionOf, ouoce);
+      ces.add(ouoce);
 
       return ouoce;
     }
@@ -175,6 +182,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       String complementClassID = convert(objectComplementOf.getOperand()).getceid();
       OCOCE ococe = new OCOCE(classExpressionID, complementClassID);
       ococes.put(objectComplementOf, ococe);
+      ces.add(ococe);
 
       return ococe;
     }
@@ -192,6 +200,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
         .getid();
       OSVFCE osvfce = new OSVFCE(classExpressionID, propertyID, someValuesFromClassID);
       osvfces.put(objectSomeValuesFrom, osvfce);
+      ces.add(osvfce);
 
       return osvfce;
     }
@@ -208,6 +217,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       String allValuesFromClassID = convert(objectAllValuesFrom.getFiller()).getceid();
       OAVFCE oavfce = new OAVFCE(classExpressionID, propertyID, allValuesFromClassID);
       oavfces.put(objectAllValuesFrom, oavfce);
+      ces.add(oavfce);
 
       return oavfce;
     }
@@ -223,6 +233,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       String fillerIndividualID = getDroolsOWLIndividual2IConverter().convert(objectHasValue.getFiller()).getid();
       OHVCE ohvce = new OHVCE(classExpressionID, propertyID, fillerIndividualID);
       ohvces.put(objectHasValue, ohvce);
+      ces.add(ohvce);
 
       return ohvce;
     }
@@ -239,6 +250,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       int cardinality = objectExactCardinality.getCardinality();
       OECCE oecce = new OECCE(classExpressionID, propertyID, cardinality);
       oecces.put(objectExactCardinality, oecce);
+      ces.add(oecce);
 
       return oecce;
     }
@@ -255,6 +267,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       int cardinality = objectMinCardinality.getCardinality();
       OMinCCE omincce = new OMinCCE(classExpressionID, propertyID, cardinality);
       omincces.put(objectMinCardinality, omincce);
+      ces.add(omincce);
 
       return omincce;
     }
@@ -271,6 +284,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       int cardinality = objectMaxCardinality.getCardinality();
       OMaxCCE omaxcce = new OMaxCCE(classExpressionID, propertyID, cardinality);
       omaxcces.put(objectMaxCardinality, omaxcce);
+      ces.add(omaxcce);
 
       return omaxcce;
     }
@@ -285,6 +299,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(objectHasSelf.getProperty()).getid();
       OOHSCE oohsce = new OOHSCE(classExpressionID, propertyID);
       oohsces.put(objectHasSelf, oohsce);
+      ces.add(oohsce);
 
       return oohsce;
     }
@@ -303,6 +318,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       }
       OOOCE oooce = new OOOCE(classExpressionID, individualIDs);
       oooces.put(objectOneOf, oooce);
+      ces.add(oooce);
 
       return oooce;
     }
@@ -315,9 +331,11 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
     else {
       String classExpressionID = generateCEID();
       String someValuesFromDataRangeID = getDroolsOWLDataRange2IDConverter().convert(dataSomeValuesFrom.getFiller());
-      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataSomeValuesFrom.getProperty()).getid();
+      String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataSomeValuesFrom.getProperty())
+        .getid();
       DSVFCE dsvfce = new DSVFCE(classExpressionID, propertyID, someValuesFromDataRangeID);
       dsvfces.put(dataSomeValuesFrom, dsvfce);
+      ces.add(dsvfce);
 
       return dsvfce;
     }
@@ -332,8 +350,8 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataAllValuesFrom.getProperty()).getid();
       String allValuesFromDataRangeID = getDroolsOWLDataRange2IDConverter().convert(dataAllValuesFrom.getFiller());
       DAVFCE davfce = new DAVFCE(classExpressionID, propertyID, allValuesFromDataRangeID);
-
       davfces.put(dataAllValuesFrom, davfce);
+      ces.add(davfce);
 
       return davfce;
     }
@@ -348,8 +366,8 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       String propertyID = getDroolsOWLPropertyExpression2PEConverter().convert(dataHasValue.getProperty()).getid();
       OWLLiteral fillerLiteral = dataHasValue.getFiller();
       DHVCE dhvce = new DHVCE(classExpressionID, propertyID, getDroolsOWLLiteral2LConverter().convert(fillerLiteral));
-
       dhvces.put(dataHasValue, dhvce);
+      ces.add(dhvce);
 
       return dhvce;
     }
@@ -366,6 +384,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       int cardinality = dataMinCardinality.getCardinality();
       DMinCCE dmincce = new DMinCCE(classExpressionID, propertyID, cardinality);
       dmincces.put(dataMinCardinality, dmincce);
+      ces.add(dmincce);
 
       return dmincce;
     }
@@ -382,6 +401,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       int cardinality = dataExactCardinality.getCardinality();
       DECCE decce = new DECCE(classExpressionID, propertyID, cardinality);
       decces.put(dataExactCardinality, decce);
+      ces.add(decce);
 
       return decce;
     }
@@ -398,6 +418,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
       int cardinality = dataMaxCardinality.getCardinality();
       DMaxCCE dmaxcce = new DMaxCCE(classExpressionID, propertyID, cardinality);
       dmaxcces.put(dataMaxCardinality, dmaxcce);
+      ces.add(dmaxcce);
 
       return dmaxcce;
     }
@@ -495,7 +516,7 @@ public class DroolsOWLClassExpression2CEConverter extends TargetRuleEngineConver
 
   @NonNull public Set<@NonNull CE> getCEs()
   {
-    throw new RuntimeException("DroolsOWLClassExpression2CEConverter.getCEs");
+    return Collections.unmodifiableSet(this.ces);
   }
 
   @NonNull private String generateCEID()

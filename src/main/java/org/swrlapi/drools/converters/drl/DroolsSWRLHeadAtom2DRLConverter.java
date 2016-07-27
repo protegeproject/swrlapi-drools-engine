@@ -37,23 +37,23 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineSWRLHeadAtomConverter<String>
 {
-  private final @NonNull DroolsSWRLHeadAtomArgument2DRLConverter headAtomArgumentConverter;
-  private final @NonNull DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
-  private final @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter;
-  private final @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter;
+  @NonNull private final DroolsSWRLHeadAtomArgument2DRLConverter droolsSWRLHeadAtomArgument2DRLConverter;
+  @NonNull private final DroolsSWRLBuiltInArgument2DRLConverter droolsSWRLBuiltInArgument2DRLConverter;
+  @NonNull private final DroolsOWLPropertyExpression2IDConverter droolsOWLPropertyExpression2IDConverter;
+  @NonNull private final DroolsOWLClassExpression2IDConverter droolsOWLClassExpression2IDConverter;
 
   private int inferredAxiomVariableIndex, builtInIndexInHead;
 
   public DroolsSWRLHeadAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter)
+    @NonNull DroolsOWLClassExpression2IDConverter droolsOWLClassExpression2IDConverter,
+    @NonNull DroolsOWLPropertyExpression2IDConverter droolsOWLPropertyExpression2IDConverter)
   {
     super(bridge);
 
-    this.headAtomArgumentConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge);
-    this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
-    this.classExpressionConverter = classExpressionConverter;
-    this.propertyExpressionConverter = propertyExpressionConverter;
+    this.droolsSWRLHeadAtomArgument2DRLConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge);
+    this.droolsSWRLBuiltInArgument2DRLConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
+    this.droolsOWLClassExpression2IDConverter = droolsOWLClassExpression2IDConverter;
+    this.droolsOWLPropertyExpression2IDConverter = droolsOWLPropertyExpression2IDConverter;
 
     this.inferredAxiomVariableIndex = 0;
     this.builtInIndexInHead = 0;
@@ -211,22 +211,22 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
 
   @NonNull private DroolsSWRLHeadAtomArgument2DRLConverter getSWRLHeadAtomArgumentConverter()
   {
-    return this.headAtomArgumentConverter;
+    return this.droolsSWRLHeadAtomArgument2DRLConverter;
   }
 
   @NonNull private DroolsSWRLBuiltInArgument2DRLConverter getSWRLBuiltInArgumentConverter()
   {
-    return this.builtInArgumentConverter;
+    return this.droolsSWRLBuiltInArgument2DRLConverter;
   }
 
   private @NonNull DroolsOWLPropertyExpression2IDConverter getOWLPropertyExpressionConverter()
   {
-    return this.propertyExpressionConverter;
+    return this.droolsOWLPropertyExpression2IDConverter;
   }
 
   private @NonNull DroolsOWLClassExpression2IDConverter getOWLClassExpressionConverter()
   {
-    return this.classExpressionConverter;
+    return this.droolsOWLClassExpression2IDConverter;
   }
 
   @NonNull private String addQuotes(@NonNull String s)

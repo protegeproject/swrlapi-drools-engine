@@ -114,23 +114,23 @@ import java.util.Set;
 public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   implements TargetRuleEngineOWLAxiomConverter, SWRLAPIOWLAxiomVisitor
 {
-  @NonNull private final DroolsSWRLRule2DRLConverter swrlRule2DRLConverter;
-  private final @NonNull DroolsOWLClassExpression2IDConverter classExpression2DRLConverter;
-  private final @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpression2DRLConverter;
+  @NonNull private final DroolsSWRLRule2DRLConverter droolsSWRLRule2DRLConverter;
+  @NonNull private final DroolsOWLClassExpression2IDConverter droolsOWLClassExpression2IDConverter;
+  @NonNull private final DroolsOWLPropertyExpression2IDConverter droolsOWLPropertyExpression2DRLConverter;
 
   @NonNull private final Set<@NonNull A> assertedOWLAxioms;
 
   public DroolsOWLAxiom2AConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
-    @NonNull DroolsOWLClassExpression2IDConverter classExpression2DRLConverter,
-    @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpression2DRLConverter)
+    @NonNull DroolsOWLClassExpression2IDConverter droolsOWLClassExpression2IDConverter,
+    @NonNull DroolsOWLPropertyExpression2IDConverter droolsOWLPropertyExpression2IDConverter)
   {
     super(bridge);
 
-    this.swrlRule2DRLConverter = new DroolsSWRLRule2DRLConverter(bridge, droolsSWRLRuleEngine,
-      classExpression2DRLConverter, propertyExpression2DRLConverter);
-    this.classExpression2DRLConverter = classExpression2DRLConverter;
-    this.propertyExpression2DRLConverter = propertyExpression2DRLConverter;
+    this.droolsSWRLRule2DRLConverter = new DroolsSWRLRule2DRLConverter(bridge, droolsSWRLRuleEngine,
+      droolsOWLClassExpression2IDConverter, droolsOWLPropertyExpression2IDConverter);
+    this.droolsOWLClassExpression2IDConverter = droolsOWLClassExpression2IDConverter;
+    this.droolsOWLPropertyExpression2DRLConverter = droolsOWLPropertyExpression2IDConverter;
 
     this.assertedOWLAxioms = new HashSet<>();
   }
@@ -147,7 +147,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
 
   @NonNull public Set<@NonNull CE> getOWLClassExpressions()
   {
-    return this.classExpression2DRLConverter.getCEs();
+    return this.droolsOWLClassExpression2IDConverter.getCEs();
   }
 
   @Override public void convert(@NonNull SWRLAPIRule rule) throws SWRLBuiltInException
@@ -791,16 +791,16 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
 
   private @NonNull DroolsOWLClassExpression2IDConverter getDroolsOWLClassExpression2DRLConverter()
   {
-    return this.classExpression2DRLConverter;
+    return this.droolsOWLClassExpression2IDConverter;
   }
 
   private @NonNull DroolsOWLPropertyExpression2IDConverter getDroolsOWLPropertyExpression2DRLConverter()
   {
-    return this.propertyExpression2DRLConverter;
+    return this.droolsOWLPropertyExpression2DRLConverter;
   }
 
   private @NonNull DroolsSWRLRule2DRLConverter getDroolsSWRLRule2DRLConverter()
   {
-    return this.swrlRule2DRLConverter;
+    return this.droolsSWRLRule2DRLConverter;
   }
 }
