@@ -13,7 +13,7 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLHeadAtomConverter;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
-import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLClassExpressionResolver;
 import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
@@ -40,19 +40,19 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
   @NonNull private final DroolsSWRLHeadAtomArgument2DRLConverter droolsSWRLHeadAtomArgument2DRLConverter;
   @NonNull private final DroolsSWRLBuiltInArgument2DRLConverter droolsSWRLBuiltInArgument2DRLConverter;
   @NonNull private final DroolsOWLPropertyExpression2IDConverter droolsOWLPropertyExpression2IDConverter;
-  @NonNull private final DroolsOWLClassExpression2IDConverter droolsOWLClassExpression2IDConverter;
+  private final @NonNull DroolsOWLClassExpressionResolver droolsOWLClassExpressionResolver;
 
   private int inferredAxiomVariableIndex, builtInIndexInHead;
 
   public DroolsSWRLHeadAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsOWLClassExpression2IDConverter droolsOWLClassExpression2IDConverter,
+    @NonNull DroolsOWLClassExpressionResolver droolsOWLClassExpressionResolver,
     @NonNull DroolsOWLPropertyExpression2IDConverter droolsOWLPropertyExpression2IDConverter)
   {
     super(bridge);
 
     this.droolsSWRLHeadAtomArgument2DRLConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge);
     this.droolsSWRLBuiltInArgument2DRLConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
-    this.droolsOWLClassExpression2IDConverter = droolsOWLClassExpression2IDConverter;
+    this.droolsOWLClassExpressionResolver = droolsOWLClassExpressionResolver;
     this.droolsOWLPropertyExpression2IDConverter = droolsOWLPropertyExpression2IDConverter;
 
     this.inferredAxiomVariableIndex = 0;
@@ -224,9 +224,9 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
     return this.droolsOWLPropertyExpression2IDConverter;
   }
 
-  private @NonNull DroolsOWLClassExpression2IDConverter getOWLClassExpressionConverter()
+  private @NonNull DroolsOWLClassExpressionResolver getOWLClassExpressionConverter()
   {
-    return this.droolsOWLClassExpression2IDConverter;
+    return this.droolsOWLClassExpressionResolver;
   }
 
   @NonNull private String addQuotes(@NonNull String s)

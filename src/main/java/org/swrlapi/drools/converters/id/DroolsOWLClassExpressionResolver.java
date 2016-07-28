@@ -25,22 +25,61 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLClassExpressionConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLClassExpression2CEConverter;
+import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
+import org.swrlapi.drools.owl.classes.DAVFCE;
+import org.swrlapi.drools.owl.classes.DECCE;
+import org.swrlapi.drools.owl.classes.DHVCE;
+import org.swrlapi.drools.owl.classes.DMaxCCE;
+import org.swrlapi.drools.owl.classes.DMinCCE;
+import org.swrlapi.drools.owl.classes.DSVFCE;
+import org.swrlapi.drools.owl.classes.OAVFCE;
+import org.swrlapi.drools.owl.classes.OCOCE;
+import org.swrlapi.drools.owl.classes.OECCE;
+import org.swrlapi.drools.owl.classes.OHVCE;
+import org.swrlapi.drools.owl.classes.OIOCE;
+import org.swrlapi.drools.owl.classes.OMaxCCE;
+import org.swrlapi.drools.owl.classes.OMinCCE;
+import org.swrlapi.drools.owl.classes.OOHSCE;
+import org.swrlapi.drools.owl.classes.OOOCE;
+import org.swrlapi.drools.owl.classes.OSVFCE;
+import org.swrlapi.drools.owl.classes.OUOCE;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * This class converts OWLAPI OWL class expressions to identifiers that can be used to resolve them.
+ * This class resolves between OWLAPI OWL class expressions and identifiers.
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
  * @see org.swrlapi.drools.owl.classes.CE
  */
-public class DroolsOWLClassExpression2IDConverter extends TargetRuleEngineConverterBase
+public class DroolsOWLClassExpressionResolver extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<String>, OWLClassExpressionVisitorEx<String>
 {
+  private final Map<C, OWLClass> cces = new HashMap<>();
+  private final Map<OIOCE, OWLObjectIntersectionOf> oioces = new HashMap<>();
+  private final Map<OUOCE, OWLObjectUnionOf> ouoces = new HashMap<>();
+  private final Map<OCOCE, OWLObjectComplementOf> ococes = new HashMap<>();
+  private final Map<OSVFCE, OWLObjectSomeValuesFrom> osvfces = new HashMap<>();
+  private final Map<OAVFCE, OWLObjectAllValuesFrom> oavfces = new HashMap<>();
+  private final Map<OHVCE, OWLObjectHasValue> ohvces = new HashMap<>();
+  private final Map<OECCE, OWLObjectExactCardinality> oecces = new HashMap<>();
+  private final Map<OMinCCE, OWLObjectMinCardinality> omincces = new HashMap<>();
+  private final Map<OMaxCCE, OWLObjectMaxCardinality> omaxcces = new HashMap<>();
+  private final Map<OOHSCE, OWLObjectHasSelf> oohsces = new HashMap<>();
+  private final Map<OOOCE, OWLObjectOneOf> oooces = new HashMap<>();
+  private final Map<DSVFCE, OWLDataSomeValuesFrom> dsvfces = new HashMap<>();
+  private final Map<DAVFCE, OWLDataAllValuesFrom> davfces = new HashMap<>();
+  private final Map<DHVCE, OWLDataHasValue> dhvces = new HashMap<>();
+  private final Map<DECCE, OWLDataExactCardinality> decces = new HashMap<>();
+  private final Map<DMinCCE, OWLDataMinCardinality> dmincces = new HashMap<>();
+  private final Map<DMaxCCE, OWLDataMaxCardinality> dmaxcces = new HashMap<>();
+
   @NonNull private final DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter;
 
-  public DroolsOWLClassExpression2IDConverter(@NonNull SWRLRuleEngineBridge bridge,
+  public DroolsOWLClassExpressionResolver(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter)
   {
     super(bridge);
@@ -58,7 +97,6 @@ public class DroolsOWLClassExpression2IDConverter extends TargetRuleEngineConver
     return getDroolsOWLClassExpression2CEConverter().convert(cls).getceid();
   }
 
-  // TODO Temporary fix - the individual may not be named
   @NonNull @Override public String convert(@NonNull OWLObjectOneOf objectOneOf)
   {
     return getDroolsOWLClassExpression2CEConverter().convert(objectOneOf).getceid();
@@ -239,8 +277,10 @@ public class DroolsOWLClassExpression2IDConverter extends TargetRuleEngineConver
     return convert(dataMaxCardinality);
   }
 
-  private @NonNull DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
+
+  @NonNull private DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
   {
     return this.droolsOWLClassExpression2CEConverter;
   }
+
 }

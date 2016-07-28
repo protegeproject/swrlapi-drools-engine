@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.drools.converters.drl.DroolsSQWRLQuery2DRLConverter;
-import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLClassExpressionResolver;
 import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
 import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLAxiom2AConverter;
@@ -93,7 +93,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(
       bridge, droolsOWLIndividual2IConverter, droolsOWLPropertyExpression2PEConverter, droolsOWLDataRange2IDConverter,
       droolsOWLLiteral2LConverter);
-    DroolsOWLClassExpression2IDConverter classExpression2IDConverter = new DroolsOWLClassExpression2IDConverter(bridge,
+    DroolsOWLClassExpressionResolver classExpression2IDConverter = new DroolsOWLClassExpressionResolver(bridge,
       droolsOWLClassExpression2CEConverter);
     this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpression2IDConverter,
       propertyExpression2DRLConverter);

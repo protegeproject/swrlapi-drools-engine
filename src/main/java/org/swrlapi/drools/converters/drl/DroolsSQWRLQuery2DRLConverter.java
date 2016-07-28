@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSQWRLQueryConverter;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
-import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLClassExpressionResolver;
 import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
@@ -29,7 +29,7 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
   @NonNull private final DroolsSWRLRuleEngine droolsEngine;
 
   public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
-    @NonNull DroolsOWLClassExpression2IDConverter classExpressionConverter,
+    @NonNull DroolsOWLClassExpressionResolver classExpressionConverter,
     @NonNull DroolsOWLPropertyExpression2IDConverter propertyExpressionConverter)
   {
     super(bridge);

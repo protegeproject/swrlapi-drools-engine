@@ -14,7 +14,7 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
-import org.swrlapi.drools.converters.id.DroolsOWLClassExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLClassExpressionResolver;
 import org.swrlapi.drools.converters.id.DroolsOWLEntity2NameConverter;
 import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
 import org.swrlapi.drools.converters.id.DroolsSWRLVariable2NameConverter;
@@ -46,7 +46,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   @NonNull private final DroolsSWRLBodyAtomArgument2DRLConverter droolsBodyAtomArgument2DRLConverter;
   @NonNull private final DroolsSWRLBuiltInArgument2DRLConverter droolsBuiltInArgument2DRLConverter;
   @NonNull private final DroolsOWLPropertyExpression2IDConverter droolsPropertyExpression2IDConverter;
-  @NonNull private final DroolsOWLClassExpression2IDConverter droolsClassExpression2IDConverter;
+  private final @NonNull DroolsOWLClassExpressionResolver droolsClassExpression2IDConverter;
   @NonNull private final DroolsSWRLVariable2NameConverter droolsSWRLVariable2NameConverter;
   @NonNull private final DroolsOWLLiteral2DRLConverter droolsOWLLiteral2DRLConverter;
   @NonNull private final DroolsOWLIndividual2DRLConverter droolsOWLIndividual2DRLConverter;
@@ -55,7 +55,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   private int builtInIndexInBody; // Each built-in atom in the body gets a unique index, starting at 0
 
   public DroolsSWRLBodyAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsOWLClassExpression2IDConverter droolsClassExpression2IDConverter,
+    @NonNull DroolsOWLClassExpressionResolver droolsClassExpression2IDConverter,
     @NonNull DroolsOWLPropertyExpression2IDConverter droolsPropertyExpression2IDConverter)
   {
     super(bridge);
@@ -295,7 +295,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     return this.droolsPropertyExpression2IDConverter;
   }
 
-  private @NonNull DroolsOWLClassExpression2IDConverter getOWLClassExpressionConverter()
+  private @NonNull DroolsOWLClassExpressionResolver getOWLClassExpressionConverter()
   {
     return this.droolsClassExpression2IDConverter;
   }
