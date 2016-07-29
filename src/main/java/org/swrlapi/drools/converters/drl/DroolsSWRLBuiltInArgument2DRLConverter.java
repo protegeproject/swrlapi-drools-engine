@@ -21,6 +21,8 @@ import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyExpressionBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
@@ -32,9 +34,16 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
 public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
-  public DroolsSWRLBuiltInArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
+  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+
+  public DroolsSWRLBuiltInArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler)
   {
     super(bridge);
+    this.droolsOWLClassExpressionHandler = droolsOWLClassExpressionHandler;
+    this.droolsOWLPropertyExpressionHandler = droolsOWLPropertyExpressionHandler;
   }
 
   @NonNull public String convert(@NonNull SWRLBuiltInArgument argument)
@@ -60,8 +69,8 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
 
   @NonNull @Override public String convert(@NonNull SWRLClassExpressionBuiltInArgument argument)
   {
-    OWLClassExpression ce = argument.getOWLClassExpression();
-    String ceid = getOWLObjectResolver().resolveOWLClassExpression2ID(ce);
+    OWLClassExpression classExpression = argument.getOWLClassExpression();
+    String ceid = getDroolsOWLClassExpressionHandler().convert(classExpression).getceid();
 
     return "new " + DroolsNames.CLASS_EXPRESSION_CLASS_NAME + "(" + addQuotes(ceid) + ")";
   }
@@ -75,8 +84,8 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
 
   @NonNull @Override public String convert(@NonNull SWRLObjectPropertyExpressionBuiltInArgument argument)
   {
-    OWLObjectPropertyExpression pe = argument.getOWLObjectPropertyExpression();
-    String peid = getOWLObjectResolver().resolveOWLObjectPropertyExpression2ID(pe);
+    OWLObjectPropertyExpression propertyExpression = argument.getOWLObjectPropertyExpression();
+    String peid = getDroolsOWLPropertyExpressionHandler().convert(propertyExpression).getid();
 
     return "new " + DroolsNames.OBJECT_PROPERTY_EXPRESSION_CLASS_NAME + "(" + addQuotes(peid) + ")";
   }
@@ -97,8 +106,8 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
 
   @NonNull @Override public String convert(@NonNull SWRLDataPropertyExpressionBuiltInArgument argument)
   {
-    OWLDataPropertyExpression pe = argument.getOWLDataPropertyExpression();
-    String peid = getOWLObjectResolver().resolveOWLDataPropertyExpression2ID(pe);
+    OWLDataPropertyExpression propertyExpression = argument.getOWLDataPropertyExpression();
+    String peid = getDroolsOWLPropertyExpressionHandler().convert(propertyExpression).getid();
 
     return "new " + DroolsNames.DATA_PROPERTY_EXPRESSION_CLASS_NAME + "(" + addQuotes(peid) + ")";
   }
@@ -197,4 +206,15 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
   {
     return convert(argument);
   }
+
+  @NonNull private DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
+  {
+    return this.droolsOWLClassExpressionHandler;
+  }
+
+  @NonNull private DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
+  {
+    return this.droolsOWLPropertyExpressionHandler;
+  }
+
 }

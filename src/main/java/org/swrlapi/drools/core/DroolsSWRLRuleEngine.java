@@ -15,14 +15,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.drools.converters.drl.DroolsSQWRLQuery2DRLConverter;
-import org.swrlapi.drools.converters.id.DroolsOWLClassExpressionResolver;
-import org.swrlapi.drools.converters.id.DroolsOWLDataRange2IDConverter;
-import org.swrlapi.drools.converters.id.DroolsOWLPropertyExpression2IDConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRangeHandler;
 import org.swrlapi.drools.converters.oo.DroolsOWLAxiom2AConverter;
-import org.swrlapi.drools.converters.oo.DroolsOWLClassExpression2CEConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
 import org.swrlapi.drools.converters.oo.DroolsOWLIndividual2IConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
-import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpression2PEConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
@@ -61,6 +59,9 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   @NonNull private final DroolsSQWRLCollectionHandler sqwrlCollectionHandler;
   @NonNull private final DroolsOWL2RLEngine owl2RLEngine;
   @NonNull private final DefaultDroolsOWLAxiomHandler axiomInferrer;
+  @NonNull private final DroolsOWLClassExpressionHandler classExpressionHandler;
+  @NonNull private final DroolsOWLPropertyExpressionHandler propertyExpressionHandler;
+  @NonNull private final DroolsOWLDataRangeHandler dataRangeHandler;
 
   // We keep track of axioms supplied to and inferred by Drools so that we do not redundantly assert them.
   @NonNull private final Set<@NonNull OWLAxiom> assertedAndInferredOWLAxioms;
@@ -84,24 +85,20 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.bridge = bridge;
 
     DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
-    DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter = new DroolsOWLPropertyExpression2PEConverter(
-      bridge);
-    DroolsOWLPropertyExpression2IDConverter propertyExpression2DRLConverter = new DroolsOWLPropertyExpression2IDConverter(
-      bridge, droolsOWLPropertyExpression2PEConverter);
-    DroolsOWLDataRange2IDConverter droolsOWLDataRange2IDConverter = new DroolsOWLDataRange2IDConverter(bridge);
     DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter = new DroolsOWLLiteral2LConverter(bridge);
-    DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter = new DroolsOWLClassExpression2CEConverter(
-      bridge, droolsOWLIndividual2IConverter, droolsOWLPropertyExpression2PEConverter, droolsOWLDataRange2IDConverter,
-      droolsOWLLiteral2LConverter);
-    DroolsOWLClassExpressionResolver classExpression2IDConverter = new DroolsOWLClassExpressionResolver(bridge,
-      droolsOWLClassExpression2CEConverter);
-    this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpression2IDConverter,
-      propertyExpression2DRLConverter);
-    this.sqwrlQuery2DRLConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpression2IDConverter,
-      propertyExpression2DRLConverter);
 
-    this.axiomExtractor = DroolsFactory.getDroolsOWLAxiomExtractor(bridge);
-    this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
+    this.propertyExpressionHandler = new DroolsOWLPropertyExpressionHandler(bridge);
+    this.dataRangeHandler = new DroolsOWLDataRangeHandler(bridge);
+    this.classExpressionHandler = new DroolsOWLClassExpressionHandler(bridge, droolsOWLIndividual2IConverter,
+      propertyExpressionHandler, dataRangeHandler, droolsOWLLiteral2LConverter);
+    this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpressionHandler,
+      propertyExpressionHandler, dataRangeHandler);
+    this.sqwrlQuery2DRLConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionHandler,
+      propertyExpressionHandler, dataRangeHandler);
+
+    this.axiomExtractor = DroolsFactory
+      .getDroolsOWLAxiomExtractor(bridge, classExpressionHandler, propertyExpressionHandler, dataRangeHandler);
+    this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge, classExpressionHandler, propertyExpressionHandler);
     this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
     this.axiomInferrer = new DefaultDroolsOWLAxiomHandler();
     this.sqwrlCollectionHandler = new DroolsSQWRLCollectionHandler();
@@ -170,6 +167,10 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       this.ruleLoadRequired = true;
     }
     this.builtInInvoker.reset();
+    this.axiom2AConverter.reset();
+    this.classExpressionHandler.reset();
+    this.propertyExpressionHandler.reset();
+    this.dataRangeHandler.reset();
     resetKnowledgeSession();
   }
 

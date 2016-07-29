@@ -3,6 +3,9 @@ package org.swrlapi.drools.factory;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRangeHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
@@ -31,9 +34,13 @@ public class DroolsFactory
       throw new SWRLAPIException("No Drools icon found!");
   }
 
-  @NonNull public static DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(@NonNull SWRLRuleEngineBridge bridge)
+  @NonNull public static DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
+    @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler)
   {
-    return new DefaultDroolsOWLAxiomExtractor(bridge);
+    return new DefaultDroolsOWLAxiomExtractor(bridge, droolsOWLClassExpressionHandler,
+      droolsOWLPropertyExpressionHandler, droolsOWLDataRangeHandler);
   }
 
   @NonNull public static DroolsOWLEntityExtractor getDroolsOWLEntityExtractor(@NonNull SWRLRuleEngineBridge bridge)

@@ -40,10 +40,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.Version;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.swrlapi.core.OWLObjectResolver;
-import org.swrlapi.drools.converters.oo.DroolsOWLClassExpression2CEConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
 import org.swrlapi.drools.converters.oo.DroolsOWLEntity2OEConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLIndividual2IConverter;
-import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpression2PEConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.individuals.I;
@@ -78,8 +78,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     .getPrefixedName();
 
   @NonNull private final DroolsOWLAxiomHandler droolsOWLAxiomHandler;
-  @NonNull private final DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter;
-  @NonNull private final DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter;
+  private final @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  private final @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
   @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
   @NonNull private final DroolsOWLEntity2OEConverter droolsOWLEntity2OEConverter;
   @NonNull private final OWLObjectResolver owlObjectResolver;
@@ -91,16 +91,16 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   public DroolsOWLReasoner(@NonNull OWLOntology rootOntology, @NonNull OWLReasonerConfiguration configuration,
     @NonNull BufferingMode bufferingMode, @NonNull OWLObjectResolver owlObjectResolver,
     @NonNull OWLLiteralFactory owlLiteralFactory, @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler,
-    @NonNull DroolsOWLClassExpression2CEConverter droolsOWLClassExpression2CEConverter,
-    @NonNull DroolsOWLPropertyExpression2PEConverter droolsOWLPropertyExpression2PEConverter,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
     @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter,
     @NonNull DroolsOWLEntity2OEConverter droolsOWLEntity2OEConverter)
   {
     super(rootOntology, configuration, bufferingMode);
 
     this.droolsOWLAxiomHandler = droolsOWLAxiomHandler;
-    this.droolsOWLClassExpression2CEConverter = droolsOWLClassExpression2CEConverter;
-    this.droolsOWLPropertyExpression2PEConverter = droolsOWLPropertyExpression2PEConverter;
+    this.droolsOWLClassExpressionHandler = droolsOWLClassExpressionHandler;
+    this.droolsOWLPropertyExpressionHandler = droolsOWLPropertyExpressionHandler;
     this.droolsOWLIndividual2IConverter = droolsOWLIndividual2IConverter;
     this.droolsOWLEntity2OEConverter = droolsOWLEntity2OEConverter;
     this.owlObjectResolver = owlObjectResolver;
@@ -651,12 +651,12 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @NonNull private C resolveC(@NonNull OWLClass cls)
   {
-    return getDroolsOWLClassExpression2CEConverter().convert(cls);
+    return getDroolsOWLClassExpressionHandler().convert(cls);
   }
 
   @NonNull private CE resolveCE(@NonNull OWLClassExpression classExpression)
   {
-    return getDroolsOWLClassExpression2CEConverter().convert(classExpression);
+    return getDroolsOWLClassExpressionHandler().convert(classExpression);
   }
 
   @NonNull private I resolveI(@NonNull OWLNamedIndividual namedIndividual)
@@ -666,7 +666,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @NonNull private OPE resolveOPE(@NonNull OWLObjectPropertyExpression objectPropertyExpression)
   {
-    return getDroolsOWLPropertyExpression2PEConverter().convert(objectPropertyExpression);
+    return getDroolsOWLPropertyExpressionHandler().convert(objectPropertyExpression);
   }
 
   @NonNull private DP resolveDP(@NonNull OWLDataProperty dataProperty)
@@ -676,7 +676,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @NonNull private DPE resolveDPE(@NonNull OWLDataPropertyExpression dataPropertyExpression)
   {
-    return getDroolsOWLPropertyExpression2PEConverter().convert(dataPropertyExpression);
+    return getDroolsOWLPropertyExpressionHandler().convert(dataPropertyExpression);
   }
 
   @NonNull private OWLLiteral l2OWLLiteral(@NonNull L l)
@@ -692,14 +692,14 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return this.droolsOWLAxiomHandler;
   }
 
-  @NonNull DroolsOWLClassExpression2CEConverter getDroolsOWLClassExpression2CEConverter()
+  @NonNull DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
   {
-    return this.droolsOWLClassExpression2CEConverter;
+    return this.droolsOWLClassExpressionHandler;
   }
 
-  @NonNull DroolsOWLPropertyExpression2PEConverter getDroolsOWLPropertyExpression2PEConverter()
+  @NonNull DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
   {
-    return this.droolsOWLPropertyExpression2PEConverter;
+    return this.droolsOWLPropertyExpressionHandler;
   }
 
   @NonNull DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()

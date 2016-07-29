@@ -27,6 +27,8 @@ import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLObjectPropertyExpressionBuiltInArgument;
 import org.swrlapi.builtins.arguments.SWRLVariableBuiltInArgument;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.owl.classes.C;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.dataranges.D;
@@ -50,9 +52,16 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase
   implements TargetRuleEngineSWRLBuiltInArgumentExtractor
 {
-  public DroolsSWRLBuiltInArgumentExtractor(SWRLRuleEngineBridge bridge)
+  @NonNull private DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  @NonNull private DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+
+  public DroolsSWRLBuiltInArgumentExtractor(SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler)
   {
     super(bridge);
+    this.droolsOWLClassExpressionHandler = droolsOWLClassExpressionHandler;
+    this.droolsOWLPropertyExpressionHandler = droolsOWLPropertyExpressionHandler;
   }
 
   @NonNull public SWRLVariable extract(@NonNull VA va) throws TargetSWRLRuleEngineException
@@ -70,7 +79,7 @@ public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase
 
   @NonNull public SWRLClassExpressionBuiltInArgument extract(CE ce) throws TargetSWRLRuleEngineException
   {
-    OWLClassExpression classExpression = getOWLObjectResolver().resolveOWLClassExpression(ce.getceid());
+    OWLClassExpression classExpression = getDroolsOWLClassExpressionHandler().resolveOWLClassExpression(ce.getceid());
 
     return getSWRLBuiltInArgumentFactory().getClassExpressionBuiltInArgument(classExpression);
   }
@@ -91,7 +100,7 @@ public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase
 
   @NonNull public SWRLObjectPropertyExpressionBuiltInArgument extract(OPE pe) throws TargetSWRLRuleEngineException
   {
-    OWLObjectPropertyExpression propertyExpression = getOWLObjectResolver()
+    OWLObjectPropertyExpression propertyExpression = getDroolsOWLPropertyExpressionHandler()
       .resolveOWLObjectPropertyExpression(pe.getid());
 
     return getSWRLBuiltInArgumentFactory().getObjectPropertyExpressionBuiltInArgument(propertyExpression);
@@ -106,7 +115,7 @@ public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase
 
   @NonNull public SWRLDataPropertyExpressionBuiltInArgument extract(DPE pe) throws TargetSWRLRuleEngineException
   {
-    OWLDataPropertyExpression propertyExpression = getOWLObjectResolver().resolveOWLDataPropertyExpression(pe.getid());
+    OWLDataPropertyExpression propertyExpression = getDroolsOWLPropertyExpressionHandler().resolveOWLDataPropertyExpression(pe.getid());
 
     return getSWRLBuiltInArgumentFactory().getDataPropertyExpressionBuiltInArgument(propertyExpression);
   }
@@ -149,5 +158,15 @@ public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase
     return getSWRLBuiltInArgumentFactory()
       .getSQWRLCollectionVariableBuiltInArgument(variableIRI, sqwrlc.getQueryName(), sqwrlc.getCollectionName(),
         sqwrlc.getCollectionID());
+  }
+
+  @NonNull private DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
+  {
+    return this.droolsOWLClassExpressionHandler;
+  }
+
+  @NonNull private DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
+  {
+    return this.droolsOWLPropertyExpressionHandler;
   }
 }

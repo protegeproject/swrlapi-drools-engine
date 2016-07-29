@@ -51,9 +51,13 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   implements TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
 {
-  public DroolsSWRLBuiltInArgument2BAConverter(@NonNull SWRLRuleEngineBridge bridge)
+  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+
+  public DroolsSWRLBuiltInArgument2BAConverter(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler)
   {
     super(bridge);
+    this.droolsOWLClassExpressionHandler = droolsOWLClassExpressionHandler;
   }
 
   @NonNull public BA convert(@NonNull SWRLBuiltInArgument argument)
@@ -72,7 +76,7 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   {
     OWLClassExpression classExpression = argument.getOWLClassExpression();
 
-    return getDroolsOWLClassExpression2CEConverter().convert(classExpression);
+    return getDroolsOWLClassExpressionHandler().convert(classExpression);
   }
 
   @NonNull @Override public I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
@@ -207,5 +211,10 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   @NonNull @Override public SQWRLC visit(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
     return convert(argument);
+  }
+
+  @NonNull private DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
+  {
+    return this.droolsOWLClassExpressionHandler;
   }
 }

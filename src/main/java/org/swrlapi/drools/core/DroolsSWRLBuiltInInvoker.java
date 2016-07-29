@@ -3,6 +3,8 @@ package org.swrlapi.drools.core;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.converters.oo.DroolsSWRLBuiltInArgument2BAConverter;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.sqwrl.VPATH;
@@ -37,11 +39,14 @@ public class DroolsSWRLBuiltInInvoker
 
   @NonNull private final Map<@NonNull String, @NonNull List<@NonNull List<@NonNull SWRLBuiltInArgument>>> invocationPatternMap;
 
-  public DroolsSWRLBuiltInInvoker(@NonNull SWRLRuleEngineBridge bridge)
+  public DroolsSWRLBuiltInInvoker(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler)
   {
     this.bridge = bridge;
-    this.builtInArgumentConvertor = new DroolsSWRLBuiltInArgument2BAConverter(bridge);
-    this.builtInArgumentExtractor = new DroolsSWRLBuiltInArgumentExtractor(bridge);
+    this.builtInArgumentConvertor = new DroolsSWRLBuiltInArgument2BAConverter(bridge, droolsOWLClassExpressionHandler);
+    this.builtInArgumentExtractor = new DroolsSWRLBuiltInArgumentExtractor(bridge, droolsOWLClassExpressionHandler,
+      droolsOWLPropertyExpressionHandler);
 
     this.invocationPatternMap = new HashMap<>();
   }
@@ -488,13 +493,15 @@ public class DroolsSWRLBuiltInInvoker
                 + ruleName);
 
           bap.addArgument(ba);
-        } baps.add(bap);
+        }
+        baps.add(bap);
       }
     } catch (RuntimeException e) {
       throw new TargetSWRLRuleEngineInternalException(
         "error converting return arguments after invoking built-in " + builtInName + " in rule " + ruleName + ": " + e
           .toString());
-    } return baps;
+    }
+    return baps;
   }
 
   private boolean hasInvocationPattern(@NonNull String invocationPattern)
