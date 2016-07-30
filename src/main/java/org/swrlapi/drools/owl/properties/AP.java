@@ -18,27 +18,25 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.semanticweb.owlapi.model.OWLAnnotationProperty
  */
-public class AP implements P, OE
+public class AP extends PE implements OE
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String name;
-
   public AP(@NonNull String name)
   {
-    this.name = name;
+    super(name);
   }
-
-  public String getid() { return this.name; }
 
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
   public AP(@NonNull BA ba)
   {
-    if (ba instanceof DP) {
-      DP p = (DP)ba;
-      this.name = p.getid();
+    super("<InProcess>");
+
+    if (ba instanceof AP) {
+      AP p = (AP)ba;
+      this.setPEID(p.getid());
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL annotation property from bound built-in argument, got " + ba.getClass().getCanonicalName());
