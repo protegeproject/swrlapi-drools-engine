@@ -7,7 +7,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -39,7 +38,6 @@ import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.Version;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.swrlapi.core.OWLObjectResolver;
 import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
 import org.swrlapi.drools.converters.oo.DroolsOWLEntity2OEConverter;
 import org.swrlapi.drools.converters.oo.DroolsOWLIndividual2IConverter;
@@ -78,19 +76,18 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     .getPrefixedName();
 
   @NonNull private final DroolsOWLAxiomHandler droolsOWLAxiomHandler;
-  private final @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
-  private final @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
   @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
   @NonNull private final DroolsOWLEntity2OEConverter droolsOWLEntity2OEConverter;
-  @NonNull private final OWLObjectResolver owlObjectResolver;
   @NonNull private final OWLLiteralFactory owlLiteralFactory;
 
   private boolean prepared = false;
   private boolean interrupted = false;
 
   public DroolsOWLReasoner(@NonNull OWLOntology rootOntology, @NonNull OWLReasonerConfiguration configuration,
-    @NonNull BufferingMode bufferingMode, @NonNull OWLObjectResolver owlObjectResolver,
-    @NonNull OWLLiteralFactory owlLiteralFactory, @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler,
+    @NonNull BufferingMode bufferingMode, @NonNull OWLLiteralFactory owlLiteralFactory,
+    @NonNull DroolsOWLAxiomHandler droolsOWLAxiomHandler,
     @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
     @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
     @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter,
@@ -103,7 +100,6 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     this.droolsOWLPropertyExpressionHandler = droolsOWLPropertyExpressionHandler;
     this.droolsOWLIndividual2IConverter = droolsOWLIndividual2IConverter;
     this.droolsOWLEntity2OEConverter = droolsOWLEntity2OEConverter;
-    this.owlObjectResolver = owlObjectResolver;
     this.owlLiteralFactory = owlLiteralFactory;
   }
 
@@ -616,37 +612,37 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @NonNull private OWLClass resolveOWLClass(@NonNull String classID)
   {
-    return this.owlObjectResolver.resolveOWLClass(classID);
+    return this.droolsOWLClassExpressionHandler.resolveOWLClass(classID);
   }
 
   @NonNull private OWLClassExpression resolveOWLClassExpression(@NonNull String classID)
   {
-    return this.owlObjectResolver.resolveOWLClassExpression(classID);
+    return this.droolsOWLClassExpressionHandler.resolveOWLClassExpression(classID);
   }
 
   @NonNull private OWLNamedIndividual resolveOWLNamedIndividual(@NonNull String individualID)
   {
-    return this.owlObjectResolver.resolveOWLNamedIndividual(individualID);
+    throw new RuntimeException("DroolsOWLReasoner.resolveOWLNamedIndividual not implemented");
   }
 
   @NonNull private OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(@NonNull String propertyID)
   {
-    return this.owlObjectResolver.resolveOWLObjectPropertyExpression(propertyID);
+    return this.droolsOWLPropertyExpressionHandler.resolveOWLObjectPropertyExpression(propertyID);
   }
 
   private @NonNull OWLObjectProperty resolveOWLObjectProperty(@NonNull String propertyID)
   {
-    return this.owlObjectResolver.resolveOWLObjectProperty(propertyID);
+    throw new RuntimeException("DroolsOWLReasoner.resolveOWLObjectProperty not implemented");
   }
 
   @NonNull private OWLDataPropertyExpression resolveOWLDataPropertyExpression(@NonNull String propertyID)
   {
-    return this.owlObjectResolver.resolveOWLDataPropertyExpression(propertyID);
+    return this.droolsOWLPropertyExpressionHandler.resolveOWLDataPropertyExpression(propertyID);
   }
 
   @NonNull private OWLDataProperty resolveOWLDataProperty(@NonNull String propertyID)
   {
-    return this.owlObjectResolver.resolveOWLDataProperty(propertyID);
+    throw new RuntimeException("DroolsOWLReasoner.resolveDataProperty not implemented");
   }
 
   @NonNull private C resolveC(@NonNull OWLClass cls)
@@ -681,8 +677,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
 
   @NonNull private OWLLiteral l2OWLLiteral(@NonNull L l)
   {
-    OWLDatatype datatype = this.owlObjectResolver.resolveOWLDatatype(l.datatypeName);
-    return getOWLLiteralFactory().getOWLLiteral(l.getValue(), datatype);
+    throw new RuntimeException("DroolsOWLReasoner.l2OWLLiteral not implemented");
+    //return getOWLLiteralFactory().getOWLLiteral(l.getValue(), datatype);
   }
 
   @NonNull private OWLLiteralFactory getOWLLiteralFactory() { return this.owlLiteralFactory; }

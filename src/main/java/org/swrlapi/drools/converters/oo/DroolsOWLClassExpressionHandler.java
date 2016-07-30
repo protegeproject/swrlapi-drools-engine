@@ -170,6 +170,9 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
 
     this.ces.clear();
     this.classExpressions.clear();
+
+    convert(getBridge().getSWRLAPIOWLDataFactory().getOWLThing()); // TODO Quick hack to make an owl:Thing
+    convert(getBridge().getSWRLAPIOWLDataFactory().getOWLNothing()); // TODO Quick hack to make an owl:Nothing
   }
 
   @NonNull @Override public C visit(@NonNull OWLClass cls)
