@@ -3,10 +3,13 @@ package org.swrlapi.drools.factory;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRangeHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
-import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
+import org.swrlapi.drools.extractors.DroolsOWLNamedIndividualExtractor;
 import org.swrlapi.exceptions.SWRLAPIException;
 
 import javax.swing.*;
@@ -31,9 +34,13 @@ public class DroolsFactory
       throw new SWRLAPIException("No Drools icon found!");
   }
 
-  @NonNull public static DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(@NonNull SWRLRuleEngineBridge bridge)
+  @NonNull public static DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
+    @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler)
   {
-    return new DefaultDroolsOWLAxiomExtractor(bridge);
+    return new DefaultDroolsOWLAxiomExtractor(bridge, droolsOWLClassExpressionHandler,
+      droolsOWLPropertyExpressionHandler, droolsOWLDataRangeHandler);
   }
 
   @NonNull public static DroolsOWLEntityExtractor getDroolsOWLEntityExtractor(@NonNull SWRLRuleEngineBridge bridge)
@@ -41,9 +48,9 @@ public class DroolsFactory
     return new DefaultDroolsOWLEntityExtractor(bridge);
   }
 
-  @NonNull public static DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor(
+  public static @NonNull DroolsOWLNamedIndividualExtractor getDroolsOWLIndividualExtractor(
     @NonNull SWRLRuleEngineBridge bridge)
   {
-    return new DefaultDroolsOWLIndividualExtractor(bridge);
+    return new DefaultDroolsOWLNamedIndividualExtractor(bridge);
   }
 }

@@ -24,7 +24,7 @@ abstract class DA<T1 extends OE> extends DroolsUnaryObject<T1> implements A
     return getT1();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return getE().toString();
   }

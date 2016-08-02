@@ -2,6 +2,7 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.drools.owl.core.OO;
+import org.swrlapi.drools.swrl.BA;
 
 /**
  * This interface represents an OWL class expression in a Drools knowledge base.
@@ -12,7 +13,7 @@ import org.swrlapi.drools.owl.core.OO;
  *
  * @see org.semanticweb.owlapi.model.OWLClassExpression
  */
-public interface CE extends OO
+public interface CE extends OO, BA
 {
   @NonNull String getceid();
 }

@@ -1,7 +1,10 @@
 package org.swrlapi.drools.owl.properties;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
@@ -15,13 +18,13 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.semanticweb.owlapi.model.OWLAnnotationProperty
  */
-public class AP extends OE implements P
+public class AP extends PE implements OE
 {
   private static final long serialVersionUID = 1L;
 
-  public AP(@NonNull String propertyName)
+  public AP(@NonNull String name)
   {
-    super(propertyName);
+    super(name);
   }
 
   /*
@@ -33,13 +36,13 @@ public class AP extends OE implements P
 
     if (ba instanceof AP) {
       AP p = (AP)ba;
-      this.id = p.getName();
+      this.setPEID(p.getid());
     } else
       throw new TargetSWRLRuleEngineInternalException(
-        "expecting OWL annotation property for bound built-in argument, got " + ba.getClass().getCanonicalName());
+        "expecting OWL annotation property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override public OWLAnnotationProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @NonNull @Override public OWLNamedObject extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -50,4 +53,25 @@ public class AP extends OE implements P
   {
     return extractor.extract(this);
   }
+
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object obj)
+  {
+    if (this == obj)
+      return true;
+    if ((obj == null) || (obj.getClass() != this.getClass()))
+      return false;
+    AP e = (AP)obj;
+    return (getid().equals(e.getid()) || (getid() != null && getid().equals(e.getid())));
+  }
+
+  @SideEffectFree @Deterministic @Override public int hashCode()
+  {
+    int hash = 731;
+
+    hash = hash + (null == getid() ? 0 : getid().hashCode());
+
+    return hash;
+  }
 }
+
+

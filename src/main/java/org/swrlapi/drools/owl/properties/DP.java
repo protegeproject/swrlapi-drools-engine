@@ -3,7 +3,7 @@ package org.swrlapi.drools.owl.properties;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLDataPropertyBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.OE;
@@ -16,7 +16,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.semanticweb.owlapi.model.OWLDataProperty
  */
-public class DP extends OE implements P, DPE
+public class DP extends DPE implements OE
 {
   private static final long serialVersionUID = 1L;
 
@@ -34,19 +34,19 @@ public class DP extends OE implements P, DPE
 
     if (ba instanceof DP) {
       DP p = (DP)ba;
-      this.id = p.getName();
+      this.setPEID(p.getid());
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL data property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override public OWLDataProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
-    throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLDataPropertyBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @NonNull @Override public OWLDataProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

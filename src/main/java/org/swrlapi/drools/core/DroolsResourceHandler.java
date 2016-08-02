@@ -130,7 +130,7 @@ public class DroolsResourceHandler
   {
     // Drools classes representing OWL class expressions
     defineDRLResource("import org.swrlapi.drools.owl.classes.CE");
-    defineDRLResource("import org.swrlapi.drools.owl.classes.OOCOCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OCOCE");
     defineDRLResource("import org.swrlapi.drools.owl.classes.OIOCE");
     defineDRLResource("import org.swrlapi.drools.owl.classes.OOOCE");
     defineDRLResource("import org.swrlapi.drools.owl.classes.OUOCE");
@@ -146,8 +146,9 @@ public class DroolsResourceHandler
     defineDRLResource("import org.swrlapi.drools.owl.classes.OMaxQCCE");
     defineDRLResource("import org.swrlapi.drools.owl.classes.DMaxQCCE");
     defineDRLResource("import org.swrlapi.drools.owl.classes.DMinCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classes.OCCE");
-    defineDRLResource("import org.swrlapi.drools.owl.classes.DCCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OECCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.DECCE");
+    defineDRLResource("import org.swrlapi.drools.owl.classes.OOHSCE");
   }
 
   private void importCoreOWLJavaClasses()

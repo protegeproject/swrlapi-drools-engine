@@ -59,7 +59,7 @@ public class DPAA extends DroolsTernaryObject<I, String, L> implements A
     visitor.visit(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree  @Override public String toString()
   {
     return "DPAA" + super.toString();
   }

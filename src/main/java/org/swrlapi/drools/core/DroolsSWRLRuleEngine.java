@@ -14,17 +14,20 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
-import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
-import org.swrlapi.drools.converters.drl.DroolsOWLPropertyExpression2DRLConverter;
 import org.swrlapi.drools.converters.drl.DroolsSQWRLQuery2DRLConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRangeHandler;
 import org.swrlapi.drools.converters.oo.DroolsOWLAxiom2AConverter;
-import org.swrlapi.drools.core.resolvers.DroolsObjectResolver;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLIndividual2IConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLLiteral2LConverter;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
 import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine;
 import org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler;
 import org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineBridgeException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
@@ -56,6 +59,9 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   @NonNull private final DroolsSQWRLCollectionHandler sqwrlCollectionHandler;
   @NonNull private final DroolsOWL2RLEngine owl2RLEngine;
   @NonNull private final DefaultDroolsOWLAxiomHandler axiomInferrer;
+  @NonNull private final DroolsOWLClassExpressionHandler classExpressionHandler;
+  @NonNull private final DroolsOWLPropertyExpressionHandler propertyExpressionHandler;
+  @NonNull private final DroolsOWLDataRangeHandler dataRangeHandler;
 
   // We keep track of axioms supplied to and inferred by Drools so that we do not redundantly assert them.
   @NonNull private final Set<@NonNull OWLAxiom> assertedAndInferredOWLAxioms;
@@ -78,18 +84,21 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     this.bridge = bridge;
 
-    DroolsObjectResolver resolver = new DroolsObjectResolver();
-    DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter = new DroolsOWLPropertyExpression2DRLConverter(
-      bridge, resolver);
-    DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter = new DroolsOWLClassExpression2DRLConverter(
-      bridge, resolver, propertyExpression2DRLConverter);
-    this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpression2DRLConverter,
-      propertyExpression2DRLConverter);
-    this.sqwrlQuery2DRLConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpression2DRLConverter,
-      propertyExpression2DRLConverter);
+    DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
+    DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter = new DroolsOWLLiteral2LConverter(bridge);
 
-    this.axiomExtractor = DroolsFactory.getDroolsOWLAxiomExtractor(bridge);
-    this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge);
+    this.propertyExpressionHandler = new DroolsOWLPropertyExpressionHandler(bridge);
+    this.dataRangeHandler = new DroolsOWLDataRangeHandler(bridge);
+    this.classExpressionHandler = new DroolsOWLClassExpressionHandler(bridge, droolsOWLIndividual2IConverter,
+      propertyExpressionHandler, dataRangeHandler, droolsOWLLiteral2LConverter);
+    this.axiom2AConverter = new DroolsOWLAxiom2AConverter(bridge, this, classExpressionHandler,
+      propertyExpressionHandler, dataRangeHandler);
+    this.sqwrlQuery2DRLConverter = new DroolsSQWRLQuery2DRLConverter(bridge, this, classExpressionHandler,
+      propertyExpressionHandler, dataRangeHandler);
+
+    this.axiomExtractor = DroolsFactory
+      .getDroolsOWLAxiomExtractor(bridge, classExpressionHandler, propertyExpressionHandler, dataRangeHandler);
+    this.builtInInvoker = new DroolsSWRLBuiltInInvoker(bridge, classExpressionHandler, propertyExpressionHandler);
     this.owl2RLEngine = new DroolsOWL2RLEngine(bridge.getOWL2RLPersistenceLayer());
     this.axiomInferrer = new DefaultDroolsOWLAxiomHandler();
     this.sqwrlCollectionHandler = new DroolsSQWRLCollectionHandler();
@@ -158,6 +167,10 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       this.ruleLoadRequired = true;
     }
     this.builtInInvoker.reset();
+    this.axiom2AConverter.reset();
+    this.classExpressionHandler.reset();
+    this.propertyExpressionHandler.reset();
+    this.dataRangeHandler.reset();
     resetKnowledgeSession();
   }
 
@@ -215,18 +228,19 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   @Override public void defineOWLAxiom(@NonNull OWLAxiom axiom) throws TargetSWRLRuleEngineException
   {
     if (!this.assertedAndInferredOWLAxioms.contains(axiom)) {
-      getDroolsOWLAxiom2AConverter().convert(axiom); // Put the axiom into the Drools knowledge base.
+      getDroolsOWLAxiom2AConverter().convert(axiom); // Put the axiom into the Drools knowledge base
       this.assertedAndInferredOWLAxioms.add(axiom);
       if (axiom.isOfType(AxiomType.SWRL_RULE))
         this.ruleLoadRequired = true;
     }
   }
 
-  @Override public void defineSQWRLQuery(@NonNull SQWRLQuery query) throws TargetSWRLRuleEngineException
+  @Override public void defineSQWRLQuery(@NonNull SQWRLQuery query)
+    throws TargetSWRLRuleEngineException, SWRLBuiltInException
   {
     this.allSQWRLQueryNames.add(query.getQueryName());
 
-    if (query.isActive()) { // If a query is not active, we convert it but recordOWLClassExpression it as inactive.
+    if (query.isActive()) { // If a query is not active, we convert it but record it as inactive.
       this.activeSQWRLQueryNames.add(query.getQueryName());
       this.ruleLoadRequired = true;
     }
@@ -238,7 +252,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
    */
   @NonNull @Override public OWLReasoner getOWLReasoner()
   {
-    return null; // TODO Return Drools implementation of an OWL reasoner here
+    throw new RuntimeException(
+      "reasoner not yet wired up"); // TODO Return Drools implementation of an OWL reasoner here
   }
 
   @NonNull @Override public Icon getTargetRuleEngineIcon()

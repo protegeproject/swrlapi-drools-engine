@@ -13,15 +13,15 @@ public class DTR implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String rid;
+  @NonNull private final String drid;
 
-  public DTR(@NonNull String rid)
+  public DTR(@NonNull String drid)
   {
-    this.rid = rid;
+    this.drid = drid;
   }
 
-  @NonNull @Override public String getrid()
+  @NonNull @Override public String getdrid()
   {
-    return this.rid;
+    return this.drid;
   }
 }

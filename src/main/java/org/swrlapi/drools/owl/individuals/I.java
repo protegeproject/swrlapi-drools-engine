@@ -1,52 +1,46 @@
 package org.swrlapi.drools.owl.individuals;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.semanticweb.owlapi.model.OWLIndividual;
+import org.checkerframework.dataflow.qual.Deterministic;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLNamedIndividualBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
-import org.swrlapi.drools.extractors.DroolsOWLIndividualExtractor;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
-// TODO This class represents both named and anonymous OWL individuals
-// - but an anonymous individual should not be a subclass of an OWL entity.
-
 /**
- * This class represents an OWL named or anonymous individual.
+ * This class represents an OWL named individual in Drools
  *
- * @see org.semanticweb.owlapi.model.OWLIndividual
+ * @see org.semanticweb.owlapi.model.OWLNamedIndividual
  */
-public class I extends OE
+public class I implements OE
 {
   private static final long serialVersionUID = 1L;
 
-  public I(@NonNull String id)
+  @NonNull public final String id;
+
+  public I(@NonNull String name)
   {
-    super(id);
+    this.id = name;
   }
+
+  @NonNull public String getid() { return this.id; }
 
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
    */
   public I(@NonNull BA ba)
   {
-    super("<InProcess>");
-
     if (ba instanceof I) {
       I i = (I)ba;
-      this.id = i.getName();
+      this.id = i.getid();
     } else
       throw new TargetSWRLRuleEngineInternalException(
-        "expecting OWL individual from bound built-in argument, got " + ba.getClass().getCanonicalName());
-  }
-
-  @NonNull public OWLIndividual extract(@NonNull DroolsOWLIndividualExtractor extractor)
-  {
-    return extractor.extract(this);
+        "expecting OWL named individual from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
   @NonNull @Override public OWLNamedIndividual extract(@NonNull DroolsOWLEntityExtractor extractor)
@@ -55,9 +49,27 @@ public class I extends OE
     return extractor.extract(this);
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
-    throws TargetSWRLRuleEngineException
+  @NonNull @Override public SWRLNamedIndividualBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
+  }
+
+  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    I i = (I)o;
+
+    return id != null ? id.equals(i.id) : i.id == null;
+
+  }
+
+  @SideEffectFree @Deterministic @Override public int hashCode()
+  {
+    return id != null ? id.hashCode() : 0;
   }
 }

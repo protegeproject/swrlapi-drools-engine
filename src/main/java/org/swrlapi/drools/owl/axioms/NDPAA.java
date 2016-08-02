@@ -54,7 +54,7 @@ public class NDPAA extends DroolsTernaryObject<I, String, L> implements A
     visitor.visit(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "NDPAA" + super.toString();
   }

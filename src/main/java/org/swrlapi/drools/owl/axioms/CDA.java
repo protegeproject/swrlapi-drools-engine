@@ -20,7 +20,7 @@ public class CDA extends DroolsUnaryClassAxiom
     super(classID);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "CDA(" + super.toString() + ")";
   }

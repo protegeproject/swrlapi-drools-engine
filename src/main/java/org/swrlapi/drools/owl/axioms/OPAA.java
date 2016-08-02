@@ -76,7 +76,7 @@ public class OPAA extends DroolsTernaryObject<I, String, I> implements A
     visitor.visit(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OPAA" + super.toString();
   }

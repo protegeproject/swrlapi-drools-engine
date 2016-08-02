@@ -20,7 +20,7 @@ public class DPDA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "DPDA(" + super.toString() + ")";
   }

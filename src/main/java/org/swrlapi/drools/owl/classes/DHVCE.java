@@ -2,8 +2,11 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.literals.L;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL data has value class expression in Drools.
@@ -34,8 +37,14 @@ public class DHVCE extends DroolsTernaryObject<String, String, L> implements CE
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "DHVCE" + super.toString();
+  }
+
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
   }
 }

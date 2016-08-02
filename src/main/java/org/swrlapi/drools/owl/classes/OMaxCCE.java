@@ -2,7 +2,10 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL object maximum cardinality class expression in Drools.
@@ -33,8 +36,14 @@ public class OMaxCCE extends DroolsTernaryObject<String, String, Integer> implem
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OMaxCE" + super.toString();
+  }
+
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
   }
 }

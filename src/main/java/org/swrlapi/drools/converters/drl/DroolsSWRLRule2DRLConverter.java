@@ -4,7 +4,11 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.core.SWRLAPIRule;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRangeHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,20 +26,21 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 
   public DroolsSWRLRule2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
-    @NonNull DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter,
-    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter)
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
+    @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler)
   {
     super(bridge);
 
-    this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, classExpression2DRLConverter,
-      propertyExpression2DRLConverter);
-    this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, classExpression2DRLConverter,
-      propertyExpression2DRLConverter);
+    this.bodyAtom2DRLConverter = new DroolsSWRLBodyAtom2DRLConverter(bridge, droolsOWLClassExpressionHandler,
+      droolsOWLPropertyExpressionHandler, droolsOWLDataRangeHandler);
+    this.headAtom2DRLConverter = new DroolsSWRLHeadAtom2DRLConverter(bridge, droolsOWLClassExpressionHandler,
+      droolsOWLPropertyExpressionHandler);
 
     this.droolsSWRLRuleEngine = droolsSWRLRuleEngine;
   }
 
-  public void convert(@NonNull SWRLAPIRule rule)
+  public void convert(@NonNull SWRLAPIRule rule) throws SWRLBuiltInException
   {
     String ruleName = rule.getRuleName();
     String drlRule = getRulePreamble(ruleName);
@@ -45,8 +50,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     getDroolsSWRLHeadAtom2DRLConverter().reset();
 
     for (SWRLAtom atom : rule.getBodyAtoms())
-      drlRule +=
-        "\n   " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
+      drlRule += "\n   " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
 
     drlRule = addRuleThenClause(drlRule);
 
@@ -62,7 +66,7 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 
     // System.out.println("---------------------------------------------------------------------------------------");
     // System.out.println("DRL:\n" + drlRule);
-               getDroolsSWRLRuleEngine().defineDRLRule(drlRule);
+    getDroolsSWRLRuleEngine().defineDRLRule(drlRule);
   }
 
   @NonNull private String getRulePreamble(@NonNull String ruleName)

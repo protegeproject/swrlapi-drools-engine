@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
+import org.swrlapi.drools.core.DroolsNames;
 
 /**
  * Converts an OWLAPI OWL individual to its Drools representation.
@@ -15,7 +16,7 @@ import org.swrlapi.bridge.converters.TargetRuleEngineOWLIndividualConverter;
  * @see org.semanticweb.owlapi.model.OWLNamedIndividual
  */
 public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterBase
-    implements TargetRuleEngineOWLIndividualConverter<String>
+  implements TargetRuleEngineOWLIndividualConverter<String>
 {
   public DroolsOWLIndividual2DRLConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -27,14 +28,10 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
     if (individual.isNamed()) {
       IRI individualIRI = individual.asOWLNamedIndividual().getIRI();
       String prefixedName = iri2PrefixedName(individualIRI);
-      // return addQuotes(prefixedName);
-      return "new I(\"" + prefixedName + "\")";
+      return "new " + DroolsNames.INDIVIDUAL_CLASS_NAME + "(\"" + prefixedName + "\")";
     } else {
       String individualID = individual.asOWLAnonymousIndividual().getID().getID();
-      // return addQuotes(individualID);
-      return "new I(\"" + individualID + "\")";
+      return "new " + DroolsNames.INDIVIDUAL_CLASS_NAME + "(\"" + individualID + "\")";
     }
   }
-
-  // private String addQuotes(@NonNull Strings) { return "\"" + s + "\""; }
 }

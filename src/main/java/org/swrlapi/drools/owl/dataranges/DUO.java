@@ -15,23 +15,22 @@ public class DUO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String rid;
-  @NonNull private final Set<@NonNull String> dataRangeIDs;
+  @NonNull private final String drid;
+  @NonNull private final Set<@NonNull String> unionOfDataRangeIDs;
 
-  public DUO(@NonNull String rid, @NonNull Set<@NonNull String> dataRangeIDs)
+  public DUO(@NonNull String drid, @NonNull Set<@NonNull String> unionOfDataRangeIDs)
   {
-    this.rid = rid;
-    this.dataRangeIDs = dataRangeIDs;
+    this.drid = drid;
+    this.unionOfDataRangeIDs = unionOfDataRangeIDs;
   }
 
-  @NonNull @Override
-  public String getrid()
+  @NonNull @Override public String getdrid()
   {
-    return this.rid;
+    return this.drid;
   }
 
-  @NonNull public Set<@NonNull String> getDataRangeIDs()
+  @NonNull public Set<@NonNull String> getUnionOfDataRangeIDs()
   {
-    return this.dataRangeIDs;
+    return this.unionOfDataRangeIDs;
   }
 }

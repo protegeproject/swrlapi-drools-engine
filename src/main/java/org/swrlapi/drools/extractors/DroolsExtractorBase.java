@@ -12,7 +12,7 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 {
   @NonNull private final DroolsOWLLiteralExtractor literalExtractor;
   @NonNull private final DroolsOWLEntityExtractor entityExtractor;
-  @NonNull private final DroolsOWLIndividualExtractor individualExtractor;
+  private final @NonNull DroolsOWLNamedIndividualExtractor namedIndividualExtractor;
   @NonNull private final DroolsSWRLVariableExtractor variableExtractor;
 
   public DroolsExtractorBase(@NonNull SWRLRuleEngineBridge bridge)
@@ -21,7 +21,7 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 
     this.literalExtractor = new DroolsOWLLiteralExtractor(bridge);
     this.entityExtractor = DroolsFactory.getDroolsOWLEntityExtractor(bridge);
-    this.individualExtractor = DroolsFactory.getDroolsOWLIndividualExtractor(bridge);
+    this.namedIndividualExtractor = DroolsFactory.getDroolsOWLIndividualExtractor(bridge);
     this.variableExtractor = new DroolsSWRLVariableExtractor(bridge);
   }
 
@@ -35,9 +35,9 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
     return this.entityExtractor;
   }
 
-  @NonNull protected DroolsOWLIndividualExtractor getDroolsOWLIndividualExtractor()
+  protected @NonNull DroolsOWLNamedIndividualExtractor getDroolsOWLNamedIndividualExtractor()
   {
-    return this.individualExtractor;
+    return this.namedIndividualExtractor;
   }
 
   @NonNull protected DroolsSWRLVariableExtractor getDroolsSWRLVariableExtractor()

@@ -1,5 +1,7 @@
 package org.swrlapi.drools.owl.axioms;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 /**
  * A visitor that can visit a Drools representation of OWL axioms, represented by
  * {@link org.swrlapi.drools.owl.axioms.A}s.
@@ -11,71 +13,71 @@ package org.swrlapi.drools.owl.axioms;
  */
 public interface AVisitor
 {
-  void visit(CDA cda);
+  void visit(@NonNull CDA cda);
 
-  void visit(OPDA cda);
+  void visit(@NonNull OPDA cda);
 
-  void visit(DPDA cda);
+  void visit(@NonNull DPDA cda);
 
-  void visit(APDA cda);
+  void visit(@NonNull APDA cda);
 
-  void visit(IDA cda);
+  void visit(@NonNull IDA cda);
 
-  void visit(SCA sca);
+  void visit(@NonNull SCA sca);
 
-  void visit(NOPAA nopa);
+  void visit(@NonNull NOPAA nopa);
 
-  void visit(AOPA aopa);
+  void visit(@NonNull AOPA aopa);
 
-  void visit(DCA dca);
+  void visit(@NonNull DCA dca);
 
-  void visit(DDPA ddpa);
+  void visit(@NonNull DDPA ddpa);
 
-  void visit(DOPA dopa);
+  void visit(@NonNull DOPA dopa);
 
-  void visit(EOPA eopa);
+  void visit(@NonNull EOPA eopa);
 
-  void visit(NDPAA ndpaa);
+  void visit(@NonNull NDPAA ndpaa);
 
-  void visit(DIA dia);
+  void visit(@NonNull DIA dia);
 
-  void visit(DJDPA djdpa);
+  void visit(@NonNull DJDPA djdpa);
 
-  void visit(DJOPA djopa);
+  void visit(@NonNull DJOPA djopa);
 
-  void visit(OPRA opra);
+  void visit(@NonNull OPRA opra);
 
-  void visit(OPAA opaa);
+  void visit(@NonNull OPAA opaa);
 
-  void visit(FOPA fopa);
+  void visit(@NonNull FOPA fopa);
 
-  void visit(SOPA sopa);
+  void visit(@NonNull SOPA sopa);
 
-  void visit(SPA spa);
+  void visit(@NonNull SPA spa);
 
-  void visit(DPRA dpra);
+  void visit(@NonNull DPRA dpra);
 
-  void visit(FDPA fdpa);
+  void visit(@NonNull FDPA fdpa);
 
-  void visit(EDPA edpa);
+  void visit(@NonNull EDPA edpa);
 
-  void visit(CAA caa);
+  void visit(@NonNull CAA caa);
 
-  void visit(ECA eca);
+  void visit(@NonNull ECA eca);
 
-  void visit(DPAA dpaa);
+  void visit(@NonNull DPAA dpaa);
 
-  void visit(TOPA TOPA);
+  void visit(@NonNull TOPA TOPA);
 
-  void visit(IROPA iropa);
+  void visit(@NonNull IROPA iropa);
 
-  void visit(SDPA sdpa);
+  void visit(@NonNull SDPA sdpa);
 
-  void visit(IFOPA ifopa);
+  void visit(@NonNull IFOPA ifopa);
 
-  void visit(SIA sia);
+  void visit(@NonNull SIA sia);
 
-  void visit(IOPA iopa);
+  void visit(@NonNull IOPA iopa);
 
   // OWLReflexiveObjectPropertyAxiom not dealt with by OWL 2 RL so we ignore
 

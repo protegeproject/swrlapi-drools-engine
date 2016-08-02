@@ -3,6 +3,8 @@ package org.swrlapi.drools.core;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.converters.oo.DroolsSWRLBuiltInArgument2BAConverter;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.sqwrl.VPATH;
@@ -23,7 +25,7 @@ import java.util.Optional;
 
 /**
  * This class is used to invoke SWRL built-ins from within a Drools rule.
- * <p>
+ * <p/>
  * Varargs seem to work inconsistently in this version of Drools. Hence the need for the repetitions for the invoke()
  * methods with varying numbers of arguments. We really want to replace this with a single call with a varargs argument.
  */
@@ -37,11 +39,14 @@ public class DroolsSWRLBuiltInInvoker
 
   @NonNull private final Map<@NonNull String, @NonNull List<@NonNull List<@NonNull SWRLBuiltInArgument>>> invocationPatternMap;
 
-  public DroolsSWRLBuiltInInvoker(@NonNull SWRLRuleEngineBridge bridge)
+  public DroolsSWRLBuiltInInvoker(@NonNull SWRLRuleEngineBridge bridge,
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler)
   {
     this.bridge = bridge;
-    this.builtInArgumentConvertor = new DroolsSWRLBuiltInArgument2BAConverter(bridge);
-    this.builtInArgumentExtractor = new DroolsSWRLBuiltInArgumentExtractor(bridge);
+    this.builtInArgumentConvertor = new DroolsSWRLBuiltInArgument2BAConverter(bridge, droolsOWLClassExpressionHandler);
+    this.builtInArgumentExtractor = new DroolsSWRLBuiltInArgumentExtractor(bridge, droolsOWLClassExpressionHandler,
+      droolsOWLPropertyExpressionHandler);
 
     this.invocationPatternMap = new HashMap<>();
   }
@@ -468,6 +473,7 @@ public class DroolsSWRLBuiltInInvoker
 
   @NonNull private List<@NonNull BAP> swrlBuiltInArgumentPatterns2BAPs(@NonNull String ruleName,
     @NonNull String builtInName, @NonNull List<@NonNull List<@NonNull SWRLBuiltInArgument>> argumentPatterns)
+    throws SWRLBuiltInException
   {
     List<@NonNull BAP> baps = new ArrayList<>();
 
@@ -481,6 +487,11 @@ public class DroolsSWRLBuiltInInvoker
               argument = builtInResult.get();
           }
           BA ba = getSWRLBuiltInArgumentConverter().convert(argument);
+          if (ba == null)
+            throw new TargetSWRLRuleEngineInternalException(
+              "error converting return argument " + argument + " after invoking built-in " + builtInName + " in rule "
+                + ruleName);
+
           bap.addArgument(ba);
         }
         baps.add(bap);

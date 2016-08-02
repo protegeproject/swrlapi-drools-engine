@@ -1,10 +1,11 @@
 package org.swrlapi.drools.owl.dataranges;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLDatatypeBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.OE;
@@ -17,13 +18,20 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.semanticweb.owlapi.model.OWLDatatype
  */
-public class D extends OE implements DR
+public class D implements DR, OE
 {
   private static final long serialVersionUID = 1L;
 
-  public D(@NonNull String datatypeID)
+  @NonNull private final String id;
+
+  public D(@NonNull String name)
   {
-    super(datatypeID);
+    this.id = name;
+  }
+
+  @NonNull public String getid()
+  {
+    return this.id;
   }
 
   /*
@@ -31,42 +39,56 @@ public class D extends OE implements DR
    */
   public D(@NonNull BA ba)
   {
-    super("<InProcess>");
-
     if (ba instanceof D) {
       D d = (D)ba;
-      this.id = d.getName();
+      this.id = d.getid();
     } else
-      throw new TargetSWRLRuleEngineInternalException("expecting OWL datatype from bound built-in argument, got "
-          + ba.getClass().getCanonicalName());
+      throw new TargetSWRLRuleEngineInternalException(
+        "expecting OWL datatype from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override
-  public String getrid()
+  @NonNull @Override public String getdrid()
   {
-    return getName();
+    return getid();
   }
 
-  @NonNull @Override
-  public OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor) throws TargetSWRLRuleEngineException
-  {
-    return extractor.extract(this);
-  }
-
-  @NonNull @Override
-  public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  @NonNull @Override public OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @SideEffectFree @NonNull @Override
-  public String toString()
+  @NonNull @Override public SWRLDatatypeBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+    throws TargetSWRLRuleEngineException
   {
-    return super.toString();
+    return extractor.extract(this);
   }
 
   @NonNull public static D getTopDatatype()
   {
     return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
+  }
+
+  @NonNull @SideEffectFree  @Override public String toString()
+  {
+    return super.toString();
+  }
+
+  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    D d = (D)o;
+
+    return id != null ? id.equals(d.id) : d.id == null;
+
+  }
+
+  @SideEffectFree @Deterministic @Override public int hashCode()
+  {
+    return id != null ? id.hashCode() : 0;
   }
 }

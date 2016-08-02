@@ -1,9 +1,9 @@
 package org.swrlapi.drools.extractors;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.swrlapi.bridge.extractors.TargetRuleEngineExtractor;
-import org.swrlapi.drools.factory.DefaultDroolsOWLIndividualExtractor;
+import org.swrlapi.drools.factory.DefaultDroolsOWLNamedIndividualExtractor;
 import org.swrlapi.drools.owl.individuals.I;
 
 /**
@@ -11,9 +11,9 @@ import org.swrlapi.drools.owl.individuals.I;
  *
  * @see org.semanticweb.owlapi.model.OWLIndividual
  * @see I
- * @see DefaultDroolsOWLIndividualExtractor
+ * @see DefaultDroolsOWLNamedIndividualExtractor
  */
-public interface DroolsOWLIndividualExtractor extends TargetRuleEngineExtractor
+public interface DroolsOWLNamedIndividualExtractor extends TargetRuleEngineExtractor
 {
-  @NonNull OWLIndividual extract(@NonNull I i);
+  @NonNull OWLNamedIndividual extract(@NonNull I i);
 }

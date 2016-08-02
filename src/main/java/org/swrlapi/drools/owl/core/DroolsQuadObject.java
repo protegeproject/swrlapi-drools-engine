@@ -40,7 +40,7 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
     return this.t4;
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+   @NonNull @SideEffectFree @Override public String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ", " + this.t4 + ")";
   }

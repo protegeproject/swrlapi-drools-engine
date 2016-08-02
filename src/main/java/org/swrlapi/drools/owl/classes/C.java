@@ -1,10 +1,11 @@
 package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
+import org.swrlapi.builtins.arguments.SWRLClassBuiltInArgument;
 import org.swrlapi.drools.extractors.DroolsOWLEntityExtractor;
 import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.OE;
@@ -17,18 +18,25 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
  *
  * @see org.semanticweb.owlapi.model.OWLClass
  */
-public class C extends OE implements CE
+public class C implements CE, OE
 {
   private static final long serialVersionUID = 1L;
 
-  public C(@NonNull String classID)
+  @NonNull public final String id;
+
+  public C(@NonNull String id)
   {
-    super(classID);
+    this.id = id;
+  }
+
+  @NonNull public String getid()
+  {
+    return this.id;
   }
 
   @NonNull @Override public String getceid()
   {
-    return super.getName();
+    return this.id;
   }
 
   /*
@@ -36,14 +44,12 @@ public class C extends OE implements CE
    */
   public C(BA ba)
   {
-    super("<InProcess>");
-
     if (ba instanceof C) {
       C c = (C)ba;
-      this.id = c.getName();
+      this.id = c.getid();
     } else
       throw new TargetSWRLRuleEngineInternalException(
-        "expecting OWL class from bound built-in argument, got " + ba.getClass().getCanonicalName());
+        "expecting OWL named class from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
   @NonNull @Override public OWLClass extract(@NonNull DroolsOWLEntityExtractor extractor)
@@ -52,13 +58,13 @@ public class C extends OE implements CE
     return extractor.extract(this);
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @NonNull @Override public SWRLClassBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return super.toString();
   }
@@ -71,5 +77,23 @@ public class C extends OE implements CE
   @NonNull public static C getOWLNothing()
   {
     return new C(OWLRDFVocabulary.OWL_NOTHING.getPrefixedName());
+  }
+
+  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+
+    C c = (C)o;
+
+    return id != null ? id.equals(c.id) : c.id == null;
+
+  }
+
+  @SideEffectFree @Deterministic @Override public int hashCode()
+  {
+    return id != null ? id.hashCode() : 0;
   }
 }

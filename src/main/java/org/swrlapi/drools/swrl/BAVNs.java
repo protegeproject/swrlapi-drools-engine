@@ -145,7 +145,7 @@ public class BAVNs
     return getNumberOfArguments() != 0;
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     String representation = DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
     boolean isFirst = true;

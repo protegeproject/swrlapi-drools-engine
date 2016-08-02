@@ -2,46 +2,42 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.swrlapi.drools.owl.core.DroolsTernaryObject;
-import org.swrlapi.drools.owl.individuals.I;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
+import org.swrlapi.drools.owl.core.DroolsNarySet;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+
+import java.util.Set;
 
 /**
- * This class represents an OWL object one of class expression in Drools. Drools is supplied with an exhaustive pairwise
- * set of classes from the list in an OWL one of class expression.
+ * This class represents an OWL object one of class expression in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectOneOf
  */
-public class OOOCE extends DroolsTernaryObject<String, I, I> implements CE
+public class OOOCE extends DroolsNarySet<String, String> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public OOOCE(@NonNull String ceid, @NonNull I i1, @NonNull I i2)
+  public OOOCE(@NonNull String ceid, @NonNull Set<String> elements)
   {
-    super(ceid, i1, i2);
-  }
-
-  public OOOCE(@NonNull String ceid, @NonNull String individual1ID, @NonNull String individual2ID)
-  {
-    super(ceid, new I(individual1ID), new I(individual2ID));
+    super(ceid, elements);
   }
 
   @NonNull @Override public String getceid()
   {
-    return getT1();
+    return getID();
   }
 
-  @NonNull public I getI1()
-  {
-    return getT2();
-  }
+  @NonNull public Set<String> getiids() { return getElements(); }
 
-  @NonNull public I getI2()
-  {
-    return getT3();
-  }
-
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "OOOCE" + super.toString();
+  }
+
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
   }
 }

@@ -2,24 +2,27 @@ package org.swrlapi.drools.owl.classes;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.swrlapi.builtins.arguments.SWRLClassExpressionBuiltInArgument;
+import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.owl.core.DroolsTernaryObject;
 import org.swrlapi.drools.owl.properties.OP;
+import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 /**
  * This class represents an OWL object exact cardinality class expression in Drools.
  *
  * @see org.semanticweb.owlapi.model.OWLObjectExactCardinality
  */
-public class OCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
+public class OECCE extends DroolsTernaryObject<String, OP, Integer> implements CE
 {
   private static final long serialVersionUID = 1L;
 
-  public OCCE(@NonNull String ceid, @NonNull OP p, @NonNull Integer card)
+  public OECCE(@NonNull String ceid, @NonNull OP p, @NonNull Integer card)
   {
     super(ceid, p, card);
   }
 
-  public OCCE(@NonNull String ceid, @NonNull String propertyID, @NonNull Integer card)
+  public OECCE(@NonNull String ceid, @NonNull String propertyID, @NonNull Integer card)
   {
     super(ceid, new OP(propertyID), card);
   }
@@ -39,8 +42,14 @@ public class OCCE extends DroolsTernaryObject<String, OP, Integer> implements CE
     return getT3();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
-    return "OCE" + super.toString();
+    return "OECECE" + super.toString();
+  }
+
+  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+    @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
+  {
+    return extractor.extract(this);
   }
 }

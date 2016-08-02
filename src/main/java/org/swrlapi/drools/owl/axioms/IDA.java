@@ -31,7 +31,7 @@ public class IDA extends DA<I>
     return getE();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "IDA(" + super.toString() + ")";
   }

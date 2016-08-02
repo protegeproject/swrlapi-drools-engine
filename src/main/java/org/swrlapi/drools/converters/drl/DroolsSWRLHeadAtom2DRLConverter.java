@@ -1,5 +1,6 @@
 package org.swrlapi.drools.converters.drl;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -13,17 +14,17 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSWRLHeadAtomConverter;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
+import org.swrlapi.drools.converters.oo.DroolsOWLClassExpressionHandler;
+import org.swrlapi.drools.converters.oo.DroolsOWLPropertyExpressionHandler;
 import org.swrlapi.drools.core.DroolsNames;
 import org.swrlapi.drools.core.DroolsSWRLBuiltInInvoker;
 import org.swrlapi.exceptions.SWRLAPIException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
 /**
  * This class converts OWLAPI SWRL head atoms to a their DRL representation for use in rules.
- * <p>
+ * <p/>
  * Head and body atoms are converted differently - hence the need for two converters. Body atom converters must also
  * know the variables defined by previous atoms because a different syntax is required in DRL for declaring a variable
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
@@ -35,23 +36,24 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineSWRLHeadAtomConverter<String>
 {
-  private final @NonNull DroolsSWRLHeadAtomArgument2DRLConverter headAtomArgumentConverter;
-  private final @NonNull DroolsSWRLBuiltInArgument2DRLConverter builtInArgumentConverter;
-  private final @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter;
-  private final @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter;
+  @NonNull private final DroolsSWRLHeadAtomArgument2DRLConverter droolsSWRLHeadAtomArgument2DRLConverter;
+  @NonNull private final DroolsSWRLBuiltInArgument2DRLConverter droolsSWRLBuiltInArgument2DRLConverter;
+  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
 
   private int inferredAxiomVariableIndex, builtInIndexInHead;
 
   public DroolsSWRLHeadAtom2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
-    @NonNull DroolsOWLClassExpression2DRLConverter classExpressionConverter,
-    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpressionConverter)
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler)
   {
     super(bridge);
 
-    this.headAtomArgumentConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge);
-    this.builtInArgumentConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge);
-    this.classExpressionConverter = classExpressionConverter;
-    this.propertyExpressionConverter = propertyExpressionConverter;
+    this.droolsSWRLHeadAtomArgument2DRLConverter = new DroolsSWRLHeadAtomArgument2DRLConverter(bridge);
+    this.droolsSWRLBuiltInArgument2DRLConverter = new DroolsSWRLBuiltInArgument2DRLConverter(bridge,
+      droolsOWLClassExpressionHandler, droolsOWLPropertyExpressionHandler);
+    this.droolsOWLClassExpressionHandler = droolsOWLClassExpressionHandler;
+    this.droolsOWLPropertyExpressionHandler = droolsOWLPropertyExpressionHandler;
 
     this.inferredAxiomVariableIndex = 0;
     this.builtInIndexInHead = 0;
@@ -65,11 +67,11 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
 
   @NonNull @Override public String convert(@NonNull SWRLClassAtom atom)
   {
-    String className = getOWLClassExpressionConverter().convert(atom.getPredicate());
+    String classID = getDroolsOWLClassExpressionHandler().convert(atom.getPredicate()).getceid();
     SWRLIArgument argument = atom.getArgument();
     String caaVariable = "caa" + this.inferredAxiomVariableIndex++;
     String representation = DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + " " + caaVariable + "=new "
-      + DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + "(" + addQuotes(className) + ", ";
+      + DroolsNames.CLASS_ASSERTION_AXIOM_CLASS_NAME + "(" + addQuotes(classID) + ", ";
 
     representation +=
       "new " + DroolsNames.INDIVIDUAL_CLASS_NAME + "(" + getSWRLHeadAtomArgumentConverter().convert(argument) + ")";
@@ -81,7 +83,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
 
   @NonNull @Override public String convert(@NonNull SWRLObjectPropertyAtom atom)
   {
-    String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
+    String propertyID = getDroolsOWLPropertyExpressionHandler().convert(atom.getPredicate()).getid();
     SWRLIArgument argument1 = atom.getFirstArgument();
     SWRLIArgument argument2 = atom.getSecondArgument();
     String opaaVariable = "opaa" + this.inferredAxiomVariableIndex++;
@@ -101,7 +103,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
 
   @NonNull @Override public String convert(@NonNull SWRLDataPropertyAtom atom)
   {
-    String propertyID = getOWLPropertyExpressionConverter().convert(atom.getPredicate());
+    String propertyID = getDroolsOWLPropertyExpressionHandler().convert(atom.getPredicate()).getid();
     SWRLIArgument argument1 = atom.getFirstArgument();
     SWRLDArgument argument2 = atom.getSecondArgument();
     String dpaaVariable = "dpaa" + this.inferredAxiomVariableIndex++;
@@ -209,22 +211,22 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
 
   @NonNull private DroolsSWRLHeadAtomArgument2DRLConverter getSWRLHeadAtomArgumentConverter()
   {
-    return this.headAtomArgumentConverter;
+    return this.droolsSWRLHeadAtomArgument2DRLConverter;
   }
 
   @NonNull private DroolsSWRLBuiltInArgument2DRLConverter getSWRLBuiltInArgumentConverter()
   {
-    return this.builtInArgumentConverter;
+    return this.droolsSWRLBuiltInArgument2DRLConverter;
   }
 
-  private @NonNull DroolsOWLPropertyExpression2DRLConverter getOWLPropertyExpressionConverter()
+  private @NonNull DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
   {
-    return this.propertyExpressionConverter;
+    return this.droolsOWLPropertyExpressionHandler;
   }
 
-  private @NonNull DroolsOWLClassExpression2DRLConverter getOWLClassExpressionConverter()
+  private @NonNull DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
   {
-    return this.classExpressionConverter;
+    return this.droolsOWLClassExpressionHandler;
   }
 
   @NonNull private String addQuotes(@NonNull String s)

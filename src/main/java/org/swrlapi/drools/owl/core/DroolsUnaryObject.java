@@ -19,7 +19,7 @@ public abstract class DroolsUnaryObject<T1>
     return this.t1;
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+   @NonNull @SideEffectFree @Override public String toString()
   {
     return "(" + this.t1 + ")";
   }

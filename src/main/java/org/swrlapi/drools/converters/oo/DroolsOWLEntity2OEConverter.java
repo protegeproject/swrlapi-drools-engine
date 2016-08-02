@@ -11,9 +11,9 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLEntityConverter;
 import org.swrlapi.drools.owl.classes.C;
+import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.owl.dataranges.D;
 import org.swrlapi.drools.owl.individuals.I;
-import org.swrlapi.drools.owl.core.OE;
 import org.swrlapi.drools.owl.properties.AP;
 import org.swrlapi.drools.owl.properties.DP;
 import org.swrlapi.drools.owl.properties.OP;
@@ -25,7 +25,7 @@ import org.swrlapi.drools.owl.properties.OP;
  * @see OE
  */
 public class DroolsOWLEntity2OEConverter extends TargetRuleEngineConverterBase
-    implements TargetRuleEngineOWLEntityConverter<OE>
+  implements TargetRuleEngineOWLEntityConverter<OE>
 {
   public DroolsOWLEntity2OEConverter(@NonNull SWRLRuleEngineBridge bridge)
   {

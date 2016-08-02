@@ -1,5 +1,7 @@
 package org.swrlapi.drools.owl.dataranges;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 /**
  * A visitor that can visit a Drools representation of OWL data ranges, represented by
  * {@link org.swrlapi.drools.owl.dataranges.DR}s.
@@ -11,17 +13,17 @@ package org.swrlapi.drools.owl.dataranges;
  */
 public interface DRVisitor
 {
-  void visit(D dr);
+  void visit(@NonNull D dr);
 
-  void visit(DCO dr);
+  void visit(@NonNull DCO dr);
 
-  void visit(DIO dr);
+  void visit(@NonNull DIO dr);
 
-  void visit(DOO dr);
+  void visit(@NonNull DOO dr);
 
-  void visit(DUO dr);
+  void visit(@NonNull DUO dr);
 
-  void visit(DRR drr);
+  void visit(@NonNull DRR drr);
 
-  void visit(DTR dtr);
+  void visit(@NonNull DTR dtr);
 }

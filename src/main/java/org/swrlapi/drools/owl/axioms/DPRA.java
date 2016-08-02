@@ -42,7 +42,7 @@ public class DPRA extends DroolsBinaryObject<String, String> implements A
     visitor.visit(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "DPRA" + super.toString();
   }

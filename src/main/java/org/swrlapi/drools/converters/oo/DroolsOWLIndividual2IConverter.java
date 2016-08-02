@@ -18,7 +18,7 @@ import org.swrlapi.drools.owl.individuals.I;
  * @see I
  */
 public class DroolsOWLIndividual2IConverter extends TargetRuleEngineConverterBase
-    implements TargetRuleEngineOWLIndividualConverter<I>
+  implements TargetRuleEngineOWLIndividualConverter<I>
 {
   public DroolsOWLIndividual2IConverter(@NonNull SWRLRuleEngineBridge bridge)
   {

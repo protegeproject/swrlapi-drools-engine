@@ -123,7 +123,7 @@ public class L implements OO, BA, Serializable
     return extractor.extract(this);
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+   @NonNull @SideEffectFree @Override public String toString()
   {
     return "L(\"" + this.value + "\", " + this.datatypeName + ")";
   }

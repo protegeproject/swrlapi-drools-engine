@@ -56,9 +56,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineOWLAxiomConverter;
 import org.swrlapi.core.SWRLAPIRule;
-import org.swrlapi.drools.converters.drl.DroolsOWLClassExpression2DRLConverter;
-import org.swrlapi.drools.converters.drl.DroolsOWLPropertyExpression2DRLConverter;
 import org.swrlapi.drools.converters.drl.DroolsSWRLRule2DRLConverter;
+import org.swrlapi.drools.converters.id.DroolsOWLDataRangeHandler;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.AOPA;
@@ -95,6 +94,7 @@ import org.swrlapi.drools.owl.axioms.TOPA;
 import org.swrlapi.drools.owl.classes.CE;
 import org.swrlapi.drools.owl.individuals.I;
 import org.swrlapi.drools.owl.literals.L;
+import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 import org.swrlapi.visitors.SWRLAPIOWLAxiomVisitor;
 
@@ -103,7 +103,7 @@ import java.util.Set;
 
 /**
  * This class converts OWLAPI OWL axioms to their Drools representation.
- * <p>
+ * <p/>
  * Note that SWRL rules are also a type of OWL axiom so are also converted here.
  *
  * @see org.semanticweb.owlapi.model.OWLAxiom
@@ -113,25 +113,26 @@ import java.util.Set;
 public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   implements TargetRuleEngineOWLAxiomConverter, SWRLAPIOWLAxiomVisitor
 {
-  @NonNull private final DroolsSWRLRule2DRLConverter swrlRule2DRLConverter;
-  @NonNull private final DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter;
-  @NonNull private final DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter;
+  @NonNull private final DroolsSWRLRule2DRLConverter droolsSWRLRule2DRLConverter;
+  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  @NonNull private final DroolsOWLDataRangeHandler droolsOWLDataRangeHandler;
 
-  @NonNull private final Set<@NonNull A> assertedOWLAxioms;
+  @NonNull private final Set<@NonNull A> assertedOWLAxioms  = new HashSet<>();
 
   public DroolsOWLAxiom2AConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
-    @NonNull DroolsOWLClassExpression2DRLConverter classExpression2DRLConverter,
-    @NonNull DroolsOWLPropertyExpression2DRLConverter propertyExpression2DRLConverter)
+    @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
+    @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
+    @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler)
   {
     super(bridge);
 
-    this.swrlRule2DRLConverter = new DroolsSWRLRule2DRLConverter(bridge, droolsSWRLRuleEngine,
-      classExpression2DRLConverter, propertyExpression2DRLConverter);
-    this.classExpression2DRLConverter = classExpression2DRLConverter;
-    this.propertyExpression2DRLConverter = propertyExpression2DRLConverter;
-
-    this.assertedOWLAxioms = new HashSet<>();
+    this.droolsSWRLRule2DRLConverter = new DroolsSWRLRule2DRLConverter(bridge, droolsSWRLRuleEngine,
+      droolsOWLClassExpressionHandler, droolsOWLPropertyExpressionHandler, droolsOWLDataRangeHandler);
+    this.droolsOWLClassExpressionHandler = droolsOWLClassExpressionHandler;
+    this.droolsOWLPropertyExpressionHandler = droolsOWLPropertyExpressionHandler;
+    this.droolsOWLDataRangeHandler = droolsOWLDataRangeHandler;
   }
 
   public void reset()
@@ -146,10 +147,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
 
   @NonNull public Set<@NonNull CE> getOWLClassExpressions()
   {
-    return this.classExpression2DRLConverter.getCEs();
+    return this.droolsOWLClassExpressionHandler.getCEs();
   }
 
-  @Override public void convert(@NonNull SWRLAPIRule rule)
+  @Override public void convert(@NonNull SWRLAPIRule rule) throws SWRLBuiltInException
   { // TODO The current implementation of the DroolsSWRLRule2DRL convert creates the rule in the Drools rule engine
     // immediately. However, this approach is not in line with the approach of this class. Should instead create an R
     // axiom object holding rule text that gets converted to Drools later with other Drools axioms. Note, however,
@@ -163,9 +164,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
 
     if (entity.isOWLClass()) {
       OWLClass cls = axiom.getEntity().asOWLClass();
-      String classPrefixedName = getDroolsOWLEntity2NameConverter().convert(cls);
-      recordOWLAxiom(new CDA(classPrefixedName));
-      getOWLObjectResolver().recordOWLClassExpression(classPrefixedName, cls);
+      String classID = getDroolsOWLClassExpressionHandler().convert(cls).getceid();
+      recordOWLAxiom(new CDA(classID));
     } else if (entity.isOWLNamedIndividual()) {
       OWLNamedIndividual individual = entity.asOWLNamedIndividual();
       String individualPrefixedName = getDroolsOWLEntity2NameConverter().convert(individual);
@@ -173,12 +173,12 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
       recordOWLAxiom(new CAA("owl:Thing", individualPrefixedName));
     } else if (entity.isOWLObjectProperty()) {
       OWLObjectProperty property = entity.asOWLObjectProperty();
-      String propertyPrefixedName = getDroolsOWLPropertyExpression2DRLConverter().convert(property);
-      recordOWLAxiom(new OPDA(propertyPrefixedName));
+      String propertyID = getDroolsOWLPropertyExpressionHandler().convert(property).getid();
+      recordOWLAxiom(new OPDA(propertyID));
     } else if (entity.isOWLDataProperty()) {
       OWLDataProperty property = entity.asOWLDataProperty();
-      String propertyPrefixedName = getDroolsOWLPropertyExpression2DRLConverter().convert(property);
-      recordOWLAxiom(new DPDA(propertyPrefixedName));
+      String propertyID = getDroolsOWLPropertyExpressionHandler().convert(property).getid();
+      recordOWLAxiom(new DPDA(propertyID));
     } else if (entity.isOWLAnnotationProperty()) {
       OWLAnnotationProperty property = entity.asOWLAnnotationProperty();
       String propertyPrefixedName = getDroolsOWLEntity2NameConverter().convert(property);
@@ -192,7 +192,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLClassExpression cls = axiom.getClassExpression();
     OWLIndividual individual = axiom.getIndividual();
-    String classID = getDroolsOWLClassExpression2DRLConverter().convert(cls);
+    String classID = getDroolsOWLClassExpressionHandler().convert(cls).getceid();
     I i = getDroolsOWLIndividual2IConverter().convert(individual);
     CAA caa = new CAA(classID, i);
 
@@ -204,7 +204,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     OWLObjectPropertyExpression property = axiom.getProperty();
     OWLIndividual subjectIndividual = axiom.getSubject();
     OWLIndividual objectIndividual = axiom.getObject();
-    String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(property);
+    String propertyID = getDroolsOWLPropertyExpressionHandler().convert(property).getid();
     I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
     I objectI = getDroolsOWLIndividual2IConverter().convert(objectIndividual);
     OPAA opaa = new OPAA(subjectI, propertyID, objectI);
@@ -217,7 +217,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     OWLDataPropertyExpression property = axiom.getProperty();
     OWLIndividual subjectIndividual = axiom.getSubject();
     OWLLiteral objectLiteral = axiom.getObject();
-    String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(property);
+    String propertyID = getDroolsOWLPropertyExpressionHandler().convert(property).getid();
     I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
     L literal = getDroolsOWLLiteral2LConverter().convert(objectLiteral);
     DPAA dpaa = new DPAA(subjectI, propertyID, literal);
@@ -264,8 +264,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLDataPropertyExpression subProperty = axiom.getSubProperty();
     OWLDataPropertyExpression superProperty = axiom.getSuperProperty();
-    SDPA a = new SDPA(getDroolsOWLPropertyExpression2DRLConverter().convert(subProperty),
-      getDroolsOWLPropertyExpression2DRLConverter().convert(superProperty));
+    SDPA a = new SDPA(getDroolsOWLPropertyExpressionHandler().convert(subProperty).getid(),
+      getDroolsOWLPropertyExpressionHandler().convert(superProperty).getid());
 
     recordOWLAxiom(a);
   }
@@ -274,8 +274,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLObjectPropertyExpression subProperty = axiom.getSubProperty();
     OWLObjectPropertyExpression superProperty = axiom.getSuperProperty();
-    SOPA a = new SOPA(getDroolsOWLPropertyExpression2DRLConverter().convert(subProperty),
-      getDroolsOWLPropertyExpression2DRLConverter().convert(superProperty));
+    SOPA a = new SOPA(getDroolsOWLPropertyExpressionHandler().convert(subProperty).getid(),
+      getDroolsOWLPropertyExpressionHandler().convert(superProperty).getid());
 
     recordOWLAxiom(a);
   }
@@ -284,8 +284,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLObjectPropertyExpression property1 = axiom.getFirstProperty();
     OWLObjectPropertyExpression property2 = axiom.getSecondProperty();
-    IOPA a = new IOPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property1),
-      getDroolsOWLPropertyExpression2DRLConverter().convert(property2));
+    IOPA a = new IOPA(getDroolsOWLPropertyExpressionHandler().convert(property1).getid(),
+      getDroolsOWLPropertyExpressionHandler().convert(property2).getid());
 
     recordOWLAxiom(a);
   }
@@ -294,8 +294,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLClassExpression subClass = axiom.getSubClass();
     OWLClassExpression superClass = axiom.getSuperClass();
-    SCA a = new SCA(getDroolsOWLClassExpression2DRLConverter().convert(subClass),
-      getDroolsOWLClassExpression2DRLConverter().convert(superClass));
+    SCA a = new SCA(getDroolsOWLClassExpressionHandler().convert(subClass).getceid(),
+      getDroolsOWLClassExpressionHandler().convert(superClass).getceid());
 
     recordOWLAxiom(a);
   }
@@ -305,10 +305,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     if (!axiom.getClassExpressions().isEmpty()) {
       for (OWLClassExpression class1 : axiom.getClassExpressions()) {
         Set<@NonNull OWLClassExpression> disjointClasses = new HashSet<>(axiom.getClassExpressions());
-        String class1ID = getDroolsOWLClassExpression2DRLConverter().convert(class1);
+        String class1ID = getDroolsOWLClassExpressionHandler().convert(class1).getceid();
         disjointClasses.remove(class1);
         for (OWLClassExpression class2 : disjointClasses) {
-          String class2ID = getDroolsOWLClassExpression2DRLConverter().convert(class2);
+          String class2ID = getDroolsOWLClassExpressionHandler().convert(class2).getceid();
           DCA a = new DCA(class1ID, class2ID);
           recordOWLAxiom(a);
           a = new DCA(class2ID, class1ID);
@@ -323,10 +323,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     if (!axiom.getClassExpressions().isEmpty()) {
       for (OWLClassExpression class1 : axiom.getClassExpressions()) {
         Set<@NonNull OWLClassExpression> equivalentClasses = new HashSet<>(axiom.getClassExpressions());
-        String class1ID = getDroolsOWLClassExpression2DRLConverter().convert(class1);
+        String class1ID = getDroolsOWLClassExpressionHandler().convert(class1).getceid();
         equivalentClasses.remove(class1);
         for (OWLClassExpression class2 : equivalentClasses) {
-          String class2ID = getDroolsOWLClassExpression2DRLConverter().convert(class2);
+          String class2ID = getDroolsOWLClassExpressionHandler().convert(class2).getceid();
           ECA a = new ECA(class1ID, class2ID);
           recordOWLAxiom(a);
         }
@@ -339,10 +339,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     if (!axiom.getProperties().isEmpty()) {
       for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
         Set<@NonNull OWLObjectPropertyExpression> equivalentProperties = new HashSet<>(axiom.getProperties());
-        String property1ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property1);
+        String property1ID = getDroolsOWLPropertyExpressionHandler().convert(property1).getid();
         equivalentProperties.remove(property1);
         for (OWLObjectPropertyExpression property2 : equivalentProperties) {
-          String property2ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property2);
+          String property2ID = getDroolsOWLPropertyExpressionHandler().convert(property2).getid();
           EOPA a = new EOPA(property1ID, property2ID);
           recordOWLAxiom(a);
         }
@@ -355,10 +355,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     if (!axiom.getProperties().isEmpty()) {
       for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
         Set<@NonNull OWLDataPropertyExpression> equivalentProperties = new HashSet<>(axiom.getProperties());
-        String property1ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property1);
+        String property1ID = getDroolsOWLPropertyExpressionHandler().convert(property1).getid();
         equivalentProperties.remove(property1);
         for (OWLDataPropertyExpression property2 : equivalentProperties) {
-          String property2ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property2);
+          String property2ID = getDroolsOWLPropertyExpressionHandler().convert(property2).getid();
           EDPA a = new EDPA(property1ID, property2ID);
           recordOWLAxiom(a);
         }
@@ -371,10 +371,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     if (!axiom.getProperties().isEmpty()) {
       for (OWLObjectPropertyExpression property1 : axiom.getProperties()) {
         Set<@NonNull OWLObjectPropertyExpression> disjointProperties = new HashSet<>(axiom.getProperties());
-        String property1ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property1);
+        String property1ID = getDroolsOWLPropertyExpressionHandler().convert(property1).getid();
         disjointProperties.remove(property1);
         for (OWLObjectPropertyExpression property2 : disjointProperties) {
-          String property2ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property2);
+          String property2ID = getDroolsOWLPropertyExpressionHandler().convert(property2).getid();
           EOPA a = new EOPA(property1ID, property2ID);
           recordOWLAxiom(a);
         }
@@ -387,10 +387,10 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     if (!axiom.getProperties().isEmpty()) {
       for (OWLDataPropertyExpression property1 : axiom.getProperties()) {
         Set<@NonNull OWLDataPropertyExpression> disjointProperties = new HashSet<>(axiom.getProperties());
-        String property1ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property1);
+        String property1ID = getDroolsOWLPropertyExpressionHandler().convert(property1).getid();
         disjointProperties.remove(property1);
         for (OWLDataPropertyExpression property2 : disjointProperties) {
-          String property2ID = getDroolsOWLPropertyExpression2DRLConverter().convert(property2);
+          String property2ID = getDroolsOWLPropertyExpressionHandler().convert(property2).getid();
           EOPA a = new EOPA(property1ID, property2ID);
           recordOWLAxiom(a);
         }
@@ -402,8 +402,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
     OWLClassExpression domain = axiom.getDomain();
-    DOPA a = new DOPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property),
-      getDroolsOWLClassExpression2DRLConverter().convert(domain));
+    DOPA a = new DOPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid(),
+      getDroolsOWLClassExpressionHandler().convert(domain).getceid());
 
     recordOWLAxiom(a);
   }
@@ -412,8 +412,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLDataPropertyExpression property = axiom.getProperty();
     OWLClassExpression domain = axiom.getDomain();
-    DDPA a = new DDPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property),
-      getDroolsOWLClassExpression2DRLConverter().convert(domain));
+    DDPA a = new DDPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid(),
+      getDroolsOWLClassExpressionHandler().convert(domain).getceid());
 
     recordOWLAxiom(a);
   }
@@ -422,8 +422,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
     OWLClassExpression domain = axiom.getRange();
-    OPRA a = new OPRA(getDroolsOWLPropertyExpression2DRLConverter().convert(property),
-      getDroolsOWLClassExpression2DRLConverter().convert(domain));
+    OPRA a = new OPRA(getDroolsOWLPropertyExpressionHandler().convert(property).getid(),
+      getDroolsOWLClassExpressionHandler().convert(domain).getceid());
 
     recordOWLAxiom(a);
   }
@@ -432,8 +432,8 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     OWLDataPropertyExpression property = axiom.getProperty();
     OWLDataRange range = axiom.getRange();
-    DPRA a = new DPRA(getDroolsOWLPropertyExpression2DRLConverter().convert(property),
-      getDroolsOWLDataRange2IDConverter().convert(range));
+    DPRA a = new DPRA(getDroolsOWLPropertyExpressionHandler().convert(property).getid(),
+      getDroolsOWLDataRangeHandler().convert(range));
 
     recordOWLAxiom(a);
   }
@@ -441,7 +441,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   @Override public void convert(@NonNull OWLFunctionalObjectPropertyAxiom axiom)
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
-    FOPA fopa = new FOPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property));
+    FOPA fopa = new FOPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid());
 
     recordOWLAxiom(fopa);
   }
@@ -449,7 +449,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   @Override public void convert(@NonNull OWLFunctionalDataPropertyAxiom axiom)
   {
     OWLDataPropertyExpression property = axiom.getProperty();
-    FDPA fdpa = new FDPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property));
+    FDPA fdpa = new FDPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid());
 
     recordOWLAxiom(fdpa);
   }
@@ -457,7 +457,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   @Override public void convert(@NonNull OWLInverseFunctionalObjectPropertyAxiom axiom)
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
-    IFOPA ifopa = new IFOPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property));
+    IFOPA ifopa = new IFOPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid());
 
     recordOWLAxiom(ifopa);
   }
@@ -465,7 +465,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   @Override public void convert(@NonNull OWLIrreflexiveObjectPropertyAxiom axiom)
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
-    IROPA iropa = new IROPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property));
+    IROPA iropa = new IROPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid());
 
     recordOWLAxiom(iropa);
   }
@@ -473,7 +473,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   @Override public void convert(@NonNull OWLTransitiveObjectPropertyAxiom axiom)
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
-    TOPA topa = new TOPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property));
+    TOPA topa = new TOPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid());
 
     recordOWLAxiom(topa);
   }
@@ -481,7 +481,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   @Override public void convert(@NonNull OWLSymmetricObjectPropertyAxiom axiom)
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
-    SPA spa = new SPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property));
+    SPA spa = new SPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid());
 
     recordOWLAxiom(spa);
   }
@@ -489,7 +489,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   @Override public void convert(@NonNull OWLAsymmetricObjectPropertyAxiom axiom)
   {
     OWLObjectPropertyExpression property = axiom.getProperty();
-    AOPA aopa = new AOPA(getDroolsOWLPropertyExpression2DRLConverter().convert(property));
+    AOPA aopa = new AOPA(getDroolsOWLPropertyExpressionHandler().convert(property).getid());
 
     recordOWLAxiom(aopa);
   }
@@ -499,7 +499,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     OWLObjectPropertyExpression property = axiom.getProperty();
     OWLIndividual subjectIndividual = axiom.getSubject();
     OWLIndividual objectIndividual = axiom.getObject();
-    String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(property);
+    String propertyID = getDroolsOWLPropertyExpressionHandler().convert(property).getid();
     I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
     I objectI = getDroolsOWLIndividual2IConverter().convert(objectIndividual);
     NOPAA nopaa = new NOPAA(subjectI, propertyID, objectI);
@@ -512,7 +512,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     OWLDataPropertyExpression property = axiom.getProperty();
     OWLIndividual subjectIndividual = axiom.getSubject();
     OWLLiteral objectLiteral = axiom.getObject();
-    String propertyID = getDroolsOWLPropertyExpression2DRLConverter().convert(property);
+    String propertyID = getDroolsOWLPropertyExpressionHandler().convert(property).getid();
     I subjectI = getDroolsOWLIndividual2IConverter().convert(subjectIndividual);
     L literal = getDroolsOWLLiteral2LConverter().convert(objectLiteral);
     NDPAA ndpaa = new NDPAA(subjectI, propertyID, literal);
@@ -574,13 +574,18 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   {
     if (swrlRule instanceof SWRLAPIRule) {
       SWRLAPIRule swrlapiRule = (SWRLAPIRule)swrlRule;
-      if (!swrlapiRule.isSQWRLQuery())
-        convert(swrlapiRule);
+      if (swrlapiRule.isActive() && !swrlapiRule.isSQWRLQuery())
+        try {
+          convert(swrlapiRule);
+        } catch (SWRLBuiltInException e) {
+          throw new TargetSWRLRuleEngineInternalException(
+            "Error converting SWRL rule " + swrlRule + ": " + e.getMessage());
+        }
     } else
       throw new TargetSWRLRuleEngineInternalException("Unexpected SWRL rule " + swrlRule + " - expecting SWRLAPIRule");
   }
 
-  @Override public void visit(@NonNull SWRLAPIRule swrlapiRule)
+  @Override public void visit(@NonNull SWRLAPIRule swrlapiRule) throws SWRLBuiltInException
   {
     convert(swrlapiRule);
   }
@@ -783,18 +788,24 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     }
   }
 
-  private @NonNull DroolsOWLClassExpression2DRLConverter getDroolsOWLClassExpression2DRLConverter()
+  @NonNull private DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
   {
-    return this.classExpression2DRLConverter;
+    return this.droolsOWLClassExpressionHandler;
   }
 
-  private @NonNull DroolsOWLPropertyExpression2DRLConverter getDroolsOWLPropertyExpression2DRLConverter()
+  @NonNull private DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
   {
-    return this.propertyExpression2DRLConverter;
+    return this.droolsOWLPropertyExpressionHandler;
   }
 
-  private @NonNull DroolsSWRLRule2DRLConverter getDroolsSWRLRule2DRLConverter()
+  @NonNull private DroolsSWRLRule2DRLConverter getDroolsSWRLRule2DRLConverter()
   {
-    return this.swrlRule2DRLConverter;
+    return this.droolsSWRLRule2DRLConverter;
+  }
+
+
+  @NonNull DroolsOWLDataRangeHandler getDroolsOWLDataRangeHandler()
+  {
+    return this.droolsOWLDataRangeHandler;
   }
 }

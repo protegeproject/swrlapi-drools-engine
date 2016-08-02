@@ -31,7 +31,7 @@ public class SDPA extends DroolsBinaryObject<String, String> implements A
     return getT2();
   }
 
-  @SideEffectFree @NonNull @Override public String toString()
+  @NonNull @SideEffectFree @Override public String toString()
   {
     return "SDPA" + super.toString();
   }
@@ -46,5 +46,4 @@ public class SDPA extends DroolsBinaryObject<String, String> implements A
   {
     visitor.visit(this);
   }
-
 }
