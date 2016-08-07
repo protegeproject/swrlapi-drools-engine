@@ -28,7 +28,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
  * @see DR
  */
 public class DroolsOWLDataRange2DRConverter extends TargetRuleEngineConverterBase
-    implements TargetRuleEngineOWLDataRangeConverter<DR>, OWLDataRangeVisitorEx<DR>
+  implements TargetRuleEngineOWLDataRangeConverter<DR>, OWLDataRangeVisitorEx<DR>
 {
   public DroolsOWLDataRange2DRConverter(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -40,63 +40,63 @@ public class DroolsOWLDataRange2DRConverter extends TargetRuleEngineConverterBas
     return dataRange.accept(this);
   }
 
-  @Override public @NonNull D convert(@NonNull OWLDatatype datatype)
+  @NonNull @Override public D convert(@NonNull OWLDatatype datatype)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("datatype data ranges not implemented");
   }
 
-  @Override public @NonNull DOO convert(OWLDataOneOf dataRange)
+  @NonNull @Override public DOO convert(OWLDataOneOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data one of data range restrictions not implemented");
   }
 
-  @Override public @NonNull DCO convert(@NonNull OWLDataComplementOf dataRange)
+  @NonNull @Override public DCO convert(@NonNull OWLDataComplementOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range datatypes not implemented");
   }
 
-  @Override public @NonNull DIO convert(@NonNull OWLDataIntersectionOf dataRange)
+  @NonNull @Override public DIO convert(@NonNull OWLDataIntersectionOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data intersection of data ranges not implemented");
   }
 
-  @Override public @NonNull DUO convert(@NonNull OWLDataUnionOf dataRange)
+  @NonNull @Override public DUO convert(@NonNull OWLDataUnionOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data union of data ranges not implemented");
   }
 
-  @Override public @NonNull DTR convert(@NonNull OWLDatatypeRestriction datatypeRestriction)
+  @NonNull @Override public DTR convert(@NonNull OWLDatatypeRestriction datatypeRestriction)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("datatype restriction data ranges not implemented");
   }
 
-  @NonNull @Override public D visit(@NonNull OWLDatatype owlDatatype)
+  @NonNull @Override public D visit(@NonNull OWLDatatype datatype)
   {
-    return convert(owlDatatype);
+    return convert(datatype);
   }
 
-  @NonNull @Override public DOO visit(OWLDataOneOf owlDataOneOf)
+  @NonNull @Override public DOO visit(OWLDataOneOf dataOneOf)
   {
-    return convert(owlDataOneOf);
+    return convert(dataOneOf);
   }
 
-  @NonNull @Override public DCO visit(@NonNull OWLDataComplementOf owlDataComplementOf)
+  @NonNull @Override public DCO visit(@NonNull OWLDataComplementOf dataComplementOf)
   {
-    return convert(owlDataComplementOf);
+    return convert(dataComplementOf);
   }
 
-  @NonNull @Override public DIO visit(@NonNull OWLDataIntersectionOf owlDataIntersectionOf)
+  @NonNull @Override public DIO visit(@NonNull OWLDataIntersectionOf dataIntersectionOf)
   {
-    return convert(owlDataIntersectionOf);
+    return convert(dataIntersectionOf);
   }
 
-  @NonNull @Override public DUO visit(@NonNull OWLDataUnionOf owlDataUnionOf)
+  @NonNull @Override public DUO visit(@NonNull OWLDataUnionOf dataUnionOf)
   {
-    return convert(owlDataUnionOf);
+    return convert(dataUnionOf);
   }
 
-  @NonNull @Override public DTR visit(OWLDatatypeRestriction owlDatatypeRestriction)
+  @NonNull @Override public DTR visit(OWLDatatypeRestriction datatypeRestriction)
   {
-    return convert(owlDatatypeRestriction);
+    return convert(datatypeRestriction);
   }
 }

@@ -21,7 +21,7 @@ public class DefaultDroolsOWLNamedIndividualExtractor extends TargetRuleEngineEx
     super(bridge);
   }
 
-  @Override public @NonNull OWLNamedIndividual extract(@NonNull I i)
+  @NonNull @Override public OWLNamedIndividual extract(@NonNull I i)
   {
     return getOWLDataFactory().getOWLNamedIndividual(prefixedName2IRI(i.getid()));
   }
