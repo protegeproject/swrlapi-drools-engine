@@ -16,7 +16,7 @@ import java.util.Set;
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
  * <p>
  * All axioms inferred by these rules are handled by a {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
- * <p/>
+ * <p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in the
  * Specification). The value space of literals is also not validated (specified by rule dt-not-type). All other rules
  * are implemented.

@@ -434,16 +434,19 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
   @NonNull private String getInvocationTargetCause(Throwable t)
   {
+    String message = t.getMessage() != null ? t.getMessage() : "";
+
     Throwable currentThrowable = t;
     while (currentThrowable != null) {
       if (currentThrowable instanceof InvocationTargetException) {
         InvocationTargetException invocationTargetException = (InvocationTargetException)currentThrowable;
         Throwable targetException = invocationTargetException.getTargetException();
-        return targetException.getMessage() != null ? targetException.getMessage() : "";
+        if (targetException.getMessage() != null)
+          message += ": " + targetException.getMessage();
       }
       currentThrowable = currentThrowable.getCause();
     }
-    return "";
+    return message;
   }
 
   @NonNull private SWRLRuleEngineBridge getBridge()
