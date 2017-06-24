@@ -16,7 +16,7 @@ import java.util.Set;
  * See the <a href="http://www.w3.org/TR/owl2-profiles/">OWL 2 RL Specification</a> for a description of the rules.
  * <p>
  * All axioms inferred by these rules are handled by a {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
- * <p/>
+ * <p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in the
  * Specification). The value space of literals is also not validated (specified by rule dt-not-type). All other rules
  * are implemented.
@@ -370,12 +370,9 @@ public class DroolsOWL2RLRules
         + "then DDPA ddpa=new DDPA($p1, $c); inferrer.infer(ddpa); end");
 
     // T(?p, rdfs:range, ?c1) T(?c1, rdfs:subClassOf, ?c2) -> T(?p, rdfs:range, ?c2)
-    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_RNG1, "scm_rng1_op",
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_RNG1, "scm_rng1",
       "rule scm_rng1_op when OPRA($p:pid, $c1:rid) SCA(subcid==$c1, $c2:supercid) "
         + "then OPRA opra=new OPRA($p, $c2); inferrer.infer(opra); end");
-    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_RNG1, "scm_rng1_dp",
-      "rule scm_rng1_dp when DPRA($p:pid, $c1:rid) SCA(subcid==$c1, $c2:supercid) "
-        + "then DPRA dpra=new DPRA($p, $c2); inferrer.infer(dpra); end");
 
     // T(?p2, rdfs:range, ?c) T(?p1, rdfs:subPropertyOf, ?p2) -> T(?p1, rdfs:range, ?c)
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_RNG2, "scm_rng2_op",

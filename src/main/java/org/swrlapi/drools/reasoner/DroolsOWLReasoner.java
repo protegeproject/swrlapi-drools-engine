@@ -512,14 +512,14 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   @NonNull @Override public NodeSet<OWLClass> getTypes(@NonNull OWLNamedIndividual namedIndividual, boolean direct)
     throws InconsistentOntologyException, FreshEntitiesException, ReasonerInterruptedException, TimeOutException
   {
-    return new OWLClassNodeSet(); // TODO See StructuralReasoner - find all CAAs and follow
+    return new OWLClassNodeSet(); // TODO See StructuralReasoner - loadSWRLBuiltInLibraries all CAAs and follow
   }
 
   @NonNull @Override public NodeSet<OWLNamedIndividual> getInstances(@NonNull OWLClassExpression classExpression,
     boolean b) throws InconsistentOntologyException, ClassExpressionNotInProfileException, FreshEntitiesException,
     ReasonerInterruptedException, TimeOutException
   {
-    return new OWLNamedIndividualNodeSet(); // TODO See StructuralReasoner - find all CAAs and follow
+    return new OWLNamedIndividualNodeSet(); // TODO See StructuralReasoner - loadSWRLBuiltInLibraries all CAAs and follow
   }
 
   @NonNull @Override public NodeSet<OWLNamedIndividual> getObjectPropertyValues(

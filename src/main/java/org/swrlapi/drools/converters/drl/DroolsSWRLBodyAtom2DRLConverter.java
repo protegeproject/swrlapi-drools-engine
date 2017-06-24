@@ -33,7 +33,7 @@ import java.util.Set;
 
 /**
  * This class converts OWLAPI SWRL body atoms to a their DRL representation for use in rules.
- * <p/>
+ * <p>
  * Head and body atoms are converted differently - hence the need for two converters. Body atom converters must also
  * know the variables defined by previous atoms because a different syntax is required in DRL for declaring a variable
  * vs. referring to one that is already declared. In the head, all variables are guaranteed to have already been
