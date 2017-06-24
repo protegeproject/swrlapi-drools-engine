@@ -195,9 +195,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       getDroolsOWLAxiom2AConverter().getOWLClassExpressions().forEach(this.knowledgeSession::insert);
     } catch (Exception e) { // Note: SWRL built-ins can be called during this insertion process
       Thread.currentThread().setContextClassLoader(oldClassLoader);
-      String errorMessage = (e.getCause() == null) ?
-        (e.getMessage() == null ? e.toString() : e.getMessage()) :
-        (e.getCause().getMessage() == null ? e.toString() : e.getCause().getMessage());
+      String errorMessage = buildChainedErrorMessage(e);
       throw new TargetSWRLRuleEngineException("error inserting asserted OWL axioms into Drools:\n" + errorMessage, e);
     }
 
@@ -445,6 +443,21 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
           message += ": " + targetException.getMessage();
       }
       currentThrowable = currentThrowable.getCause();
+    }
+    return message;
+  }
+
+  @NonNull private String buildChainedErrorMessage(Throwable t)
+  {
+    String message = t.getMessage() != null ? t.getMessage() : "";
+
+    Throwable currentThrowable = t;
+    while (currentThrowable != null) {
+      Throwable cause = currentThrowable.getCause();
+      if (cause != null && cause.getMessage() != null)
+        message += ": " + cause.getMessage();
+
+      currentThrowable = cause;
     }
     return message;
   }
