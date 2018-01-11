@@ -60,6 +60,21 @@
     </dependency>
 
 <dependency>
+    <groupId>org.drools</groupId>
+    <artifactId>drools-core</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.drools</groupId>
+    <artifactId>drools-compiler</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.drools</groupId>
+    <artifactId>drools-reteoo</artifactId>
+</dependency>
+
+<dependency>
     <groupId>org.kie</groupId>
     <artifactId>kie-api</artifactId>
 </dependency>
@@ -168,11 +183,9 @@
               org.antlr.runtime.*
             </Export-Package>
             <Embed-Dependency>
-              drools-core, drools-compiler, knowledge-api, drools-reteoo, mvel2, ecj,
-              kie-api, kie-internal,
-              antlr-runtime,
-              commons-discovery,
-              commons-codec
+              drools-core, drools-compiler, drools-reteoo,
+              knowledge-api, kie-api, kie-internal, mvel2, ecj, antlr-runtime,
+              commons-discovery, commons-codec
             </Embed-Dependency>
           </instructions>
         </configuration>
