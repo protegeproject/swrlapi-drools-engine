@@ -59,32 +59,6 @@
       <artifactId>knowledge-api</artifactId>
     </dependency>
 
-<dependency>
-    <groupId>org.kie</groupId>
-    <artifactId>kie-api</artifactId>
-</dependency>
-
-<dependency>
-    <groupId>org.kie</groupId>
-    <artifactId>kie-internal</artifactId>
-</dependency>
-
-    <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr-runtime</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-discovery</groupId>
-      <artifactId>commons-discovery</artifactId>
-    </dependency>
-
-<dependency>
-    <groupId>commons-codec</groupId>
-    <artifactId>commons-codec</artifactId>
-</dependency>
-
-
     <!-- End of Drools dependencies -->
 
     <!-- Start of Checker Framework Dependencies -->
@@ -154,26 +128,14 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Include-Resource>{maven-resources}</Include-Resource>
             <Import-Package>
+              org.drools.*;version="${drools.version}",
               org.semanticweb.owlapi.*;version="[4.1.3,5.0.0)",
               org.swrlapi.*;version="1.0.0",
               *
             </Import-Package>
             <Export-Package>
               org.swrlapi.drools.*;version="1.0.0",
-              org.drools.*,
-              org.kie.*,
-              org.kie.internal.*,
-              org.apache.commons.discovery.*;version="0.5",
-              org.apache.commons.codec.*,
-              org.antlr.runtime.*
             </Export-Package>
-            <Embed-Dependency>
-              drools-core, drools-compiler, knowledge-api, drools-reteoo, mvel2, ecj,
-              kie-api, kie-internal,
-              antlr-runtime,
-              commons-discovery,
-              commons-codec
-            </Embed-Dependency>
           </instructions>
         </configuration>
 
