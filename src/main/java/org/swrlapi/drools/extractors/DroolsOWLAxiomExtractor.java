@@ -119,23 +119,23 @@ public interface DroolsOWLAxiomExtractor extends TargetRuleEngineExtractor
 
   @NonNull OWLEquivalentDataPropertiesAxiom extract(@NonNull EDPA edpa);
 
-  @NonNull OWLDisjointObjectPropertiesAxiom extract(@NonNull DJOPA edpa);
+  @NonNull OWLDisjointObjectPropertiesAxiom extract(@NonNull DJOPA jdopa);
 
-  @NonNull OWLDisjointDataPropertiesAxiom extract(@NonNull DJDPA edpa);
+  @NonNull OWLDisjointDataPropertiesAxiom extract(@NonNull DJDPA djdpa);
 
   @NonNull OWLFunctionalObjectPropertyAxiom extract(@NonNull FOPA fopa);
 
   @NonNull OWLFunctionalDataPropertyAxiom extract(@NonNull FDPA fopa);
 
-  @NonNull OWLInverseFunctionalObjectPropertyAxiom extract(@NonNull IFOPA IFOPA);
+  @NonNull OWLInverseFunctionalObjectPropertyAxiom extract(@NonNull IFOPA ifopa);
 
-  @NonNull OWLIrreflexiveObjectPropertyAxiom extract(@NonNull IROPA IROPA);
+  @NonNull OWLIrreflexiveObjectPropertyAxiom extract(@NonNull IROPA iropa);
 
-  @NonNull OWLAsymmetricObjectPropertyAxiom extract(@NonNull AOPA AOPA);
+  @NonNull OWLAsymmetricObjectPropertyAxiom extract(@NonNull AOPA aopa);
 
   @NonNull OWLSymmetricObjectPropertyAxiom extract(@NonNull SPA spa);
 
-  @NonNull OWLTransitiveObjectPropertyAxiom extract(@NonNull TOPA TOPA);
+  @NonNull OWLTransitiveObjectPropertyAxiom extract(@NonNull TOPA topa);
 
   @NonNull OWLInverseObjectPropertiesAxiom extract(@NonNull IOPA iopa);
 }

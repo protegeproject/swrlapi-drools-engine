@@ -68,6 +68,7 @@ import org.swrlapi.drools.owl.axioms.DCA;
 import org.swrlapi.drools.owl.axioms.DDPA;
 import org.swrlapi.drools.owl.axioms.DIA;
 import org.swrlapi.drools.owl.axioms.DJDPA;
+import org.swrlapi.drools.owl.axioms.DJOPA;
 import org.swrlapi.drools.owl.axioms.DOPA;
 import org.swrlapi.drools.owl.axioms.DPAA;
 import org.swrlapi.drools.owl.axioms.DPDA;
@@ -376,7 +377,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
         disjointProperties.remove(property1);
         for (OWLObjectPropertyExpression property2 : disjointProperties) {
           String property2ID = getDroolsOWLPropertyExpressionHandler().convert(property2).getid();
-          EOPA a = new EOPA(property1ID, property2ID);
+          DJOPA a = new DJOPA(property1ID, property2ID);
           recordOWLAxiom(a);
         }
       }
