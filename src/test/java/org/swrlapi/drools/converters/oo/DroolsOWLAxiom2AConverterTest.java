@@ -68,10 +68,10 @@ public class DroolsOWLAxiom2AConverterTest extends IntegrationTestBase
 
   private DroolsOWLClassExpressionHandler createDroolsOWLClassExpressionHandler(@NonNull SWRLRuleEngineBridge bridge)
   {
-    DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter = null;
+    DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter = new DroolsOWLIndividual2IConverter(bridge);
     DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler = new DroolsOWLPropertyExpressionHandler(bridge);
-    DroolsOWLDataRangeHandler droolsOWLDataRangeHandler = null;
-    DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter = null;
+    DroolsOWLDataRangeHandler droolsOWLDataRangeHandler = new DroolsOWLDataRangeHandler(bridge);
+    DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter = new DroolsOWLLiteral2LConverter(bridge);
 
     return new DroolsOWLClassExpressionHandler(bridge, droolsOWLIndividual2IConverter,
       droolsOWLPropertyExpressionHandler, droolsOWLDataRangeHandler, droolsOWLLiteral2LConverter);
