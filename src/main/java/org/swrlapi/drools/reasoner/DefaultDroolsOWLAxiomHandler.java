@@ -2,7 +2,7 @@ package org.swrlapi.drools.reasoner;
 
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.drools.runtime.StatefulKnowledgeSession;
+import org.kie.internal.runtime.StatefulKnowledgeSession;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.AOPA;
 import org.swrlapi.drools.owl.axioms.APDA;
