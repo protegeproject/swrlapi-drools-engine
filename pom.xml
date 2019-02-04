@@ -74,9 +74,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr-runtime</artifactId>
-      <version>3.5.2</version>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-internal</artifactId>
+      <version>${drools.version}</version>
     </dependency>
 
     <dependency>
@@ -86,21 +86,18 @@
     </dependency>
 
     <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-internal</artifactId>
-      <version>${drools.version}</version>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr-runtime</artifactId>
     </dependency>
 
     <dependency>
       <groupId>org.mvel</groupId>
       <artifactId>mvel2</artifactId>
-      <version>2.4.3.Final</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.jdt.core.compiler</groupId>
       <artifactId>ecj</artifactId>
-      <version>4.6.1</version>
     </dependency>
 
     <!-- End of Drools dependencies -->
