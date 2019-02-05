@@ -63,31 +63,16 @@
 
     <dependency>
       <groupId>org.kie</groupId>
-      <artifactId>kie-internal</artifactId>
-      <version>${drools.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.kie</groupId>
       <artifactId>kie-api</artifactId>
       <version>${drools.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr-runtime</artifactId>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-internal</artifactId>
+      <version>${drools.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>org.mvel</groupId>
-      <artifactId>mvel2</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.jdt.core.compiler</groupId>
-      <artifactId>ecj</artifactId>
-    </dependency>
-
+    
     <!-- End of Drools dependencies -->
 
     <!-- Start of Checker Framework Dependencies -->
@@ -133,6 +118,7 @@
     <plugins>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
 
@@ -158,12 +144,12 @@
             <Include-Resource>{maven-resources}</Include-Resource>
             <Import-Package>
               org.drools.*;version="${drools.version}",
-              org.semanticweb.owlapi.*;version="[4.1.3,5.0.0)",
-              org.swrlapi.*;version="1.0.0",
+              org.semanticweb.owlapi.*;version="[${owlapi.version},5.0.0)",
+              org.swrlapi.*;version="${swrlapi.version}",
               *
             </Import-Package>
             <Export-Package>
-              org.swrlapi.drools.*;version="1.0.0",
+              org.swrlapi.drools.*;version="${swrlapi.version}",
             </Export-Package>
           </instructions>
         </configuration>
