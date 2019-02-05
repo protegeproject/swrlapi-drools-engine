@@ -72,7 +72,7 @@
       <artifactId>kie-internal</artifactId>
       <version>${drools.version}</version>
     </dependency>
-    
+
     <!-- End of Drools dependencies -->
 
     <!-- Start of Checker Framework Dependencies -->
@@ -93,7 +93,17 @@
     </dependency>
 
     <!-- End of Checker Framework Dependencies -->
-    
+
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
