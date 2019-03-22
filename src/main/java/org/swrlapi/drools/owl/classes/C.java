@@ -13,6 +13,8 @@ import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
+import java.util.Objects;
+
 /**
  * Class representing an OWL named class in Drools. A named class is a type of class expression in OWL.
  *
@@ -88,7 +90,7 @@ public class C implements CE, OE
 
     C c = (C)o;
 
-    return id != null ? id.equals(c.id) : c.id == null;
+    return Objects.equals(id, c.id);
 
   }
 

@@ -5,6 +5,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.Deterministic;
 
+import java.util.Objects;
+
 public abstract class DroolsTernaryObject<T1, T2, T3>
 {
   @NonNull private final T1 t1;
@@ -48,11 +50,11 @@ public abstract class DroolsTernaryObject<T1, T2, T3>
     DroolsTernaryObject<? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object> that
         = (DroolsTernaryObject<? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object>)o;
 
-    if (t1 != null ? !t1.equals(that.t1) : that.t1 != null)
+    if (!Objects.equals(t1, that.t1))
       return false;
-    if (t2 != null ? !t2.equals(that.t2) : that.t2 != null)
+    if (!Objects.equals(t2, that.t2))
       return false;
-    return !(t3 != null ? !t3.equals(that.t3) : that.t3 != null);
+    return !(!Objects.equals(t3, that.t3));
 
   }
 

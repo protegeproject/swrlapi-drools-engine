@@ -9,6 +9,8 @@ import org.swrlapi.drools.extractors.DroolsSWRLBuiltInArgumentExtractor;
 import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
+import java.util.Objects;
+
 /**
  * This class represents a SQWRL collection in Drools. These are created by SQWRL collection construction operators and
  * passed to the second phase of rule execution via the {@link org.swrlapi.drools.sqwrl.DroolsSQWRLCollectionHandler}.
@@ -68,13 +70,13 @@ public class SQWRLC implements BA
 
     SQWRLC sqwrlc = (SQWRLC)o;
 
-    if (variableName != null ? !variableName.equals(sqwrlc.variableName) : sqwrlc.variableName != null)
+    if (!Objects.equals(variableName, sqwrlc.variableName))
       return false;
-    if (queryName != null ? !queryName.equals(sqwrlc.queryName) : sqwrlc.queryName != null)
+    if (!Objects.equals(queryName, sqwrlc.queryName))
       return false;
-    if (collectionName != null ? !collectionName.equals(sqwrlc.collectionName) : sqwrlc.collectionName != null)
+    if (!Objects.equals(collectionName, sqwrlc.collectionName))
       return false;
-    return !(collectionID != null ? !collectionID.equals(sqwrlc.collectionID) : sqwrlc.collectionID != null);
+    return !(!Objects.equals(collectionID, sqwrlc.collectionID));
 
   }
 

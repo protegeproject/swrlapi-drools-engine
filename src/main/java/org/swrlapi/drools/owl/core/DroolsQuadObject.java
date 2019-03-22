@@ -5,6 +5,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.Deterministic;
 
+import java.util.Objects;
+
 public abstract class DroolsQuadObject<T1, T2, T3, T4>
 {
   @NonNull private final T1 t1;
@@ -54,13 +56,13 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
 
     DroolsQuadObject<? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object> that = (DroolsQuadObject<? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object, ? extends @NonNull Object>)o;
 
-    if (t1 != null ? !t1.equals(that.t1) : that.t1 != null)
+    if (!Objects.equals(t1, that.t1))
       return false;
     if (t2 != null ? !t2.equals(that.t2) : that.t2 != null)
       return false;
     if (t3 != null ? !t3.equals(that.t3) : that.t3 != null)
       return false;
-    return !(t4 != null ? !t4.equals(that.t4) : that.t4 != null);
+    return !(!Objects.equals(t4, that.t4));
 
   }
 

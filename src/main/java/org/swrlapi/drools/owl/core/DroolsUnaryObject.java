@@ -5,6 +5,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.Deterministic;
 
+import java.util.Objects;
+
 public abstract class DroolsUnaryObject<T1>
 {
   @NonNull private final T1 t1;
@@ -33,7 +35,7 @@ public abstract class DroolsUnaryObject<T1>
 
     DroolsUnaryObject<? extends @NonNull Object> that = (DroolsUnaryObject<? extends @NonNull Object>)o;
 
-    return !(t1 != null ? !t1.equals(that.t1) : that.t1 != null);
+    return !(!Objects.equals(t1, that.t1));
 
   }
 

@@ -13,6 +13,8 @@ import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
+import java.util.Objects;
+
 /**
  * This class represents an OWL datatype (e.g., xsd:int).
  *
@@ -83,7 +85,7 @@ public class D implements DR, OE
 
     D d = (D)o;
 
-    return id != null ? id.equals(d.id) : d.id == null;
+    return Objects.equals(id, d.id);
 
   }
 
