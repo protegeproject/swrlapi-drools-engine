@@ -54,7 +54,7 @@ public abstract class DroolsTernaryObject<T1, T2, T3>
       return false;
     if (!Objects.equals(t2, that.t2))
       return false;
-    return !(!Objects.equals(t3, that.t3));
+    return Objects.equals(t3, that.t3);
 
   }
 

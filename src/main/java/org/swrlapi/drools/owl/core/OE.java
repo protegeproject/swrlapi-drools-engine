@@ -24,5 +24,5 @@ public interface OE extends OO, AA, BA
   @NonNull SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException;
 
-  @NonNull @SideEffectFree @Override public String toString();
+  @NonNull @SideEffectFree @Override String toString();
 }

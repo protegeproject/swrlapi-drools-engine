@@ -35,7 +35,7 @@ public abstract class DroolsUnaryObject<T1>
 
     DroolsUnaryObject<? extends @NonNull Object> that = (DroolsUnaryObject<? extends @NonNull Object>)o;
 
-    return !(!Objects.equals(t1, that.t1));
+    return Objects.equals(t1, that.t1);
 
   }
 
