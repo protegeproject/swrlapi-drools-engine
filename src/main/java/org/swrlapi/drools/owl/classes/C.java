@@ -66,11 +66,6 @@ public class C implements CE, OE
     return extractor.extract(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
-  {
-    return super.toString();
-  }
-
   @NonNull public static C getOWLThing()
   {
     return new C(OWLRDFVocabulary.OWL_THING.getPrefixedName());

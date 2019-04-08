@@ -71,11 +71,6 @@ public class D implements DR, OE
     return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
   }
 
-  @NonNull @SideEffectFree  @Override public String toString()
-  {
-    return super.toString();
-  }
-
   @SideEffectFree @Deterministic @Override public boolean equals(Object o)
   {
     if (this == o)

@@ -76,7 +76,7 @@ public class SQWRLC implements BA
       return false;
     if (!Objects.equals(collectionName, sqwrlc.collectionName))
       return false;
-    return !(!Objects.equals(collectionID, sqwrlc.collectionID));
+    return Objects.equals(collectionID, sqwrlc.collectionID);
 
   }
 

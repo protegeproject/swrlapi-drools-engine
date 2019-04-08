@@ -58,9 +58,9 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
 
     if (!Objects.equals(t1, that.t1))
       return false;
-    if (t2 != null ? !t2.equals(that.t2) : that.t2 != null)
+    if (!Objects.equals(t2, that.t2))
       return false;
-    if (t3 != null ? !t3.equals(that.t3) : that.t3 != null)
+    if (!Objects.equals(t3, that.t3))
       return false;
     return Objects.equals(t4, that.t4);
 
