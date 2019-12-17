@@ -1,10 +1,10 @@
 package org.swrlapi.drools.core;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.ResourceType;
-import org.drools.io.Resource;
-import org.drools.io.ResourceFactory;
+import org.kie.api.io.Resource;
+import org.kie.api.io.ResourceType;
+import org.kie.internal.builder.KnowledgeBuilder;
+import org.kie.internal.io.ResourceFactory;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 import java.io.StringReader;

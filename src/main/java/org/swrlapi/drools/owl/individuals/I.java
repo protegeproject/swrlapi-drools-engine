@@ -12,6 +12,8 @@ import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
+import java.util.Objects;
+
 /**
  * This class represents an OWL named individual in Drools
  *
@@ -64,7 +66,7 @@ public class I implements OE
 
     I i = (I)o;
 
-    return id != null ? id.equals(i.id) : i.id == null;
+    return Objects.equals(id, i.id);
 
   }
 

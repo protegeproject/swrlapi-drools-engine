@@ -169,7 +169,7 @@ public class DroolsSWRLHeadAtom2DRLConverter extends DroolsDRLConverterBase
 
     if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
       throw new SWRLAPIException(
-        "A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " can be passed to built-ins");
+        "A maximum of " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " arguments can be passed to built-ins");
 
     for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
       if (!isFirst)

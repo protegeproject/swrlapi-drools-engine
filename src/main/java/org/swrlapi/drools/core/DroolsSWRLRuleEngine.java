@@ -1,14 +1,14 @@
 package org.swrlapi.drools.core;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.drools.KnowledgeBase;
-import org.drools.KnowledgeBaseConfiguration;
-import org.drools.KnowledgeBaseFactory;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.rule.Activation;
-import org.drools.runtime.rule.AgendaFilter;
+import org.kie.api.KieBaseConfiguration;
+import org.kie.api.runtime.rule.AgendaFilter;
+import org.kie.api.runtime.rule.Match;
+import org.kie.internal.KnowledgeBase;
+import org.kie.internal.KnowledgeBaseFactory;
+import org.kie.internal.builder.KnowledgeBuilder;
+import org.kie.internal.builder.KnowledgeBuilderFactory;
+import org.kie.internal.runtime.StatefulKnowledgeSession;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -379,9 +379,9 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     }
   }
 
-  private static KnowledgeBaseConfiguration createKnowledgeBaseConfiguration()
+  private static KieBaseConfiguration createKnowledgeBaseConfiguration()
   {
-    KnowledgeBaseConfiguration config = KnowledgeBaseFactory.newKnowledgeBaseConfiguration();
+    KieBaseConfiguration config = KnowledgeBaseFactory.newKnowledgeBaseConfiguration();
     config.setProperty("drools.assertBehaviour", "equality");
     config.setProperty("drools.dialect.mvel.strict", "false");
 
@@ -394,7 +394,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
    */
   private class SQWRLPhase1AgendaFilter implements AgendaFilter
   {
-    @Override public boolean accept(@NonNull Activation activation)
+    @Override public boolean accept(Match activation)
     {
       String ruleName = activation.getRule().getName();
 
@@ -413,7 +413,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
   private class SQWRLPhase2AgendaFilter implements AgendaFilter
   {
-    @Override public boolean accept(@NonNull Activation activation)
+    @Override public boolean accept(Match activation)
     {
       String ruleName = activation.getRule().getName();
 

@@ -52,8 +52,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 public class DroolsSWRLBuiltInArgumentExtractor extends DroolsExtractorBase
   implements TargetRuleEngineSWRLBuiltInArgumentExtractor
 {
-  @NonNull private DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
-  @NonNull private DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
 
   public DroolsSWRLBuiltInArgumentExtractor(SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,

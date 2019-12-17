@@ -764,21 +764,24 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
 
   @Override public void visit(OWLAnnotationAssertionAxiom owlAnnotationAssertionAxiom)
   {
-
+    // We ignore because the OWL 2 RL reasoner does not deal with this axioms
   }
 
   @Override public void visit(OWLSubAnnotationPropertyOfAxiom owlSubAnnotationPropertyOfAxiom)
   {
+    // We ignore because the OWL 2 RL reasoner does not deal with this axioms
 
   }
 
   @Override public void visit(OWLAnnotationPropertyDomainAxiom owlAnnotationPropertyDomainAxiom)
   {
+    // We ignore because the OWL 2 RL reasoner does not deal with this axioms
 
   }
 
   @Override public void visit(OWLAnnotationPropertyRangeAxiom owlAnnotationPropertyRangeAxiom)
   {
+    // We ignore because the OWL 2 RL reasoner does not deal with this axioms
 
   }
 

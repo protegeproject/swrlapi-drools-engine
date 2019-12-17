@@ -13,6 +13,8 @@ import org.swrlapi.drools.swrl.BA;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
+import java.util.Objects;
+
 /**
  * Class representing an OWL named class in Drools. A named class is a type of class expression in OWL.
  *
@@ -64,11 +66,6 @@ public class C implements CE, OE
     return extractor.extract(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
-  {
-    return super.toString();
-  }
-
   @NonNull public static C getOWLThing()
   {
     return new C(OWLRDFVocabulary.OWL_THING.getPrefixedName());
@@ -88,7 +85,7 @@ public class C implements CE, OE
 
     C c = (C)o;
 
-    return id != null ? id.equals(c.id) : c.id == null;
+    return Objects.equals(id, c.id);
 
   }
 

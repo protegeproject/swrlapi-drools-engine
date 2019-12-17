@@ -5,6 +5,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.Deterministic;
 
+import java.util.Objects;
+
 public abstract class DroolsBinaryObject<T1, T2>
 {
   @NonNull private final T1 t1;
@@ -35,9 +37,9 @@ public abstract class DroolsBinaryObject<T1, T2>
 
     DroolsBinaryObject<? extends @NonNull Object, ? extends @NonNull Object> that = (DroolsBinaryObject<? extends @NonNull Object, ? extends @NonNull Object>)o;
 
-    if (t1 != null ? !t1.equals(that.t1) : that.t1 != null)
+    if (!Objects.equals(t1, that.t1))
       return false;
-    return !(t2 != null ? !t2.equals(that.t2) : that.t2 != null);
+    return Objects.equals(t2, that.t2);
 
   }
 

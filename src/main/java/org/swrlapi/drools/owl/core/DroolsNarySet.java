@@ -4,6 +4,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class DroolsNarySet<ID, E>
@@ -36,9 +37,9 @@ public abstract class DroolsNarySet<ID, E>
 
     DroolsNarySet<? extends @NonNull Object, ? extends @NonNull Object> that = (DroolsNarySet<? extends @NonNull Object, ? extends @NonNull Object>)o;
 
-    if (id != null ? !id.equals(that.id) : that.id != null)
+    if (!Objects.equals(id, that.id))
       return false;
-    return elements != null ? elements.equals(that.elements) : that.elements == null;
+    return Objects.equals(elements, that.elements);
 
   }
 
