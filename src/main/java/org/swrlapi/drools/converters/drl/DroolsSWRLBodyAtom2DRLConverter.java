@@ -210,7 +210,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
       argumentNumber++;
       if (argumentNumber > BAP.MaxArguments)
         throw new TargetSWRLRuleEngineException(
-          "at most " + BAP.MaxArguments + " built-in arguments currently supported");
+          "at most " + BAP.MaxArguments + " built-in arguments currently supported; built-in name "
+            + builtInPrefixedName);
     }
 
     representation +=
@@ -218,7 +219,9 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
         + ", false, ";
 
     if (builtInAtom.getPathVariableNames().size() > VPATH.MaxArguments)
-      throw new TargetSWRLRuleEngineException("at most " + VPATH.MaxArguments + " built-in arguments supported");
+      throw new TargetSWRLRuleEngineException(
+        "at most " + VPATH.MaxArguments + " path variables supported per built-in; built-in name "
+          + builtInPrefixedName);
 
     isFirst = true;
     representation += "new " + DroolsNames.BUILT_IN_VARIABLE_PATH_CLASS_NAME + "(";
@@ -231,7 +234,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     representation += "), ";
 
     if (builtInAtom.getNumberOfArguments() > BAVNs.MaxArguments)
-      throw new TargetSWRLRuleEngineException("at most " + BAVNs.MaxArguments + " built-in arguments supported");
+      throw new TargetSWRLRuleEngineException(
+        "at most " + BAVNs.MaxArguments + " built-in arguments supported; built-in name " + builtInPrefixedName);
 
     representation += "new " + DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
     isFirst = true;
@@ -248,7 +252,8 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     representation += "), ";
 
     if (builtInAtom.getNumberOfArguments() > DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS)
-      throw new TargetSWRLRuleEngineException("at most " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " allowed");
+      throw new TargetSWRLRuleEngineException(
+        "at most " + DroolsSWRLBuiltInInvoker.MAX_BUILTIN_ARGUMENTS + " allowed; built-in name " + builtInPrefixedName);
 
     isFirst = true;
     for (SWRLBuiltInArgument argument : builtInAtom.getBuiltInArguments()) {
