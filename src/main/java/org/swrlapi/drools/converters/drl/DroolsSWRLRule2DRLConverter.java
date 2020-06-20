@@ -40,6 +40,10 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     this.droolsSWRLRuleEngine = droolsSWRLRuleEngine;
   }
 
+  /**
+   * @param rule
+   * @throws SWRLBuiltInException
+   */
   public void convert(@NonNull SWRLAPIRule rule) throws SWRLBuiltInException
   {
     String ruleName = rule.getRuleName();
@@ -49,7 +53,10 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     getDroolsSWRLBodyAtom2DRLConverter().reset();
     getDroolsSWRLHeadAtom2DRLConverter().reset();
 
-    for (SWRLAtom atom : rule.getBodyAtoms())
+    for (SWRLAtom atom : rule.getNonBuiltInAtomsFromBody())
+      drlRule += "\n   " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
+
+    for (SWRLAtom atom : rule.getBuiltInAtomsFromBody())
       drlRule += "\n   " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
 
     drlRule = addRuleThenClause(drlRule);
