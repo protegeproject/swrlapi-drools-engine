@@ -47,7 +47,7 @@
       <artifactId>owlapi-osgidistribution</artifactId>
     </dependency>
 
-    <!-- Start of Drools dependencies -->
+    <!-- Drools dependencies -->
 
     <dependency>
       <groupId>org.drools</groupId>
@@ -73,9 +73,7 @@
       <version>${drools.version}</version>
     </dependency>
 
-    <!-- End of Drools dependencies -->
-
-    <!-- Start of Checker Framework Dependencies -->
+    <!-- Checker dependencies -->
     
     <dependency>
       <groupId>org.checkerframework</groupId>
@@ -92,17 +90,7 @@
       <artifactId>jdk8</artifactId>
     </dependency>
 
-    <!-- End of Checker Framework Dependencies -->
-
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-    </dependency>
+    <!-- Test dependencies -->
 
     <dependency>
       <groupId>junit</groupId>
