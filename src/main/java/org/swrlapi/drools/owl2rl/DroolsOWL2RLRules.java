@@ -61,10 +61,7 @@ public class DroolsOWL2RLRules
 
   @NonNull public Set<@NonNull DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
   {
-    if (this.rules.containsKey(rule))
-      return this.rules.get(rule);
-    else
-      return Collections.emptySet();
+    return this.rules.getOrDefault(rule, Collections.emptySet());
   }
 
   private void defineOWL2RLTable4DroolsRules()

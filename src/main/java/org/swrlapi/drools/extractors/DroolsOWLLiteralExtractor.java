@@ -39,19 +39,19 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase
       else if (l.isAnyURI()) {
         return getOWLLiteralFactory().getOWLLiteral(new URI(l.getValue()));
       } else if (l.isBoolean())
-        return getOWLLiteralFactory().getOWLLiteral(Boolean.valueOf(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Boolean.parseBoolean(l.getValue()));
       else if (l.isByte())
-        return getOWLLiteralFactory().getOWLLiteral(Byte.valueOf(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Byte.parseByte(l.getValue()));
       else if (l.isShort())
-        return getOWLLiteralFactory().getOWLLiteral(Short.valueOf(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Short.parseShort(l.getValue()));
       else if (l.isInt()) // xsd:int
-        return getOWLLiteralFactory().getOWLLiteral(Integer.valueOf(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Integer.parseInt(l.getValue()));
       else if (l.isLong())
-        return getOWLLiteralFactory().getOWLLiteral(Long.valueOf(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Long.parseLong(l.getValue()));
       else if (l.isFloat())
-        return getOWLLiteralFactory().getOWLLiteral(Float.valueOf(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Float.parseFloat(l.getValue()));
       else if (l.isDouble())
-        return getOWLLiteralFactory().getOWLLiteral(Double.valueOf(l.getValue()));
+        return getOWLLiteralFactory().getOWLLiteral(Double.parseDouble(l.getValue()));
       else if (l.isTime())
         return getOWLLiteralFactory().getOWLLiteral(new XSDTime(l.getValue()));
       else if (l.isDate())
