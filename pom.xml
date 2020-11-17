@@ -5,7 +5,7 @@
   <parent>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
-    <version>2.0.9</version>
+    <version>2.0.10-SNAPSHOT</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
@@ -18,7 +18,7 @@
 
   <properties>
 
-    <swrlapi.version>2.0.9</swrlapi.version>
+    <swrlapi.version>2.0.10-SNAPSHOT</swrlapi.version>
 
   </properties>
 
