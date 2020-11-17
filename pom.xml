@@ -5,12 +5,12 @@
   <parent>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
-    <version>2.0.8</version>
+    <version>2.0.9</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrlapi-drools-engine</artifactId>
-  <version>2.0.8</version>
+  <version>2.0.9</version>
   <packaging>bundle</packaging>
   <name>Drools-based SWRL Rule Engine</name>
   <description>Drools implementation of SWRLAPI-based SWRL rule engine</description>
@@ -18,7 +18,7 @@
 
   <properties>
 
-    <swrlapi.version>2.0.8</swrlapi.version>
+    <swrlapi.version>2.0.9</swrlapi.version>
 
   </properties>
 
@@ -26,7 +26,7 @@
     <connection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</developerConnection>
     <url>https://github.com/protegeproject/swrlapi</url>
-    <tag>release-2.0.8</tag>
+    <tag>release-2.0.9</tag>
   </scm>
 
   <issueManagement>
@@ -47,7 +47,7 @@
       <artifactId>owlapi-osgidistribution</artifactId>
     </dependency>
 
-    <!-- Start of Drools dependencies -->
+    <!-- Drools dependencies -->
 
     <dependency>
       <groupId>org.drools</groupId>
@@ -73,9 +73,7 @@
       <version>${drools.version}</version>
     </dependency>
 
-    <!-- End of Drools dependencies -->
-
-    <!-- Start of Checker Framework Dependencies -->
+    <!-- Checker dependencies -->
     
     <dependency>
       <groupId>org.checkerframework</groupId>
@@ -92,17 +90,7 @@
       <artifactId>jdk8</artifactId>
     </dependency>
 
-    <!-- End of Checker Framework Dependencies -->
-
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-    </dependency>
+    <!-- Test dependencies -->
 
     <dependency>
       <groupId>junit</groupId>

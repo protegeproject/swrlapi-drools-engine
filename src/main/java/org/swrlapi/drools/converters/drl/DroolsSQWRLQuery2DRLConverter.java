@@ -2,6 +2,7 @@ package org.swrlapi.drools.converters.drl;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineSQWRLQueryConverter;
 import org.swrlapi.core.SWRLAPIBuiltInAtom;
@@ -17,6 +18,7 @@ import org.swrlapi.sqwrl.SQWRLQuery;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This class converts a SWRLAPI SQWRL query to its Drools representation.
@@ -72,7 +74,10 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
     String ruleName = query.getQueryName();
     String drlRule = getQueryPreamble(ruleName);
 
-    for (SWRLAtom atom : query.getBodyAtoms())
+    for (SWRLAtom atom : query.getBodyAtoms().stream().filter(a -> !(a instanceof SWRLBuiltInAtom)).collect(Collectors.toList()))
+      drlRule += "\n   " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
+
+    for (SWRLAtom atom : query.getBodyAtoms().stream().filter(a -> a instanceof SWRLBuiltInAtom).collect(Collectors.toList()))
       drlRule += "\n   " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
 
     drlRule = addQueryThenClause(drlRule);
@@ -99,15 +104,20 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
     String drlPhase1Rule = getQueryPreamble(phase1RuleName);
     String drlPhase2Rule = getQueryPreamble(phase2RuleName);
 
-    for (SWRLAtom atom : query.getSQWRLPhase1BodyAtoms())
+    for (SWRLAtom atom : query.getSQWRLPhase1BodyAtoms().stream().filter(a -> !(a instanceof SWRLBuiltInAtom))
+      .collect(Collectors.toList()))
+      drlPhase1Rule +=
+        "\n  " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
+
+    for (SWRLAtom atom : query.getSQWRLPhase1BodyAtoms().stream().filter(a -> a instanceof SWRLBuiltInAtom)
+      .collect(Collectors.toList()))
       drlPhase1Rule +=
         "\n  " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
 
     drlPhase1Rule = addQueryThenClause(drlPhase1Rule);
 
-    if (query.hasSQWRLCollections()) { // Assert existence of all relevant collections returned from collection
-      // construction
-      // built-ins
+    if (query.hasSQWRLCollections()) {
+      // Assert existence of all relevant collections returned from collection construction built-ins
       try {
         for (SWRLAPIBuiltInAtom atom : query.getBuiltInAtomsFromBody(SQWRLNames.getCollectionMakeBuiltInNames())) {
           String collectionVariableName = atom.getArgumentVariableName(0);
@@ -146,11 +156,18 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
             ""), e);
       }
     }
-    for (SWRLAtom atom : query.getSQWRLPhase2BodyAtoms())
+    for (SWRLAtom atom : query.getSQWRLPhase2BodyAtoms().stream().filter(a -> !(a instanceof SWRLBuiltInAtom))
+      .collect(Collectors.toList()))
+      drlPhase2Rule +=
+        "\n  " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
+
+    for (SWRLAtom atom : query.getSQWRLPhase2BodyAtoms().stream().filter(a -> a instanceof SWRLBuiltInAtom)
+      .collect(Collectors.toList()))
       drlPhase2Rule +=
         "\n  " + getDroolsSWRLBodyAtom2DRLConverter().convert(atom, previouslyEncounteredVariableNames) + " ";
 
     drlPhase2Rule = addQueryThenClause(drlPhase2Rule);
+
     for (SWRLAtom atom : query.getHeadAtoms())
       drlPhase2Rule += "\n  " + getDroolsSWRLHeadAtom2DRLConverter().convert(atom);
 
