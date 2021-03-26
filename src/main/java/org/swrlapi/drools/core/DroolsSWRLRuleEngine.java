@@ -4,11 +4,11 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.drools.core.impl.InternalKnowledgeBase;
 import org.drools.core.impl.KnowledgeBaseFactory;
 import org.kie.api.KieBaseConfiguration;
+import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.AgendaFilter;
 import org.kie.api.runtime.rule.Match;
 import org.kie.internal.builder.KnowledgeBuilder;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.runtime.StatefulKnowledgeSession;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -76,7 +76,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
   private InternalKnowledgeBase knowledgeBase;
   private KnowledgeBuilder knowledgeBuilder;
-  private StatefulKnowledgeSession knowledgeSession;
+  private KieSession knowledgeSession;
   private DroolsResourceHandler resourceHandler;
   private boolean ruleLoadRequired;
 
@@ -131,7 +131,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.ruleLoadRequired = true;
     this.builtInInvoker.reset();
 
-    this.knowledgeSession = (StatefulKnowledgeSession) this.knowledgeBase.newKieSession();
+    this.knowledgeSession = this.knowledgeBase.newKieSession();
     this.knowledgeSession.setGlobal("invoker", this.builtInInvoker);
     this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
     this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionHandler);
@@ -329,7 +329,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     if (this.knowledgeSession != null)
       this.knowledgeSession.dispose();
 
-    this.knowledgeSession = (StatefulKnowledgeSession) this.knowledgeBase.newKieSession();
+    this.knowledgeSession = this.knowledgeBase.newKieSession();
     this.knowledgeSession.setGlobal("invoker", this.builtInInvoker);
     this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
     this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionHandler);
