@@ -2,7 +2,7 @@ package org.swrlapi.drools.reasoner;
 
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.kie.internal.runtime.StatefulKnowledgeSession;
+import org.kie.api.runtime.KieSession;
 import org.swrlapi.drools.owl.axioms.A;
 import org.swrlapi.drools.owl.axioms.AOPA;
 import org.swrlapi.drools.owl.axioms.APDA;
@@ -102,7 +102,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   private boolean isInconsistent;
 
-  @MonotonicNonNull private StatefulKnowledgeSession knowledgeSession;
+  @MonotonicNonNull private KieSession knowledgeSession;
 
   public DefaultDroolsOWLAxiomHandler()
   {
@@ -138,7 +138,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     this.dataPropertyAssertions = new HashMap<>();
   }
 
-  public void reset(StatefulKnowledgeSession knowledgeSession)
+  public void reset(KieSession knowledgeSession)
   {
     this.knowledgeSession = knowledgeSession;
 
