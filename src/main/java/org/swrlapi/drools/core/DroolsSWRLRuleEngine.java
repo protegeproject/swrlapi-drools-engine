@@ -1,14 +1,14 @@
 package org.swrlapi.drools.core;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.drools.core.impl.InternalKnowledgeBase;
+import org.drools.core.impl.KnowledgeBaseFactory;
 import org.kie.api.KieBaseConfiguration;
+import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.AgendaFilter;
 import org.kie.api.runtime.rule.Match;
-import org.kie.internal.KnowledgeBase;
-import org.kie.internal.KnowledgeBaseFactory;
 import org.kie.internal.builder.KnowledgeBuilder;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.runtime.StatefulKnowledgeSession;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -74,9 +74,9 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   @NonNull private final SQWRLPhase1AgendaFilter sqwrlPhase1AgendaFilter;
   @NonNull private final SQWRLPhase2AgendaFilter sqwrlPhase2AgendaFilter;
 
-  private KnowledgeBase knowledgeBase;
+  private InternalKnowledgeBase knowledgeBase;
   private KnowledgeBuilder knowledgeBuilder;
-  private StatefulKnowledgeSession knowledgeSession;
+  private KieSession knowledgeSession;
   private DroolsResourceHandler resourceHandler;
   private boolean ruleLoadRequired;
 
@@ -131,7 +131,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     this.ruleLoadRequired = true;
     this.builtInInvoker.reset();
 
-    this.knowledgeSession = this.knowledgeBase.newStatefulKnowledgeSession();
+    this.knowledgeSession = this.knowledgeBase.newKieSession();
     this.knowledgeSession.setGlobal("invoker", this.builtInInvoker);
     this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
     this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionHandler);
@@ -181,7 +181,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
     if (this.ruleLoadRequired) {
       try { // Add the OWL 2 RL and SWRL rules to the knowledge base.
-        this.knowledgeBase.addKnowledgePackages(this.knowledgeBuilder.getKnowledgePackages());
+        this.knowledgeBase.addPackages(this.knowledgeBuilder.getKnowledgePackages());
       } catch (Exception e) {
         Thread.currentThread().setContextClassLoader(oldClassLoader);
         throw new TargetSWRLRuleEngineException("error transferring rules to Drools rule engine:\n" + e.getMessage(),
@@ -329,7 +329,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     if (this.knowledgeSession != null)
       this.knowledgeSession.dispose();
 
-    this.knowledgeSession = this.knowledgeBase.newStatefulKnowledgeSession();
+    this.knowledgeSession = this.knowledgeBase.newKieSession();
     this.knowledgeSession.setGlobal("invoker", this.builtInInvoker);
     this.knowledgeSession.setGlobal("inferrer", this.axiomInferrer);
     this.knowledgeSession.setGlobal("sqwrlInferrer", this.sqwrlCollectionHandler);
@@ -364,7 +364,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     }
   }
 
-  private static void addKnowledgePackages(@NonNull KnowledgeBase knowledgeBase,
+  private static void addKnowledgePackages(@NonNull InternalKnowledgeBase knowledgeBase,
     @NonNull KnowledgeBuilder knowledgeBuilder) throws TargetSWRLRuleEngineException
   {
     if (knowledgeBuilder.hasErrors())
@@ -372,7 +372,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
         "error configuring Drools rule engine: " + knowledgeBuilder.getErrors().toString());
 
     try {
-      knowledgeBase.addKnowledgePackages(knowledgeBuilder.getKnowledgePackages());
+      knowledgeBase.addPackages(knowledgeBuilder.getKnowledgePackages());
     } catch (Exception e) {
       throw new TargetSWRLRuleEngineException(
         "error configuring Drools rule engine: " + (e.getMessage() != null ? e.getMessage() : ""), e);
