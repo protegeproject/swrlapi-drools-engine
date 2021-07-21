@@ -26,7 +26,6 @@
     <connection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</developerConnection>
     <url>https://github.com/protegeproject/swrlapi</url>
-    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
