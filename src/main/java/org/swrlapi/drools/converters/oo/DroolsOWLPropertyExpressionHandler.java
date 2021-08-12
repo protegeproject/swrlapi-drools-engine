@@ -88,8 +88,8 @@ public class DroolsOWLPropertyExpressionHandler extends TargetRuleEngineConverte
 
   @Override public AP convert(OWLAnnotationProperty annotationProperty)
   {
-    if (this.pid2AP.containsKey(annotationProperty))
-      return this.pid2AP.get(annotationProperty);
+    if (this.ap2ap.containsKey(annotationProperty))
+      return this.ap2ap.get(annotationProperty);
     else {
       String pid = generatePEID();
       AP ap = new AP(pid);

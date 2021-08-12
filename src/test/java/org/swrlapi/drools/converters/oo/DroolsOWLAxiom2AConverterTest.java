@@ -45,7 +45,7 @@ public class DroolsOWLAxiom2AConverterTest extends IntegrationTestBase
 
     Set<@NonNull A> assertedOWLAxioms = droolsOWLAxiom2AConverter.getAssertedOWLAxioms();
 
-    Assert.assertTrue(assertedOWLAxioms.size() == 2);
+    Assert.assertEquals(2, assertedOWLAxioms.size());
     for (A a : assertedOWLAxioms) // TODO Should be more exhaustive here
       Assert.assertTrue(a instanceof DJOPA);
   }

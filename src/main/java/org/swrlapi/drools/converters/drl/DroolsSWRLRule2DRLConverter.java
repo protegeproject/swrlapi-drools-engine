@@ -41,8 +41,8 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
   }
 
   /**
-   * @param rule
-   * @throws SWRLBuiltInException
+   * @param rule The SWRL rule
+   * @throws SWRLBuiltInException Thrown if an exception happens during rules processing
    */
   public void convert(@NonNull SWRLAPIRule rule) throws SWRLBuiltInException
   {
