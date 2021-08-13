@@ -47,6 +47,12 @@
       <artifactId>owlapi-osgidistribution</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${google.guava.version}</version>
+    </dependency>
+
     <!-- Drools dependencies -->
 
     <dependency>
@@ -113,6 +119,12 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>${google.code.findbugs.version}</version>
     </dependency>
 
   </dependencies>
