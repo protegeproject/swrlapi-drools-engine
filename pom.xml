@@ -5,28 +5,26 @@
   <parent>
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
-    <version>2.0.11</version>
+    <version>2.1.0</version>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
   <artifactId>swrlapi-drools-engine</artifactId>
-  <version>2.0.11</version>
+  <version>2.1.0</version>
   <packaging>bundle</packaging>
   <name>Drools-based SWRL Rule Engine</name>
   <description>Drools implementation of SWRLAPI-based SWRL rule engine</description>
   <url>https://github.com/protegeproject/swrlapi-drools-engine/wiki/SWRLAPI-Drools-Engine</url>
 
   <properties>
-
-    <swrlapi.version>2.0.11</swrlapi.version>
-
+    <swrlapi.version>2.1.0</swrlapi.version>
   </properties>
 
   <scm>
     <connection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</connection>
     <developerConnection>scm:git:git@github.com:protegeproject/swrlapi-drools-engine.git</developerConnection>
     <url>https://github.com/protegeproject/swrlapi</url>
-    <tag>release-2.0.11</tag>
+    <tag>release-2.1.0</tag>
   </scm>
 
   <issueManagement>
@@ -45,6 +43,12 @@
     <dependency>
       <groupId>net.sourceforge.owlapi</groupId>
       <artifactId>owlapi-osgidistribution</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${google.guava.version}</version>
     </dependency>
 
     <!-- Drools dependencies -->
@@ -113,6 +117,12 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>${google.code.findbugs.version}</version>
     </dependency>
 
   </dependencies>
