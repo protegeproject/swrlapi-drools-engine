@@ -6,6 +6,7 @@
     <groupId>edu.stanford.swrl</groupId>
     <artifactId>swrlapi-parent</artifactId>
     <version>2.1.4-SNAPSHOT</version>
+    <relativePath>../swrlapi-parent/pom.xml</relativePath>
   </parent>
 
   <groupId>edu.stanford.swrl</groupId>
@@ -158,7 +159,7 @@
             <Include-Resource>{maven-resources}</Include-Resource>
             <Import-Package>
               org.drools.*;version="${drools.version}",
-              org.semanticweb.owlapi.*;version="[${owlapi.version},5.0.0)",
+              org.semanticweb.owlapi.*;version="[${owlapi.version},6.0.0)",
               org.swrlapi.*;version="${swrlapi.version}",
               *
             </Import-Package>

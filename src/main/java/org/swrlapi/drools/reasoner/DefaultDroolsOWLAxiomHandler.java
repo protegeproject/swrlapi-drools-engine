@@ -265,10 +265,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.subClasses.get(classID) != null) {
       for (String subClassID : this.subClasses.get(classID)) {
         if (direct) {
-          if (directSubClassOf(classID, subClassID))
+          if (directSubClassOf(subClassID, classID))
             subClasses.add(subClassID);
         } else {
-          if (strictSubClassOf(classID, subClassID))
+          if (strictSubClassOf(subClassID, classID))
             subClasses.add(subClassID);
         }
       }
@@ -283,10 +283,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.superClasses.get(classID) != null) {
       for (String superClassID : this.superClasses.get(classID)) {
         if (direct) {
-          if (directSubClassOf(superClassID, classID))
+          if (directSubClassOf(classID, superClassID))
             superClasses.add(superClassID);
         } else {
-          if (strictSubClassOf(superClassID, classID))
+          if (strictSubClassOf(classID, superClassID))
             superClasses.add(superClassID);
         }
       }
@@ -316,10 +316,8 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    */
   @Override public boolean strictSubClassOf(@NonNull String ceid1, @NonNull String ceid2)
   {
-    checkSubClassIDs(ceid1, ceid2);
-
-    return this.subClasses.get(ceid1) != null && this.subClasses.get(ceid1).contains(ceid2)
-      && this.subClasses.get(ceid2) != null && !this.subClasses.get(ceid2).contains(ceid1);
+    return this.superClasses.getOrDefault(ceid1, Collections.emptySet()).contains(ceid2)
+      && !this.superClasses.getOrDefault(ceid2, Collections.emptySet()).contains(ceid1);
   }
 
   /**
@@ -329,18 +327,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    */
   @Override public boolean directSubClassOf(@NonNull String ceid1, @NonNull String ceid2)
   {
-    checkSubClassIDs(ceid1, ceid2);
-
-    if (strictSubClassOf(ceid1, ceid2)) {
-      if (this.subClasses.get(ceid1) != null) {
-        for (String superClassID : this.subClasses.get(ceid1)) {
-          if (strictSubClassOf(superClassID, ceid2))
-            return false;
-        }
-      }
+    if (!strictSubClassOf(ceid1, ceid2))
       return false;
-    } else
-      return false;
+    for (String middle : this.superClasses.getOrDefault(ceid1, Collections.emptySet()))
+      if (strictSubClassOf(ceid1, middle) && strictSubClassOf(middle, ceid2))
+        return false;
+    return true;
   }
 
   // Individuals
@@ -380,10 +372,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.subObjectProperties.get(propertyID) != null) {
       for (String subPropertyID : this.subObjectProperties.get(propertyID)) {
         if (direct) {
-          if (directSubObjectPropertyOf(propertyID, subPropertyID))
+          if (directSubObjectPropertyOf(subPropertyID, propertyID))
             subProperties.add(subPropertyID);
         } else {
-          if (strictSubObjectPropertyOf(propertyID, subPropertyID))
+          if (strictSubObjectPropertyOf(subPropertyID, propertyID))
             subProperties.add(subPropertyID);
         }
       }
@@ -398,10 +390,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.superObjectProperties.get(propertyID) != null) {
       for (String superPropertyID : this.superObjectProperties.get(propertyID)) {
         if (direct) {
-          if (directSubObjectPropertyOf(superPropertyID, propertyID))
+          if (directSubObjectPropertyOf(propertyID, superPropertyID))
             superProperties.add(superPropertyID);
         } else {
-          if (strictSubObjectPropertyOf(superPropertyID, propertyID))
+          if (strictSubObjectPropertyOf(propertyID, superPropertyID))
             superProperties.add(superPropertyID);
         }
       }
@@ -411,18 +403,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   @NonNull @Override public Set<@NonNull String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct)
   {
-    if (this.objectPropertyRanges.get(propertyID) != null)
-      return this.objectPropertyRanges.get(propertyID); // TODO getObjectPropertyRanges direct argument?
-    else
-      return Collections.emptySet();
+    return classDomains(this.objectPropertyRanges.getOrDefault(propertyID, Collections.emptySet()), direct);
   }
 
   @NonNull @Override public Set<@NonNull String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct)
   {
-    if (this.objectPropertyRanges.get(propertyID) != null)
-      return this.objectPropertyRanges.get(propertyID); // TODO getObjectPropertyDomains direct argument?
-    else
-      return Collections.emptySet();
+    return classDomains(this.objectPropertyDomains.getOrDefault(propertyID, Collections.emptySet()), direct);
   }
 
   @NonNull @Override public Set<@NonNull String> getDisjointObjectProperties(@NonNull String propertyID)
@@ -452,25 +438,20 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   @NonNull @Override public Map<@NonNull String, @NonNull Set<@NonNull String>> getObjectPropertyAssertions(
     @NonNull String propertyID)
   {
-    if (this.objectPropertyAssertions.get(propertyID) != null)
-      return this.objectPropertyAssertions.get(propertyID);
-    else
-      return Collections.emptyMap();
+    Map<String, Set<String>> result = new HashMap<>();
+    for (Map.Entry<String, Map<String, Set<String>>> entry : this.objectPropertyAssertions.entrySet()) {
+      Set<String> values = entry.getValue().get(propertyID);
+      if (values != null)
+        result.put(entry.getKey(), new HashSet<>(values));
+    }
+    return result;
   }
 
   @NonNull @Override public Set<@NonNull String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
     @NonNull String propertyID)
   {
-    Set<@NonNull String> individualIDs = new HashSet<>();
-
-    if (this.objectPropertyAssertions.get(propertyID) != null) {
-      Map<@NonNull String, @NonNull Set<@NonNull String>> values = this.objectPropertyAssertions.get(propertyID);
-
-      if (values.get(individualID) != null)
-        individualIDs.addAll(values.get(individualID));
-    }
-
-    return individualIDs;
+    return new HashSet<>(this.objectPropertyAssertions.getOrDefault(individualID, Collections.emptyMap())
+      .getOrDefault(propertyID, Collections.emptySet()));
   }
 
   /**
@@ -480,10 +461,8 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    */
   @Override public boolean strictSubObjectPropertyOf(@NonNull String opid1, @NonNull String opid2)
   {
-    checkSubObjectPropertyIDs(opid1, opid2);
-
-    return this.subObjectProperties.get(opid1) != null && this.subObjectProperties.get(opid1).contains(opid2)
-      && this.subObjectProperties.get(opid2) != null && !this.subObjectProperties.get(opid2).contains(opid1);
+    return this.superObjectProperties.getOrDefault(opid1, Collections.emptySet()).contains(opid2)
+      && !this.superObjectProperties.getOrDefault(opid2, Collections.emptySet()).contains(opid1);
   }
 
   /**
@@ -494,18 +473,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    */
   @Override public boolean directSubObjectPropertyOf(@NonNull String opid1, @NonNull String opid2)
   {
-    checkSubObjectPropertyIDs(opid1, opid2);
-
-    if (strictSubObjectPropertyOf(opid1, opid2)) {
-      if (this.subObjectProperties.get(opid1) != null) {
-        for (String superObjectPropertyID : this.subObjectProperties.get(opid1)) {
-          if (strictSubObjectPropertyOf(superObjectPropertyID, opid2))
-            return false;
-        }
-      }
+    if (!strictSubObjectPropertyOf(opid1, opid2))
       return false;
-    } else
-      return false;
+    for (String middle : this.superObjectProperties.getOrDefault(opid1, Collections.emptySet()))
+      if (strictSubObjectPropertyOf(opid1, middle) && strictSubObjectPropertyOf(middle, opid2))
+        return false;
+    return true;
   }
 
   // Data properties
@@ -522,10 +495,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.subDataProperties.get(propertyID) != null) {
       for (String subPropertyID : this.subDataProperties.get(propertyID)) {
         if (direct) {
-          if (directSubDataPropertyOf(propertyID, subPropertyID))
+          if (directSubDataPropertyOf(subPropertyID, propertyID))
             subProperties.add(subPropertyID);
         } else {
-          if (strictSubDataPropertyOf(propertyID, subPropertyID))
+          if (strictSubDataPropertyOf(subPropertyID, propertyID))
             subProperties.add(subPropertyID);
         }
       }
@@ -540,10 +513,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     if (this.superDataProperties.get(propertyID) != null) {
       for (String superPropertyID : this.superDataProperties.get(propertyID)) {
         if (direct) {
-          if (directSubDataPropertyOf(superPropertyID, propertyID))
+          if (directSubDataPropertyOf(propertyID, superPropertyID))
             superProperties.add(superPropertyID);
         } else {
-          if (strictSubDataPropertyOf(superPropertyID, propertyID))
+          if (strictSubDataPropertyOf(propertyID, superPropertyID))
             superProperties.add(superPropertyID);
         }
       }
@@ -553,10 +526,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
 
   @NonNull @Override public Set<@NonNull String> getDataPropertyDomains(@NonNull String propertyID, boolean direct)
   {
-    if (this.dataPropertyDomains.get(propertyID) != null)
-      return this.dataPropertyDomains.get(propertyID); // TODO getDataPropertyDomains direct argument?
-    else
-      return Collections.emptySet();
+    return classDomains(this.dataPropertyDomains.getOrDefault(propertyID, Collections.emptySet()), direct);
   }
 
   @NonNull @Override public Set<@NonNull String> getDisjointDataProperties(@NonNull String propertyID)
@@ -578,24 +548,20 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   @NonNull @Override public Map<@NonNull String, @NonNull Set<@NonNull L>> getDataPropertyAssertions(
     @NonNull String propertyID)
   {
-    if (this.dataPropertyAssertions.get(propertyID) != null)
-      return this.dataPropertyAssertions.get(propertyID);
-    else
-      return Collections.emptyMap();
+    Map<String, Set<L>> result = new HashMap<>();
+    for (Map.Entry<String, Map<String, Set<L>>> entry : this.dataPropertyAssertions.entrySet()) {
+      Set<L> values = entry.getValue().get(propertyID);
+      if (values != null)
+        result.put(entry.getKey(), new HashSet<>(values));
+    }
+    return result;
   }
 
   @NonNull @Override public Set<@NonNull L> getDataPropertyValuesForIndividual(@NonNull String individualID,
     @NonNull String propertyID)
   {
-    Set<@NonNull L> literals = new HashSet<>();
-
-    if (this.dataPropertyAssertions.get(propertyID) != null) {
-      Map<@NonNull String, @NonNull Set<@NonNull L>> values = this.dataPropertyAssertions.get(propertyID);
-
-      if (values.get(individualID) != null)
-        literals.addAll(values.get(individualID));
-    }
-    return literals;
+    return new HashSet<>(this.dataPropertyAssertions.getOrDefault(individualID, Collections.emptyMap())
+      .getOrDefault(propertyID, Collections.emptySet()));
   }
 
   /**
@@ -603,12 +569,10 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    * StrictSubDataPropertyOf(DPE1 DPE2) if O entails SubDataPropertyOf(DPE1 DPE2) and O does not entail
    * SubDataPropertyOf(DPE2 DPE1)
    */
-  @Override public boolean strictSubDataPropertyOf(@NonNull String opid1, @NonNull String opid2)
+  @Override public boolean strictSubDataPropertyOf(@NonNull String dpid1, @NonNull String dpid2)
   {
-    checkSubDataPropertyIDs(opid1, opid2);
-
-    return this.subDataProperties.get(opid1) != null && this.subDataProperties.get(opid1).contains(opid2)
-      && this.subDataProperties.get(opid2) != null && !this.subDataProperties.get(opid2).contains(opid1);
+    return this.superDataProperties.getOrDefault(dpid1, Collections.emptySet()).contains(dpid2)
+      && !this.superDataProperties.getOrDefault(dpid2, Collections.emptySet()).contains(dpid1);
   }
 
   /**
@@ -619,18 +583,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    */
   @Override public boolean directSubDataPropertyOf(@NonNull String dpid1, @NonNull String dpid2)
   {
-    checkSubDataPropertyIDs(dpid1, dpid2);
-
-    if (strictSubDataPropertyOf(dpid1, dpid2)) {
-      if (this.subDataProperties.get(dpid1) != null) {
-        for (String superDataPropertyID : this.subDataProperties.get(dpid1)) {
-          if (strictSubDataPropertyOf(superDataPropertyID, dpid2))
-            return false;
-        }
-      }
+    if (!strictSubDataPropertyOf(dpid1, dpid2))
       return false;
-    } else
-      return false;
+    for (String middle : this.superDataProperties.getOrDefault(dpid1, Collections.emptySet()))
+      if (strictSubDataPropertyOf(dpid1, middle) && strictSubDataPropertyOf(middle, dpid2))
+        return false;
+    return true;
   }
 
   // Annotations
@@ -649,6 +607,19 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    * This method is called by an OWL 2 RL inconsistency detection rule when an inconsistency is detected. The parameters
    * contains details of the offending rule and the OWL entities involved in the detected inconsistency.
    */
+  private Set<String> classDomains(Set<String> asserted, boolean direct)
+  {
+    Set<String> result = new HashSet<>(asserted);
+    result.add("owl:Thing");
+    for (String cls : asserted)
+      result.addAll(this.superClasses.getOrDefault(cls, Collections.emptySet()));
+    if (direct) {
+      Set<String> candidates = new HashSet<>(result);
+      result.removeIf(parent -> candidates.stream().anyMatch(child -> strictSubClassOf(child, parent)));
+    }
+    return result;
+  }
+
   @Override public void inferFalse(@NonNull String owl2RLRuleName, @NonNull String... arguments)
   {
     String inconsistentMessage = "OWL 2 RL rule detected an inconsistency in the ontology.\n "
@@ -697,8 +668,8 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
           }
         }
       }
-      this.isInconsistent = true;
     }
+    this.isInconsistent = true;
     this.inconsistentMessages.add(inconsistentMessage);
   }
 

@@ -13,6 +13,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * Class representing an OWL literal in Drools
@@ -25,17 +26,25 @@ public class L implements OO, BA, Serializable
 
   @NonNull public final String value;
   @NonNull public final String datatypeName;
+  @NonNull public final String languageTag;
 
   public L(@NonNull String value, @NonNull String datatypeName)
   {
+    this(value, datatypeName, "");
+  }
+
+  public L(@NonNull String value, @NonNull String datatypeName, @NonNull String languageTag)
+  {
     this.value = value;
     this.datatypeName = datatypeName;
+    this.languageTag = languageTag.toLowerCase(Locale.ROOT);
   }
 
   public L(@NonNull L l)
   {
     this.value = l.value;
     this.datatypeName = l.datatypeName;
+    this.languageTag = l.languageTag;
   }
 
   /*
@@ -47,6 +56,7 @@ public class L implements OO, BA, Serializable
       L l = (L)ba;
       this.value = l.getValue();
       this.datatypeName = l.getTypeName();
+      this.languageTag = l.languageTag;
     } else
       throw new TargetSWRLRuleEngineInternalException(
         "expecting OWL literal from bound built-in argument, got " + ba.getClass().getCanonicalName());
@@ -138,7 +148,7 @@ public class L implements OO, BA, Serializable
     return this.value;
   }
 
-  // We consider literals to be equal if they have the same type name and value.
+  // Literal identity includes datatype, lexical value, and language tag.
   // TODO This is a very simpleminded implementation of equals. Think about using the SWRLAPI's OWLLiteralComparator
 
   @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
@@ -152,7 +162,7 @@ public class L implements OO, BA, Serializable
 
     if (!value.equals(l.value))
       return false;
-    return datatypeName.equals(l.datatypeName);
+    return datatypeName.equals(l.datatypeName) && languageTag.equals(l.languageTag);
 
   }
 
@@ -160,6 +170,7 @@ public class L implements OO, BA, Serializable
   {
     int result = value.hashCode();
     result = 31 * result + datatypeName.hashCode();
+    result = 31 * result + languageTag.hashCode();
     return result;
   }
 }

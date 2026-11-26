@@ -10,6 +10,17 @@ import org.kie.api.runtime.rule.Match;
 import org.kie.internal.builder.KnowledgeBuilder;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
+import org.swrlapi.bridge.SWRLBridge;
+import org.swrlapi.core.SWRLAPIOWLOntology;
+import org.swrlapi.factory.SWRLAPIInternalFactory;
+import org.swrlapi.drools.reasoner.DroolsOWLReasoner;
+import org.swrlapi.drools.converters.oo.DroolsOWLEntity2OEConverter;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridge;
@@ -79,6 +90,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   private KieSession knowledgeSession;
   private DroolsResourceHandler resourceHandler;
   private boolean ruleLoadRequired;
+  private DroolsOWLReasoner owlReasoner;
+  private Runnable reasoningCheck = () -> { };
 
   public DroolsSWRLRuleEngine(@NonNull SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
   {
@@ -193,6 +206,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     try { // Asserted OWL axioms and class expressions must be added after rules are added to knowledge base.
       getDroolsOWLAxiom2AConverter().getAssertedOWLAxioms().forEach(this.knowledgeSession::insert);
       getDroolsOWLAxiom2AConverter().getOWLClassExpressions().forEach(this.knowledgeSession::insert);
+      this.dataRangeHandler.getDataRanges().forEach(this.knowledgeSession::insert);
     } catch (Exception e) { // Note: SWRL built-ins can be called during this insertion process
       Thread.currentThread().setContextClassLoader(oldClassLoader);
       String errorMessage = buildChainedErrorMessage(e);
@@ -250,8 +264,67 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
    */
   @NonNull @Override public OWLReasoner getOWLReasoner()
   {
-    throw new RuntimeException(
-      "reasoner not yet wired up"); // TODO Return Drools implementation of an OWL reasoner here
+    if (this.owlReasoner == null || this.owlReasoner.isDisposed())
+      this.owlReasoner = new DroolsOWLReasoner(this.bridge.getOWLOntology(), new SimpleConfiguration(),
+        BufferingMode.NON_BUFFERING);
+    return this.owlReasoner;
+  }
+
+  /** Materialize an isolated ontology snapshot; never export inferred facts into the user's ontology. */
+  public static DroolsOWLReasoner.Materialization materialize(Set<OWLAxiom> axioms,
+    Set<OWLClassExpression> queryExpressions, Runnable checkCancellation)
+  {
+    DroolsSWRLRuleEngine engine = null;
+    try {
+      OWLOntology snapshot = OWLManager.createOWLOntologyManager().createOntology(axioms);
+      // OWLAPI declarations are optional. The RL schema rules need declarations for every referenced entity.
+      Set<OWLEntity> signature = new HashSet<>(snapshot.getSignature());
+      signature.add(OWLManager.getOWLDataFactory().getOWLThing());
+      signature.add(OWLManager.getOWLDataFactory().getOWLNothing());
+      for (OWLClassExpression expression : queryExpressions)
+        signature.addAll(expression.getSignature());
+      for (OWLEntity entity : signature)
+        snapshot.addAxiom(OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(entity));
+      org.semanticweb.owlapi.model.OWLDataFactory factory = OWLManager.getOWLDataFactory();
+      for (OWLEntity entity : signature) {
+        if (entity.isOWLObjectProperty()) {
+          snapshot.addAxiom(factory.getOWLSubObjectPropertyOfAxiom(entity.asOWLObjectProperty(), factory.getOWLTopObjectProperty()));
+          snapshot.addAxiom(factory.getOWLSubObjectPropertyOfAxiom(factory.getOWLBottomObjectProperty(), entity.asOWLObjectProperty()));
+        } else if (entity.isOWLDataProperty()) {
+          snapshot.addAxiom(factory.getOWLSubDataPropertyOfAxiom(entity.asOWLDataProperty(), factory.getOWLTopDataProperty()));
+          snapshot.addAxiom(factory.getOWLSubDataPropertyOfAxiom(factory.getOWLBottomDataProperty(), entity.asOWLDataProperty()));
+        }
+      }
+      SWRLAPIOWLOntology ontology = SWRLAPIInternalFactory.createSWRLAPIOntology(snapshot);
+      SWRLBridge bridge = SWRLAPIInternalFactory.createSWRLBridge(ontology,
+        SWRLAPIInternalFactory.createOWL2RLPersistenceLayer(snapshot));
+      engine = new DroolsSWRLRuleEngine(bridge);
+      bridge.setTargetSWRLRuleEngine(engine);
+      ontology.processOntology();
+      for (OWLAxiom axiom : ontology.getOWLAxioms())
+        engine.defineOWLAxiom(axiom);
+      for (OWLClassExpression expression : queryExpressions)
+        engine.classExpressionHandler.convert(expression);
+      engine.reasoningCheck = checkCancellation;
+      checkCancellation.run();
+      engine.runRuleEngine();
+      Set<OWLAxiom> closure = new HashSet<>(snapshot.getAxioms());
+      closure.addAll(bridge.getInferredOWLAxioms());
+      closure.addAll(bridge.getInjectedOWLAxioms());
+      return new DroolsOWLReasoner.Materialization(engine.axiomInferrer, engine.classExpressionHandler,
+        engine.propertyExpressionHandler, new DroolsOWLIndividual2IConverter(bridge),
+        new DroolsOWLEntity2OEConverter(bridge), bridge, closure, engine.knowledgeSession);
+    } catch (Exception e) {
+      if (engine != null)
+        engine.knowledgeSession.dispose();
+      for (Throwable cause = e; cause != null; cause = cause.getCause()) {
+        if (cause instanceof org.semanticweb.owlapi.reasoner.ReasonerInterruptedException)
+          throw (org.semanticweb.owlapi.reasoner.ReasonerInterruptedException)cause;
+        if (cause instanceof org.semanticweb.owlapi.reasoner.TimeOutException)
+          throw (org.semanticweb.owlapi.reasoner.TimeOutException)cause;
+      }
+      throw new org.semanticweb.owlapi.reasoner.ReasonerInternalException("Could not materialize OWL 2 RL axioms", e);
+    }
   }
 
   @NonNull @Override public Icon getTargetRuleEngineIcon()
@@ -396,6 +469,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     @Override public boolean accept(Match activation)
     {
+      reasoningCheck.run();
       String ruleName = activation.getRule().getName();
 
       if (DroolsSWRLRuleEngine.this.phase1SQWRLRuleNames.contains(ruleName)) {
@@ -415,6 +489,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   {
     @Override public boolean accept(Match activation)
     {
+      reasoningCheck.run();
       String ruleName = activation.getRule().getName();
 
       if (DroolsSWRLRuleEngine.this.phase2SQWRLRuleNames.contains(ruleName)) {

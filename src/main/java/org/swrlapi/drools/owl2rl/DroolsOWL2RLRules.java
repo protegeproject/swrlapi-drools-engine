@@ -18,8 +18,8 @@ import java.util.Set;
  * All axioms inferred by these rules are handled by a {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
  * <p>
  * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in the
- * Specification). The value space of literals is also not validated (specified by rule dt-not-type). All other rules
- * are implemented.
+ * Specification). The value space of literals is also not validated (specified by rule dt-not-type).
+ * Rule availability does not imply complete OWL 2 RL conformance; see the regression coverage in OWL2RLRuleTest.
  * <p>
  * In its current state, this is a fairly naive implementation of the rules in the OWL 2 RL Specification. Many
  * optimizations are possible.
@@ -130,7 +130,7 @@ public class DroolsOWL2RLRules
       "rule prp_ifp_op when IFOPA($p:pid) OPAA($x1:s, pid==$p, $y:o) OPAA($x2:s, pid==$p, o==$y) then SIA sia=new SIA($x1, $x2); inferrer.infer(sia); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_IRP, "prp_irp",
-      "rule prp_irp when IROPA($p:pid) OPAA($s:s, pid==$p, $x:o) then inferrer.inferFalse(\""
+      "rule prp_irp when IROPA($p:pid) OPAA($s:s, pid==$p, $x:o, o==$s) then inferrer.inferFalse(\""
         + OWL2RLNames.OWL2RLRule.PRP_IRP.toString() + "\", $x.id, $p); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_SYMP, "prp_symp",
@@ -163,6 +163,10 @@ public class DroolsOWL2RLRules
       "rule prp_pdw when DJOPA($p1:p1id, $p2:p2id) OPAA($u:s, pid==$p1, $v:o) OPAA($u==s, pid==$p2, o==$v) "
         + " then inferrer.inferFalse(\"" + OWL2RLNames.OWL2RLRule.PRP_PDW.toString()
         + "\", $u.id, $v.id, $p1, $p2); end");
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_PDW, "prp_pdw_dp",
+      "rule prp_pdw_dp when DJDPA($p1:p1id, $p2:p2id) DPAA($u:s, pid==$p1, $v:o) DPAA(s==$u, pid==$p2, o==$v) "
+        + "then inferrer.inferFalse(\"PRP_PDW\", $u.id, $v.value, $p1, $p2); end");
 
     // PRP_ADP effectively handled by PRP_PDW above via pairwise extraction
 
@@ -199,14 +203,14 @@ public class DroolsOWL2RLRules
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_INT1, "cls_int1",
       "rule cls_int1 when OIOCE($x:ceid, $ceids:ceids) $c : String() from $ceids CAA(cid==$c, $i:i) "
-        + " forall ( CAA(cid==$c, i==$i) ) " + "then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
+        + " not ( String($missing : this) from $ceids and not CAA(cid==$missing, i==$i) ) " + "then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_INT2, "cls_int2",
       "rule cls_int2 when OIOCE($x:ceid, $ceids:ceids) $c : String() from $ceids CAA(cid==$x, $i:i) "
-        + " then CAA caa1=new CAA($x, $i); inferrer.infer(caa1); end");
+        + " then CAA caa1=new CAA($c, $i); inferrer.infer(caa1); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_UNI, "cls_uni",
-      "rule cls_uni when OUOCE($x:ceid, $ceids:ceids) CAA(cid==$x, $i:i) then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
+      "rule cls_uni when OUOCE($x:ceid, $ceids:ceids) $c : String() from $ceids CAA(cid==$c, $i:i) then CAA caa=new CAA($x, $i); inferrer.infer(caa); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_COM, "cls_com",
       "rule cls_com when OCOCE($x:ceid, $c:complement) CAA(cid==$x, $i:i) CAA(cid==$c, i==$i) then inferrer.inferFalse(\""
@@ -228,8 +232,9 @@ public class DroolsOWL2RLRules
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_HV1, "cls_hv1_dp",
       "rule cls_hv1_dp when DHVCE($x:ceid, $p:pid, $y:v) CAA(cid==$x, $u:i) then DPAA dpaa=new DPAA($u, $p, $y); inferrer.infer(dpaa); end");
 
-    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_HV2,
-      "rule cls_hv2_op when OHVCE($x:ceid, $p:pid, $y:v) OPAA($u:s, pid==$p, o==$y) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end",
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_HV2, "cls_hv2_op",
+      "rule cls_hv2_op when OHVCE($x:ceid, $p:pid, $y:v) OPAA($u:s, pid==$p, o==$y) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_HV2, "cls_hv2_dp",
       "rule cls_hv2_dp when DHVCE($x:ceid, $p:pid, $y:v) DPAA($u:s, pid==$p, o==$y) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXC1, "cls_maxc1_op",
@@ -302,9 +307,43 @@ public class DroolsOWL2RLRules
 
   private void defineOWL2RLTable8DroolsRules()
   {
-    // TODO DT_TYPE1, DT_TYPE2, DT_EQ, and DT_DIFF implemented programatically, though not robust at the
-    // moment. See L.equals.
-    // TODO DT_NOT_TYPE not yet implemented.
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_NOT_TYPE, "dt_intersection",
+      "rule dt_intersection when org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l:literal, $r:datatype) "
+        + "org.swrlapi.drools.owl.dataranges.DIO(drid == $r, $members:intersectionOfDataRangeIDs) "
+        + "$member : String() from $members not org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal == $l, datatype == $member) "
+        + "then insert(new org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l, $member)); end");
+
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_AVF, "cls_avf_dp",
+      "rule cls_avf_dp when DAVFCE($c:ceid, $p:pid, $d:v) CAA(cid == $c, $i:i) DPAA(s == $i, pid == $p, $l:o) "
+        + "not org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal == $l, datatype == $d.getid()) "
+        + "then insert(new org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l, $d.getid())); end");
+
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_RNG, "prp_rng_dp",
+      "rule prp_rng_dp when DPRA($p:pid, $r:rid) DPAA(pid == $p, $l:o) "
+        + "not org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal == $l, datatype == $r) "
+        + "then insert(new org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l, $r)); end");
+
+
+    // Keep literal identity structural; use value-space checks only in semantic rules.
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_NOT_TYPE, "dt_not_type_literal",
+      "rule dt_not_type_literal when DPAA($l:o) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.isInvalid($l)) "
+        + "then inferrer.inferFalse(\"DT_NOT_TYPE\", $l.toString()); end");
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_NOT_TYPE, "dt_not_type_negative",
+      "rule dt_not_type_negative when NDPAA($l:o) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.isInvalid($l)) "
+        + "then inferrer.inferFalse(\"DT_NOT_TYPE\", $l.toString()); end");
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_NOT_TYPE, "dt_not_type_membership",
+      "rule dt_not_type_membership when org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l:literal, $r:datatype) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.outside($l, $r)) "
+        + "then inferrer.inferFalse(\"DT_NOT_TYPE\", $l.toString()); end");
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_NOT_TYPE, "dt_not_type_hasvalue",
+      "rule dt_not_type_hasvalue when DHVCE($l:v) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.isInvalid($l)) "
+        + "then inferrer.inferFalse(\"DT_NOT_TYPE\", $l.toString()); end");
+
   }
 
   private void defineOWL2RLTable9DroolsRules()

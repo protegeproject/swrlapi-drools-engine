@@ -1,6 +1,5 @@
 package org.swrlapi.drools.converters.id;
 
-import com.google.common.base.Optional;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -8,6 +7,7 @@ import org.swrlapi.bridge.SWRLRuleEngineBridge;
 import org.swrlapi.bridge.converters.TargetRuleEngineConverterBase;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterBase

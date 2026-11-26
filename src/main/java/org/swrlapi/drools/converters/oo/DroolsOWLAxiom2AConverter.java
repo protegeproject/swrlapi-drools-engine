@@ -115,6 +115,8 @@ import java.util.Set;
 public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   implements TargetRuleEngineOWLAxiomConverter, SWRLAPIOWLAxiomVisitor
 {
+  private final DroolsAxiomRuleGenerator axiomRules;
+
   @NonNull private final DroolsSWRLRule2DRLConverter droolsSWRLRule2DRLConverter;
   @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
   @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
@@ -129,6 +131,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler)
   {
     super(bridge);
+    this.axiomRules = new DroolsAxiomRuleGenerator(droolsSWRLRuleEngine, droolsOWLClassExpressionHandler, droolsOWLPropertyExpressionHandler);
 
     this.droolsSWRLRule2DRLConverter = new DroolsSWRLRule2DRLConverter(bridge, droolsSWRLRuleEngine,
       droolsOWLClassExpressionHandler, droolsOWLPropertyExpressionHandler, droolsOWLDataRangeHandler);
@@ -140,6 +143,7 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
   public void reset()
   {
     this.assertedOWLAxioms.clear();
+    this.axiomRules.reset();
   }
 
   @NonNull public Set<@NonNull A> getAssertedOWLAxioms()
@@ -524,12 +528,12 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
 
   @Override public void convert(OWLSubPropertyChainOfAxiom axiom)
   {
-    // TODO sub property chain of axiom not implemented in Drools
+    this.axiomRules.convert(axiom);
   }
 
   @Override public void convert(OWLHasKeyAxiom axiom)
   {
-    // TODO has key axiom not implemented in Drools
+    this.axiomRules.convert(axiom);
   }
 
   @Override public void convert(OWLReflexiveObjectPropertyAxiom axiom)

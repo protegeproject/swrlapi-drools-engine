@@ -47,6 +47,8 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
     this.dataRangeIndex = 0;
   }
 
+  public Set<DR> getDataRanges() { return new HashSet<>(this.dataRanges); }
+
   public void reset()
   {
     this.dataRangeIndex = 0;
@@ -181,7 +183,6 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
     else {
       String dataRangeID = "DRID" + this.dataRangeIndex++;
       this.dataRange2ID.put(dataRange, dataRangeID);
-      this.convertedDataRangeIDs.add(dataRangeID);
       this.id2DataRange.put(dataRangeID, dataRange);
       this.dataRange2ID.put(dataRange, dataRangeID);
       return dataRangeID;
@@ -192,7 +193,7 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
   {
     Set<@NonNull String> dataRangeIDs = new HashSet<>();
     for (OWLDataRange dataRange : dataRanges) {
-      String dataRangeID = getOWLDataRangeID(dataRange);
+      String dataRangeID = convert(dataRange);
       dataRangeIDs.add(dataRangeID);
     }
     return dataRangeIDs;
@@ -201,5 +202,6 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
   private void addOWLDataRange(DR dataRange)
   {
     this.dataRanges.add(dataRange);
+    this.convertedDataRangeIDs.add(dataRange.getdrid());
   }
 }

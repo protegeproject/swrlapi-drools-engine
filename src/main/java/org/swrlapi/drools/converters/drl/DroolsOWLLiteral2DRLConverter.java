@@ -28,6 +28,6 @@ TargetRuleEngineOWLLiteralConverter<String>
     String datatypePrefixedName = iri2PrefixedName(datatypeIRI);
 
     return "new " + DroolsNames.LITERAL_CLASS_NAME + "(\"" + literal.getLiteral() + "\", \"" + datatypePrefixedName
-        + "\")";
+        + "\", \"" + literal.getLang() + "\")";
   }
 }
