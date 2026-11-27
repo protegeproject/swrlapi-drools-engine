@@ -1,0 +1,12 @@
+name: Core validation
+on:
+  push:
+    branches: [protege-6]
+  pull_request:
+    branches: [protege-6]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    uses: protegeproject/swrlapi-project/.github/workflows/core-validation.yml@protege-6
