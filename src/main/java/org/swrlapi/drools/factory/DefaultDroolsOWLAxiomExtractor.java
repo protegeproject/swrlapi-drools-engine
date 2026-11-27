@@ -315,7 +315,7 @@ class DefaultDroolsOWLAxiomExtractor extends DroolsExtractorBase implements Droo
     OWLObjectPropertyExpression property1 = getDroolsOWLPropertyExpressionHandler()
       .resolveOWLObjectPropertyExpression(eopa.getp1id());
     OWLObjectPropertyExpression property2 = getDroolsOWLPropertyExpressionHandler()
-      .resolveOWLObjectPropertyExpression(eopa.getp1id());
+      .resolveOWLObjectPropertyExpression(eopa.getp2id());
     Set<@NonNull OWLObjectPropertyExpression> properties = new HashSet<>();
     properties.add(property1);
     properties.add(property2);

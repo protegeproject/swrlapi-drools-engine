@@ -238,9 +238,9 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
   @Override public boolean isEntailed(@NonNull Set<? extends @NonNull A> axioms)
   {
     for (A a : axioms)
-      if (isEntailed(a))
-        return true;
-    return false;
+      if (!isEntailed(a))
+        return false;
+    return true;
   }
 
   // Classes

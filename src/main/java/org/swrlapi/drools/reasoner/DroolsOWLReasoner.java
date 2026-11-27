@@ -214,9 +214,29 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     ensureConsistent();
     if (!isEntailmentCheckingSupported(axiom.getAxiomType()))
       throw new UnsupportedEntailmentTypeException(axiom);
+    checkFresh(axiom.getAxiomWithoutAnnotations());
+    if (axiom instanceof OWLObjectPropertyAssertionAxiom)
+      axiom = ((OWLObjectPropertyAssertionAxiom)axiom).getSimplified();
+    if (axiom instanceof OWLNaryAxiom && ((OWLNaryAxiom<?>)axiom).operands().limit(3).count() > 2)
+      return ((OWLNaryAxiom<?>)axiom).asPairwiseAxioms().stream().allMatch(this::isEntailed);
+    // Query expressions supply definitions to the materialization, never asserted memberships.
+    Set<OWLClassExpression> expressions = asSet(axiom.nestedClassExpressions());
+    if (!expressions.isEmpty()) {
+      for (OWLAxiom known : this.state.closure)
+        known.nestedClassExpressions().forEach(expressions::remove);
+      if (this.queryExpressions.addAll(expressions)) {
+        this.prepared = false;
+        ensureConsistent();
+      }
+    }
     for (OWLAxiom known : this.state.closure) {
       if (known.equalsIgnoreAnnotations(axiom))
         return true;
+      if (known instanceof OWLNaryAxiom && known.getAxiomType().equals(axiom.getAxiomType())) {
+        for (OWLAxiom pair : ((OWLNaryAxiom<?>)known).asPairwiseAxioms())
+          if (pair.equalsIgnoreAnnotations(axiom))
+            return true;
+      }
       if (axiom instanceof OWLDataPropertyAssertionAxiom && known instanceof OWLDataPropertyAssertionAxiom) {
         OWLDataPropertyAssertionAxiom requested = (OWLDataPropertyAssertionAxiom)axiom;
         OWLDataPropertyAssertionAxiom assertion = (OWLDataPropertyAssertionAxiom)known;

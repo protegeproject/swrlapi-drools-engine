@@ -94,11 +94,19 @@ public class DroolsOWL2RLRules
       "rule eq_rep_s_dp when SIA($s:i1, $sp:i2) DPAA(s==$s, $p:pid, $o:o) "
         + "then DPAA dpaa=new DPAA($sp, $p, $o); inferrer.infer(dpaa); end");
 
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.EQ_REP_S, "eq_rep_s_diff",
+      "rule eq_rep_s_diff when SIA($s:i1, $sp:i2) DIA(i1==$s, $o:i2) "
+        + "then inferrer.infer(new DIA($sp, $o)); end");
+
     // EQ_REP_P will be handled by PRP_EQP1 and PRP_EQP2.
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.EQ_REP_O, "eq_rep_o",
       "rule eq_rep_o when SIA($o:i1, $op:i2) OPAA($s:s, $p:pid, o==$o) "
         + "then OPAA opaa=new OPAA($s, $p, $op); inferrer.infer(opaa); end");
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.EQ_REP_O, "eq_rep_o_diff",
+      "rule eq_rep_o_diff when SIA($o:i1, $op:i2) DIA($s:i1, i2==$o) "
+        + "then inferrer.infer(new DIA($s, $op)); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.EQ_DIFF1, "eq_diff1",
       "rule eq_diff1 when SIA($x:i1, $y:i2) DIA(i1==$x, i2==$y) then inferrer.inferFalse(\""
@@ -487,11 +495,11 @@ public class DroolsOWL2RLRules
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_AVF2, "scm_avf2_op",
       "rule scm_avf2_op when OAVFCE($c1:ceid, $p1:pid, $y:v) OAVFCE($c2:ceid, $p2:pid, v==$y) SOPA(subpid==$p1, superpid==$p2) "
-        + " then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
+        + " then SCA sca=new SCA($c2, $c1); inferrer.infer(sca); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_AVF2, "scm_avf2_dop",
       "rule scm_avf2_dp when DAVFCE($c1:ceid, $p1:pid, $y:v) DAVFCE($c2:ceid, $p2:pid, v==$y) SDPA(subpid==$p1, superpid==$p2) "
-        + " then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
+        + " then SCA sca=new SCA($c2, $c1); inferrer.infer(sca); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_INT, "scm_int",
       "rule scm_int when OIOCE($x:ceid, $ceids:ceids) $c: String() from $ceids "

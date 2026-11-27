@@ -3,6 +3,7 @@ package org.swrlapi.drools.owl2rl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.kie.api.KieBase;
 import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.utils.KieHelper;
@@ -48,6 +49,27 @@ public class OWL2RLRuleTest
   {
     L literal = new L("value", "xsd:string");
     return Arrays.asList(
+      row("class individual reflexivity", EQ_REF, new Object[]{new CAA("A", "i")}, new SIA("i", "i")),
+      row("object endpoints reflexivity", EQ_REF, new Object[]{new OPAA("i", "p", "j")}, new SIA("i", "i"), new SIA("j", "j")),
+      row("data subject reflexivity", EQ_REF, new Object[]{new DPAA("i", "p", literal)}, new SIA("i", "i")),
+      row("equality symmetry", EQ_SYM, new Object[]{new SIA("i", "j")}, new SIA("j", "i")),
+      row("equality transitivity", EQ_TRANS, new Object[]{new SIA("i", "j"), new SIA("j", "k")}, new SIA("i", "k")),
+      row("equality requires connected pairs", EQ_TRANS, new Object[]{new SIA("i", "j"), new SIA("k", "m")}),
+      row("class equality replacement", EQ_REP_S, new Object[]{new SIA("i", "j"), new CAA("A", "i")}, new CAA("A", "j")),
+      row("object subject equality replacement", EQ_REP_S, new Object[]{new SIA("i", "j"), new OPAA("i", "p", "k")}, new OPAA("j", "p", "k")),
+      row("data subject equality replacement", EQ_REP_S, new Object[]{new SIA("i", "j"), new DPAA("i", "p", literal)}, new DPAA("j", "p", literal)),
+      row("object equality replacement", EQ_REP_O, new Object[]{new SIA("i", "j"), new OPAA("k", "p", "i")}, new OPAA("k", "p", "j")),
+      row("different subject equality replacement", EQ_REP_S, new Object[]{new SIA("i", "j"), new DIA("i", "k")}, new DIA("j", "k")),
+      row("different object equality replacement", EQ_REP_O, new Object[]{new SIA("i", "j"), new DIA("k", "i")}, new DIA("k", "j")),
+      row("unrelated equality does not replace", EQ_REP_S, new Object[]{new SIA("i", "j"), new CAA("A", "k")}),
+      conflict("same and different", EQ_DIFF1, new SIA("i", "j"), new DIA("i", "j")),
+      row("unrelated different pair", EQ_DIFF1, new Object[]{new SIA("i", "j"), new DIA("i", "k")}),
+      row("Thing declaration", CLS_THING, new Object[]{}, new CDA("owl:Thing")),
+      row("Nothing declaration", CLS_NOTHING1, new Object[]{}, new CDA("owl:Nothing")),
+      conflict("Nothing instance", CLS_NOTHING2, new CAA("owl:Nothing", "i")),
+      row("ordinary class is not Nothing", CLS_NOTHING2, new Object[]{new CAA("A", "i")}),
+      conflict("qualified Thing max zero", CLS_MAXQC2, new OMaxQCCE("X", "p", "owl:Thing", 0), new CAA("X", "i"), new OPAA("i", "p", "j")),
+      row("qualified Thing max one", CLS_MAXQC4, new Object[]{new OMaxQCCE("X", "p", "owl:Thing", 1), new CAA("X", "i"), new OPAA("i", "p", "j"), new OPAA("i", "p", "k")}, new SIA("j", "k")),
       row("irreflexivity allows distinct endpoints", PRP_IRP, new Object[]{new IROPA("p"), new OPAA("i", "p", "j")}),
       conflict("invalid literal", DT_NOT_TYPE, new DPAA("i", "p", new L("256", "xsd:unsignedByte"))),
       conflict("invalid negative literal", DT_NOT_TYPE, new NDPAA("i", "p", new L("bad", "xsd:integer"))),
@@ -108,19 +130,37 @@ public class OWL2RLRuleTest
   {
     DroolsOWL2RLRules rules = new DroolsOWL2RLRules();
     rules.defineRules();
+    assertFalse("rule must have executable definitions", rules.getRules(this.rule).isEmpty());
     StringBuilder drl = new StringBuilder("package test; import org.swrlapi.drools.owl.axioms.*; import org.swrlapi.drools.owl.classes.*; global org.swrlapi.drools.owl2rl.OWL2RLRuleTest.Recorder inferrer;\n");
     rules.getRules(this.rule).forEach(definition -> drl.append(definition.getRuleText()).append('\n'));
-    KieSession session = new KieHelper().addContent(drl.toString(), ResourceType.DRL).build().newKieSession();
+    KieBase base = new KieHelper().addContent(drl.toString(), ResourceType.DRL).build();
+    Recorder recorder = execute(base, this.facts);
+    assertEquals("inconsistency", this.inconsistent, recorder.inconsistent);
+    assertTrue("missing conclusions " + this.expected + " from " + recorder.inferred, recorder.inferred.containsAll(this.expected));
+    if (this.expected.isEmpty() && !this.inconsistent)
+      assertTrue("unexpected inference " + recorder.inferred, recorder.inferred.isEmpty());
+    if (this.inconsistent || !this.expected.isEmpty()) {
+      for (int missing = 0; missing < this.facts.length; missing++) {
+        List<Object> incomplete = new ArrayList<>(Arrays.asList(this.facts));
+        incomplete.remove(missing);
+        Recorder control = execute(base, incomplete.toArray());
+        assertFalse("contradiction without premise " + missing, control.inconsistent);
+        if (!this.expected.isEmpty())
+          assertFalse("all conclusions without premise " + missing, control.inferred.containsAll(this.expected));
+      }
+    }
+  }
+
+  private Recorder execute(KieBase base, Object[] premises)
+  {
+    KieSession session = base.newKieSession();
     try {
-      Recorder recorder = new Recorder(session, this.facts);
+      Recorder recorder = new Recorder(session, premises);
       session.setGlobal("inferrer", recorder);
-      for (Object fact : this.facts)
+      for (Object fact : premises)
         session.insert(fact);
-      session.fireAllRules(1000);
-      assertEquals("inconsistency", this.inconsistent, recorder.inconsistent);
-      assertTrue("missing conclusions " + this.expected + " from " + recorder.inferred, recorder.inferred.containsAll(this.expected));
-      if (this.expected.isEmpty() && !this.inconsistent)
-        assertTrue("unexpected inference " + recorder.inferred, recorder.inferred.isEmpty());
+      assertTrue("must reach fixpoint", session.fireAllRules(1000) < 1000);
+      return recorder;
     } finally { session.dispose(); }
   }
 

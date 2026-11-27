@@ -10,6 +10,8 @@ import org.swrlapi.core.IRIResolver;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 import org.swrlapi.drools.converters.id.DroolsOWLDataRangeHandler;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
+import org.swrlapi.drools.extractors.DroolsOWLAxiomExtractor;
+import org.swrlapi.drools.factory.DroolsFactory;
 import org.swrlapi.drools.owl.axioms.*;
 import org.swrlapi.factory.SWRLAPIFactory;
 import org.swrlapi.factory.SWRLAPIInternalFactory;
@@ -19,6 +21,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -97,11 +100,18 @@ public class NaryAxiomTraversalTest
           expected.add(NS + left + "|" + NS + right);
     Set<A> facts = converter.getAssertedOWLAxioms();
     assertEquals(reflexive ? 9 : 6, facts.size());
+    DroolsOWLAxiomExtractor extractor = DroolsFactory.getDroolsOWLAxiomExtractor(bridge, classes, properties, ranges);
     Set<String> actual = new HashSet<>();
     for (A fact : facts) {
       assertTrue(factType.isInstance(fact));
       actual.add(resolve(first.apply(fact), properties, resolver) + "|"
         + resolve(second.apply(fact), properties, resolver));
+      OWLAxiom extracted = fact.extract(extractor);
+      assertEquals("round-trip axiom type", axiom.getAxiomType(), extracted.getAxiomType());
+      Set<IRI> endpoints = new HashSet<>(Arrays.asList(resolve(first.apply(fact), properties, resolver),
+        resolve(second.apply(fact), properties, resolver)));
+      assertEquals("both endpoints must survive extraction", endpoints,
+        extracted.unsortedSignature().map(OWLEntity::getIRI).collect(Collectors.toSet()));
     }
     assertEquals(expected, actual);
   }
