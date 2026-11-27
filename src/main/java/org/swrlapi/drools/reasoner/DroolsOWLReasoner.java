@@ -214,9 +214,17 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     ensureConsistent();
     if (!isEntailmentCheckingSupported(axiom.getAxiomType()))
       throw new UnsupportedEntailmentTypeException(axiom);
-    for (OWLAxiom known : this.state.closure)
+    for (OWLAxiom known : this.state.closure) {
       if (known.equalsIgnoreAnnotations(axiom))
         return true;
+      if (axiom instanceof OWLDataPropertyAssertionAxiom && known instanceof OWLDataPropertyAssertionAxiom) {
+        OWLDataPropertyAssertionAxiom requested = (OWLDataPropertyAssertionAxiom)axiom;
+        OWLDataPropertyAssertionAxiom assertion = (OWLDataPropertyAssertionAxiom)known;
+        if (requested.getSubject().equals(assertion.getSubject()) && requested.getProperty().equals(assertion.getProperty())
+          && org.swrlapi.drools.owl.literals.LiteralValues.sameValue(literalValue(requested.getObject()), literalValue(assertion.getObject())))
+          return true;
+      }
+    }
     if (axiom instanceof OWLSubClassOfAxiom) {
       OWLSubClassOfAxiom sub = (OWLSubClassOfAxiom)axiom;
       return sub.getSubClass().equals(sub.getSuperClass()) || sub.getSuperClass().isOWLThing()
@@ -918,6 +926,13 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     return literal.languageTag.isEmpty()
       ? getOWLDataFactory().getOWLLiteral(literal.getValue(), getOWLDataFactory().getOWLDatatype(resolveIRI(literal.datatypeName)))
       : getOWLDataFactory().getOWLLiteral(literal.getValue(), literal.languageTag);
+  }
+
+  private L literalValue(OWLLiteral literal)
+  {
+    OWLDatatype datatype = literal.getDatatype();
+    String name = datatype.isBuiltIn() ? datatype.getBuiltInDatatype().getPrefixedName() : datatype.getIRI().toString();
+    return new L(literal.getLiteral(), name, literal.getLang());
   }
 
   private DroolsOWLAxiomHandler getDroolsOWLAxiomHandler() { return this.state.axioms; }

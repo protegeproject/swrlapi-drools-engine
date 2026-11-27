@@ -497,7 +497,10 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
       String classExpressionID = generateCEID();
       String propertyID = getDroolsOWLPropertyExpressionHandler().convert(dataMaxCardinality.getProperty()).getid();
       int cardinality = dataMaxCardinality.getCardinality();
-      DMaxCCE dmaxcce = new DMaxCCE(classExpressionID, propertyID, cardinality);
+      DMaxCCE dmaxcce = dataMaxCardinality.isQualified()
+        ? new org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality(classExpressionID, propertyID,
+          getDroolsOWLDataRangeHandler().convert(dataMaxCardinality.getFiller()), cardinality)
+        : new DMaxCCE(classExpressionID, propertyID, cardinality);
       ce2dmaxcce.put(dataMaxCardinality, dmaxcce);
       dmaxcce2ce.put(dmaxcce.getceid(), dataMaxCardinality);
       ces.put(classExpressionID, dmaxcce);

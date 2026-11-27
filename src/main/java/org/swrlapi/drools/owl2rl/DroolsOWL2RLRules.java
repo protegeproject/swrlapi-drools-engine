@@ -17,8 +17,7 @@ import java.util.Set;
  * <p>
  * All axioms inferred by these rules are handled by a {@link org.swrlapi.drools.reasoner.DefaultDroolsOWLAxiomHandler}.
  * <p>
- * Property chain and key axioms are not currently handled (specified by the the pro-spo2 and prp-key rules in the
- * Specification). The value space of literals is also not validated (specified by rule dt-not-type).
+ * Property chains and keys are generated from ontology axioms; datatype comparisons use LiteralValues.
  * Rule availability does not imply complete OWL 2 RL conformance; see the regression coverage in OWL2RLRuleTest.
  * <p>
  * In its current state, this is a fairly naive implementation of the rules in the OWL 2 RL Specification. Many
@@ -126,6 +125,11 @@ public class DroolsOWL2RLRules
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_FP, "prp_fp",
       "rule prp_fp when FOPA($p:pid) OPAA($x:s, pid==$p, $y1:o) OPAA(s==$x, pid==$p, $y2:o) then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
 
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_FP, "prp_fp_dp",
+      "rule prp_fp_dp when FDPA($p:pid) DPAA($u:s, pid==$p, $a:o) DPAA(s==$u, pid==$p, $b:o) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.differentValue($a, $b)) "
+        + "then inferrer.inferFalse(\"PRP_FP\", $u.id, $p, $a.toString(), $b.toString()); end");
+
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_IFP, "prp_ifp",
       "rule prp_ifp_op when IFOPA($p:pid) OPAA($x1:s, pid==$p, $y:o) OPAA($x2:s, pid==$p, o==$y) then SIA sia=new SIA($x1, $x2); inferrer.infer(sia); end");
 
@@ -165,7 +169,7 @@ public class DroolsOWL2RLRules
         + "\", $u.id, $v.id, $p1, $p2); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_PDW, "prp_pdw_dp",
-      "rule prp_pdw_dp when DJDPA($p1:p1id, $p2:p2id) DPAA($u:s, pid==$p1, $v:o) DPAA(s==$u, pid==$p2, o==$v) "
+      "rule prp_pdw_dp when DJDPA($p1:p1id, $p2:p2id) DPAA($u:s, pid==$p1, $v:o) DPAA(s==$u, pid==$p2, $other:o) eval(org.swrlapi.drools.owl.literals.LiteralValues.sameValue($v, $other)) "
         + "then inferrer.inferFalse(\"PRP_PDW\", $u.id, $v.value, $p1, $p2); end");
 
     // PRP_ADP effectively handled by PRP_PDW above via pairwise extraction
@@ -185,7 +189,7 @@ public class DroolsOWL2RLRules
     // T(?x, owl:sourceIndividual, ?i) T(?x, owl:assertionProperty, ?p) T(?x, owl:targetValue, ?lt) T(?i, ?p, ?lt) ->
     // false
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.PRP_NPA2, "prp_npa2",
-      "rule prp_npa2 when NDPAA($i:s, $p:pid, $l:o) DPAA(s==$i, pid==$p, o==$l) then inferrer.inferFalse(\""
+      "rule prp_npa2 when NDPAA($i:s, $p:pid, $l:o) DPAA(s==$i, pid==$p, $other:o) eval(org.swrlapi.drools.owl.literals.LiteralValues.sameValue($l, $other)) then inferrer.inferFalse(\""
         + OWL2RLNames.OWL2RLRule.PRP_NPA2.toString() + "\", $p, $i.id, $l.value); end");
   }
 
@@ -220,6 +224,11 @@ public class DroolsOWL2RLRules
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_SFV1, "cls_sfv1",
       "rule cls_sfv1 when OSVFCE($x:ceid, $p:pid, $y:v) OPAA($u:s, pid==$p, $v:o) CAA(cid==$y, i==$v) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
 
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_SFV1, "cls_sfv1_dp",
+      "rule cls_sfv1_dp when DSVFCE($x:ceid, $p:pid, $d:v) DPAA($u:s, pid==$p, $l:o) "
+        + "org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal==$l, datatype==$d.getid()) "
+        + "then inferrer.infer(new CAA($x, $u)); end");
+
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_SFV2, "cls_sfv2",
       "rule cls_sfv2 when OSVFCE($x:ceid, $p:pid, v==\"owl:Thing\") OPAA($u:s, pid==$p, $v:o) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
 
@@ -235,18 +244,38 @@ public class DroolsOWL2RLRules
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_HV2, "cls_hv2_op",
       "rule cls_hv2_op when OHVCE($x:ceid, $p:pid, $y:v) OPAA($u:s, pid==$p, o==$y) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_HV2, "cls_hv2_dp",
-      "rule cls_hv2_dp when DHVCE($x:ceid, $p:pid, $y:v) DPAA($u:s, pid==$p, o==$y) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
+      "rule cls_hv2_dp when DHVCE($x:ceid, $p:pid, $y:v) DPAA($u:s, pid==$p, $other:o) eval(org.swrlapi.drools.owl.literals.LiteralValues.sameValue($y, $other)) then CAA caa=new CAA($x, $u); inferrer.infer(caa); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXC1, "cls_maxc1_op",
       "rule cls_maxc1_op when OMaxCCE($x:ceid, $p:pid, card==0) CAA(cid==$x, $u:i) OPAA(s==$u, pid==$p, $y:o) then inferrer.inferFalse(\""
         + OWL2RLNames.OWL2RLRule.CLS_MAXC1.toString() + "\", $x, $p, $u.id, $y.id); end");
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXC1, "cls_maxc1_dp",
-      "rule cls_maxc1_dp when DMaxCCE($x:ceid, $p:pid, card==0) CAA(cid==$x, $u:i) DPAA(s==$u, pid==$p, $y:o) then inferrer.inferFalse(\""
+      "rule cls_maxc1_dp when DMaxCCE($x:ceid, $p:pid, card==0, !(this instanceof org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality)) CAA(cid==$x, $u:i) DPAA(s==$u, pid==$p, $y:o) then inferrer.inferFalse(\""
         + OWL2RLNames.OWL2RLRule.CLS_MAXC1.toString() + "\", $x, $p, $u.id, $y.value); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXC2, "cls_maxc2",
       "rule cls_maxc2 when OMaxCCE($x:ceid, $p:pid, card==1) CAA(cid==$x, $u:i) OPAA(s==$u, pid==$p, $y1:o) OPAA(s==$u, pid==$p, $y2:o) "
         + "then SIA sia=new SIA($y1, $y2); inferrer.infer(sia); end");
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXC2, "cls_maxc2_dp",
+      "rule cls_maxc2_dp when DMaxCCE($x:ceid, $p:pid, card==1, !(this instanceof org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality)) "
+        + "CAA(cid==$x, $u:i) DPAA(s==$u, pid==$p, $a:o) DPAA(s==$u, pid==$p, $b:o) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.differentValue($a, $b)) "
+        + "then inferrer.inferFalse(\"CLS_MAXC2\", $x, $u.id, $p); end");
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXQC1, "cls_maxqc1_dp",
+      "rule cls_maxqc1_dp when org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality($x:ceid, $p:pid, $f:filler, card==0) "
+        + "CAA(cid==$x, $u:i) DPAA(s==$u, pid==$p, $l:o) "
+        + "org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal==$l, datatype==$f) "
+        + "then inferrer.inferFalse(\"CLS_MAXQC1\", $x, $u.id, $p, $f); end");
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXQC3, "cls_maxqc3_dp",
+      "rule cls_maxqc3_dp when org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality($x:ceid, $p:pid, $f:filler, card==1) "
+        + "CAA(cid==$x, $u:i) DPAA(s==$u, pid==$p, $a:o) DPAA(s==$u, pid==$p, $b:o) "
+        + "org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal==$a, datatype==$f) "
+        + "org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal==$b, datatype==$f) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.differentValue($a, $b)) "
+        + "then inferrer.inferFalse(\"CLS_MAXQC3\", $x, $u.id, $p, $f); end");
 
     // T(?x, owl:maxQualifiedCardinality, "0"^^xsd:nonNegativeInteger) T(?x, owl:onProperty, ?p) T(?x, owl:onClass, ?c)
     // T(?u, rdf:type, ?x) T(?u, ?p, ?y) T(?y, rdf:type, ?c) -> false
@@ -264,7 +293,7 @@ public class DroolsOWL2RLRules
         + "\", $x, $p, $u.id, $y.id); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.CLS_MAXQC2, "cls_maxqc2_dp",
-      "rule cls_maxqc2 when DMaxQCCE($x:ceid, $p:pid, f==\"owl:Thing\", card==0) CAA(cid==$x, $u:i) DPAA(s==$u, pid==$p, $y:o) "
+      "rule cls_maxqc2_dp when DMaxQCCE($x:ceid, $p:pid, f==\"rdfs:Literal\", card==0) CAA(cid==$x, $u:i) DPAA(s==$u, pid==$p, $y:o) "
         + "then inferrer.inferFalse(\"" + OWL2RLNames.OWL2RLRule.CLS_MAXQC2.toString()
         + "\", $x, $p, $u.id, $y.toString()); end");
 
@@ -307,6 +336,20 @@ public class DroolsOWL2RLRules
 
   private void defineOWL2RLTable8DroolsRules()
   {
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_TYPE2, "dt_type_value",
+      "rule dt_type_value when DPAA($l:o) org.swrlapi.drools.owl.dataranges.D($r:id) "
+        + "eval(org.swrlapi.drools.owl.literals.LiteralValues.inside($l, $r)) "
+        + "not org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal==$l, datatype==$r) "
+        + "then insert(new org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l, $r)); end");
+
+    createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_TYPE2, "dt_type_intersection",
+      "rule dt_type_intersection when DPAA($l:o) "
+        + "org.swrlapi.drools.owl.dataranges.DIO($r:drid, $members:intersectionOfDataRangeIDs) "
+        + "not (String($member:this) from $members and not "
+        + "org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal==$l, datatype==$member)) "
+        + "not org.swrlapi.drools.owl.literals.LiteralTypeAssertion(literal==$l, datatype==$r) "
+        + "then insert(new org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l, $r)); end");
+
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.DT_NOT_TYPE, "dt_intersection",
       "rule dt_intersection when org.swrlapi.drools.owl.literals.LiteralTypeAssertion($l:literal, $r:datatype) "
         + "org.swrlapi.drools.owl.dataranges.DIO(drid == $r, $members:intersectionOfDataRangeIDs) "
@@ -423,7 +466,7 @@ public class DroolsOWL2RLRules
         + "then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_HV, "scm_hv_dp",
-      "rule scm_hv_dp when DHVCE($c1:ceid, $p1:pid, $i:v) DHVCE($c2:ceid, $p2:pid, v==$i) SDPA(subpid==$p1, superpid==$p2) "
+      "rule scm_hv_dp when DHVCE($c1:ceid, $p1:pid, $i:v) DHVCE($c2:ceid, $p2:pid, $j:v) eval(org.swrlapi.drools.owl.literals.LiteralValues.sameValue($i, $j)) SDPA(subpid==$p1, superpid==$p2) "
         + "then SCA sca=new SCA($c1, $c2); inferrer.infer(sca); end");
 
     createOWL2RLRuleDefinition(OWL2RLNames.OWL2RLRule.SCM_SVF1, "scm_svf1",

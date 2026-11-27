@@ -52,4 +52,75 @@ public class LiteralValuesTest
     assertTrue(LiteralValues.sameValue(new L("text@EN", "rdf:PlainLiteral"), new L("text", "rdf:langString", "en")));
   }
 
+  @Test public void xmlComparisonCanonicalizesContentAndPreservesCommentsAndNamespaces() {
+    String[][] equal = {{"<p b='2' a='1'/>", "<p a=\"1\" b=\"2\"></p>"},
+      {"<p><![CDATA[a&b]]></p>", "<p>a&amp;b</p>"}, {"", ""},
+      {"<p xmlns='urn:p' xmlns:unused='urn:unused'/>", "<p xmlns='urn:p'></p>"},
+      {"a<p/>b<q/>", "a<p></p>b<q></q>"}, {"<p>\r\nx</p>", "<p>\nx</p>"}};
+    for (String[] pair : equal) {
+      L a = new L(pair[0], "rdf:XMLLiteral"), b = new L(pair[1], "rdf:XMLLiteral");
+      assertFalse(pair[0], LiteralValues.isInvalid(a));
+      assertTrue(pair[0], LiteralValues.sameValue(a, b));
+      assertFalse(pair[0], LiteralValues.differentValue(a, b));
+    }
+    String[][] different = {{"<p/>", "<p><!--comment--></p>"}, {"<p xmlns='urn:a'/>", "<p xmlns='urn:b'/>"},
+      {"<p> </p>", "<p/>"}, {"<a/><b/>", "<b/><a/>"},
+      {"<a:p xmlns:a='urn:p'/>", "<b:p xmlns:b='urn:p'/>"}};
+    for (String[] pair : different) {
+      assertFalse(LiteralValues.sameValue(new L(pair[0], "rdf:XMLLiteral"), new L(pair[1], "rdf:XMLLiteral")));
+      assertTrue(LiteralValues.differentValue(new L(pair[0], "rdf:XMLLiteral"), new L(pair[1], "rdf:XMLLiteral")));
+    }
+    assertFalse(LiteralValues.sameValue(new L("text", "rdf:XMLLiteral"), new L("text", "xsd:string")));
+    for (String invalid : new String[]{"<p>", "<p:a/>", "<!DOCTYPE p [<!ENTITY ext SYSTEM 'file:///no-such-entity'>]><p>&ext;</p>", "<?xml version='1.0'?><p/>"})
+      assertTrue(invalid, LiteralValues.isInvalid(new L(invalid, "rdf:XMLLiteral")));
+  }
+
+  @Test public void inequalityRequiresEvidence() {
+    L custom = new L("a", "urn:custom");
+    assertTrue(LiteralValues.sameValue(custom, new L("a", "urn:custom")));
+    assertFalse(LiteralValues.sameValue(custom, new L("b", "urn:custom")));
+    assertFalse(LiteralValues.differentValue(custom, new L("b", "urn:custom")));
+    assertFalse(LiteralValues.differentValue(custom, new L("1", "xsd:integer")));
+    assertFalse(LiteralValues.differentValue(new L("bad", "xsd:int"), new L("2", "xsd:int")));
+    L local = new L("2026-01-01T12:00:00", "xsd:dateTime");
+    assertFalse(LiteralValues.differentValue(local, new L("2026-01-01T12:00:00Z", "xsd:dateTime")));
+    assertFalse(LiteralValues.sameValue(local, new L("2026-01-01T12:00:00Z", "xsd:dateTime")));
+    assertTrue(LiteralValues.differentValue(local, new L("2026-01-03T12:00:00Z", "xsd:dateTime")));
+  }
+
+  @Test public void floatingPointIdentityFollowsOwlRatherThanArithmeticEquality() {
+    for (String type : new String[]{"xsd:float", "xsd:double"}) {
+      assertTrue(LiteralValues.differentValue(new L("+0", type), new L("-0", type)));
+      assertTrue(LiteralValues.sameValue(new L("NaN", type), new L("NaN", type)));
+      assertTrue(LiteralValues.sameValue(new L("1e1000", type), new L("INF", type)));
+      assertTrue(LiteralValues.sameValue(new L("1e-1000", type), new L("0", type)));
+    }
+    assertTrue(LiteralValues.differentValue(new L("1", "xsd:float"), new L("1", "xsd:double")));
+    assertTrue(LiteralValues.differentValue(new L("1", "xsd:double"), new L("1", "xsd:decimal")));
+    assertTrue(LiteralValues.differentValue(new L("ff", "xsd:hexBinary"), new L("/w==", "xsd:base64Binary")));
+  }
+
+  @Test public void positiveMembershipDoesNotTurnUnknownIntoTrue() {
+    assertTrue(LiteralValues.inside(new L("1.0", "xsd:decimal"), "xsd:integer"));
+    assertFalse(LiteralValues.inside(new L("1.5", "xsd:decimal"), "xsd:integer"));
+    assertFalse(LiteralValues.inside(new L("1", "xsd:int"), "urn:custom"));
+    assertFalse(LiteralValues.inside(new L("1", "urn:custom"), "xsd:int"));
+    assertFalse(LiteralValues.inside(new L("invalid", "xsd:int"), "rdfs:Literal"));
+    assertTrue(LiteralValues.inside(new L("custom", "urn:custom"), "rdfs:Literal"));
+  }
+
+  @Test public void onlyXmlWhitespaceIsCollapsed() {
+    assertTrue(LiteralValues.sameValue(new L(" \t01\r\n", "xsd:int"), new L("1", "xsd:integer")));
+    assertTrue(LiteralValues.isInvalid(new L("\u000b1", "xsd:int")));
+    assertTrue(LiteralValues.isInvalid(new L("1\u0000", "xsd:int")));
+    assertTrue(LiteralValues.sameValue(new L(" a\t b\n", "xsd:token"), new L("a b", "xsd:string")));
+    assertFalse(LiteralValues.sameValue(new L("\u000ba", "xsd:token"), new L("a", "xsd:string")));
+  }
+
+  @Test public void languageTagsRequireWellFormedBcp47Syntax() {
+    for (String tag : new String[]{"en", "de-CH-1996", "zh-Hant", "x-private", "i-klingon"})
+      assertFalse(tag, LiteralValues.isInvalid(new L("text", "rdf:langString", tag)));
+    for (String tag : new String[]{"", "en_US", "en-abcdefghi", "en-u", "x"})
+      assertTrue(tag, LiteralValues.isInvalid(new L("text", "rdf:langString", tag)));
+  }
 }

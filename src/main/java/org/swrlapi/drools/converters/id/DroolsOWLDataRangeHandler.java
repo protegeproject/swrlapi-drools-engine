@@ -83,6 +83,7 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
       this.convertedDataRangeIDs.add(dataRangeID);
       id2DataRange.put(dataRangeID, datatype);
       dataRange2ID.put(datatype, dataRangeID);
+      this.dataRanges.add(new org.swrlapi.drools.owl.dataranges.D(dataRangeID));
     }
     return dataRangeID;
   }

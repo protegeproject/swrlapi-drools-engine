@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class OperandTraversalTest
 {
@@ -76,6 +78,27 @@ public class OperandTraversalTest
     assertEquals(union, ranges.resolveOWLDataRange(unionID));
     assertEquals(intersectionID, ranges.convert(intersection));
     assertEquals(unionID, ranges.convert(union));
+  }
+
+  @Test public void dataMaximumCardinalityRetainsQualifiedFillerAndRoundTrips() throws Exception
+  {
+    OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:operands#p"));
+    OWLDataRange filler = df.getOWLDataIntersectionOf(df.getIntegerOWLDatatype(),
+      df.getOWLDatatype(IRI.create("http://www.w3.org/2001/XMLSchema#positiveInteger")));
+    for (int cardinality : new int[]{0, 1, 2}) {
+      OWLDataMaxCardinality original = df.getOWLDataMaxCardinality(cardinality, p, filler);
+      org.swrlapi.drools.owl.classes.DMaxCCE fact = classes.convert(original);
+      assertTrue(fact instanceof org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality);
+      String fillerID = ((org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality)fact).getFiller();
+      assertEquals(filler, ranges.resolveOWLDataRange(fillerID));
+      assertEquals(original, classes.convert(fact));
+      assertSame(fact, classes.convert(original));
+      assertEquals(Integer.valueOf(cardinality), fact.getCard());
+      assertTrue(classes.getCEs().contains(fact));
+    }
+    OWLDataMaxCardinality unqualified = df.getOWLDataMaxCardinality(1, p);
+    assertFalse(classes.convert(unqualified) instanceof org.swrlapi.drools.owl.classes.QualifiedDataMaxCardinality);
+    assertEquals(unqualified, classes.convert(classes.convert(unqualified)));
   }
 
   private Set<OWLClassExpression> resolveClasses(Set<String> ids) throws Exception
