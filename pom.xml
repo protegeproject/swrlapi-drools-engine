@@ -157,9 +157,9 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Include-Resource>{maven-resources}</Include-Resource>
+            <!-- OWLAPI package versions differ from its artifact version; let bnd infer each range. -->
             <Import-Package>
               org.drools.*;version="${drools.version}",
-              org.semanticweb.owlapi.*;version="[${owlapi.version},6.0.0)",
               org.swrlapi.*;version="${swrlapi.version}",
               *
             </Import-Package>

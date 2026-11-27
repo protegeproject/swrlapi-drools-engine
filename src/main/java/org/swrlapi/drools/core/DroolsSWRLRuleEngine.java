@@ -90,6 +90,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   private KieSession knowledgeSession;
   private DroolsResourceHandler resourceHandler;
   private boolean ruleLoadRequired;
+  private Set<OWLAxiom> compiledOntologyAxioms = new HashSet<>();
   private DroolsOWLReasoner owlReasoner;
   private Runnable reasoningCheck = () -> { };
 
@@ -155,13 +156,13 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 
   @Override public void resetRuleEngine() throws TargetSWRLRuleEngineException
   {
-    // The bridge resets the ontology changed status after each reset so we can determine if the ontology has changed
-    // since the last reset and decide if we want to rebuild the knowledge base. A change in OWL 2 RL rule selection
-    // will also require a rebuild.
-    // TODO This could be optimized so that we do not repeat addition of the Java classes representing OWL and SWRL
-    // concepts on a knowledge base rebuild.
-
-    if (getBridge().hasOntologyChanged() || getOWL2RLEngine().hasRuleSelectionChanged()) {
+    // UI model processing can clear the bridge change flag before the next run.
+    // Compare the source axioms as well so edited rules and queries cannot reuse
+    // an obsolete compiled knowledge base, including changes in imported ontologies.
+    Set<OWLAxiom> currentAxioms = new HashSet<>(getBridge().getOWLOntology()
+      .getAxioms(org.semanticweb.owlapi.model.parameters.Imports.INCLUDED));
+    if (getBridge().hasOntologyChanged() || getOWL2RLEngine().hasRuleSelectionChanged()
+      || !currentAxioms.equals(this.compiledOntologyAxioms)) {
 
       this.knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase(createKnowledgeBaseConfiguration());
       this.knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
@@ -178,6 +179,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
         this.resourceHandler.defineDRLRule(ruleDefinition.getRuleText());
 
       this.ruleLoadRequired = true;
+      this.compiledOntologyAxioms = currentAxioms;
     }
     this.builtInInvoker.reset();
     this.axiom2AConverter.reset();
