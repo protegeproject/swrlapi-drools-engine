@@ -54,6 +54,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+
 public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>, CEConverter, CEResolver
 {
@@ -198,7 +200,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     else {
       String classExpressionID = generateCEID();
       Set<String> classIDs = new HashSet<>();
-      for (OWLClassExpression ce : objectIntersectionOf.getOperands()) {
+      for (OWLClassExpression ce : asSet(objectIntersectionOf.operands())) {
         String classID = convert(ce).getceid();
         classIDs.add(classID);
       }
@@ -220,7 +222,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
       String classExpressionID = generateCEID();
 
       Set<@NonNull String> classExpressionIDs = new HashSet<>();
-      for (OWLClassExpression ce : objectUnionOf.getOperands()) {
+      for (OWLClassExpression ce : asSet(objectUnionOf.operands())) {
         String cid = convert(ce).getceid();
         classExpressionIDs.add(cid);
       }
@@ -383,7 +385,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     else {
       String classExpressionID = generateCEID();
       Set<@NonNull String> individualIDs = new HashSet<>();
-      for (OWLIndividual individual : objectOneOf.getIndividuals()) {
+      for (OWLIndividual individual : asSet(objectOneOf.individuals())) {
         String individualID = getDroolsOWLIndividual2IConverter().convert(individual).getid();
         individualIDs.add(individualID);
       }

@@ -25,6 +25,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+
 /**
  * Converts an OWLAPI OWL data range to its Drools representation
  *
@@ -115,7 +117,7 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
     String dataRangeID = getOWLDataRangeID(dataRange);
 
     if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-      Set<@NonNull String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
+      Set<@NonNull String> dataRangeIDs = getOWLDataRangeIDs(asSet(dataRange.operands()));
       DIO dio = new DIO(dataRangeID, dataRangeIDs);
       addOWLDataRange(dio);
     }
@@ -127,7 +129,7 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
     String dataRangeID = getOWLDataRangeID(dataRange);
 
     if (!this.convertedDataRangeIDs.contains(dataRangeID)) {
-      Set<@NonNull String> dataRangeIDs = getOWLDataRangeIDs(dataRange.getOperands());
+      Set<@NonNull String> dataRangeIDs = getOWLDataRangeIDs(asSet(dataRange.operands()));
       DUO duo = new DUO(dataRangeID, dataRangeIDs);
       addOWLDataRange(duo);
     }

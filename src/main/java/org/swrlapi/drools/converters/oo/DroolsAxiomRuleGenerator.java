@@ -4,6 +4,8 @@ import org.semanticweb.owlapi.model.*;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.swrlapi.owl2rl.OWL2RLNames.OWL2RLRule;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+
 /** Compiles variable-length chain and key axioms into ordinary agenda rules. */
 final class DroolsAxiomRuleGenerator
 {
@@ -44,7 +46,7 @@ final class DroolsAxiomRuleGenerator
     int n = 0;
     // OWLAPI 5.5.1 getObjectPropertyExpressions() returns the signature: it
     // loses inverses and can include properties from the key class expression.
-    for (OWLPropertyExpression expression : axiom.getPropertyExpressions()) {
+    for (OWLPropertyExpression expression : asSet(axiom.propertyExpressions())) {
       if (!(expression instanceof OWLObjectPropertyExpression)) continue;
       OWLObjectPropertyExpression property = (OWLObjectPropertyExpression)expression;
       String value = "$o" + n++;
@@ -52,7 +54,7 @@ final class DroolsAxiomRuleGenerator
       body.append(objectPattern(property, "$y", value, false, false));
       body.append("IDA(i == ").append(value).append(") ");
     }
-    for (OWLDataPropertyExpression property : axiom.getDataPropertyExpressions()) {
+    for (OWLDataPropertyExpression property : asSet(axiom.dataPropertyExpressions())) {
       String pid = quote(properties.convert(property).getid());
       String left = "$l" + n, right = "$r" + n++;
       body.append("DPAA(s == $x, pid == ").append(pid).append(", ").append(left).append(" : o) ");

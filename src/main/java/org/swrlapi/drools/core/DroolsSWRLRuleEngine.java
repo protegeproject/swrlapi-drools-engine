@@ -52,6 +52,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+
 /**
  * This class provides a Drools implementation of a rule engine for SWRL using the SWRLAPI's Rule Engine Bridge
  * mechanism. The underlying reasoner is supplied by the {@link org.swrlapi.drools.owl2rl.DroolsOWL2RLEngine}.
@@ -159,8 +161,8 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     // UI model processing can clear the bridge change flag before the next run.
     // Compare the source axioms as well so edited rules and queries cannot reuse
     // an obsolete compiled knowledge base, including changes in imported ontologies.
-    Set<OWLAxiom> currentAxioms = new HashSet<>(getBridge().getOWLOntology()
-      .getAxioms(org.semanticweb.owlapi.model.parameters.Imports.INCLUDED));
+    Set<OWLAxiom> currentAxioms = new HashSet<>(asSet(getBridge().getOWLOntology()
+      .axioms(org.semanticweb.owlapi.model.parameters.Imports.INCLUDED)));
     if (getBridge().hasOntologyChanged() || getOWL2RLEngine().hasRuleSelectionChanged()
       || !currentAxioms.equals(this.compiledOntologyAxioms)) {
 
@@ -280,11 +282,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     try {
       OWLOntology snapshot = OWLManager.createOWLOntologyManager().createOntology(axioms);
       // OWLAPI declarations are optional. The RL schema rules need declarations for every referenced entity.
-      Set<OWLEntity> signature = new HashSet<>(snapshot.getSignature());
+      Set<OWLEntity> signature = new HashSet<>(asSet(snapshot.unsortedSignature()));
       signature.add(OWLManager.getOWLDataFactory().getOWLThing());
       signature.add(OWLManager.getOWLDataFactory().getOWLNothing());
       for (OWLClassExpression expression : queryExpressions)
-        signature.addAll(expression.getSignature());
+        expression.unsortedSignature().forEachOrdered(signature::add);
       for (OWLEntity entity : signature)
         snapshot.addAxiom(OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(entity));
       org.semanticweb.owlapi.model.OWLDataFactory factory = OWLManager.getOWLDataFactory();
@@ -310,7 +312,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       engine.reasoningCheck = checkCancellation;
       checkCancellation.run();
       engine.runRuleEngine();
-      Set<OWLAxiom> closure = new HashSet<>(snapshot.getAxioms());
+      Set<OWLAxiom> closure = new HashSet<>(asSet(snapshot.axioms()));
       closure.addAll(bridge.getInferredOWLAxioms());
       closure.addAll(bridge.getInjectedOWLAxioms());
       return new DroolsOWLReasoner.Materialization(engine.axiomInferrer, engine.classExpressionHandler,

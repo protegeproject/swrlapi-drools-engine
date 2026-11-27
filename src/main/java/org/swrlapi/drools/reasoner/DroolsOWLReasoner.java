@@ -62,6 +62,8 @@ import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import org.kie.api.runtime.KieSession;
 import java.util.Set;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+
 /**
  * A Drools-based reasoner interface implementing the OWLAPI {@link org.semanticweb.owlapi.reasoner.OWLReasoner}
  * interface.
@@ -434,7 +436,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     if (objectPropertyExpression.isAnonymous()) {
       for (String inverseID : getDroolsOWLAxiomHandler().getInverseObjectProperties(
         resolveOPE(objectPropertyExpression.getNamedProperty()).getid()))
-        properties.addAll(getEquivalentObjectProperties(resolveOWLObjectPropertyExpression(inverseID)).getEntities());
+        getEquivalentObjectProperties(resolveOWLObjectPropertyExpression(inverseID)).entities().forEachOrdered(properties::add);
     }
     OPE ope = resolveOPE(objectPropertyExpression);
     String propertyID = ope.getid();
@@ -471,7 +473,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     Set<OWLObjectPropertyExpression> inverses = new HashSet<>();
     inverses.add(objectPropertyExpression.getInverseProperty());
     for (String id : getDroolsOWLAxiomHandler().getInverseObjectProperties(resolveOPE(objectPropertyExpression).getid()))
-      inverses.addAll(getEquivalentObjectProperties(resolveOWLObjectPropertyExpression(id)).getEntities());
+      getEquivalentObjectProperties(resolveOWLObjectPropertyExpression(id)).entities().forEachOrdered(inverses::add);
     return new OWLObjectPropertyNode(inverses);
   }
 
@@ -829,7 +831,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   {
     Set<OWLClass> result = new HashSet<>();
     for (OWLAxiom axiom : this.state.closure)
-      result.addAll(axiom.getClassesInSignature());
+      axiom.classesInSignature().forEachOrdered(result::add);
     return result;
   }
 
@@ -837,13 +839,13 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
   {
     Set<OWLNamedIndividual> result = new HashSet<>();
     for (OWLAxiom axiom : this.state.closure)
-      result.addAll(axiom.getIndividualsInSignature());
+      axiom.individualsInSignature().forEachOrdered(result::add);
     return result;
   }
 
   private boolean isDirectInstance(OWLNamedIndividual individual, String classID)
   {
-    for (OWLClass type : getTypes(individual, false).getFlattened())
+    for (OWLClass type : asSet(getTypes(individual, false).entities()))
       if (getDroolsOWLAxiomHandler().strictSubClassOf(resolveC(type).getceid(), classID))
         return false;
     return true;
@@ -855,7 +857,7 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     if (getIndividualNodeSetPolicy() == IndividualNodeSetPolicy.BY_SAME_AS)
       result.addNode(same);
     else
-      for (OWLNamedIndividual value : same.getEntities())
+      for (OWLNamedIndividual value : asSet(same.entities()))
         result.addNode(new OWLNamedIndividualNode(value));
   }
 
@@ -864,8 +866,8 @@ public class DroolsOWLReasoner extends OWLReasonerBase implements OWLReasoner
     if (getFreshEntityPolicy() == FreshEntityPolicy.DISALLOW) {
       Set<OWLEntity> known = new HashSet<>();
       for (OWLAxiom axiom : getReasonerAxioms())
-        known.addAll(axiom.getSignature());
-      Set<OWLEntity> fresh = new HashSet<>(object.getSignature());
+        axiom.unsortedSignature().forEachOrdered(known::add);
+      Set<OWLEntity> fresh = new HashSet<>(asSet(object.unsortedSignature()));
       fresh.removeAll(known);
       fresh.removeIf(OWLEntity::isBuiltIn);
       if (!fresh.isEmpty())
