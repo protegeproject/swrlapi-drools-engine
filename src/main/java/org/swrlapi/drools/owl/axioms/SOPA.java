@@ -21,17 +21,17 @@ public class SOPA extends DroolsBinaryObject<String, String> implements A
     super(property1ID, property2ID);
   }
 
-  @NonNull public String getsubpid()
+  public @NonNull String getsubpid()
   {
     return getT1();
   }
 
-  @NonNull public String getsuperpid()
+  public @NonNull String getsuperpid()
   {
     return getT2();
   }
 
-  @NonNull @Override public OWLSubObjectPropertyOfAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
+  @Override public @NonNull OWLSubObjectPropertyOfAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
     throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
@@ -42,7 +42,7 @@ public class SOPA extends DroolsBinaryObject<String, String> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "SOPA" + super.toString();
   }

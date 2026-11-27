@@ -28,27 +28,27 @@ public class DPAA extends DroolsTernaryObject<I, String, L> implements A
     super(subject, propertyID, object);
   }
 
-  @NonNull public I gets()
+  public @NonNull I gets()
   {
     return getT1();
   }
 
-  @NonNull public String getsid()
+  public @NonNull String getsid()
   {
     return getT1().getid();
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT2();
   }
 
-  @NonNull public L geto()
+  public @NonNull L geto()
   {
     return getT3();
   }
 
-  @NonNull @Override public OWLDataPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
+  @Override public @NonNull OWLDataPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
     throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
@@ -59,7 +59,7 @@ public class DPAA extends DroolsTernaryObject<I, String, L> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree  @Override public String toString()
+  @SideEffectFree @Override  public @NonNull String toString()
   {
     return "DPAA" + super.toString();
   }

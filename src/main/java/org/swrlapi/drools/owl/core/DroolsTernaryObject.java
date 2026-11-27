@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public abstract class DroolsTernaryObject<T1, T2, T3>
 {
-  @NonNull private final T1 t1;
-  @NonNull private final T2 t2;
-  @NonNull private final T3 t3;
+  private final @NonNull T1 t1;
+  private final @NonNull T2 t2;
+  private final @NonNull T3 t3;
 
   protected DroolsTernaryObject(@NonNull T1 t1, @NonNull T2 t2, @NonNull T3 t3)
   {
@@ -20,22 +20,22 @@ public abstract class DroolsTernaryObject<T1, T2, T3>
     this.t3 = t3;
   }
 
-  @NonNull public T1 getT1()
+  public @NonNull T1 getT1()
   {
     return this.t1;
   }
 
-  @NonNull public T2 getT2()
+  public @NonNull T2 getT2()
   {
     return this.t2;
   }
 
-  @NonNull public T3 getT3()
+  public @NonNull T3 getT3()
   {
     return this.t3;
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ")";
   }

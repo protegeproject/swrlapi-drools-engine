@@ -26,17 +26,17 @@ public class IDA extends DA<I>
     super(individual);
   }
 
-  @NonNull public I getI()
+  public @NonNull I getI()
   {
     return getE();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "IDA(" + super.toString() + ")";
   }
 
-  @NonNull @Override public OWLDeclarationAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLDeclarationAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

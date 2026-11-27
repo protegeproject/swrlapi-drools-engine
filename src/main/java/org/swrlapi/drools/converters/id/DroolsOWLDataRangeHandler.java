@@ -35,10 +35,10 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLDataRangeConverter<String>, OWLDataRangeVisitorEx<String>
 {
-  @NonNull private final Map<@NonNull OWLDataRange, @NonNull String> dataRange2ID = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataRange> id2DataRange = new HashMap<>();
-  @NonNull private final Set<@NonNull String> convertedDataRangeIDs = new HashSet<>();
-  @NonNull private final Set<@NonNull DR> dataRanges = new HashSet<>();
+  private final @NonNull Map<@NonNull OWLDataRange, @NonNull String> dataRange2ID = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataRange> id2DataRange = new HashMap<>();
+  private final @NonNull Set<@NonNull String> convertedDataRangeIDs = new HashSet<>();
+  private final @NonNull Set<@NonNull DR> dataRanges = new HashSet<>();
 
   private int dataRangeIndex;
 
@@ -61,7 +61,7 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
     this.dataRanges.clear();
   }
 
-  @NonNull public OWLDataRange resolveOWLDataRange(String drid)
+  public @NonNull OWLDataRange resolveOWLDataRange(String drid)
   {
     if (id2DataRange.containsKey(drid))
       return id2DataRange.get(drid);
@@ -70,12 +70,12 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
         "could not resolve an OWL data range from a Drools data range with id " + drid);
   }
 
-  @NonNull public String convert(@NonNull OWLDataRange dataRange)
+  public @NonNull String convert(@NonNull OWLDataRange dataRange)
   {
     return dataRange.accept(this);
   }
 
-  @NonNull @Override public String convert(@NonNull OWLDatatype datatype)
+  @Override public @NonNull String convert(@NonNull OWLDatatype datatype)
   {
     String dataRangeID = iri2PrefixedName(datatype.getIRI());
 
@@ -149,32 +149,32 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
     return dataRangeID;
   }
 
-  @NonNull @Override public String visit(@NonNull OWLDatatype owlDatatype)
+  @Override public @NonNull String visit(@NonNull OWLDatatype owlDatatype)
   {
     return convert(owlDatatype);
   }
 
-  @NonNull @Override public String visit(@NonNull OWLDataOneOf owlDataOneOf)
+  @Override public @NonNull String visit(@NonNull OWLDataOneOf owlDataOneOf)
   {
     return convert(owlDataOneOf);
   }
 
-  @NonNull @Override public String visit(@NonNull OWLDataComplementOf owlDataComplementOf)
+  @Override public @NonNull String visit(@NonNull OWLDataComplementOf owlDataComplementOf)
   {
     return convert(owlDataComplementOf);
   }
 
-  @NonNull @Override public String visit(@NonNull OWLDataIntersectionOf owlDataIntersectionOf)
+  @Override public @NonNull String visit(@NonNull OWLDataIntersectionOf owlDataIntersectionOf)
   {
     return convert(owlDataIntersectionOf);
   }
 
-  @NonNull @Override public String visit(@NonNull OWLDataUnionOf owlDataUnionOf)
+  @Override public @NonNull String visit(@NonNull OWLDataUnionOf owlDataUnionOf)
   {
     return convert(owlDataUnionOf);
   }
 
-  @NonNull @Override public String visit(OWLDatatypeRestriction owlDatatypeRestriction)
+  @Override public @NonNull String visit(OWLDatatypeRestriction owlDatatypeRestriction)
   {
     return convert(owlDatatypeRestriction);
   }
@@ -192,7 +192,7 @@ public class DroolsOWLDataRangeHandler extends TargetRuleEngineConverterBase
     }
   }
 
-  @NonNull private Set<@NonNull String> getOWLDataRangeIDs(@NonNull Set<@NonNull OWLDataRange> dataRanges)
+  private @NonNull Set<@NonNull String> getOWLDataRangeIDs(@NonNull Set<@NonNull OWLDataRange> dataRanges)
   {
     Set<@NonNull String> dataRangeIDs = new HashSet<>();
     for (OWLDataRange dataRange : dataRanges) {

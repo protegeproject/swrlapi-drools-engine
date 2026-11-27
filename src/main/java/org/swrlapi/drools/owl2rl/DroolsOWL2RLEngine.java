@@ -23,7 +23,7 @@ import java.util.Set;
  */
 public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
 {
-  @NonNull private final DroolsOWL2RLRules droolsOWL2RLRules;
+  private final @NonNull DroolsOWL2RLRules droolsOWL2RLRules;
 
   public DroolsOWL2RLEngine(@NonNull OWL2RLPersistenceLayer persistenceLayer)
   {
@@ -34,7 +34,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     this.droolsOWL2RLRules.defineRules();
   }
 
-  @NonNull public Set<@NonNull DroolsRuleDefinition> getEnabledRuleDefinitions()
+  public @NonNull Set<@NonNull DroolsRuleDefinition> getEnabledRuleDefinitions()
   {
     Set<@NonNull DroolsRuleDefinition> enabledRuleDefinitions = new HashSet<>();
 
@@ -49,7 +49,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that are always enabled and that cannot be disabled.
    */
-  @NonNull private static Set<OWL2RLRule> generatePermanentlyOnRules()
+  private static @NonNull Set<OWL2RLRule> generatePermanentlyOnRules()
   {
     return EnumSet.of(OWL2RLRule.CLS_THING, OWL2RLRule.CLS_NOTHING1, OWL2RLRule.CLS_NOTHING2, OWL2RLRule.DT_TYPE1,
       OWL2RLRule.DT_TYPE2, OWL2RLRule.DT_EQ, OWL2RLRule.DT_DIFF);
@@ -58,7 +58,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
   /**
    * These are rules that must be enabled or disabled in groups.
    */
-  @NonNull private static Set<@NonNull Set<OWL2RLRule>> generateGroupedRuleSets()
+  private static @NonNull Set<@NonNull Set<OWL2RLRule>> generateGroupedRuleSets()
   {
     Set<@NonNull Set<OWL2RLRule>> groupedRuleSets = new HashSet<>();
 
@@ -70,7 +70,7 @@ public class DroolsOWL2RLEngine extends AbstractOWL2RLEngine
     return groupedRuleSets;
   }
 
-  @NonNull private static Set<OWL2RLRule> generateUnsupportedRules()
+  private static @NonNull Set<OWL2RLRule> generateUnsupportedRules()
   {
     return EnumSet.noneOf(OWL2RLRule.class);
   }

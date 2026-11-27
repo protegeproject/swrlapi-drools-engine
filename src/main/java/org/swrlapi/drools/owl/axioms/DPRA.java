@@ -21,17 +21,17 @@ public class DPRA extends DroolsBinaryObject<String, String> implements A
     super(propertyID, dataRangeID);
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT1();
   }
 
-  @NonNull public String getrid()
+  public @NonNull String getrid()
   {
     return getT2();
   }
 
-  @NonNull @Override public OWLDataPropertyRangeAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLDataPropertyRangeAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -42,7 +42,7 @@ public class DPRA extends DroolsBinaryObject<String, String> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DPRA" + super.toString();
   }

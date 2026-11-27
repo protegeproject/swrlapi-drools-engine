@@ -27,22 +27,22 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
     this(classID, new I(individualID));
   }
 
-  @NonNull public String getcid()
+  public @NonNull String getcid()
   {
     return getT1();
   }
 
-  @NonNull public I getI()
+  public @NonNull I getI()
   {
     return getT2();
   }
 
-  @NonNull public String getiid()
+  public @NonNull String getiid()
   {
     return getT2().getid();
   }
 
-  @NonNull @Override public OWLClassAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLClassAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -53,7 +53,7 @@ public class CAA extends DroolsBinaryObject<String, I> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "CAA(" + getcid() + ", " + getI() + ")";
   }

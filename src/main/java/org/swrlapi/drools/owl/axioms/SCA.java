@@ -21,17 +21,17 @@ public class SCA extends DroolsBinaryObject<String, String> implements A
     super(class1ID, class2ID);
   }
 
-  @NonNull public String getsubcid()
+  public @NonNull String getsubcid()
   {
     return getT1();
   }
 
-  @NonNull public String getsupercid()
+  public @NonNull String getsupercid()
   {
     return getT2();
   }
 
-  @NonNull @Override public OWLSubClassOfAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLSubClassOfAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -42,7 +42,7 @@ public class SCA extends DroolsBinaryObject<String, String> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "SCA" + super.toString();
   }

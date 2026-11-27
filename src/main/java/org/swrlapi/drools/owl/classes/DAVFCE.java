@@ -22,27 +22,27 @@ public class DAVFCE extends DroolsTernaryObject<String, String, D> implements CE
     super(ceid, propertyID, new D(datatypeID));
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getT1();
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT2();
   }
 
-  @NonNull public D getV()
+  public @NonNull D getV()
   {
     return getT3();
   }
 
-  @NonNull @SideEffectFree  @Override public String toString()
+  @SideEffectFree @Override  public @NonNull String toString()
   {
     return "DAVFCE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

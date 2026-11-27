@@ -23,7 +23,7 @@ public class DroolsOWLLiteralExtractor extends TargetRuleEngineExtractorBase
     super(bridge);
   }
 
-  @NonNull @Override public OWLLiteral extract(@NonNull L literal)
+  @Override public @NonNull OWLLiteral extract(@NonNull L literal)
   {
     // Preserve lexical form and datatype, including ill-typed literals whose
     // inconsistency is handled by the RL rules rather than the export path.

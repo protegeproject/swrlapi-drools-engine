@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.literals;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 /** Internal datatype membership inferred by range and universal-restriction rules. */
@@ -10,7 +11,7 @@ public final class LiteralTypeAssertion
   public LiteralTypeAssertion(L literal, String datatype) { this.literal = literal; this.datatype = datatype; }
   public L getLiteral() { return literal; }
   public String getDatatype() { return datatype; }
-  @Override public boolean equals(Object other) {
+  @Override public boolean equals(@Nullable Object other) {
     if (!(other instanceof LiteralTypeAssertion)) return false;
     LiteralTypeAssertion that = (LiteralTypeAssertion)other;
     return literal.equals(that.literal) && datatype.equals(that.datatype);

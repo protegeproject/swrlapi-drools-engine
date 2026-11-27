@@ -23,7 +23,7 @@ public class DroolsOWLIndividual2DRLConverter extends TargetRuleEngineConverterB
     super(bridge);
   }
 
-  @NonNull @Override public String convert(@NonNull OWLIndividual individual)
+  @Override public @NonNull String convert(@NonNull OWLIndividual individual)
   {
     if (individual.isNamed()) {
       IRI individualIRI = individual.asOWLNamedIndividual().getIRI();

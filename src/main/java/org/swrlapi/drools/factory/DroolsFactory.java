@@ -24,7 +24,7 @@ public class DroolsFactory
     return new DroolsSWRLRuleEngineCreator();
   }
 
-  @NonNull public static Icon getSWRLRuleEngineIcon() throws SWRLAPIException
+  public static @NonNull Icon getSWRLRuleEngineIcon() throws SWRLAPIException
   {
     URL url = DroolsFactory.class.getResource(DROOLS_ICON_NAME);
 
@@ -34,7 +34,7 @@ public class DroolsFactory
       throw new SWRLAPIException("No Drools icon found!");
   }
 
-  @NonNull public static DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(@NonNull SWRLRuleEngineBridge bridge,
+  public static @NonNull DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
     @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
     @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler)
@@ -43,7 +43,7 @@ public class DroolsFactory
       droolsOWLPropertyExpressionHandler, droolsOWLDataRangeHandler);
   }
 
-  @NonNull public static DroolsOWLEntityExtractor getDroolsOWLEntityExtractor(@NonNull SWRLRuleEngineBridge bridge)
+  public static @NonNull DroolsOWLEntityExtractor getDroolsOWLEntityExtractor(@NonNull SWRLRuleEngineBridge bridge)
   {
     return new DefaultDroolsOWLEntityExtractor(bridge);
   }

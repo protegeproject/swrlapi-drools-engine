@@ -9,10 +9,10 @@ import java.util.Objects;
 
 public abstract class DroolsQuadObject<T1, T2, T3, T4>
 {
-  @NonNull private final T1 t1;
-  @NonNull private final T2 t2;
-  @NonNull private final T3 t3;
-  @NonNull private final T4 t4;
+  private final @NonNull T1 t1;
+  private final @NonNull T2 t2;
+  private final @NonNull T3 t3;
+  private final @NonNull T4 t4;
 
   protected DroolsQuadObject(@NonNull T1 t1, @NonNull T2 t2, @NonNull T3 t3, @NonNull T4 t4)
   {
@@ -22,27 +22,27 @@ public abstract class DroolsQuadObject<T1, T2, T3, T4>
     this.t4 = t4;
   }
 
-  @NonNull protected T1 getT1()
+  protected @NonNull T1 getT1()
   {
     return this.t1;
   }
 
-  @NonNull protected T2 getT2()
+  protected @NonNull T2 getT2()
   {
     return this.t2;
   }
 
-  @NonNull protected T3 getT3()
+  protected @NonNull T3 getT3()
   {
     return this.t3;
   }
 
-  @NonNull protected T4 getT4()
+  protected @NonNull T4 getT4()
   {
     return this.t4;
   }
 
-   @NonNull @SideEffectFree @Override public String toString()
+   @SideEffectFree @Override public @NonNull String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ", " + this.t3 + ", " + this.t4 + ")";
   }

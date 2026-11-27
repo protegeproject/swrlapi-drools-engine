@@ -59,54 +59,56 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBase
   implements TargetRuleEngineOWLClassExpressionConverter<CE>, OWLClassExpressionVisitorEx<CE>, CEConverter, CEResolver
 {
-  @NonNull private final DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
-  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
-  @NonNull private final DroolsOWLDataRangeHandler droolsOWLDataRangeHandler;
-  @NonNull private final DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter;
+  private final @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter;
+  private final @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  private final @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler;
+  private final @NonNull DroolsOWLLiteral2LConverter droolsOWLLiteral2LConverter;
 
-  @NonNull private final Map<@NonNull OWLClass, @NonNull C> ce2c = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectIntersectionOf, @NonNull OIOCE> ce2oioce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectUnionOf, @NonNull OUOCE> ce2ouoce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectComplementOf, @NonNull OCOCE> ce2ococe = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectSomeValuesFrom, @NonNull OSVFCE> ce2osvfce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectAllValuesFrom, @NonNull OAVFCE> ce2oavfce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectHasValue, @NonNull OHVCE> ce2ohvce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectExactCardinality, @NonNull OECCE> ce2oecce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectMinCardinality, @NonNull OMinCCE> ce2omincce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectMaxCardinality, @NonNull OMaxCCE> ce2omaxcce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectHasSelf, @NonNull OOHSCE> ce2oohsce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLObjectOneOf, @NonNull OOOCE> ce2oooce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLDataSomeValuesFrom, @NonNull DSVFCE> ce2dsvfce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLDataAllValuesFrom, @NonNull DAVFCE> ce2davfce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLDataHasValue, @NonNull DHVCE> ce2dhvce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLDataExactCardinality, @NonNull DECCE> ce2decce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLDataMinCardinality, @NonNull DMinCCE> ce2dmincce = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLDataMaxCardinality, @NonNull DMaxCCE> ce2dmaxcce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLClass, @NonNull C> ce2c = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectIntersectionOf, @NonNull OIOCE> ce2oioce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectUnionOf, @NonNull OUOCE> ce2ouoce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectComplementOf, @NonNull OCOCE> ce2ococe = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectSomeValuesFrom, @NonNull OSVFCE> ce2osvfce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectAllValuesFrom, @NonNull OAVFCE> ce2oavfce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectHasValue, @NonNull OHVCE> ce2ohvce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectExactCardinality, @NonNull OECCE> ce2oecce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectMinCardinality, @NonNull OMinCCE> ce2omincce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectMaxCardinality, @NonNull OMaxCCE> ce2omaxcce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectHasSelf, @NonNull OOHSCE> ce2oohsce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectOneOf, @NonNull OOOCE> ce2oooce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLDataSomeValuesFrom, @NonNull DSVFCE> ce2dsvfce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLDataAllValuesFrom, @NonNull DAVFCE> ce2davfce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLDataHasValue, @NonNull DHVCE> ce2dhvce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLDataExactCardinality, @NonNull DECCE> ce2decce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLDataMinCardinality, @NonNull DMinCCE> ce2dmincce = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLDataMaxCardinality, @NonNull DMaxCCE> ce2dmaxcce = new HashMap<>();
 
-  @NonNull private final Map<@NonNull String, @NonNull OWLClass> c2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectIntersectionOf> oioce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectUnionOf> ouoce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectComplementOf> ococe2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectSomeValuesFrom> osvfce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectAllValuesFrom> oavfce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectHasValue> ohvce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectExactCardinality> oecce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectMinCardinality> omincce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectMaxCardinality> omaxcce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectHasSelf> oohsce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectOneOf> oooce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataSomeValuesFrom> dsvfce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataAllValuesFrom> davfce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataHasValue> dhvce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataExactCardinality> decce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataMinCardinality> dmincce2ce = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataMaxCardinality> dmaxcce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLClass> c2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectIntersectionOf> oioce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectUnionOf> ouoce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectComplementOf> ococe2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectSomeValuesFrom> osvfce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectAllValuesFrom> oavfce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectHasValue> ohvce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectExactCardinality> oecce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectMinCardinality> omincce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectMaxCardinality> omaxcce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectHasSelf> oohsce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectOneOf> oooce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataSomeValuesFrom> dsvfce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataAllValuesFrom> davfce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataHasValue> dhvce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataExactCardinality> decce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataMinCardinality> dmincce2ce = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataMaxCardinality> dmaxcce2ce = new HashMap<>();
 
-  @NonNull private final Map<@NonNull String, @NonNull CE> ces = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLClassExpression> classExpressions = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull CE> ces = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLClassExpression> classExpressions = new HashMap<>();
 
   private int classExpressionIndex = 0;
 
+  // Built-in class registration uses the initialized bridge, converters, and maps.
+  @SuppressWarnings("nullness:method.invocation")
   public DroolsOWLClassExpressionHandler(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLIndividual2IConverter droolsOWLIndividual2IConverter,
     @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler,
@@ -123,7 +125,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     convert(getBridge().getSWRLAPIOWLDataFactory().getOWLNothing()); // TODO Quick hack to make an owl:Nothing
   }
 
-  @NonNull @Override public CE convert(@NonNull OWLClassExpression classExpression)
+  @Override public @NonNull CE convert(@NonNull OWLClassExpression classExpression)
   {
     return classExpression.accept(this);
   }
@@ -177,7 +179,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     convert(getBridge().getSWRLAPIOWLDataFactory().getOWLNothing()); // TODO Quick hack to make an owl:Nothing
   }
 
-  @NonNull @Override public C visit(@NonNull OWLClass cls)
+  @Override public @NonNull C visit(@NonNull OWLClass cls)
   {
     if (ce2c.containsKey(cls))
       return ce2c.get(cls);
@@ -193,7 +195,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OIOCE visit(@NonNull OWLObjectIntersectionOf objectIntersectionOf)
+  @Override public @NonNull OIOCE visit(@NonNull OWLObjectIntersectionOf objectIntersectionOf)
   {
     if (ce2oioce.containsKey(objectIntersectionOf))
       return ce2oioce.get(objectIntersectionOf);
@@ -214,7 +216,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OUOCE visit(@NonNull OWLObjectUnionOf objectUnionOf)
+  @Override public @NonNull OUOCE visit(@NonNull OWLObjectUnionOf objectUnionOf)
   {
     if (ce2ouoce.containsKey(objectUnionOf))
       return ce2ouoce.get(objectUnionOf);
@@ -236,7 +238,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OCOCE visit(@NonNull OWLObjectComplementOf objectComplementOf)
+  @Override public @NonNull OCOCE visit(@NonNull OWLObjectComplementOf objectComplementOf)
   {
     if (ce2ococe.containsKey(objectComplementOf))
       return ce2ococe.get(objectComplementOf);
@@ -253,7 +255,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OSVFCE visit(@NonNull OWLObjectSomeValuesFrom objectSomeValuesFrom)
+  @Override public @NonNull OSVFCE visit(@NonNull OWLObjectSomeValuesFrom objectSomeValuesFrom)
   {
     if (ce2osvfce.containsKey(objectSomeValuesFrom))
       return ce2osvfce.get(objectSomeValuesFrom);
@@ -271,7 +273,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OAVFCE visit(@NonNull OWLObjectAllValuesFrom objectAllValuesFrom)
+  @Override public @NonNull OAVFCE visit(@NonNull OWLObjectAllValuesFrom objectAllValuesFrom)
   {
     if (ce2oavfce.containsKey(objectAllValuesFrom))
       return ce2oavfce.get(objectAllValuesFrom);
@@ -289,7 +291,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OHVCE visit(@NonNull OWLObjectHasValue objectHasValue)
+  @Override public @NonNull OHVCE visit(@NonNull OWLObjectHasValue objectHasValue)
   {
     if (ce2ohvce.containsKey(objectHasValue))
       return ce2ohvce.get(objectHasValue);
@@ -307,7 +309,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OECCE visit(@NonNull OWLObjectExactCardinality objectExactCardinality)
+  @Override public @NonNull OECCE visit(@NonNull OWLObjectExactCardinality objectExactCardinality)
   {
     if (ce2oecce.containsKey(objectExactCardinality))
       return ce2oecce.get(objectExactCardinality);
@@ -325,7 +327,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OMinCCE visit(@NonNull OWLObjectMinCardinality objectMinCardinality)
+  @Override public @NonNull OMinCCE visit(@NonNull OWLObjectMinCardinality objectMinCardinality)
   {
     if (ce2omincce.containsKey(objectMinCardinality))
       return ce2omincce.get(objectMinCardinality);
@@ -343,7 +345,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OMaxCCE visit(@NonNull OWLObjectMaxCardinality objectMaxCardinality)
+  @Override public @NonNull OMaxCCE visit(@NonNull OWLObjectMaxCardinality objectMaxCardinality)
   {
     if (ce2omaxcce.containsKey(objectMaxCardinality))
       return ce2omaxcce.get(objectMaxCardinality);
@@ -361,7 +363,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OOHSCE visit(@NonNull OWLObjectHasSelf objectHasSelf)
+  @Override public @NonNull OOHSCE visit(@NonNull OWLObjectHasSelf objectHasSelf)
   {
     if (ce2oohsce.containsKey(objectHasSelf))
       return ce2oohsce.get(objectHasSelf);
@@ -378,7 +380,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public OOOCE visit(@NonNull OWLObjectOneOf objectOneOf)
+  @Override public @NonNull OOOCE visit(@NonNull OWLObjectOneOf objectOneOf)
   {
     if (ce2oooce.containsKey(objectOneOf))
       return ce2oooce.get(objectOneOf);
@@ -399,7 +401,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public DSVFCE visit(@NonNull OWLDataSomeValuesFrom dataSomeValuesFrom)
+  @Override public @NonNull DSVFCE visit(@NonNull OWLDataSomeValuesFrom dataSomeValuesFrom)
   {
     if (ce2dsvfce.containsKey(dataSomeValuesFrom))
       return ce2dsvfce.get(dataSomeValuesFrom);
@@ -417,7 +419,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public DAVFCE visit(@NonNull OWLDataAllValuesFrom dataAllValuesFrom)
+  @Override public @NonNull DAVFCE visit(@NonNull OWLDataAllValuesFrom dataAllValuesFrom)
   {
     if (ce2davfce.containsKey(dataAllValuesFrom))
       return ce2davfce.get(dataAllValuesFrom);
@@ -435,7 +437,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public DHVCE visit(@NonNull OWLDataHasValue dataHasValue)
+  @Override public @NonNull DHVCE visit(@NonNull OWLDataHasValue dataHasValue)
   {
     if (ce2dhvce.containsKey(dataHasValue))
       return ce2dhvce.get(dataHasValue);
@@ -453,7 +455,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public DMinCCE visit(@NonNull OWLDataMinCardinality dataMinCardinality)
+  @Override public @NonNull DMinCCE visit(@NonNull OWLDataMinCardinality dataMinCardinality)
   {
     if (ce2dmincce.containsKey(dataMinCardinality))
       return ce2dmincce.get(dataMinCardinality);
@@ -471,7 +473,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public DECCE visit(@NonNull OWLDataExactCardinality dataExactCardinality)
+  @Override public @NonNull DECCE visit(@NonNull OWLDataExactCardinality dataExactCardinality)
   {
     if (ce2decce.containsKey(dataExactCardinality))
       return ce2decce.get(dataExactCardinality);
@@ -489,7 +491,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public DMaxCCE visit(@NonNull OWLDataMaxCardinality dataMaxCardinality)
+  @Override public @NonNull DMaxCCE visit(@NonNull OWLDataMaxCardinality dataMaxCardinality)
   {
     if (ce2dmaxcce.containsKey(dataMaxCardinality))
       return ce2dmaxcce.get(dataMaxCardinality);
@@ -510,181 +512,182 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     }
   }
 
-  @NonNull @Override public C convert(OWLClass cls)
+  @Override public @NonNull C convert(OWLClass cls)
   {
     return visit(cls);
   }
 
-  @NonNull @Override public OOOCE convert(OWLObjectOneOf objectOneOf)
+  @Override public @NonNull OOOCE convert(OWLObjectOneOf objectOneOf)
   {
     return visit(objectOneOf);
   }
 
-  @NonNull @Override public OIOCE convert(OWLObjectIntersectionOf objectIntersectionOf)
+  @Override public @NonNull OIOCE convert(OWLObjectIntersectionOf objectIntersectionOf)
   {
     return visit(objectIntersectionOf);
   }
 
-  @NonNull @Override public OUOCE convert(OWLObjectUnionOf objectUnionOf)
+  @Override public @NonNull OUOCE convert(OWLObjectUnionOf objectUnionOf)
   {
     return visit(objectUnionOf);
   }
 
-  @NonNull @Override public OSVFCE convert(OWLObjectSomeValuesFrom objectSomeValuesFrom)
+  @Override public @NonNull OSVFCE convert(OWLObjectSomeValuesFrom objectSomeValuesFrom)
   {
     return visit(objectSomeValuesFrom);
   }
 
-  @NonNull @Override public OCOCE convert(OWLObjectComplementOf objectComplementOf)
+  @Override public @NonNull OCOCE convert(OWLObjectComplementOf objectComplementOf)
   {
     return visit(objectComplementOf);
   }
 
-  @NonNull @Override public DSVFCE convert(OWLDataSomeValuesFrom dataSomeValuesFrom)
+  @Override public @NonNull DSVFCE convert(OWLDataSomeValuesFrom dataSomeValuesFrom)
   {
     return visit(dataSomeValuesFrom);
   }
 
-  @NonNull @Override public DECCE convert(OWLDataExactCardinality dataExactCardinality)
+  @Override public @NonNull DECCE convert(OWLDataExactCardinality dataExactCardinality)
   {
     return visit(dataExactCardinality);
   }
 
-  @NonNull @Override public OECCE convert(OWLObjectExactCardinality objectExactCardinality)
+  @Override public @NonNull OECCE convert(OWLObjectExactCardinality objectExactCardinality)
   {
     return visit(objectExactCardinality);
   }
 
-  @NonNull @Override public DMinCCE convert(OWLDataMinCardinality dataMinCardinality)
+  @Override public @NonNull DMinCCE convert(OWLDataMinCardinality dataMinCardinality)
   {
     return visit(dataMinCardinality);
   }
 
-  @NonNull @Override public OMinCCE convert(OWLObjectMinCardinality objectMinCardinality)
+  @Override public @NonNull OMinCCE convert(OWLObjectMinCardinality objectMinCardinality)
   {
     return visit(objectMinCardinality);
   }
 
-  @NonNull @Override public DMaxCCE convert(OWLDataMaxCardinality dataMaxCardinality)
+  @Override public @NonNull DMaxCCE convert(OWLDataMaxCardinality dataMaxCardinality)
   {
     return visit(dataMaxCardinality);
   }
 
-  @NonNull @Override public OMaxCCE convert(OWLObjectMaxCardinality objectMaxCardinality)
+  @Override public @NonNull OMaxCCE convert(OWLObjectMaxCardinality objectMaxCardinality)
   {
     return visit(objectMaxCardinality);
   }
 
-  @NonNull @Override public DHVCE convert(OWLDataHasValue dataHasValue)
+  @Override public @NonNull DHVCE convert(OWLDataHasValue dataHasValue)
   {
     return visit(dataHasValue);
   }
 
-  @NonNull @Override public OHVCE convert(OWLObjectHasValue objectHasValue)
+  @Override public @NonNull OHVCE convert(OWLObjectHasValue objectHasValue)
   {
     return visit(objectHasValue);
   }
 
-  @NonNull @Override public OAVFCE convert(OWLObjectAllValuesFrom objectAllValuesFrom)
+  @Override public @NonNull OAVFCE convert(OWLObjectAllValuesFrom objectAllValuesFrom)
   {
     return visit(objectAllValuesFrom);
   }
 
-  @NonNull @Override public DAVFCE convert(OWLDataAllValuesFrom dataAllValuesFrom)
+  @Override public @NonNull DAVFCE convert(OWLDataAllValuesFrom dataAllValuesFrom)
   {
     return visit(dataAllValuesFrom);
   }
 
-  @NonNull @Override public OOHSCE convert(OWLObjectHasSelf objectHasSelf)
+  @Override public @NonNull OOHSCE convert(OWLObjectHasSelf objectHasSelf)
   {
     return visit(objectHasSelf);
   }
 
-  @NonNull @Override public OWLClass convert(@NonNull C c)
+  @Override public @NonNull OWLClass convert(@NonNull C c)
   {
     return resolveOWLClass(c.getceid());
   }
 
-  @NonNull @Override public OWLDataAllValuesFrom convert(@NonNull DAVFCE ce)
+  @Override public @NonNull OWLDataAllValuesFrom convert(@NonNull DAVFCE ce)
   {
     return resolveOWLDataAllValuesFrom(ce.getceid());
   }
 
-  @NonNull @Override public OWLDataExactCardinality convert(@NonNull DECCE ce)
+  @Override public @NonNull OWLDataExactCardinality convert(@NonNull DECCE ce)
   {
     return resolveOWLDataExactCardinality(ce.getceid());
   }
 
-  @NonNull @Override public OWLDataHasValue convert(@NonNull DHVCE ce)
+  @Override public @NonNull OWLDataHasValue convert(@NonNull DHVCE ce)
   {
     return resolveOWLDataHasValue(ce.getceid());
   }
 
-  @NonNull @Override public OWLDataMaxCardinality convert(@NonNull DMaxCCE ce)
+  @Override public @NonNull OWLDataMaxCardinality convert(@NonNull DMaxCCE ce)
   {
     return resolveOWLDataMaxCardinality(ce.getceid());
   }
 
-  @NonNull @Override public OWLDataMinCardinality convert(@NonNull DMinCCE ce)
+  @Override public @NonNull OWLDataMinCardinality convert(@NonNull DMinCCE ce)
   {
     return resolveOWLDataMinCardinality(ce.getceid());
   }
 
-  @NonNull @Override public OWLDataSomeValuesFrom convert(@NonNull DSVFCE ce)
+  @Override public @NonNull OWLDataSomeValuesFrom convert(@NonNull DSVFCE ce)
   {
     return resolveOWLDataSomeValuesFrom(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectAllValuesFrom convert(@NonNull OAVFCE ce)
+  @Override public @NonNull OWLObjectAllValuesFrom convert(@NonNull OAVFCE ce)
   {
     return resolveOWLObjectAllValuesFrom(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectHasValue convert(@NonNull OHVCE ce)
+  @Override public @NonNull OWLObjectHasValue convert(@NonNull OHVCE ce)
   {
     return resolveOWLObjectHasValue(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectIntersectionOf convert(@NonNull OIOCE ce)
+  @Override public @NonNull OWLObjectIntersectionOf convert(@NonNull OIOCE ce)
   {
     return resolveOWLObjectIntersectionOf(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectMaxCardinality convert(@NonNull OMaxCCE ce)
+  @Override public @NonNull OWLObjectMaxCardinality convert(@NonNull OMaxCCE ce)
   {
     return resolveOWLObjectMaxCardinality(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectMinCardinality convert(@NonNull OMinCCE ce)
+  @Override public @NonNull OWLObjectMinCardinality convert(@NonNull OMinCCE ce)
   {
     return resolveOWLObjectMinCardinality(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectExactCardinality convert(@NonNull OECCE ce)
+  @Override public @NonNull OWLObjectExactCardinality convert(@NonNull OECCE ce)
   {
     return resolveOWLObjectExactCardinality(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectSomeValuesFrom convert(@NonNull OSVFCE ce)
+  @Override public @NonNull OWLObjectSomeValuesFrom convert(@NonNull OSVFCE ce)
   {
     return resolveOWLObjectSomeValuesFrom(ce.getceid());
   }
 
-  @NonNull @Override public OWLObjectUnionOf convert(@NonNull OUOCE ce)
+  @Override public @NonNull OWLObjectUnionOf convert(@NonNull OUOCE ce)
   {
     return resolveOWLObjectUnionOf(ce.getceid());
   }
 
-  @NonNull @Override public OWLClassExpression resolveOWLClassExpression(@NonNull String ceid)
+  @Override public @NonNull OWLClassExpression resolveOWLClassExpression(@NonNull String ceid)
   {
-    if (ces.containsKey(ceid))
-      return classExpressions.get(ceid);
+    OWLClassExpression expression = classExpressions.get(ceid);
+    if (expression != null)
+      return expression;
     else
       throw new IllegalArgumentException(
         "could not resolve an OWL class expression from a Drools class expression with id " + ceid);
   }
 
-  @NonNull @Override public OWLClass resolveOWLClass(@NonNull String ceid)
+  @Override public @NonNull OWLClass resolveOWLClass(@NonNull String ceid)
   {
     if (c2ce.containsKey(ceid))
       return c2ce.get(ceid);
@@ -692,7 +695,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
       throw new IllegalArgumentException("could not resolve an OWL class from a Drools class with id " + ceid);
   }
 
-  @NonNull @Override public OWLDataAllValuesFrom resolveOWLDataAllValuesFrom(@NonNull String ceid)
+  @Override public @NonNull OWLDataAllValuesFrom resolveOWLDataAllValuesFrom(@NonNull String ceid)
   {
     if (davfce2ce.containsKey(ceid))
       return davfce2ce.get(ceid);
@@ -702,7 +705,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLDataExactCardinality resolveOWLDataExactCardinality(@NonNull String ceid)
+  @Override public @NonNull OWLDataExactCardinality resolveOWLDataExactCardinality(@NonNull String ceid)
   {
     if (decce2ce.containsKey(ceid))
       return decce2ce.get(ceid);
@@ -712,7 +715,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLDataHasValue resolveOWLDataHasValue(@NonNull String ceid)
+  @Override public @NonNull OWLDataHasValue resolveOWLDataHasValue(@NonNull String ceid)
   {
     if (dhvce2ce.containsKey(ceid))
       return dhvce2ce.get(ceid);
@@ -721,7 +724,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
         "could not resolve an OWL data has value class expression from a Drools class expression with id " + ceid);
   }
 
-  @NonNull @Override public OWLDataMaxCardinality resolveOWLDataMaxCardinality(@NonNull String ceid)
+  @Override public @NonNull OWLDataMaxCardinality resolveOWLDataMaxCardinality(@NonNull String ceid)
   {
     if (dmaxcce2ce.containsKey(ceid))
       return dmaxcce2ce.get(ceid);
@@ -731,7 +734,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLDataMinCardinality resolveOWLDataMinCardinality(@NonNull String ceid)
+  @Override public @NonNull OWLDataMinCardinality resolveOWLDataMinCardinality(@NonNull String ceid)
   {
     if (dmincce2ce.containsKey(ceid))
       return dmincce2ce.get(ceid);
@@ -741,7 +744,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLDataSomeValuesFrom resolveOWLDataSomeValuesFrom(@NonNull String ceid)
+  @Override public @NonNull OWLDataSomeValuesFrom resolveOWLDataSomeValuesFrom(@NonNull String ceid)
   {
     if (dsvfce2ce.containsKey(ceid))
       return dsvfce2ce.get(ceid);
@@ -751,7 +754,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLObjectAllValuesFrom resolveOWLObjectAllValuesFrom(@NonNull String ceid)
+  @Override public @NonNull OWLObjectAllValuesFrom resolveOWLObjectAllValuesFrom(@NonNull String ceid)
   {
     if (oavfce2ce.containsKey(ceid))
       return oavfce2ce.get(ceid);
@@ -761,7 +764,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLObjectExactCardinality resolveOWLObjectExactCardinality(@NonNull String ceid)
+  @Override public @NonNull OWLObjectExactCardinality resolveOWLObjectExactCardinality(@NonNull String ceid)
   {
     if (oecce2ce.containsKey(ceid))
       return oecce2ce.get(ceid);
@@ -771,7 +774,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLObjectHasValue resolveOWLObjectHasValue(@NonNull String ceid)
+  @Override public @NonNull OWLObjectHasValue resolveOWLObjectHasValue(@NonNull String ceid)
   {
     if (ohvce2ce.containsKey(ceid))
       return ohvce2ce.get(ceid);
@@ -780,7 +783,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
         "could not resolve an OWL object has value class expression from a Drools class expression with id " + ceid);
   }
 
-  @NonNull @Override public OWLObjectIntersectionOf resolveOWLObjectIntersectionOf(@NonNull String ceid)
+  @Override public @NonNull OWLObjectIntersectionOf resolveOWLObjectIntersectionOf(@NonNull String ceid)
   {
     if (oioce2ce.containsKey(ceid))
       return oioce2ce.get(ceid);
@@ -790,7 +793,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLObjectMaxCardinality resolveOWLObjectMaxCardinality(@NonNull String ceid)
+  @Override public @NonNull OWLObjectMaxCardinality resolveOWLObjectMaxCardinality(@NonNull String ceid)
   {
     if (omaxcce2ce.containsKey(ceid))
       return omaxcce2ce.get(ceid);
@@ -800,7 +803,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLObjectMinCardinality resolveOWLObjectMinCardinality(@NonNull String ceid)
+  @Override public @NonNull OWLObjectMinCardinality resolveOWLObjectMinCardinality(@NonNull String ceid)
   {
     if (omincce2ce.containsKey(ceid))
       return omincce2ce.get(ceid);
@@ -810,7 +813,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLObjectSomeValuesFrom resolveOWLObjectSomeValuesFrom(@NonNull String ceid)
+  @Override public @NonNull OWLObjectSomeValuesFrom resolveOWLObjectSomeValuesFrom(@NonNull String ceid)
   {
     if (osvfce2ce.containsKey(ceid))
       return osvfce2ce.get(ceid);
@@ -820,7 +823,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
           + ceid);
   }
 
-  @NonNull @Override public OWLObjectUnionOf resolveOWLObjectUnionOf(@NonNull String ceid)
+  @Override public @NonNull OWLObjectUnionOf resolveOWLObjectUnionOf(@NonNull String ceid)
   {
     if (ouoce2ce.containsKey(ceid))
       return ouoce2ce.get(ceid);
@@ -829,17 +832,17 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
         "could not resolve an OWL object union of class expression from a Drools class expression with id " + ceid);
   }
 
-  @NonNull public Set<@NonNull CE> getCEs()
+  public @NonNull Set<@NonNull CE> getCEs()
   {
     return new HashSet<>(this.ces.values());
   }
 
-  @NonNull private String generateCEID()
+  private @NonNull String generateCEID()
   {
     return "CEID" + this.classExpressionIndex++;
   }
 
-  @NonNull private DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
+  private @NonNull DroolsOWLIndividual2IConverter getDroolsOWLIndividual2IConverter()
   {
     return this.droolsOWLIndividual2IConverter;
   }
@@ -849,7 +852,7 @@ public class DroolsOWLClassExpressionHandler extends TargetRuleEngineConverterBa
     return this.droolsOWLPropertyExpressionHandler;
   }
 
-  @NonNull private DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
+  private @NonNull DroolsOWLLiteral2LConverter getDroolsOWLLiteral2LConverter()
   {
     return this.droolsOWLLiteral2LConverter;
   }

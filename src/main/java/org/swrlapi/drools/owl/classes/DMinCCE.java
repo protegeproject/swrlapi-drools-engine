@@ -27,27 +27,27 @@ public class DMinCCE extends DroolsTernaryObject<String, DP, Integer> implements
     super(ceid, new DP(propertyID), card);
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getT1();
   }
 
-  @NonNull public DP getP()
+  public @NonNull DP getP()
   {
     return getT2();
   }
 
-  @NonNull public Integer getCard()
+  public @NonNull Integer getCard()
   {
     return getT3();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DMinCCE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

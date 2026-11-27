@@ -33,37 +33,37 @@ class DefaultDroolsOWLEntityExtractor extends TargetRuleEngineExtractorBase impl
     super(bridge);
   }
 
-  @NonNull @Override public OWLClass extract(@NonNull C cls) throws TargetSWRLRuleEngineException
+  @Override public @NonNull OWLClass extract(@NonNull C cls) throws TargetSWRLRuleEngineException
   {
     IRI classIRI = prefixedName2IRI(cls.getid());
     return getOWLDataFactory().getOWLClass(classIRI);
   }
 
-  @NonNull @Override public OWLNamedIndividual extract(@NonNull I individual) throws TargetSWRLRuleEngineException
+  @Override public @NonNull OWLNamedIndividual extract(@NonNull I individual) throws TargetSWRLRuleEngineException
   {
     IRI individualIRI = prefixedName2IRI(individual.getid());
     return getOWLDataFactory().getOWLNamedIndividual(individualIRI);
   }
 
-  @NonNull @Override public OWLDataProperty extract(@NonNull DP property) throws TargetSWRLRuleEngineException
+  @Override public @NonNull OWLDataProperty extract(@NonNull DP property) throws TargetSWRLRuleEngineException
   {
     IRI propertyIRI = prefixedName2IRI(property.getid());
     return getOWLDataFactory().getOWLDataProperty(propertyIRI);
   }
 
-  @NonNull @Override public OWLAnnotationProperty extract(@NonNull AP property) throws TargetSWRLRuleEngineException
+  @Override public @NonNull OWLAnnotationProperty extract(@NonNull AP property) throws TargetSWRLRuleEngineException
   {
     IRI propertyIRI = prefixedName2IRI(property.getid());
     return getOWLDataFactory().getOWLAnnotationProperty(propertyIRI);
   }
 
-  @NonNull @Override public OWLObjectProperty extract(@NonNull OP property) throws TargetSWRLRuleEngineException
+  @Override public @NonNull OWLObjectProperty extract(@NonNull OP property) throws TargetSWRLRuleEngineException
   {
     IRI propertyIRI = prefixedName2IRI(property.getid());
     return getOWLDataFactory().getOWLObjectProperty(propertyIRI);
   }
 
-  @NonNull @Override public OWLDatatype extract(@NonNull D datatype) throws TargetSWRLRuleEngineException
+  @Override public @NonNull OWLDatatype extract(@NonNull D datatype) throws TargetSWRLRuleEngineException
   {
     IRI datatypeIRI = prefixedName2IRI(datatype.getid());
     return getOWLDataFactory().getOWLDatatype(datatypeIRI);

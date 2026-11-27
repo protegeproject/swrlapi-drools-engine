@@ -11,25 +11,25 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class UBA implements BA
 {
-  @NonNull private final String variableName;
+  private final @NonNull String variableName;
 
   public UBA(@NonNull String variableName)
   {
     this.variableName = variableName;
   }
 
-  @NonNull public String getVariableName()
+  public @NonNull String getVariableName()
   {
     return this.variableName;
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "UBA(?" + getVariableName() + ")";
   }

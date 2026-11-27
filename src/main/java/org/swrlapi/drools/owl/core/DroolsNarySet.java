@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -9,8 +10,8 @@ import java.util.Set;
 
 public abstract class DroolsNarySet<ID, E>
 {
-  @NonNull private final ID id;
-  @NonNull private final Set<@NonNull E> elements;
+  private final @NonNull ID id;
+  private final @NonNull Set<@NonNull E> elements;
 
   protected DroolsNarySet(@NonNull ID id, @NonNull Set<@NonNull E> elements)
   {
@@ -18,17 +19,17 @@ public abstract class DroolsNarySet<ID, E>
     this.elements = elements;
   }
 
-  @NonNull public ID getID()
+  public @NonNull ID getID()
   {
     return this.id;
   }
 
-  @NonNull public Set<@NonNull E> getElements()
+  public @NonNull Set<@NonNull E> getElements()
   {
     return this.elements;
   }
 
-  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
     if (this == o)
       return true;
@@ -50,7 +51,7 @@ public abstract class DroolsNarySet<ID, E>
     return result;
   }
 
-  @NonNull @SideEffectFree @Deterministic @Override public String toString()
+  @SideEffectFree @Deterministic @Override public @NonNull String toString()
   {
     return "(" + "id=" + id + ", elements=" + elements + ")";
   }

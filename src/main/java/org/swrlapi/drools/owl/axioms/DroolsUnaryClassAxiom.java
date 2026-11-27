@@ -12,7 +12,7 @@ abstract class DroolsUnaryClassAxiom extends DroolsUnaryObject<String> implement
     super(classID);
   }
 
-  @NonNull public String getcid()
+  public @NonNull String getcid()
   {
     return getT1();
   }

@@ -13,14 +13,14 @@ public class DRR implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String drid;
+  private final @NonNull String drid;
 
   public DRR(@NonNull String drid)
   {
     this.drid = drid;
   }
 
-  @NonNull @Override public String getdrid()
+  @Override public @NonNull String getdrid()
   {
     return this.drid;
   }

@@ -12,12 +12,12 @@ abstract class DroolsBinaryPropertiesAxiom extends DroolsBinaryObject<String, St
     super(propertyID1, propertyID2);
   }
 
-  @NonNull public String getp1id()
+  public @NonNull String getp1id()
   {
     return getT1();
   }
 
-  @NonNull public String getp2id()
+  public @NonNull String getp2id()
   {
     return getT2();
   }

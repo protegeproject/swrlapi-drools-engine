@@ -12,7 +12,7 @@ abstract class DroolsUnaryIndividualAxiom extends DroolsUnaryObject<String> impl
     super(individualID);
   }
 
-  @NonNull public String getiid()
+  public @NonNull String getiid()
   {
     return getT1();
   }

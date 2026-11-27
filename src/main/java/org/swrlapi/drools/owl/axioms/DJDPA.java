@@ -20,7 +20,7 @@ public class DJDPA extends DroolsBinaryPropertiesAxiom
     super(property1ID, property2ID);
   }
 
-  @NonNull @Override public OWLDisjointDataPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
+  @Override public @NonNull OWLDisjointDataPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
     throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
@@ -31,7 +31,7 @@ public class DJDPA extends DroolsBinaryPropertiesAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DJDPA" + super.toString();
   }

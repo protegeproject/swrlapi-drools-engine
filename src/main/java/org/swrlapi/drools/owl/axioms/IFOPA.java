@@ -20,7 +20,7 @@ public class IFOPA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @NonNull @Override public OWLInverseFunctionalObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLInverseFunctionalObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class IFOPA extends DroolsUnaryPropertyAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "IFOPA" + super.toString();
   }

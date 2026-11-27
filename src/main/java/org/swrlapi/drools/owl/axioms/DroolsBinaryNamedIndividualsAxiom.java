@@ -13,22 +13,22 @@ abstract class DroolsBinaryNamedIndividualsAxiom extends DroolsBinaryObject<I, I
     super(individual1, individual2);
   }
 
-  @NonNull public I geti1()
+  public @NonNull I geti1()
   {
     return getT1();
   }
 
-  @NonNull public I geti2()
+  public @NonNull I geti2()
   {
     return getT2();
   }
 
-  @NonNull public String geti1id()
+  public @NonNull String geti1id()
   {
     return getT1().getid();
   }
 
-  @NonNull public String geti2id()
+  public @NonNull String geti2id()
   {
     return getT2().getid();
   }

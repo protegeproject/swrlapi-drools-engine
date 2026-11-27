@@ -64,45 +64,45 @@ import java.util.Set;
  */
 public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVisitor
 {
-  @NonNull private final Set<@NonNull A> inferredOWLAxioms;
-  @NonNull private final Set<@NonNull A> assertedOWLAxioms;
+  private final @NonNull Set<@NonNull A> inferredOWLAxioms;
+  private final @NonNull Set<@NonNull A> assertedOWLAxioms;
 
-  @NonNull private final Set<@NonNull String> declaredClassIDs;
-  @NonNull private final Set<@NonNull String> declaredIndividualIDs;
-  @NonNull private final Set<@NonNull String> declaredObjectPropertyIDs;
-  @NonNull private final Set<@NonNull String> declaredDataPropertyIDs;
-  @NonNull private final Set<@NonNull String> declaredAnnotationPropertyIDs;
+  private final @NonNull Set<@NonNull String> declaredClassIDs;
+  private final @NonNull Set<@NonNull String> declaredIndividualIDs;
+  private final @NonNull Set<@NonNull String> declaredObjectPropertyIDs;
+  private final @NonNull Set<@NonNull String> declaredDataPropertyIDs;
+  private final @NonNull Set<@NonNull String> declaredAnnotationPropertyIDs;
 
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> classAssertions;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> subClasses;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> superClasses;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> disjointClasses;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> equivalentClasses;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> classAssertions;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> subClasses;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> superClasses;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> disjointClasses;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> equivalentClasses;
 
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> sameIndividual;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> differentIndividuals;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> sameIndividual;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> differentIndividuals;
 
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> subObjectProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> superObjectProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> disjointObjectProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> equivalentObjectProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> inverseObjectProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> objectPropertyRanges;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> objectPropertyDomains;
-  @NonNull private final Map<@NonNull String, @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>>> objectPropertyAssertions;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> subObjectProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> superObjectProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> disjointObjectProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> equivalentObjectProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> inverseObjectProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> objectPropertyRanges;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> objectPropertyDomains;
+  private final @NonNull Map<@NonNull String, @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>>> objectPropertyAssertions;
 
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> subDataProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> superDataProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> disjointDataProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> equivalentDataProperties;
-  @NonNull private final Map<@NonNull String, @NonNull Set<@NonNull String>> dataPropertyDomains;
-  @NonNull private final Map<@NonNull String, @NonNull Map<@NonNull String, @NonNull Set<@NonNull L>>> dataPropertyAssertions;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> subDataProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> superDataProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> disjointDataProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> equivalentDataProperties;
+  private final @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> dataPropertyDomains;
+  private final @NonNull Map<@NonNull String, @NonNull Map<@NonNull String, @NonNull Set<@NonNull L>>> dataPropertyAssertions;
 
-  @NonNull private final Set<@NonNull String> inconsistentMessages;
+  private final @NonNull Set<@NonNull String> inconsistentMessages;
 
   private boolean isInconsistent;
 
-  @MonotonicNonNull private KieSession knowledgeSession;
+  private @MonotonicNonNull KieSession knowledgeSession;
 
   public DefaultDroolsOWLAxiomHandler()
   {
@@ -216,7 +216,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     }
   }
 
-  @NonNull @Override public Set<@NonNull A> getAssertedOWLAxioms()
+  @Override public @NonNull Set<@NonNull A> getAssertedOWLAxioms()
   {
     return Collections.unmodifiableSet(this.assertedOWLAxioms);
   }
@@ -225,7 +225,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
    * This method can be called after the rule engine has finished executing to get all the OWL axioms that have been
    * inferred.
    */
-  @NonNull @Override public Set<@NonNull A> getInferredOWLAxioms()
+  @Override public @NonNull Set<@NonNull A> getInferredOWLAxioms()
   {
     return Collections.unmodifiableSet(this.inferredOWLAxioms);
   }
@@ -250,7 +250,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredClassIDs.contains(classID);
   }
 
-  @NonNull @Override public Set<@NonNull String> getClassAssertions(@NonNull String classID)
+  @Override public @NonNull Set<@NonNull String> getClassAssertions(@NonNull String classID)
   {
     if (this.classAssertions.get(classID) != null)
       return this.classAssertions.get(classID);
@@ -258,7 +258,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Set<@NonNull String> getSubClasses(@NonNull String classID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getSubClasses(@NonNull String classID, boolean direct)
   {
     Set<@NonNull String> subClasses = new HashSet<>();
 
@@ -276,7 +276,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subClasses;
   }
 
-  @NonNull @Override public Set<@NonNull String> getSuperClasses(@NonNull String classID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getSuperClasses(@NonNull String classID, boolean direct)
   {
     Set<@NonNull String> superClasses = new HashSet<>();
 
@@ -294,7 +294,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return superClasses;
   }
 
-  @NonNull @Override public Set<@NonNull String> getDisjointClasses(@NonNull String classID)
+  @Override public @NonNull Set<@NonNull String> getDisjointClasses(@NonNull String classID)
   {
     if (this.disjointClasses.get(classID) != null)
       return this.disjointClasses.get(classID);
@@ -302,7 +302,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Set<@NonNull String> getEquivalentClasses(@NonNull String classID)
+  @Override public @NonNull Set<@NonNull String> getEquivalentClasses(@NonNull String classID)
   {
     if (this.equivalentClasses.get(classID) != null)
       return this.equivalentClasses.get(classID);
@@ -342,7 +342,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredIndividualIDs.contains(individualID);
   }
 
-  @NonNull @Override public Set<@NonNull String> getSameIndividual(@NonNull String individualID)
+  @Override public @NonNull Set<@NonNull String> getSameIndividual(@NonNull String individualID)
   {
     if (this.sameIndividual.get(individualID) != null)
       return this.sameIndividual.get(individualID);
@@ -350,7 +350,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Set<@NonNull String> getDifferentIndividuals(@NonNull String individualID)
+  @Override public @NonNull Set<@NonNull String> getDifferentIndividuals(@NonNull String individualID)
   {
     if (this.differentIndividuals.get(individualID) != null)
       return this.differentIndividuals.get(individualID);
@@ -365,7 +365,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredObjectPropertyIDs.contains(propertyID);
   }
 
-  @NonNull @Override public Set<@NonNull String> getSubObjectProperties(@NonNull String propertyID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getSubObjectProperties(@NonNull String propertyID, boolean direct)
   {
     Set<@NonNull String> subProperties = new HashSet<>();
 
@@ -383,7 +383,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subProperties;
   }
 
-  @NonNull @Override public Set<@NonNull String> getSuperObjectProperties(@NonNull String propertyID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getSuperObjectProperties(@NonNull String propertyID, boolean direct)
   {
     Set<@NonNull String> superProperties = new HashSet<>();
 
@@ -401,17 +401,17 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return superProperties;
   }
 
-  @NonNull @Override public Set<@NonNull String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getObjectPropertyRanges(@NonNull String propertyID, boolean direct)
   {
     return classDomains(this.objectPropertyRanges.getOrDefault(propertyID, Collections.emptySet()), direct);
   }
 
-  @NonNull @Override public Set<@NonNull String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getObjectPropertyDomains(@NonNull String propertyID, boolean direct)
   {
     return classDomains(this.objectPropertyDomains.getOrDefault(propertyID, Collections.emptySet()), direct);
   }
 
-  @NonNull @Override public Set<@NonNull String> getDisjointObjectProperties(@NonNull String propertyID)
+  @Override public @NonNull Set<@NonNull String> getDisjointObjectProperties(@NonNull String propertyID)
   {
     if (this.disjointObjectProperties.get(propertyID) != null)
       return this.disjointObjectProperties.get(propertyID);
@@ -419,7 +419,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Set<@NonNull String> getEquivalentObjectProperties(@NonNull String propertyID)
+  @Override public @NonNull Set<@NonNull String> getEquivalentObjectProperties(@NonNull String propertyID)
   {
     if (this.equivalentObjectProperties.get(propertyID) != null)
       return this.equivalentObjectProperties.get(propertyID);
@@ -427,7 +427,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Set<@NonNull String> getInverseObjectProperties(@NonNull String propertyID)
+  @Override public @NonNull Set<@NonNull String> getInverseObjectProperties(@NonNull String propertyID)
   {
     if (this.inverseObjectProperties.get(propertyID) != null)
       return this.inverseObjectProperties.get(propertyID);
@@ -435,7 +435,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Map<@NonNull String, @NonNull Set<@NonNull String>> getObjectPropertyAssertions(
+  @Override public @NonNull Map<@NonNull String, @NonNull Set<@NonNull String>> getObjectPropertyAssertions(
     @NonNull String propertyID)
   {
     Map<String, Set<String>> result = new HashMap<>();
@@ -447,7 +447,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return result;
   }
 
-  @NonNull @Override public Set<@NonNull String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
+  @Override public @NonNull Set<@NonNull String> getObjectPropertyValuesForIndividual(@NonNull String individualID,
     @NonNull String propertyID)
   {
     return new HashSet<>(this.objectPropertyAssertions.getOrDefault(individualID, Collections.emptyMap())
@@ -488,7 +488,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredDataPropertyIDs.contains(propertyID);
   }
 
-  @NonNull @Override public Set<@NonNull String> getSubDataProperties(@NonNull String propertyID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getSubDataProperties(@NonNull String propertyID, boolean direct)
   {
     Set<@NonNull String> subProperties = new HashSet<>();
 
@@ -506,7 +506,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return subProperties;
   }
 
-  @NonNull @Override public Set<@NonNull String> getSuperDataProperties(@NonNull String propertyID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getSuperDataProperties(@NonNull String propertyID, boolean direct)
   {
     Set<@NonNull String> superProperties = new HashSet<>();
 
@@ -524,12 +524,12 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return superProperties;
   }
 
-  @NonNull @Override public Set<@NonNull String> getDataPropertyDomains(@NonNull String propertyID, boolean direct)
+  @Override public @NonNull Set<@NonNull String> getDataPropertyDomains(@NonNull String propertyID, boolean direct)
   {
     return classDomains(this.dataPropertyDomains.getOrDefault(propertyID, Collections.emptySet()), direct);
   }
 
-  @NonNull @Override public Set<@NonNull String> getDisjointDataProperties(@NonNull String propertyID)
+  @Override public @NonNull Set<@NonNull String> getDisjointDataProperties(@NonNull String propertyID)
   {
     if (this.disjointDataProperties.get(propertyID) != null)
       return this.disjointDataProperties.get(propertyID);
@@ -537,7 +537,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Set<@NonNull String> getEquivalentDataProperties(@NonNull String propertyID)
+  @Override public @NonNull Set<@NonNull String> getEquivalentDataProperties(@NonNull String propertyID)
   {
     if (this.equivalentDataProperties.get(propertyID) != null)
       return this.equivalentDataProperties.get(propertyID);
@@ -545,7 +545,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
       return Collections.emptySet();
   }
 
-  @NonNull @Override public Map<@NonNull String, @NonNull Set<@NonNull L>> getDataPropertyAssertions(
+  @Override public @NonNull Map<@NonNull String, @NonNull Set<@NonNull L>> getDataPropertyAssertions(
     @NonNull String propertyID)
   {
     Map<String, Set<L>> result = new HashMap<>();
@@ -557,7 +557,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return result;
   }
 
-  @NonNull @Override public Set<@NonNull L> getDataPropertyValuesForIndividual(@NonNull String individualID,
+  @Override public @NonNull Set<@NonNull L> getDataPropertyValuesForIndividual(@NonNull String individualID,
     @NonNull String propertyID)
   {
     return new HashSet<>(this.dataPropertyAssertions.getOrDefault(individualID, Collections.emptyMap())
@@ -598,7 +598,7 @@ public class DefaultDroolsOWLAxiomHandler implements DroolsOWLAxiomHandler, AVis
     return this.declaredAnnotationPropertyIDs.contains(propertyID);
   }
 
-  @NonNull public Set<@NonNull String> getInconsistentMessages()
+  public @NonNull Set<@NonNull String> getInconsistentMessages()
   {
     return Collections.unmodifiableSet(this.inconsistentMessages);
   }

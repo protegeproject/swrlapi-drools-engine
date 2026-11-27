@@ -29,7 +29,7 @@ import java.util.Set;
  */
 public class DroolsOWL2RLRules
 {
-  @NonNull private final Map<OWL2RLNames.OWL2RLRule, @NonNull Set<@NonNull DroolsRuleDefinition>> rules;
+  private final @NonNull Map<OWL2RLNames.OWL2RLRule, @NonNull Set<@NonNull DroolsRuleDefinition>> rules;
 
   public DroolsOWL2RLRules()
   {
@@ -58,7 +58,7 @@ public class DroolsOWL2RLRules
     return this.rules.containsKey(rule);
   }
 
-  @NonNull public Set<@NonNull DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
+  public @NonNull Set<@NonNull DroolsRuleDefinition> getRules(OWL2RLNames.OWL2RLRule rule)
   {
     return this.rules.getOrDefault(rule, Collections.emptySet());
   }

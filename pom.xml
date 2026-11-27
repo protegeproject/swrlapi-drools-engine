@@ -88,17 +88,7 @@
     
     <dependency>
       <groupId>org.checkerframework</groupId>
-      <artifactId>checker</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.checkerframework</groupId>
       <artifactId>checker-qual</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.checkerframework</groupId>
-      <artifactId>jdk8</artifactId>
     </dependency>
 
     <!-- Test dependencies -->

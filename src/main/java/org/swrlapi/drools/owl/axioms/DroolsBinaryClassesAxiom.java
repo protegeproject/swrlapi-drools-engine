@@ -12,12 +12,12 @@ abstract class DroolsBinaryClassesAxiom extends DroolsBinaryObject<String, Strin
     super(class1ID, class2ID);
   }
 
-  @NonNull public String getc1id()
+  public @NonNull String getc1id()
   {
     return getT1();
   }
 
-  @NonNull public String getc2id()
+  public @NonNull String getc2id()
   {
     return getT2();
   }

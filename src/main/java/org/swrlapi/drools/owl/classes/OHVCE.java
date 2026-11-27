@@ -22,27 +22,27 @@ public class OHVCE extends DroolsTernaryObject<String, String, I> implements CE
     super(ceid, propertyID, new I(individualID));
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getT1();
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT2();
   }
 
-  @NonNull public I getV()
+  public @NonNull I getV()
   {
     return getT3();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "OHVCE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

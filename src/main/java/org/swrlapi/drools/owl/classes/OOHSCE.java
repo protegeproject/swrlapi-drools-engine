@@ -21,22 +21,22 @@ public class OOHSCE extends DroolsBinaryObject<String, String> implements CE
     super(ceid, p);
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getT1();
   }
 
-  @NonNull public String getP()
+  public @NonNull String getP()
   {
     return getT2();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "OOHSCE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

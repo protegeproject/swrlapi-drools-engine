@@ -20,7 +20,7 @@ public class IOPA extends DroolsBinaryPropertiesAxiom
     super(property1ID, property2ID);
   }
 
-  @NonNull @Override public OWLInverseObjectPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLInverseObjectPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class IOPA extends DroolsBinaryPropertiesAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "IOPA" + super.toString();
   }

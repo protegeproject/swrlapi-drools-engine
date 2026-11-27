@@ -31,7 +31,7 @@ public class DOPA extends DroolsBinaryObject<String, String> implements A
     return getT2();
   }
 
-  @NonNull @Override public OWLObjectPropertyDomainAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
+  @Override public @NonNull OWLObjectPropertyDomainAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
     throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
@@ -42,7 +42,7 @@ public class DOPA extends DroolsBinaryObject<String, String> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DOPA" + super.toString();
   }

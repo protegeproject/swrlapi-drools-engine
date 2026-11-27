@@ -16,7 +16,7 @@ public class DroolsSWRLVariableExtractor extends TargetRuleEngineExtractorBase
     super(bridge);
   }
 
-  @NonNull public IRI variableName2VariableIRI(@NonNull String variableName) throws TargetSWRLRuleEngineException
+  public @NonNull IRI variableName2VariableIRI(@NonNull String variableName) throws TargetSWRLRuleEngineException
   {
     String variablePrefixedName = variableName;
 

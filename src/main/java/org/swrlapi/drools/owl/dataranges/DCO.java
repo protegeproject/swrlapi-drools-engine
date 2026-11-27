@@ -13,8 +13,8 @@ public class DCO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String drid;
-  @NonNull private final String complementDataRangeID;
+  private final @NonNull String drid;
+  private final @NonNull String complementDataRangeID;
 
   public DCO(@NonNull String drid, @NonNull String complementDataRangeID)
   {
@@ -22,12 +22,12 @@ public class DCO implements DR
     this.complementDataRangeID = complementDataRangeID;
   }
 
-  @NonNull @Override public String getdrid()
+  @Override public @NonNull String getdrid()
   {
     return this.drid;
   }
 
-  @NonNull public String getComplementDataRangeID()
+  public @NonNull String getComplementDataRangeID()
   {
     return this.complementDataRangeID;
   }

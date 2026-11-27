@@ -20,9 +20,9 @@ public class BAP
 
   // This are used indirectly by Drools. The actual arguments are placed in this.arguments.
   // This approach is not great but it will do for the moment.
-  @SuppressWarnings("unused") @Nullable private BA a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11;
+  @SuppressWarnings("unused") private @Nullable BA a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11;
 
-  @NonNull private final List<@NonNull BA> arguments;
+  private final @NonNull List<@NonNull BA> arguments;
 
   public BAP()
   {
@@ -63,7 +63,7 @@ public class BAP
       throw new TargetSWRLRuleEngineInternalException("argument number " + argumentNumber + " out of bounds");
   }
 
-  @NonNull public BA getArgument(int argumentNumber)
+  public @NonNull BA getArgument(int argumentNumber)
   {
     if (argumentNumber > 0 && this.arguments.size() > argumentNumber)
       return this.arguments.get(argumentNumber - 1);
@@ -71,7 +71,7 @@ public class BAP
       throw new TargetSWRLRuleEngineInternalException("argument number " + argumentNumber + " out of bounds");
   }
 
-  @NonNull public BA getA1()
+  public @NonNull BA getA1()
   {
     if (this.arguments.size() < 1)
       throwInvalidArgumentNumberException(1);
@@ -79,7 +79,7 @@ public class BAP
     return this.arguments.get(0);
   }
 
-  @NonNull public BA getA2()
+  public @NonNull BA getA2()
   {
     if (this.arguments.size() < 2)
       throwInvalidArgumentNumberException(2);
@@ -87,7 +87,7 @@ public class BAP
     return this.arguments.get(1);
   }
 
-  @NonNull public BA getA3()
+  public @NonNull BA getA3()
   {
     if (this.arguments.size() < 3)
       throwInvalidArgumentNumberException(3);
@@ -95,7 +95,7 @@ public class BAP
     return this.arguments.get(2);
   }
 
-  @NonNull public BA getA4()
+  public @NonNull BA getA4()
   {
     if (this.arguments.size() < 4)
       throwInvalidArgumentNumberException(4);
@@ -103,7 +103,7 @@ public class BAP
     return this.arguments.get(3);
   }
 
-  @NonNull public BA getA5()
+  public @NonNull BA getA5()
   {
     if (this.arguments.size() < 5)
       throwInvalidArgumentNumberException(5);
@@ -111,7 +111,7 @@ public class BAP
     return this.arguments.get(4);
   }
 
-  @NonNull public BA getA6()
+  public @NonNull BA getA6()
   {
     if (this.arguments.size() < 6)
       throwInvalidArgumentNumberException(6);
@@ -119,7 +119,7 @@ public class BAP
     return this.arguments.get(5);
   }
 
-  @NonNull public BA getA7()
+  public @NonNull BA getA7()
   {
     if (this.arguments.size() < 7)
       throwInvalidArgumentNumberException(7);
@@ -127,7 +127,7 @@ public class BAP
     return this.arguments.get(6);
   }
 
-  @NonNull public BA getA8()
+  public @NonNull BA getA8()
   {
     if (this.arguments.size() < 8)
       throwInvalidArgumentNumberException(8);
@@ -135,7 +135,7 @@ public class BAP
     return this.arguments.get(7);
   }
 
-  @NonNull public BA getA9()
+  public @NonNull BA getA9()
   {
     if (this.arguments.size() < 9)
       throwInvalidArgumentNumberException(9);
@@ -143,7 +143,7 @@ public class BAP
     return this.arguments.get(8);
   }
 
-  @NonNull public BA getA10()
+  public @NonNull BA getA10()
   {
     if (this.arguments.size() < 10)
       throwInvalidArgumentNumberException(10);
@@ -151,7 +151,7 @@ public class BAP
     return this.arguments.get(9);
   }
 
-  @NonNull public BA getA11()
+  public @NonNull BA getA11()
   {
     if (this.arguments.size() < 11)
       throwInvalidArgumentNumberException(11);
@@ -159,7 +159,7 @@ public class BAP
     return this.arguments.get(10);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return this.arguments.toString();
   }

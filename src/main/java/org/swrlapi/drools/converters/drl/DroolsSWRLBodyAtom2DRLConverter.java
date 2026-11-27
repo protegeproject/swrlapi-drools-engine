@@ -44,15 +44,15 @@ import java.util.Set;
 public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineSWRLBodyAtomWithVariableNamesConverter<String>
 {
-  @NonNull private final DroolsSWRLBodyAtomArgument2DRLConverter droolsBodyAtomArgument2DRLConverter;
-  @NonNull private final DroolsSWRLBuiltInArgument2DRLConverter droolsBuiltInArgument2DRLConverter;
-  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
-  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
-  @NonNull private final DroolsOWLDataRangeHandler droolsOWLDataRangeHandler;
-  @NonNull private final DroolsSWRLVariable2NameConverter droolsSWRLVariable2NameConverter;
-  @NonNull private final DroolsOWLLiteral2DRLConverter droolsOWLLiteral2DRLConverter;
-  @NonNull private final DroolsOWLIndividual2DRLConverter droolsOWLIndividual2DRLConverter;
-  @NonNull private final DroolsOWLEntity2NameConverter droolsOWLEntity2NameConverter;
+  private final @NonNull DroolsSWRLBodyAtomArgument2DRLConverter droolsBodyAtomArgument2DRLConverter;
+  private final @NonNull DroolsSWRLBuiltInArgument2DRLConverter droolsBuiltInArgument2DRLConverter;
+  private final @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  private final @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  private final @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler;
+  private final @NonNull DroolsSWRLVariable2NameConverter droolsSWRLVariable2NameConverter;
+  private final @NonNull DroolsOWLLiteral2DRLConverter droolsOWLLiteral2DRLConverter;
+  private final @NonNull DroolsOWLIndividual2DRLConverter droolsOWLIndividual2DRLConverter;
+  private final @NonNull DroolsOWLEntity2NameConverter droolsOWLEntity2NameConverter;
 
   private int builtInIndexInBody; // Each built-in atom in the body gets a unique index, starting at 0
 
@@ -84,7 +84,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     this.builtInIndexInBody = 0;
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDataRangeAtom atom,
+  @Override public @NonNull String convert(@NonNull SWRLDataRangeAtom atom,
     Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     String dataRangeID = getDroolsOWLDataRangeHandler().convert(atom.getPredicate());
@@ -93,7 +93,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
   }
 
-  @NonNull public String convert(@NonNull SWRLDataRangeAtom atom)
+  public @NonNull String convert(@NonNull SWRLDataRangeAtom atom)
   {
     String dataRangeID = getDroolsOWLDataRangeHandler().convert(atom.getPredicate());
     SWRLDArgument argument = atom.getArgument();
@@ -101,7 +101,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range atoms not implemented in rule head");
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLClassAtom atom,
+  @Override public @NonNull String convert(@NonNull SWRLClassAtom atom,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     String classID = getDroolsOWLClassExpressionHandler().convert(atom.getPredicate()).getceid();
@@ -117,7 +117,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     return representation;
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLObjectPropertyAtom atom,
+  @Override public @NonNull String convert(@NonNull SWRLObjectPropertyAtom atom,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     String propertyID = getDroolsOWLPropertyExpressionHandler().convert(atom.getPredicate()).getid();
@@ -135,7 +135,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     return representation;
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDataPropertyAtom atom,
+  @Override public @NonNull String convert(@NonNull SWRLDataPropertyAtom atom,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     String propertyID = getDroolsOWLPropertyExpressionHandler().convert(atom.getPredicate()).getid();
@@ -153,7 +153,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     return representation;
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLSameIndividualAtom atom,
+  @Override public @NonNull String convert(@NonNull SWRLSameIndividualAtom atom,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     SWRLIArgument argument1 = atom.getFirstArgument();
@@ -170,7 +170,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     return representation;
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDifferentIndividualsAtom atom,
+  @Override public @NonNull String convert(@NonNull SWRLDifferentIndividualsAtom atom,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     SWRLIArgument argument1 = atom.getFirstArgument();
@@ -270,7 +270,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     return representation;
   }
 
-  @NonNull public String convert(@NonNull SWRLAtom atom,
+  public @NonNull String convert(@NonNull SWRLAtom atom,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames) throws SWRLBuiltInException
   { // TODO Visitor to replace instanceof: SWRLAtomVisitorExP
     if (atom instanceof SWRLDataRangeAtom) {
@@ -291,12 +291,12 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
       throw new TargetSWRLRuleEngineInternalException("unknown SWRL atom type " + atom.getClass().getCanonicalName());
   }
 
-  @NonNull private DroolsSWRLBodyAtomArgument2DRLConverter getSWRLBodyAtomArgumentConverter()
+  private @NonNull DroolsSWRLBodyAtomArgument2DRLConverter getSWRLBodyAtomArgumentConverter()
   {
     return this.droolsBodyAtomArgument2DRLConverter;
   }
 
-  @NonNull private DroolsSWRLBuiltInArgument2DRLConverter getSWRLBuiltInArgumentConverter()
+  private @NonNull DroolsSWRLBuiltInArgument2DRLConverter getSWRLBuiltInArgumentConverter()
   {
     return this.droolsBuiltInArgument2DRLConverter;
   }
@@ -316,7 +316,7 @@ public class DroolsSWRLBodyAtom2DRLConverter extends DroolsDRLConverterBase
     return this.droolsOWLDataRangeHandler;
   }
 
-  @NonNull private String addQuotes(@NonNull String s)
+  private @NonNull String addQuotes(@NonNull String s)
   {
     return "\"" + s + "\"";
   }

@@ -27,27 +27,27 @@ public class OECCE extends DroolsTernaryObject<String, OP, Integer> implements C
     super(ceid, new OP(propertyID), card);
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getT1();
   }
 
-  @NonNull public OP getP()
+  public @NonNull OP getP()
   {
     return getT2();
   }
 
-  @NonNull public Integer getCard()
+  public @NonNull Integer getCard()
   {
     return getT3();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "OECECE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

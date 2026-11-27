@@ -13,5 +13,5 @@ public final class QualifiedDataMaxCardinality extends DMaxCCE
     this.filler = filler;
   }
 
-  @NonNull public String getFiller() { return this.filler; }
+  public @NonNull String getFiller() { return this.filler; }
 }

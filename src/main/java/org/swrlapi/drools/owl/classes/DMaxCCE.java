@@ -21,27 +21,27 @@ public class DMaxCCE extends DroolsTernaryObject<String, String, Integer> implem
     super(ceid, propertyID, card);
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getT1();
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT2();
   }
 
-  @NonNull public Integer getCard()
+  public @NonNull Integer getCard()
   {
     return getT3();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DMaxCCE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

@@ -13,25 +13,25 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
  */
 public class VA implements AA
 {
-  @NonNull private final String variableName;
+  private final @NonNull String variableName;
 
   public VA(@NonNull String variableName)
   {
     this.variableName = variableName;
   }
 
-  @NonNull public String getVariableName()
+  public @NonNull String getVariableName()
   {
     return this.variableName;
   }
 
-  @NonNull @Override public SWRLVariable extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLVariable extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "VA(?" + getVariableName() + ")";
   }

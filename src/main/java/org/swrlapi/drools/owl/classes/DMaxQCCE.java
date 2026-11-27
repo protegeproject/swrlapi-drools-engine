@@ -21,32 +21,32 @@ public class DMaxQCCE extends DroolsQuadObject<String, String, String, Integer> 
     super(ceid, propertyID, fillerID, card);
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getT1();
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT2();
   }
 
-  @NonNull public String getf()
+  public @NonNull String getf()
   {
     return getT3();
   }
 
-  @NonNull public Integer getcard()
+  public @NonNull Integer getcard()
   {
     return getT4();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DMaxQCCE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

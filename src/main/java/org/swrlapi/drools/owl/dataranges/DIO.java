@@ -15,8 +15,8 @@ public class DIO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String drid;
-  @NonNull private final Set<@NonNull String> intersectionOfDataRangeIDs;
+  private final @NonNull String drid;
+  private final @NonNull Set<@NonNull String> intersectionOfDataRangeIDs;
 
   public DIO(@NonNull String drid, @NonNull Set<@NonNull String> intersectionOfDataRangeIDs)
   {
@@ -24,12 +24,12 @@ public class DIO implements DR
     this.intersectionOfDataRangeIDs = intersectionOfDataRangeIDs;
   }
 
-  @NonNull @Override public String getdrid()
+  @Override public @NonNull String getdrid()
   {
     return this.drid;
   }
 
-  @NonNull public Set<@NonNull String> getIntersectionOfDataRangeIDs()
+  public @NonNull Set<@NonNull String> getIntersectionOfDataRangeIDs()
   {
     return this.intersectionOfDataRangeIDs;
   }

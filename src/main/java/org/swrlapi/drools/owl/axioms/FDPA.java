@@ -18,7 +18,7 @@ public class FDPA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @NonNull @Override public OWLFunctionalDataPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLFunctionalDataPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -29,7 +29,7 @@ public class FDPA extends DroolsUnaryPropertyAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "FDPA" + super.toString();
   }

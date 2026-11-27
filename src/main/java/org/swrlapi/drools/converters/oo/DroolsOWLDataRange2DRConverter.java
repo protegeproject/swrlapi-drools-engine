@@ -35,67 +35,67 @@ public class DroolsOWLDataRange2DRConverter extends TargetRuleEngineConverterBas
     super(bridge);
   }
 
-  @NonNull public DR convert(@NonNull OWLDataRange dataRange)
+  public @NonNull DR convert(@NonNull OWLDataRange dataRange)
   {
     return dataRange.accept(this);
   }
 
-  @NonNull @Override public D convert(@NonNull OWLDatatype datatype)
+  @Override public @NonNull D convert(@NonNull OWLDatatype datatype)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("datatype data ranges not implemented");
   }
 
-  @NonNull @Override public DOO convert(OWLDataOneOf dataRange)
+  @Override public @NonNull DOO convert(OWLDataOneOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data one of data range restrictions not implemented");
   }
 
-  @NonNull @Override public DCO convert(@NonNull OWLDataComplementOf dataRange)
+  @Override public @NonNull DCO convert(@NonNull OWLDataComplementOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data range datatypes not implemented");
   }
 
-  @NonNull @Override public DIO convert(@NonNull OWLDataIntersectionOf dataRange)
+  @Override public @NonNull DIO convert(@NonNull OWLDataIntersectionOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data intersection of data ranges not implemented");
   }
 
-  @NonNull @Override public DUO convert(@NonNull OWLDataUnionOf dataRange)
+  @Override public @NonNull DUO convert(@NonNull OWLDataUnionOf dataRange)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("data union of data ranges not implemented");
   }
 
-  @NonNull @Override public DTR convert(@NonNull OWLDatatypeRestriction datatypeRestriction)
+  @Override public @NonNull DTR convert(@NonNull OWLDatatypeRestriction datatypeRestriction)
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("datatype restriction data ranges not implemented");
   }
 
-  @NonNull @Override public D visit(@NonNull OWLDatatype datatype)
+  @Override public @NonNull D visit(@NonNull OWLDatatype datatype)
   {
     return convert(datatype);
   }
 
-  @NonNull @Override public DOO visit(OWLDataOneOf dataOneOf)
+  @Override public @NonNull DOO visit(OWLDataOneOf dataOneOf)
   {
     return convert(dataOneOf);
   }
 
-  @NonNull @Override public DCO visit(@NonNull OWLDataComplementOf dataComplementOf)
+  @Override public @NonNull DCO visit(@NonNull OWLDataComplementOf dataComplementOf)
   {
     return convert(dataComplementOf);
   }
 
-  @NonNull @Override public DIO visit(@NonNull OWLDataIntersectionOf dataIntersectionOf)
+  @Override public @NonNull DIO visit(@NonNull OWLDataIntersectionOf dataIntersectionOf)
   {
     return convert(dataIntersectionOf);
   }
 
-  @NonNull @Override public DUO visit(@NonNull OWLDataUnionOf dataUnionOf)
+  @Override public @NonNull DUO visit(@NonNull OWLDataUnionOf dataUnionOf)
   {
     return convert(dataUnionOf);
   }
 
-  @NonNull @Override public DTR visit(OWLDatatypeRestriction datatypeRestriction)
+  @Override public @NonNull DTR visit(OWLDatatypeRestriction datatypeRestriction)
   {
     return convert(datatypeRestriction);
   }

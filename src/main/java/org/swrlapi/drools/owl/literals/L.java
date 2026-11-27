@@ -24,9 +24,9 @@ public class L implements OO, BA, Serializable
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull public final String value;
-  @NonNull public final String datatypeName;
-  @NonNull public final String languageTag;
+  public final @NonNull String value;
+  public final @NonNull String datatypeName;
+  public final @NonNull String languageTag;
 
   public L(@NonNull String value, @NonNull String datatypeName)
   {
@@ -127,23 +127,23 @@ public class L implements OO, BA, Serializable
     return this.datatypeName.equals(XSDVocabulary.STRING.getPrefixedName());
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-   @NonNull @SideEffectFree @Override public String toString()
+   @SideEffectFree @Override public @NonNull String toString()
   {
     return "L(\"" + this.value + "\", " + this.datatypeName + ")";
   }
 
-  @NonNull public String getTypeName()
+  public @NonNull String getTypeName()
   {
     return this.datatypeName;
   }
 
-  @NonNull public String getValue()
+  public @NonNull String getValue()
   {
     return this.value;
   }

@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.classes;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -24,19 +25,19 @@ public class C implements CE, OE
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull public final String id;
+  public final @NonNull String id;
 
   public C(@NonNull String id)
   {
     this.id = id;
   }
 
-  @NonNull public String getid()
+  public @NonNull String getid()
   {
     return this.id;
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return this.id;
   }
@@ -54,29 +55,29 @@ public class C implements CE, OE
         "expecting OWL named class from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override public OWLClass extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @Override public @NonNull OWLClass extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override public SWRLClassBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLClassBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull public static C getOWLThing()
+  public static @NonNull C getOWLThing()
   {
     return new C(OWLRDFVocabulary.OWL_THING.getPrefixedName());
   }
 
-  @NonNull public static C getOWLNothing()
+  public static @NonNull C getOWLNothing()
   {
     return new C(OWLRDFVocabulary.OWL_NOTHING.getPrefixedName());
   }
 
-  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
     if (this == o)
       return true;

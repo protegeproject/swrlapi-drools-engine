@@ -17,24 +17,24 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
     super(bridge);
   }
 
-  @NonNull public String swrlVariable2DRL(@NonNull SWRLVariable variable)
+  public @NonNull String swrlVariable2DRL(@NonNull SWRLVariable variable)
   {
     String variableName = iri2VariableName(variable.getIRI());
     return variableName2DRL(variableName);
   }
 
-  @NonNull public String swrlVariable2DRLVariableName(@NonNull SWRLVariable variable)
+  public @NonNull String swrlVariable2DRLVariableName(@NonNull SWRLVariable variable)
   {
     String variableName = iri2VariableName(variable.getIRI());
     return variableName2DRL(variableName);
   }
 
-  @NonNull public String swrlVariable2VariableName(@NonNull SWRLVariable variable)
+  public @NonNull String swrlVariable2VariableName(@NonNull SWRLVariable variable)
   {
     return iri2VariableName(variable.getIRI());
   }
 
-  @NonNull public String variableName2DRL(@NonNull String variableName, @NonNull String fieldName,
+  public @NonNull String variableName2DRL(@NonNull String variableName, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     if (previouslyEncounteredVariableNames.contains(variableName)) {
@@ -45,12 +45,12 @@ public class DroolsSWRLVariable2NameConverter extends TargetRuleEngineConverterB
     }
   }
 
-  @NonNull public String variableName2DRL(@NonNull String variableName)
+  public @NonNull String variableName2DRL(@NonNull String variableName)
   {
     return "$" + variableName;
   }
 
-  @NonNull private String iri2VariableName(IRI variableIRI)
+  private @NonNull String iri2VariableName(IRI variableIRI)
   {
     Optional<String> remainder = variableIRI.getRemainder();
 

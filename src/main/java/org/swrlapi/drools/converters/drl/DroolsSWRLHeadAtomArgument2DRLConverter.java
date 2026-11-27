@@ -36,16 +36,16 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 		super(bridge);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLVariable variableArgument)
+	public
+	@NonNull String convert(@NonNull SWRLVariable variableArgument)
 	{
 		return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLIndividualArgument individualArgument)
+	public
+	@NonNull String convert(@NonNull SWRLIndividualArgument individualArgument)
 	{
 		OWLIndividual individual = individualArgument.getIndividual();
 
@@ -61,89 +61,89 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 					+ individual.getClass().getCanonicalName() + " passed as a " + SWRLIndividualArgument.class.getName());
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLLiteralArgument argument)
+	public
+	@NonNull String convert(@NonNull SWRLLiteralArgument argument)
 	{
 		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLVariableBuiltInArgument variableArgument)
+	public
+	@NonNull String convert(@NonNull SWRLVariableBuiltInArgument variableArgument)
 	{
 		return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLClassBuiltInArgument classArgument)
+	public
+	@NonNull String convert(@NonNull SWRLClassBuiltInArgument classArgument)
 	{
 		String prefixedName = iri2PrefixedName(classArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLNamedIndividualBuiltInArgument individualArgument)
+	public
+	@NonNull String convert(@NonNull SWRLNamedIndividualBuiltInArgument individualArgument)
 	{
 		String prefixedName = iri2PrefixedName(individualArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLObjectPropertyBuiltInArgument propertyArgument)
+	public
+	@NonNull String convert(@NonNull SWRLObjectPropertyBuiltInArgument propertyArgument)
 	{
 		String prefixedName = iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLDataPropertyBuiltInArgument propertyArgument)
+	public
+	@NonNull String convert(@NonNull SWRLDataPropertyBuiltInArgument propertyArgument)
 	{
 		String prefixedName = iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument propertyArgument)
+	public
+	@NonNull String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument propertyArgument)
 	{
 		String prefixedName = iri2PrefixedName(propertyArgument.getIRI());
 
 		return addQuotes(prefixedName);
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLDatatypeBuiltInArgument datatypeArgument)
+	public
+	@NonNull String convert(@NonNull SWRLDatatypeBuiltInArgument datatypeArgument)
 	{
 		return iri2PrefixedName(datatypeArgument.getIRI());
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SWRLLiteralBuiltInArgument argument)
+	public
+	@NonNull String convert(@NonNull SWRLLiteralBuiltInArgument argument)
 	{
 		return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
 	}
 
-	@NonNull
 	@Override
-	public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
+	public
+	@NonNull String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
 	{
 		throw new TargetSWRLRuleEngineNotImplementedFeatureException(
 				"SQWRL collections can not be referenced in a rule head");
 	}
 
-	@NonNull
-	public String convert(@NonNull SWRLArgument argument)
+	public
+	@NonNull String convert(@NonNull SWRLArgument argument)
 	{ // TODO Use visitor to replace instanceof: define SWRLArgumentVisitorEx in OWLAPI and then
 		// SWRLBuiltInArgumentVisitorEx
 		if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
@@ -175,8 +175,8 @@ public class DroolsSWRLHeadAtomArgument2DRLConverter extends DroolsDRLConverterB
 					+ argument.getClass().getCanonicalName());
 	}
 
-	@NonNull
-	private String addQuotes(@NonNull String s)
+	private
+	@NonNull String addQuotes(@NonNull String s)
 	{
 		return "\"" + s + "\"";
 	}

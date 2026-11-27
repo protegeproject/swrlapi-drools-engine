@@ -20,9 +20,9 @@ import java.util.Set;
  */
 public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
 {
-  @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
-  @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
-  @NonNull private final DroolsSWRLRuleEngine droolsSWRLRuleEngine;
+  private final @NonNull DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
+  private final @NonNull DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
+  private final @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine;
 
   public DroolsSWRLRule2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
@@ -76,32 +76,32 @@ public class DroolsSWRLRule2DRLConverter extends DroolsDRLConverterBase
     getDroolsSWRLRuleEngine().defineDRLRule(drlRule);
   }
 
-  @NonNull private String getRulePreamble(@NonNull String ruleName)
+  private @NonNull String getRulePreamble(@NonNull String ruleName)
   {
     return "rule \"" + ruleName + "\" \nwhen ";
   }
 
-  @NonNull private String addRuleEndClause(@NonNull String ruleText)
+  private @NonNull String addRuleEndClause(@NonNull String ruleText)
   {
     return ruleText + "\nend";
   }
 
-  @NonNull private String addRuleThenClause(@NonNull String ruleText)
+  private @NonNull String addRuleThenClause(@NonNull String ruleText)
   {
     return ruleText + "\nthen ";
   }
 
-  @NonNull private DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtom2DRLConverter()
+  private @NonNull DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtom2DRLConverter()
   {
     return this.bodyAtom2DRLConverter;
   }
 
-  @NonNull private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtom2DRLConverter()
+  private @NonNull DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtom2DRLConverter()
   {
     return this.headAtom2DRLConverter;
   }
 
-  @NonNull private DroolsSWRLRuleEngine getDroolsSWRLRuleEngine()
+  private @NonNull DroolsSWRLRuleEngine getDroolsSWRLRuleEngine()
   {
     return this.droolsSWRLRuleEngine;
   }

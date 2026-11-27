@@ -20,7 +20,7 @@ public class FOPA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @NonNull @Override public OWLFunctionalObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLFunctionalObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class FOPA extends DroolsUnaryPropertyAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "FOPA" + super.toString();
   }

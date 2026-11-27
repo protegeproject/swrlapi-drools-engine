@@ -20,7 +20,7 @@ public class EOPA extends DroolsBinaryPropertiesAxiom
     super(property1ID, property2ID);
   }
 
-  @NonNull @Override public OWLEquivalentObjectPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLEquivalentObjectPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class EOPA extends DroolsBinaryPropertiesAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "EOPA" + super.toString();
   }

@@ -20,7 +20,7 @@ public class TOPA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @NonNull @Override public OWLTransitiveObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLTransitiveObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class TOPA extends DroolsUnaryPropertyAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "TOPA" + super.toString();
   }

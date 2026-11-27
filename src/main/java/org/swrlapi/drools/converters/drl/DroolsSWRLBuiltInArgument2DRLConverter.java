@@ -34,8 +34,8 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineNotImplementedFeatureException
 public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBase
   implements TargetRuleEngineSWRLBuiltInArgumentConverter<String>, SWRLBuiltInArgumentVisitorEx<String>
 {
-  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
-  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  private final @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  private final @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
 
   public DroolsSWRLBuiltInArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
@@ -46,12 +46,12 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     this.droolsOWLPropertyExpressionHandler = droolsOWLPropertyExpressionHandler;
   }
 
-  @NonNull public String convert(@NonNull SWRLBuiltInArgument argument)
+  public @NonNull String convert(@NonNull SWRLBuiltInArgument argument)
   {
     return argument.accept(this);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
       return "new " + DroolsNames.UNBOUND_ARGUMENT_CLASS_NAME + "(" + addQuotes(
@@ -60,14 +60,14 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
       return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLClassBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLClassBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.CLASS_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLClassExpressionBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLClassExpressionBuiltInArgument argument)
   {
     OWLClassExpression classExpression = argument.getOWLClassExpression();
     String ceid = getDroolsOWLClassExpressionHandler().convert(classExpression).getceid();
@@ -75,14 +75,14 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return "new " + DroolsNames.CLASS_EXPRESSION_CLASS_NAME + "(" + addQuotes(ceid) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.INDIVIDUAL_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLObjectPropertyExpressionBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLObjectPropertyExpressionBuiltInArgument argument)
   {
     OWLObjectPropertyExpression propertyExpression = argument.getOWLObjectPropertyExpression();
     String peid = getDroolsOWLPropertyExpressionHandler().convert(propertyExpression).getid();
@@ -90,21 +90,21 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return "new " + DroolsNames.OBJECT_PROPERTY_EXPRESSION_CLASS_NAME + "(" + addQuotes(peid) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.OBJECT_PROPERTY_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.DATA_PROPERTY_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDataPropertyExpressionBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLDataPropertyExpressionBuiltInArgument argument)
   {
     OWLDataPropertyExpression propertyExpression = argument.getOWLDataPropertyExpression();
     String peid = getDroolsOWLPropertyExpressionHandler().convert(propertyExpression).getid();
@@ -112,52 +112,52 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return "new " + DroolsNames.DATA_PROPERTY_EXPRESSION_CLASS_NAME + "(" + addQuotes(peid) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.ANNOTATION_PROPERTY_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDatatypeBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     String prefixedName = iri2PrefixedName(argument.getIRI());
 
     return "new " + DroolsNames.DATATYPE_CLASS_NAME + "(" + addQuotes(prefixedName) + ")";
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLLiteralBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
   }
 
-  @NonNull @Override public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   { // TODO This is not true!
     throw new TargetSWRLRuleEngineNotImplementedFeatureException(
       "SQWRL collection built-in arguments not yet implemented");
   }
 
-  @NonNull private String addQuotes(@NonNull String s)
+  private @NonNull String addQuotes(@NonNull String s)
   {
     return "\"" + s + "\"";
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLClassBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLClassBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(SWRLClassExpressionBuiltInArgument argument)
+  @Override public @NonNull String visit(SWRLClassExpressionBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLNamedIndividualBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLObjectPropertyBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
@@ -167,7 +167,7 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLDataPropertyBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
@@ -177,42 +177,42 @@ public class DroolsSWRLBuiltInArgument2DRLConverter extends DroolsDRLConverterBa
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLDatatypeBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLLiteralBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLVariableBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(@NonNull SWRLMultiValueVariableBuiltInArgument argument)
+  @Override public @NonNull String visit(@NonNull SWRLMultiValueVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public String visit(SQWRLCollectionVariableBuiltInArgument argument)
+  @Override public @NonNull String visit(SQWRLCollectionVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull private DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
+  private @NonNull DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
   {
     return this.droolsOWLClassExpressionHandler;
   }
 
-  @NonNull private DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
+  private @NonNull DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
   {
     return this.droolsOWLPropertyExpressionHandler;
   }

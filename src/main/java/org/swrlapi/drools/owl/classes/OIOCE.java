@@ -23,19 +23,19 @@ public class OIOCE extends DroolsNarySet<String, String> implements CE
     super(ceid, elements);
   }
 
-  @NonNull @Override public String getceid()
+  @Override public @NonNull String getceid()
   {
     return getID();
   }
 
-  @NonNull public Set<String> getceids() { return getElements(); }
+  public @NonNull Set<String> getceids() { return getElements(); }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "OIOCE" + super.toString();
   }
 
-  @NonNull @Override public SWRLClassExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLClassExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

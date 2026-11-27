@@ -17,8 +17,8 @@ public class DOO implements DR
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull public final String drid;
-  @NonNull public final Set<@NonNull L> literals;
+  public final @NonNull String drid;
+  public final @NonNull Set<@NonNull L> literals;
 
   public DOO(@NonNull String drid, @NonNull Set<@NonNull L> literals)
   {
@@ -26,7 +26,7 @@ public class DOO implements DR
     this.literals = literals;
   }
 
-  @NonNull @Override public String getdrid()
+  @Override public @NonNull String getdrid()
   {
     return this.drid;
   }

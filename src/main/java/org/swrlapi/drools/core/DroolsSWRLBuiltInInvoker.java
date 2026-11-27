@@ -31,13 +31,13 @@ import java.util.Optional;
  */
 public class DroolsSWRLBuiltInInvoker
 {
-  @NonNull private final SWRLRuleEngineBridge bridge;
-  @NonNull private final DroolsSWRLBuiltInArgument2BAConverter builtInArgumentConvertor;
-  @NonNull private final DroolsSWRLBuiltInArgumentExtractor builtInArgumentExtractor;
+  private final @NonNull SWRLRuleEngineBridge bridge;
+  private final @NonNull DroolsSWRLBuiltInArgument2BAConverter builtInArgumentConvertor;
+  private final @NonNull DroolsSWRLBuiltInArgumentExtractor builtInArgumentExtractor;
 
   public static final int MAX_BUILTIN_ARGUMENTS = 11;
 
-  @NonNull private final Map<@NonNull String, @NonNull List<@NonNull List<@NonNull SWRLBuiltInArgument>>> invocationPatternMap;
+  private final @NonNull Map<@NonNull String, @NonNull List<@NonNull List<@NonNull SWRLBuiltInArgument>>> invocationPatternMap;
 
   public DroolsSWRLBuiltInInvoker(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler,
@@ -56,7 +56,7 @@ public class DroolsSWRLBuiltInInvoker
     this.invocationPatternMap.clear();
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1)
   {
     List<@NonNull BA> bas = new ArrayList<>();
@@ -64,7 +64,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1)
   {
     List<@NonNull BA> bas = new ArrayList<>();
@@ -72,7 +72,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2)
   {
     List<@NonNull BA> bas = new ArrayList<>();
@@ -81,7 +81,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2)
   {
     List<@NonNull BA> bas = new ArrayList<>();
@@ -90,7 +90,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3)
   {
     List<@NonNull BA> bas = new ArrayList<>();
@@ -100,7 +100,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3)
   {
@@ -111,7 +111,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4)
   {
     List<@NonNull BA> bas = new ArrayList<>();
@@ -122,7 +122,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4)
   {
@@ -134,7 +134,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5)
   {
     List<@NonNull BA> bas = new ArrayList<>();
@@ -146,7 +146,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5)
   {
@@ -159,7 +159,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5,
     @NonNull BA ba6)
   {
@@ -173,7 +173,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6)
   {
@@ -187,7 +187,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5,
     @NonNull BA ba6, @NonNull BA ba7)
   {
@@ -202,7 +202,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6, @NonNull BA ba7)
   {
@@ -217,7 +217,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5,
     @NonNull BA ba6, @NonNull BA ba7, @NonNull BA ba8)
   {
@@ -233,7 +233,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6, BA ba7, @NonNull BA ba8)
   {
@@ -249,7 +249,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5,
     @NonNull BA ba6, @NonNull BA ba7, @NonNull BA ba8, @NonNull BA ba9)
   {
@@ -266,7 +266,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6, BA ba7, @NonNull BA ba8, @NonNull BA ba9)
   {
@@ -283,7 +283,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5,
     @NonNull BA ba6, @NonNull BA ba7, @NonNull BA ba8, @NonNull BA ba9, @NonNull BA ba10)
   {
@@ -301,7 +301,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6, BA ba7, @NonNull BA ba8, @NonNull BA ba9,
     @NonNull BA ba10)
@@ -320,7 +320,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, vpath, bavns, bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull BA ba1, @NonNull BA ba2, @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5,
     @NonNull BA ba6, @NonNull BA ba7, @NonNull BA ba8, @NonNull BA ba9, @NonNull BA ba10, @NonNull BA ba11)
   {
@@ -339,7 +339,7 @@ public class DroolsSWRLBuiltInInvoker
     return invoke(ruleName, builtInName, builtInIndex, isInConsequent, new VPATH(), new BAVNs(), bas);
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs bavns, @NonNull BA ba1, @NonNull BA ba2,
     @NonNull BA ba3, @NonNull BA ba4, @NonNull BA ba5, @NonNull BA ba6, BA ba7, @NonNull BA ba8, @NonNull BA ba9,
     @NonNull BA ba10, @NonNull BA ba11)
@@ -379,7 +379,7 @@ public class DroolsSWRLBuiltInInvoker
     return sb.toString();
   }
 
-  @NonNull public List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
+  public @NonNull List<@NonNull BAP> invoke(@NonNull String ruleName, @NonNull String builtInName, int builtInIndex,
     boolean isInConsequent, @NonNull VPATH vpath, @NonNull BAVNs argumentVariableNames, @NonNull List<@NonNull BA> bas)
   {
     List<@NonNull SWRLBuiltInArgument> builtInArguments = bas2SWRLBuiltInArguments(ruleName, builtInName,
@@ -423,7 +423,7 @@ public class DroolsSWRLBuiltInInvoker
     }
   }
 
-  @NonNull private List<@NonNull SWRLBuiltInArgument> bas2SWRLBuiltInArguments(@NonNull String ruleName,
+  private @NonNull List<@NonNull SWRLBuiltInArgument> bas2SWRLBuiltInArguments(@NonNull String ruleName,
     @NonNull String builtInName, @NonNull BAVNs argumentVariableNames, @NonNull List<@NonNull BA> bas)
   {
     List<@NonNull SWRLBuiltInArgument> arguments = new ArrayList<>();
@@ -453,7 +453,7 @@ public class DroolsSWRLBuiltInInvoker
     return arguments;
   }
 
-  @NonNull private List<@NonNull SWRLBuiltInArgument> vpath2SWRLBuiltInArguments(@NonNull String ruleName,
+  private @NonNull List<@NonNull SWRLBuiltInArgument> vpath2SWRLBuiltInArguments(@NonNull String ruleName,
     @NonNull String builtInName, @NonNull VPATH vpath)
   {
     List<@NonNull SWRLBuiltInArgument> arguments = new ArrayList<>();
@@ -471,7 +471,7 @@ public class DroolsSWRLBuiltInInvoker
     return arguments;
   }
 
-  @NonNull private List<@NonNull BAP> swrlBuiltInArgumentPatterns2BAPs(@NonNull String ruleName,
+  private @NonNull List<@NonNull BAP> swrlBuiltInArgumentPatterns2BAPs(@NonNull String ruleName,
     @NonNull String builtInName, @NonNull List<@NonNull List<@NonNull SWRLBuiltInArgument>> argumentPatterns)
     throws SWRLBuiltInException
   {
@@ -528,17 +528,17 @@ public class DroolsSWRLBuiltInInvoker
         "unknown invocation pattern in " + builtInName + " in rule " + ruleName);
   }
 
-  @NonNull private DroolsSWRLBuiltInArgument2BAConverter getSWRLBuiltInArgumentConverter()
+  private @NonNull DroolsSWRLBuiltInArgument2BAConverter getSWRLBuiltInArgumentConverter()
   {
     return this.builtInArgumentConvertor;
   }
 
-  @NonNull private DroolsSWRLBuiltInArgumentExtractor getSWRLAtomArgumentExtractor()
+  private @NonNull DroolsSWRLBuiltInArgumentExtractor getSWRLAtomArgumentExtractor()
   {
     return this.builtInArgumentExtractor;
   }
 
-  @NonNull private SWRLRuleEngineBridge getBridge()
+  private @NonNull SWRLRuleEngineBridge getBridge()
   {
     return this.bridge;
   }

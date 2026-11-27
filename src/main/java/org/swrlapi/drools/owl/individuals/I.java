@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.individuals;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -23,14 +24,14 @@ public class I implements OE
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull public final String id;
+  public final @NonNull String id;
 
   public I(@NonNull String name)
   {
     this.id = name;
   }
 
-  @NonNull public String getid() { return this.id; }
+  public @NonNull String getid() { return this.id; }
 
   /*
    * We have no way of anticipating the return types of built-ins in rules so we need to perform a runtime check.
@@ -45,19 +46,19 @@ public class I implements OE
         "expecting OWL named individual from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override public OWLNamedIndividual extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @Override public @NonNull OWLNamedIndividual extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override public SWRLNamedIndividualBuiltInArgument extract(
+  @Override public @NonNull SWRLNamedIndividualBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
     if (this == o)
       return true;

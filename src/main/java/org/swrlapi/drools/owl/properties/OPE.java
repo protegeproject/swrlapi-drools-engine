@@ -14,7 +14,7 @@ public class OPE extends PE implements BA
 {
   public OPE(@NonNull String peid) { super(peid); }
 
-  @NonNull @Override public SWRLObjectPropertyExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLObjectPropertyExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("OPE.extract");

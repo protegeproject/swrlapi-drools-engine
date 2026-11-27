@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public class SQWRLC implements BA
 {
-  @NonNull private final String variableName, queryName, collectionName, collectionID;
+  private final @NonNull String variableName, queryName, collectionName, collectionID;
 
   public SQWRLC(@NonNull String variableName, @NonNull String queryName, @NonNull String collectionName,
     @NonNull String collectionID)
@@ -30,33 +30,33 @@ public class SQWRLC implements BA
     this.collectionID = collectionID;
   }
 
-  @NonNull public String getVariableName()
+  public @NonNull String getVariableName()
   {
     return this.variableName;
   }
 
-  @NonNull public String getQueryName()
+  public @NonNull String getQueryName()
   {
     return this.queryName;
   }
 
-  @NonNull public String getCollectionName()
+  public @NonNull String getCollectionName()
   {
     return this.collectionName;
   }
 
-  @NonNull public String getCollectionID()
+  public @NonNull String getCollectionID()
   {
     return this.collectionID;
   }
 
-  @NonNull @Override public SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "SQWRLC(" + getQueryName() + ", " + getCollectionName() + ", " + getCollectionID() + ")";
   }

@@ -11,7 +11,7 @@ import java.io.StringReader;
 
 public class DroolsResourceHandler
 {
-  @NonNull private final KnowledgeBuilder knowledgeBuilder;
+  private final @NonNull KnowledgeBuilder knowledgeBuilder;
 
   public DroolsResourceHandler(@NonNull KnowledgeBuilder knowledgeBuilder)
   {
@@ -170,7 +170,7 @@ public class DroolsResourceHandler
     this.knowledgeBuilder.add(createDRLResource(resourceText), ResourceType.DRL);
   }
 
-  @NonNull private Resource createDRLResource(@NonNull String resourceText)
+  private @NonNull Resource createDRLResource(@NonNull String resourceText)
   {
     Resource resource = ResourceFactory.newReaderResource(new StringReader(resourceText));
     if (resource != null)

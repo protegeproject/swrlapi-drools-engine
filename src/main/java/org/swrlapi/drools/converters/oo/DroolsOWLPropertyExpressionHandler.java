@@ -28,16 +28,16 @@ public class DroolsOWLPropertyExpressionHandler extends TargetRuleEngineConverte
 {
   private int propertyExpressionIndex = 0;
 
-  @NonNull private final Map<@NonNull OWLObjectPropertyExpression, OPE> pe2ope = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLDataPropertyExpression, DPE> pe2dpe = new HashMap<>();
-  @NonNull private final Map<@NonNull OWLAnnotationProperty, AP> ap2ap = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLObjectPropertyExpression> peid2objectPropertyExpression = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLDataPropertyExpression> peid2dataPropertyExpression = new HashMap<>();
-  @NonNull private final Map<@NonNull String, @NonNull OWLAnnotationProperty> pid2annotationProperty = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLObjectPropertyExpression, OPE> pe2ope = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLDataPropertyExpression, DPE> pe2dpe = new HashMap<>();
+  private final @NonNull Map<@NonNull OWLAnnotationProperty, AP> ap2ap = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLObjectPropertyExpression> peid2objectPropertyExpression = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLDataPropertyExpression> peid2dataPropertyExpression = new HashMap<>();
+  private final @NonNull Map<@NonNull String, @NonNull OWLAnnotationProperty> pid2annotationProperty = new HashMap<>();
 
-  @NonNull private final Map<@NonNull String, OPE> peid2OPE = new HashMap<>();
-  @NonNull private final Map<@NonNull String, DPE> peid2DPE = new HashMap<>();
-  @NonNull private final Map<@NonNull String, AP> pid2AP = new HashMap<>();
+  private final @NonNull Map<@NonNull String, OPE> peid2OPE = new HashMap<>();
+  private final @NonNull Map<@NonNull String, DPE> peid2DPE = new HashMap<>();
+  private final @NonNull Map<@NonNull String, AP> pid2AP = new HashMap<>();
 
   public DroolsOWLPropertyExpressionHandler(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -120,22 +120,22 @@ public class DroolsOWLPropertyExpressionHandler extends TargetRuleEngineConverte
     return convert(annotationProperty);
   }
 
-   @NonNull @Override public OWLObjectPropertyExpression convert(@NonNull OPE pe)
+   @Override public @NonNull OWLObjectPropertyExpression convert(@NonNull OPE pe)
   {
     return resolveOWLObjectPropertyExpression(pe.getid());
   }
 
-   @NonNull @Override public OWLDataPropertyExpression convert(@NonNull DPE pe)
+   @Override public @NonNull OWLDataPropertyExpression convert(@NonNull DPE pe)
   {
     return resolveOWLDataPropertyExpression(pe.getid());
   }
 
-   @NonNull @Override public OWLAnnotationProperty convert(@NonNull AP ap)
+   @Override public @NonNull OWLAnnotationProperty convert(@NonNull AP ap)
   {
     return resolveOWLAnnotationProperty(ap.getid());
   }
 
-   @NonNull @Override public OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(@NonNull String peid)
+   @Override public @NonNull OWLObjectPropertyExpression resolveOWLObjectPropertyExpression(@NonNull String peid)
   {
     if (this.peid2objectPropertyExpression.containsKey(peid))
       return this.peid2objectPropertyExpression.get(peid);
@@ -144,7 +144,7 @@ public class DroolsOWLPropertyExpressionHandler extends TargetRuleEngineConverte
         "could not resolve an OWL object property expression from a Drools object property expression with id " + peid);
   }
 
-   @NonNull @Override public OWLDataPropertyExpression resolveOWLDataPropertyExpression(@NonNull String peid)
+   @Override public @NonNull OWLDataPropertyExpression resolveOWLDataPropertyExpression(@NonNull String peid)
   {
     if (this.peid2dataPropertyExpression.containsKey(peid))
       return this.peid2dataPropertyExpression.get(peid);
@@ -153,7 +153,7 @@ public class DroolsOWLPropertyExpressionHandler extends TargetRuleEngineConverte
         "could not resolve an OWL data property expression from a Drools data property expression with id " + peid);
   }
 
-   @NonNull @Override public OWLAnnotationProperty resolveOWLAnnotationProperty(@NonNull String pid)
+   @Override public @NonNull OWLAnnotationProperty resolveOWLAnnotationProperty(@NonNull String pid)
   {
     if (this.pid2annotationProperty.containsKey(pid))
       return this.pid2annotationProperty.get(pid);
@@ -162,7 +162,7 @@ public class DroolsOWLPropertyExpressionHandler extends TargetRuleEngineConverte
         "could not resolve an OWL annotation property from a Drools annotation property with id " + pid);
   }
 
-  @NonNull private String generatePEID()
+  private @NonNull String generatePEID()
   {
     return "PEID" + this.propertyExpressionIndex++;
   }

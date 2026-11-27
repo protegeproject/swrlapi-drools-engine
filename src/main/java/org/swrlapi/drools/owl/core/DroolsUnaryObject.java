@@ -9,19 +9,19 @@ import java.util.Objects;
 
 public abstract class DroolsUnaryObject<T1>
 {
-  @NonNull private final T1 t1;
+  private final @NonNull T1 t1;
 
   protected DroolsUnaryObject(@NonNull T1 t1)
   {
     this.t1 = t1;
   }
 
-  @NonNull protected T1 getT1()
+  protected @NonNull T1 getT1()
   {
     return this.t1;
   }
 
-   @NonNull @SideEffectFree @Override public String toString()
+   @SideEffectFree @Override public @NonNull String toString()
   {
     return "(" + this.t1 + ")";
   }

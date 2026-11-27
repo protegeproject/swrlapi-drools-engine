@@ -9,8 +9,8 @@ import java.util.Objects;
 
 public abstract class DroolsBinaryObject<T1, T2>
 {
-  @NonNull private final T1 t1;
-  @NonNull private final T2 t2;
+  private final @NonNull T1 t1;
+  private final @NonNull T2 t2;
 
   protected DroolsBinaryObject(@NonNull T1 t1, @NonNull T2 t2)
   {
@@ -18,12 +18,12 @@ public abstract class DroolsBinaryObject<T1, T2>
     this.t2 = t2;
   }
 
-  @NonNull public T1 getT1()
+  public @NonNull T1 getT1()
   {
     return this.t1;
   }
 
-  @NonNull public T2 getT2()
+  public @NonNull T2 getT2()
   {
     return this.t2;
   }
@@ -50,7 +50,7 @@ public abstract class DroolsBinaryObject<T1, T2>
     return result;
   }
 
-   @NonNull @SideEffectFree @Override public String toString()
+   @SideEffectFree @Override public @NonNull String toString()
   {
     return "(" + this.t1 + ", " + this.t2 + ")";
   }

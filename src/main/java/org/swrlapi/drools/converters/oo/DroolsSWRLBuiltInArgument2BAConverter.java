@@ -51,7 +51,7 @@ import org.swrlapi.exceptions.TargetSWRLRuleEngineInternalException;
 public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
   implements TargetRuleEngineSWRLBuiltInArgumentConverter<BA>, SWRLBuiltInArgumentVisitorEx<BA>
 {
-  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  private final @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
 
   public DroolsSWRLBuiltInArgument2BAConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler)
@@ -60,81 +60,81 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
     this.droolsOWLClassExpressionHandler = droolsOWLClassExpressionHandler;
   }
 
-  @NonNull public BA convert(@NonNull SWRLBuiltInArgument argument)
+  public @NonNull BA convert(@NonNull SWRLBuiltInArgument argument)
   {
     return argument.accept(this);
   }
 
-  @NonNull @Override public C convert(@NonNull SWRLClassBuiltInArgument argument)
+  @Override public @NonNull C convert(@NonNull SWRLClassBuiltInArgument argument)
   {
     OWLClass cls = argument.getOWLClass();
 
     return getDroolsOWLEntity2OEConverter().convert(cls);
   }
 
-  @NonNull @Override public CE convert(SWRLClassExpressionBuiltInArgument argument)
+  @Override public @NonNull CE convert(SWRLClassExpressionBuiltInArgument argument)
   {
     OWLClassExpression classExpression = argument.getOWLClassExpression();
 
     return getDroolsOWLClassExpressionHandler().convert(classExpression);
   }
 
-  @NonNull @Override public I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
+  @Override public @NonNull I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     OWLNamedIndividual individual = argument.getOWLNamedIndividual();
 
     return getDroolsOWLEntity2OEConverter().convert(individual);
   }
 
-  @NonNull @Override public OP convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
+  @Override public @NonNull OP convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     OWLObjectProperty property = argument.getOWLObjectProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @NonNull @Override public OPE convert(SWRLObjectPropertyExpressionBuiltInArgument argument)
+  @Override public @NonNull OPE convert(SWRLObjectPropertyExpressionBuiltInArgument argument)
   {
     OWLObjectPropertyExpression pe = argument.getOWLObjectPropertyExpression();
 
     throw new RuntimeException("create OPE from object property expression built-in argument");  // TODO
   }
 
-  @NonNull @Override public DP convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
+  @Override public @NonNull DP convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     OWLDataProperty property = argument.getOWLDataProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @NonNull @Override public DPE convert(SWRLDataPropertyExpressionBuiltInArgument argument)
+  @Override public @NonNull DPE convert(SWRLDataPropertyExpressionBuiltInArgument argument)
   {
     OWLDataPropertyExpression pe = argument.getOWLDataPropertyExpression();
     throw new RuntimeException("create OPE from object property expression built-in argument");  // TODO
   }
 
-  @NonNull @Override public AP convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
+  @Override public @NonNull AP convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     OWLAnnotationProperty property = argument.getOWLAnnotationProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @NonNull @Override public D convert(@NonNull SWRLDatatypeBuiltInArgument argument)
+  @Override public @NonNull D convert(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     OWLDatatype datatype = argument.getOWLDatatype();
 
     return getDroolsOWLEntity2OEConverter().convert(datatype);
   }
 
-  @NonNull @Override public L convert(@NonNull SWRLLiteralBuiltInArgument argument)
+  @Override public @NonNull L convert(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     OWLLiteral literal = argument.getLiteral();
 
     return getDroolsOWLLiteral2LConverter().convert(literal);
   }
 
-  @NonNull @Override public UBA convert(@NonNull SWRLVariableBuiltInArgument argument)
+  @Override public @NonNull UBA convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
       return new UBA(getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument));
@@ -142,78 +142,78 @@ public class DroolsSWRLBuiltInArgument2BAConverter extends DroolsOOConverterBase
       throw new TargetSWRLRuleEngineInternalException("expecting unbound argument, got bound argument " + argument);
   }
 
-  @NonNull @Override public SQWRLC convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
+  @Override public @NonNull SQWRLC convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
     return new SQWRLC(getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument),
       argument.getQueryName(), argument.getCollectionName(), argument.getGroupID());
   }
 
-  @NonNull @Override public C visit(@NonNull SWRLClassBuiltInArgument argument)
+  @Override public @NonNull C visit(@NonNull SWRLClassBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public CE visit(SWRLClassExpressionBuiltInArgument argument)
+  @Override public @NonNull CE visit(SWRLClassExpressionBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public I visit(@NonNull SWRLNamedIndividualBuiltInArgument argument)
+  @Override public @NonNull I visit(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public OP visit(@NonNull SWRLObjectPropertyBuiltInArgument argument)
+  @Override public @NonNull OP visit(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public OPE visit(@NonNull SWRLObjectPropertyExpressionBuiltInArgument argument)
+  @Override public @NonNull OPE visit(@NonNull SWRLObjectPropertyExpressionBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public DP visit(@NonNull SWRLDataPropertyBuiltInArgument argument)
+  @Override public @NonNull DP visit(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public DPE visit(SWRLDataPropertyExpressionBuiltInArgument argument)
+  @Override public @NonNull DPE visit(SWRLDataPropertyExpressionBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public AP visit(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
+  @Override public @NonNull AP visit(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public D visit(@NonNull SWRLDatatypeBuiltInArgument argument)
+  @Override public @NonNull D visit(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public L visit(@NonNull SWRLLiteralBuiltInArgument argument)
+  @Override public @NonNull L visit(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public UBA visit(@NonNull SWRLVariableBuiltInArgument argument)
+  @Override public @NonNull UBA visit(@NonNull SWRLVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public UBA visit(@NonNull SWRLMultiValueVariableBuiltInArgument argument)
+  @Override public @NonNull UBA visit(@NonNull SWRLMultiValueVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull @Override public SQWRLC visit(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
+  @Override public @NonNull SQWRLC visit(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
     return convert(argument);
   }
 
-  @NonNull private DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
+  private @NonNull DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
   {
     return this.droolsOWLClassExpressionHandler;
   }

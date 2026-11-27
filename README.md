@@ -11,7 +11,7 @@ Include this engine with the matching SWRLAPI library and create engines through
 Build the current sibling sources together with JDK 17 / Maven 3.9 from the workspace root:
 
 ```sh
-mvn -B -f swrlapi-project/pom.xml -Pcore,static-analysis clean verify
+mvn -B -f swrlapi-project/pom.xml -Pcore,nullness,static-analysis clean verify
 ```
 
 The core build needs no Protégé installation. It runs isolated rule tests, public

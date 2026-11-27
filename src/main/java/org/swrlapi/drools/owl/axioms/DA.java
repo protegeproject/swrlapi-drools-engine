@@ -19,12 +19,12 @@ abstract class DA<T1 extends OE> extends DroolsUnaryObject<T1> implements A
     super(entity);
   }
 
-  @NonNull public T1 getE()
+  public @NonNull T1 getE()
   {
     return getT1();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return getE().toString();
   }

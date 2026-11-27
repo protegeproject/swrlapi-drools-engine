@@ -17,7 +17,7 @@ public class BAVNs
 {
   public static final int MaxArguments = 10;
 
-  @NonNull private final List<@NonNull String> variableNames = new ArrayList<>();
+  private final @NonNull List<@NonNull String> variableNames = new ArrayList<>();
 
   /*
    * The following vararg constructor does not seem to work in this version of Drools
@@ -130,7 +130,7 @@ public class BAVNs
     this.variableNames.add(v10);
   }
 
-  @NonNull public List<@NonNull String> getVariableNames()
+  public @NonNull List<@NonNull String> getVariableNames()
   {
     return this.variableNames;
   }
@@ -145,7 +145,7 @@ public class BAVNs
     return getNumberOfArguments() != 0;
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     String representation = DroolsNames.BUILT_IN_VARIABLE_NAMES_CLASS_NAME + "(";
     boolean isFirst = true;

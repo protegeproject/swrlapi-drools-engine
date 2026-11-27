@@ -20,7 +20,7 @@ public class EDPA extends DroolsBinaryPropertiesAxiom
     super(property1ID, property2ID);
   }
 
-  @NonNull @Override public OWLEquivalentDataPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLEquivalentDataPropertiesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class EDPA extends DroolsBinaryPropertiesAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "EDPA" + super.toString();
   }

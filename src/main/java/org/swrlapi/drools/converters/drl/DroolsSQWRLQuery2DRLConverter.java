@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
  */
 public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implements TargetRuleEngineSQWRLQueryConverter
 {
-  @NonNull private final DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
-  @NonNull private final DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
-  @NonNull private final DroolsSWRLRuleEngine droolsEngine;
+  private final @NonNull DroolsSWRLBodyAtom2DRLConverter bodyAtom2DRLConverter;
+  private final @NonNull DroolsSWRLHeadAtom2DRLConverter headAtom2DRLConverter;
+  private final @NonNull DroolsSWRLRuleEngine droolsEngine;
 
   public DroolsSQWRLQuery2DRLConverter(@NonNull SWRLRuleEngineBridge bridge, @NonNull DroolsSWRLRuleEngine droolsEngine,
     @NonNull DroolsOWLClassExpressionHandler classExpressionHandler,
@@ -175,32 +175,32 @@ public class DroolsSQWRLQuery2DRLConverter extends DroolsDRLConverterBase implem
     getDroolsSWRLEngine().defineDRLSQWRLPhase2Rule(queryName, phase2RuleName, drlPhase2Rule);
   }
 
-  @NonNull private String getQueryPreamble(@NonNull String queryName)
+  private @NonNull String getQueryPreamble(@NonNull String queryName)
   {
     return "rule \"" + queryName + "\" \nwhen ";
   }
 
-  @NonNull private String addQueryEndClause(@NonNull String queryText)
+  private @NonNull String addQueryEndClause(@NonNull String queryText)
   {
     return queryText + "\nend";
   }
 
-  @NonNull private String addQueryThenClause(@NonNull String queryText)
+  private @NonNull String addQueryThenClause(@NonNull String queryText)
   {
     return queryText + "\nthen ";
   }
 
-  @NonNull private DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtom2DRLConverter()
+  private @NonNull DroolsSWRLBodyAtom2DRLConverter getDroolsSWRLBodyAtom2DRLConverter()
   {
     return this.bodyAtom2DRLConverter;
   }
 
-  @NonNull private DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtom2DRLConverter()
+  private @NonNull DroolsSWRLHeadAtom2DRLConverter getDroolsSWRLHeadAtom2DRLConverter()
   {
     return this.headAtom2DRLConverter;
   }
 
-  @NonNull private DroolsSWRLRuleEngine getDroolsSWRLEngine()
+  private @NonNull DroolsSWRLRuleEngine getDroolsSWRLEngine()
   {
     return this.droolsEngine;
   }

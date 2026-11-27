@@ -51,74 +51,74 @@ public class DroolsSWRLAtomArgument2AAConverter extends DroolsOOConverterBase
     super(bridge);
   }
 
-  @NonNull @Override public VA convert(@NonNull SWRLVariable argument)
+  @Override public @NonNull VA convert(@NonNull SWRLVariable argument)
   {
     String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2DRLVariableName(argument);
     return new VA(variableName);
   }
 
-  @NonNull @Override public I convert(@NonNull SWRLIndividualArgument argument)
+  @Override public @NonNull I convert(@NonNull SWRLIndividualArgument argument)
   {
     OWLIndividual individual = argument.getIndividual();
 
     return getDroolsOWLIndividual2IConverter().convert(individual);
   }
 
-  @NonNull @Override public L convert(@NonNull SWRLLiteralArgument argument)
+  @Override public @NonNull L convert(@NonNull SWRLLiteralArgument argument)
   {
     return getDroolsOWLLiteral2LConverter().convert(argument.getLiteral());
   }
 
-  @NonNull @Override public C convert(@NonNull SWRLClassBuiltInArgument argument)
+  @Override public @NonNull C convert(@NonNull SWRLClassBuiltInArgument argument)
   {
     OWLClass cls = argument.getOWLClass();
 
     return getDroolsOWLEntity2OEConverter().convert(cls);
   }
 
-  @NonNull @Override public I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
+  @Override public @NonNull I convert(@NonNull SWRLNamedIndividualBuiltInArgument argument)
   {
     OWLNamedIndividual individual = argument.getOWLNamedIndividual();
 
     return getDroolsOWLEntity2OEConverter().convert(individual);
   }
 
-  @NonNull @Override public OP convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
+  @Override public @NonNull OP convert(@NonNull SWRLObjectPropertyBuiltInArgument argument)
   {
     OWLObjectProperty property = argument.getOWLObjectProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @NonNull @Override public DP convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
+  @Override public @NonNull DP convert(@NonNull SWRLDataPropertyBuiltInArgument argument)
   {
     OWLDataProperty property = argument.getOWLDataProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @NonNull @Override public AP convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
+  @Override public @NonNull AP convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument)
   {
     OWLAnnotationProperty property = argument.getOWLAnnotationProperty();
 
     return getDroolsOWLEntity2OEConverter().convert(property);
   }
 
-  @NonNull @Override public D convert(@NonNull SWRLDatatypeBuiltInArgument argument)
+  @Override public @NonNull D convert(@NonNull SWRLDatatypeBuiltInArgument argument)
   {
     OWLDatatype datatype = argument.getOWLDatatype();
 
     return getDroolsOWLEntity2OEConverter().convert(datatype);
   }
 
-  @NonNull @Override public L convert(@NonNull SWRLLiteralBuiltInArgument argument)
+  @Override public @NonNull L convert(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     OWLLiteral literal = argument.getLiteral();
 
     return getDroolsOWLLiteral2LConverter().convert(literal);
   }
 
-  @NonNull @Override public UBA convert(@NonNull SWRLVariableBuiltInArgument argument)
+  @Override public @NonNull UBA convert(@NonNull SWRLVariableBuiltInArgument argument)
   {
     if (argument.isUnbound())
       return new UBA(getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument));
@@ -126,7 +126,7 @@ public class DroolsSWRLAtomArgument2AAConverter extends DroolsOOConverterBase
       throw new TargetSWRLRuleEngineInternalException("expecting unbound argument, got bound argument " + argument);
   }
 
-  @NonNull @Override public BA convert(SQWRLCollectionVariableBuiltInArgument argument)
+  @Override public @NonNull BA convert(SQWRLCollectionVariableBuiltInArgument argument)
   { // TODO ? Yes it does!?
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("Drools does not support SQWRL collections yet");
   }

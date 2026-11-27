@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.dataranges;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.dataflow.qual.Deterministic;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -24,14 +25,14 @@ public class D implements DR, OE
 {
   private static final long serialVersionUID = 1L;
 
-  @NonNull private final String id;
+  private final @NonNull String id;
 
   public D(@NonNull String name)
   {
     this.id = name;
   }
 
-  @NonNull public String getid()
+  public @NonNull String getid()
   {
     return this.id;
   }
@@ -49,29 +50,29 @@ public class D implements DR, OE
         "expecting OWL datatype from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override public String getdrid()
+  @Override public @NonNull String getdrid()
   {
     return getid();
   }
 
-  @NonNull @Override public OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @Override public @NonNull OWLDatatype extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override public SWRLDatatypeBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
+  @Override public @NonNull SWRLDatatypeBuiltInArgument extract(@NonNull DroolsSWRLBuiltInArgumentExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull public static D getTopDatatype()
+  public static @NonNull D getTopDatatype()
   {
     return new D(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
   }
 
-  @SideEffectFree @Deterministic @Override public boolean equals(Object o)
+  @SideEffectFree @Deterministic @Override public boolean equals(@Nullable Object o)
   {
     if (this == o)
       return true;

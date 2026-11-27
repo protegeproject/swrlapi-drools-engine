@@ -20,7 +20,7 @@ public class IROPA extends DroolsUnaryPropertyAxiom
     super(propertyID);
   }
 
-  @NonNull @Override public OWLIrreflexiveObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLIrreflexiveObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class IROPA extends DroolsUnaryPropertyAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "IROPA" + super.toString();
   }

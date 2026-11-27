@@ -1,5 +1,6 @@
 package org.swrlapi.drools.owl.literals;
 
+import java.util.Optional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -221,8 +222,11 @@ public final class LiteralValues
 
   private static void collectNodes(Node node, List<Node> nodes) {
     nodes.add(node);
-    if (node.hasAttributes())
-      for (int i = 0; i < node.getAttributes().getLength(); i++) nodes.add(node.getAttributes().item(i));
+    org.w3c.dom.NamedNodeMap attributes = node.getAttributes();
+    if (attributes != null)
+      for (int i = 0; i < attributes.getLength(); i++)
+        nodes.add(Optional.ofNullable(attributes.item(i))
+          .orElseThrow(() -> new IllegalStateException("Missing DOM attribute")));
     for (Node child = node.getFirstChild(); child != null; child = child.getNextSibling()) collectNodes(child, nodes);
   }
 

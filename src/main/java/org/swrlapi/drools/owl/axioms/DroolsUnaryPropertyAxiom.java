@@ -12,7 +12,7 @@ abstract class DroolsUnaryPropertyAxiom extends DroolsUnaryObject<String> implem
     super(propertyID);
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT1();
   }

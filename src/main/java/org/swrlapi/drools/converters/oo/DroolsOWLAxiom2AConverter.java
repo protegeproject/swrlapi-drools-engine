@@ -119,12 +119,12 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
 {
   private final DroolsAxiomRuleGenerator axiomRules;
 
-  @NonNull private final DroolsSWRLRule2DRLConverter droolsSWRLRule2DRLConverter;
-  @NonNull private final DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
-  @NonNull private final DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
-  @NonNull private final DroolsOWLDataRangeHandler droolsOWLDataRangeHandler;
+  private final @NonNull DroolsSWRLRule2DRLConverter droolsSWRLRule2DRLConverter;
+  private final @NonNull DroolsOWLClassExpressionHandler droolsOWLClassExpressionHandler;
+  private final @NonNull DroolsOWLPropertyExpressionHandler droolsOWLPropertyExpressionHandler;
+  private final @NonNull DroolsOWLDataRangeHandler droolsOWLDataRangeHandler;
 
-  @NonNull private final Set<@NonNull A> assertedOWLAxioms  = new HashSet<>();
+  private final @NonNull Set<@NonNull A> assertedOWLAxioms  = new HashSet<>();
 
   public DroolsOWLAxiom2AConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLRuleEngine droolsSWRLRuleEngine,
@@ -148,12 +148,12 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     this.axiomRules.reset();
   }
 
-  @NonNull public Set<@NonNull A> getAssertedOWLAxioms()
+  public @NonNull Set<@NonNull A> getAssertedOWLAxioms()
   {
     return new HashSet<>(this.assertedOWLAxioms);
   }
 
-  @NonNull public Set<@NonNull CE> getOWLClassExpressions()
+  public @NonNull Set<@NonNull CE> getOWLClassExpressions()
   {
     return this.droolsOWLClassExpressionHandler.getCEs();
   }
@@ -807,17 +807,17 @@ public class DroolsOWLAxiom2AConverter extends DroolsOOConverterBase
     }
   }
 
-  @NonNull private DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
+  private @NonNull DroolsOWLClassExpressionHandler getDroolsOWLClassExpressionHandler()
   {
     return this.droolsOWLClassExpressionHandler;
   }
 
-  @NonNull private DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
+  private @NonNull DroolsOWLPropertyExpressionHandler getDroolsOWLPropertyExpressionHandler()
   {
     return this.droolsOWLPropertyExpressionHandler;
   }
 
-  @NonNull private DroolsSWRLRule2DRLConverter getDroolsSWRLRule2DRLConverter()
+  private @NonNull DroolsSWRLRule2DRLConverter getDroolsSWRLRule2DRLConverter()
   {
     return this.droolsSWRLRule2DRLConverter;
   }

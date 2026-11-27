@@ -1,5 +1,6 @@
 package org.swrlapi.drools.core;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.drools.core.impl.InternalKnowledgeBase;
 import org.drools.core.impl.KnowledgeBaseFactory;
@@ -63,29 +64,29 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
  */
 public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
 {
-  @NonNull private final SWRLRuleEngineBridge bridge;
+  private final @NonNull SWRLRuleEngineBridge bridge;
 
-  @NonNull private final DroolsOWLAxiom2AConverter axiom2AConverter;
-  @NonNull private final DroolsSQWRLQuery2DRLConverter sqwrlQuery2DRLConverter;
-  @NonNull private final DroolsOWLAxiomExtractor axiomExtractor;
-  @NonNull private final DroolsSWRLBuiltInInvoker builtInInvoker;
-  @NonNull private final DroolsSQWRLCollectionHandler sqwrlCollectionHandler;
-  @NonNull private final DroolsOWL2RLEngine owl2RLEngine;
-  @NonNull private final DefaultDroolsOWLAxiomHandler axiomInferrer;
-  @NonNull private final DroolsOWLClassExpressionHandler classExpressionHandler;
-  @NonNull private final DroolsOWLPropertyExpressionHandler propertyExpressionHandler;
-  @NonNull private final DroolsOWLDataRangeHandler dataRangeHandler;
+  private final @NonNull DroolsOWLAxiom2AConverter axiom2AConverter;
+  private final @NonNull DroolsSQWRLQuery2DRLConverter sqwrlQuery2DRLConverter;
+  private final @NonNull DroolsOWLAxiomExtractor axiomExtractor;
+  private final @NonNull DroolsSWRLBuiltInInvoker builtInInvoker;
+  private final @NonNull DroolsSQWRLCollectionHandler sqwrlCollectionHandler;
+  private final @NonNull DroolsOWL2RLEngine owl2RLEngine;
+  private final @NonNull DefaultDroolsOWLAxiomHandler axiomInferrer;
+  private final @NonNull DroolsOWLClassExpressionHandler classExpressionHandler;
+  private final @NonNull DroolsOWLPropertyExpressionHandler propertyExpressionHandler;
+  private final @NonNull DroolsOWLDataRangeHandler dataRangeHandler;
 
   // We keep track of axioms supplied to and inferred by Drools so that we do not redundantly assert them.
-  @NonNull private final Set<@NonNull OWLAxiom> assertedAndInferredOWLAxioms;
-  @NonNull private final Set<@NonNull String> allSQWRLQueryNames; // Drools is supplied with all currently enabled SQWRL queries.
+  private final @NonNull Set<@NonNull OWLAxiom> assertedAndInferredOWLAxioms;
+  private final @NonNull Set<@NonNull String> allSQWRLQueryNames; // Drools is supplied with all currently enabled SQWRL queries.
   // Typically, only one query is active so we use an agenda filter to ignore the ones that are not active.
-  @NonNull private final Set<@NonNull String> activeSQWRLQueryNames;
-  @NonNull private final Set<@NonNull String> phase1SQWRLRuleNames;
-  @NonNull private final Set<@NonNull String> phase2SQWRLRuleNames;
-  @NonNull private final Map<@NonNull String, String> ruleName2SQWRLQueryNameMap;
-  @NonNull private final SQWRLPhase1AgendaFilter sqwrlPhase1AgendaFilter;
-  @NonNull private final SQWRLPhase2AgendaFilter sqwrlPhase2AgendaFilter;
+  private final @NonNull Set<@NonNull String> activeSQWRLQueryNames;
+  private final @NonNull Set<@NonNull String> phase1SQWRLRuleNames;
+  private final @NonNull Set<@NonNull String> phase2SQWRLRuleNames;
+  private final @NonNull Map<@NonNull String, String> ruleName2SQWRLQueryNameMap;
+  private final @NonNull SQWRLPhase1AgendaFilter sqwrlPhase1AgendaFilter;
+  private final @NonNull SQWRLPhase2AgendaFilter sqwrlPhase2AgendaFilter;
 
   private InternalKnowledgeBase knowledgeBase;
   private KnowledgeBuilder knowledgeBuilder;
@@ -93,9 +94,11 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   private DroolsResourceHandler resourceHandler;
   private boolean ruleLoadRequired;
   private Set<OWLAxiom> compiledOntologyAxioms = new HashSet<>();
-  private DroolsOWLReasoner owlReasoner;
+  private @MonotonicNonNull DroolsOWLReasoner owlReasoner;
   private Runnable reasoningCheck = () -> { };
 
+  // Converters retain the engine for later use and do not invoke it in their constructors.
+  @SuppressWarnings({ "nullness:argument", "nullness:assignment" })
   public DroolsSWRLRuleEngine(@NonNull SWRLRuleEngineBridge bridge) throws TargetSWRLRuleEngineException
   {
     this.bridge = bridge;
@@ -266,7 +269,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
   /*
    * A target rule engine must also define an OWL reasoner implementation.
    */
-  @NonNull @Override public OWLReasoner getOWLReasoner()
+  @Override public @NonNull OWLReasoner getOWLReasoner()
   {
     if (this.owlReasoner == null || this.owlReasoner.isDisposed())
       this.owlReasoner = new DroolsOWLReasoner(this.bridge.getOWLOntology(), new SimpleConfiguration(),
@@ -331,24 +334,26 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     }
   }
 
-  @NonNull @Override public Icon getTargetRuleEngineIcon()
+  @Override public @NonNull Icon getTargetRuleEngineIcon()
   {
     return DroolsFactory.getSWRLRuleEngineIcon();
   }
 
-  @NonNull @Override public OWL2RLEngine getOWL2RLEngine()
+  @Override public @NonNull OWL2RLEngine getOWL2RLEngine()
   {
     return this.owl2RLEngine;
   }
 
-  @NonNull @Override public String getTargetRuleEngineName()
+  @Override public @NonNull String getTargetRuleEngineName()
   {
     return DroolsNames.RULE_ENGINE_NAME;
   }
 
-  @NonNull @Override public String getTargetRuleEngineVersion()
+  @Override public @NonNull String getTargetRuleEngineVersion()
   {
-    return getClass().getPackage().getImplementationVersion();
+    Package enginePackage = getClass().getPackage();
+    String version = enginePackage == null ? null : enginePackage.getImplementationVersion();
+    return version == null ? "unknown" : version;
   }
 
   /**
@@ -509,7 +514,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     }
   }
 
-  @NonNull private String getInvocationTargetCause(Throwable t)
+  private @NonNull String getInvocationTargetCause(Throwable t)
   {
     String message = t.getMessage() != null ? t.getMessage() : "";
 
@@ -518,7 +523,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
       if (currentThrowable instanceof InvocationTargetException) {
         InvocationTargetException invocationTargetException = (InvocationTargetException)currentThrowable;
         Throwable targetException = invocationTargetException.getTargetException();
-        if (targetException.getMessage() != null)
+        if (targetException != null && targetException.getMessage() != null)
           message += ": " + targetException.getMessage();
       }
       currentThrowable = currentThrowable.getCause();
@@ -526,7 +531,7 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     return message;
   }
 
-  @NonNull private String buildChainedErrorMessage(Throwable t)
+  private @NonNull String buildChainedErrorMessage(Throwable t)
   {
     String message = t.getMessage() != null ? t.getMessage() : "";
 
@@ -541,22 +546,22 @@ public class DroolsSWRLRuleEngine implements TargetSWRLRuleEngine
     return message;
   }
 
-  @NonNull private SWRLRuleEngineBridge getBridge()
+  private @NonNull SWRLRuleEngineBridge getBridge()
   {
     return this.bridge;
   }
 
-  @NonNull private DroolsOWLAxiom2AConverter getDroolsOWLAxiom2AConverter()
+  private @NonNull DroolsOWLAxiom2AConverter getDroolsOWLAxiom2AConverter()
   {
     return this.axiom2AConverter;
   }
 
-  @NonNull private DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor()
+  private @NonNull DroolsOWLAxiomExtractor getDroolsOWLAxiomExtractor()
   {
     return this.axiomExtractor;
   }
 
-  @NonNull private DroolsSQWRLQuery2DRLConverter getDroolsSQWRLQuery2DRLConverter()
+  private @NonNull DroolsSQWRLQuery2DRLConverter getDroolsSQWRLQuery2DRLConverter()
   {
     return this.sqwrlQuery2DRLConverter;
   }

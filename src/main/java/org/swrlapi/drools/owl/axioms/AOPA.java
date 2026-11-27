@@ -21,17 +21,17 @@ public class AOPA extends DroolsUnaryObject<String> implements A
     super(propertyID);
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT1();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "AOPA" + super.toString();
   }
 
-  @NonNull @Override public OWLAsymmetricObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLAsymmetricObjectPropertyAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

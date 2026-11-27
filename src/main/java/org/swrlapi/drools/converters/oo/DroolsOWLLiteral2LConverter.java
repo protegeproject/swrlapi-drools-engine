@@ -23,7 +23,7 @@ public class DroolsOWLLiteral2LConverter extends TargetRuleEngineConverterBase
     super(bridge);
   }
 
-  @NonNull @Override public L convert(@NonNull OWLLiteral literal)
+  @Override public @NonNull L convert(@NonNull OWLLiteral literal)
   {
     String literalValue = literal.getLiteral();
     IRI datatypeIRI = literal.getDatatype().getIRI();

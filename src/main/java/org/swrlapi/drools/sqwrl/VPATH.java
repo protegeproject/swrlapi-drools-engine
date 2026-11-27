@@ -15,7 +15,7 @@ public class VPATH
 {
   public static final int MaxArguments = 15;
 
-  @NonNull private final List<@NonNull BA> arguments;
+  private final @NonNull List<@NonNull BA> arguments;
 
   public VPATH()
   {
@@ -229,12 +229,12 @@ public class VPATH
     this.arguments.add(ba15);
   }
 
-  @NonNull public List<@NonNull BA> getArguments()
+  public @NonNull List<@NonNull BA> getArguments()
   {
     return Collections.unmodifiableList(this.arguments);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     StringBuilder sb = new StringBuilder();
 

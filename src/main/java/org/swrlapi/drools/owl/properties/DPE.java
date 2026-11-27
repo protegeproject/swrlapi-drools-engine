@@ -14,7 +14,7 @@ public class DPE extends PE implements BA
 {
   public DPE(@NonNull String peid) { super(peid); }
 
-  @NonNull @Override public SWRLDataPropertyExpressionBuiltInArgument extract(
+  @Override public @NonNull SWRLDataPropertyExpressionBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     throw new TargetSWRLRuleEngineNotImplementedFeatureException("DPE.extract");

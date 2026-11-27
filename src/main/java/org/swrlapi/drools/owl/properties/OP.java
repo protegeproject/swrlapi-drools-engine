@@ -40,24 +40,24 @@ public class OP extends OPE implements OE
         "expecting OWL object property from bound built-in argument, got " + ba.getClass().getCanonicalName());
   }
 
-  @NonNull @Override public SWRLObjectPropertyBuiltInArgument extract(
+  @Override public @NonNull SWRLObjectPropertyBuiltInArgument extract(
     @NonNull DroolsSWRLBuiltInArgumentExtractor extractor) throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull @Override public OWLObjectProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
+  @Override public @NonNull OWLObjectProperty extract(@NonNull DroolsOWLEntityExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
   }
 
-  @NonNull public static OP getOWLTopObjectProperty()
+  public static @NonNull OP getOWLTopObjectProperty()
   {
     return new OP(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getPrefixedName());
   }
 
-  @NonNull public static OP getOWLBottomObjectProperty()
+  public static @NonNull OP getOWLBottomObjectProperty()
   {
     return new OP(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getPrefixedName());
   }

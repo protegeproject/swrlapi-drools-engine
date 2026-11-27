@@ -40,22 +40,22 @@ public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
     this(new I(subjectName), propertyID, new I(objectName));
   }
 
-  @NonNull public I gets()
+  public @NonNull I gets()
   {
     return getT1();
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT2();
   }
 
-  @NonNull public I geto()
+  public @NonNull I geto()
   {
     return getT3();
   }
 
-  @NonNull @Override public OWLNegativeObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLNegativeObjectPropertyAssertionAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -66,7 +66,7 @@ public class NOPAA extends DroolsTernaryObject<I, String, I> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "NOPAA" + super.toString();
   }

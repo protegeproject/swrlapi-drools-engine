@@ -21,8 +21,8 @@ TargetRuleEngineOWLLiteralConverter<String>
     super(bridge);
   }
 
-  @NonNull @Override
-  public String convert(@NonNull OWLLiteral literal)
+  @Override public
+  @NonNull String convert(@NonNull OWLLiteral literal)
   {
     IRI datatypeIRI = literal.getDatatype().getIRI();
     String datatypePrefixedName = iri2PrefixedName(datatypeIRI);

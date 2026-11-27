@@ -33,10 +33,10 @@ import java.util.Set;
 public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineExtractorBase
   implements TargetRuleEngineSWRLBodyAtomArgumentWithVariableNamesConverter<String>
 {
-  @NonNull private final DroolsSWRLVariable2NameConverter droolsSWRLVariable2NameConverter;
-  @NonNull private final DroolsOWLLiteral2DRLConverter droolsOWLLiteral2DRLConverter;
-  @NonNull private final DroolsOWLIndividual2DRLConverter droolsOWLIndividual2DRLConverter;
-  @NonNull private final DroolsOWLEntity2NameConverter droolsOWLEntity2NameConverter;
+  private final @NonNull DroolsSWRLVariable2NameConverter droolsSWRLVariable2NameConverter;
+  private final @NonNull DroolsOWLLiteral2DRLConverter droolsOWLLiteral2DRLConverter;
+  private final @NonNull DroolsOWLIndividual2DRLConverter droolsOWLIndividual2DRLConverter;
+  private final @NonNull DroolsOWLEntity2NameConverter droolsOWLEntity2NameConverter;
 
   public DroolsSWRLBodyAtomArgument2DRLConverter(@NonNull SWRLRuleEngineBridge bridge,
     @NonNull DroolsSWRLVariable2NameConverter droolsSWRLVariable2NameConverter,
@@ -51,75 +51,75 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineExt
     this.droolsOWLEntity2NameConverter = droolsOWLEntity2NameConverter;
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLVariable variableArgument)
+  @Override public @NonNull String convert(@NonNull SWRLVariable variableArgument)
   {
     return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLLiteralArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLLiteralArgument argument)
   {
     return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLIndividualArgument individualArgument)
+  @Override public @NonNull String convert(@NonNull SWRLIndividualArgument individualArgument)
   {
     OWLIndividual individual = individualArgument.getIndividual();
 
     return getDroolsOWLIndividual2DRLConverter().convert(individual);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument variableArgument)
+  @Override public @NonNull String convert(@NonNull SWRLVariableBuiltInArgument variableArgument)
   {
     return getDroolsSWRLVariable2NameConverter().swrlVariable2DRL(variableArgument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLClassBuiltInArgument classArgument)
+  @Override public @NonNull String convert(@NonNull SWRLClassBuiltInArgument classArgument)
   {
     return addQuotes(getDroolsOWLEntity2NameConverter().convert(classArgument.getOWLClass()));
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument namedIndividualArgument)
+  @Override public @NonNull String convert(@NonNull SWRLNamedIndividualBuiltInArgument namedIndividualArgument)
   {
     return addQuotes(getDroolsOWLEntity2NameConverter().convert(namedIndividualArgument.getOWLNamedIndividual()));
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument propertyArgument)
+  @Override public @NonNull String convert(@NonNull SWRLObjectPropertyBuiltInArgument propertyArgument)
   {
     return addQuotes(getDroolsOWLEntity2NameConverter().convert(propertyArgument.getOWLObjectProperty()));
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDataPropertyBuiltInArgument propertyArgument)
+  @Override public @NonNull String convert(@NonNull SWRLDataPropertyBuiltInArgument propertyArgument)
   {
     return addQuotes(getDroolsOWLEntity2NameConverter().convert(propertyArgument.getOWLDataProperty()));
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument propertyArgument)
+  @Override public @NonNull String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument propertyArgument)
   {
     return addQuotes(getDroolsOWLEntity2NameConverter().convert(propertyArgument.getOWLAnnotationProperty()));
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDatatypeBuiltInArgument datatypeArgument)
+  @Override public @NonNull String convert(@NonNull SWRLDatatypeBuiltInArgument datatypeArgument)
   {
     return addQuotes(getDroolsOWLEntity2NameConverter().convert(datatypeArgument.getOWLDatatype()));
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLLiteralBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SWRLLiteralBuiltInArgument argument)
   {
     return getDroolsOWLLiteral2DRLConverter().convert(argument.getLiteral());
   }
 
-  @NonNull @Override public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
+  @Override public @NonNull String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument)
   {
     throw new TargetSWRLRuleEngineInternalException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
   }
 
-  @NonNull @Override public String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument,
+  @Override public @NonNull String convert(@NonNull SQWRLCollectionVariableBuiltInArgument argument,
     @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     throw new TargetSWRLRuleEngineInternalException("unexpected call to convert a SQWRLCollectionBuiltInArgument");
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLVariableBuiltInArgument argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLVariableBuiltInArgument argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument);
@@ -132,7 +132,7 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineExt
     }
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLVariable argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLVariable argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     String variableName = getDroolsSWRLVariable2NameConverter().swrlVariable2VariableName(argument);
@@ -145,66 +145,66 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineExt
     }
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLIndividualArgument argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLIndividualArgument argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLLiteralArgument argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLLiteralArgument argument, @NonNull String fieldName,
     Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLClassBuiltInArgument argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLClassBuiltInArgument argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument,
+  @Override public @NonNull String convert(@NonNull SWRLNamedIndividualBuiltInArgument argument,
     @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument,
+  @Override public @NonNull String convert(@NonNull SWRLObjectPropertyBuiltInArgument argument,
     @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDataPropertyBuiltInArgument argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLDataPropertyBuiltInArgument argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument,
+  @Override public @NonNull String convert(@NonNull SWRLAnnotationPropertyBuiltInArgument argument,
     @NonNull String fieldName, @NonNull Set<@NonNull String> previouslyEncounteredNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLLiteralBuiltInArgument argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLLiteralBuiltInArgument argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull @Override public String convert(@NonNull SWRLDatatypeBuiltInArgument argument, @NonNull String fieldName,
+  @Override public @NonNull String convert(@NonNull SWRLDatatypeBuiltInArgument argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   {
     return fieldName + "==" + convert(argument);
   }
 
-  @NonNull private String addQuotes(@NonNull String s)
+  private @NonNull String addQuotes(@NonNull String s)
   {
     return "\"" + s + "\"";
   }
 
-  @NonNull public String convert(@NonNull SWRLArgument argument, @NonNull String fieldName,
+  public @NonNull String convert(@NonNull SWRLArgument argument, @NonNull String fieldName,
     @NonNull Set<@NonNull String> previouslyEncounteredVariableNames)
   { // TODO Visitor to replace instanceof
     if (argument instanceof SQWRLCollectionVariableBuiltInArgument) {
@@ -236,22 +236,22 @@ public class DroolsSWRLBodyAtomArgument2DRLConverter extends TargetRuleEngineExt
         "unknown SWRL argument type " + argument.getClass().getCanonicalName());
   }
 
-  @NonNull private DroolsSWRLVariable2NameConverter getDroolsSWRLVariable2NameConverter()
+  private @NonNull DroolsSWRLVariable2NameConverter getDroolsSWRLVariable2NameConverter()
   {
     return this.droolsSWRLVariable2NameConverter;
   }
 
-  @NonNull private DroolsOWLLiteral2DRLConverter getDroolsOWLLiteral2DRLConverter()
+  private @NonNull DroolsOWLLiteral2DRLConverter getDroolsOWLLiteral2DRLConverter()
   {
     return this.droolsOWLLiteral2DRLConverter;
   }
 
-  @NonNull private DroolsOWLIndividual2DRLConverter getDroolsOWLIndividual2DRLConverter()
+  private @NonNull DroolsOWLIndividual2DRLConverter getDroolsOWLIndividual2DRLConverter()
   {
     return this.droolsOWLIndividual2DRLConverter;
   }
 
-  @NonNull private DroolsOWLEntity2NameConverter getDroolsOWLEntity2NameConverter()
+  private @NonNull DroolsOWLEntity2NameConverter getDroolsOWLEntity2NameConverter()
   {
     return this.droolsOWLEntity2NameConverter;
   }

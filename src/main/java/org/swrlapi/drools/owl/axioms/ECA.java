@@ -20,7 +20,7 @@ public class ECA extends DroolsBinaryClassesAxiom
     super(class1ID, class2ID);
   }
 
-  @NonNull @Override public OWLEquivalentClassesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLEquivalentClassesAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -31,7 +31,7 @@ public class ECA extends DroolsBinaryClassesAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "ECA" + super.toString();
   }

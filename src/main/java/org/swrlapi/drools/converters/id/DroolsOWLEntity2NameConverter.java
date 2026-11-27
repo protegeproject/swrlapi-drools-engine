@@ -24,32 +24,32 @@ public class DroolsOWLEntity2NameConverter extends TargetRuleEngineConverterBase
     super(bridge);
   }
 
-  @NonNull @Override public String convert(@NonNull OWLClass cls)
+  @Override public @NonNull String convert(@NonNull OWLClass cls)
   {
     return iri2PrefixedName(cls.getIRI());
   }
 
-  @NonNull @Override public String convert(@NonNull OWLNamedIndividual individual)
+  @Override public @NonNull String convert(@NonNull OWLNamedIndividual individual)
   {
     return iri2PrefixedName(individual.getIRI());
   }
 
-  @NonNull @Override public String convert(@NonNull OWLObjectProperty property)
+  @Override public @NonNull String convert(@NonNull OWLObjectProperty property)
   {
     return iri2PrefixedName(property.getIRI());
   }
 
-  @NonNull @Override public String convert(@NonNull OWLDataProperty property)
+  @Override public @NonNull String convert(@NonNull OWLDataProperty property)
   {
     return iri2PrefixedName(property.getIRI());
   }
 
-  @NonNull @Override public String convert(@NonNull OWLAnnotationProperty property)
+  @Override public @NonNull String convert(@NonNull OWLAnnotationProperty property)
   {
     return iri2PrefixedName(property.getIRI());
   }
 
-  @NonNull @Override public String convert(@NonNull OWLDatatype datatype)
+  @Override public @NonNull String convert(@NonNull OWLDatatype datatype)
   {
     return iri2PrefixedName(datatype.getIRI());
   }

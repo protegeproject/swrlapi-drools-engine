@@ -20,7 +20,7 @@ public class DCA extends DroolsBinaryClassesAxiom
     super(class1ID, class2ID);
   }
 
-  @NonNull @Override public OWLDisjointClassesAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
+  @Override public @NonNull OWLDisjointClassesAxiom extract(@NonNull DroolsOWLAxiomExtractor converter)
     throws TargetSWRLRuleEngineException
   {
     return converter.extract(this);
@@ -31,7 +31,7 @@ public class DCA extends DroolsBinaryClassesAxiom
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DCA" + super.toString();
   }

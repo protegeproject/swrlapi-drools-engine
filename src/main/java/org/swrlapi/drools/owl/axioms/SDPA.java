@@ -21,22 +21,22 @@ public class SDPA extends DroolsBinaryObject<String, String> implements A
     super(property1ID, property2ID);
   }
 
-  @NonNull public String getsubpid()
+  public @NonNull String getsubpid()
   {
     return getT1();
   }
 
-  @NonNull public String getsuperpid()
+  public @NonNull String getsuperpid()
   {
     return getT2();
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "SDPA" + super.toString();
   }
 
-  @NonNull @Override public OWLSubDataPropertyOfAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLSubDataPropertyOfAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);

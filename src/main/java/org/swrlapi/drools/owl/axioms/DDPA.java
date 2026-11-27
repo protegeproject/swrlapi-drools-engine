@@ -21,17 +21,17 @@ public class DDPA extends DroolsBinaryObject<String, String> implements A
     super(propertyID, domainID);
   }
 
-  @NonNull public String getpid()
+  public @NonNull String getpid()
   {
     return getT1();
   }
 
-  @NonNull public String getdid()
+  public @NonNull String getdid()
   {
     return getT2();
   }
 
-  @NonNull @Override public OWLDataPropertyDomainAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
+  @Override public @NonNull OWLDataPropertyDomainAxiom extract(@NonNull DroolsOWLAxiomExtractor extractor)
     throws TargetSWRLRuleEngineException
   {
     return extractor.extract(this);
@@ -42,7 +42,7 @@ public class DDPA extends DroolsBinaryObject<String, String> implements A
     visitor.visit(this);
   }
 
-  @NonNull @SideEffectFree @Override public String toString()
+  @SideEffectFree @Override public @NonNull String toString()
   {
     return "DDPA(" + getpid() + ", " + getdid() + ")";
   }

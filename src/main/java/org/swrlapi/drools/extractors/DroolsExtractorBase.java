@@ -10,10 +10,10 @@ import org.swrlapi.drools.factory.DroolsFactory;
  */
 public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
 {
-  @NonNull private final DroolsOWLLiteralExtractor literalExtractor;
-  @NonNull private final DroolsOWLEntityExtractor entityExtractor;
+  private final @NonNull DroolsOWLLiteralExtractor literalExtractor;
+  private final @NonNull DroolsOWLEntityExtractor entityExtractor;
   private final @NonNull DroolsOWLNamedIndividualExtractor namedIndividualExtractor;
-  @NonNull private final DroolsSWRLVariableExtractor variableExtractor;
+  private final @NonNull DroolsSWRLVariableExtractor variableExtractor;
 
   public DroolsExtractorBase(@NonNull SWRLRuleEngineBridge bridge)
   {
@@ -25,12 +25,12 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
     this.variableExtractor = new DroolsSWRLVariableExtractor(bridge);
   }
 
-  @NonNull protected DroolsOWLLiteralExtractor getDroolsOWLLiteralExtractor()
+  protected @NonNull DroolsOWLLiteralExtractor getDroolsOWLLiteralExtractor()
   {
     return this.literalExtractor;
   }
 
-  @NonNull protected DroolsOWLEntityExtractor getDroolsOWLEntityExtractor()
+  protected @NonNull DroolsOWLEntityExtractor getDroolsOWLEntityExtractor()
   {
     return this.entityExtractor;
   }
@@ -40,7 +40,7 @@ public class DroolsExtractorBase extends TargetRuleEngineExtractorBase
     return this.namedIndividualExtractor;
   }
 
-  @NonNull protected DroolsSWRLVariableExtractor getDroolsSWRLVariableExtractor()
+  protected @NonNull DroolsSWRLVariableExtractor getDroolsSWRLVariableExtractor()
   {
     return this.variableExtractor;
   }
